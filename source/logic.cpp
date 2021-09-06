@@ -427,7 +427,7 @@ namespace Logic {
       if (setDifficulty < static_cast<u8>(difficulty)) {
         return false;
       }
-      return HasShield && (IsAdult || (IsChild && (KokiriSword || Sticks)));
+      return CanShield && (IsAdult || (IsChild && (KokiriSword || Sticks)));
     //Bomb Hover
     case GlitchType::BombHover:
       setDifficulty = GetDifficultyValueFromString(GlitchHover);
@@ -441,7 +441,7 @@ namespace Logic {
       if (setDifficulty < static_cast<u8>(difficulty)) {
         return false;
       }
-      return HasShield && Bombs;
+      return CanShield && (Bombs || (HasBombchus && setDifficulty >= static_cast<u8>(GlitchDifficulty::EXPERT)));
     //Hookshot Clip
     case GlitchType::HookshotClip:
       setDifficulty = GetDifficultyValueFromString(GlitchHookshotClip);

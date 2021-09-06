@@ -1176,6 +1176,7 @@ string_view GlitchMegaflipDescNovice                  = "Only Megaflipping with 
 string_view GlitchMegaflipDescIntermediate            = "Some Megaflips where you don't have a lot of room\n"
                                                         "to work with and positioning is more important\n" //
                                                         "may be required.";                                //
+string_view GlitchMegaflipDescExpert                  = "Using Bombchus may be required.";                 //
 string_view GlitchHookshotClipDescDisabled            = "Hookshot Clipping allows Link to hookshot through\n"
                                                         "certain walls, which is useful if a valid\n"      //
                                                         "target is on the other side.";                    //
@@ -1192,14 +1193,19 @@ string_view GlitchHookshotJump_BootsDescNovice        = "Only relatively short H
                                                         "may be required.";                                //
 string_view GlitchHookshotJump_BootsDescIntermediate  = "Higher Hookshot Jumps with boots, where you look\n"
                                                         "further up or downwards may be required.";        //
+string_view GlitchHookshotJump_BootsDescAdvanced      = "Precise movement or camera manipulation may be\n" //
+                                                        "required.";                                       //
+string_view GlitchHookshotJump_BootsDescExpert        = "Very high jumps and jumping off torches\n"        //
+                                                        "(\"reverse\" HJ) may be required.";               //
 string_view GlitchLedgeClipDescDisabled               = "A Ledge Clip allows Link to fall through a floor\n"
                                                         "or pass through an object by facing a wall\n"     //
                                                         "and dropping down to the left in a various ways.\n"
                                                         "These only work as an adult.";                    //
-string_view GlitchLedgeClipDescNovice                 = "Basic Ledge Clips may be required.\n"             //
-                                                        "Some require that you let go of the ledge with\n" //
-                                                        "a specific timing.";                              //
-string_view GlitchLedgeClipDescIntermediate           = "Certain harder clips may also be required.";      //
+string_view GlitchLedgeClipDescNovice                 = "Basic Ledge Clips on flat ground may be required.";
+string_view GlitchLedgeClipDescIntermediate           = "Some Ledge Clips may require letting go of the\n" //
+                                                        "ledge with a specific timing, or a sloped ground\n"
+                                                        "may prevent using the sidehop method.";           //
+string_view GlitchLedgeClipDescAdvanced               = "Precise movement after clipping may be required.";//
 string_view GlitchTripleSlashClipDescDisabled         = "When doing a three-slash-combo with either the\n" //
                                                         "Kokiri Sword or the Master Sword and put it away,\n"
                                                         "Link will be placed back a small distance.\n"     //

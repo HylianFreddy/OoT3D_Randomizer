@@ -255,7 +255,13 @@ bool HasAccessTo(const AreaKey area) {
 }
 
 
-
+/*
+  Triple "!" is proposed addition
+  Quadruple "!" is proposed change
+  Missing some ESS stuff and hovering
+  Some things I think would be good:
+  - adding an option to logically exclude BK skips and dungeon entrance glitches, forest escape/king zora skip etc.
+*/
 void AreaTable_Init() {
   //Clear the array from any previous playthrough attempts. This is important so that
   //locations which appear in both MQ and Vanilla dungeons don't get set in both areas.
@@ -292,6 +298,7 @@ void AreaTable_Init() {
                   LocationAccess(KF_GS_KNOW_IT_ALL_HOUSE, {[]{return IsChild && CanChildAttack && AtNight && (HasNightStart || CanLeaveForest || CanPlay(SunsSong)) && CanGetNightTimeGS;}}),
                   LocationAccess(KF_GS_BEAN_PATCH,        {[]{return CanPlantBugs && CanChildAttack;}}),
                   LocationAccess(KF_GS_HOUSE_OF_TWINS,    {[]{return IsAdult && AtNight && CanUse(CanUseItem::Hookshot) && CanGetNightTimeGS;}}),
+                                                    //!!!  Hoverboost novice, hammer slide novice
                   LocationAccess(KF_GOSSIP_STONE,         {[]{return true;}}),
                 }, {
                   //Exits
@@ -304,6 +311,7 @@ void AreaTable_Init() {
                   Entrance(KF_OUTSIDE_DEKU_TREE,  {[]{return IsAdult || OpenForest.Is(OPENFOREST_OPEN) || ShowedMidoSwordAndShield;}}),
                   Entrance(THE_LOST_WOODS,        {[]{return true;}}),
                   Entrance(LW_BRIDGE_FROM_FOREST, {[]{return CanLeaveForest;}}),
+                                            //!!!  TSC intermediate (?)
                   Entrance(KF_STORMS_GROTTO,      {[]{return CanOpenStormGrotto;}}),
   });
 
@@ -318,6 +326,7 @@ void AreaTable_Init() {
                 }, {
                   //Exits
                   Entrance(DEKU_TREE_ENTRYWAY, {[]{return IsChild || (ShuffleDungeonEntrances && (OpenForest.Is(OPENFOREST_OPEN) || ShowedMidoSwordAndShield));}}),
+                                         //!!!  Hoverboost novice, hammer slide novice
                   Entrance(KOKIRI_FOREST,      {[]{return true;}}),
   });
 
@@ -404,10 +413,14 @@ void AreaTable_Init() {
                   Entrance(LW_FOREST_EXIT,           {[]{return true;}}),
                   Entrance(GC_WOODS_WARP,            {[]{return true;}}),
                   Entrance(LW_BRIDGE,                {[]{return IsAdult && (CanUse(CanUseItem::Hover_Boots) || CanUse(CanUseItem::Longshot) || CanPlantBean(THE_LOST_WOODS));}}),
+                                               //!!!  Megaflip intermediate (distance), HJ boots intermediate
                   Entrance(ZORAS_RIVER,              {[]{return CanLeaveForest && (CanDive || CanUse(CanUseItem::Iron_Boots));}}),
+                                               //!!!  Navi Dive novice(sword)/expert(sticks), HJ boots advanced (unloaded area)
                   Entrance(LW_BEYOND_MIDO,           {[]{return IsChild || CanPlay(SariasSong);},
                                           /*Glitched*/[]{return CanDoGlitch(GlitchType::BombHover, GlitchDifficulty::INTERMEDIATE);}}),
+                                               //!!!  HJ boots advanced (unloaded area), Ledge Cancel novice
                   Entrance(LW_NEAR_SHORTCUTS_GROTTO, {[]{return Here(THE_LOST_WOODS, []{return CanBlastOrSmash;});}})
+                                               //!!!  QPA advanced (ledge)
   });
 
   areaTable[LW_BEYOND_MIDO] = Area("LW Beyond Mido", "Lost Woods", THE_LOST_WOODS, NO_DAY_NIGHT_CYCLE, {
@@ -423,9 +436,11 @@ void AreaTable_Init() {
                   //Exits
                   Entrance(LW_FOREST_EXIT,   {[]{return true;}}),
                   Entrance(THE_LOST_WOODS,   {[]{return IsChild || CanPlay(SariasSong);}}),
+                                        //!!! Megaflip novice
                   Entrance(SFM_ENTRYWAY,     {[]{return true;}}),
                   Entrance(DEKU_THEATER,     {[]{return true;}}),
                   Entrance(LW_SCRUBS_GROTTO, {[]{return Here(LW_BEYOND_MIDO, []{return CanBlastOrSmash;});}}),
+                                        //!!! QPA advanced (ledge)
   });
 
   areaTable[LW_NEAR_SHORTCUTS_GROTTO] = Area("LW Near Shortcuts Grotto", "", NONE, NO_DAY_NIGHT_CYCLE, grottoEvents, {
@@ -519,6 +534,7 @@ void AreaTable_Init() {
                   Entrance(KOKIRI_FOREST,  {[]{return true;}}),
                   Entrance(HYRULE_FIELD,   {[]{return true;}}),
                   Entrance(THE_LOST_WOODS, {[]{return CanUse(CanUseItem::Longshot);}}),
+                                    //!!!   megaflip intermediate (precise angle?), HJ bonk/boots novice
   });
 
   areaTable[HYRULE_FIELD] = Area("Hyrule Field", "Hyrule Field", HYRULE_FIELD, DAY_NIGHT_CYCLE, {
@@ -538,13 +554,18 @@ void AreaTable_Init() {
                   Entrance(ZR_FRONT,               {[]{return true;}}),
                   Entrance(LON_LON_RANCH,          {[]{return true;}}),
                   Entrance(HF_SOUTHEAST_GROTTO,    {[]{return Here(HYRULE_FIELD, []{return CanBlastOrSmash;});}}),
+                                             //!!!  QPA advanced (ledge)
                   Entrance(HF_OPEN_GROTTO,         {[]{return true;}}),
                   Entrance(HF_INSIDE_FENCE_GROTTO, {[]{return CanOpenBombGrotto;}}),
                   Entrance(HF_COW_GROTTO,          {[]{return (CanUse(CanUseItem::Hammer) || IsChild) && CanOpenBombGrotto;}}),
                   Entrance(HF_NEAR_MARKET_GROTTO,  {[]{return Here(HYRULE_FIELD, []{return CanBlastOrSmash;});}}),
+                                             //!!!  QPA advanced (ledge)
                   Entrance(HF_FAIRY_GROTTO,        {[]{return Here(HYRULE_FIELD, []{return CanBlastOrSmash;});}}),
+                                             //!!!  QPA advanced (ledge)
                   Entrance(HF_NEAR_KAK_GROTTO,     {[]{return CanOpenBombGrotto;}}),
+                                             //!!!  QPA advanced (ledge)
                   Entrance(HF_TEKTITE_GROTTO,      {[]{return CanOpenBombGrotto;}}),
+                                             //!!!  QPA advanced (ledge)
   });
 
   areaTable[HF_SOUTHEAST_GROTTO] = Area("HF Southeast Grotto", "", NONE, NO_DAY_NIGHT_CYCLE, grottoEvents, {
@@ -577,6 +598,7 @@ void AreaTable_Init() {
                   //Locations
                   LocationAccess(HF_GS_COW_GROTTO,           {[]{return HasFireSource && HookshotOrBoomerang;}}),
                   LocationAccess(HF_COW_GROTTO_COW,          {[]{return HasFireSource && CanPlay(EponasSong);}}),
+                                                        //!!! QPA intermediate (precise jumpslash)
                   LocationAccess(HF_COW_GROTTO_GOSSIP_STONE, {[]{return HasFireSource;}}),
                 }, {
                   //Exits
@@ -644,7 +666,7 @@ void AreaTable_Init() {
                   Entrance(LH_LAB,                {[]{return true;}}),
                   Entrance(LH_FISHING_HOLE,       {[]{return IsChild || CanUse(CanUseItem::Scarecrow) || CanPlantBean(LAKE_HYLIA) || WaterTempleClear;}}),
                   Entrance(WATER_TEMPLE_ENTRYWAY, {[]{return CanUse(CanUseItem::Hookshot) && (CanUse(CanUseItem::Iron_Boots) || ((CanUse(CanUseItem::Longshot)) && ProgressiveScale >= 2));},
-                                       /*Glitched*/[]{return CanDoGlitch(GlitchType::LedgeClip, GlitchDifficulty::INTERMEDIATE);}}),
+                                   /*!!!!Glitched*/[]{return CanDoGlitch(GlitchType::LedgeClip, GlitchDifficulty::ADVANCED);}}),
                   Entrance(LH_GROTTO,             {[]{return true;}}),
   });
 
@@ -659,7 +681,9 @@ void AreaTable_Init() {
                 }, {
                   //Locations
                   LocationAccess(LH_LAB_DIVE,     {[]{return ProgressiveScale >= 2 || (LogicLabDiving && IronBoots && CanUse(CanUseItem::Hookshot));}}),
+                                            //!!!  TSC advanced
                   LocationAccess(LH_GS_LAB_CRATE, {[]{return IronBoots && CanUse(CanUseItem::Hookshot);}}),
+                                            //!!!  TSC advanced && RI (?)
                 }, {
                   //Exits
                   Entrance(LAKE_HYLIA, {[]{return true;}}),
@@ -698,6 +722,7 @@ void AreaTable_Init() {
                   Entrance(GV_OCTOROK_GROTTO, {[]{return CanUse(CanUseItem::Silver_Gauntlets);}}),
                   Entrance(GV_FORTRESS_SIDE,  {[]{return IsAdult && (CanRideEpona || CanUse(CanUseItem::Longshot) || GerudoFortress.Is(GERUDOFORTRESS_OPEN) || CarpenterRescue);},
                                    /*Glitched*/[]{return IsAdult && CanDoGlitch(GlitchType::BombHover, GlitchDifficulty::NOVICE);}}),
+                                   //!!!       HJ intermediate, hoverboost novice, hammerslide novice, "hammer"slide advanced (with sword on boulder)
   });
 
   areaTable[GV_STREAM] = Area("GV Stream", "Gerudo Valley", GERUDO_VALLEY, DAY_NIGHT_CYCLE, {
@@ -728,6 +753,7 @@ void AreaTable_Init() {
                 }, {
                   //Locations
                   LocationAccess(GV_CHEST,          {[]{return CanUse(CanUseItem::Hammer);}}),
+                                              //!!! longshot and culling (?)
                   LocationAccess(GV_GS_BEHIND_TENT, {[]{return CanUse(CanUseItem::Hookshot) && AtNight && CanGetNightTimeGS;}}),
                   LocationAccess(GV_GS_PILLAR,      {[]{return CanUse(CanUseItem::Hookshot) && AtNight && CanGetNightTimeGS;}}),
                 }, {
@@ -735,8 +761,11 @@ void AreaTable_Init() {
                   Entrance(GERUDO_FORTRESS,   {[]{return true;}}),
                   Entrance(GV_STREAM,         {[]{return true;}}),
                   Entrance(GERUDO_VALLEY,     {[]{return IsChild || CanRideEpona || CanUse(CanUseItem::Longshot) || GerudoFortress.Is(GERUDOFORTRESS_OPEN) || CarpenterRescue;}}),
+                                   //!!!       HJ intermediate, hoverboost novice, hammerslide novice
                   Entrance(GV_CARPENTER_TENT, {[]{return IsAdult;}}),
                   Entrance(GV_STORMS_GROTTO,  {[]{return IsAdult && CanOpenStormGrotto;}}),
+
+                  //GV_CRATE_LEDGE   !!!  Megaflip novice, hoverboost novice
   });
 
   areaTable[GV_CARPENTER_TENT] = Area("GV Carpenter Tent", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {}, {
@@ -764,7 +793,8 @@ void AreaTable_Init() {
                   EventAccess(&GF_GateOpen,     {[]{return IsAdult && GerudoToken;}}),
                 }, {
                   //Locations
-                  LocationAccess(GF_CHEST,              {[]{return CanUse(CanUseItem::Hover_Boots) || CanUse(CanUseItem::Scarecrow) || CanUse(CanUseItem::Longshot);}}),
+                  LocationAccess(GF_CHEST,              {[]{return CanUse(CanUseItem::Hover_Boots) || CanUse(CanUseItem::Scarecrow) || CanUse(CanUseItem::Longshot);},
+                                          /*!!!Glitched*/[]{return CanDoGlitch(GlitchType::Megaflip, GlitchDifficulty::NOVICE);}}),
                   LocationAccess(GF_HBA_1000_POINTS,    {[]{return GerudoToken && CanRideEpona && Bow && AtDay;}}),
                   LocationAccess(GF_HBA_1500_POINTS,    {[]{return GerudoToken && CanRideEpona && Bow && AtDay;}}),
                   LocationAccess(GF_NORTH_F1_CARPENTER, {[]{return  IsAdult || KokiriSword;}}),
@@ -772,13 +802,16 @@ void AreaTable_Init() {
                   LocationAccess(GF_SOUTH_F1_CARPENTER, {[]{return  IsAdult || KokiriSword;}}),
                   LocationAccess(GF_SOUTH_F2_CARPENTER, {[]{return  IsAdult || KokiriSword;}}),
                   LocationAccess(GF_GERUDO_TOKEN,       {[]{return CanFinishGerudoFortress;}}),
-                  LocationAccess(GF_GS_ARCHERY_RANGE,   {[]{return CanUse(CanUseItem::Hookshot) && GerudoToken && AtNight && CanGetNightTimeGS;}}),
+                  LocationAccess(GF_GS_ARCHERY_RANGE,   {[]{return CanUse(CanUseItem::Hookshot) && GerudoToken && AtNight && CanGetNightTimeGS;},
+                                          /*!!!Glitched*/[]{return CanDoGlitch(GlitchType::HookshotJump_Boots, GlitchDifficulty::ADVANCED);}}),
                   LocationAccess(GF_GS_TOP_FLOOR,       {[]{return IsAdult && AtNight && (GerudoToken || CanUse(CanUseItem::Bow) || CanUse(CanUseItem::Hookshot) || CanUse(CanUseItem::Hover_Boots) || LogicGerudoKitchen) && CanGetNightTimeGS;}}),
                 }, {
                   //Exits
                   Entrance(GV_FORTRESS_SIDE,                 {[]{return true;}}),
-                  Entrance(GF_OUTSIDE_GATE,                  {[]{return GF_GateOpen;}}),
-                  Entrance(GERUDO_TRAINING_GROUNDS_ENTRYWAY, {[]{return IsAdult && GerudoToken;}}),
+                  Entrance(GF_OUTSIDE_GATE,                  {[]{return GF_GateOpen;},
+                                               /*!!!Glitched*/[]{return HoverBoots && CanDoGlitch(GlitchType::HookshotJump_Boots, GlitchDifficulty::ADVANCED);}}),
+                  Entrance(GERUDO_TRAINING_GROUNDS_ENTRYWAY, {[]{return IsAdult && GerudoToken;},
+                                               /*!!!Glitched*/[]{return IsAdult && CanDoGlitch(GlitchType::LedgeClip, GlitchDifficulty::ADVANCED);}}),
                   Entrance(GF_STORMS_GROTTO,                 {[]{return IsAdult && CanOpenStormGrotto;}}),
   });
 
@@ -803,6 +836,7 @@ void AreaTable_Init() {
                   //Exits
                   Entrance(GF_OUTSIDE_GATE,   {[]{return true;}}),
                   Entrance(HAUNTED_WASTELAND, {[]{return CanUse(CanUseItem::Hover_Boots) || CanUse(CanUseItem::Longshot);}}),
+                                        //!!!  HESS, FESS, Hammer ESS, L-Slide
   });
 
   areaTable[HAUNTED_WASTELAND] = Area("Haunted Wasteland", "Haunted Wasteland", HAUNTED_WASTELAND, NO_DAY_NIGHT_CYCLE, {
@@ -812,12 +846,14 @@ void AreaTable_Init() {
                 }, {
                   //Locations
                   LocationAccess(WASTELAND_CHEST,            {[]{return HasFireSource;}}),
+                                                    //!!! QPA
                   LocationAccess(WASTELAND_BOMBCHU_SALESMAN, {[]{return AdultsWallet && (IsAdult || Sticks || KokiriSword);}}),
                   LocationAccess(WASTELAND_GS,               {[]{return HookshotOrBoomerang;}}),
                 }, {
                   //Exits
                   Entrance(WASTELAND_NEAR_COLOSSUS, {[]{return LogicLensWasteland || CanUse(CanUseItem::Lens_of_Truth);}}),
                   Entrance(WASTELAND_NEAR_FORTRESS, {[]{return CanUse(CanUseItem::Hover_Boots) || CanUse(CanUseItem::Longshot);}}),
+                                        //!!!  HESS, FESS, Hammer ESS, L-Slide
   });
 
   areaTable[WASTELAND_NEAR_COLOSSUS] = Area("Wasteland Near Colossus", "Haunted Wasteland", NONE, NO_DAY_NIGHT_CYCLE, {}, {}, {
@@ -833,6 +869,7 @@ void AreaTable_Init() {
                 }, {
                   //Locations
                   LocationAccess(COLOSSUS_FREESTANDING_POH, {[]{return IsAdult && CanPlantBean(DESERT_COLOSSUS);}}),
+                                  // hover boots + HJ
                   LocationAccess(SHEIK_AT_COLOSSUS,         {[]{return true;}}),
                   LocationAccess(COLOSSUS_GS_BEAN_PATCH,    {[]{return CanPlantBugs && CanChildAttack;}}),
                   LocationAccess(COLOSSUS_GS_TREE,          {[]{return CanUse(CanUseItem::Hookshot) && AtNight && CanGetNightTimeGS;}}),
@@ -908,6 +945,7 @@ void AreaTable_Init() {
                   //Exits
                   Entrance(TOT_ENTRANCE,            {[]{return true;}}),
                   Entrance(TOT_BEYOND_DOOR_OF_TIME, {[]{return OpenDoorOfTime.Is(OPENDOOROFTIME_OPEN) || (CanPlay(SongOfTime) && (OpenDoorOfTime.Is(OPENDOOROFTIME_CLOSED) || (HasAllStones && OcarinaOfTime)));}}),
+                                                      //!!! DoT Skip (? maybe adding it as a standalone trick?)
   });
 
   areaTable[TOT_BEYOND_DOOR_OF_TIME] = Area("Beyond Door of Time", "", TEMPLE_OF_TIME, NO_DAY_NIGHT_CYCLE, {
@@ -988,6 +1026,7 @@ void AreaTable_Init() {
                   Entrance(CASTLE_GROUNDS,           {[]{return AtNight;}}),
                   Entrance(OGC_GREAT_FAIRY_FOUNTAIN, {[]{return CanUse(CanUseItem::Golden_Gauntlets) && AtNight;}}),
                   Entrance(GANONS_CASTLE_ENTRYWAY,   {[]{return CanBuildRainbowBridge;}}),
+                                          //!!!  Hover boost expert/hero (precise gainer)
 
   });
 
@@ -1118,7 +1157,9 @@ void AreaTable_Init() {
                   LocationAccess(KAK_GS_GUARDS_HOUSE,             {[]{return IsChild && AtNight && CanGetNightTimeGS;}}),
                   LocationAccess(KAK_GS_TREE,                     {[]{return IsChild && AtNight && CanGetNightTimeGS;}}),
                   LocationAccess(KAK_GS_WATCHTOWER,               {[]{return IsChild && (Slingshot || HasBombchus) && AtNight && CanGetNightTimeGS;}}),
+                                                    //!!! QPA
                   LocationAccess(KAK_GS_ABOVE_IMPAS_HOUSE,        {[]{return CanUse(CanUseItem::Hookshot) && AtNight && CanGetNightTimeGS;}}),
+                                                    //!!! Hoverboost
                 }, {
                   //Exits
                   Entrance(HYRULE_FIELD,                {[]{return true;}}),
@@ -1130,9 +1171,13 @@ void AreaTable_Init() {
                                              /*Glitched*/[]{return CanDoGlitch(GlitchType::TripleSlashClip, GlitchDifficulty::NOVICE);}}),
                   Entrance(KAK_SHOOTING_GALLERY,        {[]{return IsAdult && AtDay;}}),
                   Entrance(BOTTOM_OF_THE_WELL_ENTRYWAY, {[]{return DrainWell && (IsChild || ShuffleDungeonEntrances);}}),
+                                                  //!!!  Navi Dive novice/intermediate (sticks)
                   Entrance(KAK_POTION_SHOP_FRONT,       {[]{return AtDay || IsChild;}}),
+                                                  //!!!  TSC
                   Entrance(KAK_REDEAD_GROTTO,           {[]{return CanOpenBombGrotto;}}),
+                                                  //!!!  QPA expert (ledge + cucco) (?)
                   Entrance(KAK_IMPAS_LEDGE,             {[]{return (IsChild && AtDay) || CanUse(CanUseItem::Hookshot);}}),
+                                                  //!!!  Hoverboost
                   Entrance(KAK_ROOFTOP,                 {[]{return CanUse(CanUseItem::Hookshot) || (LogicManOnRoof && (IsAdult || AtDay || Slingshot || HasBombchus));}}),
                   Entrance(THE_GRAVEYARD,               {[]{return true;}}),
                   Entrance(KAK_BEHIND_GATE,             {[]{return IsAdult || (KakarikoVillageGateOpen);}}),
@@ -1158,6 +1203,7 @@ void AreaTable_Init() {
                   Entrance(KAK_OPEN_GROTTO,           {[]{return true;}}),
                   Entrance(KAK_ODD_MEDICINE_BUILDING, {[]{return IsAdult;}}),
                   Entrance(KAK_POTION_SHOP_BACK,      {[]{return IsAdult && AtDay;}}),
+                                  //!!! TSC
   });
 
   areaTable[KAK_CARPENTER_BOSS_HOUSE] = Area("Kak Carpenter Boss House", "", NONE, NO_DAY_NIGHT_CYCLE, {
@@ -1293,6 +1339,7 @@ void AreaTable_Init() {
                 }, {
                   //Locations
                   LocationAccess(GRAVEYARD_FREESTANDING_POH,        {[]{return (IsAdult && (CanPlantBean(THE_GRAVEYARD) || CanUse(CanUseItem::Longshot))) || (LogicGraveyardPoH && CanUse(CanUseItem::Boomerang));}}),
+                                    //!!! HJ
                   LocationAccess(GRAVEYARD_DAMPE_GRAVEDIGGING_TOUR, {[]{return IsChild && AtNight;}}), //This needs to change
                   LocationAccess(GRAVEYARD_GS_WALL,                 {[]{return CanUse(CanUseItem::Boomerang) && AtNight && CanGetNightTimeGS;}}),
                   LocationAccess(GRAVEYARD_GS_BEAN_PATCH,           {[]{return CanPlantBugs && CanChildAttack;}}),
@@ -1303,6 +1350,7 @@ void AreaTable_Init() {
                   Entrance(GRAVEYARD_HEART_PIECE_GRAVE,  {[]{return IsAdult || AtNight;}}),
                   Entrance(GRAVEYARD_DAMPES_GRAVE,       {[]{return IsAdult;}}),
                   Entrance(GRAVEYARD_DAMPES_HOUSE,       {[]{return IsAdult || AtDampeTime;}}), //TODO: This needs to be handled
+                              //!!! HS clip
                   Entrance(KAKARIKO_VILLAGE,             {[]{return true;}}),
                   Entrance(GRAVEYARD_WARP_PAD_REGION,    {[]{return false;},
                                               /*Glitched*/[]{return CanDoGlitch(GlitchType::BombHover, GlitchDifficulty::NOVICE) || CanDoGlitch(GlitchType::HookshotJump_Bonk, GlitchDifficulty::INTERMEDIATE) || CanDoGlitch(GlitchType::HookshotJump_Boots, GlitchDifficulty::NOVICE);}}),
@@ -1330,7 +1378,9 @@ void AreaTable_Init() {
   areaTable[GRAVEYARD_COMPOSERS_GRAVE] = Area("Graveyard Composers Grave", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {
                   //Locations
                   LocationAccess(GRAVEYARD_COMPOSERS_GRAVE_CHEST, {[]{return HasFireSource;}}),
+                            //!!! QPA
                   LocationAccess(SONG_FROM_COMPOSERS_GRAVE,       {[]{return IsAdult || (Slingshot || Boomerang || Sticks || HasExplosives || KokiriSword);}}),
+                            //!!! QPA, ISG
                 }, {
                   //Exits
                   Entrance(THE_GRAVEYARD, {[]{return true;}}),
@@ -1365,6 +1415,7 @@ void AreaTable_Init() {
                   //Exits
                   Entrance(THE_GRAVEYARD,             {[]{return true;}}),
                   Entrance(SHADOW_TEMPLE_ENTRYWAY,    {[]{return CanUse(CanUseItem::Dins_Fire) || (LogicShadowFireArrowEntry && CanUse(CanUseItem::Fire_Arrows));}}),
+                        //!!! QPA (? child can't open for adult...)
   });
 
   areaTable[KAK_BEHIND_GATE] = Area("Kak Behind Gate", "Kakariko Village", NONE, NO_DAY_NIGHT_CYCLE, {}, {}, {
@@ -1379,10 +1430,13 @@ void AreaTable_Init() {
                 }, {
                   //Locations
                   LocationAccess(DMT_CHEST,                    {[]{return CanBlastOrSmash || (LogicDMTBombable && IsChild && GoronBracelet);}}),
+                        //!!! QPA advanced ledge
                   LocationAccess(DMT_FREESTANDING_POH,         {[]{return CanTakeDamage || CanUse(CanUseItem::Hover_Boots) || (IsAdult && CanPlantBean(DEATH_MOUNTAIN_TRAIL) && (HasExplosives || GoronBracelet));}}),
                   LocationAccess(DMT_GS_BEAN_PATCH,            {[]{return CanPlantBugs && (HasExplosives || GoronBracelet || (LogicDMTSoilGS && CanUse(CanUseItem::Boomerang)));}}),
                   LocationAccess(DMT_GS_NEAR_KAK,              {[]{return CanBlastOrSmash;}}),
+                        //!!! QPA advanced ledge
                   LocationAccess(DMT_GS_ABOVE_DODONGOS_CAVERN, {[]{return IsAdult && AtNight && CanUse(CanUseItem::Hammer) && CanGetNightTimeGS;}}),
+                        //!!! QPA intermediate
                 }, {
                   //Exits
                   Entrance(KAK_BEHIND_GATE,          {[]{return true;}}),
@@ -1401,6 +1455,7 @@ void AreaTable_Init() {
                   //Locations
                   LocationAccess(DMT_BIGGORON,              {[]{return IsAdult && (ClaimCheck || (GuaranteeTradePath && (EyedropsAccess || (Eyedrops && DisableTradeRevert))));}}),
                   LocationAccess(DMT_GS_FALLING_ROCKS_PATH, {[]{return IsAdult && AtNight && CanUse(CanUseItem::Hammer) && CanGetNightTimeGS;}}),
+                        ///!!! QPA
                   LocationAccess(DMT_GOSSIP_STONE,          {[]{return true;}}),
                 }, {
                   //Exits
@@ -1408,7 +1463,9 @@ void AreaTable_Init() {
                   Entrance(DMC_UPPER_LOCAL,          {[]{return true;}}),
                   Entrance(DMT_OWL_FLIGHT,           {[]{return IsChild;}}),
                   Entrance(DMT_COW_GROTTO,           {[]{return Here(DMT_SUMMIT, []{return CanBlastOrSmash;});}}),
+                        //!!! QPA
                   Entrance(DMT_GREAT_FAIRY_FOUNTAIN, {[]{return Here(DMT_SUMMIT, []{return CanBlastOrSmash;});}}),
+                        //!!! QPA
   });
 
   areaTable[DMT_OWL_FLIGHT] = Area("DMT Owl Flight", "Death Mountain", NONE, NO_DAY_NIGHT_CYCLE, {}, {}, {
@@ -1453,12 +1510,17 @@ void AreaTable_Init() {
                 }, {
                   //Locations
                   LocationAccess(GC_MAZE_LEFT_CHEST,        {[]{return CanUse(CanUseItem::Hammer) || CanUse(CanUseItem::Silver_Gauntlets) || (LogicGoronCityLeftMost && HasExplosives && CanUse(CanUseItem::Hover_Boots));}}),
+                        //!!! HESS, Ledge Cancel, Weird Slide, Hovering
                   LocationAccess(GC_MAZE_CENTER_CHEST,      {[]{return CanBlastOrSmash  || CanUse(CanUseItem::Silver_Gauntlets);}}),
+                        //!!! HESS, Ledge Cancel (flower)
                   LocationAccess(GC_MAZE_RIGHT_CHEST,       {[]{return CanBlastOrSmash  || CanUse(CanUseItem::Silver_Gauntlets);}}),
+                        //!!! HESS, Ledge Cancel (flower)
                   LocationAccess(GC_POT_FREESTANDING_POH,   {[]{return IsChild && GoronCityChildFire && (Bombs || (GoronBracelet && LogicGoronCityPotWithStrength) || (HasBombchus && LogicGoronCityPot));}}),
+                        //!!! QPA
                   LocationAccess(GC_ROLLING_GORON_AS_CHILD, {[]{return IsChild && (HasExplosives || (GoronBracelet && LogicChildRollingWithStrength));}}),
                   LocationAccess(GC_ROLLING_GORON_AS_ADULT, {[]{return StopGCRollingGoronAsAdult;}}),
                   LocationAccess(GC_GS_BOULDER_MAZE,        {[]{return IsChild && HasExplosives;}}),
+                        //!!! HESS, Ledge Cancel (flower)
                   LocationAccess(GC_GS_CENTER_PLATFORM,     {[]{return IsAdult;}}),
                   LocationAccess(GC_MEDIGORON,              {[]{return IsAdult && AdultsWallet && (CanBlastOrSmash || GoronBracelet);}}),
                   LocationAccess(GC_MAZE_GOSSIP_STONE,      {[]{return CanBlastOrSmash || CanUse(CanUseItem::Silver_Gauntlets);}}),
@@ -1470,6 +1532,7 @@ void AreaTable_Init() {
                   Entrance(GC_SHOP,              {[]{return (IsAdult && StopGCRollingGoronAsAdult) || (IsChild && (HasExplosives || GoronBracelet || GoronCityChildFire));}}),
                   Entrance(GC_DARUNIAS_CHAMBER,  {[]{return (IsAdult && StopGCRollingGoronAsAdult) || (IsChild && CanPlay(ZeldasLullaby));}}),
                   Entrance(GC_GROTTO,            {[]{return IsAdult && ((CanPlay(SongOfTime) && ((DamageMultiplier.IsNot(DAMAGEMULTIPLIER_OHKO) && DamageMultiplier.IsNot(DAMAGEMULTIPLIER_QUADRUPLE) && DamageMultiplier.IsNot(DAMAGEMULTIPLIER_OCTUPLE) && DamageMultiplier.IsNot(DAMAGEMULTIPLIER_SEXDECUPLE)) || CanUse(CanUseItem::Goron_Tunic) || CanUse(CanUseItem::Longshot) || CanUse(CanUseItem::Nayrus_Love))) || (DamageMultiplier.IsNot(DAMAGEMULTIPLIER_OHKO) && CanUse(CanUseItem::Goron_Tunic) && CanUse(CanUseItem::Hookshot)) ||(CanUse(CanUseItem::Nayrus_Love) && CanUse(CanUseItem::Hookshot)));}}),
+                        //!!! Hovering
   });
 
   areaTable[GC_WOODS_WARP] = Area("GC Woods Warp", "Goron City", NONE, NO_DAY_NIGHT_CYCLE, {
@@ -1523,6 +1586,7 @@ void AreaTable_Init() {
                   Entrance(DMC_UPPER_LOCAL,  {[]{return CanUse(CanUseItem::Goron_Tunic);}}),
                   Entrance(DMT_SUMMIT,       {[]{return true;}}),
                   Entrance(DMC_UPPER_GROTTO, {[]{return Here(DMC_UPPER_NEARBY, []{return CanBlastOrSmash;});}})
+                        //!!! QPA
   });
 
   areaTable[DMC_UPPER_LOCAL] = Area("DMC Upper Local", "Death Mountain Crater", DEATH_MOUNTAIN_CRATER, NO_DAY_NIGHT_CYCLE, {
@@ -1540,6 +1604,7 @@ void AreaTable_Init() {
                   Entrance(DMC_CENTRAL_NEARBY,     {[]{return CanUse(CanUseItem::Goron_Tunic) && CanUse(CanUseItem::Longshot) && ((DamageMultiplier.IsNot(DAMAGEMULTIPLIER_OHKO) && DamageMultiplier.IsNot(DAMAGEMULTIPLIER_QUADRUPLE) && DamageMultiplier.IsNot(DAMAGEMULTIPLIER_OCTUPLE) && DamageMultiplier.IsNot(DAMAGEMULTIPLIER_SEXDECUPLE)) || (Fairy && !ShuffleDungeonEntrances) || CanUse(CanUseItem::Nayrus_Love));}}),
                   Entrance(DMC_CENTRAL_LOCAL,      {[]{return false;},
                                         /*Glitched*/[]{return CanDoGlitch(GlitchType::Megaflip, GlitchDifficulty::NOVICE);}}),
+                  //!!! Fairy fountain distance megaflip
   });
 
   areaTable[DMC_LADDER_AREA_NEARBY] = Area("DMC Ladder Area Nearby", "Death Mountain Crater", DEATH_MOUNTAIN_CRATER, NO_DAY_NIGHT_CYCLE, {}, {
@@ -1557,6 +1622,7 @@ void AreaTable_Init() {
                   Entrance(GC_DARUNIAS_CHAMBER,      {[]{return true;}}),
                   Entrance(DMC_GREAT_FAIRY_FOUNTAIN, {[]{return CanUse(CanUseItem::Hammer);}}),
                   Entrance(DMC_HAMMER_GROTTO,        {[]{return CanUse(CanUseItem::Hammer);}}),
+                        //!!! QPA
   });
 
   areaTable[DMC_LOWER_LOCAL] = Area("DMC Lower Local", "Death Mountain Crater", DEATH_MOUNTAIN_CRATER, NO_DAY_NIGHT_CYCLE, {}, {}, {
@@ -1564,12 +1630,15 @@ void AreaTable_Init() {
                   Entrance(DMC_LOWER_NEARBY,       {[]{return true;}}),
                   Entrance(DMC_LADDER_AREA_NEARBY, {[]{return true;}}),
                   Entrance(DMC_CENTRAL_NEARBY,     {[]{return CanUse(CanUseItem::Hover_Boots) || CanUse(CanUseItem::Hookshot);}}),
+                        //!!! Megaflip, Hovering
                   Entrance(DMC_CENTRAL_LOCAL,      {[]{return (CanUse(CanUseItem::Hover_Boots) || CanUse(CanUseItem::Hookshot)) && (LogicFewerTunicRequirements || CanUse(CanUseItem::Goron_Tunic));}}),
+                        //!!! Megaflip, Hovering
   });
 
   areaTable[DMC_CENTRAL_NEARBY] = Area("DMC Central Nearby", "Death Mountain Crater", DEATH_MOUNTAIN_CRATER, NO_DAY_NIGHT_CYCLE, {}, {
                   //Locations
                   LocationAccess(DMC_VOLCANO_FREESTANDING_POH, {[]{return IsAdult && (CanPlantBean(DMC_CENTRAL_LOCAL) || (LogicCraterBeanPoHWithHovers && HoverBoots));}}),
+                        //!!! Megaflip, Hovering
                   LocationAccess(SHEIK_IN_CRATER,              {[]{return IsAdult;}}),
                 }, {
                   //Exits
@@ -1586,8 +1655,10 @@ void AreaTable_Init() {
                   //Exits
                   Entrance(DMC_CENTRAL_NEARBY,   {[]{return true;}}),
                   Entrance(DMC_LOWER_NEARBY,     {[]{return IsAdult && (CanUse(CanUseItem::Hover_Boots) || CanUse(CanUseItem::Hookshot) || CanPlantBean(DMC_CENTRAL_LOCAL));}}),
+                        //!!! Hovering
                   Entrance(DMC_UPPER_NEARBY,     {[]{return IsAdult && CanPlantBean(DMC_CENTRAL_LOCAL);}}),
                   Entrance(FIRE_TEMPLE_ENTRYWAY, {[]{return (IsChild && ShuffleDungeonEntrances) || (IsAdult && (LogicFewerTunicRequirements || CanUse(CanUseItem::Goron_Tunic)));}}),
+                        //!!! Weird slide, Hovering
   });
 
   areaTable[DMC_GREAT_FAIRY_FOUNTAIN] = Area("DMC Great Fairy Fountain", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {
@@ -1623,6 +1694,7 @@ void AreaTable_Init() {
                 }, {
                   //Exits
                   Entrance(ZORAS_RIVER,  {[]{return IsAdult || HasExplosives;}}),
+                        //!!! QPA
                   Entrance(HYRULE_FIELD, {[]{return true;}}),
   });
 
@@ -1639,6 +1711,7 @@ void AreaTable_Init() {
                   LocationAccess(ZR_FROGS_IN_THE_RAIN,                 {[]{return IsChild && CanPlay(SongOfStorms);}}),
                   LocationAccess(ZR_NEAR_OPEN_GROTTO_FREESTANDING_POH, {[]{return IsChild || CanUse(CanUseItem::Hover_Boots) || (IsAdult && LogicZoraRiverLower);}}),
                   LocationAccess(ZR_NEAR_DOMAIN_FREESTANDING_POH,      {[]{return IsChild || CanUse(CanUseItem::Hover_Boots) || (IsAdult && LogicZoraRiverUpper);}}),
+                        //!!! Megaflip
                   LocationAccess(ZR_GS_LADDER,                         {[]{return IsChild && AtNight && CanChildAttack && CanGetNightTimeGS;}}),
                   LocationAccess(ZR_GS_NEAR_RAISED_GROTTOS,            {[]{return CanUse(CanUseItem::Hookshot) && AtNight && CanGetNightTimeGS;}}),
                   LocationAccess(ZR_GS_ABOVE_BRIDGE,                   {[]{return CanUse(CanUseItem::Hookshot) && AtNight && CanGetNightTimeGS;}}),
@@ -1650,8 +1723,10 @@ void AreaTable_Init() {
                   Entrance(ZR_OPEN_GROTTO,      {[]{return true;}}),
                   Entrance(ZR_FAIRY_GROTTO,     {[]{return Here(ZORAS_RIVER, []{return CanBlastOrSmash;});}}),
                   Entrance(THE_LOST_WOODS,      {[]{return CanDive || CanUse(CanUseItem::Iron_Boots);}}),
+                        //!!! Navi Dive, HJ (?)
                   Entrance(ZR_STORMS_GROTTO,    {[]{return CanOpenStormGrotto;}}),
                   Entrance(ZR_BEHIND_WATERFALL, {[]{return CanPlay(ZeldasLullaby);}}),
+                        //!!! HJ, Hovering
   });
 
   areaTable[ZR_BEHIND_WATERFALL] = Area("ZR Behind Waterfall", "Zora River", NONE, DAY_NIGHT_CYCLE, {}, {}, {
@@ -1700,21 +1775,26 @@ void AreaTable_Init() {
                   LocationAccess(ZD_DIVING_MINIGAME,     {[]{return IsChild;}}),
                   LocationAccess(ZD_CHEST,               {[]{return CanUse(CanUseItem::Sticks);}}),
                   LocationAccess(ZD_KING_ZORA_THAWED,    {[]{return KingZoraThawed;}}),
+                        //!!! text trick?
                   LocationAccess(ZD_GS_FROZEN_WATERFALL, {[]{return IsAdult && AtNight && (Hookshot || Bow || MagicMeter) && CanGetNightTimeGS;}}),
                   LocationAccess(ZD_GOSSIP_STONE,        {[]{return true;}}),
                 }, {
                   //Exits
                   Entrance(ZR_BEHIND_WATERFALL, {[]{return true;}}),
                   Entrance(LAKE_HYLIA,          {[]{return IsChild && CanDive;}}),
+                        //!!! JS clip
                   Entrance(ZD_BEHIND_KING_ZORA, {[]{return DeliverLetter || ZorasFountain.Is(ZORASFOUNTAIN_OPEN) || (ZorasFountain.Is(ZORASFOUNTAIN_ADULT) && IsAdult);},
-                                     /*Glitched*/[]{return CanDoGlitch(GlitchType::LedgeClip, GlitchDifficulty::NOVICE) || (IsChild && CanDoGlitch(GlitchType::TripleSlashClip, GlitchDifficulty::NOVICE));}}),
+                                 /*!!!!Glitched*/[]{return CanDoGlitch(GlitchType::LedgeClip, GlitchDifficulty::INTERMEDIATE) || (IsChild && CanDoGlitch(GlitchType::TripleSlashClip, GlitchDifficulty::NOVICE));}}),
+                                 //!!! Ledge Cancel, Weird slide
                   Entrance(ZD_SHOP,             {[]{return IsChild || BlueFire;}}),
+                        //!!! JS clip
                   Entrance(ZD_STORMS_GROTTO,    {[]{return CanOpenStormGrotto;}}),
   });
 
   areaTable[ZD_BEHIND_KING_ZORA] = Area("ZD Behind King Zora", "Zoras Domain", NONE, NO_DAY_NIGHT_CYCLE, {}, {}, {
                   //Exits
                   Entrance(ZORAS_DOMAIN,   {[]{return DeliverLetter || ZorasFountain.Is(ZORASFOUNTAIN_OPEN) || (ZorasFountain.Is(ZORASFOUNTAIN_ADULT) && IsAdult);}}),
+                        //!!! weird slide
                   Entrance(ZORAS_FOUNTAIN, {[]{return true;}}),
   });
 
@@ -1752,14 +1832,18 @@ void AreaTable_Init() {
                   LocationAccess(ZF_GS_TREE,                  {[]{return IsChild;}}),
                   LocationAccess(ZF_GS_ABOVE_THE_LOG,         {[]{return CanUse(CanUseItem::Boomerang) && AtNight && CanGetNightTimeGS;}}),
                   LocationAccess(ZF_GS_HIDDEN_CAVE,           {[]{return CanUse(CanUseItem::Silver_Gauntlets) && CanBlastOrSmash && CanUse(CanUseItem::Hookshot) && AtNight && CanGetNightTimeGS;}}),
+                        //!!! Ledge Cancel, HJ?
                   LocationAccess(ZF_FAIRY_GOSSIP_STONE,       {[]{return true;}}),
                   LocationAccess(ZF_JABU_GOSSIP_STONE,        {[]{return true;}}),
                 }, {
                   //Exits
                   Entrance(ZD_BEHIND_KING_ZORA,       {[]{return true;}}),
                   Entrance(JABU_JABUS_BELLY_ENTRYWAY, {[]{return (IsChild && Fish);}}),
+                        //!!! stick JS clip, adult thing
                   Entrance(ICE_CAVERN_ENTRYWAY,       {[]{return IsAdult;}}),
+                        //!!! hovering
                   Entrance(ZF_GREAT_FAIRY_FOUNTAIN,   {[]{return HasExplosives;}}),
+                        //!!! any%
   });
 
   areaTable[ZF_GREAT_FAIRY_FOUNTAIN] = Area("ZF Great Fairy Fountain", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {
@@ -1944,6 +2028,7 @@ void AreaTable_Init() {
                                                                             (IsChild && (LogicDekuB1Skip || Here(DEKU_TREE_LOBBY, []{return IsAdult;})));}}),
                   Entrance(DEKU_TREE_BOSS_ROOM,          {[]{return Here(DEKU_TREE_LOBBY, []{return HasFireSourceWithTorch || (LogicDekuB1WebsWithBow && CanUse(CanUseItem::Bow));}) &&
                                                                             (LogicDekuB1Skip || Here(DEKU_TREE_LOBBY, []{return IsAdult || CanUse(CanUseItem::Slingshot);}));}}),
+                        //!!! 231 skip HJ
   });
 
   areaTable[DEKU_TREE_SLINGSHOT_ROOM] = Area("Deku Tree Slingshot Room", "Deku Tree", DEKU_TREE, NO_DAY_NIGHT_CYCLE, {}, {
@@ -1960,6 +2045,7 @@ void AreaTable_Init() {
                   LocationAccess(DEKU_TREE_GS_BASEMENT_BACK_ROOM,  {[]{return Here(DEKU_TREE_BASEMENT_BACK_ROOM, []{return HasFireSourceWithTorch || CanUse(CanUseItem::Bow);}) &&
                                                                                   Here(DEKU_TREE_BASEMENT_BACK_ROOM, []{return CanBlastOrSmash;}) &&
                                                                                     HookshotOrBoomerang;}}),
+                            //!!! QPA
                 }, {
                   //Exits
                   Entrance(DEKU_TREE_LOBBY, {[]{return true;}}),
@@ -1973,6 +2059,7 @@ void AreaTable_Init() {
                   //Locations
                   LocationAccess(QUEEN_GOHMA,                 {[]{return Here(DEKU_TREE_BOSS_ROOM, []{return HasShield;}) && (IsAdult || KokiriSword || Sticks);}}),
                   LocationAccess(DEKU_TREE_QUEEN_GOHMA_HEART, {[]{return Here(DEKU_TREE_BOSS_ROOM, []{return HasShield;}) && (IsAdult || KokiriSword || Sticks);}}),
+                        //!!! no shield for 231 skip
                 }, {
                   //Exits
                   Entrance(DEKU_TREE_LOBBY, {[]{return true;}}),
@@ -2003,6 +2090,7 @@ void AreaTable_Init() {
                   Entrance(DODONGOS_CAVERN_BEGINNING,  {[]{return true;}}),
                   Entrance(DODONGOS_CAVERN_CLIMB,      {[]{return Here(DODONGOS_CAVERN_LOBBY, []{return IsAdult || ((Sticks || CanUse(CanUseItem::Dins_Fire)) && (Slingshot || Sticks || HasExplosives || KokiriSword));}) && (HasExplosives || GoronBracelet || CanUse(CanUseItem::Dins_Fire) ||(LogicDCStaircase && CanUse(CanUseItem::Bow)));}}),
                   Entrance(DODONGOS_CAVERN_FAR_BRIDGE, {[]{return HasAccessTo(DODONGOS_CAVERN_FAR_BRIDGE);}}),
+                        //!!! HJ
   });
 
   areaTable[DODONGOS_CAVERN_CLIMB] = Area("Dodongos Cavern Climb", "Dodongos Cavern", DODONGOS_CAVERN, NO_DAY_NIGHT_CYCLE, {}, {
@@ -2011,21 +2099,27 @@ void AreaTable_Init() {
                   LocationAccess(DODONGOS_CAVERN_GS_VINES_ABOVE_STAIRS,          {[]{return true;}}),
                   LocationAccess(DODONGOS_CAVERN_DEKU_SCRUB_NEAR_BOMB_BAG_RIGHT, {[]{return CanBlastOrSmash;}}),
                   LocationAccess(DODONGOS_CAVERN_DEKU_SCRUB_NEAR_BOMB_BAG_LEFT,  {[]{return CanBlastOrSmash;}}),
+                        //!!! QPA ledge
                 }, {
                   //Exits
                   Entrance(DODONGOS_CAVERN_LOBBY,      {[]{return true;}}),
                   Entrance(DODONGOS_CAVERN_FAR_BRIDGE, {[]{return (IsChild && (Slingshot || (LogicDCSlingshotSkip && (Sticks || HasExplosives || KokiriSword)))) || (IsAdult && (Bow || HoverBoots || CanUse(CanUseItem::Longshot) || LogicDCJump));}}),
+                        //!!! megaflip
   });
 
   areaTable[DODONGOS_CAVERN_FAR_BRIDGE] = Area("Dodongos Cavern Far Bridge", "Dodongos Cavern", DODONGOS_CAVERN, NO_DAY_NIGHT_CYCLE, {}, {
                   //Locations
                   LocationAccess(DODONGOS_CAVERN_BOMB_BAG_CHEST,         {[]{return true;}}),
                   LocationAccess(DODONGOS_CAVERN_END_OF_BRIDGE_CHEST,    {[]{return CanBlastOrSmash;}}),
+                        //!!! QPA ledge
                   LocationAccess(DODONGOS_CAVERN_GS_ALCOVE_ABOVE_STAIRS, {[]{return HookshotOrBoomerang;}}),
+                        //!!! Hovering
                 }, {
                   //Exits
                   Entrance(DODONGOS_CAVERN_BOSS_AREA, {[]{return HasExplosives;}}),
+                        //!!! HJ head skip
                   Entrance(DODONGOS_CAVERN_LOBBY,     {[]{return true;}}),
+                   //!!! add cavern climb
   });
 
   areaTable[DODONGOS_CAVERN_BOSS_AREA] = Area("Dodongos Cavern Boss Area", "Dodongos Cavern", DODONGOS_CAVERN, NO_DAY_NIGHT_CYCLE, {
@@ -2038,6 +2132,7 @@ void AreaTable_Init() {
                   LocationAccess(DODONGOS_CAVERN_KING_DODONGO_HEART, {[]{return (Bombs || GoronBracelet) && (IsAdult || Sticks || KokiriSword);}}),
                   LocationAccess(KING_DODONGO,                       {[]{return (Bombs || GoronBracelet) && (IsAdult || Sticks || KokiriSword);}}),
                   LocationAccess(DODONGOS_CAVERN_GS_BACK_ROOM,       {[]{return true;}}),
+                        //!!! add requirement if head skip
                 }, {
                   //Exits
                   Entrance(DODONGOS_CAVERN_LOBBY, {[]{return true;}}),
@@ -2049,6 +2144,7 @@ void AreaTable_Init() {
                   //Exits
                   Entrance(JABU_JABUS_BELLY_ENTRYWAY, {[]{return true;}}),
                   Entrance(JABU_JABUS_BELLY_MAIN,     {[]{return CanUseProjectile;}}),
+                        //!!! QPA
   });
 
   areaTable[JABU_JABUS_BELLY_MAIN] = Area("Jabu Jabus Belly Main", "Jabu Jabus Belly", JABU_JABUS_BELLY, NO_DAY_NIGHT_CYCLE, {
@@ -2066,6 +2162,7 @@ void AreaTable_Init() {
                   Entrance(JABU_JABUS_BELLY_BEGINNING, {[]{return true;}}),
                   Entrance(JABU_JABUS_BELLY_DEPTHS,    {[]{return CanUse(CanUseItem::Boomerang);}}),
                   Entrance(JABU_JABUS_BELLY_BOSS_AREA, {[]{return LogicJabuBossGSAdult && CanUse(CanUseItem::Hover_Boots);}}),
+                        //!!! Megaflip + bottle (?)
   });
 
   areaTable[JABU_JABUS_BELLY_DEPTHS] = Area("Jabu Jabus Belly Depths", "Jabu Jabus Belly", JABU_JABUS_BELLY, NO_DAY_NIGHT_CYCLE, {}, {
@@ -2100,6 +2197,7 @@ void AreaTable_Init() {
                   LocationAccess(FOREST_TEMPLE_FIRST_STALFOS_CHEST, {[]{return IsAdult || KokiriSword;}}),
                   LocationAccess(FOREST_TEMPLE_GS_FIRST_ROOM,       {[]{return (IsAdult && (Hookshot || Bow || Bombs)) || (IsChild && (Boomerang || Slingshot)) || HasBombchus || CanUse(CanUseItem::Dins_Fire);}}),
                   LocationAccess(FOREST_TEMPLE_GS_LOBBY,            {[]{return HookshotOrBoomerang;}}),
+                      //!!! Hovering
                 }, {
                   //Exits
                   Entrance(FOREST_TEMPLE_ENTRYWAY,        {[]{return true;}}),
@@ -2108,6 +2206,7 @@ void AreaTable_Init() {
                   Entrance(FOREST_TEMPLE_NE_OUTDOORS,     {[]{return CanUse(CanUseItem::Bow) || CanUse(CanUseItem::Slingshot);}}),
                   Entrance(FOREST_TEMPLE_BLOCK_PUSH_ROOM, {[]{return SmallKeys(ForestTempleKeys, 1);}}),
                   Entrance(FOREST_TEMPLE_BOSS_REGION,     {[]{return ForestTempleJoAndBeth && ForestTempleAmyAndMeg;}}),
+                  //!!! Boss: ledge clip advanced (itemless)
   });
 
   areaTable[FOREST_TEMPLE_NW_OUTDOORS] = Area("Forest Temple NW Outdoors", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE, {
@@ -2123,6 +2222,7 @@ void AreaTable_Init() {
                   Entrance(FOREST_TEMPLE_OUTDOORS_HIGH_BALCONIES, {[]{return Here(FOREST_TEMPLE_NW_OUTDOORS, []{return IsAdult || (HasExplosives || ((CanUse(CanUseItem::Boomerang) || Nuts || DekuShield) && (Sticks || KokiriSword || CanUse(CanUseItem::Slingshot))));});}}),
                   Entrance(FOREST_TEMPLE_OUTSIDE_UPPER_LEDGE,     {[]{return false;},
                                                        /*Glitched*/[]{return CanDoGlitch(GlitchType::HookshotJump_Boots, GlitchDifficulty::INTERMEDIATE);}}),
+                                                       //!!! Bonk method?, Megajump, Hovering
   });
 
   areaTable[FOREST_TEMPLE_NE_OUTDOORS] = Area("Forest Temple NE Outdoors", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE, {
@@ -2151,6 +2251,7 @@ void AreaTable_Init() {
                   Entrance(FOREST_TEMPLE_NW_OUTDOORS,  {[]{return true;}}),
                   Entrance(FOREST_TEMPLE_NE_OUTDOORS,  {[]{return true;}}),
                   Entrance(FOREST_TEMPLE_FALLING_ROOM, {[]{return LogicForestDoorFrame && CanUse(CanUseItem::Hover_Boots) && CanUse(CanUseItem::Scarecrow);}}),
+                        //!!! Hoverboost, megaflip, ?
   });
 
   areaTable[FOREST_TEMPLE_FALLING_ROOM] = Area("Forest Temple Falling Room", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE, {
@@ -2167,6 +2268,7 @@ void AreaTable_Init() {
   areaTable[FOREST_TEMPLE_BLOCK_PUSH_ROOM] = Area("Forest Temple Block Push Room", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE, {}, {
                   //Locations
                   LocationAccess(FOREST_TEMPLE_EYE_SWITCH_CHEST, {[]{return GoronBracelet && (CanUse(CanUseItem::Bow) || CanUse(CanUseItem::Slingshot));}}),
+                        //!!! Ground Jumps (bombchu quickdraw, backflip cancel, death jump). for next 3 too
                 }, {
                   //Exits
                   Entrance(FOREST_TEMPLE_OUTSIDE_UPPER_LEDGE, {[]{return CanUse(CanUseItem::Hover_Boots) || (LogicForestOutsideBackdoor && IsAdult && GoronBracelet);}}),

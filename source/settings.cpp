@@ -409,7 +409,7 @@ namespace Settings {
   };
 
   Option Logic              = Option::U8  ("Logic",                   {"Glitchless", "Glitched", "No Logic", "Vanilla"}, {logicGlitchless, logicGlitched, logicNoLogic, logicVanilla});
-  Option LocationsReachable = Option::Bool("All Locations Reachable", {"Off", "On"},                                     {locationsReachableDesc}); 
+  Option LocationsReachable = Option::Bool("All Locations Reachable", {"Off", "On"},                                     {locationsReachableDesc});
   Option NightGSExpectSuns  = Option::Bool("Night GSs Expect Sun's",  {"Off", "On"},                                     {nightGSDesc});
   std::vector<Option *> logicOptions = {
     &Logic,
@@ -596,11 +596,11 @@ namespace Settings {
 
   Option GlitchISG = Option::U8("Infinite Sword Glitch", {"Disabled", "Novice"}, {GlitchISGDescDisabled, GlitchISGDescNovice});
   Option GlitchHover = Option::U8("Bomb Hover", {"Disabled", "Novice", "Intermediate", "Advanced"}, {GlitchHoverDescDisabled, GlitchHoverDescNovice, GlitchHoverDescIntermediate, GlitchHoverDescAdvanced});
-  Option GlitchMegaflip = Option::U8("Megaflip", {"Disabled", "Novice", "Intermediate"}, {GlitchMegaflipDescDisabled, GlitchMegaflipDescNovice, GlitchMegaflipDescIntermediate});
+  Option GlitchMegaflip = Option::U8("Megaflip", {"Disabled", "Novice", "Intermediate", "Expert"}, {GlitchMegaflipDescDisabled, GlitchMegaflipDescNovice, GlitchMegaflipDescIntermediate, GlitchMegaflipDescExpert});
   Option GlitchHookshotClip = Option::U8("Hookshot Clip", {"Disabled", "Novice"}, {GlitchHookshotClipDescDisabled, GlitchHookshotClipDescNovice});
   Option GlitchHookshotJump_Bonk = Option::U8("Hookshot Jump (Bonk)", {"Disabled", "Intermediate"}, {GlitchHookshotJump_BonkDescDisabled, GlitchHookshotJump_BonkDescIntermediate});
-  Option GlitchHookshotJump_Boots = Option::U8("Hookshot Jump (Boots)", {"Disabled", "Novice", "Intermediate"}, {GlitchHookshotJump_BootsDescDisabled, GlitchHookshotJump_BootsDescNovice, GlitchHookshotJump_BootsDescIntermediate});
-  Option GlitchLedgeClip = Option::U8("Ledge Clip", {"Disabled", "Novice", "Intermediate"}, {GlitchLedgeClipDescDisabled, GlitchLedgeClipDescNovice, GlitchLedgeClipDescIntermediate});
+  Option GlitchHookshotJump_Boots = Option::U8("Hookshot Jump (Boots)", {"Disabled", "Novice", "Intermediate", "Advanced", "Expert"}, {GlitchHookshotJump_BootsDescDisabled, GlitchHookshotJump_BootsDescNovice, GlitchHookshotJump_BootsDescIntermediate, GlitchHookshotJump_BootsDescAdvanced, GlitchHookshotJump_BootsDescExpert});
+  Option GlitchLedgeClip = Option::U8("Ledge Clip", {"Disabled", "Novice", "Intermediate", "Advanced"}, {GlitchLedgeClipDescDisabled, GlitchLedgeClipDescNovice, GlitchLedgeClipDescIntermediate, GlitchLedgeClipDescAdvanced});
   Option GlitchTripleSlashClip = Option::U8("Triple Slash Clip", {"Disabled", "Novice"}, {GlitchTripleSlashClipDescDisabled, GlitchTripleSlashClipDescNovice});
   std::vector<Option*> glitchOptions = {
     &GlitchISG,
@@ -1058,12 +1058,12 @@ namespace Settings {
     }
   }
 
-		
+
   //Used for Starting Inventory options, enables/disables the options or expands/collapses each category based on their index number
   void CollapseCategory(Option startingInventorySections, int startNum, int endNum) {
     for(int i = startNum; i < endNum ;++i){
       switch(startingInventorySections.Value<u8>()) {
-        case 0: 
+        case 0:
         startingInventoryOptions[i] -> Hide();
         startingInventoryOptions[i] -> SetSelectedIndex(0);
         break;
@@ -1248,9 +1248,9 @@ namespace Settings {
     CollapseCategory(StartingSongsToggle, 28, 40);
     CollapseCategory(StartingUpgradesToggle, 41, 55);
     CollapseCategory(StartingQuestToggle, 56, 65);
-    for(int i = 23; i < 27 ;++i){ 
+    for(int i = 23; i < 27 ;++i){
       switch(StartingInventoryToggle.Value<u8>()) {
-        case 0: 
+        case 0:
         startingInventoryOptions[i] -> Hide();
         startingInventoryOptions[i] -> SetSelectedIndex(0);
         break;
@@ -1475,7 +1475,7 @@ namespace Settings {
           LogicLensShadowMQ.SetSelectedIndex(1);
           LogicLensBotwMQ.SetSelectedIndex(1);
           LogicLensGtgMQ.SetSelectedIndex(1);
-        } 
+        }
         if(currentSetting->GetSelectedOptionIndex() >= 2){ //intermediate options
           LogicLabWallGS.SetSelectedIndex(1);
           LogicChildDampeRacePoH.SetSelectedIndex(1);
@@ -1832,14 +1832,14 @@ namespace Settings {
       if (ShuffleBGM) {
         ShuffleSequences(SeqType::SEQ_BGM);
       }
-      
+
       if (ShuffleFanfares.Is(2)) {
         ShuffleSequences(SeqType::SEQ_FANFARE | SeqType::SEQ_OCARINA);
       } else {
         if (ShuffleFanfares.Is(1)) {
           ShuffleSequences(SeqType::SEQ_FANFARE);
         }
-        
+
         if (ShuffleOcaMusic) {
           ShuffleSequences(SeqType::SEQ_OCARINA);
         }
