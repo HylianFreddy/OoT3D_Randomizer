@@ -108,6 +108,11 @@ static void Entrance_SeparateOGCFairyFountainExit() {
 }
 
 void Entrance_Init(void) {
+    // ObjectFile hey = gObjectTable[20];
+    // gObjectTable[20] = gObjectTable[21];
+    // gObjectTable[21] = hey;
+
+
     s32 index;
 
     // Skip Child Stealth if given by settings

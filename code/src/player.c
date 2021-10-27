@@ -45,6 +45,8 @@ void Player_SetChildCustomTunicCMAB(void) {
 }
 
 void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
+    gSaveContext.ammo[2] = gSaveContext.sceneSetupIndex;
+
     PlayerActor_Update(thisx, globalCtx);
     if (healthDecrement <= 0) {
         return;

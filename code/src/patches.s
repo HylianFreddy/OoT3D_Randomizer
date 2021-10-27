@@ -1672,6 +1672,52 @@ PlayEntranceCutscene_patch:
 SkipJabuOpeningCutscene_patch:
     bl hook_SkipJabuOpeningCutscene
 
+.section .patch_SheikahStone_MQ
+.global SheikahStone_MQ_patch
+SheikahStone_MQ_patch:
+    nop
+
+.section .patch_CanUseSheikahStone
+.global CanUseSheikahStone_patch
+CanUseSheikahStone_patch:
+    nop
+    nop
+    nop
+    nop
+    nop
+
+.section .patch_EnterSheikahStone
+.global EnterSheikahStone_patch
+EnterSheikahStone_patch:
+    nop
+    bl hook_EnterSheikahStone
+
+.section .patch_objects
+.global objects_patch
+objects_patch:
+    .word 0x6b5f626f
+    .word 0x795f6e65
+    .word 0x772e7a61
+    .word 0x72000000
+
+.section .patch_objects2
+.global objects2_patch
+objects2_patch:
+    .word 0x6b5f6368
+    .word 0x696c645f
+    .word 0x6e65772e
+    .word 0x7a617200
+
+.section .patch_sceneSetup
+.global sceneSetup_patch
+sceneSetup_patch:
+    blt 0x448714
+
+.section .patch_EponaDraw
+.global EponaDraw_patch
+EponaDraw_patch:
+    b 0x2A95F8
+
 .section .patch_loader
 .global loader_patch
 

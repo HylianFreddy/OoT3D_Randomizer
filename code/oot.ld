@@ -1253,6 +1253,27 @@ SECTIONS
 	.patch_TycoonWalletSize 0x53CC08 : {
 		*(.patch_TycoonWalletSize)
 	}
+
+	.patch_SheikahStone_MQ 0x24BDBC : {
+		*(.patch_SheikahStone_MQ)
+	}
+
+	.patch_CanUseSheikahStone 0x3D0FF8 : {
+		*(.patch_CanUseSheikahStone)
+	}
+
+	.patch_EnterSheikahStone 0x334344 : {
+		*(.patch_EnterSheikahStone)
+	}
+
+	.patch_sceneSetup 0x4486D0 : {
+		*(.patch_sceneSetup)
+	}
+
+	.patch_EponaDraw 0x2A95C4 : {
+		*(.patch_EponaDraw)
+	}
+
 	. = 0x005C7000;
     .text : {
         __text_start = . ;

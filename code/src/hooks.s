@@ -1092,6 +1092,13 @@ hook_SkipJabuOpeningCutscene:
     pop {r0-r12, lr}
     bx lr
 
+.global hook_EnterSheikahStone
+hook_EnterSheikahStone:
+    push {r0-r12, lr}
+    bl SheikahStone_Enter
+    pop {r0-r12, lr}
+    bx lr
+
 .section .loader
 .global hook_into_loader
 hook_into_loader:
