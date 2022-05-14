@@ -164,6 +164,14 @@ SECTIONS
 		*(.patch_MedigoronItemOverrideTwo)
 	}
 
+	.patch_RightShelfMasksFlags 0x16D150 : {
+		*(.patch_RightShelfMasksFlags)
+	}
+
+	.patch_HMS_CheckMultiplePayments 0x16D434 : {
+		*(.patch_HMS_CheckMultiplePayments)
+	}
+
 	.patch_KingZoraIgnoreSapphire 0x1736B8 : {
 		*(.patch_KingZoraIgnoreSapphire)
 	}
@@ -768,13 +776,17 @@ SECTIONS
 		*(.patch_IncomingGetItemID)
 	}
 
+	.patch_HappyMaskSalesmanPayment 0x372B84 : {
+		*(.patch_HappyMaskSalesmanPayment)
+	}
+
 	.patch_ConvertBombDropTwo 0x3747A4 : {
 		*(.patch_ConvertBombDropTwo)
 	}
 
-	.patch_SetSFX 0x37547C : {
+	/*.patch_SetSFX 0x37547C : {
 		*(.patch_SetSFX)
-	}
+	}*/
 
 	.patch_GKSetDurability 0x376BDC : {
 		*(.patch_GKSetDurability)

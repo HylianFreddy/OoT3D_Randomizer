@@ -1701,6 +1701,27 @@ MasterQuestGoldSkulltulaCheck_patch:
 WaterSpoutMasterQuestCheck_patch:
     bl hook_WaterSpoutMasterQuestCheck
 
+.section .patch_HappyMaskSalesmanPayment
+.global HappyMaskSalesmanPayment_patch
+HappyMaskSalesmanPayment_patch:
+    push {r1-r12,lr}
+    bl Shop_HMSCheckPayment
+    cmp r0,#0x0
+    pop {r1-r12,lr}
+    beq 0x372C1C
+    bx lr
+
+.section .patch_RightShelfMasksFlags
+.global RightShelfMasksFlags_patch
+RightShelfMasksFlags_patch:
+    bl hook_RightShelfMasksFlags
+
+.section .patch_HMS_CheckMultiplePayments
+.global HMS_CheckMultiplePayments_patch
+HMS_CheckMultiplePayments_patch:
+    bl hook_HMS_CheckMultiplePayments
+    nop
+
 .section .patch_loader
 .global loader_patch
 

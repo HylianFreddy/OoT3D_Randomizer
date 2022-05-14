@@ -539,6 +539,20 @@ u32 SaveFile_TradeItemIsOwned(u8 itemId) {
     return (gSaveContext.sceneFlags[0x60].unk & (0x1 << tradeItemNum)) != 0;
 }
 
+u32 SaveFile_IsMaskAvailable(u8 itemId) {
+    if (itemId < ITEM_MASK_KEATON)
+        return 0;
+
+    u8 maskID = itemId - ITEM_MASK_KEATON;
+
+    if (maskID < 4)
+        return (gSaveContext.itemGetInf[2] & (1 << (maskID + 3))) != 0; // mask obtained from shop
+    else if (maskID < 8)
+        return (gSaveContext.itemGetInf[3] & 0x8000) != 0; // mask of truth obtained
+    else
+        return 0;
+}
+
 typedef s32 (*Inventory_ReplaceItem_proc)(GlobalContext* globalCtx, u16 oldItem, u16 newItem);
 #define Inventory_ReplaceItem_addr 0x316CEC
 #define Inventory_ReplaceItem ((Inventory_ReplaceItem_proc)Inventory_ReplaceItem_addr)

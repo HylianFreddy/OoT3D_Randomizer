@@ -3,6 +3,7 @@
 #include "input.h"
 #include "savefile.h"
 #include "settings.h"
+#include "shops.h"
 
 #define gItemsMenuSpritesManager (*(MenuSpriteManager**)0x506734)
 #define gBowMenuSpritesManager (*(MenuSpriteManager**)0x506738)
@@ -31,10 +32,13 @@ void ItemsMenu_Draw(void) {
             selectedItemSlot = gSaveContext.itemMenuChild[gItemsMenuSelectedSlot];
         }
 
+        //if (rInputCtx.pressed.strt)
+        //    MenuSpritesManager_RegisterItemSprite(gBowMenuSpritesManager, 0, gSaveContext.items[selectedItemSlot]);
+
         if (selectedItemSlot == SLOT_TRADE_ADULT) {
             u8 startingItem = gSaveContext.items[selectedItemSlot];
             u8 potentialItem = startingItem;
-        
+
             if (rInputCtx.pressed.l) {
                 potentialItem = startingItem - 1;
                 while ((potentialItem != startingItem) && !SaveFile_TradeItemIsOwned(potentialItem)) {
@@ -57,6 +61,46 @@ void ItemsMenu_Draw(void) {
                 gSaveContext.items[selectedItemSlot] = potentialItem;
                 MenuSpritesManager_RegisterItemSprite(gItemsMenuSpritesManager, gItemsMenuSelectedSlot, gSaveContext.items[selectedItemSlot]);
                 MenuSpritesManager_RegisterItemSprite(gItemsMenuGlowSpritesManager, 0, gSaveContext.items[selectedItemSlot]);
+            }
+        }
+
+        if (selectedItemSlot == SLOT_TRADE_CHILD && gSaveContext.items[selectedItemSlot] >= ITEM_MASK_KEATON) {
+            u8 startingItem = gSaveContext.items[selectedItemSlot];
+            u8 potentialItem = startingItem;
+
+            if (rInputCtx.pressed.l) {
+                potentialItem = startingItem - 1;
+                while ((potentialItem != startingItem) && !SaveFile_IsMaskAvailable(potentialItem)) {
+                    potentialItem--;
+                    if (potentialItem < ITEM_MASK_KEATON) {
+                        potentialItem = ITEM_MASK_TRUTH;
+                    }
+                }
+            } else if (rInputCtx.pressed.r) {
+                potentialItem = startingItem + 1;
+                while ((potentialItem != startingItem) && !SaveFile_IsMaskAvailable(potentialItem)) {
+                    potentialItem++;
+                    if (potentialItem > ITEM_MASK_TRUTH) {
+                        potentialItem = ITEM_MASK_KEATON;
+                    }
+                }
+            }
+
+            if (rInputCtx.pressed.strt) {gSaveContext.items[selectedItemSlot] = ITEM_LETTER_ZELDA;}
+
+            if (potentialItem != startingItem) {
+                gSaveContext.items[selectedItemSlot] = potentialItem;
+                MenuSpritesManager_RegisterItemSprite(gItemsMenuSpritesManager, gItemsMenuSelectedSlot, gSaveContext.items[selectedItemSlot]);
+                MenuSpritesManager_RegisterItemSprite(gItemsMenuGlowSpritesManager, 0, gSaveContext.items[selectedItemSlot]);
+
+                if (gGlobalContext->sceneNum == 51) { // Happy Mask Shop, redraw items on shelves
+                    for (Actor* actor = gGlobalContext->actorCtx.actorList[6].first; actor != 0; actor = actor->next) {
+                        if (actor->id != 4) { // En_GirlA, shop item
+                            continue;
+                        }
+                        EnGirlA_InitializeItemAction((EnGirlA*)actor, gGlobalContext);
+                    }
+                }
             }
         }
     }

@@ -525,6 +525,10 @@ typedef void (*DisplayTextbox_proc)(GlobalContext* globalCtx, u16 textId, Actor*
 #define DisplayTextbox_addr 0x367C7C
 #define DisplayTextbox ((DisplayTextbox_proc)DisplayTextbox_addr)
 
+typedef void (*ContinueTextbox_proc)(GlobalContext* globalCtx, u16 textId);
+#define ContinueTextbox_addr 0x36BE34
+#define ContinueTextbox ((ContinueTextbox_proc)ContinueTextbox_addr)
+
 typedef u32 (*EventCheck_proc)(u32 flag);
 #define EventCheck_addr 0x350CF4
 #define EventCheck ((EventCheck_proc)EventCheck_addr)
@@ -532,6 +536,8 @@ typedef u32 (*EventCheck_proc)(u32 flag);
 typedef void (*EventSet_proc)(u32 flag);
 #define EventSet_addr 0x34CBF8
 #define EventSet ((EventSet_proc)EventSet_addr)
+
+#define ITEMGETINF_CHECK(flag) (gSaveContext.itemGetInf[(flag) >> 4] & (1 << ((flag) & 0xF)))
 
 typedef void (*Rupees_ChangeBy_proc)(s16 rupeeChange);
 #define Rupees_ChangeBy_addr 0x376A60

@@ -1385,6 +1385,23 @@ hook_WaterSpoutMasterQuestCheck:
     pop {r1-r12, lr}
     bx lr
 
+.global hook_RightShelfMasksFlags
+hook_RightShelfMasksFlags:
+    push {r0-r12, lr}
+    cpy r0,r1
+    bl Shop_SetFlag_RightShelfMask
+    pop {r0-r12, lr}
+    sub r1,r1,#0x1E
+    bx lr
+
+.global hook_HMS_CheckMultiplePayments
+hook_HMS_CheckMultiplePayments:
+    push {r1-r12, lr}
+    cpy r0,r4
+    bl Shop_HMSCheckNextPayment
+    pop {r1-r12, lr}
+    bx lr
+
 .section .loader
 .global hook_into_loader
 hook_into_loader:

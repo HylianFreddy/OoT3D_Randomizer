@@ -35,8 +35,6 @@ s32 numShopItemsLoaded = 0; // Used to determine params. Reset this to 0 in ossa
 #define EnGirlA_Init ((ActorFunc)0x1D7F20)
 #define EnGirlA_Draw ((ActorFunc)0x210188)
 
-#define EnGirlA_InitializeItemAction ((EnGirlAActionFunc)0x14D5C8)
-
 // Checks for if item is of a certain type
 
 u8 ShopsanityItem_IsBombs(u8 id) {
@@ -363,4 +361,59 @@ void ShopsanityItem_SellOut(Actor* itemx, u16 index) {
 
 void EnOssan_rDestroy(Actor* shopkeeperx, GlobalContext* globalCtx) {
     numShopItemsLoaded = 0;
+}
+
+void Shop_SetFlag_RightShelfMask(u16 params) { // this function could be removed after mask overrides are done (move to item effect)
+    // custom flags for obtaining the right shelf masks
+    switch(params) {
+        case 34:
+            gSaveContext.itemGetInf[2] = gSaveContext.itemGetInf[2] | 0x400;
+            break;
+        case 35:
+            gSaveContext.itemGetInf[2] = gSaveContext.itemGetInf[2] | 0x100;
+            break;
+        case 36:
+            gSaveContext.itemGetInf[2] = gSaveContext.itemGetInf[2] | 0x80;
+            break;
+        case 37:
+            gSaveContext.itemGetInf[2] = gSaveContext.itemGetInf[2] | 0x200;
+            break;
+    }
+}
+
+// This rewrites how the game checks if there's a pending payment
+u16 Shop_HMSCheckPayment(EnOssan* HMS) {
+    if (ITEMGETINF_CHECK(0x38) && EventCheck(0x8C) == 0) {
+        // Keaton Mask
+        HMS->happyMaskShopState = 0;
+        return 0x70A5;
+    }
+    if (ITEMGETINF_CHECK(0x39) && EventCheck(0x8D) == 0) {
+        // Skull Mask
+        HMS->happyMaskShopState = 2;
+        return 0x70C4;
+    }
+    if (ITEMGETINF_CHECK(0x3A) && EventCheck(0x8E) == 0) {
+        // Spooky Mask
+        HMS->happyMaskShopState = 1;
+        return 0x70C5;
+    }
+    if (ITEMGETINF_CHECK(0x3B) && EventCheck(0x8F) == 0) {
+        // Bunny Hood
+        HMS->happyMaskShopState = 3;
+        return 0x70C6;
+    }
+
+    return 0;
+}
+
+// This checks if you have sold multiple masks and have to pay more than once
+u8 Shop_HMSCheckNextPayment(EnOssan* HMS) {
+    u16 text = Shop_HMSCheckPayment(HMS);
+    if (text != 0) {
+        ContinueTextbox(gGlobalContext, text);
+        return HMS->happyMaskShopState;
+    }
+    ContinueTextbox(gGlobalContext, 0x70A7);
+    return 8; // OSSAN_HAPPY_STATE_NONE, no next payment
 }

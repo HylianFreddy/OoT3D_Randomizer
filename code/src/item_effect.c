@@ -258,6 +258,7 @@ void ItemEffect_OpenMaskShop(SaveContext* saveCtx, s16 arg1, s16 arg2) {
     }
     if (gSettingsContext.completeMaskQuest) {
         gSaveContext.infTable[7] |= 0x80; // "Soldier Wears Keaton Mask"
+        gSaveContext.itemGetInf[2] |= 0x0078; // "Obtained Masks"
         gSaveContext.itemGetInf[3] |= 0x8F00; // "Sold Masks & Unlocked Masks" / "Obtained Mask of Truth"
         gSaveContext.eventChkInf[8] |= 0xF000; // "Paid Back Mask Fees"
     }
