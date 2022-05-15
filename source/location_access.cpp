@@ -1049,7 +1049,17 @@ void AreaTable_Init() {
                   //Events
                   EventAccess(&SkullMask,   {[]{return SkullMask   || (ZeldasLetter && (CompleteMaskQuest ||  ChildCanAccess(KAKARIKO_VILLAGE)));}}),
                   EventAccess(&MaskOfTruth, {[]{return MaskOfTruth || (SkullMask && (CompleteMaskQuest || (ChildCanAccess(THE_LOST_WOODS) && CanPlay(SariasSong) && AreaTable(THE_GRAVEYARD)->childDay && ChildCanAccess(HYRULE_FIELD) && HasAllStones)));}}),
-                }, {}, {
+                }, {
+                  //Locations
+                  LocationAccess(MARKET_MASK_SHOP_ITEM_1, {[]{return true;}}),
+                  LocationAccess(MARKET_MASK_SHOP_ITEM_2, {[]{return true;}}),
+                  LocationAccess(MARKET_MASK_SHOP_ITEM_3, {[]{return true;}}),
+                  LocationAccess(MARKET_MASK_SHOP_ITEM_4, {[]{return true;}}),
+                  LocationAccess(MARKET_MASK_SHOP_ITEM_5, {[]{return true;}}),
+                  LocationAccess(MARKET_MASK_SHOP_ITEM_6, {[]{return true;}}),
+                  LocationAccess(MARKET_MASK_SHOP_ITEM_7, {[]{return true;}}),
+                  LocationAccess(MARKET_MASK_SHOP_ITEM_8, {[]{return true;}}),
+                }, {
                   //Exits
                   Entrance(THE_MARKET, {[]{return true;}}),
   });
@@ -3202,7 +3212,7 @@ void AreaTable_Init() {
   areaTable[FIRE_TEMPLE_MQ_LOWER] = Area("Fire Temple MQ Lower", "Fire Temple", FIRE_TEMPLE, NO_DAY_NIGHT_CYCLE, {}, {
                   //Locations
                   LocationAccess(FIRE_TEMPLE_MQ_MAP_ROOM_SIDE_CHEST, {[]{return IsAdult || KokiriSword || Sticks || Slingshot || Bombs || CanUse(DINS_FIRE);}}),
-                  LocationAccess(FIRE_TEMPLE_MQ_NEAR_BOSS_CHEST,     {[]{return (LogicFewerTunicRequirements || CanUse(GORON_TUNIC)) 
+                  LocationAccess(FIRE_TEMPLE_MQ_NEAR_BOSS_CHEST,     {[]{return (LogicFewerTunicRequirements || CanUse(GORON_TUNIC))
                                                                              && (CanUse(HOVER_BOOTS) || CanUse(HOOKSHOT))
                                                                              && (CanUse(FIRE_ARROWS) || (CanUse(DINS_FIRE) &&
                                                                                                             ((DamageMultiplier.IsNot(DAMAGEMULTIPLIER_OHKO) && DamageMultiplier.IsNot(DAMAGEMULTIPLIER_QUADRUPLE) && DamageMultiplier.IsNot(DAMAGEMULTIPLIER_OCTUPLE) && DamageMultiplier.IsNot(DAMAGEMULTIPLIER_SEXDECUPLE))

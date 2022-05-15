@@ -817,6 +817,15 @@ void LocationTable_Init() {
     locationTable[MARKET_BOMBCHU_SHOP_ITEM_7]                    = ItemLocation::Base(0x32, 0x36, "MK Bombchu Shop Item 7",                            MARKET_BOMBCHU_SHOP_ITEM_7,  BUY_BOMBCHU_20,            {Category::cInnerMarket, Category::cMarket, Category::cShop},                                                     SpoilerCollectionCheck::ShopItem(0x32, 6),               SpoilerCollectionCheckGroup::GROUP_HYRULE_CASTLE);
     locationTable[MARKET_BOMBCHU_SHOP_ITEM_8]                    = ItemLocation::Base(0x32, 0x37, "MK Bombchu Shop Item 8",                            MARKET_BOMBCHU_SHOP_ITEM_8,  BUY_BOMBCHU_20,            {Category::cInnerMarket, Category::cMarket, Category::cShop},                                                     SpoilerCollectionCheck::ShopItem(0x32, 7),               SpoilerCollectionCheckGroup::GROUP_HYRULE_CASTLE);
 
+    locationTable[MARKET_MASK_SHOP_ITEM_1]                       = ItemLocation::Base(0x33, 0x30, "MK Mask Shop Item 1",                               MARKET_MASK_SHOP_ITEM_1,     KEATON_MASK,         {Category::cInnerMarket, Category::cMarket, Category::cShop},                                                     SpoilerCollectionCheck::ShopItem(0x33, 0),               SpoilerCollectionCheckGroup::GROUP_HYRULE_CASTLE);
+    locationTable[MARKET_MASK_SHOP_ITEM_2]                       = ItemLocation::Base(0x33, 0x31, "MK Mask Shop Item 2",                               MARKET_MASK_SHOP_ITEM_1,        SKULL_MASK,             {Category::cInnerMarket, Category::cMarket, Category::cShop},                                                     SpoilerCollectionCheck::ShopItem(0x33, 1),               SpoilerCollectionCheckGroup::GROUP_HYRULE_CASTLE);
+    locationTable[MARKET_MASK_SHOP_ITEM_3]                       = ItemLocation::Base(0x33, 0x32, "MK Mask Shop Item 3",                               MARKET_MASK_SHOP_ITEM_1,        SPOOKY_MASK,            {Category::cInnerMarket, Category::cMarket, Category::cShop},                                                     SpoilerCollectionCheck::ShopItem(0x33, 2),               SpoilerCollectionCheckGroup::GROUP_HYRULE_CASTLE);
+    locationTable[MARKET_MASK_SHOP_ITEM_4]                       = ItemLocation::Base(0x33, 0x33, "MK Mask Shop Item 4",                               MARKET_MASK_SHOP_ITEM_1,        BUNNY_HOOD,                 {Category::cInnerMarket, Category::cMarket, Category::cShop},                                                     SpoilerCollectionCheck::ShopItem(0x33, 3),               SpoilerCollectionCheckGroup::GROUP_HYRULE_CASTLE);
+    locationTable[MARKET_MASK_SHOP_ITEM_5]                       = ItemLocation::Base(0x33, 0x34, "MK Mask Shop Item 5",                               MARKET_MASK_SHOP_ITEM_1,        GORON_MASK,             {Category::cInnerMarket, Category::cMarket, Category::cShop},                                                     SpoilerCollectionCheck::ShopItem(0x33, 4),               SpoilerCollectionCheckGroup::GROUP_HYRULE_CASTLE);
+    locationTable[MARKET_MASK_SHOP_ITEM_6]                       = ItemLocation::Base(0x33, 0x35, "MK Mask Shop Item 6",                               MARKET_MASK_SHOP_ITEM_1,        ZORA_MASK,             {Category::cInnerMarket, Category::cMarket, Category::cShop},                                                     SpoilerCollectionCheck::ShopItem(0x33, 5),               SpoilerCollectionCheckGroup::GROUP_HYRULE_CASTLE);
+    locationTable[MARKET_MASK_SHOP_ITEM_7]                       = ItemLocation::Base(0x33, 0x36, "MK Mask Shop Item 7",                               MARKET_MASK_SHOP_ITEM_1,        GERUDO_MASK,          {Category::cInnerMarket, Category::cMarket, Category::cShop},                                                     SpoilerCollectionCheck::ShopItem(0x33, 6),               SpoilerCollectionCheckGroup::GROUP_HYRULE_CASTLE);
+    locationTable[MARKET_MASK_SHOP_ITEM_8]                       = ItemLocation::Base(0x33, 0x37, "MK Mask Shop Item 8",                               MARKET_MASK_SHOP_ITEM_1,        MASK_OF_TRUTH,             {Category::cInnerMarket, Category::cMarket, Category::cShop},                                                     SpoilerCollectionCheck::ShopItem(0x33, 7),               SpoilerCollectionCheckGroup::GROUP_HYRULE_CASTLE);
+
     locationTable[MARKET_POTION_SHOP_ITEM_1]                     = ItemLocation::Base(0x31, 0x30, "MK Potion Shop Item 1",                             MARKET_POTION_SHOP_ITEM_1,   BUY_GREEN_POTION,          {Category::cInnerMarket, Category::cMarket, Category::cShop},                                                     SpoilerCollectionCheck::ShopItem(0x31, 0),               SpoilerCollectionCheckGroup::GROUP_HYRULE_CASTLE);
     locationTable[MARKET_POTION_SHOP_ITEM_2]                     = ItemLocation::Base(0x31, 0x31, "MK Potion Shop Item 2",                             MARKET_POTION_SHOP_ITEM_2,   BUY_BLUE_FIRE,             {Category::cInnerMarket, Category::cMarket, Category::cShop},                                                     SpoilerCollectionCheck::ShopItem(0x31, 1),               SpoilerCollectionCheckGroup::GROUP_HYRULE_CASTLE);
     locationTable[MARKET_POTION_SHOP_ITEM_3]                     = ItemLocation::Base(0x31, 0x32, "MK Potion Shop Item 3",                             MARKET_POTION_SHOP_ITEM_3,   BUY_RED_POTION_30,         {Category::cInnerMarket, Category::cMarket, Category::cShop},                                                     SpoilerCollectionCheck::ShopItem(0x31, 2),               SpoilerCollectionCheckGroup::GROUP_HYRULE_CASTLE);
@@ -942,6 +951,16 @@ std::vector<LocationKey> MK_BombchuShopLocations = {
   MARKET_BOMBCHU_SHOP_ITEM_7,
   MARKET_BOMBCHU_SHOP_ITEM_8,
 };
+std::vector<LocationKey> MK_MaskShopLocations = {
+  MARKET_MASK_SHOP_ITEM_1,
+  MARKET_MASK_SHOP_ITEM_2,
+  MARKET_MASK_SHOP_ITEM_3,
+  MARKET_MASK_SHOP_ITEM_4,
+  MARKET_MASK_SHOP_ITEM_5,
+  MARKET_MASK_SHOP_ITEM_6,
+  MARKET_MASK_SHOP_ITEM_7,
+  MARKET_MASK_SHOP_ITEM_8,
+};
 std::vector<LocationKey> MK_PotionShopLocations = {
   MARKET_POTION_SHOP_ITEM_1,
   MARKET_POTION_SHOP_ITEM_2,
@@ -997,6 +1016,7 @@ std::vector<std::vector<LocationKey>> ShopLocationLists = {
   KF_ShopLocations,
   Kak_PotionShopLocations,
   MK_BombchuShopLocations,
+  MK_MaskShopLocations,
   MK_PotionShopLocations,
   MK_BazaarLocations,
   Kak_BazaarLocations,
@@ -1178,6 +1198,14 @@ std::vector<LocationKey> overworldLocations = {
   MARKET_BOMBCHU_SHOP_ITEM_6,
   MARKET_BOMBCHU_SHOP_ITEM_7,
   MARKET_BOMBCHU_SHOP_ITEM_8,
+  MARKET_MASK_SHOP_ITEM_1,
+  MARKET_MASK_SHOP_ITEM_2,
+  MARKET_MASK_SHOP_ITEM_3,
+  MARKET_MASK_SHOP_ITEM_4,
+  MARKET_MASK_SHOP_ITEM_5,
+  MARKET_MASK_SHOP_ITEM_6,
+  MARKET_MASK_SHOP_ITEM_7,
+  MARKET_MASK_SHOP_ITEM_8,
   MARKET_POTION_SHOP_ITEM_1,
   MARKET_POTION_SHOP_ITEM_2,
   MARKET_POTION_SHOP_ITEM_3,

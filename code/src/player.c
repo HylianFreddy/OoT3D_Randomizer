@@ -56,6 +56,8 @@ void Player_SetChildCustomTunicCMAB(void) {
 }
 
 void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
+    gSaveContext.sceneFlags[96].unk = 0xFF;
+    //gSaveContext.rupees = 20;
     PlayerActor_Init(thisx, globalCtx);
     if (gSettingsContext.fastBunnyHood) {
         PLAYER->currentMask = storedMask;

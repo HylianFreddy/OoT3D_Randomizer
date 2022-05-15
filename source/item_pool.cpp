@@ -661,6 +661,18 @@ void GenerateItemPool() {
 
   //Fixed item locations
   PlaceItemInLocation(HC_ZELDAS_LETTER, ZELDAS_LETTER);
+  PlaceItemInLocation(KAK_BAZAAR_ITEM_1, FIRE_MEDALLION);
+  PlaceItemInLocation(KAK_BAZAAR_ITEM_2, FIRE_MEDALLION);
+  PlaceItemInLocation(KAK_BAZAAR_ITEM_3, FIRE_MEDALLION);
+  PlaceItemInLocation(KAK_BAZAAR_ITEM_4, FIRE_MEDALLION);
+  PlaceItemInLocation(MARKET_MASK_SHOP_ITEM_1, FIRE_MEDALLION);
+  PlaceItemInLocation(MARKET_MASK_SHOP_ITEM_2, FIRE_MEDALLION);
+  PlaceItemInLocation(MARKET_MASK_SHOP_ITEM_3, FIRE_MEDALLION);
+  PlaceItemInLocation(MARKET_MASK_SHOP_ITEM_4, FIRE_MEDALLION);
+  PlaceItemInLocation(MARKET_MASK_SHOP_ITEM_5, GORON_MASK);
+  PlaceItemInLocation(MARKET_MASK_SHOP_ITEM_6, ZORA_MASK);
+  PlaceItemInLocation(MARKET_MASK_SHOP_ITEM_7, GERUDO_MASK);
+  PlaceItemInLocation(MARKET_MASK_SHOP_ITEM_8, MASK_OF_TRUTH);
   PlaceItemInLocation(GANON, TRIFORCE); //The Triforce is only used to make sure Ganon is accessible
   PlaceItemInLocation(MARKET_BOMBCHU_BOWLING_BOMBCHUS, BOMBCHU_DROP);
 
@@ -919,7 +931,7 @@ void GenerateItemPool() {
         AddItemToPool(PendingJunkPool, GANONS_CASTLE_KEY_RING);
       } else {
         AddItemToPool(PendingJunkPool, GANONS_CASTLE_SMALL_KEY);
-      } 
+      }
     }
 
     if (BossKeysanity.Is(BOSSKEYSANITY_ANYWHERE) || BossKeysanity.Is(BOSSKEYSANITY_ANY_DUNGEON) || BossKeysanity.Is(BOSSKEYSANITY_OVERWORLD)) {
