@@ -15,6 +15,9 @@
 
 u16 healthDecrement = 0;
 u8  storedMask = 0;
+Actor* speedBomb = 0;
+u8 speedBombDelay = 0;
+#define bombTimer(x) *(((u8*)(x)) + 0x26C)
 
 void* Player_EditAndRetrieveCMB(ZARInfo* zarInfo, u32 objModelIdx) {
     void* cmbMan = ZAR_GetCMBByIndex(zarInfo, objModelIdx);
@@ -53,6 +56,9 @@ void Player_SetChildCustomTunicCMAB(void) {
 }
 
 void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
+    gSettingsContext.quickText = 3;
+    gSettingsContext.skipSongReplays = 1;
+    gSettingsContext.fastBunnyHood = 1;
     PlayerActor_Init(thisx, globalCtx);
     if (gSettingsContext.fastBunnyHood) {
         PLAYER->currentMask = storedMask;
@@ -61,6 +67,33 @@ void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
 
 void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     PlayerActor_Update(thisx, globalCtx);
+
+    if (speedBomb != 0) {
+        if (bombTimer(speedBomb) > 1 && speedBomb->params != 1)
+            bombTimer(speedBomb) = 1;
+        else if (speedBombDelay < 1){
+            Actor_Kill(speedBomb);
+            speedBomb = 0;
+        }
+    }
+
+    if (thisx->speedXZ > 18) {
+        if (speedBombDelay > 0)
+            speedBombDelay--;
+        else {
+            speedBomb = Actor_Spawn(&globalCtx->actorCtx, globalCtx, 0x10, thisx->world.pos.x, thisx->world.pos.y, thisx->world.pos.z,
+                        thisx->world.rot.x, thisx->world.rot.y, thisx->world.rot.z, 0);
+            speedBombDelay = 5;
+        }
+    }
+    else {
+        speedBombDelay = 0;
+    }
+
+    if (gSettingsContext.fastBunnyHood && PLAYER->currentMask == 4 && PLAYER->stateFuncPtr == (void*)0x4BA378) {
+        PLAYER->xzSpeed = 20;
+    }
+
     if (healthDecrement <= 0) {
         return;
     }

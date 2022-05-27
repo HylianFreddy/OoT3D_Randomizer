@@ -8,6 +8,7 @@
 SFXData rSfxData = {0};
 
 u32 SetSFX(u32 original) {
+    return original;
     u16 sfxID = original - SFX_BASE;
     SeqType type = rSfxData.rSeqTypesSFX[sfxID];
 

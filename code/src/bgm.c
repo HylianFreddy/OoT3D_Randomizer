@@ -6,6 +6,7 @@
 static u32 rBGMOverrides[128] = {0};
 
 u32 SetBGM(u32 original) {
+    return original;
     if (!gExtSaveData.option_EnableBGM && IsInGame()) {
         return SEQ_AUDIO_BLANK;
     }
