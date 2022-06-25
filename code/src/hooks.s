@@ -1512,6 +1512,14 @@ hook_CrouchStabHitbox:
     strb r10,[r6,#0x227]
     bx lr
 
+.global hook_SkipNabooruKnuckleDefeatCutscene
+hook_SkipNabooruKnuckleDefeatCutscene:
+    push {r0-r12,lr}
+    cpy r0,r4
+    bl NabooruKnuckle_Defeat
+    pop {r0-r12,lr}
+    b 0x100EB0
+
 .section .loader
 .global hook_into_loader
 hook_into_loader:

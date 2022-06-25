@@ -13,7 +13,6 @@
 #include "ganondorf_organ.h"
 #include "checkable_spot.h"
 #include "twinrova.h"
-#include "nabooru.h"
 #include "custom_models.h"
 #include "obj_switch.h"
 #include "gerudos.h"
@@ -112,8 +111,6 @@ void Actor_Init() {
     gActorOverlayTable[0x9C].initInfo->update = BgSpot02Objects_rUpdate;
 
     gActorOverlayTable[0xC1].initInfo->init = EnSyatekiMan_rInit;
-
-    gActorOverlayTable[0xC3].initInfo->draw = EnNb_rDraw;
 
     gActorOverlayTable[0xD5].initInfo->update = BgSpot06Objects_rUpdate;
     gActorOverlayTable[0xD5].initInfo->destroy = BgSpot06Objects_rDestroy;

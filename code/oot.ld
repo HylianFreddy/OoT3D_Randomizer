@@ -8,6 +8,10 @@ SECTIONS
 		*(.patch_loader)
 	}
 
+	.patch_SkipNabooruKnuckleDefeatCutscene 0x100D90 : {
+		*(.patch_SkipNabooruKnuckleDefeatCutscene)
+	}
+
 	.patch_GrogSetTradedCojiroFlag 0x104C50 : {
 		*(.patch_GrogSetTradedCojiroFlag)
 	}
@@ -820,9 +824,9 @@ SECTIONS
 		*(.patch_ConvertBombDropTwo)
 	}
 
-	.patch_SetSFX 0x37547C : {
+	/*.patch_SetSFX 0x37547C : {
 		*(.patch_SetSFX)
-	}
+	}*/
 
 	.patch_GKSetDurability 0x376BDC : {
 		*(.patch_GKSetDurability)

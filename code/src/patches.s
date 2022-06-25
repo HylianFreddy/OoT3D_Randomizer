@@ -1792,6 +1792,11 @@ CrouchStabHitbox_patch:
 MasterSwordTimerCheck_patch:
     nop
 
+.section .patch_SkipNabooruKnuckleDefeatCutscene
+.global SkipNabooruKnuckleDefeatCutscene_patch
+SkipNabooruKnuckleDefeatCutscene_patch:
+    beq hook_SkipNabooruKnuckleDefeatCutscene
+
 .section .patch_loader
 .global loader_patch
 
