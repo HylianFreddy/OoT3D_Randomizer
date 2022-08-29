@@ -1715,8 +1715,9 @@ string_view GlitchJabuStickRecoilDesc                 = "Child can enter Jabu wi
                                                         "sidehopping next to the loading zone.";           //
 string_view GlitchJabuAdultDesc                       = "Adult can enter Jabu by walking over a specific\n"//
                                                         "section of ice on the side near ice cavern.";     //
-string_view GlitchBlueFireWallDesc                    = "Pouring blue fire on certain destructable walls\n"//
-                                                        "will cause them to break.";                       //
+string_view GlitchBlueFireWallDesc                    = "Pouring blue fire on certain destructible walls\n"//
+                                                        "will cause them to break. It can also make bomb\n"//
+                                                        "flowers explode.";                                //
 string_view GlitchClassicHalfieDesc                   = "Dying during a jump attack towards a ledge just\n"//
                                                         "too high to climb will put Link on top of the\n"  //
                                                         "ledge. Combined with a fairy this lets Link climb\n"

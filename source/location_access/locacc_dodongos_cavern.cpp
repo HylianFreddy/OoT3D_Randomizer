@@ -114,7 +114,8 @@ void AreaTable_Init_DodongosCavern() {
   areaTable[DODONGOS_CAVERN_STAIRS_LOWER] = Area("Dodongos Cavern Stairs Lower", "Dodongos Cavern", DODONGOS_CAVERN, NO_DAY_NIGHT_CYCLE, {}, {}, {
                   //Exits
                   Entrance(DODONGOS_CAVERN_LOBBY,        {[]{return true;}}),
-                  Entrance(DODONGOS_CAVERN_STAIRS_UPPER, {[]{return HasExplosives || GoronBracelet || CanUse(DINS_FIRE) || (LogicDCStaircase && CanUse(BOW));}}),
+                  Entrance(DODONGOS_CAVERN_STAIRS_UPPER, {[]{return HasExplosives || GoronBracelet || CanUse(DINS_FIRE) || (LogicDCStaircase && CanUse(BOW));},
+                                              /*Glitched*/[]{return GlitchBlueFireWall && BlueFire && NumBottles >= 2 && CanTakeDamage;}}),
                   Entrance(DODONGOS_CAVERN_COMPASS_ROOM, {[]{return Here(DODONGOS_CAVERN_STAIRS_LOWER, []{return CanBlastOrSmash || GoronBracelet;});},
                                               /*Glitched*/[]{return Here(DODONGOS_CAVERN_STAIRS_LOWER, []{return GlitchBlueFireWall && BlueFire;});}}),
   });
