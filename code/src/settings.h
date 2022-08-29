@@ -500,6 +500,7 @@ typedef struct {
 
     u8 skipChildStealth;
     u8 skipTowerEscape;
+    u8 skipFinalBattles;
     u8 skipEponaRace;
     u8 skipMinigamePhases;
     u8 freeScarecrow;

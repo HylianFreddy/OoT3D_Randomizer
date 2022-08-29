@@ -282,6 +282,7 @@ std::vector<Option *> keyRingOptions = {
 // Timesaver Settings
 Option SkipChildStealth    = Option::Bool("Skip Child Stealth",     {"Don't Skip", "Skip"},                                                 {childStealthDesc},                                                                                               OptionCategory::Setting,    SKIP);
 Option SkipTowerEscape     = Option::Bool("Skip Tower Escape",      {"Don't Skip", "Skip"},                                                 {skipTowerEscapeDesc},                                                                                            OptionCategory::Setting,    SKIP);
+Option SkipFinalBattles    = Option::Bool("Skip Final Battles",     {"Don't Skip", "Skip"},                                                 {skipFinalBattlesDesc});
 Option SkipEponaRace       = Option::Bool("Skip Epona Race",        {"Don't Skip", "Skip"},                                                 {skipEponaRaceDesc});
 Option SkipMinigamePhases  = Option::Bool("Minigames repetitions",  {"Don't Skip", "Skip"},                                                 {skipMinigamePhasesDesc});
 Option FreeScarecrow       = Option::Bool("Free Scarecrow",         {"Off", "On"},                                                          {freeScarecrowDesc});
@@ -297,6 +298,7 @@ Option FastBunnyHood       = Option::Bool("Fast Bunny Hood",        {"Off", "On"
 std::vector<Option *> timesaverOptions = {
     &SkipChildStealth,
     &SkipTowerEscape,
+    &SkipFinalBattles,
     &SkipEponaRace,
     &SkipMinigamePhases,
     &FreeScarecrow,
@@ -1395,6 +1397,7 @@ SettingsContext FillContext() {
 
     ctx.skipChildStealth   = (SkipChildStealth) ? 1 : 0;
     ctx.skipTowerEscape    = (SkipTowerEscape) ? 1 : 0;
+    ctx.skipFinalBattles   = (SkipFinalBattles) ? 1 : 0;
     ctx.skipEponaRace      = (SkipEponaRace) ? 1 : 0;
     ctx.skipMinigamePhases = (SkipMinigamePhases) ? 1 : 0;
     ctx.freeScarecrow      = (FreeScarecrow) ? 1 : 0;

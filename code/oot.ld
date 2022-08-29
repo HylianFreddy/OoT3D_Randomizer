@@ -88,6 +88,10 @@ SECTIONS
 		*(.patch_KingZoraDontStartTimer)
 	}
 
+	.patch_GanondorfHitByLightArrow 0x10C2A0 : {
+		*(.patch_GanondorfHitByLightArrow)
+	}
+
 	.patch_SongOfStormsLocation 0x1427E0 : {
 		*(.patch_SongOfStormsLocation)
 	}

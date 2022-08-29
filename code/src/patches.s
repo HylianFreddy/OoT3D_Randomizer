@@ -1869,6 +1869,11 @@ LostWoodsTargetCutscene_patch:
 LostWoodsTargetTimer_patch:
     mov r0,#0x1
 
+.section .patch_GanondorfHitByLightArrow
+.global GanondorfHitByLightArrow_patch
+GanondorfHitByLightArrow_patch:
+    bl hook_GanondorfHitByLightArrow
+
 .section .patch_GrannyTextID
 .global GrannyTextID_patch
 GrannyTextID_patch:

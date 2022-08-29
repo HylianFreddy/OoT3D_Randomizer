@@ -1588,6 +1588,13 @@ hook_RestoreISG:
     pop {lr}
     bx lr
 
+.global hook_GanondorfHitByLightArrow
+hook_GanondorfHitByLightArrow:
+    push {r0-r12,lr}
+    bl Settings_GanondorfCreditsWarp
+    pop {r0-r12,lr}
+    b 0x36AE14
+
 .global hook_GrannyTextID
 hook_GrannyTextID:
     push {r1-r12,lr}

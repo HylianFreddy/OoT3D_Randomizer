@@ -419,6 +419,7 @@ extern Option RingCastle;
 
 extern Option SkipChildStealth;
 extern Option SkipTowerEscape;
+extern Option SkipFinalBattles;
 extern Option SkipEponaRace;
 extern Option SkipMinigamePhases;
 extern Option FreeScarecrow;

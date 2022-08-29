@@ -209,6 +209,7 @@ extern string_view lacsTokenCountDesc;
 extern string_view childStealthDesc;
 
 extern string_view skipTowerEscapeDesc;
+extern string_view skipFinalBattlesDesc;
 
 extern string_view skipEponaRaceDesc;
 

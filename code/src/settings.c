@@ -166,6 +166,16 @@ s32 Settings_IsIsgEnabled(void) {
     return (s32)gSettingsContext.restoreISG;
 }
 
+void Settings_GanondorfCreditsWarp(void) {
+    if (gSettingsContext.skipFinalBattles) {
+        PLAYER->stateFlags1 |= 0x20000000; // Freeze player
+        gGlobalContext->nextEntranceIndex = 0x00A0; // cutscene map
+        gSaveContext.nextCutsceneIndex = 0xFFF8; // Ganondorf sealed
+        gGlobalContext->fadeOutTransition = 7; // cutscene fade to white
+        gGlobalContext->sceneLoadFlag = 0x14;
+    }
+}
+
 const char hashIconNames[32][25] = {
     "Deku Stick",   "Deku Nut",       "Bow",           "Slingshot",       "Fairy Ocarina",  "Bombchu",
     "Longshot",     "Boomerang",      "Lens of Truth", "Beans",           "Megaton Hammer", "Bottled Fish",

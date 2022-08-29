@@ -650,6 +650,12 @@ string_view childStealthDesc          = "The crawlspace into Hyrule Castle goes 
 string_view skipTowerEscapeDesc       = "The tower escape sequence between Ganondorf and\n"//
                                         "Ganon will be skipped.";                          //
 /*------------------------------                                                           //
+|      SKIP FINAL FIGHTS       |                                                           //
+------------------------------*/                                                           //
+string_view skipFinalBattlesDesc      = "Ganondorf will be so weak that a single Light\n"  //
+                                        "Arrow will be enough to seal him in the Sacred\n" //
+                                        "Realm, skipping straight to the end credits.";    //
+/*------------------------------                                                           //
 |       SKIP EPONA RACE        |                                                           //
 ------------------------------*/                                                           //
 string_view skipEponaRaceDesc         = "Epona can be summoned with Epona's Song without\n"//
@@ -659,7 +665,7 @@ string_view skipEponaRaceDesc         = "Epona can be summoned with Epona's Song
 ------------------------------*/                                                           //
 string_view skipMinigamePhasesDesc    = "Completing the second objective in the Dampe Race\n"
                                         "and Gerudo Archery on the first attempt will give\n"
-                                        "both rewards at once for that minigame.";          //
+                                        "both rewards at once for that minigame.";         //
 /*------------------------------                                                           //
 |        FREE SCARECROW        |                                                           //
 ------------------------------*/                                                           //
