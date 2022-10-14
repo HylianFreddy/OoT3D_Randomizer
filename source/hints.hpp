@@ -227,3 +227,4 @@ extern std::array<ConditionalAlwaysHint, 9> conditionalAlwaysHints;
 extern HintKey GetHintRegionHintKey(const AreaKey area);
 extern void CreateAllHints();
 extern void CreateMerchantsHints();
+extern void CreateFixedHints();

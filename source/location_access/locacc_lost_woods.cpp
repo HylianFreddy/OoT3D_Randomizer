@@ -190,6 +190,7 @@ void AreaTable_Init_LostWoods() {
                   //Locations
                   LocationAccess(DEKU_THEATER_SKULL_MASK,    {[]{return IsChild && SkullMask;}}),
                   LocationAccess(DEKU_THEATER_MASK_OF_TRUTH, {[]{return IsChild && MaskOfTruth;}}),
+     /*GlitchLoc*/LocationAccess(LW_STAGE_GROTTO_CHEST,      {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(LW_BEYOND_MIDO, {[]{return true;}}),
@@ -199,6 +200,7 @@ void AreaTable_Init_LostWoods() {
                   //Locations
                   LocationAccess(LW_DEKU_SCRUB_GROTTO_REAR,  {[]{return CanStunDeku;}}),
                   LocationAccess(LW_DEKU_SCRUB_GROTTO_FRONT, {[]{return CanStunDeku;}}),
+     /*GlitchLoc*/LocationAccess(LW_SCRUBS_GROTTO_CHEST,     {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(LW_BEYOND_MIDO, {[]{return true;}}),
@@ -235,14 +237,18 @@ void AreaTable_Init_LostWoods() {
   areaTable[SFM_FAIRY_GROTTO] = Area("SFM Fairy Grotto", "", NONE, NO_DAY_NIGHT_CYCLE, {
                   //Events
                   EventAccess(&FreeFairies, {[]{return true;}}),
-                }, {}, {
+                }, {
+                  //Locations
+     /*GlitchLoc*/LocationAccess(FAIRY_FOUNTAIN_GROTTO_CHEST, {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
+                }, {
                   //Exits
                   Entrance(SACRED_FOREST_MEADOW, {[]{return true;}}),
   });
 
   areaTable[SFM_WOLFOS_GROTTO] = Area("SFM Wolfos Grotto", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {
                   //Locations
-                  LocationAccess(SFM_WOLFOS_GROTTO_CHEST, {[]{return CanUse(SLINGSHOT) || CanUse(STICKS) || CanUse(KOKIRI_SWORD) || CanUse(DINS_FIRE) || CanUse(MEGATON_HAMMER) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD);}}),
+                  LocationAccess(SFM_WOLFOS_GROTTO_CHEST,   {[]{return CanUse(SLINGSHOT) || CanUse(STICKS) || CanUse(KOKIRI_SWORD) || CanUse(DINS_FIRE) || CanUse(MEGATON_HAMMER) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD);}}),
+     /*GlitchLoc*/LocationAccess(SFM_WOLFOS_GLITCHED_CHEST, {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(SFM_ENTRYWAY, {[]{return true;}}),
@@ -252,6 +258,7 @@ void AreaTable_Init_LostWoods() {
                   //Locations
                   LocationAccess(SFM_DEKU_SCRUB_GROTTO_REAR,  {[]{return CanStunDeku;}}),
                   LocationAccess(SFM_DEKU_SCRUB_GROTTO_FRONT, {[]{return CanStunDeku;}}),
+     /*GlitchLoc*/LocationAccess(SFM_SCRUBS_GROTTO_CHEST,     {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(SACRED_FOREST_MEADOW, {[]{return true;}}),

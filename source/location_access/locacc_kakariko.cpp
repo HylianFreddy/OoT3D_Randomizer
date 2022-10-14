@@ -198,7 +198,8 @@ void AreaTable_Init_Kakariko() {
 
   areaTable[KAK_REDEAD_GROTTO] = Area("Kak Redead Grotto", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {
                   //Locations
-                  LocationAccess(KAK_REDEAD_GROTTO_CHEST, {[]{return CanUse(STICKS) || CanUse(KOKIRI_SWORD) || CanUse(DINS_FIRE) || CanUse(MEGATON_HAMMER) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD);}}),
+                  LocationAccess(KAK_REDEAD_GROTTO_CHEST,   {[]{return CanUse(STICKS) || CanUse(KOKIRI_SWORD) || CanUse(DINS_FIRE) || CanUse(MEGATON_HAMMER) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD);}}),
+     /*GlitchLoc*/LocationAccess(KAK_REDEAD_GLITCHED_CHEST, {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(KAKARIKO_VILLAGE, {[]{return true;}}),

@@ -503,6 +503,22 @@ string_view chestMinigameDesc         = "The 5 key chests in the Treasure Chest 
                                         "If you choose the \"pack\" option, you will get\n"//
                                         "all the keys at once, in a single item.";         //
 /*------------------------------                                                           //
+|  SHUFFLE GLITCHED LOCATIONS  |                                                           //
+------------------------------*/                                                           //
+string_view glitchedLocationsDesc     = "They say that enabling this is ill-advised.\n"    //
+                                        "\n"                                               //
+                                        "Shuffle locations that shouldn't exist and can\n" //
+                                        "only be reached with warp manipulation glitches.\n"
+                                        "\n"                                               //
+                                        "A list of all the items located there will be\n"  //
+                                        "available somewhere in the world.\n"              //
+                                        "\n"                                               //
+                                        "Actually impossible locations are excluded.\n";   //
+string_view glitchedLocationsListDesc = "Currently included:\n"                            //
+                                        "- Chests that only appear in DHWW scene layers\n" //
+                                        "- Generic grotto chests in non-generic grottos\n" //
+                                        "- 37th Piece of Heart";                           //
+/*------------------------------                                                           //
 |      MAPS AND COMPASSES      |                                                           //
 ------------------------------*/                                                           //
 string_view mapCompassStartWith       = "Maps and Compasses are given to you from the\n"   //

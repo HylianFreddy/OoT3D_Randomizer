@@ -304,7 +304,10 @@ void AreaTable_Init() {
                   Entrance(SACRED_FOREST_MEADOW, {[]{return true;}}),
   });
 
-  areaTable[BOLERO_OF_FIRE_WARP] = Area("Bolero of Fire Warp", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {}, {
+  areaTable[BOLERO_OF_FIRE_WARP] = Area("Bolero of Fire Warp", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {
+                  //Locations
+     /*GlitchLoc*/LocationAccess(HF_SCRUB_GROTTO_CHEST, {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
+                }, {
                   //Exits
                   Entrance(DMC_CENTRAL_LOCAL, {[]{return true;}}),
   });
@@ -319,12 +322,18 @@ void AreaTable_Init() {
                   Entrance(DESERT_COLOSSUS, {[]{return true;}}),
   });
 
-  areaTable[NOCTURNE_OF_SHADOW_WARP] = Area("Nocturne of Shadow Warp", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {}, {
+  areaTable[NOCTURNE_OF_SHADOW_WARP] = Area("Nocturne of Shadow Warp", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {
+                  //Locations
+     /*GlitchLoc*/LocationAccess(HF_WEBBED_GROTTO_CHEST, {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
+                }, {
                   //Exits
                   Entrance(GRAVEYARD_WARP_PAD_REGION, {[]{return true;}}),
   });
 
-  areaTable[PRELUDE_OF_LIGHT_WARP] = Area("Prelude of Light Warp", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {}, {
+  areaTable[PRELUDE_OF_LIGHT_WARP] = Area("Prelude of Light Warp", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {
+                  //Locations
+     /*GlitchLoc*/LocationAccess(HF_NEAR_KAK_GROTTO_CHEST, {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
+                }, {
                   //Exits
                   Entrance(TEMPLE_OF_TIME, {[]{return true;}}),
   });

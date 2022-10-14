@@ -159,6 +159,9 @@ extern string_view adultTradeDesc;
 
 extern string_view chestMinigameDesc;
 
+extern string_view glitchedLocationsDesc;
+extern string_view glitchedLocationsListDesc;
+
 extern string_view mapCompassStartWith;
 extern string_view mapCompassVanilla;
 extern string_view mapCompassOwnDungeon;

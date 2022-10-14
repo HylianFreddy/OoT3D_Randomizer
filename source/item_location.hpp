@@ -408,6 +408,8 @@ extern std::vector<LocationKey> overworldLocations;
 extern std::vector<LocationKey> allLocations;
 extern std::vector<LocationKey> everyPossibleLocation;
 
+extern std::vector<LocationKey> glitchedGrottoChestLocations;
+
 //set of overrides to write to the patch
 extern std::set<ItemOverride, ItemOverride_Compare> overrides;
 

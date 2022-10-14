@@ -1724,6 +1724,18 @@ void HintTable_Init_Item() {
 
   //MILK
 
+    hintTable[BOMBS_1] = HintText::Item({
+                       //obscure text
+                       Text{"an explosive", /*french*/"un pétard",        /*spanish*/"un explosivo"},
+                       Text{"a blast ball", /*french*/"une boule bleue",  /*spanish*/"un estallido"},
+                     }, {
+                       //ambiguous text
+                       Text{"explosives", /*french*/"un paquet d'explosifs", /*spanish*/"un montón de explosivos"},
+                     },
+                       //clear text
+                       Text{"Bombs (1 piece)", /*french*/"une bombe", /*spanish*/"una (1) bomba", /*italian*/"1 bomba", /*german*/"Deutsch"}
+    );
+
     hintTable[BOMBS_5] = HintText::Item({
                        //obscure text
                        Text{"a few explosives",  /*french*/"une poignée de pétards",       /*spanish*/"un par de explosivos"},

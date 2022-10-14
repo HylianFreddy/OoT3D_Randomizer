@@ -60,9 +60,10 @@ void AreaTable_Init_DeathMountain() {
 
   areaTable[DMT_COW_GROTTO] = Area("DMT Cow Grotto", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {
                   //Locations
-                  LocationAccess(DMT_COW_GROTTO_COW, {[]{return CanPlay(EponasSong);},
-                                          /*Glitched*/[]{return (CanDoGlitch(GlitchType::OutdoorBombOI, GlitchDifficulty::INTERMEDIATE) || ((Bugs || Fish) && CanShield && (CanSurviveDamage || (Fairy && NumBottles >= 2)) && CanDoGlitch(GlitchType::QPA, GlitchDifficulty::ADVANCED)) ||
-                                                                ((Bugs || Fish) && CanShield && HasBombchus && CanDoGlitch(GlitchType::ActionSwap, GlitchDifficulty::ADVANCED))) && EponasSong;}}),
+                  LocationAccess(DMT_COW_GROTTO_COW,   {[]{return CanPlay(EponasSong);},
+                                            /*Glitched*/[]{return (CanDoGlitch(GlitchType::OutdoorBombOI, GlitchDifficulty::INTERMEDIATE) || ((Bugs || Fish) && CanShield && (CanSurviveDamage || (Fairy && NumBottles >= 2)) && CanDoGlitch(GlitchType::QPA, GlitchDifficulty::ADVANCED)) ||
+                                                                  ((Bugs || Fish) && CanShield && HasBombchus && CanDoGlitch(GlitchType::ActionSwap, GlitchDifficulty::ADVANCED))) && EponasSong;}}),
+     /*GlitchLoc*/LocationAccess(DMT_COW_GROTTO_CHEST, {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(DEATH_MOUNTAIN_SUMMIT, {[]{return true;}}),
@@ -176,6 +177,7 @@ void AreaTable_Init_DeathMountain() {
                   LocationAccess(GC_DEKU_SCRUB_GROTTO_LEFT,   {[]{return CanStunDeku;}}),
                   LocationAccess(GC_DEKU_SCRUB_GROTTO_RIGHT,  {[]{return CanStunDeku;}}),
                   LocationAccess(GC_DEKU_SCRUB_GROTTO_CENTER, {[]{return CanStunDeku;}}),
+     /*GlitchLoc*/LocationAccess(GC_SCRUBS_GROTTO_CHEST,      {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(GC_GROTTO_PLATFORM, {[]{return true;}}),
@@ -286,6 +288,7 @@ void AreaTable_Init_DeathMountain() {
                   LocationAccess(DMC_DEKU_SCRUB_GROTTO_LEFT,   {[]{return CanStunDeku;}}),
                   LocationAccess(DMC_DEKU_SCRUB_GROTTO_RIGHT,  {[]{return CanStunDeku;}}),
                   LocationAccess(DMC_DEKU_SCRUB_GROTTO_CENTER, {[]{return CanStunDeku;}}),
+     /*GlitchLoc*/LocationAccess(DMC_SCRUBS_GROTTO_CHEST,      {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(DMC_LOWER_LOCAL, {[]{return true;}}),

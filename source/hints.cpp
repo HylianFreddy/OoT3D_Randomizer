@@ -685,6 +685,37 @@ void CreateMerchantsHints() {
   CreateMessageFromTextObject(0x6078, 0, 2, 3, AddColorsAndFormat(carpetSalesmanTextTwo, {QM_RED, QM_YELLOW, QM_RED}));
 }
 
+void CreateGlitchedLocationsHints() {
+  Text glitchedGrottoHint = Text{"Welcome to Glitch World!", "Glitch", "Glitch"};
+  if (ShuffleGlitchedLocs) {
+    for (LocationKey loc : glitchedGrottoChestLocations) {
+      glitchedGrottoHint = glitchedGrottoHint + "^";
+      glitchedGrottoHint = glitchedGrottoHint + Location(loc)->GetName();
+      glitchedGrottoHint = glitchedGrottoHint + " : ";
+      glitchedGrottoHint = glitchedGrottoHint + Location(loc)->GetPlacedItem().GetHint().GetText();
+    }
+  }
+  AddHint(glitchedGrottoHint, GLITCHED_GROTTO_GOSSIP_STONE, {});
+}
+
+// Create special location hints that always appear in the same place. Set their location as hinted if it doesn't exist in the hint table,
+// otherwise it could cause a crash if the location gets picked for a regular gossip stone hint.
+void CreateFixedHints() {
+  if (ShuffleMerchants.Is(SHUFFLEMERCHANTS_HINTS)) {
+    CreateMerchantsHints();
+  }
+
+  CreateGlitchedLocationsHints();
+
+  // Set these locations as hinted because they don't exist in the hint table, so they
+  // could cause a crash if they were selected for a regular gossip stone hint.
+  Location(KAK_GRANNYS_SHOP)->SetAsHinted();
+  Location(GC_MEDIGORON)->SetAsHinted();
+  for (LocationKey loc : glitchedGrottoChestLocations) {
+    Location(loc)->SetAsHinted();
+  }
+}
+
 void CreateAllHints() {
 
   CreateGanonText();

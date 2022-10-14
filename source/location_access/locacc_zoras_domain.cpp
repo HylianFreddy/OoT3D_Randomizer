@@ -88,7 +88,10 @@ void AreaTable_Init_ZorasDomain() {
   areaTable[ZR_FAIRY_GROTTO] = Area("ZR Fairy Grotto", "", NONE, NO_DAY_NIGHT_CYCLE, {
                   //Event
                   EventAccess(&FreeFairies, {[]{return true;}}),
-                }, {}, {
+                }, {
+                  //Locations
+     /*GlitchLoc*/LocationAccess(HF_SCRUB_GROTTO_CHEST, {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
+                }, {
                   //Exits
                   Entrance(ZORAS_RIVER, {[]{return true;}}),
   });
@@ -97,6 +100,7 @@ void AreaTable_Init_ZorasDomain() {
                   //Locations
                   LocationAccess(ZR_DEKU_SCRUB_GROTTO_REAR,  {[]{return CanStunDeku;}}),
                   LocationAccess(ZR_DEKU_SCRUB_GROTTO_FRONT, {[]{return CanStunDeku;}}),
+     /*GlitchLoc*/LocationAccess(ZR_SCRUBS_GROTTO_CHEST,     {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(ZORAS_RIVER, {[]{return true;}}),
@@ -160,7 +164,10 @@ void AreaTable_Init_ZorasDomain() {
   areaTable[ZD_STORMS_GROTTO] = Area("ZD Storms Grotto", "", NONE, NO_DAY_NIGHT_CYCLE, {
                   //Events
                   EventAccess(&FreeFairies, {[]{return true;}}),
-                }, {}, {
+                }, {
+                  //Locations
+     /*GlitchLoc*/LocationAccess(FAIRY_FOUNTAIN_GROTTO_CHEST, {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
+                }, {
                   //Exits
                   Entrance(ZORAS_DOMAIN, {[]{return true;}}),
   });

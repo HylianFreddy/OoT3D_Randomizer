@@ -59,7 +59,8 @@ void AreaTable_Init_HyruleField() {
 
   areaTable[HF_INSIDE_FENCE_GROTTO] = Area("HF Inside Fence Grotto", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {
                   //Locations
-                  LocationAccess(HF_DEKU_SCRUB_GROTTO, {[]{return CanStunDeku;}}),
+                  LocationAccess(HF_DEKU_SCRUB_GROTTO,  {[]{return CanStunDeku;}}),
+     /*GlitchLoc*/LocationAccess(HF_SCRUB_GROTTO_CHEST, {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(HYRULE_FIELD, {[]{return true;}}),
@@ -74,6 +75,7 @@ void AreaTable_Init_HyruleField() {
                                                                         (CanDoGlitch(GlitchType::OutdoorBombOI, GlitchDifficulty::INTERMEDIATE) || ((Bugs || Fish) && CanShield && Bombs && (CanSurviveDamage || (NumBottles >= 2 && Fairy)) && CanDoGlitch(GlitchType::QPA, GlitchDifficulty::ADVANCED)) || ((Bugs || Fish) && HasBombchus && CanShield && CanDoGlitch(GlitchType::ActionSwap, GlitchDifficulty::ADVANCED)) || Ocarina) && EponasSong;}}),
                   LocationAccess(HF_COW_GROTTO_GOSSIP_STONE, {[]{return HasFireSource;},
                                                   /*Glitched*/[]{return CanUse(STICKS) && Bombs && CanSurviveDamage && CanDoGlitch(GlitchType::QPA, GlitchDifficulty::NOVICE);}}),
+     /*GlitchLoc*/LocationAccess(HF_WEBBED_GROTTO_CHEST,     {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(HYRULE_FIELD, {[]{return true;}}),
@@ -91,14 +93,18 @@ void AreaTable_Init_HyruleField() {
   areaTable[HF_FAIRY_GROTTO] = Area("HF Fairy Grotto", "", NONE, NO_DAY_NIGHT_CYCLE, {
                   //Events
                   EventAccess(&FreeFairies, {[]{return true;}}),
-                }, {}, {
+                }, {
+                  //Locations
+     /*GlitchLoc*/LocationAccess(FAIRY_FOUNTAIN_GROTTO_CHEST, {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
+                }, {
                   //Exits
                   Entrance(HYRULE_FIELD, {[]{return true;}}),
   });
 
   areaTable[HF_NEAR_KAK_GROTTO] = Area("HF Near Kak Grotto", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {
                   //Locations
-                  LocationAccess(HF_GS_NEAR_KAK_GROTTO, {[]{return HookshotOrBoomerang;}}),
+                  LocationAccess(HF_GS_NEAR_KAK_GROTTO,    {[]{return HookshotOrBoomerang;}}),
+     /*GlitchLoc*/LocationAccess(HF_NEAR_KAK_GROTTO_CHEST, {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(HYRULE_FIELD, {[]{return true;}}),
@@ -107,6 +113,7 @@ void AreaTable_Init_HyruleField() {
   areaTable[HF_TEKTITE_GROTTO] = Area("HF Tektite Grotto", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {
                   //Locations
                   LocationAccess(HF_TEKTITE_GROTTO_FREESTANDING_POH, {[]{return ProgressiveScale >= 2 || CanUse(IRON_BOOTS);}}),
+     /*GlitchLoc*/LocationAccess(HF_TEKTITE_GROTTO_CHEST,            {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(HYRULE_FIELD, {[]{return true;}}),
@@ -196,6 +203,7 @@ void AreaTable_Init_HyruleField() {
                   LocationAccess(LH_DEKU_SCRUB_GROTTO_LEFT,   {[]{return CanStunDeku;}}),
                   LocationAccess(LH_DEKU_SCRUB_GROTTO_RIGHT,  {[]{return CanStunDeku;}}),
                   LocationAccess(LH_DEKU_SCRUB_GROTTO_CENTER, {[]{return CanStunDeku;}}),
+     /*GlitchLoc*/LocationAccess(LH_SCRUBS_GROTTO_CHEST,      {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(LAKE_HYLIA, {[]{return true;}}),
@@ -260,6 +268,7 @@ void AreaTable_Init_HyruleField() {
                   LocationAccess(LLR_DEKU_SCRUB_GROTTO_LEFT,   {[]{return CanStunDeku;}}),
                   LocationAccess(LLR_DEKU_SCRUB_GROTTO_RIGHT,  {[]{return CanStunDeku;}}),
                   LocationAccess(LLR_DEKU_SCRUB_GROTTO_CENTER, {[]{return CanStunDeku;}}),
+     /*GlitchLoc*/LocationAccess(LLR_SCRUBS_GROTTO_CHEST,      {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(LON_LON_RANCH, {[]{return true;}}),

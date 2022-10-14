@@ -177,6 +177,11 @@ typedef enum {
 } ShuffleChestMinigameSetting;
 
 typedef enum {
+  SHUFFLEGLITCHEDLOCS_OFF,
+  SHUFFLEGLITCHEDLOCS_ON,
+} ShuffleGlitchedLocsSetting;
+
+typedef enum {
   MAPSANDCOMPASSES_START_WITH,
   MAPSANDCOMPASSES_VANILLA,
   MAPSANDCOMPASSES_OWN_DUNGEON,
@@ -460,6 +465,7 @@ typedef struct {
   u8 shuffleFrogSongRupees;
   u8 shuffleAdultTradeQuest;
   u8 shuffleChestMinigame;
+  u8 shuffleGlitchedLocations;
 
   u8 mapsAndCompasses;
   u8 keysanity;

@@ -89,7 +89,10 @@ void AreaTable_Init_GerudoValley() {
                   Entrance(GV_FORTRESS_SIDE, {[]{return true;}}),
   });
 
-  areaTable[GV_OCTOROK_GROTTO] = Area("GV Octorok Grotto", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {}, {
+  areaTable[GV_OCTOROK_GROTTO] = Area("GV Octorok Grotto", "", NONE, NO_DAY_NIGHT_CYCLE, {}, {
+                  //Locations
+     /*GlitchLoc*/LocationAccess(GV_OCTOROK_GROTTO_CHEST, {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
+                }, {
                   //Exits
                   Entrance(GV_GROTTO_LEDGE, {[]{return true;}}),
   });
@@ -98,6 +101,7 @@ void AreaTable_Init_GerudoValley() {
                   //Locations
                   LocationAccess(GV_DEKU_SCRUB_GROTTO_REAR,  {[]{return CanStunDeku;}}),
                   LocationAccess(GV_DEKU_SCRUB_GROTTO_FRONT, {[]{return CanStunDeku;}}),
+     /*GlitchLoc*/LocationAccess(GV_SCRUBS_GROTTO_CHEST,     {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(GV_FORTRESS_SIDE, {[]{return true;}}),
@@ -151,7 +155,10 @@ void AreaTable_Init_GerudoValley() {
   areaTable[GF_STORMS_GROTTO] = Area("GF Storms Grotto", "", NONE, NO_DAY_NIGHT_CYCLE, {
                   //Events
                   EventAccess(&FreeFairies, {[]{return true;}}),
-                }, {}, {
+                }, {
+                  //Locations
+     /*GlitchLoc*/LocationAccess(FAIRY_FOUNTAIN_GROTTO_CHEST, {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
+                }, {
                   //Exits
                   Entrance(GERUDO_FORTRESS, {[]{return true;}}),
   });
@@ -234,6 +241,7 @@ void AreaTable_Init_GerudoValley() {
                   //Locations
                   LocationAccess(COLOSSUS_DEKU_SCRUB_GROTTO_REAR,  {[]{return CanStunDeku;}}),
                   LocationAccess(COLOSSUS_DEKU_SCRUB_GROTTO_FRONT, {[]{return CanStunDeku;}}),
+     /*GlitchLoc*/LocationAccess(DC_SCRUBS_GROTTO_CHEST,           {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(DESERT_COLOSSUS, {[]{return true;}}),

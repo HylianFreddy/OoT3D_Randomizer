@@ -131,6 +131,7 @@ void AreaTable_Init_CastleTown() {
                   LocationAccess(HC_GS_STORMS_GROTTO,           {[]{return CanBlastOrSmash && HookshotOrBoomerang;},
                                                      /*Glitched*/[]{return CanDoGlitch(GlitchType::BombHover, GlitchDifficulty::INTERMEDIATE);}}),
                   LocationAccess(HC_STORMS_GROTTO_GOSSIP_STONE, {[]{return CanBlastOrSmash;}}),
+     /*GlitchLoc*/LocationAccess(HC_SOS_GROTTO_CHEST,           {[]{return HasExplosives && CanUse(FARORES_WIND);}}),
                 }, {
                   //Exits
                   Entrance(CASTLE_GROUNDS, {[]{return true;}}),

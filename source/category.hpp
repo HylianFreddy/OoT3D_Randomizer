@@ -63,6 +63,7 @@ enum class Category {
     cVanillaCompass,
     cAdultTrade,
     cFrogRupees,
+    cGlitchedLocations,
 };
 
 enum class OptionCategory {

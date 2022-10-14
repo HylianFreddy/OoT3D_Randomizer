@@ -190,6 +190,7 @@ namespace Settings {
   Option ShuffleAdultTradeQuest = Option::Bool("Shuffle Adult Trade",    {"Off", "On"},                                                     {adultTradeDesc});
   Option ShuffleChestMinigame   = Option::U8  ("Shuffle Chest Minigame", {"Off", "On (Separate)", "On (Pack)"},                             {chestMinigameDesc});
   Option ShuffleFrogSongRupees  = Option::Bool("Shuffle Frog Rupees",    {"Off", "On"},                                                     {frogSongRupeesDesc});
+  Option ShuffleGlitchedLocs    = Option::Bool("Shuffle Glitched Locs.", {"Off", "On"},                                                     {glitchedLocationsDesc, glitchedLocationsListDesc});
   std::vector<Option *> shuffleOptions = {
     &RandomizeShuffle,
     &ShuffleRewards,
@@ -209,6 +210,7 @@ namespace Settings {
     &ShuffleAdultTradeQuest,
     &ShuffleChestMinigame,
     &ShuffleFrogSongRupees,
+    &ShuffleGlitchedLocs,
   };
 
   //Shuffle Dungeon Items
@@ -1348,6 +1350,7 @@ namespace Settings {
     ctx.shuffleFrogSongRupees = (ShuffleFrogSongRupees) ? 1 : 0;
     ctx.shuffleAdultTradeQuest = (ShuffleAdultTradeQuest) ? 1 : 0;
     ctx.shuffleChestMinigame = ShuffleChestMinigame.Value<u8>();
+    ctx.shuffleGlitchedLocations = (ShuffleGlitchedLocs) ? 1 : 0;
 
     ctx.mapsAndCompasses     = MapsAndCompasses.Value<u8>();
     ctx.keysanity            = Keysanity.Value<u8>();
@@ -1799,6 +1802,13 @@ namespace Settings {
       IncludeAndHide(ChestMinigameLocations);
     }
 
+    //Force include glitched locations if they're not shuffled
+    if (ShuffleGlitchedLocs) {
+      Unhide(glitchedGrottoChestLocations);
+    } else {
+      IncludeAndHide(glitchedGrottoChestLocations);
+    }
+
     //Force include Map and Compass Chests when Vanilla
     std::vector<LocationKey> mapChests = GetLocations(everyPossibleLocation, Category::cVanillaMap);
     std::vector<LocationKey> compassChests = GetLocations(everyPossibleLocation, Category::cVanillaCompass);
@@ -1941,8 +1951,7 @@ namespace Settings {
     //Only show Manual Zora Speed if it's set to Custom
     if (KingZoraSpeed.Is(KINGZORASPEED_CUSTOM)){
       ExactZoraSpeed.Unhide();
-    }
-    else{
+    } else {
       ExactZoraSpeed.Hide();
     }
 
@@ -2105,6 +2114,13 @@ namespace Settings {
           option->SetSelectedIndex(0);
         }
       }
+    }
+
+    if (Logic.Is(LOGIC_GLITCHLESS) || Logic.Is(LOGIC_VANILLA)) {
+      ShuffleGlitchedLocs.SetSelectedIndex(OFF);
+      ShuffleGlitchedLocs.Lock();
+    } else {
+      ShuffleGlitchedLocs.Unlock();
     }
 
     //Only show hint options if hints are enabled
@@ -2441,6 +2457,7 @@ namespace Settings {
       { &ShuffleAdultTradeQuest, SHUFFLEADULTTRADEQUEST_ON },
       { &ShuffleChestMinigame, SHUFFLECHESTMINIGAME_OFF },
       { &ShuffleFrogSongRupees, SHUFFLEFROGSONGRUPEES_OFF },
+      { &ShuffleGlitchedLocs, SHUFFLEGLITCHEDLOCS_OFF },
       { &Keysanity, KEYSANITY_ANY_DUNGEON }, // Set small keys to any dungeon so FiT basement door will be locked
       { &GossipStoneHints, HINTS_NO_HINTS },
   };
@@ -2524,6 +2541,10 @@ namespace Settings {
       LinksPocketItem.Unlock();
       // Skip RandomizeShuffle Option
       for (size_t i=1; i < shuffleOptions.size(); i++) {
+        // Skip unfair Option
+        if (shuffleOptions[i]==&ShuffleGlitchedLocs) {
+          continue;
+        }
         shuffleOptions[i]->Hide();
         //randomize options
         if (selectOptions) {

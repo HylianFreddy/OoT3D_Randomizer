@@ -349,6 +349,7 @@ namespace Settings {
   extern Option ShuffleFrogSongRupees;
   extern Option ShuffleAdultTradeQuest;
   extern Option ShuffleChestMinigame;
+  extern Option ShuffleGlitchedLocs;
 
   extern Option MapsAndCompasses;
   extern Option Keysanity;

@@ -869,6 +869,31 @@ void LocationTable_Init() {
     locationTable[GC_SHOP_ITEM_7]                                = ItemLocation::Base(0x2E, 0x36, "GC Shop Item 7",                                    GC_SHOP_ITEM_7,              BUY_RED_POTION_40,         {Category::cGoronCity, Category::cShop},                                                                          SpoilerCollectionCheck::ShopItem(0x2E, 6),               SpoilerCollectionCheckGroup::GROUP_GORON_CITY);
     locationTable[GC_SHOP_ITEM_8]                                = ItemLocation::Base(0x2E, 0x37, "GC Shop Item 8",                                    GC_SHOP_ITEM_8,              BUY_HEART,                 {Category::cGoronCity, Category::cShop},                                                                          SpoilerCollectionCheck::ShopItem(0x2E, 7),               SpoilerCollectionCheckGroup::GROUP_GORON_CITY);
 
+  /*-------------------------------
+       --- GLITCHED LOCATIONS ---
+    -------------------------------*/
+
+    locationTable[HF_TEKTITE_GROTTO_CHEST]                       = ItemLocation::Chest(0x3E, 0x01, "HF Tektite Grotto Chest",                          HF_TEKTITE_GROTTO_CHEST,     BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cHyruleField},                                                                                                 SpoilerCollectionCheckGroup::GROUP_HYRULE_FIELD);
+    locationTable[HF_WEBBED_GROTTO_CHEST]                        = ItemLocation::Chest(0x3E, 0x04, "HF Webbed Grotto Chest",                           HF_WEBBED_GROTTO_CHEST,      BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cHyruleField},                                                                                                 SpoilerCollectionCheckGroup::GROUP_HYRULE_FIELD);
+    locationTable[HF_NEAR_KAK_GROTTO_CHEST]                      = ItemLocation::Chest(0x3E, 0x05, "HF Near Kak Grotto Chest",                         HF_NEAR_KAK_GROTTO_CHEST,    BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cHyruleField},                                                                                                 SpoilerCollectionCheckGroup::GROUP_HYRULE_FIELD);
+    locationTable[HF_SCRUB_GROTTO_CHEST]                         = ItemLocation::Chest(0x3E, 0x06, "HF Scrub Grotto Chest",                            HF_SCRUB_GROTTO_CHEST,       BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cHyruleField},                                                                                                 SpoilerCollectionCheckGroup::GROUP_HYRULE_FIELD);
+    locationTable[KAK_REDEAD_GLITCHED_CHEST]                     = ItemLocation::Chest(0x3E, 0x07, "Kak Redead Glitched Chest",                        KAK_REDEAD_GLITCHED_CHEST,   BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cKakarikoVillage, Category::cKakariko},                                                                        SpoilerCollectionCheckGroup::GROUP_ZORAS_RIVER);
+    locationTable[ZR_SCRUBS_GROTTO_CHEST]                        = ItemLocation::Chest(0x3E, 0x0B, "ZR Scrubs Grotto Chest",                           ZR_SCRUBS_GROTTO_CHEST,      BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cZorasRiver},                                                                                                  SpoilerCollectionCheckGroup::GROUP_ZORAS_RIVER);
+    locationTable[SFM_WOLFOS_GLITCHED_CHEST]                     = ItemLocation::Chest(0x3E, 0x0D, "SFM Wolfos Glitched Chest",                        SFM_WOLFOS_GLITCHED_CHEST,   BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cZorasRiver},                                                                                                  SpoilerCollectionCheckGroup::GROUP_ZORAS_RIVER);
+    locationTable[SFM_SCRUBS_GROTTO_CHEST]                       = ItemLocation::Chest(0x3E, 0x0E, "SFM Scrubs Grotto Chest",                          SFM_SCRUBS_GROTTO_CHEST,     BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cLostWoods},                                                                                                   SpoilerCollectionCheckGroup::GROUP_LOST_WOODS);
+    locationTable[LH_SCRUBS_GROTTO_CHEST]                        = ItemLocation::Chest(0x3E, 0x0F, "LH Scrubs Grotto Chest",                           LH_SCRUBS_GROTTO_CHEST,      BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cLakeHylia},                                                                                                   SpoilerCollectionCheckGroup::GROUP_LAKE_HYLIA);
+    locationTable[GV_SCRUBS_GROTTO_CHEST]                        = ItemLocation::Chest(0x3E, 0x10, "GV Scrubs Grotto Chest",                           GV_SCRUBS_GROTTO_CHEST,      BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cGerudoValley},                                                                                                SpoilerCollectionCheckGroup::GROUP_GERUDO_VALLEY);
+    locationTable[GV_OCTOROK_GROTTO_CHEST]                       = ItemLocation::Chest(0x3E, 0x12, "GV Scrubs Grotto Chest",                           GV_OCTOROK_GROTTO_CHEST,     BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cGerudoValley},                                                                                                SpoilerCollectionCheckGroup::GROUP_GERUDO_VALLEY);
+    locationTable[LW_STAGE_GROTTO_CHEST]                         = ItemLocation::Chest(0x3E, 0x13, "LW Stage Grotto Chest",                            LW_STAGE_GROTTO_CHEST,       BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cLostWoods},                                                                                                   SpoilerCollectionCheckGroup::GROUP_LOST_WOODS);
+    locationTable[LW_SCRUBS_GROTTO_CHEST]                        = ItemLocation::Chest(0x3E, 0x15, "LW Scrubs Grotto Chest",                           LW_SCRUBS_GROTTO_CHEST,      BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cLostWoods},                                                                                                   SpoilerCollectionCheckGroup::GROUP_LOST_WOODS);
+    locationTable[HC_SOS_GROTTO_CHEST]                           = ItemLocation::Chest(0x3E, 0x16, "HC SOS Grotto Chest",                              HC_SOS_GROTTO_CHEST,         BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cHyruleCastle},                                                                                                SpoilerCollectionCheckGroup::GROUP_HYRULE_CASTLE);
+    locationTable[DMT_COW_GROTTO_CHEST]                          = ItemLocation::Chest(0x3E, 0x18, "DMT Cow Grotto Chest",                             DMT_COW_GROTTO_CHEST,        BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cDeathMountain},                                                                                               SpoilerCollectionCheckGroup::GROUP_DEATH_MOUNTAIN);
+    locationTable[DMC_SCRUBS_GROTTO_CHEST]                       = ItemLocation::Chest(0x3E, 0x19, "DMC Scrubs Grotto Chest",                          DMC_SCRUBS_GROTTO_CHEST,     BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cDeathMountain},                                                                                               SpoilerCollectionCheckGroup::GROUP_DEATH_MOUNTAIN);
+    locationTable[GC_SCRUBS_GROTTO_CHEST]                        = ItemLocation::Chest(0x3E, 0x1B, "GC Scrubs Grotto Chest",                           GC_SCRUBS_GROTTO_CHEST,      BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cGoronCity},                                                                                                   SpoilerCollectionCheckGroup::GROUP_GORON_CITY);
+    locationTable[LLR_SCRUBS_GROTTO_CHEST]                       = ItemLocation::Chest(0x3E, 0x1C, "LLR Scrubs Grotto Chest",                          LLR_SCRUBS_GROTTO_CHEST,     BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cLonLonRanch},                                                                                                 SpoilerCollectionCheckGroup::GROUP_LON_LON_RANCH);
+    locationTable[DC_SCRUBS_GROTTO_CHEST]                        = ItemLocation::Chest(0x3E, 0x1D, "DC Scrubs Grotto Chest",                           DC_SCRUBS_GROTTO_CHEST,      BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cDesertColossus},                                                                                              SpoilerCollectionCheckGroup::GROUP_GERUDO_VALLEY);
+    locationTable[FAIRY_FOUNTAIN_GROTTO_CHEST]                   = ItemLocation::Chest(0x3E, 0x1F, "Fairy Fountain Grotto Chest",                      FAIRY_FOUNTAIN_GROTTO_CHEST, BOMBS_1,                   {Category::cGrotto, Category::cGlitchedLocations, Category::cHyruleField},                                                                                                 SpoilerCollectionCheckGroup::GROUP_HYRULE_FIELD);
+
     /*-------------------------------
           --- GOSSIP STONES ---
       -------------------------------*/
@@ -915,6 +940,8 @@ void LocationTable_Init() {
     locationTable[LW_NEAR_SHORTCUTS_GROTTO_GOSSIP_STONE]         = ItemLocation::HintStone(0x00, 0x34, "LW Near Shortcuts Gossip Stone",              {});
     locationTable[DMT_STORMS_GROTTO_GOSSIP_STONE]                = ItemLocation::HintStone(0x00, 0x37, "DMT Storms Grotto Gossip Stone",              {});
     locationTable[DMC_UPPER_GROTTO_GOSSIP_STONE]                 = ItemLocation::HintStone(0x00, 0x3A, "DMC Upper Grotto Gossip Stone",               {});
+
+    locationTable[GLITCHED_GROTTO_GOSSIP_STONE]                  = ItemLocation::HintStone(0x00, 0x3F, "Glitched Grotto Gossip Stone",                {});
 
     locationTable[GANONDORF_HINT]                                = ItemLocation::OtherHint(0x00, 0x00, "Ganondorf Hint",                              {});
 
@@ -1430,6 +1457,54 @@ std::vector<LocationKey> overworldLocations = {
   LLR_GS_RAIN_SHED,
   LLR_GS_HOUSE_WINDOW,
   LLR_GS_TREE,
+
+  /*-------------------------------
+       --- GLITCHED LOCATIONS ---
+    -------------------------------*/
+  // Grotto chests
+  HF_TEKTITE_GROTTO_CHEST,
+  HF_WEBBED_GROTTO_CHEST,
+  HF_NEAR_KAK_GROTTO_CHEST,
+  HF_SCRUB_GROTTO_CHEST,
+  KAK_REDEAD_GLITCHED_CHEST,
+  ZR_SCRUBS_GROTTO_CHEST,
+  SFM_WOLFOS_GLITCHED_CHEST,
+  SFM_SCRUBS_GROTTO_CHEST,
+  LH_SCRUBS_GROTTO_CHEST,
+  GV_SCRUBS_GROTTO_CHEST,
+  GV_OCTOROK_GROTTO_CHEST,
+  LW_STAGE_GROTTO_CHEST,
+  LW_SCRUBS_GROTTO_CHEST,
+  HC_SOS_GROTTO_CHEST,
+  DMT_COW_GROTTO_CHEST,
+  DMC_SCRUBS_GROTTO_CHEST,
+  GC_SCRUBS_GROTTO_CHEST,
+  LLR_SCRUBS_GROTTO_CHEST,
+  DC_SCRUBS_GROTTO_CHEST,
+  FAIRY_FOUNTAIN_GROTTO_CHEST,
+};
+
+std::vector<LocationKey> glitchedGrottoChestLocations = {
+  HF_TEKTITE_GROTTO_CHEST,
+  HF_WEBBED_GROTTO_CHEST,
+  HF_NEAR_KAK_GROTTO_CHEST,
+  HF_SCRUB_GROTTO_CHEST,
+  KAK_REDEAD_GLITCHED_CHEST,
+  ZR_SCRUBS_GROTTO_CHEST,
+  SFM_WOLFOS_GLITCHED_CHEST,
+  SFM_SCRUBS_GROTTO_CHEST,
+  LH_SCRUBS_GROTTO_CHEST,
+  GV_SCRUBS_GROTTO_CHEST,
+  GV_OCTOROK_GROTTO_CHEST,
+  LW_STAGE_GROTTO_CHEST,
+  LW_SCRUBS_GROTTO_CHEST,
+  HC_SOS_GROTTO_CHEST,
+  DMT_COW_GROTTO_CHEST,
+  DMC_SCRUBS_GROTTO_CHEST,
+  GC_SCRUBS_GROTTO_CHEST,
+  LLR_SCRUBS_GROTTO_CHEST,
+  DC_SCRUBS_GROTTO_CHEST,
+  FAIRY_FOUNTAIN_GROTTO_CHEST,
 };
 
 ItemLocation* Location(LocationKey locKey) {
