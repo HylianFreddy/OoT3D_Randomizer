@@ -1726,11 +1726,11 @@ void HintTable_Init_Item() {
 
     hintTable[BOMBS_1] = HintText::Item({
                        //obscure text
-                       Text{"an explosive", /*french*/"un pétard",        /*spanish*/"un explosivo"},
-                       Text{"a blast ball", /*french*/"une boule bleue",  /*spanish*/"un estallido"},
+                       Text{"an explosive", /*french*/"un pétard",       /*spanish*/"un explosivo", /*italian*/"un esplosivo", /*german*/"Deutsch"},
+                       Text{"a blast ball", /*french*/"une boule bleue", /*spanish*/"un estallido", /*italian*/"uno scoppio",  /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"explosives", /*french*/"un paquet d'explosifs", /*spanish*/"un montón de explosivos"},
+                       Text{"explosives", /*french*/"un paquet d'explosifs", /*spanish*/"un montón de explosivos", /*italian*/"un pacchetto di esplosivi", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"Bombs (1 piece)", /*french*/"une bombe", /*spanish*/"una (1) bomba", /*italian*/"1 bomba", /*german*/"Deutsch"}
