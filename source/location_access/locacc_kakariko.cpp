@@ -227,6 +227,7 @@ void AreaTable_Init_Kakariko() {
                   LocationAccess(GRAVEYARD_GS_WALL,                 {[]{return IsChild && HookshotOrBoomerang && AtNight && CanGetNightTimeGS;},
                                                          /*Glitched*/[]{return IsChild && AtNight && CanGetNightTimeGS && CanDoGlitch(GlitchType::BombHover, GlitchDifficulty::INTERMEDIATE);}}),
                   LocationAccess(GRAVEYARD_GS_BEAN_PATCH,           {[]{return CanPlantBugs && CanChildAttack;}}),
+     /*GlitchLoc*/LocationAccess(EXTRA_POH_38,                      {[]{return Bombs && Nuts && CanUse(FARORES_WIND) && CanUse(LONGSHOT);}}),
                 }, {
                   //Exits
                   Entrance(GRAVEYARD_SHIELD_GRAVE,       {[]{return IsAdult || AtNight;}}),

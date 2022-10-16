@@ -185,6 +185,8 @@ std::vector<LocationKey> DungeonInfo::GetEveryLocation() const {
                             JABU_JABUS_BELLY_GS_LOBBY_BASEMENT_UPPER,
                             JABU_JABUS_BELLY_GS_NEAR_BOSS,
                             JABU_JABUS_BELLY_GS_WATER_SWITCH_ROOM,
+                            BETA_JABU_NUTS,
+                            BETA_JABU_BOOMERANG,
                           }, {
                             //MQ Locations
                             JABU_JABUS_BELLY_MQ_FIRST_ROOM_SIDE_CHEST,

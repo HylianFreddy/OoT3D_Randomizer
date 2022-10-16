@@ -782,27 +782,19 @@ void GenerateItemPool() {
 
   if (ShuffleGlitchedLocs) {
     AddItemToMainPool(BOMBS_1, 20);
+    AddItemToMainPool(PIECE_OF_HEART, 2);
+    if (Dungeon::JabuJabusBelly.IsVanilla()) {
+      AddItemToMainPool(BOOMERANG, 1);
+      AddItemToMainPool(DEKU_NUTS_5, 1);
+    }
   } else {
-    PlaceItemInLocation(HF_TEKTITE_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(HF_WEBBED_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(HF_NEAR_KAK_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(HF_SCRUB_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(KAK_REDEAD_GLITCHED_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(ZR_SCRUBS_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(SFM_WOLFOS_GLITCHED_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(SFM_SCRUBS_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(LH_SCRUBS_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(GV_SCRUBS_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(GV_OCTOROK_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(LW_STAGE_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(LW_SCRUBS_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(HC_SOS_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(DMT_COW_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(DMC_SCRUBS_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(GC_SCRUBS_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(LLR_SCRUBS_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(DC_SCRUBS_GROTTO_CHEST, BOMBS_1, false, true);
-    PlaceItemInLocation(FAIRY_FOUNTAIN_GROTTO_CHEST, BOMBS_1, false, true);
+    for (LocationKey loc : glitchedLocations) {
+      if (Dungeon::JabuJabusBelly.IsMQ() && (loc == BETA_JABU_NUTS || loc == BETA_JABU_BOOMERANG))
+        continue;
+
+      Location(loc)->PlaceVanillaItem();
+      itemsPlaced++;
+    }
   }
 
   if (Tokensanity.Is(TOKENSANITY_OFF)) {

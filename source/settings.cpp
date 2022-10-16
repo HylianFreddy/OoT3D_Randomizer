@@ -1804,9 +1804,9 @@ namespace Settings {
 
     //Force include glitched locations if they're not shuffled
     if (ShuffleGlitchedLocs) {
-      Unhide(glitchedGrottoChestLocations);
+      Unhide(glitchedLocations);
     } else {
-      IncludeAndHide(glitchedGrottoChestLocations);
+      IncludeAndHide(glitchedLocations);
     }
 
     //Force include Map and Compass Chests when Vanilla

@@ -688,10 +688,13 @@ void CreateMerchantsHints() {
 void CreateGlitchedLocationsHints() {
   Text glitchedGrottoHint = Text{"Welcome to Glitch World!", "Glitch", "Glitch"};
   if (ShuffleGlitchedLocs) {
-    for (LocationKey loc : glitchedGrottoChestLocations) {
+    for (LocationKey loc : glitchedLocations) {
+      if (Dungeon::JabuJabusBelly.IsMQ() && (loc == BETA_JABU_NUTS || loc == BETA_JABU_BOOMERANG))
+        continue;
+
       glitchedGrottoHint = glitchedGrottoHint + "^";
       glitchedGrottoHint = glitchedGrottoHint + Location(loc)->GetName();
-      glitchedGrottoHint = glitchedGrottoHint + " : ";
+      glitchedGrottoHint = glitchedGrottoHint + ":&";
       glitchedGrottoHint = glitchedGrottoHint + Location(loc)->GetPlacedItem().GetHint().GetText();
     }
   }
@@ -711,7 +714,7 @@ void CreateFixedHints() {
   // could cause a crash if they were selected for a regular gossip stone hint.
   Location(KAK_GRANNYS_SHOP)->SetAsHinted();
   Location(GC_MEDIGORON)->SetAsHinted();
-  for (LocationKey loc : glitchedGrottoChestLocations) {
+  for (LocationKey loc : glitchedLocations) {
     Location(loc)->SetAsHinted();
   }
 }
