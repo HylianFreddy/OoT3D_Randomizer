@@ -769,8 +769,8 @@ void HintTable_Init_Item() {
 
     hintTable[BOTTLE_WITH_POE] = HintText::Item({
                        //obscure text
-                       Text{"a spooky ghost",    /*french*/"un effroyable fantôme",   /*spanish*/"un espantoso espectro"},
-                       Text{"a face in the jar", /*french*/"un visage dans un bocal", /*spanish*/"una expresión enfrascada"},
+                       Text{"a spooky ghost",    /*french*/"un effroyable fantôme",   /*spanish*/"un espantoso espectro",    /*italian*/"un sinistro spirito",         /*german*/"Deutsch"},
+                       Text{"a face in the jar", /*french*/"un visage dans un bocal", /*spanish*/"una expresión enfrascada", /*italian*/"una faccia in una borraccia", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
                        Text{"a bottle", /*french*/"un flacon", /*spanish*/"una botella", /*italian*/"un'ampolla", /*german*/"Deutsch"},
@@ -781,8 +781,8 @@ void HintTable_Init_Item() {
 
     hintTable[BOTTLE_WITH_BIG_POE] = HintText::Item({
                        //obscure text
-                       Text{"the spookiest ghost", /*french*/"un épouvantable spectre", /*spanish*/"el espectro más espeluznante"},
-                       Text{"a sidequest spirit",  /*french*/"un précieux esprit",      /*spanish*/"un buen valorado espíritu"},
+                       Text{"the spookiest ghost", /*french*/"un épouvantable spectre", /*spanish*/"el espectro más espeluznante", /*italian*/"un destro spettro",      /*german*/"Deutsch"},
+                       Text{"a sidequest spirit",  /*french*/"un précieux esprit",      /*spanish*/"un buen valorado espíritu",    /*italian*/"un fantasma che scappa", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
                        Text{"a bottle", /*french*/"un flacon", /*spanish*/"una botella", /*italian*/"un'ampolla", /*german*/"Deutsch"},
@@ -793,25 +793,25 @@ void HintTable_Init_Item() {
 
     hintTable[RUTOS_LETTER] = HintText::Item({
                        //obscure text
-                       Text{"a call for help",      /*french*/"un appel au secours",       /*spanish*/"una llamada de auxilio"},
-                       Text{"the note that Mweeps", /*french*/"un message qui fait mwip",  /*spanish*/"un escrito mweep"},
-                       Text{"an SOS call",          /*french*/"un signal SOS",             /*spanish*/"una nota de socorro"},
-                       Text{"a fishy stationery",   /*french*/"un papier mouillé",         /*spanish*/"un mensaje de ayuda"},
+                       Text{"a call for help",      /*french*/"un appel au secours",       /*spanish*/"una llamada de auxilio", /*italian*/"una chiamata d'aiuto",   /*german*/"Deutsch"},
+                       Text{"the note that Mweeps", /*french*/"un message qui fait mwip",  /*spanish*/"un escrito mweep",       /*italian*/"la causa dei \"mweep\"", /*german*/"Deutsch"},
+                       Text{"an SOS call",          /*french*/"un signal SOS",             /*spanish*/"una nota de socorro",    /*italian*/"un segnale SOS",         /*german*/"Deutsch"},
+                       Text{"a fishy stationery",   /*french*/"un papier mouillé",         /*spanish*/"un mensaje de ayuda",    /*italian*/"carta bagnata",          /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
                        Text{"a bottle", /*french*/"un flacon", /*spanish*/"una botella", /*italian*/"un'ampolla", /*german*/"Deutsch"},
                      },
                        //clear text
-                       Text{"Ruto's Letter", /*french*/"la lettre de Ruto", /*spanish*/"la carta de Ruto", /*italian*/"una lettera in un'ampolla", /*german*/"Deutsch"}
+                       Text{"Ruto's Letter", /*french*/"la lettre de Ruto", /*spanish*/"la carta de Ruto", /*italian*/"la lettera di Ruto", /*german*/"Deutsch"}
     );
 
     hintTable[ZELDAS_LULLABY] = HintText::Item({
                        //obscure text
-                       Text{"a song of royal slumber", /*french*/"une chanson royale", /*spanish*/"la canción real"},
-                       Text{"a triforce tune",         /*french*/"la musique sacrée",  /*spanish*/"la melodía de la trifuerza"},
+                       Text{"a song of royal slumber", /*french*/"une chanson royale", /*spanish*/"la canción real",            /*italian*/"un legame con la famiglia reale", /*german*/"Deutsch"},
+                       Text{"a triforce tune",         /*french*/"la musique sacrée",  /*spanish*/"la melodía de la trifuerza", /*italian*/"la prima melodia",                /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a regular song", /*french*/"une chanson normale", /*spanish*/"una cancion normal"},
+                       Text{"a regular song",                     /*french*/"une chanson normale",    /*spanish*/"una cancion normal",                /*italian*/"una canzone semplice",          /*german*/"Deutsch"},
                        Text{"something kept by the royal family", /*french*/"une chose qui paralyse", /*spanish*/"algo guardado por la familia real", /*italian*/"una cosa della famiglia reale", /*german*/"Deutsch"},
                      },
                        //clear text
@@ -820,12 +820,12 @@ void HintTable_Init_Item() {
 
     hintTable[EPONAS_SONG] = HintText::Item({
                        //obscure text
-                       Text{"an equestrian etude", /*french*/"une hymne équestre",    /*spanish*/"una copla ecuestre"},
-                       Text{"Malon's melody",      /*french*/"la mélodie des vaches", /*spanish*/"la sonata de Malon"},
-                       Text{"a ranch song",        /*french*/"le chant des champs",   /*spanish*/"un canto rupestre"},
+                       Text{"an equestrian etude", /*french*/"une hymne équestre",    /*spanish*/"una copla ecuestre", /*italian*/"un richiamo per cavalli", /*german*/"Deutsch"},
+                       Text{"Malon's melody",      /*french*/"la mélodie des vaches", /*spanish*/"la sonata de Malon", /*italian*/"la melodia di Malon",     /*german*/"Deutsch"},
+                       Text{"a ranch song",        /*french*/"le chant des champs",   /*spanish*/"un canto rupestre",  /*italian*/"il tema della fattoria",  /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a regular song", /*french*/"une chanson normale", /*spanish*/"una cancion normal"},
+                       Text{"a regular song", /*french*/"une chanson normale", /*spanish*/"una cancion normal", /*italian*/"una canzone semplice", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"Epona's Song", /*french*/"le chant d'Epona", /*spanish*/"la Canción de Epona", /*italian*/"la canzone di Epona", /*german*/"Deutsch"}
@@ -833,12 +833,12 @@ void HintTable_Init_Item() {
 
     hintTable[SARIAS_SONG] = HintText::Item({
                        //obscure text
-                       Text{"a song of dancing Gorons", /*french*/"une chanson danceuse",     /*spanish*/"un pegadizo tono goron"},
-                       Text{"Saria's phone number",     /*french*/"le téléphone d'une amie", /*spanish*/"una consulta de asistencia"},
+                       Text{"a song of dancing Gorons", /*french*/"une chanson danceuse",    /*spanish*/"un pegadizo tono goron",     /*italian*/"un \"ritmo infuocato\"", /*german*/"Deutsch"},
+                       Text{"Saria's phone number",     /*french*/"le téléphone d'une amie", /*spanish*/"una consulta de asistencia", /*italian*/"il numero di Saria",     /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a regular song", /*french*/"une chanson normale", /*spanish*/"una cancion normal"},
-                       Text{"something given by Saria", /*french*/"un cadeau de Saria", /*spanish*/"un obsequio de Saria", /*italian*/"una cosa di Saria", /*german*/"Deutsch"},
+                       Text{"a regular song",           /*french*/"une chanson normale", /*spanish*/"una cancion normal",   /*italian*/"una canzone semplice", /*german*/"Deutsch"},
+                       Text{"something given by Saria", /*french*/"un cadeau de Saria",  /*spanish*/"un obsequio de Saria", /*italian*/"una cosa di Saria",    /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"Saria's Song", /*french*/"le chant de Saria", /*spanish*/"la Canción de Saria", /*italian*/"la canzone di Saria", /*german*/"Deutsch"}
@@ -846,12 +846,12 @@ void HintTable_Init_Item() {
 
     hintTable[SUNS_SONG] = HintText::Item({
                        //obscure text
-                       Text{"Sunny Day",         /*french*/"Zénith",               /*spanish*/"un día soleado"},
-                       Text{"the ReDead's bane", /*french*/"le fléau des Remorts", /*spanish*/"la destructora de Redeads"},
-                       Text{"the Gibdo's bane",  /*french*/"le fléau des Gibdo",   /*spanish*/"la destructora de Gibdos"},
+                       Text{"Sunny Day",         /*french*/"Zénith",               /*spanish*/"un día soleado",            /*italian*/"il canto del gallo", /*german*/"Deutsch"},
+                       Text{"the ReDead's bane", /*french*/"le fléau des Remorts", /*spanish*/"la destructora de Redeads", /*italian*/"veleno per Zombie",  /*german*/"Deutsch"},
+                       Text{"the Gibdo's bane",  /*french*/"le fléau des Gibdo",   /*spanish*/"la destructora de Gibdos",  /*italian*/"veleno per Ghibdo",  /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a regular song", /*french*/"une chanson normale", /*spanish*/"una cancion normal"},
+                       Text{"a regular song",          /*french*/"une chanson normale",          /*spanish*/"una cancion normal",       /*italian*/"una canzone semplice",         /*german*/"Deutsch"},
                        Text{"something that can stun", /*french*/"une chose qui peut paralyser", /*spanish*/"algo que pueda paralizar", /*italian*/"qualcosa che può paralizzare", /*german*/"Deutsch"},
                      },
                        //clear text
@@ -860,11 +860,11 @@ void HintTable_Init_Item() {
 
     hintTable[SONG_OF_TIME] = HintText::Item({
                        //obscure text
-                       Text{"a song 7 years long", /*french*/"le flot du temps", /*spanish*/"la setenada canción"},
-                       Text{"the tune of ages",    /*french*/"le Chant des Âges",  /*spanish*/"la melodía eónica"},
+                       Text{"a song 7 years long", /*french*/"le flot du temps",  /*spanish*/"la setenada canción", /*italian*/"una melodia settenaria", /*german*/"Deutsch"},
+                       Text{"the tune of ages",    /*french*/"le Chant des Âges", /*spanish*/"la melodía eónica",   /*italian*/"le Note del Tempo",      /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a regular song", /*french*/"une chanson normale", /*spanish*/"una cancion normal"},
+                       Text{"a regular song", /*french*/"une chanson normale", /*spanish*/"una cancion normal", /*italian*/"una canzone semplice", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Song of Time", /*french*/"le chant du temps", /*spanish*/"la Canción del tiempo", /*italian*/"la canzone del tempo", /*german*/"Deutsch"}
@@ -872,12 +872,12 @@ void HintTable_Init_Item() {
 
     hintTable[SONG_OF_STORMS] = HintText::Item({
                        //obscure text
-                       Text{"Rain Dance",            /*french*/"Danse Pluie",               /*spanish*/"la danza de la lluvia"},
-                       Text{"a thunderstorm tune",   /*french*/"une hymne foudroyante",      /*spanish*/"una sonata tormentosa"},
-                       Text{"windmill acceleration", /*french*/"l'accélérateur de moulins", /*spanish*/"el arranque de molinos"},
+                       Text{"Rain Dance",            /*french*/"Danse Pluie",               /*spanish*/"la danza de la lluvia",  /*italian*/"la danza della pioggia", /*german*/"Deutsch"},
+                       Text{"a thunderstorm tune",   /*french*/"une hymne foudroyante",     /*spanish*/"una sonata tormentosa",  /*italian*/"il suono di un tuono",   /*german*/"Deutsch"},
+                       Text{"windmill acceleration", /*french*/"l'accélérateur de moulins", /*spanish*/"el arranque de molinos", /*italian*/"propulsione per mulini", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a regular song", /*french*/"une chanson normale", /*spanish*/"una cancion normal"},
+                       Text{"a regular song", /*french*/"une chanson normale", /*spanish*/"una cancion normal", /*italian*/"una canzone semplice", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Song of Storms", /*french*/"le chant des tempêtes", /*spanish*/"la Canción de la Tormenta", /*italian*/"la canzone della tempesta", /*german*/"Deutsch"}
@@ -885,12 +885,12 @@ void HintTable_Init_Item() {
 
     hintTable[MINUET_OF_FOREST] = HintText::Item({
                        //obscure text
-                       Text{"the song of tall trees", /*french*/"le bruit des arbres", /*spanish*/"la canción de las copas"},
-                       Text{"an arboreal anthem",     /*french*/"l'hymne sylvestre",   /*spanish*/"el himno forestal"},
-                       Text{"a green spark trail",    /*french*/"une comète verte",     /*spanish*/"el sendero esmeralda"},
+                       Text{"the song of tall trees", /*french*/"le bruit des arbres", /*spanish*/"la canción de las copas", /*italian*/"un monologo sui ricordi",        /*german*/"Deutsch"},
+                       Text{"an arboreal anthem",     /*french*/"l'hymne sylvestre",   /*spanish*/"el himno forestal",       /*italian*/"un'aria arborea",                /*german*/"Deutsch"},
+                       Text{"a green spark trail",    /*french*/"une comète verte",    /*spanish*/"el sendero esmeralda",    /*italian*/"una scia di scintille smeraldo", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a warp song", /*french*/"une chanson de téléportation", /*spanish*/"una canción de teletransportación"},
+                       Text{"a warp song", /*french*/"une chanson de téléportation", /*spanish*/"una canción de teletransportación", /*italian*/"una melodia complessa", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Minuet of Forest", /*french*/"le menuet de la forêt", /*spanish*/"el Minueto del bosque", /*italian*/"il minuetto della foresta", /*german*/"Deutsch"}
@@ -898,12 +898,12 @@ void HintTable_Init_Item() {
 
     hintTable[BOLERO_OF_FIRE] = HintText::Item({
                        //obscure text
-                       Text{"a song of lethal lava", /*french*/"une musique enflammée",          /*spanish*/"la canción de la lava"},
-                       Text{"a red spark trail",     /*french*/"une comète rouge",      /*spanish*/"el sendero rubí"},
-                       Text{"a volcanic verse",      /*french*/"le souffle du volcan", /*spanish*/"el verso volcánico"},
+                       Text{"a song of lethal lava", /*french*/"une musique enflammée", /*spanish*/"la canción de la lava", /*italian*/"un monologo sull'amicizia",       /*german*/"Deutsch"},
+                       Text{"a red spark trail",     /*french*/"une comète rouge",      /*spanish*/"el sendero rubí",       /*italian*/"una scia di scintille scarlatte", /*german*/"Deutsch"},
+                       Text{"a volcanic verse",      /*french*/"le souffle du volcan",  /*spanish*/"el verso volcánico",    /*italian*/"il verso vulcanico",              /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a warp song", /*french*/"une chanson de téléportation", /*spanish*/"una canción de teletransportación"},
+                       Text{"a warp song", /*french*/"une chanson de téléportation", /*spanish*/"una canción de teletransportación", /*italian*/"una melodia complessa", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Bolero of Fire", /*french*/"le boléro du feu", /*spanish*/"el Bolero del fuego", /*italian*/"il bolero del fuoco", /*german*/"Deutsch"}
@@ -911,12 +911,12 @@ void HintTable_Init_Item() {
 
     hintTable[SERENADE_OF_WATER] = HintText::Item({
                        //obscure text
-                       Text{"a song of a damp ditch", /*french*/"le calme de l'eau", /*spanish*/"la canción del estanque"},
-                       Text{"a blue spark trail",     /*french*/"une comète bleue",   /*spanish*/"el sendero zafiro"},
-                       Text{"the lake's lyric",       /*french*/"la voix du lac",    /*spanish*/"la letra del lago"},
+                       Text{"a song of a damp ditch", /*french*/"le calme de l'eau", /*spanish*/"la canción del estanque", /*italian*/"un monologo sul diventare adulti", /*german*/"Deutsch"},
+                       Text{"a blue spark trail",     /*french*/"une comète bleue",  /*spanish*/"el sendero zafiro",       /*italian*/"una scia di scintille celesti",    /*german*/"Deutsch"},
+                       Text{"the lake's lyric",       /*french*/"la voix du lac",    /*spanish*/"la letra del lago",       /*italian*/"la lirica del lago",               /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a warp song", /*french*/"une chanson de téléportation", /*spanish*/"una canción de teletransportación"},
+                       Text{"a warp song", /*french*/"une chanson de téléportation", /*spanish*/"una canción de teletransportación", /*italian*/"una melodia complessa", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Serenade of Water", /*french*/"la sérénade de l'eau", /*spanish*/"la Serenata del agua", /*italian*/"la serenata dell'acqua", /*german*/"Deutsch"}
@@ -924,12 +924,12 @@ void HintTable_Init_Item() {
 
     hintTable[REQUIEM_OF_SPIRIT] = HintText::Item({
                        //obscure text
-                       Text{"a song of sandy statues", /*french*/"la mélodie d'une grande statue", /*spanish*/"la canción de la gran estatua"},
-                       Text{"an orange spark trail",   /*french*/"une comète orange",               /*spanish*/"el sendero ámbar"},
-                       Text{"the desert ditty",        /*french*/"le vent du désert",              /*spanish*/"la estrofa del desierto"},
+                       Text{"a song of sandy statues", /*french*/"la mélodie d'une grande statue", /*spanish*/"la canción de la gran estatua", /*italian*/"un monologo sul viaggio nel tempo", /*german*/"Deutsch"},
+                       Text{"an orange spark trail",   /*french*/"une comète orange",              /*spanish*/"el sendero ámbar",              /*italian*/"una scia di scintille ambrate",     /*german*/"Deutsch"},
+                       Text{"the desert ditty",        /*french*/"le vent du désert",              /*spanish*/"la estrofa del desierto",       /*italian*/"un duetto desertico",               /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a warp song", /*french*/"une chanson de téléportation", /*spanish*/"una canción de teletransportación"},
+                       Text{"a warp song", /*french*/"une chanson de téléportation", /*spanish*/"una canción de teletransportación", /*italian*/"una melodia complessa", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Requiem of Spirit", /*french*/"le requiem des esprits", /*spanish*/"el Réquiem del espíritu", /*italian*/"il requiem dello spirito", /*german*/"Deutsch"}
@@ -937,13 +937,13 @@ void HintTable_Init_Item() {
 
     hintTable[NOCTURNE_OF_SHADOW] = HintText::Item({
                        //obscure text
-                       Text{"a song of spooky spirits", /*french*/"une hymne de chair de poule", /*spanish*/"la canción de los espectros"},
-                       Text{"a graveyard boogie",       /*french*/"un boogie de fantômes",       /*spanish*/"una honra fúnebre"},
-                       Text{"a haunted hymn",           /*french*/"une chanson lugubre",         /*spanish*/"una estrofa encantada"},
-                       Text{"a purple spark trail",     /*french*/"une comète mauve",            /*spanish*/"el sendero malva"},
+                       Text{"a song of spooky spirits", /*french*/"une hymne de chair de poule", /*spanish*/"la canción de los espectros", /*italian*/"un monologo sull'oscurità di Calbarico", /*german*/"Deutsch"},
+                       Text{"a graveyard boogie",       /*french*/"un boogie de fantômes",       /*spanish*/"una honra fúnebre",           /*italian*/"una melodia non diurna",                 /*german*/"Deutsch"},
+                       Text{"a haunted hymn",           /*french*/"une chanson lugubre",         /*spanish*/"una estrofa encantada",       /*italian*/"la sinfonia dei sepolcri",               /*german*/"Deutsch"},
+                       Text{"a purple spark trail",     /*french*/"une comète mauve",            /*spanish*/"el sendero malva",            /*italian*/"una scia di scintille lavanda",          /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a warp song", /*french*/"une chanson de téléportation", /*spanish*/"una canción de teletransportación"},
+                       Text{"a warp song", /*french*/"une chanson de téléportation", /*spanish*/"una canción de teletransportación", /*italian*/"una melodia complessa", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Nocturne of Shadow", /*french*/"le nocturne de l'ombre", /*spanish*/"el Nocturno de la sombra", /*italian*/"il notturno delle ombre", /*german*/"Deutsch"}
@@ -951,12 +951,12 @@ void HintTable_Init_Item() {
 
     hintTable[PRELUDE_OF_LIGHT] = HintText::Item({
                        //obscure text
-                       Text{"a luminous prologue melody", /*french*/"une matine illuminée", /*spanish*/"la melodía refulgente"},
-                       Text{"a yellow spark trail",       /*french*/"une comète jaune",        /*spanish*/"el sendero resplandeciente"},
-                       Text{"the temple traveler",        /*french*/"un chant de sanctuaire",  /*spanish*/"la ruta del templo"},
+                       Text{"a luminous prologue melody", /*french*/"une matine illuminée",   /*spanish*/"la melodía refulgente",      /*italian*/"un monologo sulle sfide future", /*german*/"Deutsch"},
+                       Text{"a yellow spark trail",       /*french*/"une comète jaune",       /*spanish*/"el sendero resplandeciente", /*italian*/"una scia di scintille dorate",   /*german*/"Deutsch"},
+                       Text{"the temple traveler",        /*french*/"un chant de sanctuaire", /*spanish*/"la ruta del templo",         /*italian*/"un viaggio nel tempio",          /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a warp song", /*french*/"une chanson de téléportation", /*spanish*/"una canción de teletransportación"},
+                       Text{"a warp song", /*french*/"une chanson de téléportation", /*spanish*/"una canción de teletransportación", /*italian*/"una melodia complessa", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Prelude of Light", /*french*/"le prélude de la lumière", /*spanish*/"el Preludio de la luz", /*italian*/"il preludio della luce", /*german*/"Deutsch"}
