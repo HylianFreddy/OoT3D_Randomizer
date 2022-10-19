@@ -1073,110 +1073,110 @@ void HintTable_Init_Item() {
      );
     hintTable[DEKU_TREE_COMPASS] = HintText::Item({
                         //obscure text
-                        Text{"a mossy treasure tracker", /*french*/"un cherche-trésor boisé",  /*spanish*/"un zahorí musgoso"},
-                        Text{"a mossy magnetic needle",      /*french*/"une aimant boisée",             /*spanish*/"un imán musgoso"},
+                        Text{"a mossy treasure tracker", /*french*/"un cherche-trésor boisé", /*spanish*/"un zahorí musgoso", /*italian*/"una sonda muschiosa",  /*german*/"Deutsch"},
+                        Text{"a mossy magnetic needle",  /*french*/"une aimant boisée",       /*spanish*/"un imán musgoso",   /*italian*/"un magnete muschioso", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula"},
+                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula", /*italian*/"una bussola", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Deku Tree Compass", /*french*/"la boussole de l'arbre Mojo", /*spanish*/"la brújula del Gran Árbol Deku", /*italian*/"la bussola del Grande Albero Deku", /*german*/"Deutsch"}
      );
     hintTable[DODONGOS_CAVERN_COMPASS] = HintText::Item({
                         //obscure text
-                        Text{"a rocky treasure tracker", /*french*/"un cherche-trésor rocheux",  /*spanish*/"un zahorí rocoso"},
-                        Text{"a rocky magnetic needle",      /*french*/"une aimant rocheux",             /*spanish*/"un imán rocoso"},
+                        Text{"a rocky treasure tracker", /*french*/"un cherche-trésor rocheux", /*spanish*/"un zahorí rocoso", /*italian*/"una sonda rocciosa",  /*german*/"Deutsch"},
+                        Text{"a rocky magnetic needle",  /*french*/"une aimant rocheux",        /*spanish*/"un imán rocoso",   /*italian*/"un magnete roccioso", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula"},
+                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula", /*italian*/"una bussola", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Dodongo's Cavern Compass", /*french*/"la boussole de la caverne Dodongo", /*spanish*/"la brújula de la Cueva de los Dodongos", /*italian*/"la bussola della caverna dei Dodongo", /*german*/"Deutsch"}
      );
     hintTable[JABU_JABUS_BELLY_COMPASS] = HintText::Item({
                         //obscure text
-                        Text{"a fishy treasure tracker", /*french*/"un cherche-trésor digéré",  /*spanish*/"un zahorí digesto"},
-                        Text{"a fishy magnetic needle",      /*french*/"une aimant digéré",             /*spanish*/"un imán digesto"},
+                        Text{"a fishy treasure tracker", /*french*/"un cherche-trésor digéré", /*spanish*/"un zahorí digesto", /*italian*/"una sonda anatomica",  /*german*/"Deutsch"},
+                        Text{"a fishy magnetic needle",  /*french*/"une aimant digéré",        /*spanish*/"un imán digesto",   /*italian*/"un magnete anatomico", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula"},
+                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula", /*italian*/"una bussola", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Jabu-Jabu's Belly Compass", /*french*/"la boussole de Jabu-Jabu", /*spanish*/"la brújula de la Tripa de Jabu-Jabu", /*italian*/"la bussola della pancia di Jabu Jabu", /*german*/"Deutsch"}
      );
     hintTable[FOREST_TEMPLE_COMPASS] = HintText::Item({
                         //obscure text
-                        Text{"a sylvan treasure tracker", /*french*/"un cherche-trésor sylvestre",  /*spanish*/"un zahorí enselvado"},
-                        Text{"a sylvan magnetic needle",      /*french*/"une aimant sylvestre",             /*spanish*/"un imán enselvado"},
+                        Text{"a sylvan treasure tracker", /*french*/"un cherche-trésor sylvestre", /*spanish*/"un zahorí enselvado", /*italian*/"una sonda silvestre",  /*german*/"Deutsch"},
+                        Text{"a sylvan magnetic needle",  /*french*/"une aimant sylvestre",        /*spanish*/"un imán enselvado",   /*italian*/"un magnete silvestre", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula"},
+                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula", /*italian*/"una bussola", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Forest Temple Compass", /*french*/"la boussole du temple de la forêt", /*spanish*/"la brújula del Templo del Bosque", /*italian*/"la bussola del Santuario della Foresta", /*german*/"Deutsch"}
      );
     hintTable[FIRE_TEMPLE_COMPASS] = HintText::Item({
                         //obscure text
-                        Text{"a molten treasure tracker", /*french*/"un cherche-trésor fondu",  /*spanish*/"un zahorí fundido"},
-                        Text{"a molten magnetic needle",      /*french*/"une aimant fondu",             /*spanish*/"un imán fundido"},
+                        Text{"a molten treasure tracker", /*french*/"un cherche-trésor fondu", /*spanish*/"un zahorí fundido", /*italian*/"una sonda bollente",  /*german*/"Deutsch"},
+                        Text{"a molten magnetic needle",  /*french*/"une aimant fondu",        /*spanish*/"un imán fundido",   /*italian*/"un magnete bollente", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula"},
+                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula", /*italian*/"una bussola", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Fire Temple Compass", /*french*/"la boussole du temple du feu", /*spanish*/"la brújula del Templo del Fuego", /*italian*/"la bussola del Santuario del Fuoco", /*german*/"Deutsch"}
      );
     hintTable[WATER_TEMPLE_COMPASS] = HintText::Item({
                         //obscure text
-                        Text{"a wet treasure tracker", /*french*/"un cherche-trésor humide",  /*spanish*/"un zahorí mojado"},
-                        Text{"a wet magnetic needle",      /*french*/"une aimant humide",             /*spanish*/"un imán mojado"},
+                        Text{"a wet treasure tracker", /*french*/"un cherche-trésor humide", /*spanish*/"un zahorí mojado", /*italian*/"una sonda idraulica",  /*german*/"Deutsch"},
+                        Text{"a wet magnetic needle",  /*french*/"une aimant humide",        /*spanish*/"un imán mojado",   /*italian*/"un magnete idraulico", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula"},
+                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula", /*italian*/"una bussola", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Water Temple Compass", /*french*/"la boussole du temple de l'eau", /*spanish*/"la brújula del Templo del Agua", /*italian*/"la bussola del Santuario dell'Acqua", /*german*/"Deutsch"}
      );
     hintTable[SPIRIT_TEMPLE_COMPASS] = HintText::Item({
                         //obscure text
-                        Text{"a sandy treasure tracker", /*french*/"un cherche-trésor sableux",  /*spanish*/"un zahorí arenoso"},
-                        Text{"a sandy magnetic needle",      /*french*/"une aimant sableux",             /*spanish*/"un imán arenoso"},
+                        Text{"a sandy treasure tracker", /*french*/"un cherche-trésor sableux", /*spanish*/"un zahorí arenoso", /*italian*/"una sonda sabbiosa",  /*german*/"Deutsch"},
+                        Text{"a sandy magnetic needle",  /*french*/"une aimant sableux",        /*spanish*/"un imán arenoso",   /*italian*/"un magnete sabbioso", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula"},
+                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula", /*italian*/"una bussola", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Spirit Temple Compass", /*french*/"la boussole du temple de l'esprit", /*spanish*/"la brújula del Templo del Espíritu", /*italian*/"la bussola del Santuario dello Spirito", /*german*/"Deutsch"}
      );
     hintTable[SHADOW_TEMPLE_COMPASS] = HintText::Item({
                         //obscure text
-                        Text{"a creepy treasure tracker", /*french*/"un cherche-trésor sinistre",  /*spanish*/"un zahorí siniestra"},
-                        Text{"a creepy magnetic needle",      /*french*/"une aimant sinistre",             /*spanish*/"un imán siniestra"},
+                        Text{"a creepy treasure tracker", /*french*/"un cherche-trésor sinistre", /*spanish*/"un zahorí siniestra", /*italian*/"una sonda patibolare",  /*german*/"Deutsch"},
+                        Text{"a creepy magnetic needle",  /*french*/"une aimant sinistre",        /*spanish*/"un imán siniestra",   /*italian*/"un magnete patibolare", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula"},
+                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula", /*italian*/"una bussola", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Shadow Temple Compass", /*french*/"la boussole du temple de l'ombre", /*spanish*/"la brújula del Templo de las Sombras", /*italian*/"la bussola del Santuario dell'Ombra", /*german*/"Deutsch"}
      );
     hintTable[BOTTOM_OF_THE_WELL_COMPASS] = HintText::Item({
                         //obscure text
-                        Text{"a dank treasure tracker", /*french*/"un cherche-trésor moisi",  /*spanish*/"un zahorí mohoso"},
-                        Text{"a dank magnetic needle",      /*french*/"une aimant moisi",             /*spanish*/"un imán mohoso"},
+                        Text{"a dank treasure tracker", /*french*/"un cherche-trésor moisi",  /*spanish*/"un zahorí mohoso", /*italian*/"una sonda ammuffita",  /*german*/"Deutsch"},
+                        Text{"a dank magnetic needle",  /*french*/"une aimant moisi",         /*spanish*/"un imán mohoso",   /*italian*/"un magnete ammuffito", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula"},
+                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula", /*italian*/"una bussola", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Bottom of the Well Compass", /*french*/"la boussole du fond du puits", /*spanish*/"la brújula del Fondo del pozo", /*italian*/"la bussola del fondo del pozzo", /*german*/"Deutsch"}
      );
     hintTable[ICE_CAVERN_COMPASS] = HintText::Item({
                         //obscure text
-                        Text{"a polar treasure tracker", /*french*/"un cherche-trésor polaire",  /*spanish*/"un zahorí polar"},
-                        Text{"a polar magnetic needle",      /*french*/"une aimant polaire",             /*spanish*/"un imán polar"},
+                        Text{"a polar treasure tracker", /*french*/"un cherche-trésor polaire", /*spanish*/"un zahorí polar", /*italian*/"una sonda artica",  /*german*/"Deutsch"},
+                        Text{"a polar magnetic needle",  /*french*/"une aimant polaire",        /*spanish*/"un imán polar",   /*italian*/"un magnete artico", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula"},
+                        Text{"a compass", /*french*/"une boussole", /*spanish*/"una brújula", /*italian*/"una bussola", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Ice Cavern Compass", /*french*/"la boussole de la caverne polaire", /*spanish*/"la brújula de la Caverna de hielo", /*italian*/"la bussola della caverna di ghiaccio", /*german*/"Deutsch"}
