@@ -358,7 +358,7 @@ void HintTable_Init() {
 
     hintTable[WASTELAND_GS] = HintText::Sometimes({
                        //obscure text
-                       Text{"a #spider in the wasteland# holds", /*french*/"#l'araignée dans le désert# donne", /*spanish*/"una #Skulltula del desierto encantado# otorga", /*italian*/"un #ragno nel deserto# tiene", /*german*/"Deutsch"},
+                       Text{"a #spider in the wasteland# holds", /*french*/"#l'araignée dans le désert# donne", /*spanish*/"una #Skulltula del desierto encantado# otorga", /*italian*/"un #ragno nel deserto stregato# tiene", /*german*/"Deutsch"},
   });
 
     hintTable[GRAVEYARD_COMPOSERS_GRAVE_CHEST] = HintText::Sometimes({

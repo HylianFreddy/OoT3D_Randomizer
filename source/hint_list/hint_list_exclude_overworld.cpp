@@ -537,12 +537,12 @@ void HintTable_Init_Exclude_Overworld() {
 
     hintTable[KF_GS_KNOW_IT_ALL_HOUSE] = HintText::Exclude({
                        //obscure text
-                       Text{"night in the past reveals a #spider in a forest# holding", /*french*/"une #Skulltula derrière une cabane de la forêt# a", /*spanish*/"la noche revela en el pasado una #Skulltula del bosque# que otorga", /*italian*/"un ragno #sopra una casa nella foresta# ha", /*german*/"Deutsch"},
+                       Text{"night in the past reveals a #spider in a forest# holding", /*french*/"une #Skulltula derrière une cabane de la forêt# a", /*spanish*/"la noche revela en el pasado una #Skulltula del bosque# que otorga", /*italian*/"un ragno #dietro una casa di saccenti# ha", /*german*/"Deutsch"},
   });
 
     hintTable[KF_GS_HOUSE_OF_TWINS] = HintText::Exclude({
                        //obscure text
-                       Text{"night in the future reveals a #spider in a forest# holding", /*french*/"une #Skulltula sur une cabane de la forêt# a", /*spanish*/"la noche revela en el futuro una #Skulltula del bosque# que otorga", /*italian*/"un ragno #dietro una casa di saccenti# ha", /*german*/"Deutsch"},
+                       Text{"night in the future reveals a #spider in a forest# holding", /*french*/"une #Skulltula sur une cabane de la forêt# a", /*spanish*/"la noche revela en el futuro una #Skulltula del bosque# que otorga", /*italian*/"un ragno #sopra una casa nella foresta# ha", /*german*/"Deutsch"},
   });
 
 
@@ -585,192 +585,192 @@ void HintTable_Init_Exclude_Overworld() {
 
     hintTable[DMC_GS_BEAN_PATCH] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider buried in a volcano# holds", /*french*/"une #Skulltula enterrée dans un volcan# a", /*spanish*/"una #Skulltula enterrada en un volcán# otorga"},
+                       Text{"a #spider buried in a volcano# holds", /*french*/"une #Skulltula enterrée dans un volcan# a", /*spanish*/"una #Skulltula enterrada en un volcán# otorga", /*italian*/"un #ragno sepolto in un vulcano# ha", /*german*/"Deutsch"},
   });
 
 
     hintTable[DMT_GS_BEAN_PATCH] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider buried outside a cavern# holds", /*french*/"une #Skulltula enterrée près d'une caverne# a", /*spanish*/"una #Skulltula enterrada a la entrada de una cueva# otorga"},
+                       Text{"a #spider buried outside a cavern# holds", /*french*/"une #Skulltula enterrée près d'une caverne# a", /*spanish*/"una #Skulltula enterrada a la entrada de una cueva# otorga", /*italian*/"un #ragno sepolto all'ingresso di una caverna# ha", /*german*/"Deutsch"},
   });
 
     hintTable[DMT_GS_NEAR_KAK] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider hidden in a mountain nook# holds", /*french*/"une #Skulltula cachée dans le flanc d'une montagne# a", /*spanish*/"una #Skulltula oculta en el rincón de la montaña# otorga"},
+                       Text{"a #spider hidden in a mountain nook# holds", /*french*/"une #Skulltula cachée dans le flanc d'une montagne# a", /*spanish*/"una #Skulltula oculta en el rincón de la montaña# otorga", /*italian*/"un #ragno in una nicchia montana# si nasconde con", /*german*/"Deutsch"},
   });
 
     hintTable[DMT_GS_ABOVE_DODONGOS_CAVERN] = HintText::Exclude({
                        //obscure text
-                       Text{"the hammer reveals a #spider on a mountain# holding", /*french*/"une #Skulltula derrière un rocher massif près d'une caverne# a", /*spanish*/"el martillo revela #una Skulltula de la montaña# que otorga"},
+                       Text{"the hammer reveals a #spider on a mountain# holding", /*french*/"une #Skulltula derrière un rocher massif près d'une caverne# a", /*spanish*/"el martillo revela #una Skulltula de la montaña# que otorga", /*italian*/"il martello rivela un #ragno in montagna# con", /*german*/"Deutsch"},
   });
 
     hintTable[DMT_GS_FALLING_ROCKS_PATH] = HintText::Exclude({
                        //obscure text
-                       Text{"the hammer reveals a #spider on a mountain# holding", /*french*/"une #Skulltula derrière un rocher massif près du sommet d'un volcan# a", /*spanish*/"el martillo revela #una Skulltula de la montaña# que otorga"},
+                       Text{"the hammer reveals a #spider on a mountain# holding", /*french*/"une #Skulltula derrière un rocher massif près du sommet d'un volcan# a", /*spanish*/"el martillo revela #una Skulltula de la montaña# que otorga", /*italian*/"il martello rivela un #ragno in montagna# con", /*german*/"Deutsch"},
   });
 
 
     hintTable[GC_GS_CENTER_PLATFORM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #suspended spider# in Goron City holds", /*french*/"une #Skulltula perchée dans le village Goron# a", /*spanish*/"una #Skulltula suspendida# en la Ciudad Goron otorga"},
+                       Text{"a #suspended spider# in Goron City holds", /*french*/"une #Skulltula perchée dans le village Goron# a", /*spanish*/"una #Skulltula suspendida# en la Ciudad Goron otorga", /*italian*/"un #ragno sospeso# nella città dei Goron ha", /*german*/"Deutsch"},
   });
 
     hintTable[GC_GS_BOULDER_MAZE] = HintText::Exclude({
                        //obscure text
-                       Text{"a spider in a #Goron City crate# holds", /*french*/"une #Skulltula dans une boîte du village Goron# a", /*spanish*/"una #Skulltula bajo una caja# de la Ciudad Goron otorga"},
+                       Text{"a spider in a #Goron City crate# holds", /*french*/"une #Skulltula dans une boîte du village Goron# a", /*spanish*/"una #Skulltula bajo una caja# de la Ciudad Goron otorga", /*italian*/"in una #cassa nella città dei Goron# si nasconde un ragno con", /*german*/"Deutsch"},
   });
 
 
     hintTable[KAK_GS_HOUSE_UNDER_CONSTRUCTION] = HintText::Exclude({
                        //obscure text
-                       Text{"night in the past reveals a #spider in a town# holding", /*french*/"une #Skulltula dans le chantier de construction# a", /*spanish*/"la noche del pasado revela una #Skulltula del pueblo# que otorga"},
+                       Text{"night in the past reveals a #spider in a town# holding", /*french*/"une #Skulltula dans le chantier de construction# a", /*spanish*/"la noche del pasado revela una #Skulltula del pueblo# que otorga", /*italian*/"la notte nel passato rivela un #ragno in un villaggio# con", /*german*/"Deutsch"},
   });
 
     hintTable[KAK_GS_SKULLTULA_HOUSE] = HintText::Exclude({
                        //obscure text
-                       Text{"night in the past reveals a #spider in a town# holding", /*french*/"une #Skulltula sur une maison maudite# a", /*spanish*/"la noche del pasado revela una #Skulltula del pueblo# que otorga"},
+                       Text{"night in the past reveals a #spider in a town# holding", /*french*/"une #Skulltula sur une maison maudite# a", /*spanish*/"la noche del pasado revela una #Skulltula del pueblo# que otorga", /*italian*/"la notte nel passato rivela un #ragno in un villaggio# con", /*german*/"Deutsch"},
   });
 
     hintTable[KAK_GS_GUARDS_HOUSE] = HintText::Exclude({
                        //obscure text
-                       Text{"night in the past reveals a #spider in a town# holding", /*french*/"une #Skulltula sur une maison de village# a", /*spanish*/"la noche del pasado revela una #Skulltula del pueblo# que otorga"},
+                       Text{"night in the past reveals a #spider in a town# holding", /*french*/"une #Skulltula sur une maison de village# a", /*spanish*/"la noche del pasado revela una #Skulltula del pueblo# que otorga", /*italian*/"la notte nel passato rivela un #ragno in un villaggio# con", /*german*/"Deutsch"},
   });
 
     hintTable[KAK_GS_TREE] = HintText::Exclude({
                        //obscure text
-                       Text{"night in the past reveals a #spider in a town# holding", /*french*/"une #Skulltula dans un arbre de village# a", /*spanish*/"la noche del pasado revela una #Skulltula del pueblo# que otorga"},
+                       Text{"night in the past reveals a #spider in a town# holding", /*french*/"une #Skulltula dans un arbre de village# a", /*spanish*/"la noche del pasado revela una #Skulltula del pueblo# que otorga", /*italian*/"la notte nel passato rivela un #ragno in un villaggio# con", /*german*/"Deutsch"},
   });
 
     hintTable[KAK_GS_WATCHTOWER] = HintText::Exclude({
                        //obscure text
-                       Text{"night in the past reveals a #spider in a town# holding", /*french*/"une #Skulltula sur une échelle dans un village# a", /*spanish*/"la noche del pasado revela una #Skulltula del pueblo# que otorga"},
+                       Text{"night in the past reveals a #spider in a town# holding", /*french*/"une #Skulltula sur une échelle dans un village# a", /*spanish*/"la noche del pasado revela una #Skulltula del pueblo# que otorga", /*italian*/"la notte nel passato rivela un #ragno in un villaggio# con", /*german*/"Deutsch"},
   });
 
     hintTable[KAK_GS_ABOVE_IMPAS_HOUSE] = HintText::Exclude({
                        //obscure text
-                       Text{"night in the future reveals a #spider in a town# holding", /*french*/"une #Skulltula au dessus d'une grande maison# a", /*spanish*/"la noche del futuro revela una #Skulltula del pueblo# que otorga"},
+                       Text{"night in the future reveals a #spider in a town# holding", /*french*/"une #Skulltula au dessus d'une grande maison# a", /*spanish*/"la noche del futuro revela una #Skulltula del pueblo# que otorga", /*italian*/"la notte nel futuro rivela un #ragno in un villaggio# con", /*german*/"Deutsch"},
   });
 
 
     hintTable[GRAVEYARD_GS_WALL] = HintText::Exclude({
                        //obscure text
-                       Text{"night reveals a #spider in a graveyard# holding", /*french*/"une #Skulltula sur une façade du cimetière# a", /*spanish*/"la noche revela una #Skulltula del cementerio# que otorga"},
+                       Text{"night reveals a #spider in a graveyard# holding", /*french*/"une #Skulltula sur une façade du cimetière# a", /*spanish*/"la noche revela una #Skulltula del cementerio# que otorga", /*italian*/"di notte appare un #ragno nel cimitero# con", /*german*/"Deutsch"},
   });
 
     hintTable[GRAVEYARD_GS_BEAN_PATCH] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider buried in a graveyard# holds", /*french*/"une #Skulltula enterrée dans le cimetière# a", /*spanish*/"una #Skulltula enterrada en el cementerio# otorga"},
+                       Text{"a #spider buried in a graveyard# holds", /*french*/"une #Skulltula enterrée dans le cimetière# a", /*spanish*/"una #Skulltula enterrada en el cementerio# otorga", /*italian*/"un #ragno sepolto nel cimitero# ha", /*german*/"Deutsch"},
   });
 
 
     hintTable[ZR_GS_LADDER] = HintText::Exclude({
                        //obscure text
-                       Text{"night in the past reveals a #spider in a river# holding", /*french*/"une #Skulltula sur une échelle près d'une cascade# a", /*spanish*/"la noche del pasado revela una #Skulltula del río# que otorga"},
+                       Text{"night in the past reveals a #spider in a river# holding", /*french*/"une #Skulltula sur une échelle près d'une cascade# a", /*spanish*/"la noche del pasado revela una #Skulltula del río# que otorga", /*italian*/"di notte nel passato appare un #ragno nel fiume# con", /*german*/"Deutsch"},
   });
 
     hintTable[ZR_GS_TREE] = HintText::Exclude({
                        //obscure text
-                       Text{"a spider hiding in a #tree by a river# holds", /*french*/"une #Skulltula dans un arbre près du fleuve# a", /*spanish*/"una Skulltula escondida en el #árbol de un río# otorga"},
+                       Text{"a spider hiding in a #tree by a river# holds", /*french*/"une #Skulltula dans un arbre près du fleuve# a", /*spanish*/"una Skulltula escondida en el #árbol de un río# otorga", /*italian*/"un ragno in un #albero presso il fiume# ha", /*german*/"Deutsch"},
   });
 
     hintTable[ZR_GS_ABOVE_BRIDGE] = HintText::Exclude({
                        //obscure text
-                       Text{"night in the future reveals a #spider in a river# holding", /*french*/"une #Skulltula sur une façade près d'une cascade# a", /*spanish*/"la noche del futuro revela una #Skulltula del río# que otorga"},
+                       Text{"night in the future reveals a #spider in a river# holding", /*french*/"une #Skulltula sur une façade près d'une cascade# a", /*spanish*/"la noche del futuro revela una #Skulltula del río# que otorga", /*italian*/"di notte nel futuro appare un #ragno nel fiume# con", /*german*/"Deutsch"},
   });
 
     hintTable[ZR_GS_NEAR_RAISED_GROTTOS] = HintText::Exclude({
                        //obscure text
-                       Text{"night in the future reveals a #spider in a river# holding", /*french*/"une #Skulltula sur une façade près d'une grotte du fleuve# a", /*spanish*/"la noche del futuro revela una #Skulltula del río# que otorga"},
+                       Text{"night in the future reveals a #spider in a river# holding", /*french*/"une #Skulltula sur une façade près d'une grotte du fleuve# a", /*spanish*/"la noche del futuro revela una #Skulltula del río# que otorga", /*italian*/"di notte nel futuro appare un #ragno nel fiume# con", /*german*/"Deutsch"},
   });
 
 
     hintTable[ZD_GS_FROZEN_WATERFALL] = HintText::Exclude({
                        //obscure text
-                       Text{"night reveals a #spider by a frozen waterfall# holding", /*french*/"une #Skulltula près d'une cascade gelée# a", /*spanish*/"la noche revela una #Skulltula junto a una congelada cascada# que otorga"},
+                       Text{"night reveals a #spider by a frozen waterfall# holding", /*french*/"une #Skulltula près d'une cascade gelée# a", /*spanish*/"la noche revela una #Skulltula junto a una congelada cascada# que otorga", /*italian*/"di notte appare un #ragno presso una cascata congelata# con", /*german*/"Deutsch"},
   });
 
     hintTable[ZF_GS_ABOVE_THE_LOG] = HintText::Exclude({
                        //obscure text
-                       Text{"night reveals a #spider near a deity# holding", /*french*/"une #Skulltula près du gardien aquatique# a", /*spanish*/"la noche revela una #Skulltula junto a cierta deidad# que otorga"},
+                       Text{"night reveals a #spider near a deity# holding", /*french*/"une #Skulltula près du gardien aquatique# a", /*spanish*/"la noche revela una #Skulltula junto a cierta deidad# que otorga", /*italian*/"di notte appare un #ragno presso una divinità# con", /*german*/"Deutsch"},
   });
 
     hintTable[ZF_GS_TREE] = HintText::Exclude({
                        //obscure text
-                       Text{"a spider hiding in a #tree near a deity# holds", /*french*/"une #Skulltula dans un arbre dans un réservoir# a", /*spanish*/"una Skulltula escondida en el #árbol junto a cierta deidad# otorga"},
+                       Text{"a spider hiding in a #tree near a deity# holds", /*french*/"une #Skulltula dans un arbre dans un réservoir# a", /*spanish*/"una Skulltula escondida en el #árbol junto a cierta deidad# otorga", /*italian*/"un ragno su un #albero presso una divinità# ha", /*german*/"Deutsch"},
   });
 
 
     hintTable[LH_GS_BEAN_PATCH] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider buried by a lake# holds", /*french*/"une #Skulltula enterrée près d'un lac# a", /*spanish*/"una #Skulltula enterrada junto a un lago# otorga"},
+                       Text{"a #spider buried by a lake# holds", /*french*/"une #Skulltula enterrée près d'un lac# a", /*spanish*/"una #Skulltula enterrada junto a un lago# otorga", /*italian*/"un #ragno sepolto presso un lago# ha", /*german*/"Deutsch"},
   });
 
     hintTable[LH_GS_SMALL_ISLAND] = HintText::Exclude({
                        //obscure text
-                       Text{"night reveals a #spider by a lake# holding", /*french*/"une #Skulltula sur un îlot du lac# a", /*spanish*/"la noche revela una #Skulltula junto a un lago# que otorga"},
+                       Text{"night reveals a #spider by a lake# holding", /*french*/"une #Skulltula sur un îlot du lac# a", /*spanish*/"la noche revela una #Skulltula junto a un lago# que otorga", /*italian*/"di notte appare un #ragno lacustre# che ha", /*german*/"Deutsch"},
   });
 
     hintTable[LH_GS_LAB_WALL] = HintText::Exclude({
                        //obscure text
-                       Text{"night reveals a #spider by a lake# holding", /*french*/"une #Skulltula sur le mur d'un centre de recherche# a", /*spanish*/"la noche revela una #Skulltula junto a un lago# que otorga"},
+                       Text{"night reveals a #spider by a lake# holding", /*french*/"une #Skulltula sur le mur d'un centre de recherche# a", /*spanish*/"la noche revela una #Skulltula junto a un lago# que otorga", /*italian*/"di notte appare un #ragno lacustre# che ha", /*german*/"Deutsch"},
   });
 
     hintTable[LH_GS_LAB_CRATE] = HintText::Exclude({
                        //obscure text
-                       Text{"a spider deed underwater in a #lab crate# holds", /*french*/"une #Skulltula dans une boîte au fond d'une cuve d'eau# a", /*spanish*/"una #Skulltula bajo la sumergida caja de un laboratorio# otorga"},
+                       Text{"a spider deed underwater in a #lab crate# holds", /*french*/"une #Skulltula dans une boîte au fond d'une cuve d'eau# a", /*spanish*/"una #Skulltula bajo la sumergida caja de un laboratorio# otorga", /*italian*/"un #ragno subacqueo in un laboratorio# ha", /*german*/"Deutsch"},
   });
 
     hintTable[LH_GS_TREE] = HintText::Exclude({
                        //obscure text
-                       Text{"night reveals a #spider by a lake high in a tree# holding", /*french*/"une #Skulltula dans un grand arbre du lac# a", /*spanish*/"la noche revela #una Skulltula del lago sobre un árbol# que otorga"},
+                       Text{"night reveals a #spider by a lake high in a tree# holding", /*french*/"une #Skulltula dans un grand arbre du lac# a", /*spanish*/"la noche revela #una Skulltula del lago sobre un árbol# que otorga", /*italian*/"di notte appare un #ragno arboreo lacustre# che ha", /*german*/"Deutsch"},
   });
 
 
     hintTable[GV_GS_BEAN_PATCH] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider buried in a valley# holds", /*french*/"une #Skulltula enterré dans une vallée# a", /*spanish*/"una #Skulltula enterrada en un valle# otorga"},
+                       Text{"a #spider buried in a valley# holds", /*french*/"une #Skulltula enterré dans une vallée# a", /*spanish*/"una #Skulltula enterrada en un valle# otorga", /*italian*/"un #ragno sepolto nella valle# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[GV_GS_SMALL_BRIDGE] = HintText::Exclude({
                        //obscure text
-                       Text{"night in the past reveals a #spider in a valley# holding", /*french*/"une #Skulltula au dessus d'une petite cascade# a", /*spanish*/"la noche del pasado revela una #Skulltula del valle# que otorga"},
+                       Text{"night in the past reveals a #spider in a valley# holding", /*french*/"une #Skulltula au dessus d'une petite cascade# a", /*spanish*/"la noche del pasado revela una #Skulltula del valle# que otorga", /*italian*/"di notte nel passato appare un #ragno in una valle# con", /*german*/"Deutsch"},
   });
 
     hintTable[GV_GS_PILLAR] = HintText::Exclude({
                        //obscure text
-                       Text{"night in the future reveals a #spider in a valley# holding", /*french*/"une #Skulltula sur une arche de pierre dans une vallée# a", /*spanish*/"la noche del futuro revela una #Skulltula del valle# que otorga"},
+                       Text{"night in the future reveals a #spider in a valley# holding", /*french*/"une #Skulltula sur une arche de pierre dans une vallée# a", /*spanish*/"la noche del futuro revela una #Skulltula del valle# que otorga", /*italian*/"di notte nel futuro appare un #ragno in una valle# con", /*german*/"Deutsch"},
   });
 
     hintTable[GV_GS_BEHIND_TENT] = HintText::Exclude({
                        //obscure text
-                       Text{"night in the future reveals a #spider in a valley# holding", /*french*/"une #Skulltula derrière une tente# a", /*spanish*/"la noche del futuro revela una #Skulltula del valle# que otorga"},
+                       Text{"night in the future reveals a #spider in a valley# holding", /*french*/"une #Skulltula derrière une tente# a", /*spanish*/"la noche del futuro revela una #Skulltula del valle# que otorga", /*italian*/"di notte nel futuro appare un #ragno in una valle# con", /*german*/"Deutsch"},
   });
 
 
     hintTable[GF_GS_ARCHERY_RANGE] = HintText::Exclude({
                        //obscure text
-                       Text{"night reveals a #spider in a fortress# holding", /*french*/"une #Skulltula sur une cible de tir# a", /*spanish*/"la noche revela una #Skulltula de una fortaleza# que otorga"},
+                       Text{"night reveals a #spider in a fortress# holding", /*french*/"une #Skulltula sur une cible de tir# a", /*spanish*/"la noche revela una #Skulltula de una fortaleza# que otorga", /*italian*/"di notte appare un #ragno in una fortezza# con", /*german*/"Deutsch"},
   });
 
     hintTable[GF_GS_TOP_FLOOR] = HintText::Exclude({
                        //obscure text
-                       Text{"night reveals a #spider in a fortress# holding", /*french*/"une #Skulltula au sommet d'une forteresse# a", /*spanish*/"la noche revela una #Skulltula de una fortaleza# que otorga"},
+                       Text{"night reveals a #spider in a fortress# holding", /*french*/"une #Skulltula au sommet d'une forteresse# a", /*spanish*/"la noche revela una #Skulltula de una fortaleza# que otorga", /*italian*/"di notte appare un #ragno in una fortezza# con", /*german*/"Deutsch"},
   });
 
 
     hintTable[COLOSSUS_GS_BEAN_PATCH] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider buried in the desert# holds", /*french*/"une #Skulltula enterrée au pied du colosse# a", /*spanish*/"una #Skulltula enterrada en el desierto# otorga"},
+                       Text{"a #spider buried in the desert# holds", /*french*/"une #Skulltula enterrée au pied du colosse# a", /*spanish*/"una #Skulltula enterrada en el desierto# otorga", /*italian*/"un #ragno sepolto nel deserto# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[COLOSSUS_GS_HILL] = HintText::Exclude({
                        //obscure text
-                       Text{"night reveals a #spider deep in the desert# holding", /*french*/"une #Skulltula sur une colline dans le désert# a", /*spanish*/"la noche revela una #Skulltula en las profundidades del desierto# que otorga"},
+                       Text{"night reveals a #spider deep in the desert# holding", /*french*/"une #Skulltula sur une colline dans le désert# a", /*spanish*/"la noche revela una #Skulltula en las profundidades del desierto# que otorga", /*italian*/"di notte appare un #ragno nel cuore del deserto# con", /*german*/"Deutsch"},
   });
 
     hintTable[COLOSSUS_GS_TREE] = HintText::Exclude({
                        //obscure text
-                       Text{"night reveals a #spider deep in the desert# holding", /*french*/"une #Skulltula dans un arbre du désert# a", /*spanish*/"la noche revela una #Skulltula en las profundidades del desierto# que otorga"},
+                       Text{"night reveals a #spider deep in the desert# holding", /*french*/"une #Skulltula dans un arbre du désert# a", /*spanish*/"la noche revela una #Skulltula en las profundidades del desierto# que otorga", /*italian*/"di notte appare un #ragno nel cuore del deserto# con", /*german*/"Deutsch"},
   });
 
 
