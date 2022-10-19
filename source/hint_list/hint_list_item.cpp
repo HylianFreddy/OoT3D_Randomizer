@@ -963,110 +963,110 @@ void HintTable_Init_Item() {
     );
     hintTable[DEKU_TREE_MAP] = HintText::Item({
                         //obscure text
-                        Text{"a mossy atlas", /*french*/"un atlas boisé",  /*spanish*/"un atlas musgoso"},
-                        Text{"some mossy blueprints",      /*french*/"un plan boisé",             /*spanish*/"unos planos musgosos"},
+                        Text{"a mossy atlas",         /*french*/"un atlas boisé", /*spanish*/"un atlas musgoso",     /*italian*/"una pianta muschiosa",      /*german*/"Deutsch"},
+                        Text{"some mossy blueprints", /*french*/"un plan boisé",  /*spanish*/"unos planos musgosos", /*italian*/"una planimetria muschiosa", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa"},
+                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa", /*italian*/"una mappa", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Deku Tree Map", /*french*/"la carte de l'arbre Mojo", /*spanish*/"el mapa del Gran Árbol Deku", /*italian*/"la mappa del Grande Albero Deku", /*german*/"Deutsch"}
      );
     hintTable[DODONGOS_CAVERN_MAP] = HintText::Item({
                         //obscure text
-                        Text{"a rocky atlas", /*french*/"un atlas rocheux",  /*spanish*/"un atlas rocoso"},
-                        Text{"some rocky blueprints",      /*french*/"un plan rocheux",             /*spanish*/"unos planos rocosos"},
+                        Text{"a rocky atlas",         /*french*/"un atlas rocheux",  /*spanish*/"un atlas rocoso",     /*italian*/"una pianta rocciosa",      /*german*/"Deutsch"},
+                        Text{"some rocky blueprints", /*french*/"un plan rocheux",   /*spanish*/"unos planos rocosos", /*italian*/"una planimetria rocciosa", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa"},
+                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa", /*italian*/"una mappa", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Dodongo's Cavern Map", /*french*/"la carte de la caverne Dodongo", /*spanish*/"el mapa de la Cueva de los Dodongos", /*italian*/"la mappa della caverna dei Dodongo", /*german*/"Deutsch"}
      );
     hintTable[JABU_JABUS_BELLY_MAP] = HintText::Item({
                         //obscure text
-                        Text{"a fishy atlas", /*french*/"un atlas digéré",  /*spanish*/"un atlas digesto"},
-                        Text{"some fishy blueprints",      /*french*/"un plan digéré",             /*spanish*/"unos planos digestos"},
+                        Text{"a fishy atlas",         /*french*/"un atlas digéré", /*spanish*/"un atlas digesto",     /*italian*/"una pianta anatomica",      /*german*/"Deutsch"},
+                        Text{"some fishy blueprints", /*french*/"un plan digéré",  /*spanish*/"unos planos digestos", /*italian*/"una planimetria anatomica", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa"},
+                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa", /*italian*/"una mappa", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Jabu-Jabu's Belly Map", /*french*/"la carte de Jabu-Jabu", /*spanish*/"el mapa de la Tripa de Jabu-Jabu", /*italian*/"la mappa della pancia di Jabu Jabu", /*german*/"Deutsch"}
      );
     hintTable[FOREST_TEMPLE_MAP] = HintText::Item({
                         //obscure text
-                        Text{"a sylvan atlas", /*french*/"un atlas sylvestre",  /*spanish*/"un atlas enselvado"},
-                        Text{"some sylvan blueprints",      /*french*/"un plan sylvestre",             /*spanish*/"unos planos enselvados"},
+                        Text{"a sylvan atlas",         /*french*/"un atlas sylvestre", /*spanish*/"un atlas enselvado",     /*italian*/"una pianta silvestre",      /*german*/"Deutsch"},
+                        Text{"some sylvan blueprints", /*french*/"un plan sylvestre",  /*spanish*/"unos planos enselvados", /*italian*/"una planimetria silvestre", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa"},
+                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa", /*italian*/"una mappa", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Forest Temple Map", /*french*/"la carte du temple de la forêt", /*spanish*/"el mapa del Templo del Bosque", /*italian*/"la mappa del Santuario della Foresta", /*german*/"Deutsch"}
      );
     hintTable[FIRE_TEMPLE_MAP] = HintText::Item({
                         //obscure text
-                        Text{"a molten atlas", /*french*/"un atlas fondu",  /*spanish*/"un atlas fundido"},
-                        Text{"some molten blueprints",      /*french*/"un plan fondu",             /*spanish*/"unos planos fundidos"},
+                        Text{"a molten atlas",         /*french*/"un atlas fondu", /*spanish*/"un atlas fundido",     /*italian*/"una pianta bollente",      /*german*/"Deutsch"},
+                        Text{"some molten blueprints", /*french*/"un plan fondu",  /*spanish*/"unos planos fundidos", /*italian*/"una planimetria bollente", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa"},
+                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa", /*italian*/"una mappa", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Fire Temple Map", /*french*/"la carte du temple du feu", /*spanish*/"el mapa del Templo del Fuego", /*italian*/"la mappa del Santuario del Fuoco", /*german*/"Deutsch"}
      );
     hintTable[WATER_TEMPLE_MAP] = HintText::Item({
                         //obscure text
-                        Text{"a wet atlas", /*french*/"un atlas humide",  /*spanish*/"un atlas mojado"},
-                        Text{"some wet blueprints",      /*french*/"un plan humide",             /*spanish*/"unos planos mojados"},
+                        Text{"a wet atlas",         /*french*/"un atlas humide", /*spanish*/"un atlas mojado",     /*italian*/"una pianta idraulica",      /*german*/"Deutsch"},
+                        Text{"some wet blueprints", /*french*/"un plan humide",  /*spanish*/"unos planos mojados", /*italian*/"una planimetria idraulica", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa"},
+                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa", /*italian*/"una mappa", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Water Temple Map", /*french*/"la carte du temple de l'eau", /*spanish*/"el mapa del Templo del Agua", /*italian*/"la mappa del Santuario dell'Acqua", /*german*/"Deutsch"}
      );
     hintTable[SPIRIT_TEMPLE_MAP] = HintText::Item({
                         //obscure text
-                        Text{"a sandy atlas", /*french*/"un atlas sableux",  /*spanish*/"un atlas arenoso"},
-                        Text{"some sandy blueprints",      /*french*/"un plan sableux",             /*spanish*/"unos planos arenosos"},
+                        Text{"a sandy atlas",         /*french*/"un atlas sableux", /*spanish*/"un atlas arenoso",     /*italian*/"una pianta sabbiosa",      /*german*/"Deutsch"},
+                        Text{"some sandy blueprints", /*french*/"un plan sableux",  /*spanish*/"unos planos arenosos", /*italian*/"una planimetria sabbiosa", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa"},
+                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa", /*italian*/"una mappa", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Spirit Temple Map", /*french*/"la carte du temple de l'esprit", /*spanish*/"el mapa del Templo del Espíritu", /*italian*/"la mappa del Santuario dello Spirito", /*german*/"Deutsch"}
      );
     hintTable[SHADOW_TEMPLE_MAP] = HintText::Item({
                         //obscure text
-                        Text{"a creepy atlas", /*french*/"un atlas sinistre",  /*spanish*/"un atlas siniestra"},
-                        Text{"some creepy blueprints",      /*french*/"un plan sinistre",             /*spanish*/"unos planos siniestras"},
+                        Text{"a creepy atlas",         /*french*/"un atlas sinistre", /*spanish*/"un atlas siniestra",     /*italian*/"una pianta patibolare",      /*german*/"Deutsch"},
+                        Text{"some creepy blueprints", /*french*/"un plan sinistre",  /*spanish*/"unos planos siniestras", /*italian*/"una planimetria patibolare", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa"},
+                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa", /*italian*/"una mappa", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Shadow Temple Map", /*french*/"la carte du temple de l'ombre", /*spanish*/"el mapa del Templo de las Sombras", /*italian*/"la mappa del Santuario dell'Ombra", /*german*/"Deutsch"}
      );
     hintTable[BOTTOM_OF_THE_WELL_MAP] = HintText::Item({
                         //obscure text
-                        Text{"a moldy atlas", /*french*/"un atlas moisi",  /*spanish*/"un atlas mohoso"},
-                        Text{"some moldy blueprints",      /*french*/"un plan moisi",             /*spanish*/"unos planos mohosos"},
+                        Text{"a moldy atlas",         /*french*/"un atlas moisi", /*spanish*/"un atlas mohoso",     /*italian*/"una pianta ammuffita",      /*german*/"Deutsch"},
+                        Text{"some moldy blueprints", /*french*/"un plan moisi",  /*spanish*/"unos planos mohosos", /*italian*/"una planimetria ammuffita", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa"},
+                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa", /*italian*/"una mappa", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Bottom of the Well Map", /*french*/"la carte du fond du puits", /*spanish*/"el mapa del Fondo del pozo", /*italian*/"la mappa del fondo del pozzo", /*german*/"Deutsch"}
      );
     hintTable[ICE_CAVERN_MAP] = HintText::Item({
                         //obscure text
-                        Text{"a polar atlas", /*french*/"un atlas polaire",  /*spanish*/"un atlas polar"},
-                        Text{"some polar blueprints",      /*french*/"un plan polaire",             /*spanish*/"unos planos polars"},
+                        Text{"a polar atlas",         /*french*/"un atlas polaire", /*spanish*/"un atlas polar",     /*italian*/"una pianta artica",      /*german*/"Deutsch"},
+                        Text{"some polar blueprints", /*french*/"un plan polaire",  /*spanish*/"unos planos polars", /*italian*/"una planimetria artica", /*german*/"Deutsch"},
                       }, {
                         //ambiguous text
-                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa"},
+                        Text{"a dungeon map", /*french*/"une carte", /*spanish*/"un mapa", /*italian*/"una mappa", /*german*/"Deutsch"},
                       },
                         //clear text
                         Text{"the Ice Cavern Map", /*french*/"la carte de la caverne polaire", /*spanish*/"el mapa de la Caverna de hielo", /*italian*/"la mappa della caverna di ghiaccio", /*german*/"Deutsch"}
