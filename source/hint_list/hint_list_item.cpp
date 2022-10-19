@@ -1498,11 +1498,11 @@ void HintTable_Init_Item() {
 
     hintTable[KOKIRI_EMERALD] = HintText::Item({
                        //obscure text
-                       Text{"a green stone",       /*french*/"une pierre verte",               /*spanish*/"una piedra verde"},
-                       Text{"a gift before death", /*french*/"le dernier souffle d'un arbre", /*spanish*/"un obsequio testamentario"},
+                       Text{"a green stone",       /*french*/"une pierre verte",              /*spanish*/"una piedra verde",          /*italian*/"una pietra verde",           /*german*/"Deutsch"},
+                       Text{"a gift before death", /*french*/"le dernier souffle d'un arbre", /*spanish*/"un obsequio testamentario", /*italian*/"un dono dal letto di morte", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a spiritual stone", /*french*/"une pierre spirituelle", /*spanish*/"una piedra espiritual"},
+                       Text{"a spiritual stone", /*french*/"une pierre spirituelle", /*spanish*/"una piedra espiritual", /*italian*/"una pietra spirituale", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Kokiri Emerald", /*french*/"l'émeraude Kokiri", /*spanish*/"la Esmeralda de los Kokiri", /*italian*/"lo smeraldo dei Kokiri", /*german*/"Deutsch"}
@@ -1510,11 +1510,11 @@ void HintTable_Init_Item() {
 
     hintTable[GORON_RUBY] = HintText::Item({
                        //obscure text
-                       Text{"a red stone",       /*french*/"une pierre rouge",         /*spanish*/"una piedra carmín"},
-                       Text{"sworn brotherhood", /*french*/"un serment de fraternité", /*spanish*/"el juramento de hermanos de sangre"},
+                       Text{"a red stone",       /*french*/"une pierre rouge",         /*spanish*/"una piedra carmín",                  /*italian*/"una pietra rossa",     /*german*/"Deutsch"},
+                       Text{"sworn brotherhood", /*french*/"un serment de fraternité", /*spanish*/"el juramento de hermanos de sangre", /*italian*/"fratellanza rocciosa", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a spiritual stone", /*french*/"une pierre spirituelle", /*spanish*/"una piedra espiritual"},
+                       Text{"a spiritual stone", /*french*/"une pierre spirituelle", /*spanish*/"una piedra espiritual", /*italian*/"una pietra spirituale", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Goron Ruby", /*french*/"le rubis Goron", /*spanish*/"el Rubí de los Goron", /*italian*/"il rubino dei Goron", /*german*/"Deutsch"}
@@ -1522,11 +1522,11 @@ void HintTable_Init_Item() {
 
     hintTable[ZORA_SAPPHIRE] = HintText::Item({
                        //obscure text
-                       Text{"a blue stone",       /*french*/"une pierre bleue",     /*spanish*/"una piedra celeste"},
-                       Text{"an engagement gift", /*french*/"un cadeau de mariage", /*spanish*/"un regalo de compromiso"},
+                       Text{"a blue stone",       /*french*/"une pierre bleue",     /*spanish*/"una piedra celeste",      /*italian*/"una pietra azzurra",        /*german*/"Deutsch"},
+                       Text{"an engagement gift", /*french*/"un cadeau de mariage", /*spanish*/"un regalo de compromiso", /*italian*/"un regalo di fidanzamento", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a spiritual stone", /*french*/"une pierre spirituelle", /*spanish*/"una piedra espiritual"},
+                       Text{"a spiritual stone", /*french*/"une pierre spirituelle", /*spanish*/"una piedra espiritual", /*italian*/"una pietra spirituale", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Zora Sapphire", /*french*/"le saphir Zora", /*spanish*/"el Zafiro de los Zora", /*italian*/"lo zaffiro degli Zora", /*german*/"Deutsch"}
@@ -1534,11 +1534,11 @@ void HintTable_Init_Item() {
 
     hintTable[FOREST_MEDALLION] = HintText::Item({
                        //obscure text
-                       Text{"a green coin",       /*french*/"une pièce verte",    /*spanish*/"una moneda esmeralda"},
-                       Text{"Saria's friendship", /*french*/"l'amitié de Saria", /*spanish*/"la amistad de Saria"},
+                       Text{"a green coin",       /*french*/"une pièce verte",   /*spanish*/"una moneda esmeralda", /*italian*/"un disco verde",     /*german*/"Deutsch"},
+                       Text{"Saria's friendship", /*french*/"l'amitié de Saria", /*spanish*/"la amistad de Saria",  /*italian*/"il potere di Saria", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a medallion", /*french*/"un médaillon", /*spanish*/"un medallón"},
+                       Text{"a medallion", /*french*/"un médaillon", /*spanish*/"un medallón", /*italian*/"un medaglione", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Forest Medallion", /*french*/"le médaillon de la forêt", /*spanish*/"el Medallón del Bosque", /*italian*/"il medaglione della Foresta", /*german*/"Deutsch"}
@@ -1546,11 +1546,11 @@ void HintTable_Init_Item() {
 
     hintTable[FIRE_MEDALLION] = HintText::Item({
                        //obscure text
-                       Text{"a red coin",      /*french*/"une pièce rouge",           /*spanish*/"una moneda rubí"},
-                       Text{"Darunia's power", /*french*/"la fraternité de Darunia", /*spanish*/"la fraternidad de Darunia"},
+                       Text{"a red coin",      /*french*/"une pièce rouge",          /*spanish*/"una moneda rubí",           /*italian*/"un disco rosso",       /*german*/"Deutsch"},
+                       Text{"Darunia's power", /*french*/"la fraternité de Darunia", /*spanish*/"la fraternidad de Darunia", /*italian*/"il potere di Darunia", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a medallion", /*french*/"un médaillon", /*spanish*/"un medallón"},
+                       Text{"a medallion", /*french*/"un médaillon", /*spanish*/"un medallón", /*italian*/"un medaglione", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Fire Medallion", /*french*/"le médaillon du feu", /*spanish*/"el Medallón del Fuego", /*italian*/"il medaglione del Fuoco", /*german*/"Deutsch"}
@@ -1558,11 +1558,11 @@ void HintTable_Init_Item() {
 
     hintTable[WATER_MEDALLION] = HintText::Item({
                        //obscure text
-                       Text{"a blue coin",  /*french*/"une pièce bleue",  /*spanish*/"una moneda zafiro"},
-                       Text{"Ruto's power", /*french*/"l'amour de Ruto", /*spanish*/"el amor de Ruto"},
+                       Text{"a blue coin",  /*french*/"une pièce bleue", /*spanish*/"una moneda zafiro", /*italian*/"un disco blu",      /*german*/"Deutsch"},
+                       Text{"Ruto's power", /*french*/"l'amour de Ruto", /*spanish*/"el amor de Ruto",   /*italian*/"il potere di Ruto", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a medallion", /*french*/"un médaillon", /*spanish*/"un medallón"},
+                       Text{"a medallion", /*french*/"un médaillon", /*spanish*/"un medallón", /*italian*/"un medaglione", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Water Medallion", /*french*/"le médaillon de l'eau", /*spanish*/"el Medallón del Agua", /*italian*/"il medaglione dell'Acqua", /*german*/"Deutsch"}
@@ -1570,11 +1570,11 @@ void HintTable_Init_Item() {
 
     hintTable[SPIRIT_MEDALLION] = HintText::Item({
                        //obscure text
-                       Text{"an orange coin",  /*french*/"une pièce orange",       /*spanish*/"una moneda ámbar"},
-                       Text{"Nabooru's power", /*french*/"le respect de Nabooru", /*spanish*/"el respeto de Nabooru"},
+                       Text{"an orange coin",  /*french*/"une pièce orange",      /*spanish*/"una moneda ámbar",      /*italian*/"un disco arancione",  /*german*/"Deutsch"},
+                       Text{"Nabooru's power", /*french*/"le respect de Nabooru", /*spanish*/"el respeto de Nabooru", /*italian*/"il potere di Naburu", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a medallion", /*french*/"un médaillon", /*spanish*/"un medallón"},
+                       Text{"a medallion", /*french*/"un médaillon", /*spanish*/"un medallón", /*italian*/"un medaglione", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Spirit Medallion", /*french*/"le médaillon de l'esprit", /*spanish*/"el Medallón del Espíritu", /*italian*/"il medaglione dello Spirito", /*german*/"Deutsch"}
@@ -1582,11 +1582,11 @@ void HintTable_Init_Item() {
 
     hintTable[SHADOW_MEDALLION] = HintText::Item({
                        //obscure text
-                       Text{"a purple coin", /*french*/"une pièce pourpre",    /*spanish*/"una moneda malva"},
-                       Text{"Impa's power",  /*french*/"la confiance d'Impa", /*spanish*/"la confianza de Impa"},
+                       Text{"a purple coin", /*french*/"une pièce pourpre",   /*spanish*/"una moneda malva",     /*italian*/"un disco viola",    /*german*/"Deutsch"},
+                       Text{"Impa's power",  /*french*/"la confiance d'Impa", /*spanish*/"la confianza de Impa", /*italian*/"il potere di Impa", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a medallion", /*french*/"un médaillon", /*spanish*/"un medallón"},
+                       Text{"a medallion", /*french*/"un médaillon", /*spanish*/"un medallón", /*italian*/"un medaglione", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Shadow Medallion", /*french*/"le médaillon de l'ombre", /*spanish*/"el Medallón de la Sombra", /*italian*/"il medaglione dell'Ombra", /*german*/"Deutsch"}
@@ -1594,11 +1594,11 @@ void HintTable_Init_Item() {
 
     hintTable[LIGHT_MEDALLION] = HintText::Item({
                        //obscure text
-                       Text{"a yellow coin", /*french*/"une pièce jaune",  /*spanish*/"una moneda resplandeciente"},
-                       Text{"Rauru's power", /*french*/"la foi de Rauru", /*spanish*/"la fe de Rauru"},
+                       Text{"a yellow coin", /*french*/"une pièce jaune", /*spanish*/"una moneda resplandeciente", /*italian*/"un disco giallo",   /*german*/"Deutsch"},
+                       Text{"Rauru's power", /*french*/"la foi de Rauru", /*spanish*/"la fe de Rauru",             /*italian*/"il potere di Raul", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a medallion", /*french*/"un médaillon", /*spanish*/"un medallón"},
+                       Text{"a medallion", /*french*/"un médaillon", /*spanish*/"un medallón", /*italian*/"un medaglione", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"the Light Medallion", /*french*/"le médaillon de la lumière", /*spanish*/"el Medallón de la Luz", /*italian*/"il medaglione della Luce", /*german*/"Deutsch"}
