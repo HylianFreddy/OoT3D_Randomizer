@@ -1606,12 +1606,12 @@ void HintTable_Init_Item() {
 
     hintTable[RECOVERY_HEART] = HintText::Item({
                        //obscure text
-                       Text{"a free heal",   /*french*/"un bec-au-bobo", /*spanish*/"una cura de regalo"},
-                       Text{"a hearty meal", /*french*/"un petit amour",   /*spanish*/"una sanación romántica"},
-                       Text{"a Band-Aid",    /*french*/"un diachylon",     /*spanish*/"un corazoncito sanador"},
+                       Text{"a free heal",   /*french*/"un bec-au-bobo", /*spanish*/"una cura de regalo",     /*italian*/"una cura rincuorante", /*german*/"Deutsch"},
+                       Text{"a hearty meal", /*french*/"un petit amour", /*spanish*/"una sanación romántica", /*italian*/"un bacino",            /*german*/"Deutsch"},
+                       Text{"a Band-Aid",    /*french*/"un diachylon",   /*spanish*/"un corazoncito sanador", /*italian*/"un cerotto",           /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"something heart-shaped", /*french*/"une chose en forme de cœur", /*spanish*/"algo con forma de corazón"},
+                       Text{"something heart-shaped", /*french*/"une chose en forme de cœur", /*spanish*/"algo con forma de corazón", /*italian*/"qualcosa a forma di cuore", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"a Recovery Heart", /*french*/"un cœur de vie", /*spanish*/"un corazón", /*italian*/"un cuore", /*german*/"Deutsch"}
@@ -1619,12 +1619,12 @@ void HintTable_Init_Item() {
 
     hintTable[GREEN_RUPEE] = HintText::Item({
                        //obscure text
-                       Text{"a unique coin", /*french*/"un rubis bien mérité", /*spanish*/"una singular moneda"},
-                       Text{"a penny",       /*french*/"un sou",               /*spanish*/"un peso hyliano"},
-                       Text{"a green gem",   /*french*/"un joyau vert",        /*spanish*/"una gema verde"},
+                       Text{"a unique coin", /*french*/"un rubis bien mérité", /*spanish*/"una singular moneda", /*italian*/"una moneta più unica che rara", /*german*/"Deutsch"},
+                       Text{"a penny",       /*french*/"un sou",               /*spanish*/"un peso hyliano",     /*italian*/"un nichelino",                  /*german*/"Deutsch"},
+                       Text{"a green gem",   /*french*/"un joyau vert",        /*spanish*/"una gema verde",      /*italian*/"una gemma verde",               /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"some rupees", /*french*/"une quantité de rubis", /*spanish*/"una cantidad de rupias"},
+                       Text{"some rupees", /*french*/"une quantité de rubis", /*spanish*/"una cantidad de rupias", /*italian*/"un po' di rupie", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"a Green Rupee", /*french*/"un rubis vert", /*spanish*/"una rupia verde", /*italian*/"una rupia verde", /*german*/"Deutsch"}
@@ -1632,11 +1632,11 @@ void HintTable_Init_Item() {
 
     hintTable[BLUE_RUPEE] = HintText::Item({
                        //obscure text
-                       Text{"a common coin", /*french*/"quelques sous", /*spanish*/"una moneda usual"},
-                       Text{"a blue gem",    /*french*/"un joyau bleu",  /*spanish*/"una gema azul"},
+                       Text{"a common coin", /*french*/"quelques sous", /*spanish*/"una moneda usual", /*italian*/"il solito soldo",   /*german*/"Deutsch"},
+                       Text{"a blue gem",    /*french*/"un joyau bleu",  /*spanish*/"una gema azul",   /*italian*/"una gemma azzurra", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"some rupees", /*french*/"une quantité de rubis", /*spanish*/"una cantidad de rupias"},
+                       Text{"some rupees", /*french*/"une quantité de rubis", /*spanish*/"una cantidad de rupias", /*italian*/"un po' di rupie", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"a Blue Rupee", /*french*/"un rubis bleu", /*spanish*/"una rupia azul", /*italian*/"una rupia blu", /*german*/"Deutsch"}
@@ -1644,11 +1644,11 @@ void HintTable_Init_Item() {
 
     hintTable[RED_RUPEE] = HintText::Item({
                        //obscure text
-                       Text{"couch cash", /*french*/"un peu de fric", /*spanish*/"una buena moneda"},
-                       Text{"a red gem",  /*french*/"un joyau rouge", /*spanish*/"una gema roja"},
+                       Text{"couch cash", /*french*/"un peu de fric", /*spanish*/"una buena moneda", /*italian*/"una paghetta",    /*german*/"Deutsch"},
+                       Text{"a red gem",  /*french*/"un joyau rouge", /*spanish*/"una gema roja",    /*italian*/"una gemma rossa", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"some rupees", /*french*/"une quantité de rubis", /*spanish*/"una cantidad de rupias"},
+                       Text{"some rupees", /*french*/"une quantité de rubis", /*spanish*/"una cantidad de rupias", /*italian*/"un po' di rupie", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"a Red Rupee", /*french*/"un rubis rouge", /*spanish*/"una rupia roja", /*italian*/"una rupia rossa", /*german*/"Deutsch"}
@@ -1656,12 +1656,12 @@ void HintTable_Init_Item() {
 
     hintTable[PURPLE_RUPEE] = HintText::Item({
                        //obscure text
-                       Text{"big bucks",    /*french*/"plein de fric",  /*spanish*/"plata de calidad"},
-                       Text{"a purple gem", /*french*/"un joyau mauve", /*spanish*/"una gema morada"},
-                       Text{"wealth",       /*french*/"la richesse",    /*spanish*/"una buena riqueza"},
+                       Text{"big bucks",    /*french*/"plein de fric",  /*spanish*/"plata de calidad",  /*italian*/"un bel gruzzolo", /*german*/"Deutsch"},
+                       Text{"a purple gem", /*french*/"un joyau mauve", /*spanish*/"una gema morada",   /*italian*/"una gemma viola", /*german*/"Deutsch"},
+                       Text{"wealth",       /*french*/"la richesse",    /*spanish*/"una buena riqueza", /*italian*/"mezzo centone",   /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"some rupees", /*french*/"une quantité de rubis", /*spanish*/"una cantidad de rupias"},
+                       Text{"some rupees", /*french*/"une quantité de rubis", /*spanish*/"una cantidad de rupias", /*italian*/"un po' di rupie", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"a Purple Rupee", /*french*/"un rubis pourpre", /*spanish*/"una rupia morada", /*italian*/"una rupia viola", /*german*/"Deutsch"}
@@ -1669,13 +1669,13 @@ void HintTable_Init_Item() {
 
     hintTable[HUGE_RUPEE] = HintText::Item({
                        //obscure text
-                       Text{"a juicy jackpot", /*french*/"le jackpot",           /*spanish*/"el premio gordo"},
-                       Text{"a yellow gem",    /*french*/"un joyau doré",         /*spanish*/"una gema amarilla"},
-                       Text{"a giant gem",     /*french*/"un gros joyau",         /*spanish*/"una gema descomunal"},
-                       Text{"great wealth",    /*french*/"l'aisance financière", /*spanish*/"dinero a caudales"},
+                       Text{"a juicy jackpot", /*french*/"le jackpot",           /*spanish*/"el premio gordo",     /*italian*/"un jackpot",           /*german*/"Deutsch"},
+                       Text{"a yellow gem",    /*french*/"un joyau doré",        /*spanish*/"una gema amarilla",   /*italian*/"una gemma d'oro",      /*german*/"Deutsch"},
+                       Text{"a giant gem",     /*french*/"un gros joyau",        /*spanish*/"una gema descomunal", /*italian*/"una gemma gigante",    /*german*/"Deutsch"},
+                       Text{"great wealth",    /*french*/"l'aisance financière", /*spanish*/"dinero a caudales",   /*italian*/"una grande ricchezza", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"some rupees", /*french*/"une quantité de rubis", /*spanish*/"una cantidad de rupias"},
+                       Text{"some rupees", /*french*/"une quantité de rubis", /*spanish*/"una cantidad de rupias", /*italian*/"un po' di rupie", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"a Huge Rupee", /*french*/"un énorme rubis", /*spanish*/"una rupia gigante", /*italian*/"una rupia gigante", /*german*/"Deutsch"}
@@ -1683,11 +1683,11 @@ void HintTable_Init_Item() {
 
     hintTable[PIECE_OF_HEART] = HintText::Item({
                        //obscure text
-                       Text{"a little love",  /*french*/"un peu plus d'amour", /*spanish*/"un cuarto de amor"},
-                       Text{"a broken heart", /*french*/"un cœur brisé",       /*spanish*/"un corazón roto"},
+                       Text{"a little love",  /*french*/"un peu plus d'amour", /*spanish*/"un cuarto de amor", /*italian*/"un po' di amore",   /*german*/"Deutsch"},
+                       Text{"a broken heart", /*french*/"un cœur brisé",       /*spanish*/"un corazón roto",   /*italian*/"un cuore spezzato", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"something heart-shaped", /*french*/"une chose en forme de cœur", /*spanish*/"algo con forma de corazón"},
+                       Text{"something heart-shaped", /*french*/"une chose en forme de cœur", /*spanish*/"algo con forma de corazón", /*italian*/"qualcosa a forma di cuore", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"a Piece of Heart", /*french*/"un quart de cœur", /*spanish*/"una pieza de corazón", /*italian*/"un frammento di cuore", /*german*/"Deutsch"}
@@ -1695,12 +1695,12 @@ void HintTable_Init_Item() {
 
     hintTable[HEART_CONTAINER] = HintText::Item({
                        //obscure text
-                       Text{"a lot of love",      /*french*/"le grand amour",             /*spanish*/"amor por doquier"},
-                       Text{"a Valentine's gift", /*french*/"un cadeau de Saint-Valentin", /*spanish*/"un contenedor de afección"},
-                       Text{"a boss's organ",     /*french*/"un organe de monstre",        /*spanish*/"los órganos de un jefe"},
+                       Text{"a lot of love",      /*french*/"le grand amour",              /*spanish*/"amor por doquier",          /*italian*/"un grande amore",          /*german*/"Deutsch"},
+                       Text{"a Valentine's gift", /*french*/"un cadeau de Saint-Valentin", /*spanish*/"un contenedor de afección", /*italian*/"un dono di San Valentino", /*german*/"Deutsch"},
+                       Text{"a boss's organ",     /*french*/"un organe de monstre",        /*spanish*/"los órganos de un jefe",    /*italian*/"le spoglie di un boss",    /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"something heart-shaped", /*french*/"une chose en forme de cœur", /*spanish*/"algo con forma de corazón"},
+                       Text{"something heart-shaped", /*french*/"une chose en forme de cœur", /*spanish*/"algo con forma de corazón", /*italian*/"qualcosa a forma di cuore", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"a Heart Container", /*french*/"un cœur d'énergie", /*spanish*/"un contenedor de corazón", /*italian*/"un portacuori", /*german*/"Deutsch"}
@@ -1810,11 +1810,11 @@ void HintTable_Init_Item() {
 
     hintTable[ARROWS_5] = HintText::Item({
                        //obscure text
-                       Text{"a few danger darts", /*french*/"une poignée d'obus",    /*spanish*/"un par de peligrosos dardos"},
-                       Text{"a few sharp shafts", /*french*/"une poignée de piquets", /*spanish*/"un par de puntas afiladas"},
+                       Text{"a few danger darts", /*french*/"une poignée d'obus",     /*spanish*/"un par de peligrosos dardos", /*italian*/"un po' di punte pungenti",   /*german*/"Deutsch"},
+                       Text{"a few sharp shafts", /*french*/"une poignée de piquets", /*spanish*/"un par de puntas afiladas",   /*italian*/"un po' di bacchette saette", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a projectile", /*french*/"un projectile", /*spanish*/"un proyectil"},
+                       Text{"a projectile", /*french*/"un projectile", /*spanish*/"un proyectil", /*italian*/"un proiettile", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"Arrows (5 pieces)", /*french*/"une demi-dizaine de flèches", /*spanish*/"unas (5) flechas", /*italian*/"5 frecce", /*german*/"Deutsch"}
@@ -1822,11 +1822,11 @@ void HintTable_Init_Item() {
 
     hintTable[ARROWS_10] = HintText::Item({
                        //obscure text
-                       Text{"some danger darts", /*french*/"un paquet d'obus",     /*spanish*/"unos cuantos peligrosos dardos"},
-                       Text{"some sharp shafts", /*french*/"un paquet de piquets", /*spanish*/"unas cuantas puntas afiladas"},
+                       Text{"some danger darts", /*french*/"un paquet d'obus",     /*spanish*/"unos cuantos peligrosos dardos", /*italian*/"una decina di punte pungenti",   /*german*/"Deutsch"},
+                       Text{"some sharp shafts", /*french*/"un paquet de piquets", /*spanish*/"unas cuantas puntas afiladas",   /*italian*/"una decina di bacchette saette", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a projectile", /*french*/"un projectile", /*spanish*/"un proyectil"},
+                       Text{"a projectile", /*french*/"un projectile", /*spanish*/"un proyectil", /*italian*/"un proiettile", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"Arrows (10 pieces)", /*french*/"une dizaine de flèches", /*spanish*/"unas (10) flechas", /*italian*/"10 frecce", /*german*/"Deutsch"}
@@ -1834,11 +1834,11 @@ void HintTable_Init_Item() {
 
     hintTable[ARROWS_30] = HintText::Item({
                        //obscure text
-                       Text{"plenty of danger darts", /*french*/"une abondance d'obus",     /*spanish*/"bastantes peligrosos dardos"},
-                       Text{"plenty of sharp shafts", /*french*/"une abondance de piquets", /*spanish*/"bastantes puntas afiladas"},
+                       Text{"plenty of danger darts", /*french*/"une abondance d'obus",     /*spanish*/"bastantes peligrosos dardos", /*italian*/"un mucchio di punte pungenti",   /*german*/"Deutsch"},
+                       Text{"plenty of sharp shafts", /*french*/"une abondance de piquets", /*spanish*/"bastantes puntas afiladas",   /*italian*/"un mucchio di bacchette saette", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a projectile", /*french*/"un projectile", /*spanish*/"un proyectil"},
+                       Text{"a projectile", /*french*/"un projectile", /*spanish*/"un proyectil", /*italian*/"un proiettile", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"Arrows (30 pieces)", /*french*/"une trentaine de flèches", /*spanish*/"unas (30) flechas", /*italian*/"30 frecce", /*german*/"Deutsch"}
@@ -1846,9 +1846,9 @@ void HintTable_Init_Item() {
 
     hintTable[DEKU_NUTS_5] = HintText::Item({
                        //obscure text
-                       Text{"some nuts",       /*french*/"une poignée de noisettes",     /*spanish*/"un par de nueces"},
-                       Text{"some flashbangs", /*french*/"une poignée d'éclats",        /*spanish*/"un par de semillas aturdidoras"},
-                       Text{"some scrub spit", /*french*/"une poignée de crachats Mojo", /*spanish*/"un par de escupitajos deku"},
+                       Text{"some nuts",       /*french*/"une poignée de noisettes",     /*spanish*/"un par de nueces",               /*italian*/"un po' di noci",              /*german*/"Deutsch"},
+                       Text{"some flashbangs", /*french*/"une poignée d'éclats",         /*spanish*/"un par de semillas aturdidoras", /*italian*/"un po' di granate stordenti", /*german*/"Deutsch"},
+                       Text{"some scrub spit", /*french*/"une poignée de crachats Mojo", /*spanish*/"un par de escupitajos deku",     /*italian*/"un po' di sputi di Deku",     /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
                        Text{"some Deku munitions", /*french*/"un paquet de munitions Mojo", /*spanish*/"un montón de municiones Deku",  /*italian*/"un pacchetto di munizioni Deku", /*german*/"Deutsch"},
@@ -1860,13 +1860,13 @@ void HintTable_Init_Item() {
 
     hintTable[DEKU_NUTS_10] = HintText::Item({
                        //obscure text
-                       Text{"lots-o-nuts",          /*french*/"un paquet de noisettes",     /*spanish*/"un puñado de nueces"},
-                       Text{"plenty of flashbangs", /*french*/"un paquet d'éclats",         /*spanish*/"unas cuantas semillas aturdidoras"},
-                       Text{"plenty of scrub spit", /*french*/"un paquet de crachats Mojo", /*spanish*/"unos cuantos escupitajos deku"},
+                       Text{"lots-o-nuts",          /*french*/"un paquet de noisettes",     /*spanish*/"un puñado de nueces",               /*italian*/"un mucchio di noci",              /*german*/"Deutsch"},
+                       Text{"plenty of flashbangs", /*french*/"un paquet d'éclats",         /*spanish*/"unas cuantas semillas aturdidoras", /*italian*/"un mucchio di granate stordenti", /*german*/"Deutsch"},
+                       Text{"plenty of scrub spit", /*french*/"un paquet de crachats Mojo", /*spanish*/"unos cuantos escupitajos deku",     /*italian*/"un mucchio di sputi di Deku",     /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"some Deku munitions", /*french*/"un paquet de munitions Mojo", /*spanish*/"un montón de municiones Deku",  /*italian*/"un pacchetto di munizioni Deku", /*german*/"Deutsch"},
-                       Text{"something that can stun", /*french*/"une chose qui peut paralyser", /*spanish*/"algo que pueda paralizar", /*italian*/"qualcosa che può paralizzare",   /*german*/"Deutsch"},
+                       Text{"some Deku munitions",     /*french*/"un paquet de munitions Mojo",  /*spanish*/"un montón de municiones Deku", /*italian*/"un pacchetto di munizioni Deku", /*german*/"Deutsch"},
+                       Text{"something that can stun", /*french*/"une chose qui peut paralyser", /*spanish*/"algo que pueda paralizar",     /*italian*/"qualcosa che può paralizzare",   /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"Deku Nuts (10 pieces)", /*french*/"une dizaine de noix Mojo", /*spanish*/"unas (10) nueces deku", /*italian*/"10 noci Deku", /*german*/"Deutsch"}
@@ -1874,11 +1874,11 @@ void HintTable_Init_Item() {
 
     hintTable[DEKU_SEEDS_30] = HintText::Item({
                        //obscure text
-                       Text{"catapult ammo", /*french*/"un paquet de délicieuses munitions", /*spanish*/"un par de munición infantil"},
-                       Text{"lots-o-seeds",  /*french*/"un paquet de germes séchés",   /*spanish*/"un puñado de semillas"},
+                       Text{"catapult ammo", /*french*/"un paquet de délicieuses munitions", /*spanish*/"un par de munición infantil", /*italian*/"munizioni per catapulte", /*german*/"Deutsch"},
+                       Text{"lots-o-seeds",  /*french*/"un paquet de germes séchés",         /*spanish*/"un puñado de semillas",       /*italian*/"un mucchio di semi",      /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"a projectile", /*french*/"un projectile", /*spanish*/"un proyectil"},
+                       Text{"a projectile",        /*french*/"un projectile",               /*spanish*/"un proyectil",                 /*italian*/"un proiettile",                  /*german*/"Deutsch"},
                        Text{"some Deku munitions", /*french*/"un paquet de munitions Mojo", /*spanish*/"un montón de municiones Deku", /*italian*/"un pacchetto di munizioni Deku", /*german*/"Deutsch"},
                      },
                        //clear text
@@ -1887,7 +1887,7 @@ void HintTable_Init_Item() {
 
     hintTable[DEKU_STICK_1] = HintText::Item({
                        //obscure text
-                       Text{"a breakable branch", /*french*/"un bout de bois", /*spanish*/"un pequeño báculo"},
+                       Text{"a breakable branch", /*french*/"un bout de bois", /*spanish*/"un pequeño báculo", /*italian*/"un legno lungo", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
                        Text{"some Deku munitions", /*french*/"un paquet de munitions Mojo", /*spanish*/"un montón de municiones Deku", /*italian*/"un pacchetto di munizioni Deku", /*german*/"Deutsch"},
@@ -1898,10 +1898,10 @@ void HintTable_Init_Item() {
 
     hintTable[TREASURE_GAME_HEART] = HintText::Item({
                        //obscure text
-                       Text{"a victory valentine", /*french*/"un amour gagnant", /*spanish*/"el amor victorioso"},
+                       Text{"a victory valentine", /*french*/"un amour gagnant", /*spanish*/"el amor victorioso", /*italian*/"amore vincitore", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"something heart-shaped", /*french*/"une chose en forme de cœur", /*spanish*/"algo con forma de corazón"},
+                       Text{"something heart-shaped", /*french*/"une chose en forme de cœur", /*spanish*/"algo con forma de corazón", /*italian*/"qualcosa a forma di cuore", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"a Piece of Heart", /*french*/"un quart de cœur", /*spanish*/"el amor de la victoria", /*italian*/"un frammento di cuore", /*german*/"Deutsch"}
@@ -1909,10 +1909,10 @@ void HintTable_Init_Item() {
 
     hintTable[TREASURE_GAME_GREEN_RUPEE] = HintText::Item({
                        //obscure text
-                       Text{"the dollar of defeat", /*french*/"le rubis de la défaite", /*spanish*/"el peso de la derrota"},
+                       Text{"the dollar of defeat", /*french*/"le rubis de la défaite", /*spanish*/"el peso de la derrota", /*italian*/"la moneta della sconfitta", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"some rupees", /*french*/"une quantité de rubis", /*spanish*/"una cantidad de rupias"},
+                       Text{"some rupees", /*french*/"une quantité de rubis", /*spanish*/"una cantidad de rupias", /*italian*/"un po' di rupie", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"a Green Rupee", /*french*/"un rubis vert", /*spanish*/"una rupia verde", /*italian*/"una rupia verde", /*german*/"Deutsch"}
@@ -1920,9 +1920,9 @@ void HintTable_Init_Item() {
 
     hintTable[TRIFORCE_PIECE] = HintText::Item({
                        //obscure text
-                       Text{"a triumph fork",  /*french*/"la Tribosse",     /*spanish*/"un trígono del triunfo"},
-                       Text{"cheese",          /*french*/"du fromage",      /*spanish*/"un porción de queso"},
-                       Text{"a gold fragment", /*french*/"un fragment d'or", /*spanish*/"un fragmento dorado"},
+                       Text{"a triumph fork",  /*french*/"la Tribosse",      /*spanish*/"un trígono del triunfo", /*italian*/"una triporta dorata", /*german*/"Deutsch"},
+                       Text{"cheese",          /*french*/"du fromage",       /*spanish*/"un porción de queso",    /*italian*/"del formaggio",       /*german*/"Deutsch"},
+                       Text{"a gold fragment", /*french*/"un fragment d'or", /*spanish*/"un fragmento dorado",    /*italian*/"un frammento dorato", /*german*/"Deutsch"},
                      }, {},
                        //clear text
                        Text{"a Piece of the Triforce", /*french*/"un fragment de la Triforce", /*spanish*/"un fragmento de la Trifuerza", /*italian*/"un frammento di Triforza", /*german*/"Deutsch"}
@@ -1930,13 +1930,13 @@ void HintTable_Init_Item() {
 
     hintTable[EPONA] = HintText::Item({
                        //obscure text
-                       Text{"a horse",              /*french*/"un fidèle destrier", /*spanish*/"una yegua"},
-                       Text{"a four legged friend", /*french*/"un puissant animal", /*spanish*/"una amiga cuadrúpeda"},
+                       Text{"a horse",              /*french*/"un fidèle destrier", /*spanish*/"una yegua",            /*italian*/"una cavalla",              /*german*/"Deutsch"},
+                       Text{"a four legged friend", /*french*/"un puissant animal", /*spanish*/"una amiga cuadrúpeda", /*italian*/"un'amica a quattro zampe", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"something from Malon", /*french*/"un cadeau de Malon", /*spanish*/"un obsequio de Malon"},
-                       Text{"a song sung by frogs", /*french*/"une chanson aimée des grenouilles", /*spanish*/"una melodía de ranas"},
-                       Text{"something to cross a broken bridge", /*french*/"une chose pour traverser un pont brisé", /*spanish*/"algo para cruzar un puente roto"},
+                       Text{"something from Malon",               /*french*/"un cadeau de Malon",                     /*spanish*/"un obsequio de Malon",            /*italian*/"un dono di Malon",                         /*german*/"Deutsch"},
+                       Text{"a song sung by frogs",               /*french*/"une chanson aimée des grenouilles",      /*spanish*/"una melodía de ranas",            /*italian*/"un animale",                               /*german*/"Deutsch"},
+                       Text{"something to cross a broken bridge", /*french*/"une chose pour traverser un pont brisé", /*spanish*/"algo para cruzar un puente roto", /*italian*/"qualcosa per oltrepassare un ponte rotto", /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"Epona", /*french*/"Epona", /*spanish*/"a Epona", /*italian*/"Epona", /*german*/"Deutsch"}
@@ -1944,8 +1944,8 @@ void HintTable_Init_Item() {
 
     // [HINT_ERROR] = HintText::Item({
     //                      //obscure text
-    //                      Text{"something mysterious", /*french*/"un sacré mystère", /*spanish*/"algo misterioso"},
-    //                      Text{"an unknown treasure",  /*french*/"un trésor inconnu", /*spanish*/"un desconocido tesoro"},
+    //                      Text{"something mysterious", /*french*/"un sacré mystère",  /*spanish*/"algo misterioso",       /*italian*/"qualcosa di misterioso", /*german*/"Deutsch"},
+    //                      Text{"an unknown treasure",  /*french*/"un trésor inconnu", /*spanish*/"un desconocido tesoro", /*italian*/"un tesoro incognito",    /*german*/"Deutsch"},
     //                    },
     //                      //clear text
     //                      Text{"An Error (Please Report This)", /*french*/"une erreur (signaler S.V.P.)", /*spanish*/"un error (repórtelo si es posible)", /*italian*/"un errore (segnalalo per favore)", /*german*/"Deutsch"}
