@@ -6,112 +6,112 @@ void HintTable_Init_Exclude_Dungeon() {
   ---------------------------*/
     hintTable[DEKU_TREE_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"in the #center of the Deku Tree# lies", /*french*/"#le cœur de l'arbre Mojo# recèle", /*spanish*/"al #centro del Gran Árbol Deku# yace"},
+                       Text{"in the #center of the Deku Tree# lies", /*french*/"#le cœur de l'arbre Mojo# recèle", /*spanish*/"al #centro del Gran Árbol Deku# yace", /*italian*/"al #centro dell'Albero Deku# puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_SLINGSHOT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #treasure guarded by a scrub# in the Deku Tree is", /*french*/"le #trésor protégé par une peste# dans l'arbre Mojo est", /*spanish*/"un #deku del Gran Árbol Deku# esconde"},
+                       Text{"the #treasure guarded by a scrub# in the Deku Tree is", /*french*/"le #trésor protégé par une peste# dans l'arbre Mojo est", /*spanish*/"un #deku del Gran Árbol Deku# esconde", /*italian*/"il #forziere custodito da un Deku# nell'omonimo albero contiene", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_SLINGSHOT_ROOM_SIDE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #treasure guarded by a scrub# in the Deku Tree is", /*french*/"le #trésor protégé par une peste# dans l'arbre Mojo est", /*spanish*/"un #deku del Gran Árbol Deku# esconde"},
+                       Text{"the #treasure guarded by a scrub# in the Deku Tree is", /*french*/"le #trésor protégé par une peste# dans l'arbre Mojo est", /*spanish*/"un #deku del Gran Árbol Deku# esconde", /*italian*/"il #forziere custodito da un Deku# nell'omonimo albero contiene", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#pillars of wood# in the Deku Tree lead to", /*french*/"les #piliers de bois# dans l'arbre Mojo indiquent", /*spanish*/"los #salientes del Gran Árbol Deku# conducen a"},
+                       Text{"#pillars of wood# in the Deku Tree lead to", /*french*/"les #piliers de bois# dans l'arbre Mojo indiquent", /*spanish*/"los #salientes del Gran Árbol Deku# conducen a", /*italian*/"dei #pilastri di legno# nell'Albero Deku conducono verso", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_COMPASS_ROOM_SIDE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#pillars of wood# in the Deku Tree lead to", /*french*/"les #piliers de bois# dans l'arbre Mojo indiquent", /*spanish*/"los #salientes del Gran Árbol Deku# conducen a"},
+                       Text{"#pillars of wood# in the Deku Tree lead to", /*french*/"les #piliers de bois# dans l'arbre Mojo indiquent", /*spanish*/"los #salientes del Gran Árbol Deku# conducen a", /*italian*/"dei #pilastri di legno# nell'Albero Deku conducono verso", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_BASEMENT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#webs in the Deku Tree# hide", /*french*/"les #toiles dans l'arbre Mojo# cachent", /*spanish*/"entre #telarañas del Gran Árbol Deku# yace"},
+                       Text{"#webs in the Deku Tree# hide", /*french*/"les #toiles dans l'arbre Mojo# cachent", /*spanish*/"entre #telarañas del Gran Árbol Deku# yace", /*italian*/"una #ragnatela nell'Albero Deku# copre", /*german*/"Deutsch"},
   });
 
 
     hintTable[DEKU_TREE_MQ_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"in the #center of the Deku Tree# lies", /*french*/"#le cœur de l'arbre Mojo# recèle", /*spanish*/"al #centro del Gran Árbol Deku# yace"},
+                       Text{"in the #center of the Deku Tree# lies", /*french*/"#le cœur de l'arbre Mojo# recèle", /*spanish*/"al #centro del Gran Árbol Deku# yace", /*italian*/"al #centro dell'Albero Deku# puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_MQ_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #treasure guarded by a large spider# in the Deku Tree is", /*french*/"le #trésor protégé par une grosse araignée# dans l'arbre Mojo est", /*spanish*/"una #gran araña del Gran Árbol Deku# esconde"},
+                       Text{"a #treasure guarded by a large spider# in the Deku Tree is", /*french*/"le #trésor protégé par une grosse araignée# dans l'arbre Mojo est", /*spanish*/"una #gran araña del Gran Árbol Deku# esconde", /*italian*/"il #tesoro protetto da un grosso ragno# nell'Albero Deku è", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_MQ_SLINGSHOT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#pillars of wood# in the Deku Tree lead to", /*french*/"les #piliers de bois# dans l'arbre Mojo indiquent", /*spanish*/"los #salientes del Gran Árbol Deku# conducen a"},
+                       Text{"#pillars of wood# in the Deku Tree lead to", /*french*/"les #piliers de bois# dans l'arbre Mojo indiquent", /*spanish*/"los #salientes del Gran Árbol Deku# conducen a", /*italian*/"dei #pilastri di legno# nell'Albero Deku conducono verso", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_MQ_SLINGSHOT_ROOM_BACK_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#pillars of wood# in the Deku Tree lead to", /*french*/"les #piliers de bois# dans l'arbre Mojo indiquent", /*spanish*/"los #salientes del Gran Árbol Deku# conducen a"},
+                       Text{"#pillars of wood# in the Deku Tree lead to", /*french*/"les #piliers de bois# dans l'arbre Mojo indiquent", /*spanish*/"los #salientes del Gran Árbol Deku# conducen a", /*italian*/"dei #pilastri di legno# nell'Albero Deku conducono verso", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_MQ_BASEMENT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#webs in the Deku Tree# hide", /*french*/"les #toiles dans l'arbre Mojo# cachent", /*spanish*/"entre #telarañas del Gran Árbol Deku# yace"},
+                       Text{"#webs in the Deku Tree# hide", /*french*/"les #toiles dans l'arbre Mojo# cachent", /*spanish*/"entre #telarañas del Gran Árbol Deku# yace", /*italian*/"una #ragnatela nell'Albero Deku# copre", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_MQ_BEFORE_SPINNING_LOG_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#magical fire in the Deku Tree# leads to", /*french*/"le #feu magique dans l'arbre Mojo# éclaire", /*spanish*/"el #fuego mágico en el Gran Árbol Deku# conduce a"},
+                       Text{"#magical fire in the Deku Tree# leads to", /*french*/"le #feu magique dans l'arbre Mojo# éclaire", /*spanish*/"el #fuego mágico en el Gran Árbol Deku# conduce a", /*italian*/"con del #fuoco magico nell'Albero Deku# si può ottenere", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_QUEEN_GOHMA_HEART] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Parasitic Armored Arachnid# holds", /*french*/"le #monstre insectoïde géant# possède", /*spanish*/"el #arácnido parasitario acorazado# porta"},
+                       Text{"the #Parasitic Armored Arachnid# holds", /*french*/"le #monstre insectoïde géant# possède", /*spanish*/"el #arácnido parasitario acorazado# porta", /*italian*/"il #parassita corazzato# possiede", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"#Queen Gohma# holds", /*french*/"la #Reine Gohma# possède", /*spanish*/"la #Reina Goma# porta"}
+                       Text{"#Queen Gohma# holds", /*french*/"la #Reine Gohma# possède", /*spanish*/"la #Reina Goma# porta", /*italian*/"#Gohma# possiede", /*german*/"Deutsch"}
   );
 
     hintTable[DEKU_TREE_GS_BASEMENT_BACK_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider deep within the Deku Tree# hides", /*french*/"une #Skulltula au cœur de l'arbre Mojo# a", /*spanish*/"una #Skulltula en las profundidades del Árbol Deku# otorga"},
+                       Text{"a #spider deep within the Deku Tree# hides", /*french*/"une #Skulltula au cœur de l'arbre Mojo# a", /*spanish*/"una #Skulltula en las profundidades del Árbol Deku# otorga", /*italian*/"un #ragno nelle profondità dell'Albero Deku# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_GS_BASEMENT_GATE] = HintText::Exclude({
                        //obscure text
-                       Text{"a #web protects a spider# within the Deku Tree holding", /*french*/"une #Skulltula derrière une toile dans l'arbre Mojo# a", /*spanish*/"una #Skulltula protegida por su tela# del Árbol Deku otorga"},
+                       Text{"a #web protects a spider# within the Deku Tree holding", /*french*/"une #Skulltula derrière une toile dans l'arbre Mojo# a", /*spanish*/"una #Skulltula protegida por su tela# del Árbol Deku otorga", /*italian*/"un #ragno vicino all'acqua# nell'Albero Deku nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_GS_BASEMENT_VINES] = HintText::Exclude({
                        //obscure text
-                       Text{"a #web protects a spider# within the Deku Tree holding", /*french*/"une #Skulltula derrière une toile dans l'arbre Mojo# a", /*spanish*/"una #Skulltula protegida por su tela# del Árbol Deku otorga"},
+                       Text{"a #web protects a spider# within the Deku Tree holding", /*french*/"une #Skulltula derrière une toile dans l'arbre Mojo# a", /*spanish*/"una #Skulltula protegida por su tela# del Árbol Deku otorga", /*italian*/"un #ragno vicino all'acqua# nell'Albero Deku nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_GS_COMPASS_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider atop the Deku Tree# holds", /*french*/"une #Skulltula au sommet de l'arbre Mojo# a", /*spanish*/"una #Skulltula en lo alto del Árbol Deku# otorga"},
+                       Text{"a #spider atop the Deku Tree# holds", /*french*/"une #Skulltula au sommet de l'arbre Mojo# a", /*spanish*/"una #Skulltula en lo alto del Árbol Deku# otorga", /*italian*/"un #ragno in cima all'Albero Deku# nasconde", /*german*/"Deutsch"},
   });
 
 
     hintTable[DEKU_TREE_MQ_GS_LOBBY] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider in a crate# within the Deku Tree hides", /*french*/"une #Skulltula dans une boîte dans l'arbre Mojo# a", /*spanish*/"una #Skulltula bajo una caja# del Árbol Deku otorga"},
+                       Text{"a #spider in a crate# within the Deku Tree hides", /*french*/"une #Skulltula dans une boîte dans l'arbre Mojo# a", /*spanish*/"una #Skulltula bajo una caja# del Árbol Deku otorga", /*italian*/"un #ragno in una cassa# nell'Albero Deku nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_MQ_GS_COMPASS_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #wall of rock protects a spider# within the Deku Tree holding", /*french*/"une #Skulltula derrière des rochers dans l'arbre Mojo# a", /*spanish*/"una #Skulltula protegida por una pared rocosa# del Árbol Deku otorga"},
+                       Text{"a #wall of rock protects a spider# within the Deku Tree holding", /*french*/"une #Skulltula derrière des rochers dans l'arbre Mojo# a", /*spanish*/"una #Skulltula protegida por una pared rocosa# del Árbol Deku otorga", /*italian*/"un #ragno dietro dei massi# nell'Albero Deku nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_MQ_GS_BASEMENT_BACK_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider deep within the Deku Tree# hides", /*french*/"une #Skulltula au cœur de l'arbre Mojo# a", /*spanish*/"una #Skulltula en las profundidades del Árbol Deku# otorga"},
+                       Text{"a #spider deep within the Deku Tree# hides", /*french*/"une #Skulltula au cœur de l'arbre Mojo# a", /*spanish*/"una #Skulltula en las profundidades del Árbol Deku# otorga", /*italian*/"un #ragno nelle profondità dell'Albero Deku# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[DEKU_TREE_MQ_DEKU_SCRUB] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub in the Deku Tree# sells", /*french*/"la #peste Mojo dans l'arbre Mojo# vend", /*spanish*/"un #deku del Gran Árbol Deku# vende"},
+                       Text{"a #scrub in the Deku Tree# sells", /*french*/"la #peste Mojo dans l'arbre Mojo# vend", /*spanish*/"un #deku del Gran Árbol Deku# vende", /*italian*/"un #cespuglio nell'Albero Deku# vende", /*german*/"Deutsch"},
   });
 
   /*--------------------------
