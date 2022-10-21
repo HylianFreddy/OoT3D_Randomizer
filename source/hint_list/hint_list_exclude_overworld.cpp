@@ -419,7 +419,7 @@ void HintTable_Init_Exclude_Overworld() {
 
     hintTable[LLR_FREESTANDING_POH] = HintText::Exclude({
                        //obscure text
-                       Text{"in a #ranch silo# lies", /*french*/"#dans l'entrepôt de la ferme# gît", /*spanish*/"en un #granero rupestre# yace", /*italian*/"nel #silo Lon Lon# puoi trovare", /*german*/"Deutsch"},
+                       Text{"in a #ranch silo# lies", /*french*/"#dans l'entrepôt de la ferme# gît", /*spanish*/"en un #granero rupestre# yace", /*italian*/"nel #granaio della fattoria# puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[GRAVEYARD_FREESTANDING_POH] = HintText::Exclude({
@@ -1152,170 +1152,170 @@ void HintTable_Init_Exclude_Overworld() {
 
     hintTable[HF_DEKU_SCRUB_GROTTO] = HintText::Exclude({
                        //obscure text
-                       Text{"a lonely #scrub in a hole# sells", /*french*/"la #peste Mojo dans une grotte de la plaine# vend", /*spanish*/"un #singular deku bajo un hoyo# de la llanura vende"},
+                       Text{"a lonely #scrub in a hole# sells", /*french*/"la #peste Mojo dans une grotte de la plaine# vend", /*spanish*/"un #singular deku bajo un hoyo# de la llanura vende", /*italian*/"un #cespuglio solitario in una grotta# vende", /*german*/"Deutsch"},
   });
 
     hintTable[LLR_DEKU_SCRUB_GROTTO_LEFT] = HintText::Exclude({
                        //obscure text
-                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo à la ferme# vend", /*spanish*/"un #trío de dekus# de una granja venden"},
+                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo à la ferme# vend", /*spanish*/"un #trío de dekus# de una granja venden", /*italian*/"un #trio di cespugli fattori# vende", /*german*/"Deutsch"},
   });
 
     hintTable[LLR_DEKU_SCRUB_GROTTO_RIGHT] = HintText::Exclude({
                        //obscure text
-                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo à la ferme# vend", /*spanish*/"un #trío de dekus# de una granja venden"},
+                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo à la ferme# vend", /*spanish*/"un #trío de dekus# de una granja venden", /*italian*/"un #trio di cespugli fattori# vende", /*german*/"Deutsch"},
   });
 
     hintTable[LLR_DEKU_SCRUB_GROTTO_CENTER] = HintText::Exclude({
                        //obscure text
-                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo à la ferme# vend", /*spanish*/"un #trío de dekus# de una granja venden"},
+                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo à la ferme# vend", /*spanish*/"un #trío de dekus# de una granja venden", /*italian*/"un #trio di cespugli fattori# vende", /*german*/"Deutsch"},
   });
 
 
     hintTable[LW_DEKU_SCRUB_NEAR_DEKU_THEATER_RIGHT] = HintText::Exclude({
                        //obscure text
-                       Text{"a pair of #scrubs in the woods# sells", /*french*/"le #duo de peste Mojo près du théâtre# vend", /*spanish*/"un par de #dekus del bosque# venden"},
+                       Text{"a pair of #scrubs in the woods# sells", /*french*/"le #duo de peste Mojo près du théâtre# vend", /*spanish*/"un par de #dekus del bosque# venden", /*italian*/"un #cespuglio vicino a un teatro# vende", /*german*/"Deutsch"},
   });
 
     hintTable[LW_DEKU_SCRUB_NEAR_DEKU_THEATER_LEFT] = HintText::Exclude({
                        //obscure text
-                       Text{"a pair of #scrubs in the woods# sells", /*french*/"le #duo de peste Mojo près du théâtre# vend", /*spanish*/"un par de #dekus del bosque# venden"},
+                       Text{"a pair of #scrubs in the woods# sells", /*french*/"le #duo de peste Mojo près du théâtre# vend", /*spanish*/"un par de #dekus del bosque# venden", /*italian*/"un #cespuglio vicino a un teatro# vende", /*german*/"Deutsch"},
   });
 
     hintTable[LW_DEKU_SCRUB_NEAR_BRIDGE] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub by a bridge# sells", /*french*/"la #peste Mojo près du pont dans les bois# vend", /*spanish*/"un #deku bajo un puente# del bosque venden"},
+                       Text{"a #scrub by a bridge# sells", /*french*/"la #peste Mojo près du pont dans les bois# vend", /*spanish*/"un #deku bajo un puente# del bosque venden", /*italian*/"un #cespuglio vicino a un ponte# vende", /*german*/"Deutsch"},
   });
 
     hintTable[LW_DEKU_SCRUB_GROTTO_REAR] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo dans les sous-bois# vend", /*spanish*/"un #par de dekus subterráneos# del bosque venden"},
+                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo dans les sous-bois# vend", /*spanish*/"un #par de dekus subterráneos# del bosque venden", /*italian*/"una #coppia di cespugli nascosti nel bosco# vende", /*german*/"Deutsch"},
   });
 
     hintTable[LW_DEKU_SCRUB_GROTTO_FRONT] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo dans les sous-bois# vend", /*spanish*/"un #par de dekus subterráneos# del bosque venden"},
+                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo dans les sous-bois# vend", /*spanish*/"un #par de dekus subterráneos# del bosque venden", /*italian*/"una #coppia di cespugli nascosti nel bosco# vende", /*german*/"Deutsch"},
   });
 
 
     hintTable[SFM_DEKU_SCRUB_GROTTO_REAR] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo au cœur du sanctuaire sylvestre# vend", /*spanish*/"un #par de dekus subterráneos# de la pradera sagrada venden"},
+                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo au cœur du sanctuaire sylvestre# vend", /*spanish*/"un #par de dekus subterráneos# de la pradera sagrada venden", /*italian*/"una #coppia di cespugli nel cuore della foresta# vende", /*german*/"Deutsch"},
   });
 
     hintTable[SFM_DEKU_SCRUB_GROTTO_FRONT] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo au cœur du sanctuaire sylvestre# vend", /*spanish*/"un #par de dekus subterráneos# de la pradera sagrada venden"},
+                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo au cœur du sanctuaire sylvestre# vend", /*spanish*/"un #par de dekus subterráneos# de la pradera sagrada venden", /*italian*/"una #coppia di cespugli nel cuore della foresta# vende", /*german*/"Deutsch"},
   });
 
 
     hintTable[GC_DEKU_SCRUB_GROTTO_LEFT] = HintText::Exclude({
                        //obscure text
-                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo dans le village Goron# vend", /*spanish*/"un #trío de dekus# de la Ciudad Goron venden"},
+                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo dans le village Goron# vend", /*spanish*/"un #trío de dekus# de la Ciudad Goron venden", /*italian*/"un #trio di cespugli fra i Goron# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GC_DEKU_SCRUB_GROTTO_RIGHT] = HintText::Exclude({
                        //obscure text
-                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo dans le village Goron# vend", /*spanish*/"un #trío de dekus# de la Ciudad Goron venden"},
+                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo dans le village Goron# vend", /*spanish*/"un #trío de dekus# de la Ciudad Goron venden", /*italian*/"un #trio di cespugli fra i Goron# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GC_DEKU_SCRUB_GROTTO_CENTER] = HintText::Exclude({
                        //obscure text
-                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo dans le village Goron# vend", /*spanish*/"un #trío de dekus# de la Ciudad Goron venden"},
+                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo dans le village Goron# vend", /*spanish*/"un #trío de dekus# de la Ciudad Goron venden", /*italian*/"un #trio di cespugli fra i Goron# vende", /*german*/"Deutsch"},
   });
 
 
     hintTable[DMC_DEKU_SCRUB_GROTTO_LEFT] = HintText::Exclude({
                        //obscure text
-                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo dans le volcan# vend", /*spanish*/"un #trío de dekus# del volcán venden"},
+                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo dans le volcan# vend", /*spanish*/"un #trío de dekus# del volcán venden", /*italian*/"un #trio di cespugli sotto un macigno# vende", /*german*/"Deutsch"},
   });
 
     hintTable[DMC_DEKU_SCRUB_GROTTO_RIGHT] = HintText::Exclude({
                        //obscure text
-                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo dans le volcan# vend", /*spanish*/"un #trío de dekus# del volcán venden"},
+                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo dans le volcan# vend", /*spanish*/"un #trío de dekus# del volcán venden", /*italian*/"un #trio di cespugli sotto un macigno# vende", /*german*/"Deutsch"},
   });
 
     hintTable[DMC_DEKU_SCRUB_GROTTO_CENTER] = HintText::Exclude({
                        //obscure text
-                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo dans le volcan# vend", /*spanish*/"un #trío de dekus# del volcán venden"},
+                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo dans le volcan# vend", /*spanish*/"un #trío de dekus# del volcán venden", /*italian*/"un #trio di cespugli sotto un macigno# vende", /*german*/"Deutsch"},
   });
 
 
     hintTable[ZR_DEKU_SCRUB_GROTTO_REAR] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo près du fleuve# vend", /*spanish*/"un #par de dekus subterráneos# del río venden"},
+                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo près du fleuve# vend", /*spanish*/"un #par de dekus subterráneos# del río venden", /*italian*/"una #coppia di cespugli vicino al fiume# vende", /*german*/"Deutsch"},
   });
 
     hintTable[ZR_DEKU_SCRUB_GROTTO_FRONT] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo près du fleuve# vend", /*spanish*/"un #par de dekus subterráneos# del río venden"},
+                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo près du fleuve# vend", /*spanish*/"un #par de dekus subterráneos# del río venden", /*italian*/"una #coppia di cespugli vicino al fiume# vende", /*german*/"Deutsch"},
   });
 
 
     hintTable[LH_DEKU_SCRUB_GROTTO_LEFT] = HintText::Exclude({
                        //obscure text
-                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo près du lac# vend", /*spanish*/"un #trío de dekus# del lago venden"},
+                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo près du lac# vend", /*spanish*/"un #trío de dekus# del lago venden", /*italian*/"un #trio di cespugli sotto una lapide# vende", /*german*/"Deutsch"},
   });
 
     hintTable[LH_DEKU_SCRUB_GROTTO_RIGHT] = HintText::Exclude({
                        //obscure text
-                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo près du lac# vend", /*spanish*/"un #trío de dekus# del lago venden"},
+                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo près du lac# vend", /*spanish*/"un #trío de dekus# del lago venden", /*italian*/"un #trio di cespugli sotto una lapide# vende", /*german*/"Deutsch"},
   });
 
     hintTable[LH_DEKU_SCRUB_GROTTO_CENTER] = HintText::Exclude({
                        //obscure text
-                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo près du lac# vend", /*spanish*/"un #trío de dekus# del lago venden"},
+                       Text{"a #trio of scrubs# sells", /*french*/"le #trio de peste Mojo près du lac# vend", /*spanish*/"un #trío de dekus# del lago venden", /*italian*/"un #trio di cespugli sotto una lapide# vende", /*german*/"Deutsch"},
   });
 
 
     hintTable[GV_DEKU_SCRUB_GROTTO_REAR] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo près de la vallée# vend", /*spanish*/"un #par de dekus subterráneos# del valle venden"},
+                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo près de la vallée# vend", /*spanish*/"un #par de dekus subterráneos# del valle venden", /*italian*/"una #coppia di cespugli da canyon# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GV_DEKU_SCRUB_GROTTO_FRONT] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo près de la vallée# vend", /*spanish*/"un #par de dekus subterráneos# del valle venden"},
+                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo près de la vallée# vend", /*spanish*/"un #par de dekus subterráneos# del valle venden", /*italian*/"una #coppia di cespugli da canyon# vende", /*german*/"Deutsch"},
   });
 
 
     hintTable[COLOSSUS_DEKU_SCRUB_GROTTO_FRONT] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo dans le désert# vend", /*spanish*/"un #par de dekus subterráneos# del desierto venden"},
+                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo dans le désert# vend", /*spanish*/"un #par de dekus subterráneos# del desierto venden", /*italian*/"una #coppia di cespugli sotto la sabbia# vende", /*german*/"Deutsch"},
   });
 
     hintTable[COLOSSUS_DEKU_SCRUB_GROTTO_REAR] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo dans le désert# vend", /*spanish*/"un #par de dekus subterráneos# del desierto venden"},
+                       Text{"a #scrub underground duo# sells", /*french*/"le #duo de peste Mojo dans le désert# vend", /*spanish*/"un #par de dekus subterráneos# del desierto venden", /*italian*/"una #coppia di cespugli sotto la sabbia# vende", /*german*/"Deutsch"},
   });
 
 
     hintTable[LLR_STABLES_LEFT_COW] = HintText::Exclude({
                        //obscure text
-                       Text{"a #cow in a stable# gifts", /*french*/"la #vache dans l'étable# donne", /*spanish*/"una #vaca del establo# brinda"},
+                       Text{"a #cow in a stable# gifts", /*french*/"la #vache dans l'étable# donne", /*spanish*/"una #vaca del establo# brinda", /*italian*/"una #mucca nella stalla# regala", /*german*/"Deutsch"},
   });
 
     hintTable[LLR_STABLES_RIGHT_COW] = HintText::Exclude({
                        //obscure text
-                       Text{"a #cow in a stable# gifts", /*french*/"la #vache dans l'étable# donne", /*spanish*/"una #vaca del establo# brinda"},
+                       Text{"a #cow in a stable# gifts", /*french*/"la #vache dans l'étable# donne", /*spanish*/"una #vaca del establo# brinda", /*italian*/"una #mucca nella stalla# regala", /*german*/"Deutsch"},
   });
 
     hintTable[LLR_TOWER_RIGHT_COW] = HintText::Exclude({
                        //obscure text
-                       Text{"a #cow in a ranch silo# gifts", /*french*/"la #vache dans le silo de la ferme# donne", /*spanish*/"una #vaca del granero# brinda"},
+                       Text{"a #cow in a ranch silo# gifts", /*french*/"la #vache dans le silo de la ferme# donne", /*spanish*/"una #vaca del granero# brinda", /*italian*/"una #mucca in un granaio# regala", /*german*/"Deutsch"},
   });
 
     hintTable[LLR_TOWER_LEFT_COW] = HintText::Exclude({
                        //obscure text
-                       Text{"a #cow in a ranch silo# gifts", /*french*/"la #vache dans le silo de la ferme# donne", /*spanish*/"una #vaca del granero# brinda"},
+                       Text{"a #cow in a ranch silo# gifts", /*french*/"la #vache dans le silo de la ferme# donne", /*spanish*/"una #vaca del granero# brinda", /*italian*/"una #mucca in un granaio# regala", /*german*/"Deutsch"},
   });
 
     hintTable[KAK_IMPAS_HOUSE_COW] = HintText::Exclude({
                        //obscure text
-                       Text{"a #cow imprisoned in a house# protects", /*french*/"la #vache en cage# donne", /*spanish*/"una #vaca enjaulada de una casa# brinda"},
+                       Text{"a #cow imprisoned in a house# protects", /*french*/"la #vache en cage# donne", /*spanish*/"una #vaca enjaulada de una casa# brinda", /*italian*/"una #mucca in gabbia# regala", /*german*/"Deutsch"},
   });
 
     hintTable[DMT_COW_GROTTO_COW] = HintText::Exclude({
                        //obscure text
-                       Text{"a #cow in a luxurious hole# offers", /*french*/"la #vache dans une grotte luxueuse# donne", /*spanish*/"una #vaca de un lujoso hoyo# brinda"},
+                       Text{"a #cow in a luxurious hole# offers", /*french*/"la #vache dans une grotte luxueuse# donne", /*spanish*/"una #vaca de un lujoso hoyo# brinda", /*italian*/"una #mucca in una grotta lussuosa# regala", /*german*/"Deutsch"},
   });
 }
