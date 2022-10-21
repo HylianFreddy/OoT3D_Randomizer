@@ -776,377 +776,377 @@ void HintTable_Init_Exclude_Overworld() {
 
     hintTable[KF_SHOP_ITEM_1] = HintText::Exclude({
                        //obscure text
-                       Text{"a #child shopkeeper# sells", /*french*/"la #boutique Kokiri# vend", /*spanish*/"un #joven dependiente# vende"},
+                       Text{"a #child shopkeeper# sells", /*french*/"la #boutique Kokiri# vend", /*spanish*/"un #joven dependiente# vende", /*italian*/"un #commerciante bambino# vende", /*german*/"Deutsch"},
   });
 
     hintTable[KF_SHOP_ITEM_2] = HintText::Exclude({
                        //obscure text
-                       Text{"a #child shopkeeper# sells", /*french*/"la #boutique Kokiri# vend", /*spanish*/"un #joven dependiente# vende"},
+                       Text{"a #child shopkeeper# sells", /*french*/"la #boutique Kokiri# vend", /*spanish*/"un #joven dependiente# vende", /*italian*/"un #commerciante bambino# vende", /*german*/"Deutsch"},
   });
 
     hintTable[KF_SHOP_ITEM_3] = HintText::Exclude({
                        //obscure text
-                       Text{"a #child shopkeeper# sells", /*french*/"la #boutique Kokiri# vend", /*spanish*/"un #joven dependiente# vende"},
+                       Text{"a #child shopkeeper# sells", /*french*/"la #boutique Kokiri# vend", /*spanish*/"un #joven dependiente# vende", /*italian*/"un #commerciante bambino# vende", /*german*/"Deutsch"},
   });
 
     hintTable[KF_SHOP_ITEM_4] = HintText::Exclude({
                        //obscure text
-                       Text{"a #child shopkeeper# sells", /*french*/"la #boutique Kokiri# vend", /*spanish*/"un #joven dependiente# vende"},
+                       Text{"a #child shopkeeper# sells", /*french*/"la #boutique Kokiri# vend", /*spanish*/"un #joven dependiente# vende", /*italian*/"un #commerciante bambino# vende", /*german*/"Deutsch"},
   });
 
     hintTable[KF_SHOP_ITEM_5] = HintText::Exclude({
                        //obscure text
-                       Text{"a #child shopkeeper# sells", /*french*/"la #boutique Kokiri# vend", /*spanish*/"un #joven dependiente# vende"},
+                       Text{"a #child shopkeeper# sells", /*french*/"la #boutique Kokiri# vend", /*spanish*/"un #joven dependiente# vende", /*italian*/"un #commerciante bambino# vende", /*german*/"Deutsch"},
   });
 
     hintTable[KF_SHOP_ITEM_6] = HintText::Exclude({
                        //obscure text
-                       Text{"a #child shopkeeper# sells", /*french*/"la #boutique Kokiri# vend", /*spanish*/"un #joven dependiente# vende"},
+                       Text{"a #child shopkeeper# sells", /*french*/"la #boutique Kokiri# vend", /*spanish*/"un #joven dependiente# vende", /*italian*/"un #commerciante bambino# vende", /*german*/"Deutsch"},
   });
 
     hintTable[KF_SHOP_ITEM_7] = HintText::Exclude({
                        //obscure text
-                       Text{"a #child shopkeeper# sells", /*french*/"la #boutique Kokiri# vend", /*spanish*/"un #joven dependiente# vende"},
+                       Text{"a #child shopkeeper# sells", /*french*/"la #boutique Kokiri# vend", /*spanish*/"un #joven dependiente# vende", /*italian*/"un #commerciante bambino# vende", /*german*/"Deutsch"},
   });
 
     hintTable[KF_SHOP_ITEM_8] = HintText::Exclude({
                        //obscure text
-                       Text{"a #child shopkeeper# sells", /*french*/"la #boutique Kokiri# vend", /*spanish*/"un #joven dependiente# vende"},
+                       Text{"a #child shopkeeper# sells", /*french*/"la #boutique Kokiri# vend", /*spanish*/"un #joven dependiente# vende", /*italian*/"un #commerciante bambino# vende", /*german*/"Deutsch"},
   });
 
 
     hintTable[KAK_POTION_SHOP_ITEM_1] = HintText::Exclude({
                        //obscure text
-                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece"},
+                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece", /*italian*/"un #farmacista# vende", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Kakariko Potion Shop# offers", /*french*/"l'#apothicaire de Kakariko# vend", /*spanish*/"la #tienda de pociones de Kakariko# ofrece"}
+                       Text{"the #Kakariko Potion Shop# offers", /*french*/"l'#apothicaire de Kakariko# vend", /*spanish*/"la #tienda de pociones de Kakariko# ofrece", /*italian*/"il #negozio di pozioni di Calbarico# offre", /*german*/"Deutsch"}
   );
 
     hintTable[KAK_POTION_SHOP_ITEM_2] = HintText::Exclude({
                        //obscure text
-                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece"},
+                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece", /*italian*/"un #farmacista# vende", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Kakariko Potion Shop# offers", /*french*/"l'#apothicaire de Kakariko# vend", /*spanish*/"la #tienda de pociones de Kakariko# ofrece"}
+                       Text{"the #Kakariko Potion Shop# offers", /*french*/"l'#apothicaire de Kakariko# vend", /*spanish*/"la #tienda de pociones de Kakariko# ofrece", /*italian*/"il #negozio di pozioni di Calbarico# offre", /*german*/"Deutsch"}
   );
 
     hintTable[KAK_POTION_SHOP_ITEM_3] = HintText::Exclude({
                        //obscure text
-                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece"},
+                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece", /*italian*/"un #farmacista# vende", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Kakariko Potion Shop# offers", /*french*/"l'#apothicaire de Kakariko# vend", /*spanish*/"la #tienda de pociones de Kakariko# ofrece"}
+                       Text{"the #Kakariko Potion Shop# offers", /*french*/"l'#apothicaire de Kakariko# vend", /*spanish*/"la #tienda de pociones de Kakariko# ofrece", /*italian*/"il #negozio di pozioni di Calbarico# offre", /*german*/"Deutsch"}
   );
 
     hintTable[KAK_POTION_SHOP_ITEM_4] = HintText::Exclude({
                        //obscure text
-                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece"},
+                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece", /*italian*/"un #farmacista# vende", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Kakariko Potion Shop# offers", /*french*/"l'#apothicaire de Kakariko# vend", /*spanish*/"la #tienda de pociones de Kakariko# ofrece"}
+                       Text{"the #Kakariko Potion Shop# offers", /*french*/"l'#apothicaire de Kakariko# vend", /*spanish*/"la #tienda de pociones de Kakariko# ofrece", /*italian*/"il #negozio di pozioni di Calbarico# offre", /*german*/"Deutsch"}
   );
 
     hintTable[KAK_POTION_SHOP_ITEM_5] = HintText::Exclude({
                        //obscure text
-                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece"},
+                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece", /*italian*/"un #farmacista# vende", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Kakariko Potion Shop# offers", /*french*/"l'#apothicaire de Kakariko# vend", /*spanish*/"la #tienda de pociones de Kakariko# ofrece"}
+                       Text{"the #Kakariko Potion Shop# offers", /*french*/"l'#apothicaire de Kakariko# vend", /*spanish*/"la #tienda de pociones de Kakariko# ofrece", /*italian*/"il #negozio di pozioni di Calbarico# offre", /*german*/"Deutsch"}
   );
 
     hintTable[KAK_POTION_SHOP_ITEM_6] = HintText::Exclude({
                        //obscure text
-                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece"},
+                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece", /*italian*/"un #farmacista# vende", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Kakariko Potion Shop# offers", /*french*/"l'#apothicaire de Kakariko# vend", /*spanish*/"la #tienda de pociones de Kakariko# ofrece"}
+                       Text{"the #Kakariko Potion Shop# offers", /*french*/"l'#apothicaire de Kakariko# vend", /*spanish*/"la #tienda de pociones de Kakariko# ofrece", /*italian*/"il #negozio di pozioni di Calbarico# offre", /*german*/"Deutsch"}
   );
 
     hintTable[KAK_POTION_SHOP_ITEM_7] = HintText::Exclude({
                        //obscure text
-                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece"},
+                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece", /*italian*/"un #farmacista# vende", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Kakariko Potion Shop# offers", /*french*/"l'#apothicaire de Kakariko# vend", /*spanish*/"la #tienda de pociones de Kakariko# ofrece"}
+                       Text{"the #Kakariko Potion Shop# offers", /*french*/"l'#apothicaire de Kakariko# vend", /*spanish*/"la #tienda de pociones de Kakariko# ofrece", /*italian*/"il #negozio di pozioni di Calbarico# offre", /*german*/"Deutsch"}
   );
 
     hintTable[KAK_POTION_SHOP_ITEM_8] = HintText::Exclude({
                        //obscure text
-                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece"},
+                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece", /*italian*/"un #farmacista# vende", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Kakariko Potion Shop# offers", /*french*/"l'#apothicaire de Kakariko# vend", /*spanish*/"la #tienda de pociones de Kakariko# ofrece"}
+                       Text{"the #Kakariko Potion Shop# offers", /*french*/"l'#apothicaire de Kakariko# vend", /*spanish*/"la #tienda de pociones de Kakariko# ofrece", /*italian*/"il #negozio di pozioni di Calbarico# offre", /*german*/"Deutsch"}
   );
 
 
     hintTable[MARKET_BOMBCHU_SHOP_ITEM_1] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Bombchu merchant# sells", /*french*/"le #marchand de missiles# vend", /*spanish*/"un #mercader de bombchus# vende"},
+                       Text{"a #Bombchu merchant# sells", /*french*/"le #marchand de missiles# vend", /*spanish*/"un #mercader de bombchus# vende", /*italian*/"un #commerciante di radiomine# vende", /*german*/"Deutsch"},
   });
 
     hintTable[MARKET_BOMBCHU_SHOP_ITEM_2] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Bombchu merchant# sells", /*french*/"le #marchand de missiles# vend", /*spanish*/"un #mercader de bombchus# vende"},
+                       Text{"a #Bombchu merchant# sells", /*french*/"le #marchand de missiles# vend", /*spanish*/"un #mercader de bombchus# vende", /*italian*/"un #commerciante di radiomine# vende", /*german*/"Deutsch"},
   });
 
     hintTable[MARKET_BOMBCHU_SHOP_ITEM_3] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Bombchu merchant# sells", /*french*/"le #marchand de missiles# vend", /*spanish*/"un #mercader de bombchus# vende"},
+                       Text{"a #Bombchu merchant# sells", /*french*/"le #marchand de missiles# vend", /*spanish*/"un #mercader de bombchus# vende", /*italian*/"un #commerciante di radiomine# vende", /*german*/"Deutsch"},
   });
 
     hintTable[MARKET_BOMBCHU_SHOP_ITEM_4] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Bombchu merchant# sells", /*french*/"le #marchand de missiles# vend", /*spanish*/"un #mercader de bombchus# vende"},
+                       Text{"a #Bombchu merchant# sells", /*french*/"le #marchand de missiles# vend", /*spanish*/"un #mercader de bombchus# vende", /*italian*/"un #commerciante di radiomine# vende", /*german*/"Deutsch"},
   });
 
     hintTable[MARKET_BOMBCHU_SHOP_ITEM_5] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Bombchu merchant# sells", /*french*/"le #marchand de missiles# vend", /*spanish*/"un #mercader de bombchus# vende"},
+                       Text{"a #Bombchu merchant# sells", /*french*/"le #marchand de missiles# vend", /*spanish*/"un #mercader de bombchus# vende", /*italian*/"un #commerciante di radiomine# vende", /*german*/"Deutsch"},
   });
 
     hintTable[MARKET_BOMBCHU_SHOP_ITEM_6] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Bombchu merchant# sells", /*french*/"le #marchand de missiles# vend", /*spanish*/"un #mercader de bombchus# vende"},
+                       Text{"a #Bombchu merchant# sells", /*french*/"le #marchand de missiles# vend", /*spanish*/"un #mercader de bombchus# vende", /*italian*/"un #commerciante di radiomine# vende", /*german*/"Deutsch"},
   });
 
     hintTable[MARKET_BOMBCHU_SHOP_ITEM_7] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Bombchu merchant# sells", /*french*/"le #marchand de missiles# vend", /*spanish*/"un #mercader de bombchus# vende"},
+                       Text{"a #Bombchu merchant# sells", /*french*/"le #marchand de missiles# vend", /*spanish*/"un #mercader de bombchus# vende", /*italian*/"un #commerciante di radiomine# vende", /*german*/"Deutsch"},
   });
 
     hintTable[MARKET_BOMBCHU_SHOP_ITEM_8] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Bombchu merchant# sells", /*french*/"le #marchand de missiles# vend", /*spanish*/"un #mercader de bombchus# vende"},
+                       Text{"a #Bombchu merchant# sells", /*french*/"le #marchand de missiles# vend", /*spanish*/"un #mercader de bombchus# vende", /*italian*/"un #commerciante di radiomine# vende", /*german*/"Deutsch"},
   });
 
 
     hintTable[MARKET_POTION_SHOP_ITEM_1] = HintText::Exclude({
                        //obscure text
-                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece"},
+                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece", /*italian*/"un #farmacista# vende", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Market Potion Shop# offers", /*french*/"l'#apothicaire dans la place du marché# vend", /*spanish*/"la #tienda de pociones del mercado# ofrece"}
+                       Text{"the #Market Potion Shop# offers", /*french*/"l'#apothicaire dans la place du marché# vend", /*spanish*/"la #tienda de pociones del mercado# ofrece", /*italian*/"il #negozio di pozioni del mercato# offre", /*german*/"Deutsch"}
   );
 
     hintTable[MARKET_POTION_SHOP_ITEM_2] = HintText::Exclude({
                        //obscure text
-                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece"},
+                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece", /*italian*/"un #farmacista# vende", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Market Potion Shop# offers", /*french*/"l'#apothicaire dans la place du marché# vend", /*spanish*/"la #tienda de pociones del mercado# ofrece"}
+                       Text{"the #Market Potion Shop# offers", /*french*/"l'#apothicaire dans la place du marché# vend", /*spanish*/"la #tienda de pociones del mercado# ofrece", /*italian*/"il #negozio di pozioni del mercato# offre", /*german*/"Deutsch"}
   );
 
     hintTable[MARKET_POTION_SHOP_ITEM_3] = HintText::Exclude({
                        //obscure text
-                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece"},
+                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece", /*italian*/"un #farmacista# vende", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Market Potion Shop# offers", /*french*/"l'#apothicaire dans la place du marché# vend", /*spanish*/"la #tienda de pociones del mercado# ofrece"}
+                       Text{"the #Market Potion Shop# offers", /*french*/"l'#apothicaire dans la place du marché# vend", /*spanish*/"la #tienda de pociones del mercado# ofrece", /*italian*/"il #negozio di pozioni del mercato# offre", /*german*/"Deutsch"}
   );
 
     hintTable[MARKET_POTION_SHOP_ITEM_4] = HintText::Exclude({
                        //obscure text
-                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece"},
+                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece", /*italian*/"un #farmacista# vende", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Market Potion Shop# offers", /*french*/"l'#apothicaire dans la place du marché# vend", /*spanish*/"la #tienda de pociones del mercado# ofrece"}
+                       Text{"the #Market Potion Shop# offers", /*french*/"l'#apothicaire dans la place du marché# vend", /*spanish*/"la #tienda de pociones del mercado# ofrece", /*italian*/"il #negozio di pozioni del mercato# offre", /*german*/"Deutsch"}
   );
 
     hintTable[MARKET_POTION_SHOP_ITEM_5] = HintText::Exclude({
                        //obscure text
-                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece"},
+                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece", /*italian*/"un #farmacista# vende", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Market Potion Shop# offers", /*french*/"l'#apothicaire dans la place du marché# vend", /*spanish*/"la #tienda de pociones del mercado# ofrece"}
+                       Text{"the #Market Potion Shop# offers", /*french*/"l'#apothicaire dans la place du marché# vend", /*spanish*/"la #tienda de pociones del mercado# ofrece", /*italian*/"il #negozio di pozioni del mercato# offre", /*german*/"Deutsch"}
   );
 
     hintTable[MARKET_POTION_SHOP_ITEM_6] = HintText::Exclude({
                        //obscure text
-                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece"},
+                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece", /*italian*/"un #farmacista# vende", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Market Potion Shop# offers", /*french*/"l'#apothicaire dans la place du marché# vend", /*spanish*/"la #tienda de pociones del mercado# ofrece"}
+                       Text{"the #Market Potion Shop# offers", /*french*/"l'#apothicaire dans la place du marché# vend", /*spanish*/"la #tienda de pociones del mercado# ofrece", /*italian*/"il #negozio di pozioni del mercato# offre", /*german*/"Deutsch"}
   );
 
     hintTable[MARKET_POTION_SHOP_ITEM_7] = HintText::Exclude({
                        //obscure text
-                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece"},
+                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece", /*italian*/"un #farmacista# vende", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Market Potion Shop# offers", /*french*/"l'#apothicaire dans la place du marché# vend", /*spanish*/"la #tienda de pociones del mercado# ofrece"}
+                       Text{"the #Market Potion Shop# offers", /*french*/"l'#apothicaire dans la place du marché# vend", /*spanish*/"la #tienda de pociones del mercado# ofrece", /*italian*/"il #negozio di pozioni del mercato# offre", /*german*/"Deutsch"}
   );
 
     hintTable[MARKET_POTION_SHOP_ITEM_8] = HintText::Exclude({
                        //obscure text
-                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece"},
+                       Text{"a #potion seller# offers", /*french*/"l'#apothicaire# vend", /*spanish*/"un #vendedor de pociones# ofrece", /*italian*/"un #farmacista# vende", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Market Potion Shop# offers", /*french*/"l'#apothicaire dans la place du marché# vend", /*spanish*/"la #tienda de pociones del mercado# ofrece"}
+                       Text{"the #Market Potion Shop# offers", /*french*/"l'#apothicaire dans la place du marché# vend", /*spanish*/"la #tienda de pociones del mercado# ofrece", /*italian*/"il #negozio di pozioni del mercato# offre", /*german*/"Deutsch"}
   );
 
 
     hintTable[MARKET_BAZAAR_ITEM_1] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Market Bazaar# offers", /*french*/"le #bazar de la place du marché# vend", /*spanish*/"el #bazar del mercado# ofrece"},
+                       Text{"the #Market Bazaar# offers", /*french*/"le #bazar de la place du marché# vend", /*spanish*/"el #bazar del mercado# ofrece", /*italian*/"il #bazar del mercato# offre", /*german*/"Deutsch"},
   });
 
     hintTable[MARKET_BAZAAR_ITEM_2] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Market Bazaar# offers", /*french*/"le #bazar de la place du marché# vend", /*spanish*/"el #bazar del mercado# ofrece"},
+                       Text{"the #Market Bazaar# offers", /*french*/"le #bazar de la place du marché# vend", /*spanish*/"el #bazar del mercado# ofrece", /*italian*/"il #bazar del mercato# offre", /*german*/"Deutsch"},
   });
 
     hintTable[MARKET_BAZAAR_ITEM_3] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Market Bazaar# offers", /*french*/"le #bazar de la place du marché# vend", /*spanish*/"el #bazar del mercado# ofrece"},
+                       Text{"the #Market Bazaar# offers", /*french*/"le #bazar de la place du marché# vend", /*spanish*/"el #bazar del mercado# ofrece", /*italian*/"il #bazar del mercato# offre", /*german*/"Deutsch"},
   });
 
     hintTable[MARKET_BAZAAR_ITEM_4] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Market Bazaar# offers", /*french*/"le #bazar de la place du marché# vend", /*spanish*/"el #bazar del mercado# ofrece"},
+                       Text{"the #Market Bazaar# offers", /*french*/"le #bazar de la place du marché# vend", /*spanish*/"el #bazar del mercado# ofrece", /*italian*/"il #bazar del mercato# offre", /*german*/"Deutsch"},
   });
 
     hintTable[MARKET_BAZAAR_ITEM_5] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Market Bazaar# offers", /*french*/"le #bazar de la place du marché# vend", /*spanish*/"el #bazar del mercado# ofrece"},
+                       Text{"the #Market Bazaar# offers", /*french*/"le #bazar de la place du marché# vend", /*spanish*/"el #bazar del mercado# ofrece", /*italian*/"il #bazar del mercato# offre", /*german*/"Deutsch"},
   });
 
     hintTable[MARKET_BAZAAR_ITEM_6] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Market Bazaar# offers", /*french*/"le #bazar de la place du marché# vend", /*spanish*/"el #bazar del mercado# ofrece"},
+                       Text{"the #Market Bazaar# offers", /*french*/"le #bazar de la place du marché# vend", /*spanish*/"el #bazar del mercado# ofrece", /*italian*/"il #bazar del mercato# offre", /*german*/"Deutsch"},
   });
 
     hintTable[MARKET_BAZAAR_ITEM_7] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Market Bazaar# offers", /*french*/"le #bazar de la place du marché# vend", /*spanish*/"el #bazar del mercado# ofrece"},
+                       Text{"the #Market Bazaar# offers", /*french*/"le #bazar de la place du marché# vend", /*spanish*/"el #bazar del mercado# ofrece", /*italian*/"il #bazar del mercato# offre", /*german*/"Deutsch"},
   });
 
     hintTable[MARKET_BAZAAR_ITEM_8] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Market Bazaar# offers", /*french*/"le #bazar de la place du marché# vend", /*spanish*/"el #bazar del mercado# ofrece"},
+                       Text{"the #Market Bazaar# offers", /*french*/"le #bazar de la place du marché# vend", /*spanish*/"el #bazar del mercado# ofrece", /*italian*/"il #bazar del mercato# offre", /*german*/"Deutsch"},
   });
 
 
     hintTable[KAK_BAZAAR_ITEM_1] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Kakariko Bazaar# offers", /*french*/"le #bazar de Kakariko# vend", /*spanish*/"el #bazar de Kakariko# ofrece"},
+                       Text{"the #Kakariko Bazaar# offers", /*french*/"le #bazar de Kakariko# vend", /*spanish*/"el #bazar de Kakariko# ofrece", /*italian*/"il #bazar di Calbarico# offre", /*german*/"Deutsch"},
   });
 
     hintTable[KAK_BAZAAR_ITEM_2] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Kakariko Bazaar# offers", /*french*/"le #bazar de Kakariko# vend", /*spanish*/"el #bazar de Kakariko# ofrece"},
+                       Text{"the #Kakariko Bazaar# offers", /*french*/"le #bazar de Kakariko# vend", /*spanish*/"el #bazar de Kakariko# ofrece", /*italian*/"il #bazar di Calbarico# offre", /*german*/"Deutsch"},
   });
 
     hintTable[KAK_BAZAAR_ITEM_3] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Kakariko Bazaar# offers", /*french*/"le #bazar de Kakariko# vend", /*spanish*/"el #bazar de Kakariko# ofrece"},
+                       Text{"the #Kakariko Bazaar# offers", /*french*/"le #bazar de Kakariko# vend", /*spanish*/"el #bazar de Kakariko# ofrece", /*italian*/"il #bazar di Calbarico# offre", /*german*/"Deutsch"},
   });
 
     hintTable[KAK_BAZAAR_ITEM_4] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Kakariko Bazaar# offers", /*french*/"le #bazar de Kakariko# vend", /*spanish*/"el #bazar de Kakariko# ofrece"},
+                       Text{"the #Kakariko Bazaar# offers", /*french*/"le #bazar de Kakariko# vend", /*spanish*/"el #bazar de Kakariko# ofrece", /*italian*/"il #bazar di Calbarico# offre", /*german*/"Deutsch"},
   });
 
     hintTable[KAK_BAZAAR_ITEM_5] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Kakariko Bazaar# offers", /*french*/"le #bazar de Kakariko# vend", /*spanish*/"el #bazar de Kakariko# ofrece"},
+                       Text{"the #Kakariko Bazaar# offers", /*french*/"le #bazar de Kakariko# vend", /*spanish*/"el #bazar de Kakariko# ofrece", /*italian*/"il #bazar di Calbarico# offre", /*german*/"Deutsch"},
   });
 
     hintTable[KAK_BAZAAR_ITEM_6] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Kakariko Bazaar# offers", /*french*/"le #bazar de Kakariko# vend", /*spanish*/"el #bazar de Kakariko# ofrece"},
+                       Text{"the #Kakariko Bazaar# offers", /*french*/"le #bazar de Kakariko# vend", /*spanish*/"el #bazar de Kakariko# ofrece", /*italian*/"il #bazar di Calbarico# offre", /*german*/"Deutsch"},
   });
 
     hintTable[KAK_BAZAAR_ITEM_7] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Kakariko Bazaar# offers", /*french*/"le #bazar de Kakariko# vend", /*spanish*/"el #bazar de Kakariko# ofrece"},
+                       Text{"the #Kakariko Bazaar# offers", /*french*/"le #bazar de Kakariko# vend", /*spanish*/"el #bazar de Kakariko# ofrece", /*italian*/"il #bazar di Calbarico# offre", /*german*/"Deutsch"},
   });
 
     hintTable[KAK_BAZAAR_ITEM_8] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Kakariko Bazaar# offers", /*french*/"le #bazar de Kakariko# vend", /*spanish*/"el #bazar de Kakariko# ofrece"},
+                       Text{"the #Kakariko Bazaar# offers", /*french*/"le #bazar de Kakariko# vend", /*spanish*/"el #bazar de Kakariko# ofrece", /*italian*/"il #bazar di Calbarico# offre", /*german*/"Deutsch"},
   });
 
 
     hintTable[ZD_SHOP_ITEM_1] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Zora shopkeeper# sells", /*french*/"la #boutique Zora# vend", /*spanish*/"el #dependiente Zora# vende"},
+                       Text{"a #Zora shopkeeper# sells", /*french*/"la #boutique Zora# vend", /*spanish*/"el #dependiente Zora# vende", /*italian*/"un #commerciante Zora# vende", /*german*/"Deutsch"},
   });
 
     hintTable[ZD_SHOP_ITEM_2] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Zora shopkeeper# sells", /*french*/"la #boutique Zora# vend", /*spanish*/"el #dependiente Zora# vende"},
+                       Text{"a #Zora shopkeeper# sells", /*french*/"la #boutique Zora# vend", /*spanish*/"el #dependiente Zora# vende", /*italian*/"un #commerciante Zora# vende", /*german*/"Deutsch"},
   });
 
     hintTable[ZD_SHOP_ITEM_3] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Zora shopkeeper# sells", /*french*/"la #boutique Zora# vend", /*spanish*/"el #dependiente Zora# vende"},
+                       Text{"a #Zora shopkeeper# sells", /*french*/"la #boutique Zora# vend", /*spanish*/"el #dependiente Zora# vende", /*italian*/"un #commerciante Zora# vende", /*german*/"Deutsch"},
   });
 
     hintTable[ZD_SHOP_ITEM_4] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Zora shopkeeper# sells", /*french*/"la #boutique Zora# vend", /*spanish*/"el #dependiente Zora# vende"},
+                       Text{"a #Zora shopkeeper# sells", /*french*/"la #boutique Zora# vend", /*spanish*/"el #dependiente Zora# vende", /*italian*/"un #commerciante Zora# vende", /*german*/"Deutsch"},
   });
 
     hintTable[ZD_SHOP_ITEM_5] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Zora shopkeeper# sells", /*french*/"la #boutique Zora# vend", /*spanish*/"el #dependiente Zora# vende"},
+                       Text{"a #Zora shopkeeper# sells", /*french*/"la #boutique Zora# vend", /*spanish*/"el #dependiente Zora# vende", /*italian*/"un #commerciante Zora# vende", /*german*/"Deutsch"},
   });
 
     hintTable[ZD_SHOP_ITEM_6] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Zora shopkeeper# sells", /*french*/"la #boutique Zora# vend", /*spanish*/"el #dependiente Zora# vende"},
+                       Text{"a #Zora shopkeeper# sells", /*french*/"la #boutique Zora# vend", /*spanish*/"el #dependiente Zora# vende", /*italian*/"un #commerciante Zora# vende", /*german*/"Deutsch"},
   });
 
     hintTable[ZD_SHOP_ITEM_7] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Zora shopkeeper# sells", /*french*/"la #boutique Zora# vend", /*spanish*/"el #dependiente Zora# vende"},
+                       Text{"a #Zora shopkeeper# sells", /*french*/"la #boutique Zora# vend", /*spanish*/"el #dependiente Zora# vende", /*italian*/"un #commerciante Zora# vende", /*german*/"Deutsch"},
   });
 
     hintTable[ZD_SHOP_ITEM_8] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Zora shopkeeper# sells", /*french*/"la #boutique Zora# vend", /*spanish*/"el #dependiente Zora# vende"},
+                       Text{"a #Zora shopkeeper# sells", /*french*/"la #boutique Zora# vend", /*spanish*/"el #dependiente Zora# vende", /*italian*/"un #commerciante Zora# vende", /*german*/"Deutsch"},
   });
 
 
     hintTable[GC_SHOP_ITEM_1] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Goron shopkeeper# sells", /*french*/"la #boutique Goron# vend", /*spanish*/"el #dependiente Goron# vende"},
+                       Text{"a #Goron shopkeeper# sells", /*french*/"la #boutique Goron# vend", /*spanish*/"el #dependiente Goron# vende", /*italian*/"un #commerciante Goron# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GC_SHOP_ITEM_2] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Goron shopkeeper# sells", /*french*/"la #boutique Goron# vend", /*spanish*/"el #dependiente Goron# vende"},
+                       Text{"a #Goron shopkeeper# sells", /*french*/"la #boutique Goron# vend", /*spanish*/"el #dependiente Goron# vende", /*italian*/"un #commerciante Goron# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GC_SHOP_ITEM_3] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Goron shopkeeper# sells", /*french*/"la #boutique Goron# vend", /*spanish*/"el #dependiente Goron# vende"},
+                       Text{"a #Goron shopkeeper# sells", /*french*/"la #boutique Goron# vend", /*spanish*/"el #dependiente Goron# vende", /*italian*/"un #commerciante Goron# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GC_SHOP_ITEM_4] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Goron shopkeeper# sells", /*french*/"la #boutique Goron# vend", /*spanish*/"el #dependiente Goron# vende"},
+                       Text{"a #Goron shopkeeper# sells", /*french*/"la #boutique Goron# vend", /*spanish*/"el #dependiente Goron# vende", /*italian*/"un #commerciante Goron# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GC_SHOP_ITEM_5] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Goron shopkeeper# sells", /*french*/"la #boutique Goron# vend", /*spanish*/"el #dependiente Goron# vende"},
+                       Text{"a #Goron shopkeeper# sells", /*french*/"la #boutique Goron# vend", /*spanish*/"el #dependiente Goron# vende", /*italian*/"un #commerciante Goron# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GC_SHOP_ITEM_6] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Goron shopkeeper# sells", /*french*/"la #boutique Goron# vend", /*spanish*/"el #dependiente Goron# vende"},
+                       Text{"a #Goron shopkeeper# sells", /*french*/"la #boutique Goron# vend", /*spanish*/"el #dependiente Goron# vende", /*italian*/"un #commerciante Goron# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GC_SHOP_ITEM_7] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Goron shopkeeper# sells", /*french*/"la #boutique Goron# vend", /*spanish*/"el #dependiente Goron# vende"},
+                       Text{"a #Goron shopkeeper# sells", /*french*/"la #boutique Goron# vend", /*spanish*/"el #dependiente Goron# vende", /*italian*/"un #commerciante Goron# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GC_SHOP_ITEM_8] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Goron shopkeeper# sells", /*french*/"la #boutique Goron# vend", /*spanish*/"el #dependiente Goron# vende"},
+                       Text{"a #Goron shopkeeper# sells", /*french*/"la #boutique Goron# vend", /*spanish*/"el #dependiente Goron# vende", /*italian*/"un #commerciante Goron# vende", /*german*/"Deutsch"},
   });
 
 
