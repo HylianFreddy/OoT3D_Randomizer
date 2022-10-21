@@ -1810,8 +1810,8 @@ void HintTable_Init_Item() {
 
     hintTable[ARROWS_5] = HintText::Item({
                        //obscure text
-                       Text{"a few danger darts", /*french*/"une poignée d'obus",     /*spanish*/"un par de peligrosos dardos", /*italian*/"un po' di punte pungenti",   /*german*/"Deutsch"},
-                       Text{"a few sharp shafts", /*french*/"une poignée de piquets", /*spanish*/"un par de puntas afiladas",   /*italian*/"un po' di bacchette saette", /*german*/"Deutsch"},
+                       Text{"a few danger darts", /*french*/"une poignée d'obus",     /*spanish*/"un par de peligrosos dardos", /*italian*/"un po' di punte pungenti", /*german*/"Deutsch"},
+                       Text{"a few sharp shafts", /*french*/"une poignée de piquets", /*spanish*/"un par de puntas afiladas",   /*italian*/"un po' di verghe volanti", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
                        Text{"a projectile", /*french*/"un projectile", /*spanish*/"un proyectil", /*italian*/"un proiettile", /*german*/"Deutsch"},
@@ -1822,8 +1822,8 @@ void HintTable_Init_Item() {
 
     hintTable[ARROWS_10] = HintText::Item({
                        //obscure text
-                       Text{"some danger darts", /*french*/"un paquet d'obus",     /*spanish*/"unos cuantos peligrosos dardos", /*italian*/"una decina di punte pungenti",   /*german*/"Deutsch"},
-                       Text{"some sharp shafts", /*french*/"un paquet de piquets", /*spanish*/"unas cuantas puntas afiladas",   /*italian*/"una decina di bacchette saette", /*german*/"Deutsch"},
+                       Text{"some danger darts", /*french*/"un paquet d'obus",     /*spanish*/"unos cuantos peligrosos dardos", /*italian*/"una decina di punte pungenti", /*german*/"Deutsch"},
+                       Text{"some sharp shafts", /*french*/"un paquet de piquets", /*spanish*/"unas cuantas puntas afiladas",   /*italian*/"una decina di verghe volanti", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
                        Text{"a projectile", /*french*/"un projectile", /*spanish*/"un proyectil", /*italian*/"un proiettile", /*german*/"Deutsch"},
@@ -1834,8 +1834,8 @@ void HintTable_Init_Item() {
 
     hintTable[ARROWS_30] = HintText::Item({
                        //obscure text
-                       Text{"plenty of danger darts", /*french*/"une abondance d'obus",     /*spanish*/"bastantes peligrosos dardos", /*italian*/"un mucchio di punte pungenti",   /*german*/"Deutsch"},
-                       Text{"plenty of sharp shafts", /*french*/"une abondance de piquets", /*spanish*/"bastantes puntas afiladas",   /*italian*/"un mucchio di bacchette saette", /*german*/"Deutsch"},
+                       Text{"plenty of danger darts", /*french*/"une abondance d'obus",     /*spanish*/"bastantes peligrosos dardos", /*italian*/"un mucchio di punte pungenti", /*german*/"Deutsch"},
+                       Text{"plenty of sharp shafts", /*french*/"une abondance de piquets", /*spanish*/"bastantes puntas afiladas",   /*italian*/"un mucchio di verghe volanti", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
                        Text{"a projectile", /*french*/"un projectile", /*spanish*/"un proyectil", /*italian*/"un proiettile", /*german*/"Deutsch"},
@@ -1851,8 +1851,8 @@ void HintTable_Init_Item() {
                        Text{"some scrub spit", /*french*/"une poignée de crachats Mojo", /*spanish*/"un par de escupitajos deku",     /*italian*/"un po' di sputi di Deku",     /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
-                       Text{"some Deku munitions", /*french*/"un paquet de munitions Mojo", /*spanish*/"un montón de municiones Deku",  /*italian*/"un pacchetto di munizioni Deku", /*german*/"Deutsch"},
-                       Text{"something that can stun", /*french*/"une chose qui peut paralyser", /*spanish*/"algo que pueda paralizar", /*italian*/"qualcosa che può paralizzare",   /*german*/"Deutsch"},
+                       Text{"some Deku munitions",     /*french*/"un paquet de munitions Mojo",  /*spanish*/"un montón de municiones Deku",  /*italian*/"un pacchetto di munizioni Deku", /*german*/"Deutsch"},
+                       Text{"something that can stun", /*french*/"une chose qui peut paralyser", /*spanish*/"algo que pueda paralizar",      /*italian*/"qualcosa che può paralizzare",   /*german*/"Deutsch"},
                      },
                        //clear text
                        Text{"Deku Nuts (5 pieces)", /*french*/"une demi-dizaine de noix Mojo", /*spanish*/"unas (5) nueces deku", /*italian*/"5 noci Deku", /*german*/"Deutsch"}
