@@ -45,6 +45,12 @@ void Player_SetChildCustomTunicCMAB(void) {
 }
 
 void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
+    /*if (gGlobalContext->nextEntranceIndex == 0x01e1) {
+        gGlobalContext->nextEntranceIndex = 0x06b;
+        gGlobalContext->sceneLoadFlag = 0x14;
+        gGlobalContext->fadeOutTransition = 5;
+        gSaveContext.nextCutsceneIndex = 0xFFF2;
+    }*/
     PlayerActor_Update(thisx, globalCtx);
     if (healthDecrement <= 0) {
         return;

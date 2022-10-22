@@ -8,6 +8,22 @@ SECTIONS
 		*(.patch_loader)
 	}
 
+	/*.patch_LoadingTimeStart 0x2E3C08 : {
+		*(.patch_LoadingTimeStart)
+	}*/
+
+	/*.patch_Gameplay_Destroy 0x44E294 : {
+		*(.patch_Gameplay_Destroy)
+	}*/
+
+	/*.patch_Gameplay_Main 0x44923C : {
+		*(.patch_Gameplay_Main)
+	}*/
+
+	/*.patch_Gameplay_Init 0x4355A8 : {
+		*(.patch_Gameplay_Init)
+	}*/
+
 	.patch_GrogSetTradedCojiroFlag 0x104C50 : {
 		*(.patch_GrogSetTradedCojiroFlag)
 	}

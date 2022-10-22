@@ -35,6 +35,9 @@ namespace Playthrough {
 
         for (size_t i = 0; i < menu->settingsList->size(); i++) {
           Option* setting = menu->settingsList->at(i);
+          //don't consider the GenerateSpoilerLog setting if the race setting is enabled,
+          //so that the log can be generated for the correct seed once the password has been obtained
+        /*if (setting->IsCategory(OptionCategory::Setting) && (setting != &Settings::GenerateSpoilerLog || !Settings::RaceMode)) {*/
           if (setting->IsCategory(OptionCategory::Setting)) {
             settingsStr += setting->GetSelectedOptionText();
           }
