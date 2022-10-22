@@ -412,149 +412,149 @@ void HintTable_Init_Exclude_Dungeon() {
   ---------------------------*/
     hintTable[FOREST_TEMPLE_FIRST_ROOM_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #tree in the Forest Temple# supports", /*french*/"sur l'#arbre dans le temple de la forêt# gît", /*spanish*/"sobre un #árbol del Templo del Bosque# yace"},
+                       Text{"a #tree in the Forest Temple# supports", /*french*/"sur l'#arbre dans le temple de la forêt# gît", /*spanish*/"sobre un #árbol del Templo del Bosque# yace", /*italian*/"un #albero nel Santuario della Foresta# sostiene", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_FIRST_STALFOS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#defeating enemies beneath a falling ceiling# in Forest Temple yields", /*french*/"#deux squelettes# dans le temple de la forêt protègent", /*spanish*/"#derrotar enemigos caídos de lo alto# del Templo del Bosque revela"},
+                       Text{"#defeating enemies beneath a falling ceiling# in Forest Temple yields", /*french*/"#deux squelettes# dans le temple de la forêt protègent", /*spanish*/"#derrotar enemigos caídos de lo alto# del Templo del Bosque revela", /*italian*/"dei #mostri sotto un ottagono mobile# nel Santuario della Foresta difendono", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_WELL_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #sunken chest deep in the woods# contains", /*french*/"le #coffre submergé dans la forêt# contient", /*spanish*/"un #sumergido cofre en lo profundo del bosque# contiene"},
+                       Text{"a #sunken chest deep in the woods# contains", /*french*/"le #coffre submergé dans la forêt# contient", /*spanish*/"un #sumergido cofre en lo profundo del bosque# contiene", /*italian*/"un #forziere sommerso nel cuore della foresta# contiene", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #fiery skull# in Forest Temple guards", /*french*/"le #crâne enflammé# dans le temple de la forêt protège", /*spanish*/"una #ardiente calavera# del Templo del Bosque esconde"},
+                       Text{"a #fiery skull# in Forest Temple guards", /*french*/"le #crâne enflammé# dans le temple de la forêt protège", /*spanish*/"una #ardiente calavera# del Templo del Bosque esconde", /*italian*/"un #teschio focoso# nel Santuario della Foresta protegge", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_RAISED_ISLAND_COURTYARD_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #chest on a small island# in the Forest Temple holds", /*french*/"le #coffre sur l'îlot# du temple de la forêt contient", /*spanish*/"un #cofre sobre una isla# del Templo del Bosque contiene"},
+                       Text{"a #chest on a small island# in the Forest Temple holds", /*french*/"le #coffre sur l'îlot# du temple de la forêt contient", /*spanish*/"un #cofre sobre una isla# del Templo del Bosque contiene", /*italian*/"un #forziere su una piccola isola# nel Santuario della Foresta contiene", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_FALLING_CEILING_ROOM_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"beneath a #checkerboard falling ceiling# lies", /*french*/"sous #l'échiquier tombant# gît", /*spanish*/"tras un #techo de ajedrez# yace"},
+                       Text{"beneath a #checkerboard falling ceiling# lies", /*french*/"sous #l'échiquier tombant# gît", /*spanish*/"tras un #techo de ajedrez# yace", /*italian*/"sotto una #scacchiera che cade# puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_EYE_SWITCH_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #sharp eye# will spot", /*french*/"l'#oeil perçant# dans la forêt verra", /*spanish*/"un #afilado ojo# revela"},
+                       Text{"a #sharp eye# will spot", /*french*/"l'#oeil perçant# dans la forêt verra", /*spanish*/"un #afilado ojo# revela", /*italian*/"un #occhio acuto# nella foresta vede", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"#blocks of stone# in the Forest Temple surround", /*french*/"les #blocs dans le temple de la forêt# entourent", /*spanish*/"cerca de unos #bloques de piedra# del Templo del Bosque yace"}
+                       Text{"#blocks of stone# in the Forest Temple surround", /*french*/"les #blocs dans le temple de la forêt# entourent", /*spanish*/"cerca de unos #bloques de piedra# del Templo del Bosque yace", /*italian*/"#blocchi di pietra# nel Santuario della Foresta circondano", /*german*/"Deutsch"}
   );
 
     hintTable[FOREST_TEMPLE_BOSS_KEY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #turned trunk# contains", /*french*/"le #coffre pivoté# contient", /*spanish*/"en una #sala con otro punto de vista# se esconde"},
+                       Text{"a #turned trunk# contains", /*french*/"le #coffre pivoté# contient", /*spanish*/"en una #sala con otro punto de vista# se esconde", /*italian*/"un #baule basculante# contiene", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_FLOORMASTER_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"deep in the forest #shadows guard a chest# containing", /*french*/"l'#ombre de la forêt# protège un coffre contenant", /*spanish*/"en lo profundo del bosque #unas sombras# esconden"},
+                       Text{"deep in the forest #shadows guard a chest# containing", /*french*/"l'#ombre de la forêt# protège un coffre contenant", /*spanish*/"en lo profundo del bosque #unas sombras# esconden", /*italian*/"nel profondo della foresta una #mano mozza# protegge", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_BOW_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"an #army of the dead# guards", /*french*/"des #squelettes sylvestres# protègent", /*spanish*/"un #ejército de soldados caídos# guarda"},
+                       Text{"an #army of the dead# guards", /*french*/"des #squelettes sylvestres# protègent", /*spanish*/"un #ejército de soldados caídos# guarda", /*italian*/"un #esercito di morti# protegge", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"#Stalfos deep in the Forest Temple# guard", /*french*/"#trois squelettes dans le temple de la forêt# protègent", /*spanish*/"los #Stalfos en lo profundo del Templo del Bosque# guardan"}
+                       Text{"#Stalfos deep in the Forest Temple# guard", /*french*/"#trois squelettes dans le temple de la forêt# protègent", /*spanish*/"los #Stalfos en lo profundo del Templo del Bosque# guardan", /*italian*/"#tre Stalfos# nel Santuario della Foresta proteggono", /*german*/"Deutsch"}
   );
 
     hintTable[FOREST_TEMPLE_RED_POE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#Joelle# guards", /*french*/"#Joelle# protège", /*spanish*/"#Joelle# guarda"},
+                       Text{"#Joelle# guards", /*french*/"#Joelle# protège", /*spanish*/"#Joelle# guarda", /*italian*/"#Jo# protegge", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"a #red ghost# guards", /*french*/"le #fantôme rouge# protège", /*spanish*/"un #espectro rojo# guarda"}
+                       Text{"a #red ghost# guards", /*french*/"le #fantôme rouge# protège", /*spanish*/"un #espectro rojo# guarda", /*italian*/"uno #spettro rosso# protegge", /*german*/"Deutsch"}
   );
 
     hintTable[FOREST_TEMPLE_BLUE_POE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#Beth# guards", /*french*/"#Beth# protège", /*spanish*/"#Beth# guarda"},
+                       Text{"#Beth# guards", /*french*/"#Beth# protège", /*spanish*/"#Beth# guarda", /*italian*/"#Beth# protegge", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"a #blue ghost# guards", /*french*/"le #fantôme bleu# protège", /*spanish*/"un #espectro azul# guarda"}
+                       Text{"a #blue ghost# guards", /*french*/"le #fantôme bleu# protège", /*spanish*/"un #espectro azul# guarda", /*italian*/"uno #spettro blu# protegge", /*german*/"Deutsch"}
   );
 
     hintTable[FOREST_TEMPLE_BASEMENT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#revolving walls# in the Forest Temple conceal", /*french*/"des #murs rotatifs dans la forêt# recèlent", /*spanish*/"las #paredes giratorias# del Templo del Bosque conceden"},
+                       Text{"#revolving walls# in the Forest Temple conceal", /*french*/"des #murs rotatifs dans la forêt# recèlent", /*spanish*/"las #paredes giratorias# del Templo del Bosque conceden", /*italian*/"#muri rotanti# nel Santuario della Foresta nascondono", /*german*/"Deutsch"},
   });
 
 
     hintTable[FOREST_TEMPLE_MQ_FIRST_ROOM_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #tree in the Forest Temple# supports", /*french*/"sur l'#arbre dans le temple de la forêt# gît", /*spanish*/"sobre un #árbol del Templo del Bosque# yace"},
+                       Text{"a #tree in the Forest Temple# supports", /*french*/"sur l'#arbre dans le temple de la forêt# gît", /*spanish*/"sobre un #árbol del Templo del Bosque# yace", /*italian*/"un #albero nel Santuario della Foresta# sostiene", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_MQ_WOLFOS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#defeating enemies beneath a falling ceiling# in Forest Temple yields", /*french*/"#deux squelettes# dans le temple de la forêt protègent", /*spanish*/"#derrotar enemigos caídos de lo alto# del Templo del Bosque revela"},
+                       Text{"#defeating enemies beneath a falling ceiling# in Forest Temple yields", /*french*/"#deux squelettes# dans le temple de la forêt protègent", /*spanish*/"#derrotar enemigos caídos de lo alto# del Templo del Bosque revela", /*italian*/"dei #mostri sotto un ottagono mobile# nel Santuario della Foresta difendono", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_MQ_BOW_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"an #army of the dead# guards", /*french*/"des #squelettes sylvestres# protègent", /*spanish*/"un #ejército de soldados caídos# guarda"},
+                       Text{"an #army of the dead# guards", /*french*/"des #squelettes sylvestres# protègent", /*spanish*/"un #ejército de soldados caídos# guarda", /*italian*/"un #esercito di morti# protegge", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"#Stalfos deep in the Forest Temple# guard", /*french*/"#trois squelettes dans le temple de la forêt# protègent", /*spanish*/"los #Stalfos en lo profundo del Templo del Bosque# guardan"}
+                       Text{"#Stalfos deep in the Forest Temple# guard", /*french*/"#trois squelettes dans le temple de la forêt# protègent", /*spanish*/"los #Stalfos en lo profundo del Templo del Bosque# guardan", /*italian*/"#tre Stalfos# nel Santuario della Foresta proteggono", /*german*/"Deutsch"}
   );
 
     hintTable[FOREST_TEMPLE_MQ_RAISED_ISLAND_COURTYARD_LOWER_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #chest on a small island# in the Forest Temple holds", /*french*/"le #coffre sur l'îlot# du temple de la forêt contient", /*spanish*/"un #cofre sobre una isla# del Templo del Bosque contiene"},
+                       Text{"a #chest on a small island# in the Forest Temple holds", /*french*/"le #coffre sur l'îlot# du temple de la forêt contient", /*spanish*/"un #cofre sobre una isla# del Templo del Bosque contiene", /*italian*/"un #forziere su una piccola isola# nel Santuario della Foresta contiene", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_MQ_RAISED_ISLAND_COURTYARD_UPPER_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#high in a courtyard# within the Forest Temple is", /*french*/"#haut perché dans le jardin# du temple de la forêt gît", /*spanish*/"un #cofre en lo alto de un patio# del Templo del Bosque contiene"},
+                       Text{"#high in a courtyard# within the Forest Temple is", /*french*/"#haut perché dans le jardin# du temple de la forêt gît", /*spanish*/"un #cofre en lo alto de un patio# del Templo del Bosque contiene", /*italian*/"un #forziere su un balcone# nel Santuario della Foresta contiene", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_MQ_WELL_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #sunken chest deep in the woods# contains", /*french*/"le #coffre submergé dans la forêt# contient", /*spanish*/"un #sumergido cofre en lo profundo del bosque# contiene"},
+                       Text{"a #sunken chest deep in the woods# contains", /*french*/"le #coffre submergé dans la forêt# contient", /*spanish*/"un #sumergido cofre en lo profundo del bosque# contiene", /*italian*/"un #forziere sommerso nel cuore della foresta# contiene", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_MQ_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#Joelle# guards", /*french*/"#Joelle# protège", /*spanish*/"#Joelle# guarda"},
+                       Text{"#Joelle# guards", /*french*/"#Joelle# protège", /*spanish*/"#Joelle# guarda", /*italian*/"#Jo# protegge", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"a #red ghost# guards", /*french*/"le #fantôme rouge# protège", /*spanish*/"un #fantasma rojo# guarda"}
+                       Text{"a #red ghost# guards", /*french*/"le #fantôme rouge# protège", /*spanish*/"un #fantasma rojo# guarda", /*italian*/"uno #spettro rosso# protegge", /*german*/"Deutsch"}
   );
 
     hintTable[FOREST_TEMPLE_MQ_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#Beth# guards", /*french*/"#Beth# protège", /*spanish*/"#Beth# guarda"},
+                       Text{"#Beth# guards", /*french*/"#Beth# protège", /*spanish*/"#Beth# guarda", /*italian*/"#Beth# protegge", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"a #blue ghost# guards", /*french*/"le #fantôme bleu# protège", /*spanish*/"un #fantasma azul# guarda"}
+                       Text{"a #blue ghost# guards", /*french*/"le #fantôme bleu# protège", /*spanish*/"un #fantasma azul# guarda", /*italian*/"uno #spettro blu# protegge", /*german*/"Deutsch"}
   );
 
     hintTable[FOREST_TEMPLE_MQ_FALLING_CEILING_ROOM_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"beneath a #checkerboard falling ceiling# lies", /*french*/"sous #l'échiquier tombant# gît", /*spanish*/"tras un #techo de ajedrez# yace"},
+                       Text{"beneath a #checkerboard falling ceiling# lies", /*french*/"sous #l'échiquier tombant# gît", /*spanish*/"tras un #techo de ajedrez# yace", /*italian*/"sotto una #scacchiera che cade# puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_MQ_BASEMENT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#revolving walls# in the Forest Temple conceal", /*french*/"des #murs rotatifs dans la forêt# recèlent", /*spanish*/"las #paredes giratorias# del Templo del Bosque conceden"},
+                       Text{"#revolving walls# in the Forest Temple conceal", /*french*/"des #murs rotatifs dans la forêt# recèlent", /*spanish*/"las #paredes giratorias# del Templo del Bosque conceden", /*italian*/"#muri rotanti# nel Santuario della Foresta nascondono", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_MQ_REDEAD_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"deep in the forest #undead guard a chest# containing", /*french*/"des #revenants dans le temple de la forêt# protègent", /*spanish*/"en lo profundo del bosque #guardias del más allá# guardan"},
+                       Text{"deep in the forest #undead guard a chest# containing", /*french*/"des #revenants dans le temple de la forêt# protègent", /*spanish*/"en lo profundo del bosque #guardias del más allá# guardan", /*italian*/"nel profondo della foresta i #non morti# difendono", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_MQ_BOSS_KEY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #turned trunk# contains", /*french*/"le #coffre pivoté# contient", /*spanish*/"en una #sala con otro punto de vista# se esconde"},
+                       Text{"a #turned trunk# contains", /*french*/"le #coffre pivoté# contient", /*spanish*/"en una #sala con otro punto de vista# se esconde", /*italian*/"un #baule basculante# contiene", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_PHANTOM_GANON_HEART] = HintText::Exclude({
@@ -567,53 +567,53 @@ void HintTable_Init_Exclude_Dungeon() {
 
     hintTable[FOREST_TEMPLE_GS_RAISED_ISLAND_COURTYARD] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider on a small island# in the Forest Temple holds", /*french*/"une #Skulltula sur l'îlot du temple de la forêt# a", /*spanish*/"una #Skulltula sobre una pequeña isla# del Templo del Bosque otorga"},
+                       Text{"a #spider on a small island# in the Forest Temple holds", /*french*/"une #Skulltula sur l'îlot du temple de la forêt# a", /*spanish*/"una #Skulltula sobre una pequeña isla# del Templo del Bosque otorga", /*italian*/"un #ragno su una piccola isola# nel Santuario della Foresta nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_GS_FIRST_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider high on a wall of vines# in the Forest Temple holds", /*french*/"une #Skulltula sur un mur de vignes du temple de la forêt# a", /*spanish*/"una #Skulltula en lo alto de una pared de cepas# del Templo del Bosque otorga"},
+                       Text{"a #spider high on a wall of vines# in the Forest Temple holds", /*french*/"une #Skulltula sur un mur de vignes du temple de la forêt# a", /*spanish*/"una #Skulltula en lo alto de una pared de cepas# del Templo del Bosque otorga", /*italian*/"un #ragno sull'edera# nel Santuario della Foresta tiene", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_GS_LEVEL_ISLAND_COURTYARD] = HintText::Exclude({
                        //obscure text
-                       Text{"#stone columns# lead to a spider in the Forest Temple hiding", /*french*/"une #Skulltula haut perchée dans le jardin du temple de la forêt# a", /*spanish*/"unas #columnas del Templo del Bosque# conducen a una Skulltula que otorga"},
+                       Text{"#stone columns# lead to a spider in the Forest Temple hiding", /*french*/"une #Skulltula haut perchée dans le jardin du temple de la forêt# a", /*spanish*/"unas #columnas del Templo del Bosque# conducen a una Skulltula que otorga", /*italian*/"un #ragno sopra colonne di pietra# nel Santuario della Foresta conserva", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_GS_LOBBY] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider among ghosts# in the Forest Temple guards", /*french*/"une #Skulltula dans la grande salle du temple de la forêt# a", /*spanish*/"una #Skulltula rodeada de fantasmas# del Templo del Bosque otorga"},
+                       Text{"a #spider among ghosts# in the Forest Temple guards", /*french*/"une #Skulltula dans la grande salle du temple de la forêt# a", /*spanish*/"una #Skulltula rodeada de fantasmas# del Templo del Bosque otorga", /*italian*/"un #ragno fra gli spettri# al centro del Santuario della Foresta custodisce", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_GS_BASEMENT] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider within revolving walls# in the Forest Temple holds", /*french*/"une #Skulltula derrière les murs pivotants du temple de la forêt# a", /*spanish*/"una #Skulltula entre paredes giratorias# del Templo del Bosque otorga"},
+                       Text{"a #spider within revolving walls# in the Forest Temple holds", /*french*/"une #Skulltula derrière les murs pivotants du temple de la forêt# a", /*spanish*/"una #Skulltula entre paredes giratorias# del Templo del Bosque otorga", /*italian*/"un #ragno fra muri rotanti# nel Santuario della Foresta nasconde", /*german*/"Deutsch"},
   });
 
 
     hintTable[FOREST_TEMPLE_MQ_GS_FIRST_HALLWAY] = HintText::Exclude({
                        //obscure text
-                       Text{"an #ivy-hidden spider# in the Forest Temple hoards", /*french*/"une #Skulltula près de l'entrée du temple de la forêt# a", /*spanish*/"una #Skulltula escondida entre cepas# del Templo del Bosque otorga"},
+                       Text{"an #ivy-hidden spider# in the Forest Temple hoards", /*french*/"une #Skulltula près de l'entrée du temple de la forêt# a", /*spanish*/"una #Skulltula escondida entre cepas# del Templo del Bosque otorga", /*italian*/"un #ragno dopo altri tre# nel Santuario della Foresta protegge", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_MQ_GS_BLOCK_PUSH_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider in a hidden nook# within the Forest Temple holds", /*french*/"une #Skulltula dans un recoin caché du temple de la forêt# a", /*spanish*/"una #Skulltula en una esquina oculta# del Templo del Bosque otorga"},
+                       Text{"a #spider in a hidden nook# within the Forest Temple holds", /*french*/"une #Skulltula dans un recoin caché du temple de la forêt# a", /*spanish*/"una #Skulltula en una esquina oculta# del Templo del Bosque otorga", /*italian*/"un #ragno in una nicchia laterale# nel Santuario della Foresta nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_MQ_GS_RAISED_ISLAND_COURTYARD] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider on an arch# in the Forest Temple holds", /*french*/"une #Skulltula sur une arche du temple de la forêt# a", /*spanish*/"una #Skulltula sobre un arco# del Templo del Bosque otorga"},
+                       Text{"a #spider on an arch# in the Forest Temple holds", /*french*/"une #Skulltula sur une arche du temple de la forêt# a", /*spanish*/"una #Skulltula sobre un arco# del Templo del Bosque otorga", /*italian*/"un #ragno su un'architrave# nel Santuario della Foresta custodisce", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_MQ_GS_LEVEL_ISLAND_COURTYARD] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider on a ledge# in the Forest Temple holds", /*french*/"une #Skulltula dans le jardin du temple de la forêt# a", /*spanish*/"una #Skulltula en un borde# del Templo del Bosque otorga"},
+                       Text{"a #spider on a ledge# in the Forest Temple holds", /*french*/"une #Skulltula dans le jardin du temple de la forêt# a", /*spanish*/"una #Skulltula en un borde# del Templo del Bosque otorga", /*italian*/"un #ragno sopra un pozzo# nel Santuario della Foresta nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[FOREST_TEMPLE_MQ_GS_WELL] = HintText::Exclude({
                        //obscure text
-                       Text{"#draining a well# in Forest Temple uncovers a spider with", /*french*/"une #Skulltula au fond du puits du temple de la forêt# a", /*spanish*/"#vaciar el pozo# del Templo del Bosque desvela una Skulltula que otorga"},
+                       Text{"#draining a well# in Forest Temple uncovers a spider with", /*french*/"une #Skulltula au fond du puits du temple de la forêt# a", /*spanish*/"#vaciar el pozo# del Templo del Bosque desvela una Skulltula que otorga", /*italian*/"un #ragno dentro un pozzo# nel Santuario della Foresta nasconde", /*german*/"Deutsch"},
   });
 
   /*--------------------------
