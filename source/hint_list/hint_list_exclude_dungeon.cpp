@@ -119,63 +119,63 @@ void HintTable_Init_Exclude_Dungeon() {
   ---------------------------*/
     hintTable[DODONGOS_CAVERN_BOSS_ROOM_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#above King Dodongo# lies", /*french*/"#par dessus le Roi Dodongo# gît", /*spanish*/"#sobre el Rey Dodongo# yace"},
+                       Text{"#above King Dodongo# lies", /*french*/"#par dessus le Roi Dodongo# gît", /*spanish*/"#sobre el Rey Dodongo# yace", /*italian*/"#sopra il Mega Dodongo# puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #muddy wall in Dodongo's Cavern# hides", /*french*/"le #mur fragile dans la caverne Dodongo# recèle", /*spanish*/"tras una #agrietada pared en la Cueva de los Dodongos# yace"},
+                       Text{"a #muddy wall in Dodongo's Cavern# hides", /*french*/"le #mur fragile dans la caverne Dodongo# recèle", /*spanish*/"tras una #agrietada pared en la Cueva de los Dodongos# yace", /*italian*/"una #parete friabile nella caverna dei Dodongo# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #statue in Dodongo's Cavern# guards", /*french*/"la #statue dans la caverne Dodongo# protège", /*spanish*/"una #estatua de la Cueva de los Dodongos# esconde"},
+                       Text{"a #statue in Dodongo's Cavern# guards", /*french*/"la #statue dans la caverne Dodongo# protège", /*spanish*/"una #estatua de la Cueva de los Dodongos# esconde", /*italian*/"una #statua nella caverna dei Dodongo# protegge", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_BOMB_FLOWER_PLATFORM_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"above a #maze of stone# in Dodongo's Cavern lies", /*french*/"sur #un labyrinthe de pierre# dans la caverne Dodongo gît", /*spanish*/"entre un #laberinto de piedra# en la Cueva de los Dodongos yace"},
+                       Text{"above a #maze of stone# in Dodongo's Cavern lies", /*french*/"sur #un labyrinthe de pierre# dans la caverne Dodongo gît", /*spanish*/"entre un #laberinto de piedra# en la Cueva de los Dodongos yace", /*italian*/"sopra #un dedalo di pietra nella caverna dei Dodongo# puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_BOMB_BAG_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #second lizard cavern battle# yields", /*french*/"le #deuxième duel de lézards de caverne# octroie", /*spanish*/"#luchar dos veces contra reptiles en una cueva# conduce a"},
+                       Text{"the #second lizard cavern battle# yields", /*french*/"le #deuxième duel de lézards de caverne# octroie", /*spanish*/"#luchar dos veces contra reptiles en una cueva# conduce a", /*italian*/"il #secondo gruppo di lucertole di caverna# protegge", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_END_OF_BRIDGE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #chest at the end of a bridge# yields", /*french*/"le #trésor à l'extrémité d'un pont# contient", /*spanish*/"un #cofre al final de un quebrado puente# contiene"},
+                       Text{"a #chest at the end of a bridge# yields", /*french*/"le #trésor à l'extrémité d'un pont# contient", /*spanish*/"un #cofre al final de un quebrado puente# contiene", /*italian*/"un #forziere alla fine di un ponte# contiene", /*german*/"Deutsch"},
   });
 
 
     hintTable[DODONGOS_CAVERN_MQ_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #muddy wall in Dodongo's Cavern# hides", /*french*/"le #mur fragile dans la caverne Dodongo# recèle", /*spanish*/"una #agrietada pared en la Cueva de los Dodongos# esconde"},
+                       Text{"a #muddy wall in Dodongo's Cavern# hides", /*french*/"le #mur fragile dans la caverne Dodongo# recèle", /*spanish*/"una #agrietada pared en la Cueva de los Dodongos# esconde", /*italian*/"una #parete friabile nella caverna dei Dodongo# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_MQ_BOMB_BAG_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"an #elevated alcove# in Dodongo's Cavern holds", /*french*/"l'#alcove haut perchée# dans la caverne Dodongo cache", /*spanish*/"una #elevada alcoba# en la Cueva de los Dodongos brinda"},
+                       Text{"an #elevated alcove# in Dodongo's Cavern holds", /*french*/"l'#alcove haut perchée# dans la caverne Dodongo cache", /*spanish*/"una #elevada alcoba# en la Cueva de los Dodongos brinda", /*italian*/"dal #centro della caverna dei Dodongo# puoi vedere un forziere contenente", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_MQ_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#fire-breathing lizards# in Dodongo's Cavern guard", /*french*/"les #lézards cracheurs de feu# dans la caverne Dodongo protègent", /*spanish*/"unos #flamígeros reptiles# en la Cueva de los Dodongos esconden"},
+                       Text{"#fire-breathing lizards# in Dodongo's Cavern guard", /*french*/"les #lézards cracheurs de feu# dans la caverne Dodongo protègent", /*spanish*/"unos #flamígeros reptiles# en la Cueva de los Dodongos esconden", /*italian*/"#lucertole sputafuoco nella caverna dei Dodongo# proteggono", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_MQ_LARVAE_ROOM_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#baby spiders# in Dodongo's Cavern guard", /*french*/"les #petites araignées dans la caverne Dodongo# protègent", /*spanish*/"unas #pequeñas larvas# en la Cueva de los Dodongos esconden"},
+                       Text{"#baby spiders# in Dodongo's Cavern guard", /*french*/"les #petites araignées dans la caverne Dodongo# protègent", /*spanish*/"unas #pequeñas larvas# en la Cueva de los Dodongos esconden", /*italian*/"#piccoli parassiti# nella caverna dei Dodongo proteggono", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_MQ_TORCH_PUZZLE_ROOM_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"above a #maze of stone# in Dodongo's Cavern lies", /*french*/"sur #un labyrinthe de pierre# dans la caverne Dodongo gît", /*spanish*/"sobre un #laberinto de piedra# en la Cueva de los Dodongos yace"},
+                       Text{"above a #maze of stone# in Dodongo's Cavern lies", /*french*/"sur #un labyrinthe de pierre# dans la caverne Dodongo gît", /*spanish*/"sobre un #laberinto de piedra# en la Cueva de los Dodongos yace", /*italian*/"sopra #un dedalo di pietra nella caverna dei Dodongo# puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_MQ_UNDER_GRAVE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#beneath a headstone# in Dodongo's Cavern lies", /*french*/"#sous une pierre tombale# dans la caverne Dodongo gît", /*spanish*/"#bajo una lápida# en la Cueva de los Dodongos yace"},
+                       Text{"#beneath a headstone# in Dodongo's Cavern lies", /*french*/"#sous une pierre tombale# dans la caverne Dodongo gît", /*spanish*/"#bajo una lápida# en la Cueva de los Dodongos yace", /*italian*/"#sotto una lapide# nella caverna dei Dodongo giace", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_KING_DODONGO_HEART] = HintText::Exclude({
@@ -188,89 +188,89 @@ void HintTable_Init_Exclude_Dungeon() {
 
     hintTable[DODONGOS_CAVERN_GS_VINES_ABOVE_STAIRS] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider entangled in vines# in Dodongo's Cavern guards", /*french*/"une #Skulltula sur les vignes dans la caverne Dodongo# a", /*spanish*/"una #Skulltula sobre unas cepas# de la Cueva de los Dodongos otorga"},
+                       Text{"a #spider entangled in vines# in Dodongo's Cavern guards", /*french*/"une #Skulltula sur les vignes dans la caverne Dodongo# a", /*spanish*/"una #Skulltula sobre unas cepas# de la Cueva de los Dodongos otorga", /*italian*/"un #ragno su dei rampicanti# nella caverna dei Dodongo nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_GS_SCARECROW] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider among explosive slugs# hides", /*french*/"une #Skulltula dans l'alcove du couloir dans la caverne Dodongo# a", /*spanish*/"una #Skulltula rodeada de explosivos gusanos# otorga"},
+                       Text{"a #spider among explosive slugs# hides", /*french*/"une #Skulltula dans l'alcove du couloir dans la caverne Dodongo# a", /*spanish*/"una #Skulltula rodeada de explosivos gusanos# otorga", /*italian*/"un #ragno fra lumache esplosive# nella caverna dei Dodongo protegge", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_GS_ALCOVE_ABOVE_STAIRS] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider just out of reach# in Dodongo's Cavern holds", /*french*/"une #Skulltula au haut des escaliers de la caverne Dodongo# a", /*spanish*/"una #Skulltula fuera del alcance# de la Cueva de los Dodongos otorga"},
+                       Text{"a #spider just out of reach# in Dodongo's Cavern holds", /*french*/"une #Skulltula au haut des escaliers de la caverne Dodongo# a", /*spanish*/"una #Skulltula fuera del alcance# de la Cueva de los Dodongos otorga", /*italian*/"un #ragno in cima alle scale mobili# possiede", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_GS_BACK_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider behind a statue# in Dodongo's Cavern holds", /*french*/"une #Skulltula au cœur de la caverne Dodongo# a", /*spanish*/"una #Skulltula tras una estatua# de la Cueva de los Dodongos otorga"},
+                       Text{"a #spider behind a statue# in Dodongo's Cavern holds", /*french*/"une #Skulltula au cœur de la caverne Dodongo# a", /*spanish*/"una #Skulltula tras una estatua# de la Cueva de los Dodongos otorga", /*italian*/"un #ragno si nasconde dietro una statua# nella caverna dei Dodongo con", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_GS_SIDE_ROOM_NEAR_LOWER_LIZALFOS] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider among bats# in Dodongo's Cavern holds", /*french*/"une #Skulltula entourée de Saigneurs dans la caverne Dodongo# a", /*spanish*/"una #Skulltula rodeada de murciélagos# de la Cueva de los Dodongos otorga"},
+                       Text{"a #spider among bats# in Dodongo's Cavern holds", /*french*/"une #Skulltula entourée de Saigneurs dans la caverne Dodongo# a", /*spanish*/"una #Skulltula rodeada de murciélagos# de la Cueva de los Dodongos otorga", /*italian*/"un #ragno in mezzo ai pipistrelli# nella caverna dei Dodongo nasconde", /*german*/"Deutsch"},
   });
 
 
     hintTable[DODONGOS_CAVERN_MQ_GS_SCRUB_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider high on a wall# in Dodongo's Cavern holds", /*french*/"une #Skulltula haut perchée dans la caverne Dodongo# a", /*spanish*/"una #Skulltula en lo alto de una pared# de la Cueva de los Dodongos otorga"},
+                       Text{"a #spider high on a wall# in Dodongo's Cavern holds", /*french*/"une #Skulltula haut perchée dans la caverne Dodongo# a", /*spanish*/"una #Skulltula en lo alto de una pared# de la Cueva de los Dodongos otorga", /*italian*/"un #ragno in alto su un muro# nella caverna dei Dodongo protegge", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_MQ_GS_LIZALFOS_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider on top of a pillar of rock# in Dodongo's Cavern holds", /*french*/"une #Skulltula sur l'énorme pilier de roc de la caverne Dodongo# a", /*spanish*/"una #Skulltula en lo alto de un pilar# de la Cueva de los Dodongos otorga"},
+                       Text{"a #spider on top of a pillar of rock# in Dodongo's Cavern holds", /*french*/"une #Skulltula sur l'énorme pilier de roc de la caverne Dodongo# a", /*spanish*/"una #Skulltula en lo alto de un pilar# de la Cueva de los Dodongos otorga", /*italian*/"un #ragno sopra una colonna di pietra# nella caverna dei Dodongo nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_MQ_GS_LARVAE_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider in a crate# in Dodongo's Cavern holds", /*french*/"une #Skulltula dans une boîte de la caverne Dodongo# a", /*spanish*/"una #Skulltula bajo una caja# de la Cueva de los Dodongos otorga"},
+                       Text{"a #spider in a crate# in Dodongo's Cavern holds", /*french*/"une #Skulltula dans une boîte de la caverne Dodongo# a", /*spanish*/"una #Skulltula bajo una caja# de la Cueva de los Dodongos otorga", /*italian*/"un #ragno in una cassa# nella caverna dei Dodongo nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_MQ_GS_BACK_AREA] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider among graves# in Dodongo's Cavern holds", /*french*/"une #Skulltula parmi les tombes de la caverne Dodongo# a", /*spanish*/"una #Skulltula entre lápidas# en la Cueva de los Dodongos otorga"},
+                       Text{"a #spider among graves# in Dodongo's Cavern holds", /*french*/"une #Skulltula parmi les tombes de la caverne Dodongo# a", /*spanish*/"una #Skulltula entre lápidas# en la Cueva de los Dodongos otorga", /*italian*/"un #ragno fra le lapidi# nella caverna dei Dodongo nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_DEKU_SCRUB_NEAR_BOMB_BAG_LEFT] = HintText::Exclude({
                        //obscure text
-                       Text{"a pair of #scrubs in Dodongo's Cavern# sells", /*french*/"le #duo de peste Mojo dans la caverne Dodongo# vend", /*spanish*/"un #par de dekus en la Cueva de los Dodongos# venden"},
+                       Text{"a pair of #scrubs in Dodongo's Cavern# sells", /*french*/"le #duo de peste Mojo dans la caverne Dodongo# vend", /*spanish*/"un #par de dekus en la Cueva de los Dodongos# venden", /*italian*/"una #coppia di cespugli# nella caverna dei Dodongo vende", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_DEKU_SCRUB_SIDE_ROOM_NEAR_DODONGOS] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub guarded by Lizalfos# sells", /*french*/"la #peste Mojo au cœur de la caverne Dodongo# vend", /*spanish*/"un #deku custodiado por Lizalfos# vende"},
+                       Text{"a #scrub guarded by Lizalfos# sells", /*french*/"la #peste Mojo au cœur de la caverne Dodongo# vend", /*spanish*/"un #deku custodiado por Lizalfos# vende", /*italian*/"un #cespuglio solitario vicino ai Dodongo# nell'omonima caverna vende", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_DEKU_SCRUB_NEAR_BOMB_BAG_RIGHT] = HintText::Exclude({
                        //obscure text
-                       Text{"a pair of #scrubs in Dodongo's Cavern# sells", /*french*/"le #duo de peste Mojo dans la caverne Dodongo# vend", /*spanish*/"un #par de dekus en la Cueva de los Dodongos# venden"},
+                       Text{"a pair of #scrubs in Dodongo's Cavern# sells", /*french*/"le #duo de peste Mojo dans la caverne Dodongo# vend", /*spanish*/"un #par de dekus en la Cueva de los Dodongos# venden", /*italian*/"una #coppia di cespugli# nella caverna dei Dodongo vende", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_DEKU_SCRUB_LOBBY] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub in Dodongo's Cavern# sells", /*french*/"la #peste Mojo dans l'entrée de la caverne Dodongo# vend", /*spanish*/"un #deku en la Cueva de los Dodongos# vende"},
+                       Text{"a #scrub in Dodongo's Cavern# sells", /*french*/"la #peste Mojo dans l'entrée de la caverne Dodongo# vend", /*spanish*/"un #deku en la Cueva de los Dodongos# vende", /*italian*/"un #cespuglio solitario# vicino all'ingresso della caverna dei Dodongo vende", /*german*/"Deutsch"},
   });
 
 
     hintTable[DODONGOS_CAVERN_MQ_DEKU_SCRUB_LOBBY_REAR] = HintText::Exclude({
                        //obscure text
-                       Text{"a pair of #scrubs in Dodongo's Cavern# sells", /*french*/"le #duo de peste Mojo dans l'entrée de la caverne Dodongo# vend", /*spanish*/"un #par de dekus en la Cueva de los Dodongos# venden"},
+                       Text{"a pair of #scrubs in Dodongo's Cavern# sells", /*french*/"le #duo de peste Mojo dans l'entrée de la caverne Dodongo# vend", /*spanish*/"un #par de dekus en la Cueva de los Dodongos# venden", /*italian*/"una #coppia di cespugli# nella caverna dei Dodongo vende", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_MQ_DEKU_SCRUB_LOBBY_FRONT] = HintText::Exclude({
                        //obscure text
-                       Text{"a pair of #scrubs in Dodongo's Cavern# sells", /*french*/"le #duo de peste Mojo dans l'entrée de la caverne Dodongo# vend", /*spanish*/"un #par de dekus en la Cueva de los Dodongos# venden"},
+                       Text{"a pair of #scrubs in Dodongo's Cavern# sells", /*french*/"le #duo de peste Mojo dans l'entrée de la caverne Dodongo# vend", /*spanish*/"un #par de dekus en la Cueva de los Dodongos# venden", /*italian*/"una #coppia di cespugli# nella caverna dei Dodongo vende", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_MQ_DEKU_SCRUB_STAIRCASE] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub in Dodongo's Cavern# sells", /*french*/"la #peste Mojo au sommet des escaliers dans la caverne Dodongo# vend", /*spanish*/"un #deku en la Cueva de los Dodongos# vende"},
+                       Text{"a #scrub in Dodongo's Cavern# sells", /*french*/"la #peste Mojo au sommet des escaliers dans la caverne Dodongo# vend", /*spanish*/"un #deku en la Cueva de los Dodongos# vende", /*italian*/"un #cespuglio in cima alle scale mobili# vende", /*german*/"Deutsch"},
   });
 
     hintTable[DODONGOS_CAVERN_MQ_DEKU_SCRUB_SIDE_ROOM_NEAR_LOWER_LIZALFOS] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub guarded by Lizalfos# sells", /*french*/"la #peste Mojo au cœur de la caverne Dodongo# vend", /*spanish*/"un #deku custodiado por Lizalfos# vende"},
+                       Text{"a #scrub guarded by Lizalfos# sells", /*french*/"la #peste Mojo au cœur de la caverne Dodongo# vend", /*spanish*/"un #deku custodiado por Lizalfos# vende", /*italian*/"un #cespuglio vicino ai Lizalfos# della caverna dei Dodongo vende", /*german*/"Deutsch"},
   });
 
   /*--------------------------
