@@ -278,84 +278,84 @@ void HintTable_Init_Exclude_Dungeon() {
   ---------------------------*/
     hintTable[JABU_JABUS_BELLY_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#tentacle trouble# in a deity's belly guards", /*french*/"la #membrane# dans le ventre du gardien protège", /*spanish*/"un #problema tentaculoso# en la tripa de cierta deidad esconde"},
+                       Text{"#tentacle trouble# in a deity's belly guards", /*french*/"la #membrane# dans le ventre du gardien protège", /*spanish*/"un #problema tentaculoso# en la tripa de cierta deidad esconde", /*italian*/"bisogna risolvere un #problema di tentacoli# per ottenere", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"a #slimy thing# guards", /*french*/"la #chose gluante# gardien protège", /*spanish*/"un #tentáculo parasitario# protege"}
+                       Text{"a #slimy thing# guards", /*french*/"la #chose gluante# gardien protège", /*spanish*/"un #tentáculo parasitario# protege", /*italian*/"un #coso rosso# protegge", /*german*/"Deutsch"}
   );
 
     hintTable[JABU_JABUS_BELLY_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#bubble trouble# in a deity's belly guards", /*french*/"un #horde de bulles# dans le ventre du gardien protègent", /*spanish*/"un #problema burbujesco# en la tripa de cierta deidad esconde"},
+                       Text{"#bubble trouble# in a deity's belly guards", /*french*/"un #horde de bulles# dans le ventre du gardien protègent", /*spanish*/"un #problema burbujesco# en la tripa de cierta deidad esconde", /*italian*/"bisogna risolvere un #problema di bolle# per ottenere", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"#bubbles# guard", /*french*/"des #bulles# entourent", /*spanish*/"unas #burbujas# protegen"}
+                       Text{"#bubbles# guard", /*french*/"des #bulles# entourent", /*spanish*/"unas #burbujas# protegen", /*italian*/"gli #shabom# proteggono", /*german*/"Deutsch"}
   );
 
 
     hintTable[JABU_JABUS_BELLY_MQ_FIRST_ROOM_SIDE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"shooting a #mouth cow# reveals", /*french*/"tirer sur une #vache# révèle", /*spanish*/"#dispararle a una vaca# revela"},
+                       Text{"shooting a #mouth cow# reveals", /*french*/"tirer sur une #vache# révèle", /*spanish*/"#dispararle a una vaca# revela", /*italian*/"sparare a una #mucca in bocca# rivela", /*german*/"Deutsch"},
   });
 
     hintTable[JABU_JABUS_BELLY_MQ_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#pop rocks# hide",            /*french*/"des #pierres aux reins# cachent",     /*spanish*/"#cepillarse los dientes con explosivos# revela"},
-                       Text{"an #explosive palate# holds", /*french*/"des #gargouillis explosifs# cachent", /*spanish*/"un #paladar explosivo# esconde"},
+                       Text{"#pop rocks# hide",            /*french*/"des #pierres aux reins# cachent",     /*spanish*/"#cepillarse los dientes con explosivos# revela", /*italian*/"#gargarismi esplosivi# rivelano", /*german*/"Deutsch"},
+                       Text{"an #explosive palate# holds", /*french*/"des #gargouillis explosifs# cachent", /*spanish*/"un #paladar explosivo# esconde",                 /*italian*/"un #groppo in gola# nasconde",    /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"a #boulder before cows# hides", /*french*/"des #rochers près des vaches# cachent", /*spanish*/"cierta #roca rodeada de vacas# esconde"}
+                       Text{"a #boulder before cows# hides", /*french*/"des #rochers près des vaches# cachent", /*spanish*/"cierta #roca rodeada de vacas# esconde", /*italian*/"un #macigno nella bocca di Jabu Jabu# nasconde", /*german*/"Deutsch"}
   );
 
     hintTable[JABU_JABUS_BELLY_MQ_SECOND_ROOM_LOWER_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"near a #spiked elevator# lies", /*french*/"près d'un #ascenseur visqueux# gît", /*spanish*/"cerca de un #ascensor puntiagudo# yace"},
+                       Text{"near a #spiked elevator# lies", /*french*/"près d'un #ascenseur visqueux# gît", /*spanish*/"cerca de un #ascensor puntiagudo# yace", /*italian*/"un forziere sotto un #ascensore spinoso# contiene", /*german*/"Deutsch"},
   });
 
     hintTable[JABU_JABUS_BELLY_MQ_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #drowning cow# unveils", /*french*/"une #vache à l'eau# a", /*spanish*/"una #vaca sumergida# revela"},
+                       Text{"a #drowning cow# unveils", /*french*/"une #vache à l'eau# a", /*spanish*/"una #vaca sumergida# revela", /*italian*/"una #mucca sommozzatrice# fa apparire", /*german*/"Deutsch"},
   });
 
     hintTable[JABU_JABUS_BELLY_MQ_SECOND_ROOM_UPPER_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#moving anatomy# creates a path to", /*french*/"un #organe descendant# mène à", /*spanish*/"un #ser movedizo entre paredes# conduce a"},
+                       Text{"#moving anatomy# creates a path to", /*french*/"un #organe descendant# mène à", /*spanish*/"un #ser movedizo entre paredes# conduce a", /*italian*/"un #intervento chirurgico# apre la via per", /*german*/"Deutsch"},
   });
 
     hintTable[JABU_JABUS_BELLY_MQ_BASEMENT_NEAR_SWITCHES_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #pair of digested cows# hold", /*french*/"#deux bœufs digérés# détiennent", /*spanish*/"un #par de digeridas vacas# otorgan"},
+                       Text{"a #pair of digested cows# hold", /*french*/"#deux bœufs digérés# détiennent", /*spanish*/"un #par de digeridas vacas# otorgan", /*italian*/"una #coppia di mucche digerite# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[JABU_JABUS_BELLY_MQ_BASEMENT_NEAR_VINES_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #pair of digested cows# hold", /*french*/"#deux bœufs digérés# détiennent", /*spanish*/"un #par de digeridas vacas# otorgan"},
+                       Text{"a #pair of digested cows# hold", /*french*/"#deux bœufs digérés# détiennent", /*spanish*/"un #par de digeridas vacas# otorgan", /*italian*/"una #coppia di mucche digerite# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[JABU_JABUS_BELLY_MQ_NEAR_BOSS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #final cows' reward# in a deity's belly is", /*french*/"le #cadeau des dernières vaches# estomacales est", /*spanish*/"las #vacas al final# de la tripa de cierta deidad otorgan"},
+                       Text{"the #final cows' reward# in a deity's belly is", /*french*/"le #cadeau des dernières vaches# estomacales est", /*spanish*/"las #vacas al final# de la tripa de cierta deidad otorgan", /*italian*/"il #premio dell'ultima mucca inghiottita# è", /*german*/"Deutsch"},
   });
 
     hintTable[JABU_JABUS_BELLY_MQ_FALLING_LIKE_LIKE_ROOM_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#cows protected by falling monsters# in a deity's belly guard", /*french*/"des #vaches protégées par des monstres tombants# cachent", /*spanish*/"unas #vacas custodiadas por monstruos del techo# de la tripa de cierta deidad otorgan"},
+                       Text{"#cows protected by falling monsters# in a deity's belly guard", /*french*/"des #vaches protégées par des monstres tombants# cachent", /*spanish*/"unas #vacas custodiadas por monstruos del techo# de la tripa de cierta deidad otorgan", /*italian*/"delle #mucche inghiottite liberano dei mostri# per difendere", /*german*/"Deutsch"},
   });
 
     hintTable[JABU_JABUS_BELLY_MQ_BOOMERANG_ROOM_SMALL_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a school of #stingers swallowed by a deity# guard", /*french*/"les #raies avallées par le gardien# protègent", /*spanish*/"unos #stingers engullidos por cierta deidad# guardan"},
+                       Text{"a school of #stingers swallowed by a deity# guard", /*french*/"les #raies avallées par le gardien# protègent", /*spanish*/"unos #stingers engullidos por cierta deidad# guardan", /*italian*/"una divinità ha inghiottito #un banco di trigoni volanti# con", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"a school of #stingers swallowed by Jabu-Jabu# guard", /*french*/"les #raies avallées par Jabu-Jabu# protègent", /*spanish*/"unos #stingers engullidos por Jabu-Jabu# guardan"}
+                       Text{"a school of #stingers swallowed by Jabu-Jabu# guard", /*french*/"les #raies avallées par Jabu-Jabu# protègent", /*spanish*/"unos #stingers engullidos por Jabu-Jabu# guardan", /*italian*/"#un banco di trigoni volanti# nella pancia di Jabu Jabu protegge", /*german*/"Deutsch"}
   );
 
     hintTable[JABU_JABUS_BELLY_MQ_BOOMERANG_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a school of #stingers swallowed by a deity# guard", /*french*/"les #raies avallées par le gardien# protègent", /*spanish*/"unos #stingers engullidos por cierta deidad# guardan"},
+                       Text{"a school of #stingers swallowed by a deity# guard", /*french*/"les #raies avallées par le gardien# protègent", /*spanish*/"unos #stingers engullidos por cierta deidad# guardan", /*italian*/"una divinità ha inghiottito #un banco di trigoni volanti# con", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"a school of #stingers swallowed by Jabu-Jabu# guard", /*french*/"les #raies avallées par Jabu-Jabu# protègent", /*spanish*/"unos #stingers engullidos por Jabu-Jabu# guardan"}
+                       Text{"a school of #stingers swallowed by Jabu-Jabu# guard", /*french*/"les #raies avallées par Jabu-Jabu# protègent", /*spanish*/"unos #stingers engullidos por Jabu-Jabu# guardan", /*italian*/"#un banco di trigoni volanti# nella pancia di Jabu Jabu protegge", /*german*/"Deutsch"}
   );
 
     hintTable[JABU_JABUS_BELLY_BARINADE_HEART] = HintText::Exclude({
@@ -368,43 +368,43 @@ void HintTable_Init_Exclude_Dungeon() {
 
     hintTable[JABU_JABUS_BELLY_GS_LOBBY_BASEMENT_LOWER] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider resting near a princess# in Jabu-Jabu's Belly holds", /*french*/"une #Skulltula près de la princesse dans le ventre de Jabu-Jabu# a", /*spanish*/"una #Skulltula junto a una princesa# en la Tripa de Jabu-Jabu otorga"},
+                       Text{"a #spider resting near a princess# in Jabu-Jabu's Belly holds", /*french*/"une #Skulltula près de la princesse dans le ventre de Jabu-Jabu# a", /*spanish*/"una #Skulltula junto a una princesa# en la Tripa de Jabu-Jabu otorga", /*italian*/"un #ragno vicino a una principessa# nella pancia di Jabu Jabu ha", /*german*/"Deutsch"},
   });
 
     hintTable[JABU_JABUS_BELLY_GS_LOBBY_BASEMENT_UPPER] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider resting near a princess# in Jabu-Jabu's Belly holds", /*french*/"une #Skulltula près de la princesse dans le ventre de Jabu-Jabu# a", /*spanish*/"una #Skulltula junto a una princesa# en la Tripa de Jabu-Jabu otorga"},
+                       Text{"a #spider resting near a princess# in Jabu-Jabu's Belly holds", /*french*/"une #Skulltula près de la princesse dans le ventre de Jabu-Jabu# a", /*spanish*/"una #Skulltula junto a una princesa# en la Tripa de Jabu-Jabu otorga", /*italian*/"un #ragno vicino a una principessa# nella pancia di Jabu Jabu ha", /*german*/"Deutsch"},
   });
 
     hintTable[JABU_JABUS_BELLY_GS_NEAR_BOSS] = HintText::Exclude({
                        //obscure text
-                       Text{"#jellyfish surround a spider# holding", /*french*/"une #Skulltula entourée de méduses dans le ventre de Jabu-Jabu# a", /*spanish*/"una #Skulltula rodeada de medusas# otorga"},
+                       Text{"#jellyfish surround a spider# holding", /*french*/"une #Skulltula entourée de méduses dans le ventre de Jabu-Jabu# a", /*spanish*/"una #Skulltula rodeada de medusas# otorga", /*italian*/"un #ragno circondato da meduse# possiede", /*german*/"Deutsch"},
   });
 
     hintTable[JABU_JABUS_BELLY_GS_WATER_SWITCH_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider guarded by a school of stingers# in Jabu-Jabu's Belly holds", /*french*/"une #Skulltula protégée par des raies dans le ventre de Jabu-Jabu# a", /*spanish*/"una #Skulltula rodeada por unos stingers# en la Tripa de Jabu-Jabu otorga"},
+                       Text{"a #spider guarded by a school of stingers# in Jabu-Jabu's Belly holds", /*french*/"une #Skulltula protégée par des raies dans le ventre de Jabu-Jabu# a", /*spanish*/"una #Skulltula rodeada por unos stingers# en la Tripa de Jabu-Jabu otorga", /*italian*/"un #ragno protetto da trigoni volanti# nasconde", /*german*/"Deutsch"},
   });
 
 
     hintTable[JABU_JABUS_BELLY_MQ_GS_TAILPASARAN_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider surrounded by electricity# in Jabu-Jabu's Belly holds", /*french*/"une #Skulltula entourée d'électricité dans le ventre de Jabu-Jabu# a", /*spanish*/"una #Skulltula rodeada de electricidad# en la Tripa de Jabu-Jabu otorga"},
+                       Text{"a #spider surrounded by electricity# in Jabu-Jabu's Belly holds", /*french*/"une #Skulltula entourée d'électricité dans le ventre de Jabu-Jabu# a", /*spanish*/"una #Skulltula rodeada de electricidad# en la Tripa de Jabu-Jabu otorga", /*italian*/"un #ragno circondato da trivolt# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[JABU_JABUS_BELLY_MQ_GS_BOOMERANG_CHEST_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider guarded by a school of stingers# in Jabu-Jabu's Belly holds", /*french*/"une #Skulltula protégée par des raies dans le ventre de Jabu-Jabu# a", /*spanish*/"una #Skulltula protegida por unos stingers# en la Tripa de Jabu-Jabu otorga"},
+                       Text{"a #spider guarded by a school of stingers# in Jabu-Jabu's Belly holds", /*french*/"une #Skulltula protégée par des raies dans le ventre de Jabu-Jabu# a", /*spanish*/"una #Skulltula protegida por unos stingers# en la Tripa de Jabu-Jabu otorga", /*italian*/"un #ragno protetto da trigoni volanti# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[JABU_JABUS_BELLY_MQ_GS_NEAR_BOSS] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider in a web within Jabu-Jabu's Belly# holds", /*french*/"une #Skulltula sur une toile dans le ventre de Jabu-Jabu# a", /*spanish*/"una #Skulltula sobre una red# en la Tripa de Jabu-Jabu otorga"},
+                       Text{"a #spider in a web within Jabu-Jabu's Belly# holds", /*french*/"une #Skulltula sur une toile dans le ventre de Jabu-Jabu# a", /*spanish*/"una #Skulltula sobre una red# en la Tripa de Jabu-Jabu otorga", /*italian*/"un #ragno sopra una rete# nella pancia di Jabu Jabu nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[JABU_JABUS_BELLY_DEKU_SCRUB] = HintText::Exclude({
                        //obscure text
-                       Text{"a #scrub in a deity# sells", /*french*/"la #peste Mojo dans le ventre du gardien# vend", /*spanish*/"un #deku dentro de cierta deidad# vende"},
+                       Text{"a #scrub in a deity# sells", /*french*/"la #peste Mojo dans le ventre du gardien# vend", /*spanish*/"un #deku dentro de cierta deidad# vende", /*italian*/"un #cespuglio inghiottito# vende", /*german*/"Deutsch"},
   });
 
   /*--------------------------
