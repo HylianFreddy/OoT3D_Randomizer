@@ -621,121 +621,121 @@ void HintTable_Init_Exclude_Dungeon() {
   ---------------------------*/
     hintTable[FIRE_TEMPLE_NEAR_BOSS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#near a dragon# is", /*french*/"#près d'un dragon# gît", /*spanish*/"#cerca de un dragón# yace"},
+                       Text{"#near a dragon# is", /*french*/"#près d'un dragon# gît", /*spanish*/"#cerca de un dragón# yace", /*italian*/"#vicino a un drago# un forziere contiene", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_FLARE_DANCER_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Flare Dancer behind a totem# guards", /*french*/"le #Danse-Flamme derrière un totem# protège", /*spanish*/"el #Bailafuego tras unos tótems# esconde"},
+                       Text{"the #Flare Dancer behind a totem# guards", /*french*/"le #Danse-Flamme derrière un totem# protège", /*spanish*/"el #Bailafuego tras unos tótems# esconde", /*italian*/"il #Fiammerino dietro un totem# protegge", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_BOSS_KEY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #prison beyond a totem# holds", /*french*/"la #prison derrière un totem# contient", /*spanish*/"en una #prisión tras unos tótems# yace"},
+                       Text{"a #prison beyond a totem# holds", /*french*/"la #prison derrière un totem# contient", /*spanish*/"en una #prisión tras unos tótems# yace", /*italian*/"una #cella dietro un totem# contiene", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_BIG_LAVA_ROOM_BLOCKED_DOOR_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#explosives over a lava pit# unveil", /*french*/"des #explosifs dans un lac de lave# révèlent", /*spanish*/"los #explosivos en un mar de llamas# revelan"},
+                       Text{"#explosives over a lava pit# unveil", /*french*/"des #explosifs dans un lac de lave# révèlent", /*spanish*/"los #explosivos en un mar de llamas# revelan", /*italian*/"#esplosioni presso un lago di lava# rivelano", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_BIG_LAVA_ROOM_LOWER_OPEN_DOOR_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Goron trapped near lava# holds", /*french*/"le #Goron emprisonné près de la lave# a", /*spanish*/"un #goron atrapado cerca de un mar de llamas# guarda"},
+                       Text{"a #Goron trapped near lava# holds", /*french*/"le #Goron emprisonné près de la lave# a", /*spanish*/"un #goron atrapado cerca de un mar de llamas# guarda", /*italian*/"un #Goron prigioniero vicino a un lago di lava# possiede", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_BOULDER_MAZE_LOWER_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Goron at the end of a maze# holds", /*french*/"le #Goron dans le labyrinthe# a", /*spanish*/"un #goron al final de un laberinto# guarda"},
+                       Text{"a #Goron at the end of a maze# holds", /*french*/"le #Goron dans le labyrinthe# a", /*spanish*/"un #goron al final de un laberinto# guarda", /*italian*/"un #Goron all'estremità di un labirinto# possiede", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_BOULDER_MAZE_UPPER_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Goron above a maze# holds", /*french*/"le #Goron au dessus du labyrinthe# a", /*spanish*/"un #goron sobre un laberinto# guarda"},
+                       Text{"a #Goron above a maze# holds", /*french*/"le #Goron au dessus du labyrinthe# a", /*spanish*/"un #goron sobre un laberinto# guarda", /*italian*/"un #Goron sopra un labirinto# possiede", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_BOULDER_MAZE_SIDE_ROOM_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Goron hidden near a maze# holds", /*french*/"le #Goron caché près du labyrinthe# a", /*spanish*/"un #goron escondido tras un laberinto# guarda"},
+                       Text{"a #Goron hidden near a maze# holds", /*french*/"le #Goron caché près du labyrinthe# a", /*spanish*/"un #goron escondido tras un laberinto# guarda", /*italian*/"un #Goron vicino a un labirinto# possiede", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_BOULDER_MAZE_SHORTCUT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #blocked path# in Fire Temple holds", /*french*/"un #sol fragile dans le temple du feu# contient", /*spanish*/"en un #camino bloqueado# del Templo del Fuego yace"},
+                       Text{"a #blocked path# in Fire Temple holds", /*french*/"un #sol fragile dans le temple du feu# contient", /*spanish*/"en un #camino bloqueado# del Templo del Fuego yace", /*italian*/"#sotto un pavimento crepato# nel Santuario del Fuoco c'è un Goron con", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #caged chest# in the Fire Temple hoards", /*french*/"un #coffre emprisonné# dans le temple du feu contient", /*spanish*/"un #cofre entre rejas# del Templo del Fuego contiene"},
+                       Text{"a #caged chest# in the Fire Temple hoards", /*french*/"un #coffre emprisonné# dans le temple du feu contient", /*spanish*/"un #cofre entre rejas# del Templo del Fuego contiene", /*italian*/"un #forziere in una gabbia senza soffitto# nel Santuario del Fuoco contiene", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #chest in a fiery maze# contains", /*french*/"un #coffre dans un labyrinthe enflammé# contient", /*spanish*/"un #cofre de un ardiente laberinto# contiene"},
+                       Text{"a #chest in a fiery maze# contains", /*french*/"un #coffre dans un labyrinthe enflammé# contient", /*spanish*/"un #cofre de un ardiente laberinto# contiene", /*italian*/"un #forziere presso un labirinto di fiamme# contiene", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_HIGHEST_GORON_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Goron atop the Fire Temple# holds", /*french*/"le #Goron au sommet du temple du feu# a", /*spanish*/"un #goron en lo alto del Templo del Fuego# guarda"},
+                       Text{"a #Goron atop the Fire Temple# holds", /*french*/"le #Goron au sommet du temple du feu# a", /*spanish*/"un #goron en lo alto del Templo del Fuego# guarda", /*italian*/"un #Goron in cima al Santuario del Fuoco# possiede", /*german*/"Deutsch"},
   });
 
 
     hintTable[FIRE_TEMPLE_MQ_NEAR_BOSS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#near a dragon# is", /*french*/"#près d'un dragon# gît", /*spanish*/"#cerca de un dragón# yace"},
+                       Text{"#near a dragon# is", /*french*/"#près d'un dragon# gît", /*spanish*/"#cerca de un dragón# yace", /*italian*/"#vicino a un drago# un forziere contiene", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_MQ_MEGATON_HAMMER_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Flare Dancer in the depths of a volcano# guards", /*french*/"le #Danse-Flamme au cœur du volcan# a", /*spanish*/"el #Bailafuego en lo profundo del volcán# esconde"},
+                       Text{"the #Flare Dancer in the depths of a volcano# guards", /*french*/"le #Danse-Flamme au cœur du volcan# a", /*spanish*/"el #Bailafuego en lo profundo del volcán# esconde", /*italian*/"il #Fiammerino nelle profondità di un vulcano# protegge", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #Flare Dancer in the depths of the Fire Temple# guards", /*french*/"le #Danse-Flamme au cœur du volcan# a", /*spanish*/"el #Bailafuego en lo profundo del Templo del Fuego# esconde"}
+                       Text{"the #Flare Dancer in the depths of the Fire Temple# guards", /*french*/"le #Danse-Flamme au cœur du volcan# a", /*spanish*/"el #Bailafuego en lo profundo del Templo del Fuego# esconde", /*italian*/"il #Fiammerino nelle profondità del Santuario del Fuoco# protegge", /*german*/"Deutsch"}
   );
 
     hintTable[FIRE_TEMPLE_MQ_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #blocked path# in Fire Temple holds", /*french*/"le #chemin scellé# dans le temple du feu contient", /*spanish*/"en un #camino bloqueado# del Templo del Fuego yace"},
+                       Text{"a #blocked path# in Fire Temple holds", /*french*/"le #chemin scellé# dans le temple du feu contient", /*spanish*/"en un #camino bloqueado# del Templo del Fuego yace", /*italian*/"#sotto un pavimento crepato# nel Santuario del Fuoco puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_MQ_LIZALFOS_MAZE_LOWER_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#crates in a maze# contain", /*french*/"des #boîtes dans le labyrinthe# contiennent", /*spanish*/"las #cajas de un laberinto# contienen"},
+                       Text{"#crates in a maze# contain", /*french*/"des #boîtes dans le labyrinthe# contiennent", /*spanish*/"las #cajas de un laberinto# contienen", /*italian*/"delle #casse in un labirinto# nel Santuario del Fuoco contengono", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_MQ_LIZALFOS_MAZE_UPPER_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#crates in a maze# contain", /*french*/"des #boîtes dans le labyrinthe# contiennent", /*spanish*/"las #cajas de un laberinto# contienen"},
+                       Text{"#crates in a maze# contain", /*french*/"des #boîtes dans le labyrinthe# contiennent", /*spanish*/"las #cajas de un laberinto# contienen", /*italian*/"delle #casse in un labirinto# nel Santuario del Fuoco contengono", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_MQ_MAP_ROOM_SIDE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #falling slug# in the Fire Temple guards", /*french*/"la #limace tombante# dans le temple du feu protège", /*spanish*/"una #babosa del techo# del Templo del Fuego guarda"},
+                       Text{"a #falling slug# in the Fire Temple guards", /*french*/"la #limace tombante# dans le temple du feu protège", /*spanish*/"una #babosa del techo# del Templo del Fuego guarda", /*italian*/"una #lumaca grigia# nel Santuario del Fuoco protegge", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_MQ_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"using a #hammer in the depths of the Fire Temple# reveals", "frapper du #marteau au cœur du volcan# révèle", /*spanish*/"usar el #martillo en lo profundo del Templo del Fuego# revela"},
+                       Text{"using a #hammer in the depths of the Fire Temple# reveals", "frapper du #marteau au cœur du volcan# révèle", /*spanish*/"usar el #martillo en lo profundo del Templo del Fuego# revela", /*italian*/"usare il #martello nel profondo del Santuario del Fuoco# rivela", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_MQ_BOSS_KEY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#illuminating a lava pit# reveals the path to", /*french*/"#éclairer le lac de lave# révèle", /*spanish*/"#iluminar un mar de llamas# revela"},
+                       Text{"#illuminating a lava pit# reveals the path to", /*french*/"#éclairer le lac de lave# révèle", /*spanish*/"#iluminar un mar de llamas# revela", /*italian*/"#illuminare un lago di lava# apre la via per", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_MQ_BIG_LAVA_ROOM_BLOCKED_DOOR_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#explosives over a lava pit# unveil", /*french*/"des #explosifs dans un lac de lave# révèlent", /*spanish*/"los #explosivos en un mar de llamas# revelan"},
+                       Text{"#explosives over a lava pit# unveil", /*french*/"des #explosifs dans un lac de lave# révèlent", /*spanish*/"los #explosivos en un mar de llamas# revelan", /*italian*/"#esplosioni presso un lago di lava# rivelano", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_MQ_LIZALFOS_MAZE_SIDE_ROOM_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Goron hidden near a maze# holds", /*french*/"le #Goron caché près du labyrinthe# a", /*spanish*/"un #goron cerca de un laberinto# guarda"},
+                       Text{"a #Goron hidden near a maze# holds", /*french*/"le #Goron caché près du labyrinthe# a", /*spanish*/"un #goron cerca de un laberinto# guarda", /*italian*/"un #Goron vicino a un labirinto# possiede", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_MQ_FREESTANDING_KEY] = HintText::Exclude({
                        //obscure text
-                       Text{"hidden #beneath a block of stone# lies", /*french*/"caché #derrière un bloc de pierre# gît", /*spanish*/"#bajo unos bloques de piedra# yace"},
+                       Text{"hidden #beneath a block of stone# lies", /*french*/"caché #derrière un bloc de pierre# gît", /*spanish*/"#bajo unos bloques de piedra# yace", /*italian*/"#sotto un blocco di pietra# puoi scoprire", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_VOLVAGIA_HEART] = HintText::Exclude({
@@ -748,54 +748,54 @@ void HintTable_Init_Exclude_Dungeon() {
 
     hintTable[FIRE_TEMPLE_GS_SONG_OF_TIME_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"#eight tiles of malice# guard a spider holding", /*french*/"une #Skulltula protégée par huit tuiles dans le temple du feu# a", /*spanish*/"#ocho baldosas de maldad# custodian una Skulltula que otorga"},
+                       Text{"#eight tiles of malice# guard a spider holding", /*french*/"une #Skulltula protégée par huit tuiles dans le temple du feu# a", /*spanish*/"#ocho baldosas de maldad# custodian una Skulltula que otorga", /*italian*/"#otto piastrelle# proteggono un ragno che ha", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_GS_BOSS_KEY_LOOP] = HintText::Exclude({
                        //obscure text
-                       Text{"#five tiles of malice# guard a spider holding", /*french*/"une #Skulltula protégée par cinq tuiles dans le temple du feu# a", /*spanish*/"#cinco baldosas de maldad# custodian una Skulltula que otorga"},
+                       Text{"#five tiles of malice# guard a spider holding", /*french*/"une #Skulltula protégée par cinq tuiles dans le temple du feu# a", /*spanish*/"#cinco baldosas de maldad# custodian una Skulltula que otorga", /*italian*/"#cinque piastrelle# proteggono un ragno che ha", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_GS_BOULDER_MAZE] = HintText::Exclude({
                        //obscure text
-                       Text{"#explosives in a maze# unveil a spider hiding", /*french*/"une #Skulltula derrière un mur fragile du temple du feu# a", /*spanish*/"los #explosivos en un laberinto# desvelan una Skulltula que otorga"},
+                       Text{"#explosives in a maze# unveil a spider hiding", /*french*/"une #Skulltula derrière un mur fragile du temple du feu# a", /*spanish*/"los #explosivos en un laberinto# desvelan una Skulltula que otorga", /*italian*/"#esplosioni in un labirinto# nel Santuario del Fuoco rivelano un ragno che nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_GS_SCARECROW_TOP] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider-friendly scarecrow# atop a volcano hides", /*french*/"une #Skulltula repérée par l'épouvantail du volcan# a", /*spanish*/"un #espantapájaros en lo alto de un volcán# custodia una Skulltula que otorga"},
+                       Text{"a #spider-friendly scarecrow# atop a volcano hides", /*french*/"une #Skulltula repérée par l'épouvantail du volcan# a", /*spanish*/"un #espantapájaros en lo alto de un volcán# custodia una Skulltula que otorga", /*italian*/"uno #spaventapasseri in cima al vulcano# indica un ragno che ha", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"a #spider-friendly scarecrow# atop the Fire Temple hides", /*french*/"une #Skulltula repérée par l'épouvantail du temple du feu# a", /*spanish*/"un #espantapájaros del Templo del Fuego# custodia una Skulltula que otorga"}
+                       Text{"a #spider-friendly scarecrow# atop the Fire Temple hides", /*french*/"une #Skulltula repérée par l'épouvantail du temple du feu# a", /*spanish*/"un #espantapájaros del Templo del Fuego# custodia una Skulltula que otorga", /*italian*/"uno #spaventapasseri nel Santuario del Fuoco# indica un ragno che ha", /*german*/"Deutsch"}
   );
 
     hintTable[FIRE_TEMPLE_GS_SCARECROW_CLIMB] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider-friendly scarecrow# atop a volcano hides", /*french*/"une #Skulltula repérée par l'épouvantail du volcan# a", /*spanish*/"un #espantapájaros en lo alto de un volcán# custodia una Skulltula que otorga"},
+                       Text{"a #spider-friendly scarecrow# atop a volcano hides", /*french*/"une #Skulltula repérée par l'épouvantail du volcan# a", /*spanish*/"un #espantapájaros en lo alto de un volcán# custodia una Skulltula que otorga", /*italian*/"uno #spaventapasseri in cima al vulcano# indica un ragno che ha", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"a #spider-friendly scarecrow# atop the Fire Temple hides", /*french*/"une #Skulltula repérée par l'épouvantail du temple du feu# a", /*spanish*/"un #espantapájaros del Templo del Fuego# custodia una Skulltula que otorga"}
+                       Text{"a #spider-friendly scarecrow# atop the Fire Temple hides", /*french*/"une #Skulltula repérée par l'épouvantail du temple du feu# a", /*spanish*/"un #espantapájaros del Templo del Fuego# custodia una Skulltula que otorga", /*italian*/"uno #spaventapasseri nel Santuario del Fuoco# indica un ragno che ha", /*german*/"Deutsch"}
   );
 
 
     hintTable[FIRE_TEMPLE_MQ_GS_ABOVE_FIRE_WALL_MAZE] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider above a fiery maze# holds", /*french*/"une #Skulltula au dessus du labyrinthe enflammé du temple du feu# a", /*spanish*/"una #Skulltula sobre un ardiente laberinto# otorga"},
+                       Text{"a #spider above a fiery maze# holds", /*french*/"une #Skulltula au dessus du labyrinthe enflammé du temple du feu# a", /*spanish*/"una #Skulltula sobre un ardiente laberinto# otorga", /*italian*/"un #ragno sopra un labirinto di fiamme# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_MQ_GS_FIRE_WALL_MAZE_CENTER] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider within a fiery maze# holds", /*french*/"une #Skulltula dans le labyrinthe enflammé du temple du feu# a", /*spanish*/"una #Skulltula en el interior de un ardiente laberinto# otorga"},
+                       Text{"a #spider within a fiery maze# holds", /*french*/"une #Skulltula dans le labyrinthe enflammé du temple du feu# a", /*spanish*/"una #Skulltula en el interior de un ardiente laberinto# otorga", /*italian*/"un #ragno dentro un labirinto di fiamme# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_MQ_GS_BIG_LAVA_ROOM_OPEN_DOOR] = HintText::Exclude({
                        //obscure text
-                       Text{"a #Goron trapped near lava# befriended a spider with", /*french*/"une #Skulltula emprisonnée près du lac de lave du temple du feu# a", /*spanish*/"una #Skulltula amiga de un Goron atrapado junto a la lava# otorga"},
+                       Text{"a #Goron trapped near lava# befriended a spider with", /*french*/"une #Skulltula emprisonnée près du lac de lave du temple du feu# a", /*spanish*/"una #Skulltula amiga de un Goron atrapado junto a la lava# otorga", /*italian*/"un #Goron prigioniero vicino a un lago di lava# è insieme a un ragno con", /*german*/"Deutsch"},
   });
 
     hintTable[FIRE_TEMPLE_MQ_GS_FIRE_WALL_MAZE_SIDE_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider beside a fiery maze# holds", /*french*/"une #Skulltula près du labyrinthe enflammé du temple du feu# a", /*spanish*/"una #Skulltula junto a un ardiente laberinto# otorga"},
+                       Text{"a #spider beside a fiery maze# holds", /*french*/"une #Skulltula près du labyrinthe enflammé du temple du feu# a", /*spanish*/"una #Skulltula junto a un ardiente laberinto# otorga", /*italian*/"un #ragno presso un labirinto di fiamme# nasconde", /*german*/"Deutsch"},
   });
 
   /*--------------------------
