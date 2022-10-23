@@ -803,72 +803,72 @@ void HintTable_Init_Exclude_Dungeon() {
   ---------------------------*/
     hintTable[WATER_TEMPLE_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#rolling spikes# in the Water Temple surround", /*french*/"des #Spikes# dans le temple de l'eau entourent", /*spanish*/"unas #rodantes púas# del Templo del Agua guardan"},
+                       Text{"#rolling spikes# in the Water Temple surround", /*french*/"des #Spikes# dans le temple de l'eau entourent", /*spanish*/"unas #rodantes púas# del Templo del Agua guardan", /*italian*/"dei #ricci di ferro# nel Santuario dell'Acqua proteggono", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#roaming stingers in the Water Temple# guard", /*french*/"des #raies dans le temple de l'eau# protègent", /*spanish*/"unos #errantes stingers# del Templo del Agua guardan"},
+                       Text{"#roaming stingers in the Water Temple# guard", /*french*/"des #raies dans le temple de l'eau# protègent", /*spanish*/"unos #errantes stingers# del Templo del Agua guardan", /*italian*/"dei #trigoni volanti nel Santuario dell'Acqua# proteggono", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_TORCHES_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#fire in the Water Temple# reveals", /*french*/"des #flammes dans le temple de l'eau# révèlent", /*spanish*/"el #fuego en el Templo del Agua# revela"},
+                       Text{"#fire in the Water Temple# reveals", /*french*/"des #flammes dans le temple de l'eau# révèlent", /*spanish*/"el #fuego en el Templo del Agua# revela", /*italian*/"#fuochi nel Santuario dell'Acqua# rivelano", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_DRAGON_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #serpent's prize# in the Water Temple is", /*french*/"la #récompense du dragon submergé# est", /*spanish*/"el #escamado premio# del Templo del Agua se trata de"},
+                       Text{"a #serpent's prize# in the Water Temple is", /*french*/"la #récompense du dragon submergé# est", /*spanish*/"el #escamado premio# del Templo del Agua se trata de", /*italian*/"il #premio di un dragone# nel Santuario dell'Acqua è", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_CENTRAL_BOW_TARGET_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#blinding an eye# in the Water Temple leads to", /*french*/"#l'oeil# du temple de l'eau voit", /*spanish*/"#cegar un ojo# del Templo del Agua conduce a"},
+                       Text{"#blinding an eye# in the Water Temple leads to", /*french*/"#l'oeil# du temple de l'eau voit", /*spanish*/"#cegar un ojo# del Templo del Agua conduce a", /*italian*/"#accecare un occhio# nel Santuario dell'Acqua apre la via per", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_CENTRAL_PILLAR_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"in the #depths of the Water Temple# lies", /*french*/"le #cœur du temple de l'eau# cache", /*spanish*/"en las #profundidades del Templo del Agua# yace"},
+                       Text{"in the #depths of the Water Temple# lies", /*french*/"le #cœur du temple de l'eau# cache", /*spanish*/"en las #profundidades del Templo del Agua# yace", /*italian*/"#nel più profondo del Santuario dell'Acqua# puoi recuperare", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_CRACKED_WALL_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#through a crack# in the Water Temple is", /*french*/"le #mur fragile# du temple de l'eau cache", /*spanish*/"tras una #agrietada pared# del Templo del Agua yace"},
+                       Text{"#through a crack# in the Water Temple is", /*french*/"le #mur fragile# du temple de l'eau cache", /*spanish*/"tras una #agrietada pared# del Templo del Agua yace", /*italian*/", #oltre una crepa# nel Santuario dell'Acqua, un forziere contiene", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_LONGSHOT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#facing yourself# reveals",              /*french*/"se #vaincre soi-même# révèle", /*spanish*/"#luchar contra ti mismo# revela"},
-                       Text{"a #dark reflection# of yourself guards", /*french*/"son #propre reflet# cache",    /*spanish*/"el #oscuro reflejo de ti mismo# guarda"},
+                       Text{"#facing yourself# reveals",              /*french*/"se #vaincre soi-même# révèle", /*spanish*/"#luchar contra ti mismo# revela",        /*italian*/"#affrontare sè stessi# procura", /*german*/"Deutsch"},
+                       Text{"a #dark reflection# of yourself guards", /*french*/"son #propre reflet# cache",    /*spanish*/"el #oscuro reflejo de ti mismo# guarda", /*italian*/"la #tua ombra# difende",         /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"#Dark Link# guards", /*french*/"l'#Ombre de @# protège", /*spanish*/"#@ Oscuro# guarda"}
+                       Text{"#Dark Link# guards", /*french*/"l'#Ombre de @# protège", /*spanish*/"#@ Oscuro# guarda", /*italian*/"#@ oscuro# protegge", /*german*/"Deutsch"}
   );
 
 
     hintTable[WATER_TEMPLE_MQ_CENTRAL_PILLAR_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"in the #depths of the Water Temple# lies", /*french*/"le #cœur du temple de l'eau# cache", /*spanish*/"en las #profundidades del Templo del Agua# yace"},
+                       Text{"in the #depths of the Water Temple# lies", /*french*/"le #cœur du temple de l'eau# cache", /*spanish*/"en las #profundidades del Templo del Agua# yace", /*italian*/"#nel più profondo del Santuario dell'Acqua# puoi recuperare", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_MQ_BOSS_KEY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"fire in the Water Temple unlocks a #vast gate# revealing a chest with", /*french*/"des #flammes au cœur du temple de l'eau# révèlent", /*spanish*/"el fuego en el Templo del Agua alza una #gran valla# con"},
+                       Text{"fire in the Water Temple unlocks a #vast gate# revealing a chest with", /*french*/"des #flammes au cœur du temple de l'eau# révèlent", /*spanish*/"el fuego en el Templo del Agua alza una #gran valla# con", /*italian*/"fuochi nel Santuario dell'Acqua aprono un #grande cancello# davanti a un forziere con", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_MQ_LONGSHOT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#through a crack# in the Water Temple is", /*french*/"le #mur fragile# du temple de l'eau cache", /*spanish*/"tras una #agrietada pared# del Templo del Agua yace"},
+                       Text{"#through a crack# in the Water Temple is", /*french*/"le #mur fragile# du temple de l'eau cache", /*spanish*/"tras una #agrietada pared# del Templo del Agua yace", /*italian*/", #oltre una crepa# nel Santuario dell'Acqua, un forziere contiene", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_MQ_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#fire in the Water Temple# reveals", /*french*/"des #flammes dans le temple de l'eau# révèlent", /*spanish*/"el #fuego en el Templo del Agua# revela"},
+                       Text{"#fire in the Water Temple# reveals", /*french*/"des #flammes dans le temple de l'eau# révèlent", /*spanish*/"el #fuego en el Templo del Agua# revela", /*italian*/"#fuochi nel Santuario dell'Acqua# rivelano", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_MQ_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#sparring soldiers# in the Water Temple guard", /*french*/"les #soldats du temple de l'eau# protègent", /*spanish*/"#acabar con unos soldados# del Templo del Agua revela"},
+                       Text{"#sparring soldiers# in the Water Temple guard", /*french*/"les #soldats du temple de l'eau# protègent", /*spanish*/"#acabar con unos soldados# del Templo del Agua revela", /*italian*/"#tre soldati# nel Santuario dell'Acqua difendono", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_MORPHA_HEART] = HintText::Exclude({
@@ -881,41 +881,41 @@ void HintTable_Init_Exclude_Dungeon() {
 
     hintTable[WATER_TEMPLE_GS_FALLING_PLATFORM_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider over a waterfall# in the Water Temple holds", /*french*/"une #Skulltula au dessus d'une cascade du temple de l'eau# a", /*spanish*/"una #Skulltula tras una cascada# del Templo del Agua otorga"},
+                       Text{"a #spider over a waterfall# in the Water Temple holds", /*french*/"une #Skulltula au dessus d'une cascade du temple de l'eau# a", /*spanish*/"una #Skulltula tras una cascada# del Templo del Agua otorga", /*italian*/"un #ragno di fianco a una cascata# nel Santuario dell'Acqua nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_GS_CENTRAL_PILLAR] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider in the center of the Water Temple# holds", /*french*/"une #Skulltula au centre du temple de l'eau# a", /*spanish*/"una #Skulltula en el centro del Templo del Agua# otorga"},
+                       Text{"a #spider in the center of the Water Temple# holds", /*french*/"une #Skulltula au centre du temple de l'eau# a", /*spanish*/"una #Skulltula en el centro del Templo del Agua# otorga", /*italian*/"un #ragno al centro del Santuario dell'Acqua# possiede", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_GS_NEAR_BOSS_KEY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a spider protected by #rolling boulders under the lake# hides", /*french*/"une #Skulltula derrière les rochers roulants sous le lac# a", /*spanish*/"una #Skulltula protegida por rocas rodantes# bajo el lago otorga"},
+                       Text{"a spider protected by #rolling boulders under the lake# hides", /*french*/"une #Skulltula derrière les rochers roulants sous le lac# a", /*spanish*/"una #Skulltula protegida por rocas rodantes# bajo el lago otorga", /*italian*/"un ragno protetto da #macigni rotolanti sotto il lago# nasconde", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"a spider protected by #rolling boulders in the Water Temple# hides", /*french*/"une #Skulltula derrière les rochers roulants du temple de l'eau# a", /*spanish*/"una #Skulltula protegida por rocas rodantes# del Templo del Agua otorga"}
+                       Text{"a spider protected by #rolling boulders in the Water Temple# hides", /*french*/"une #Skulltula derrière les rochers roulants du temple de l'eau# a", /*spanish*/"una #Skulltula protegida por rocas rodantes# del Templo del Agua otorga", /*italian*/"un ragno protetto da #macigni rotolanti nel Santuario dell'Acqua# nasconde", /*german*/"Deutsch"}
   );
 
     hintTable[WATER_TEMPLE_GS_RIVER] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider over a river# in the Water Temple holds", /*french*/"une #Skulltula au dessus de la rivière du temple de l'eau# a", /*spanish*/"una #Skulltula sobre un río# del Templo del Agua otorga"},
+                       Text{"a #spider over a river# in the Water Temple holds", /*french*/"une #Skulltula au dessus de la rivière du temple de l'eau# a", /*spanish*/"una #Skulltula sobre un río# del Templo del Agua otorga", /*italian*/"un #ragno sopra un fiume# nel Santuario dell'Acqua nasconde", /*german*/"Deutsch"},
   });
 
 
     hintTable[WATER_TEMPLE_MQ_GS_BEFORE_UPPER_WATER_SWITCH] = HintText::Exclude({
                        //obscure text
-                       Text{"#beyond a pit of lizards# is a spider holding", /*french*/"une #Skulltula près des lézards du temple de l'eau# a", /*spanish*/"#más allá de un pozo de reptiles# una Skulltula otorga"},
+                       Text{"#beyond a pit of lizards# is a spider holding", /*french*/"une #Skulltula près des lézards du temple de l'eau# a", /*spanish*/"#más allá de un pozo de reptiles# una Skulltula otorga", /*italian*/"un #ragno sopra una lucertola# nel Santuario dell'Acqua difende", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_MQ_GS_LIZALFOS_HALLWAY] = HintText::Exclude({
                        //obscure text
-                       Text{"#lizards guard a spider# in the Water Temple with", /*french*/"une #Skulltula dans les couloirs croisés du temple de l'eau# a", /*spanish*/"unos #reptiles custodian una Skulltula# del Templo del Agua que otorga"},
+                       Text{"#lizards guard a spider# in the Water Temple with", /*french*/"une #Skulltula dans les couloirs croisés du temple de l'eau# a", /*spanish*/"unos #reptiles custodian una Skulltula# del Templo del Agua que otorga", /*italian*/"un #ragno protetto da lucertole# nel Santuario dell'Acqua nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_MQ_GS_RIVER] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider over a river# in the Water Temple holds", /*french*/"une #Skulltula au dessus de la rivière du temple de l'eau# a", /*spanish*/"una #Skulltula sobre un río# del Templo del Agua otorga"},
+                       Text{"a #spider over a river# in the Water Temple holds", /*french*/"une #Skulltula au dessus de la rivière du temple de l'eau# a", /*spanish*/"una #Skulltula sobre un río# del Templo del Agua otorga", /*italian*/"un #ragno sopra un fiume# nel Santuario dell'Acqua nasconde", /*german*/"Deutsch"},
   });
 
   /*--------------------------
