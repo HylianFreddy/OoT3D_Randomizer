@@ -988,12 +988,12 @@ void HintTable_Init_Exclude_Dungeon() {
 
     hintTable[SPIRIT_TEMPLE_HALLWAY_RIGHT_INVISIBLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Eye of Truth in the Spirit Temple# reveals", /*french*/"le #trésor invisible près du Hache-Viande# contient", /*spanish*/"el #Ojo de la Verdad# en el Templo del Espíritu revela", /*italian*/"#l'occhio della verità nel Santuario dello Spirito# rivela", /*german*/"Deutsch"},
+                       Text{"the #Eye of Truth in the Spirit Temple# reveals", /*french*/"le #trésor invisible près du Hache-Viande# contient", /*spanish*/"el #Ojo de la Verdad# en el Templo del Espíritu revela", /*italian*/"l'#occhio della verità nel Santuario dello Spirito# rivela", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_HALLWAY_LEFT_INVISIBLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Eye of Truth in the Spirit Temple# reveals", /*french*/"le #trésor invisible près du Hache-Viande# contient", /*spanish*/"el #Ojo de la Verdad# en el Templo del Espíritu revela", /*italian*/"#l'occhio della verità nel Santuario dello Spirito# rivela", /*german*/"Deutsch"},
+                       Text{"the #Eye of Truth in the Spirit Temple# reveals", /*french*/"le #trésor invisible près du Hache-Viande# contient", /*spanish*/"el #Ojo de la Verdad# en el Templo del Espíritu revela", /*italian*/"l'#occhio della verità nel Santuario dello Spirito# rivela", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_BOSS_KEY_CHEST] = HintText::Exclude({
@@ -1059,7 +1059,7 @@ void HintTable_Init_Exclude_Dungeon() {
 
     hintTable[SPIRIT_TEMPLE_MQ_STATUE_ROOM_INVISIBLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Eye of Truth# finds the colossus's hidden", /*french*/"#l'oeil de vérité# verra dans le colosse", /*spanish*/"el #Ojo de la Verdad# en el Templo del Espíritu encontrará", /*italian*/"#l'occhio della verità# vicino al colosso rivela", /*german*/"Deutsch"},
+                       Text{"the #Eye of Truth# finds the colossus's hidden", /*french*/"#l'oeil de vérité# verra dans le colosse", /*spanish*/"el #Ojo de la Verdad# en el Templo del Espíritu encontrará", /*italian*/"l'#occhio della verità# nel Santuario dello Spirito rivela", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_SILVER_BLOCK_HALLWAY_CHEST] = HintText::Exclude({
