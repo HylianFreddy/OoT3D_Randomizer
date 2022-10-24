@@ -923,178 +923,178 @@ void HintTable_Init_Exclude_Dungeon() {
   ---------------------------*/
     hintTable[SPIRIT_TEMPLE_CHILD_BRIDGE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a child conquers a #skull in green fire# in the Spirit Temple to reach", /*french*/"le #crâne au halo vert dans le colosse# cache", /*spanish*/"el joven que #baje el puente# del Templo del Espíritu encontrará"},
+                       Text{"a child conquers a #skull in green fire# in the Spirit Temple to reach", /*french*/"le #crâne au halo vert dans le colosse# cache", /*spanish*/"el joven que #baje el puente# del Templo del Espíritu encontrará", /*italian*/"se un bambino oltrepassa un #teschio verde# nel Santuario dello Spirito raggiungerà", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_CHILD_EARLY_TORCHES_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a child can find a #caged chest# in the Spirit Temple with", /*french*/"le #coffre embarré dans le colosse# contient", /*spanish*/"un joven puede encontrar un #cofre entre rejas# del Templo del Espíritu con"},
+                       Text{"a child can find a #caged chest# in the Spirit Temple with", /*french*/"le #coffre embarré dans le colosse# contient", /*spanish*/"un joven puede encontrar un #cofre entre rejas# del Templo del Espíritu con", /*italian*/"nel Santuario dello Spirito un bambino può trovare un #forziere ingabbiato# contenente", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#across a pit of sand# in the Spirit Temple lies", /*french*/"le #trou sableux dans le colosse# a", /*spanish*/"tras un #pozo de arena# del Templo del Espíritu yace"},
+                       Text{"#across a pit of sand# in the Spirit Temple lies", /*french*/"le #trou sableux dans le colosse# a", /*spanish*/"tras un #pozo de arena# del Templo del Espíritu yace", /*italian*/"#oltre una fossa sabbiosa# nel Santuario dello Spirito puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_EARLY_ADULT_RIGHT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#dodging boulders to collect silver rupees# in the Spirit Temple yields", /*french*/"les #pièces argentées entourées de rochers dans le colosse# révèlent", /*spanish*/"#esquivar rocas y conseguir plateadas rupias# en el Templo del Espíritu conduce a"},
+                       Text{"#dodging boulders to collect silver rupees# in the Spirit Temple yields", /*french*/"les #pièces argentées entourées de rochers dans le colosse# révèlent", /*spanish*/"#esquivar rocas y conseguir plateadas rupias# en el Templo del Espíritu conduce a", /*italian*/"chi #raccoglie rupie schivando macigni# nel Santuario dello Spirito otterrà", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_FIRST_MIRROR_LEFT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #shadow circling reflected light# in the Spirit Temple guards", /*french*/"l'#ombre près d'un miroir# protège", /*spanish*/"un #círculo de reflectante luz# del Templo del Espíritu guarda"},
+                       Text{"a #shadow circling reflected light# in the Spirit Temple guards", /*french*/"l'#ombre près d'un miroir# protège", /*spanish*/"un #círculo de reflectante luz# del Templo del Espíritu guarda", /*italian*/"una #mano mozza attorno a luce riflessa# nel Santuario dello Spirito protegge", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_FIRST_MIRROR_RIGHT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #shadow circling reflected light# in the Spirit Temple guards", /*french*/"l'#ombre près d'un miroir# protège", /*spanish*/"un #círculo de reflectante luz# del Templo del Espíritu guarda"},
+                       Text{"a #shadow circling reflected light# in the Spirit Temple guards", /*french*/"l'#ombre près d'un miroir# protège", /*spanish*/"un #círculo de reflectante luz# del Templo del Espíritu guarda", /*italian*/"una #mano mozza attorno a luce riflessa# nel Santuario dello Spirito protegge", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#before a giant statue# in the Spirit Temple lies", /*french*/"#devant la statue# dans le colosse gît", /*spanish*/"#ante una gran estatua# del Templo del Espíritu aguarda"},
+                       Text{"#before a giant statue# in the Spirit Temple lies", /*french*/"#devant la statue# dans le colosse gît", /*spanish*/"#ante una gran estatua# del Templo del Espíritu aguarda", /*italian*/"#ai piedi di una statua gigante# nel Santuario dello Spirito puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_CHILD_CLIMB_NORTH_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#lizards in the Spirit Temple# guard", /*french*/"les #lézards dans le colosse# protègent", /*spanish*/"los #reptiles del Templo del Espíritu# guardan"},
+                       Text{"#lizards in the Spirit Temple# guard", /*french*/"les #lézards dans le colosse# protègent", /*spanish*/"los #reptiles del Templo del Espíritu# guardan", /*italian*/"delle #lucertole nel Santuario dello Spirito# proteggono", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_CHILD_CLIMB_EAST_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#lizards in the Spirit Temple# guard", /*french*/"les #lézards dans le colosse# protègent", /*spanish*/"los #reptiles del Templo del Espíritu# guardan"},
+                       Text{"#lizards in the Spirit Temple# guard", /*french*/"les #lézards dans le colosse# protègent", /*spanish*/"los #reptiles del Templo del Espíritu# guardan", /*italian*/"delle #lucertole nel Santuario dello Spirito# proteggono", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_SUN_BLOCK_ROOM_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#torchlight among Beamos# in the Spirit Temple reveals", /*french*/"les #torches autour des Sentinelles# éclairent", /*spanish*/"las #antorchas junto a Beamos# del Templo del Espíritu revelan"},
+                       Text{"#torchlight among Beamos# in the Spirit Temple reveals", /*french*/"les #torches autour des Sentinelles# éclairent", /*spanish*/"las #antorchas junto a Beamos# del Templo del Espíritu revelan", /*italian*/"le #torce attorno ai Laseros# nel Santuario dello Spirito illuminano", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_STATUE_ROOM_HAND_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #statue in the Spirit Temple# holds", /*french*/"la #statue dans le colosse# tient", /*spanish*/"una #estatua del Templo del Espíritu# esconde"},
+                       Text{"a #statue in the Spirit Temple# holds", /*french*/"la #statue dans le colosse# tient", /*spanish*/"una #estatua del Templo del Espíritu# esconde", /*italian*/"una #statua gigante# nel Santuario dello Spirito tiene in mano", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_STATUE_ROOM_NORTHEAST_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"on a #ledge by a statue# in the Spirit Temple rests", /*french*/"#haut perché près de la statue# dans le colosse gît", /*spanish*/"al #borde de una estatua# del Templo del Espíritu yace"},
+                       Text{"on a #ledge by a statue# in the Spirit Temple rests", /*french*/"#haut perché près de la statue# dans le colosse gît", /*spanish*/"al #borde de una estatua# del Templo del Espíritu yace", /*italian*/"#accanto a una statua# nel Santuario dello Spirito puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_NEAR_FOUR_ARMOS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"those who #show the light among statues# in the Spirit Temple find", /*french*/"le #soleil près des statues# cache", /*spanish*/"aquellos que #iluminen ante las estatuas# del Templo del Espíritu encontrarán"},
+                       Text{"those who #show the light among statues# in the Spirit Temple find", /*french*/"le #soleil près des statues# cache", /*spanish*/"aquellos que #iluminen ante las estatuas# del Templo del Espíritu encontrarán", /*italian*/"#riflettendo vicino a 4 statue# nel Santuario dello Spirito puoi scoprire", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_HALLWAY_RIGHT_INVISIBLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Eye of Truth in the Spirit Temple# reveals", /*french*/"le #trésor invisible près du Hache-Viande# contient", /*spanish*/"el #Ojo de la Verdad# en el Templo del Espíritu revela"},
+                       Text{"the #Eye of Truth in the Spirit Temple# reveals", /*french*/"le #trésor invisible près du Hache-Viande# contient", /*spanish*/"el #Ojo de la Verdad# en el Templo del Espíritu revela", /*italian*/"#l'occhio della verità nel Santuario dello Spirito# rivela", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_HALLWAY_LEFT_INVISIBLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Eye of Truth in the Spirit Temple# reveals", /*french*/"le #trésor invisible près du Hache-Viande# contient", /*spanish*/"el #Ojo de la Verdad# en el Templo del Espíritu revela"},
+                       Text{"the #Eye of Truth in the Spirit Temple# reveals", /*french*/"le #trésor invisible près du Hache-Viande# contient", /*spanish*/"el #Ojo de la Verdad# en el Templo del Espíritu revela", /*italian*/"#l'occhio della verità nel Santuario dello Spirito# rivela", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_BOSS_KEY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #chest engulfed in flame# in the Spirit Temple holds", /*french*/"le #coffre enflammé dans le colosse# contient", /*spanish*/"un #cofre rodeado de llamas# del Templo del Espíritu contiene"},
+                       Text{"a #chest engulfed in flame# in the Spirit Temple holds", /*french*/"le #coffre enflammé dans le colosse# contient", /*spanish*/"un #cofre rodeado de llamas# del Templo del Espíritu contiene", /*italian*/"un #forziere scottante# nel Santuario dello Spirito contiene", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_TOPMOST_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"those who #show the light above the Colossus# find", /*french*/"le #soleil au sommet du colosse# révèle", /*spanish*/"aquellos que #iluminen en lo alto del Coloso# encontrarán"},
+                       Text{"those who #show the light above the Colossus# find", /*french*/"le #soleil au sommet du colosse# révèle", /*spanish*/"aquellos que #iluminen en lo alto del Coloso# encontrarán", /*italian*/"#chi sa riflettere bene# in cima al colosso può trovare", /*german*/"Deutsch"},
   });
 
 
     hintTable[SPIRIT_TEMPLE_MQ_ENTRANCE_FRONT_LEFT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#lying unguarded# in the Spirit Temple is", /*french*/"dans #l'entrée du colosse# se trouve", /*spanish*/"en la #entrada del Templo del Espíritu# yace"},
+                       Text{"#lying unguarded# in the Spirit Temple is", /*french*/"dans #l'entrée du colosse# se trouve", /*spanish*/"en la #entrada del Templo del Espíritu# yace", /*italian*/"un forziere #incustodito# all'ingresso del Santuario dello Spirito contiene", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_ENTRANCE_BACK_RIGHT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #switch in a pillar# within the Spirit Temple drops", /*french*/"l'#interrupteur dans un pilier# du colosse cache", /*spanish*/"el #interruptor de un pilar# del Templo del Espíritu revela"},
+                       Text{"a #switch in a pillar# within the Spirit Temple drops", /*french*/"l'#interrupteur dans un pilier# du colosse cache", /*spanish*/"el #interruptor de un pilar# del Templo del Espíritu revela", /*italian*/"un #interruttore in un pilastro# nel Santuario dello Spirito fa cadere", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_ENTRANCE_FRONT_RIGHT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#collecting rupees through a water jet# reveals", /*french*/"les #pièces argentées dans le jet d'eau# du colosse révèlent", /*spanish*/"#hacerte con rupias tras un géiser# revela"},
+                       Text{"#collecting rupees through a water jet# reveals", /*french*/"les #pièces argentées dans le jet d'eau# du colosse révèlent", /*spanish*/"#hacerte con rupias tras un géiser# revela", /*italian*/"#raccogliere rupie attraversando un geyser# rivela", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_ENTRANCE_BACK_LEFT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"an #eye blinded by stone# within the Spirit Temple conceals", /*french*/"#l'oeil derrière le rocher# dans le colosse voit", /*spanish*/"#cegar a un ojo# del Templo del Espíritu revela"},
+                       Text{"an #eye blinded by stone# within the Spirit Temple conceals", /*french*/"#l'oeil derrière le rocher# dans le colosse voit", /*spanish*/"#cegar a un ojo# del Templo del Espíritu revela", /*italian*/"un #occhio coperto di pietra# nel Santuario dello Spirito nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"surrounded by #fire and wrappings# lies", /*french*/"près des #pierres tombales dans le colosse# gît", /*spanish*/"rodeado de #fuego y vendas# yace"},
+                       Text{"surrounded by #fire and wrappings# lies", /*french*/"près des #pierres tombales dans le colosse# gît", /*spanish*/"rodeado de #fuego y vendas# yace", /*italian*/"un #Anubi# sta appollaiato su un forziere contenente", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_MAP_ROOM_ENEMY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a child defeats a #gauntlet of monsters# within the Spirit Temple to find", /*french*/"l'enfant qui vainc #plusieurs monstres# dans le colosse trouvera", /*spanish*/"el joven que derrote #unos monstruos# del Templo del Espíritu encontrará"},
+                       Text{"a child defeats a #gauntlet of monsters# within the Spirit Temple to find", /*french*/"l'enfant qui vainc #plusieurs monstres# dans le colosse trouvera", /*spanish*/"el joven que derrote #unos monstruos# del Templo del Espíritu encontrará", /*italian*/"se un bambino sconfigge #molti mostri# nel Santuario dello Spirito otterrà", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_CHILD_CLIMB_NORTH_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#explosive sunlight# within the Spirit Temple uncovers", /*french*/"le #rayon de lumière explosif dans le colosse# révèle", /*spanish*/"una #explosiva luz solar# del Templo del Espíritu revela"},
+                       Text{"#explosive sunlight# within the Spirit Temple uncovers", /*french*/"le #rayon de lumière explosif dans le colosse# révèle", /*spanish*/"una #explosiva luz solar# del Templo del Espíritu revela", /*italian*/"un #raggio di sole esplosivo# nel Santuario dello Spirito fa apparire", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_CHILD_CLIMB_SOUTH_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#trapped by falling enemies# within the Spirit Temple is", /*french*/"des #ennemis tombants# dans le colosse protègent", /*spanish*/"#rodeado de enemigos del cielo# del Templo del Espíritu yace"},
+                       Text{"#trapped by falling enemies# within the Spirit Temple is", /*french*/"des #ennemis tombants# dans le colosse protègent", /*spanish*/"#rodeado de enemigos del cielo# del Templo del Espíritu yace", /*italian*/"un #mostro che aspetta di caderti in testa# nel Santuario dello Spirito protegge", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#blinding the colossus# unveils", /*french*/"#l'oeil dans le colosse# voit", /*spanish*/"#cegar al coloso# revela"},
+                       Text{"#blinding the colossus# unveils", /*french*/"#l'oeil dans le colosse# voit", /*spanish*/"#cegar al coloso# revela", /*italian*/"#accecare il ginocchio del colosso# rivela", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_STATUE_ROOM_LULLABY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #royal melody awakens the colossus# to reveal", /*french*/"la #mélodie royale éveille le colosse# et révèle", /*spanish*/"la #melodía real que despierte al coloso# revelará"},
+                       Text{"a #royal melody awakens the colossus# to reveal", /*french*/"la #mélodie royale éveille le colosse# et révèle", /*spanish*/"la #melodía real que despierte al coloso# revelará", /*italian*/"una #melodia reale risveglia il colosso# e rivela", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_STATUE_ROOM_INVISIBLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Eye of Truth# finds the colossus's hidden", /*french*/"#l'oeil de vérité# verra dans le colosse", /*spanish*/"el #Ojo de la Verdad# en el Templo del Espíritu encontrará"},
+                       Text{"the #Eye of Truth# finds the colossus's hidden", /*french*/"#l'oeil de vérité# verra dans le colosse", /*spanish*/"el #Ojo de la Verdad# en el Templo del Espíritu encontrará", /*italian*/"#l'occhio della verità# vicino al colosso rivela", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_SILVER_BLOCK_HALLWAY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#the old hide what the young find# to reveal", /*french*/"l'#oeil dans le trou du bloc argent# dans le colosse voit", /*spanish*/"el #adulto esconde lo que el joven anhela#, revelando"},
+                       Text{"#the old hide what the young find# to reveal", /*french*/"l'#oeil dans le trou du bloc argent# dans le colosse voit", /*spanish*/"el #adulto esconde lo que el joven anhela#, revelando", /*italian*/"#ciò che gli adulti nascondono e i bambini trovano# è", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_SUN_BLOCK_ROOM_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#sunlight in a maze of fire# hides", /*french*/"#la lumière dans le labyrinthe de feu# du colosse révèle", /*spanish*/"la #luz solar de un ígneo laberinto# esconde"},
+                       Text{"#sunlight in a maze of fire# hides", /*french*/"#la lumière dans le labyrinthe de feu# du colosse révèle", /*spanish*/"la #luz solar de un ígneo laberinto# esconde", /*italian*/"un #raggio di sole fra teschi infuocati# rivela", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_LEEVER_ROOM_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#across a pit of sand# in the Spirit Temple lies", /*french*/"le #trou sableux# dans le colosse a", /*spanish*/"#a través del pozo de arena# del Templo del Espíritu yace"},
+                       Text{"#across a pit of sand# in the Spirit Temple lies", /*french*/"le #trou sableux# dans le colosse a", /*spanish*/"#a través del pozo de arena# del Templo del Espíritu yace", /*italian*/"#oltre una fossa sabbiosa# nel Santuario dello Spirito puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_BEAMOS_ROOM_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"where #temporal stone blocks the path# within the Spirit Temple lies", /*french*/"les #pierres temporelles# dans le colosse cachent", /*spanish*/"donde los #bloques temporales bloquean# en el Templo del Espíritu yace"},
+                       Text{"where #temporal stone blocks the path# within the Spirit Temple lies", /*french*/"les #pierres temporelles# dans le colosse cachent", /*spanish*/"donde los #bloques temporales bloquean# en el Templo del Espíritu yace", /*italian*/"laddove #pietre temporali bloccano la via# nel Santuario dello Spirito puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_CHEST_SWITCH_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #chest of double purpose# holds", /*french*/"le #coffre à usage double# du colosse contient", /*spanish*/"un #cofre de doble uso# contiene"},
+                       Text{"a #chest of double purpose# holds", /*french*/"le #coffre à usage double# du colosse contient", /*spanish*/"un #cofre de doble uso# contiene", /*italian*/"un #forziere a duplice uso# nel Santuario dello Spirito contiene", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_BOSS_KEY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #temporal stone blocks the light# leading to", /*french*/"la #pierre temporelle# le colosse fait ombre sur", /*spanish*/"un #bloque temporal bloquea la luz# que conduce a"},
+                       Text{"a #temporal stone blocks the light# leading to", /*french*/"la #pierre temporelle# le colosse fait ombre sur", /*spanish*/"un #bloque temporal bloquea la luz# que conduce a", /*italian*/"una #pietra temporale blocca la luce# che apre la via per", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_MIRROR_PUZZLE_INVISIBLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"those who #show the light above the Colossus# find", /*french*/"le trésor invisible #au sommet du colosse# contient", /*spanish*/"aquellos que #revelen la luz sobre el Coloso# encontrarán"},
+                       Text{"those who #show the light above the Colossus# find", /*french*/"le trésor invisible #au sommet du colosse# contient", /*spanish*/"aquellos que #revelen la luz sobre el Coloso# encontrarán", /*italian*/"#chi sa riflettere bene# in cima al colosso può trovare", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_TWINROVA_HEART] = HintText::Exclude({
@@ -1107,48 +1107,48 @@ void HintTable_Init_Exclude_Dungeon() {
 
     hintTable[SPIRIT_TEMPLE_GS_HALL_AFTER_SUN_BLOCK_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a spider in the #hall of a knight# guards", /*french*/"une #Skulltula au dessus d'un escalier du temple de l'esprit# a", /*spanish*/"una #Skulltula en el salón de un guerrero# otorga"},
+                       Text{"a spider in the #hall of a knight# guards", /*french*/"une #Skulltula au dessus d'un escalier du temple de l'esprit# a", /*spanish*/"una #Skulltula en el salón de un guerrero# otorga", /*italian*/"un #ragno vicino a un possente guerriero# protegge", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_GS_BOULDER_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider behind a temporal stone# in the Spirit Temple yields", /*french*/"une #Skulltula derrière une pierre temporelle du temple de l'esprit# a", /*spanish*/"una #Skulltula tras un bloque temporal# del Templo del Espíritu otorga"},
+                       Text{"a #spider behind a temporal stone# in the Spirit Temple yields", /*french*/"une #Skulltula derrière une pierre temporelle du temple de l'esprit# a", /*spanish*/"una #Skulltula tras un bloque temporal# del Templo del Espíritu otorga", /*italian*/"un ragno #dietro una pietra temporale# nel Santuario dello Spirito nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_GS_LOBBY] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider beside a statue# holds", /*french*/"une #Skulltula dans la grande salle du temple de l'esprit# a", /*spanish*/"una #Skulltula junto a una estatua# del Templo del Espíritu otorga"},
+                       Text{"a #spider beside a statue# holds", /*french*/"une #Skulltula dans la grande salle du temple de l'esprit# a", /*spanish*/"una #Skulltula junto a una estatua# del Templo del Espíritu otorga", /*italian*/"un ragno #di fianco a una statua gigante# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_GS_SUN_ON_FLOOR_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider at the top of a deep shaft# in the Spirit Temple holds", /*french*/"une #Skulltula près d'un mur d'escalade du temple de l'esprit# a", /*spanish*/"una #Skulltula en lo alto de un gran hueco# del Templo del Espíritu otorga"},
+                       Text{"a #spider at the top of a deep shaft# in the Spirit Temple holds", /*french*/"une #Skulltula près d'un mur d'escalade du temple de l'esprit# a", /*spanish*/"una #Skulltula en lo alto de un gran hueco# del Templo del Espíritu otorga", /*italian*/"un ragno #in cima a un condotto scalabile# nel Santuario dello Spirito nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_GS_METAL_FENCE] = HintText::Exclude({
                        //obscure text
-                       Text{"a child defeats a #spider among bats# in the Spirit Temple to gain", /*french*/"une #Skulltula sur le grillage du temple de l'esprit# a", /*spanish*/"el joven que derrote la #Skulltula entre murciélagos# del Templo del Espíritu hallará"},
+                       Text{"a child defeats a #spider among bats# in the Spirit Temple to gain", /*french*/"une #Skulltula sur le grillage du temple de l'esprit# a", /*spanish*/"el joven que derrote la #Skulltula entre murciélagos# del Templo del Espíritu hallará", /*italian*/"un bambino può sconfiggere #un ragno fra i pipistrelli# nel Santuario dello Spirito per ottenere", /*german*/"Deutsch"},
   });
 
 
     hintTable[SPIRIT_TEMPLE_MQ_GS_LEEVER_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"#above a pit of sand# in the Spirit Temple hides", /*french*/"une #Skulltula au dessus du trou sableux du temple de l'esprit# a", /*spanish*/"una #Skulltula sobre un pozo de arena# del Templo del Espíritu otorga"},
+                       Text{"#above a pit of sand# in the Spirit Temple hides", /*french*/"une #Skulltula au dessus du trou sableux du temple de l'esprit# a", /*spanish*/"una #Skulltula sobre un pozo de arena# del Templo del Espíritu otorga", /*italian*/"#sopra una fossa sabbiosa# nel Santuario dello Spirito si nasconde un ragno con", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_GS_NINE_THRONES_ROOM_WEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a spider in the #hall of a knight# guards", /*french*/"une #Skulltula dans la salle aux neuf trônes du temple de l'esprit# a", /*spanish*/"una #Skulltula en el salón de un guerrero# otorga"},
+                       Text{"a spider in the #hall of a knight# guards", /*french*/"une #Skulltula dans la salle aux neuf trônes du temple de l'esprit# a", /*spanish*/"una #Skulltula en el salón de un guerrero# otorga", /*italian*/"un #ragno nella sala di un guerriero# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_GS_NINE_THRONES_ROOM_NORTH] = HintText::Exclude({
                        //obscure text
-                       Text{"a spider in the #hall of a knight# guards", /*french*/"une #Skulltula dans la salle aux neuf trônes du temple de l'esprit# a", /*spanish*/"una #Skulltula en el salón de un guerrero# otorga"},
+                       Text{"a spider in the #hall of a knight# guards", /*french*/"une #Skulltula dans la salle aux neuf trônes du temple de l'esprit# a", /*spanish*/"una #Skulltula en el salón de un guerrero# otorga", /*italian*/"un #ragno nella sala di un guerriero# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_GS_SUN_BLOCK_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"#upon a web of glass# in the Spirit Temple sits a spider holding", /*french*/"une #Skulltula sur une paroi de verre du temple de l'esprit# a", /*spanish*/"#sobre una plataforma de cristal# yace una Skulltula que otorga"},
+                       Text{"#upon a web of glass# in the Spirit Temple sits a spider holding", /*french*/"une #Skulltula sur une paroi de verre du temple de l'esprit# a", /*spanish*/"#sobre una plataforma de cristal# yace una Skulltula que otorga", /*italian*/"#sopra una tela di vetro# nel Santuario dello Spirito un ragno nasconde", /*german*/"Deutsch"},
   });
 
   /*--------------------------
