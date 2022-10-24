@@ -574,17 +574,17 @@ void HintTable_Init() {
                        Text{"the treasure #sought by Nabooru# is", /*french*/"le trésor que #recherche Nabooru# est", /*spanish*/"el #ansiado tesoro de Nabooru# brinda", /*italian*/"il tesoro che #Naburu cerca# è", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"upon the #Colossus's right hand# is", /*french*/"sur la #main droite du colosse# repose", /*spanish*/"en la #mano derecha del Coloso# yace", /*italian*/"sulla #mano destra del Colosso# puoi trovare", /*german*/"Deutsch"}
+                       Text{"upon the #Colossus's right hand# is", /*french*/"sur la #main droite du colosse# repose", /*spanish*/"en la #mano derecha del Coloso# yace", /*italian*/"sulla #mano destra del colosso# puoi trovare", /*german*/"Deutsch"}
   );
 
     hintTable[SPIRIT_TEMPLE_MIRROR_SHIELD_CHEST] = HintText::Sometimes({
                        //obscure text
-                       Text{"upon the #Colossus's left hand# is", /*french*/"sur la #main gauche du colosse# repose", /*spanish*/"en la #mano izquierda del Coloso# yace", /*italian*/"sulla #mano sinistra del Colosso# puoi trovare", /*german*/"Deutsch"},
+                       Text{"upon the #Colossus's left hand# is", /*french*/"sur la #main gauche du colosse# repose", /*spanish*/"en la #mano izquierda del Coloso# yace", /*italian*/"sulla #mano sinistra del colosso# puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[SPIRIT_TEMPLE_MQ_CHILD_HAMMER_SWITCH_CHEST] = HintText::Sometimes({
                        //obscure text
-                       Text{"a #temporal paradox in the Colossus# yields", /*french*/"un #paradoxe temporel dans le colosse# révèle", /*spanish*/"una #paradoja temporal del Coloso# conduce a", /*italian*/"un #paradosso temporale nel Colosso# rivela", /*german*/"Deutsch"},
+                       Text{"a #temporal paradox in the Colossus# yields", /*french*/"un #paradoxe temporel dans le colosse# révèle", /*spanish*/"una #paradoja temporal del Coloso# conduce a", /*italian*/"un #paradosso temporale nel colosso# rivela", /*german*/"Deutsch"},
                      }, {},
                        //clear text
                        Text{"a #temporal paradox in the Spirit Temple# yields", /*french*/"le #paradoxe temporel dans le temple de l'esprit# révèle", /*spanish*/"una #paradoja temporal del Coloso# conduce a", /*italian*/"un #paradosso temporale nel Santuario dello Spirito# rivela", /*german*/"Deutsch"}
@@ -592,7 +592,7 @@ void HintTable_Init() {
 
     hintTable[SPIRIT_TEMPLE_MQ_SYMPHONY_ROOM_CHEST] = HintText::Sometimes({
                        //obscure text
-                       Text{"a #symphony in the Colossus# yields", /*french*/"la #symphonie du colosse# révèle", /*spanish*/"una #sinfonía del Coloso# conduce a", /*italian*/"una #sinfonia nel Colosso# rivela", /*german*/"Deutsch"},
+                       Text{"a #symphony in the Colossus# yields", /*french*/"la #symphonie du colosse# révèle", /*spanish*/"una #sinfonía del Coloso# conduce a", /*italian*/"una #sinfonia nel colosso# rivela", /*german*/"Deutsch"},
                      }, {},
                        //clear text
                        Text{"a #symphony in the Spirit Temple# yields", /*french*/"les #cinq chansons du temple de l'esprit# révèlent", /*spanish*/"una #sinfonía del Coloso# conduce a", /*italian*/"una #sinfonia nel Santuario dello Spirito# rivela", /*german*/"Deutsch"}
@@ -600,7 +600,7 @@ void HintTable_Init() {
 
     hintTable[SPIRIT_TEMPLE_MQ_GS_SYMPHONY_ROOM] = HintText::Sometimes({
                        //obscure text
-                       Text{"a #spider's symphony in the Colossus# yields", /*french*/"la #mélodie de l'araignée du colosse# révèle", /*spanish*/"la #Skulltula de la sinfonía del Coloso# otorga", /*italian*/"un #ragno musicofilo nel Colosso# ha", /*german*/"Deutsch"},
+                       Text{"a #spider's symphony in the Colossus# yields", /*french*/"la #mélodie de l'araignée du colosse# révèle", /*spanish*/"la #Skulltula de la sinfonía del Coloso# otorga", /*italian*/"un #ragno musicofilo nel colosso# ha", /*german*/"Deutsch"},
                      }, {},
                        //clear text
                        Text{"a #spider's symphony in the Spirit Temple# yields", /*french*/"la #mélodie de la Skulltula du temple de l'esprit# révèle", /*spanish*/"la #Skulltula de la sinfonía del Coloso# otorga", /*italian*/"un #ragno musicofilo nel Santuario dello Spirito# ha", /*german*/"Deutsch"}
