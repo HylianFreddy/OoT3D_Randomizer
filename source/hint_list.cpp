@@ -553,20 +553,20 @@ void HintTable_Init() {
 
     hintTable[BOTTOM_OF_THE_WELL_LENS_OF_TRUTH_CHEST] = HintText::Sometimes({
                        //obscure text
-                       Text{"the well's #grasping ghoul# hides",    /*french*/"la #terreur du puits# cache",             /*spanish*/"en las #profundidades del pozo# se esconde", /*italian*/"l'#incubo del pozzo# protegge", /*german*/"Deutsch"},
-                       Text{"a #nether dweller in the well# holds", /*french*/"le #spectre qui réside dans le puits# a", /*spanish*/"el #temido morador del pozo# concede",       /*italian*/"un #tipo manesco sottoterra# protegge", /*german*/"Deutsch"},
+                       Text{"the well's #grasping ghoul# hides",    /*french*/"la #terreur du puits# cache",             /*spanish*/"en las #profundidades del pozo# se esconde", /*italian*/"l'#incubo del pozzo# possiede",         /*german*/"Deutsch"},
+                       Text{"a #nether dweller in the well# holds", /*french*/"le #spectre qui réside dans le puits# a", /*spanish*/"el #temido morador del pozo# concede",       /*italian*/"un #tipo manesco sottoterra# possiede", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"#Dead Hand in the well# holds", /*french*/"le #Poigneur dans le puits# cache", /*spanish*/"la #Mano Muerta del pozo# concede", /*italian*/"lo #Smaniosso nel pozzo# protegge", /*german*/"Deutsch"}
+                       Text{"#Dead Hand in the well# holds", /*french*/"le #Poigneur dans le puits# cache", /*spanish*/"la #Mano Muerta del pozo# concede", /*italian*/"lo #Smaniosso nel pozzo# possiede", /*german*/"Deutsch"}
   );
 
     hintTable[BOTTOM_OF_THE_WELL_MQ_COMPASS_CHEST] = HintText::Sometimes({
                        //obscure text
-                       Text{"the well's #grasping ghoul# hides",    /*french*/"la #terreur du puits# cache",             /*spanish*/"en las #profundidades del pozo# se esconde", /*italian*/"l'#incubo del pozzo# protegge", /*german*/"Deutsch"},
-                       Text{"a #nether dweller in the well# holds", /*french*/"le #spectre qui réside dans le puits# a", /*spanish*/"el #temido morador del pozo# concede",       /*italian*/"un #tipo manesco sottoterra# protegge", /*german*/"Deutsch"},
+                       Text{"the well's #grasping ghoul# hides",    /*french*/"la #terreur du puits# cache",             /*spanish*/"en las #profundidades del pozo# se esconde", /*italian*/"l'#incubo del pozzo# possiede",         /*german*/"Deutsch"},
+                       Text{"a #nether dweller in the well# holds", /*french*/"le #spectre qui réside dans le puits# a", /*spanish*/"el #temido morador del pozo# concede",       /*italian*/"un #tipo manesco sottoterra# possiede", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"#Dead Hand in the well# holds", /*french*/"le #Poigneur dans le puits# cache", /*spanish*/"la #Mano Muerta del pozo# concede", /*italian*/"lo #Smaniosso nel pozzo# protegge", /*german*/"Deutsch"}
+                       Text{"#Dead Hand in the well# holds", /*french*/"le #Poigneur dans le puits# cache", /*spanish*/"la #Mano Muerta del pozo# concede", /*italian*/"lo #Smaniosso nel pozzo# possiede", /*german*/"Deutsch"}
   );
 
     hintTable[SPIRIT_TEMPLE_SILVER_GAUNTLETS_CHEST] = HintText::Sometimes({

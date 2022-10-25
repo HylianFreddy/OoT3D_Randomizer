@@ -1156,181 +1156,184 @@ void HintTable_Init_Exclude_Dungeon() {
   ---------------------------*/
     hintTable[SHADOW_TEMPLE_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Eye of Truth# pierces a hall of faces to reveal", /*french*/"l'#oeil de vérité# voit dans les couloirs du temple de l'ombre", /*spanish*/"el #Ojo de la Verdad# descubrirá un pasillo de facetas con"},
+                       Text{"the #Eye of Truth# pierces a hall of faces to reveal", /*french*/"l'#oeil de vérité# voit dans les couloirs du temple de l'ombre", /*spanish*/"el #Ojo de la Verdad# descubrirá un pasillo de facetas con", /*italian*/"l'#occhio della verità# penetra corridoi di facce per rivelare", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_HOVER_BOOTS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #nether dweller in the Shadow Temple# holds", /*french*/"le #spectre du temple de l'ombre# a", /*spanish*/"un #temido morador del Templo de las Sombras# guarda"},
+                       Text{"a #nether dweller in the Shadow Temple# holds", /*french*/"le #spectre du temple de l'ombre# a", /*spanish*/"un #temido morador del Templo de las Sombras# guarda", /*italian*/"un #tipo manesco nel Santuario dell'Ombra# possiede", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"#Dead Hand in the Shadow Temple# holds", /*french*/"le #Poigneur dans le temple de l'ombre# cache", /*spanish*/"la #Mano Muerta del Templo de las Sombras# guarda"}
+                       Text{"#Dead Hand in the Shadow Temple# holds", /*french*/"le #Poigneur dans le temple de l'ombre# cache", /*spanish*/"la #Mano Muerta del Templo de las Sombras# guarda", /*italian*/"lo #Smaniosso nel Santuario dell'Ombra# possiede", /*german*/"Deutsch"}
   );
 
     hintTable[SHADOW_TEMPLE_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#mummies revealed by the Eye of Truth# guard", /*french*/"les #Gibdos dans les couloirs# du temple de l'ombre protègent", /*spanish*/"las #momias reveladas por el Ojo de la Verdad# guardan"},
+                       Text{"#mummies revealed by the Eye of Truth# guard", /*french*/"les #Gibdos dans les couloirs# du temple de l'ombre protègent", /*spanish*/"las #momias reveladas por el Ojo de la Verdad# guardan", /*italian*/"delle #mummie oltre un muro finto# nel Santuario dell'Ombra difendono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_EARLY_SILVER_RUPEE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#spinning scythes# protect", /*french*/"les #faucheurs danseurs# du temple de l'ombre protègent", /*spanish*/"las #giratorias guadañas# protegen"},
+                       Text{"#spinning scythes# protect", /*french*/"les #faucheurs danseurs# du temple de l'ombre protègent", /*spanish*/"las #giratorias guadañas# protegen", /*italian*/"delle #falci rotanti# nel Santuario dell'Ombra proteggono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_INVISIBLE_BLADES_VISIBLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#invisible blades# guard", /*french*/"les #faucheurs invisibles# du temple de l'ombre protègent", /*spanish*/"las #hojas invisibles# guardan"},
+                       Text{"#invisible blades# guard", /*french*/"les #faucheurs invisibles# du temple de l'ombre protègent", /*spanish*/"las #hojas invisibles# guardan", /*italian*/"delle #falci invisibili# nel Santuario dell'Ombra proteggono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_INVISIBLE_BLADES_INVISIBLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#invisible blades# guard", /*french*/"les #faucheurs invisibles# du temple de l'ombre protègent", /*spanish*/"las #hojas invisibles# guardan"},
+                       Text{"#invisible blades# guard", /*french*/"les #faucheurs invisibles# du temple de l'ombre protègent", /*spanish*/"las #hojas invisibles# guardan", /*italian*/"delle #falci invisibili# nel Santuario dell'Ombra proteggono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_FALLING_SPIKES_LOWER_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#falling spikes# block the path to", /*french*/"la #pluie de clous# surplombe", /*spanish*/"los #pinchos de un techo# conducen a"},
+                       Text{"#falling spikes# block the path to", /*french*/"la #pluie de clous# surplombe", /*spanish*/"los #pinchos de un techo# conducen a", /*italian*/"la #pioggia d'acciaio# blocca la via per", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_FALLING_SPIKES_UPPER_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#falling spikes# block the path to", /*french*/"la #pluie de clous# surplombe", /*spanish*/"los #pinchos de un techo# conducen a"},
+                       Text{"#falling spikes# block the path to", /*french*/"la #pluie de clous# surplombe", /*spanish*/"los #pinchos de un techo# conducen a", /*italian*/"la #pioggia d'acciaio# blocca la via per", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_FALLING_SPIKES_SWITCH_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#falling spikes# block the path to", /*french*/"la #pluie de clous# surplombe", /*spanish*/"los #pinchos de un techo# conducen a"},
+                       Text{"#falling spikes# block the path to", /*french*/"la #pluie de clous# surplombe", /*spanish*/"los #pinchos de un techo# conducen a", /*italian*/"la #pioggia d'acciaio# blocca la via per", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_INVISIBLE_SPIKES_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #dead roam among invisible spikes# guarding", /*french*/"#parmi les clous invisibles# du temple de l'ombre se cache", /*spanish*/"los #muertos que vagan por pinchos invisibles# protegen"},
+                       Text{"the #dead roam among invisible spikes# guarding", /*french*/"#parmi les clous invisibles# du temple de l'ombre se cache", /*spanish*/"los #muertos que vagan por pinchos invisibles# protegen", /*italian*/"i #morti vaganti fra spine invisibili# possiedono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_WIND_HINT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"an #invisible chest guarded by the dead# holds", /*french*/"le #trésor invisible du cul-de-sac# du temple de l'ombre contient", /*spanish*/"un #cofre invisible custodiado por los del más allá# contiene"},
+                       Text{"an #invisible chest guarded by the dead# holds", /*french*/"le #trésor invisible du cul-de-sac# du temple de l'ombre contient", /*spanish*/"un #cofre invisible custodiado por los del más allá# contiene", /*italian*/"un #forziere invisibile in una strada chiusa# nel Santuario dell'Ombra contiene", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_AFTER_WIND_ENEMY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#mummies guarding a ferry# hide", /*french*/"les #Gibdos qui bloquent le traversier# cachent", /*spanish*/"las #momias que protegen un navío# esconden"},
+                       Text{"#mummies guarding a ferry# hide", /*french*/"les #Gibdos qui bloquent le traversier# cachent", /*spanish*/"las #momias que protegen un navío# esconden", /*italian*/"delle #mummie presso un traghetto infernale# nascondono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_AFTER_WIND_HIDDEN_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#mummies guarding a ferry# hide", /*french*/"les #Gibdos qui bloquent le traversier# cachent", /*spanish*/"las #momias que protegen un navío# esconden"},
+                       Text{"#mummies guarding a ferry# hide", /*french*/"les #Gibdos qui bloquent le traversier# cachent", /*spanish*/"las #momias que protegen un navío# esconden", /*italian*/"delle #mummie presso un traghetto infernale# nascondono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_SPIKE_WALLS_LEFT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#walls consumed by a ball of fire# reveal", /*french*/"le #piège de bois# du temple de l'ombre cache", /*spanish*/"las #paredes consumidas por una esfera ígnea# revelan"},
+                       Text{"#walls consumed by a ball of fire# reveal", /*french*/"le #piège de bois# du temple de l'ombre cache", /*spanish*/"las #paredes consumidas por una esfera ígnea# revelan", /*italian*/"#pareti lignee deboli alla sfera ignea# coprono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_BOSS_KEY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#walls consumed by a ball of fire# reveal", /*french*/"le #piège de bois# du temple de l'ombre cache", /*spanish*/"las #paredes consumidas por una esfera ígnea# revelan"},
+                       Text{"#walls consumed by a ball of fire# reveal", /*french*/"le #piège de bois# du temple de l'ombre cache", /*spanish*/"las #paredes consumidas por una esfera ígnea# revelan", /*italian*/"#pareti lignee deboli alla sfera ignea# coprono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_FREESTANDING_KEY] = HintText::Exclude({
                        //obscure text
-                       Text{"#inside a burning skull# lies", /*french*/"#dans un crâne enflammé# gît", /*spanish*/"en el #interior de una calavera en llamas# aguarda"},
+                       Text{"#inside a burning skull# lies", /*french*/"#dans un crâne enflammé# gît", /*spanish*/"en el #interior de una calavera en llamas# aguarda", /*italian*/"da un #vaso a forma di teschio# salta fuori", /*german*/"Deutsch"},
   });
 
 
     hintTable[SHADOW_TEMPLE_MQ_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Eye of Truth# pierces a hall of faces to reveal", /*french*/"l'#oeil de vérité# voit dans les couloirs du temple de l'ombre", /*spanish*/"el #Ojo de la Verdad# descubre un pasillo de facetas con"},
+                       Text{"the #Eye of Truth# pierces a hall of faces to reveal", /*french*/"l'#oeil de vérité# voit dans les couloirs du temple de l'ombre", /*spanish*/"el #Ojo de la Verdad# descubre un pasillo de facetas con", /*italian*/"l'#occhio della verità# penetra corridoi di facce per rivelare", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_HOVER_BOOTS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#Dead Hand in the Shadow Temple# holds", /*french*/"le #Poigneur dans le temple de l'ombre# cache", /*spanish*/"la #Mano Muerta del Templo de las Sombras# guarda"},
-  });
+                       Text{"a #nether dweller in the Shadow Temple# holds", /*french*/"le #spectre du temple de l'ombre# a", /*spanish*/"un #temido morador del Templo de las Sombras# guarda", /*italian*/"un #tipo manesco nel Santuario dell'Ombra# possiede", /*german*/"Deutsch"},
+                     }, {},
+                       //clear text
+                       Text{"#Dead Hand in the Shadow Temple# holds", /*french*/"le #Poigneur dans le temple de l'ombre# cache", /*spanish*/"la #Mano Muerta del Templo de las Sombras# guarda", /*italian*/"lo #Smaniosso nel Santuario dell'Ombra# possiede", /*german*/"Deutsch"}
+  );
 
     hintTable[SHADOW_TEMPLE_MQ_EARLY_GIBDOS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#mummies revealed by the Eye of Truth# guard", /*french*/"les #Gibdos dans les couloirs# du temple de l'ombre protègent", /*spanish*/"las #momias reveladas por el Ojo de la Verdad# guardan"},
+                       Text{"#mummies revealed by the Eye of Truth# guard", /*french*/"les #Gibdos dans les couloirs# du temple de l'ombre protègent", /*spanish*/"las #momias reveladas por el Ojo de la Verdad# guardan", /*italian*/"delle #mummie oltre un muro finto# nel Santuario dell'Ombra difendono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#spinning scythes# protect", /*french*/"les #faucheurs danseurs# du temple de l'ombre protègent", /*spanish*/"las #giratorias guadañas# protegen"},
+                       Text{"#spinning scythes# protect", /*french*/"les #faucheurs danseurs# du temple de l'ombre protègent", /*spanish*/"las #giratorias guadañas# protegen", /*italian*/"delle #falci rotanti# nel Santuario dell'Ombra proteggono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_BEAMOS_SILVER_RUPEES_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#collecting rupees in a vast cavern# with the Shadow Temple unveils", /*french*/"les #pièces argentées dans le temple de l'ombre# révèlent", /*spanish*/"hacerte con las #rupias en una gran caverna# del Templo de las Sombras revela"},
+                       Text{"#collecting rupees in a vast cavern# within the Shadow Temple unveils", /*french*/"les #pièces argentées dans le temple de l'ombre# révèlent", /*spanish*/"hacerte con las #rupias en una gran caverna# del Templo de las Sombras revela", /*italian*/"#raccogliere rupie in una vasta caverna# nel Santuario dell'Ombra rivela", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_FALLING_SPIKES_SWITCH_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#falling spikes# block the path to", /*french*/"la #pluie de clous# surplombe", /*spanish*/"los #pinchos de un techo# conducen a"},
+                       Text{"#falling spikes# block the path to", /*french*/"la #pluie de clous# surplombe", /*spanish*/"los #pinchos de un techo# conducen a", /*italian*/"la #pioggia d'acciaio# blocca la via per", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_FALLING_SPIKES_LOWER_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#falling spikes# block the path to", /*french*/"la #pluie de clous# surplombe", /*spanish*/"los #pinchos de un techo# conducen a"},
+                       Text{"#falling spikes# block the path to", /*french*/"la #pluie de clous# surplombe", /*spanish*/"los #pinchos de un techo# conducen a", /*italian*/"la #pioggia d'acciaio# blocca la via per", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_FALLING_SPIKES_UPPER_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#falling spikes# block the path to", /*french*/"la #pluie de clous# surplombe", /*spanish*/"los #pinchos de un techo# conducen a"},
+                       Text{"#falling spikes# block the path to", /*french*/"la #pluie de clous# surplombe", /*spanish*/"los #pinchos de un techo# conducen a", /*italian*/"la #pioggia d'acciaio# blocca la via per", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_INVISIBLE_SPIKES_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #dead roam among invisible spikes# guarding", /*french*/"#parmi les clous invisibles# du temple de l'ombre se cache", /*spanish*/"los #muertos que vagan por pinchos invisibles# protegen"},
+                       Text{"the #dead roam among invisible spikes# guarding", /*french*/"#parmi les clous invisibles# du temple de l'ombre se cache", /*spanish*/"los #muertos que vagan por pinchos invisibles# protegen", /*italian*/"i #morti vaganti fra spine invisibili# possiedono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_BOSS_KEY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#walls consumed by a ball of fire# reveal", /*french*/"le #piège de bois# du temple de l'ombre cache", /*spanish*/"las #paredes consumidas por una esfera ígnea# revelan"},
+                       Text{"#walls consumed by a ball of fire# reveal", /*french*/"le #piège de bois# du temple de l'ombre cache", /*spanish*/"las #paredes consumidas por una esfera ígnea# revelan", /*italian*/"#pareti lignee deboli alla sfera ignea# coprono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_SPIKE_WALLS_LEFT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#walls consumed by a ball of fire# reveal", /*french*/"le #piège de bois# du temple de l'ombre cache", /*spanish*/"las #paredes consumidas por una esfera ígnea# revelan"},
+                       Text{"#walls consumed by a ball of fire# reveal", /*french*/"le #piège de bois# du temple de l'ombre cache", /*spanish*/"las #paredes consumidas por una esfera ígnea# revelan", /*italian*/"#pareti lignee deboli alla sfera ignea# coprono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_STALFOS_ROOM_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"near an #empty pedestal# within the Shadow Temple lies", /*french*/"#près d'un pédestal vide du temple de l'ombre# gît", /*spanish*/"cerca de un #vacío pedestal# del Templo de las Sombras yace"},
+                       Text{"near an #empty pedestal# within the Shadow Temple lies", /*french*/"#près d'un pédestal vide du temple de l'ombre# gît", /*spanish*/"cerca de un #vacío pedestal# del Templo de las Sombras yace", /*italian*/"vicino a un #piedistallo vuoto# nel Santuario dell'Ombra puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_INVISIBLE_BLADES_INVISIBLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#invisible blades# guard", /*french*/"les #faucheurs invisibles# du temple de l'ombre protègent", /*spanish*/"unas #hojas invisibles# guardan"},
+                       Text{"#invisible blades# guard", /*french*/"les #faucheurs invisibles# du temple de l'ombre protègent", /*spanish*/"unas #hojas invisibles# guardan", /*italian*/"delle #falci invisibili# nel Santuario dell'Ombra proteggono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_INVISIBLE_BLADES_VISIBLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#invisible blades# guard", /*french*/"les #faucheurs invisibles# du temple de l'ombre protègent", /*spanish*/"unas #hojas invisibles# guardan"},
+                       Text{"#invisible blades# guard", /*french*/"les #faucheurs invisibles# du temple de l'ombre protègent", /*spanish*/"unas #hojas invisibles# guardan", /*italian*/"delle #falci invisibili# nel Santuario dell'Ombra proteggono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_WIND_HINT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"an #invisible chest guarded by the dead# holds", /*french*/"le #trésor invisible du cul-de-sac# du temple de l'ombre contient", /*spanish*/"un #cofre invisible custodiado por los del más allá# contiene"},
+                       Text{"an #invisible chest guarded by the dead# holds", /*french*/"le #trésor invisible du cul-de-sac# du temple de l'ombre contient", /*spanish*/"un #cofre invisible custodiado por los del más allá# contiene", /*italian*/"un #forziere invisibile in una strada chiusa# nel Santuario dell'Ombra contiene", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_AFTER_WIND_HIDDEN_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#mummies guarding a ferry# hide", /*french*/"les #Gibdos qui bloquent le traversier# cachent", /*spanish*/"las #momias que protegen un navío# esconden"},
+                       Text{"#mummies guarding a ferry# hide", /*french*/"les #Gibdos qui bloquent le traversier# cachent", /*spanish*/"las #momias que protegen un navío# esconden", /*italian*/"delle #mummie presso un traghetto infernale# nascondono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_AFTER_WIND_ENEMY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#mummies guarding a ferry# hide", /*french*/"les #Gibdos qui bloquent le traversier# cachent", /*spanish*/"las #momias que protegen un navío# esconden"},
+                       Text{"#mummies guarding a ferry# hide", /*french*/"les #Gibdos qui bloquent le traversier# cachent", /*spanish*/"las #momias que protegen un navío# esconden", /*italian*/"delle #mummie presso un traghetto infernale# nascondono", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_NEAR_SHIP_INVISIBLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#caged near a ship# lies", /*french*/"#dans une cage près du traversier# gît", /*spanish*/"#entre rejas al lado de un navío# yace"},
+                       Text{"#caged near a ship# lies", /*french*/"#dans une cage près du traversier# gît", /*spanish*/"#entre rejas al lado de un navío# yace", /*italian*/"#in una gabbia vicino a un traghetto infernale# puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_FREESTANDING_KEY] = HintText::Exclude({
                        //obscure text
-                       Text{"#behind three burning skulls# lies", /*french*/"#derrière trois crânes enflammés# gît", /*spanish*/"tras #tres ardientes calaveras# yace"},
+                       Text{"#behind three burning skulls# lies", /*french*/"#derrière trois crânes enflammés# gît", /*spanish*/"tras #tres ardientes calaveras# yace", /*italian*/"#dietro tre vasi a forma di teschio# puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_BONGO_BONGO_HEART] = HintText::Exclude({
@@ -1343,53 +1346,53 @@ void HintTable_Init_Exclude_Dungeon() {
 
     hintTable[SHADOW_TEMPLE_GS_SINGLE_GIANT_POT] = HintText::Exclude({
                        //obscure text
-                       Text{"#beyond a burning skull# lies a spider with", /*french*/"une #Skulltula derrière un crâne enflammé du temple de l'ombre# a", /*spanish*/"#tras una ardiente calavera# yace una Skulltula que otorga"},
+                       Text{"#beyond a burning skull# lies a spider with", /*french*/"une #Skulltula derrière un crâne enflammé du temple de l'ombre# a", /*spanish*/"#tras una ardiente calavera# yace una Skulltula que otorga", /*italian*/"#dietro un vaso a forma di teschio# si nasconde un ragno con", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_GS_FALLING_SPIKES_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider beyond falling spikes# holds", /*french*/"une #Skulltula au delà de la pluie de clous du temple de l'ombre# a", /*spanish*/"una #Skulltula tras los pinchos del techo# otorga"},
+                       Text{"a #spider beyond falling spikes# holds", /*french*/"une #Skulltula au delà de la pluie de clous du temple de l'ombre# a", /*spanish*/"una #Skulltula tras los pinchos del techo# otorga", /*italian*/"un #ragno oltre la pioggia d'acciaio# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_GS_TRIPLE_GIANT_POT] = HintText::Exclude({
                        //obscure text
-                       Text{"#beyond three burning skulls# lies a spider with", /*french*/"une #Skulltula derrière trois crânes enflammés du temple de l'ombre# a", /*spanish*/"#tras tres ardientes calaveras# yace una Skulltula que otorga"},
+                       Text{"#beyond three burning skulls# lies a spider with", /*french*/"une #Skulltula derrière trois crânes enflammés du temple de l'ombre# a", /*spanish*/"#tras tres ardientes calaveras# yace una Skulltula que otorga", /*italian*/"#oltre tre vasi a forma di teschio# si nasconde un ragno con", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_GS_LIKE_LIKE_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a spider guarded by #invisible blades# holds", /*french*/"une #Skulltula protégée par les faucheurs invisibles du temple de l'ombre# a", /*spanish*/"una #Skulltula custodiada por hojas invisibles# otorga"},
+                       Text{"a spider guarded by #invisible blades# holds", /*french*/"une #Skulltula protégée par les faucheurs invisibles du temple de l'ombre# a", /*spanish*/"una #Skulltula custodiada por hojas invisibles# otorga", /*italian*/"un ragno protetto da #falci invisibili# nel Santuario dell'Ombra nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_GS_NEAR_SHIP] = HintText::Exclude({
                        //obscure text
-                       Text{"a spider near a #docked ship# hoards", /*french*/"une #Skulltula près du traversier du temple de l'ombre# a", /*spanish*/"una #Skulltula cercana a un navío# otorga"},
+                       Text{"a spider near a #docked ship# hoards", /*french*/"une #Skulltula près du traversier du temple de l'ombre# a", /*spanish*/"una #Skulltula cercana a un navío# otorga", /*italian*/"un ragno vicino a un #traghetto infernale# nasconde", /*german*/"Deutsch"},
   });
 
 
     hintTable[SHADOW_TEMPLE_MQ_GS_FALLING_SPIKES_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider beyond falling spikes# holds", /*french*/"une #Skulltula au delà de la pluie de clous du temple de l'ombre# a", /*spanish*/"una #Skulltula tras los pinchos del techo# otorga"},
+                       Text{"a #spider beyond falling spikes# holds", /*french*/"une #Skulltula au delà de la pluie de clous du temple de l'ombre# a", /*spanish*/"una #Skulltula tras los pinchos del techo# otorga", /*italian*/"un #ragno oltre la pioggia d'acciaio# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_GS_WIND_HINT_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider amidst roaring winds# in the Shadow Temple holds", /*french*/"une #Skulltula près des vents du temple de l'ombre# a", /*spanish*/"una #Skulltula entre ventarrones# del Templo de las Sombras otorga"},
+                       Text{"a #spider amidst roaring winds# in the Shadow Temple holds", /*french*/"une #Skulltula près des vents du temple de l'ombre# a", /*spanish*/"una #Skulltula entre ventarrones# del Templo de las Sombras otorga", /*italian*/"un ragno #oltre i 20# nel Santuario dell'Ombra nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_GS_AFTER_WIND] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider beneath gruesome debris# in the Shadow Temple hides", /*french*/"une #Skulltula sous des débris du temple de l'ombre# a", /*spanish*/"una #Skulltula bajo unos horripilantes escombros# del Templo de las Sombras otorga"},
+                       Text{"a #spider beneath gruesome debris# in the Shadow Temple hides", /*french*/"une #Skulltula sous des débris du temple de l'ombre# a", /*spanish*/"una #Skulltula bajo unos horripilantes escombros# del Templo de las Sombras otorga", /*italian*/"un ragno si nasconde #sotto i detriti# nel Santuario dell'Ombra tenendo", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_GS_AFTER_SHIP] = HintText::Exclude({
                        //obscure text
-                       Text{"a #fallen statue# reveals a spider with", /*french*/"une #Skulltula près de la statue écroulée du temple de l'ombre# a", /*spanish*/"una #estatua caída# revelará una Skulltula que otorgue"},
+                       Text{"a #fallen statue# reveals a spider with", /*french*/"une #Skulltula près de la statue écroulée du temple de l'ombre# a", /*spanish*/"una #estatua caída# revelará una Skulltula que otorgue", /*italian*/"nel Santuario dell'Ombra una #statua cade# vicino a un ragno con", /*german*/"Deutsch"},
   });
 
     hintTable[SHADOW_TEMPLE_MQ_GS_NEAR_BOSS] = HintText::Exclude({
                        //obscure text
-                       Text{"a #suspended spider# guards", /*french*/"une #Skulltula près du repère du temple de l'ombre# a", /*spanish*/"una #Skulltula flotante# del Templo de las Sombras otorga"},
+                       Text{"a #suspended spider# guards", /*french*/"une #Skulltula près du repère du temple de l'ombre# a", /*spanish*/"una #Skulltula flotante# del Templo de las Sombras otorga", /*italian*/"un #ragno fluttuante# nel Santuario dell'Ombra nasconde", /*german*/"Deutsch"},
   });
 
   /*--------------------------
