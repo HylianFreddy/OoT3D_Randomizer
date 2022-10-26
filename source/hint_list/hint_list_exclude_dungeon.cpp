@@ -1400,119 +1400,119 @@ void HintTable_Init_Exclude_Dungeon() {
   ---------------------------*/
     hintTable[BOTTOM_OF_THE_WELL_FRONT_LEFT_FAKE_WALL_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Eye of Truth in the well# reveals", /*french*/"l'#oeil de vérité dans le puits# révèle", /*spanish*/"el #Ojo de la Verdad en el pozo# revela"},
+                       Text{"the #Eye of Truth in the well# reveals", /*french*/"l'#oeil de vérité dans le puits# révèle", /*spanish*/"el #Ojo de la Verdad en el pozo# revela", /*italian*/"l'#occhio della verità nel pozzo# rivela", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_FRONT_CENTER_BOMBABLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#gruesome debris# in the well hides", /*french*/"des #débris dans le puits# cachent", /*spanish*/"unos #horripilantes escombros# del pozo esconden"},
+                       Text{"#gruesome debris# in the well hides", /*french*/"des #débris dans le puits# cachent", /*spanish*/"unos #horripilantes escombros# del pozo esconden", /*italian*/"#dei detriti nel pozzo# coprono", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_RIGHT_BOTTOM_FAKE_WALL_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Eye of Truth in the well# reveals", /*french*/"l'#oeil de vérité dans le puits# révèle", /*spanish*/"el #Ojo de la Verdad en el pozo# revela"},
+                       Text{"the #Eye of Truth in the well# reveals", /*french*/"l'#oeil de vérité dans le puits# révèle", /*spanish*/"el #Ojo de la Verdad en el pozo# revela", /*italian*/"l'#occhio della verità nel pozzo# rivela", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #hidden entrance to a cage# in the well leads to", /*french*/"dans un #chemin caché dans le puits# gît", /*spanish*/"la #entrada oculta de una celda# del pozo conduce a"},
+                       Text{"a #hidden entrance to a cage# in the well leads to", /*french*/"dans un #chemin caché dans le puits# gît", /*spanish*/"la #entrada oculta de una celda# del pozo conduce a", /*italian*/"una #gabbia con un ingresso nascosto# nel pozzo contiene", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_CENTER_SKULLTULA_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider guarding a cage# in the well protects", /*french*/"l'#araignée dans la cage du puits# protège", /*spanish*/"una #araña protegiendo una celda# del pozo guarda"},
+                       Text{"a #spider guarding a cage# in the well protects", /*french*/"l'#araignée dans la cage du puits# protège", /*spanish*/"una #araña protegiendo una celda# del pozo guarda", /*italian*/"un #ragno in una gabbia# nel pozzo protegge", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_BACK_LEFT_BOMBABLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#gruesome debris# in the well hides", /*french*/"des #débris dans le puits# cachent", /*spanish*/"unos #horripilantes escombros# del pozo esconden"},
+                       Text{"#gruesome debris# in the well hides", /*french*/"des #débris dans le puits# cachent", /*spanish*/"unos #horripilantes escombros# del pozo esconden", /*italian*/"#dei detriti nel pozzo# coprono", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_INVISIBLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#Dead Hand's invisible secret# is", /*french*/"le #trésor invisible du Poigneur# est", /*spanish*/"el #secreto invisible de la Mano Muerta# esconde"},
+                       Text{"#Dead Hand's invisible secret# is", /*french*/"le #trésor invisible du Poigneur# est", /*spanish*/"el #secreto invisible de la Mano Muerta# esconde", /*italian*/"il #segreto invisibile dello Smaniosso# è", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_UNDERWATER_FRONT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #royal melody in the well# uncovers", /*french*/"la #mélodie royale révèle dans le puits#", /*spanish*/"una #melodía real en el pozo# revela"},
+                       Text{"a #royal melody in the well# uncovers", /*french*/"la #mélodie royale révèle dans le puits#", /*spanish*/"una #melodía real en el pozo# revela", /*italian*/"una #melodia regale# nel pozzo asciuga", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_UNDERWATER_LEFT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #royal melody in the well# uncovers", /*french*/"la #mélodie royale révèle dans le puits#", /*spanish*/"una #melodía real en el pozo# revela"},
+                       Text{"a #royal melody in the well# uncovers", /*french*/"la #mélodie royale révèle dans le puits#", /*spanish*/"una #melodía real en el pozo# revela", /*italian*/"una #melodia regale# nel pozzo asciuga", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"in the #depths of the well# lies", /*french*/"#dans le cœur du puits# gît", /*spanish*/"en las #profundidades del pozo# yace"},
+                       Text{"in the #depths of the well# lies", /*french*/"#dans le cœur du puits# gît", /*spanish*/"en las #profundidades del pozo# yace", /*italian*/"nelle #profondità del pozzo# puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_FIRE_KEESE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#perilous pits# in the well guard the path to", /*french*/"#trois trous# dans le puits protègent", /*spanish*/"#peligrosos fosos# del pozo conducen a"},
+                       Text{"#perilous pits# in the well guard the path to", /*french*/"#trois trous# dans le puits protègent", /*spanish*/"#peligrosos fosos# del pozo conducen a", /*italian*/"fra #pericolose fosse# nel pozzo puoi trovare", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_LIKE_LIKE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#locked in a cage# in the well lies", /*french*/"#dans une cage# du puits gît", /*spanish*/"#entre rejas# en el pozo yace"},
+                       Text{"#locked in a cage# in the well lies", /*french*/"#dans une cage# du puits gît", /*spanish*/"#entre rejas# en el pozo yace", /*italian*/"una #gabbia chiusa# nel pozzo contiene", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_FREESTANDING_KEY] = HintText::Exclude({
                        //obscure text
-                       Text{"#inside a coffin# hides", /*french*/"dans #un cercueil# gît", /*spanish*/"en el #interior de un ataúd# yace"},
+                       Text{"#inside a coffin# hides", /*french*/"dans #un cercueil# gît", /*spanish*/"en el #interior de un ataúd# yace", /*italian*/"#dentro una bara# puoi trovare", /*german*/"Deutsch"},
   });
 
 
     hintTable[BOTTOM_OF_THE_WELL_MQ_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #royal melody in the well# uncovers", /*french*/"la #mélodie royale révèle dans le puits#", /*spanish*/"una #melodía real en el pozo# revela"},
+                       Text{"a #royal melody in the well# uncovers", /*french*/"la #mélodie royale révèle dans le puits#", /*spanish*/"una #melodía real en el pozo# revela", /*italian*/"una #melodia regale# nel pozzo sblocca", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_MQ_LENS_OF_TRUTH_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"an #army of the dead# in the well guards", /*french*/"l'#armée des morts# dans le puits protège", /*spanish*/"un #ejército del más allá# del pozo guarda"},
+                       Text{"an #army of the dead# in the well guards", /*french*/"l'#armée des morts# dans le puits protège", /*spanish*/"un #ejército del más allá# del pozo guarda", /*italian*/"una #famiglia di morti# nel pozzo protegge", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_MQ_DEAD_HAND_FREESTANDING_KEY] = HintText::Exclude({
                        //obscure text
-                       Text{"#Dead Hand's explosive secret# is", /*french*/"le #secret explosif du Poigneur# est", /*spanish*/"el #explosivo secreto de la Mano Muerta# esconde"},
+                       Text{"#Dead Hand's explosive secret# is", /*french*/"le #secret explosif du Poigneur# est", /*spanish*/"el #explosivo secreto de la Mano Muerta# esconde", /*italian*/"il #segreto sepolto dello Smaniosso# è", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_MQ_EAST_INNER_ROOM_FREESTANDING_KEY] = HintText::Exclude({
                        //obscure text
-                       Text{"an #invisible path in the well# leads to", /*french*/"dans un #chemin caché dans le puits# gît", /*spanish*/"un #camino invisible del pozo# conduce a"},
+                       Text{"an #invisible path in the well# leads to", /*french*/"dans un #chemin caché dans le puits# gît", /*spanish*/"un #camino invisible del pozo# conduce a", /*italian*/"un #sentiero invisibile# nel pozzo porta verso", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_GS_LIKE_LIKE_CAGE] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider locked in a cage# in the well holds", /*french*/"une #Skulltula dans une cage au fonds du puits# a", /*spanish*/"una #Skulltula enjaulada# del pozo otorga"},
+                       Text{"a #spider locked in a cage# in the well holds", /*french*/"une #Skulltula dans une cage au fonds du puits# a", /*spanish*/"una #Skulltula enjaulada# del pozo otorga", /*italian*/"un #ragno prigioniero# nel pozzo possiede", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_GS_EAST_INNER_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"an #invisible path in the well# leads to", /*french*/"une #Skulltula dans le chemin invisible au fonds du puits# a", /*spanish*/"un #camino invisible del pozo# conduce a una Skulltula que otorga"},
+                       Text{"an #invisible path in the well# leads to", /*french*/"une #Skulltula dans le chemin invisible au fonds du puits# a", /*spanish*/"un #camino invisible del pozo# conduce a una Skulltula que otorga", /*italian*/"un #sentiero invisibile# nel pozzo porta verso un ragno con", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_GS_WEST_INNER_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider locked in a crypt# within the well guards", /*french*/"une #Skulltula embarrée dans la crypte au fonds du puits# a", /*spanish*/"una #Skulltula encerrada en una cripta# del pozo otorga"},
+                       Text{"a #spider locked in a crypt# within the well guards", /*french*/"une #Skulltula embarrée dans la crypte au fonds du puits# a", /*spanish*/"una #Skulltula encerrada en una cripta# del pozo otorga", /*italian*/"un #ragno in una cripta# nel pozzo possiede", /*german*/"Deutsch"},
   });
 
 
     hintTable[BOTTOM_OF_THE_WELL_MQ_GS_BASEMENT] = HintText::Exclude({
                        //obscure text
-                       Text{"a #gauntlet of invisible spiders# protects", /*french*/"une #Skulltula protégée par les araignées invisibles au fonds du puits# a", /*spanish*/"unas #arañas invisibles# custodian una Skulltula que otorga"},
+                       Text{"a #gauntlet of invisible spiders# protects", /*french*/"une #Skulltula protégée par les araignées invisibles au fonds du puits# a", /*spanish*/"unas #arañas invisibles# custodian una Skulltula que otorga", /*italian*/"un #ragno protetto da una sfilza di simili invisibili# nel pozzo possiede", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_MQ_GS_COFFIN_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider crawling near the dead# in the well holds", /*french*/"une #Skulltula près des cercueils au fonds du puits# a", /*spanish*/"una #Skulltula junto a los muertos# del pozo otorga"},
+                       Text{"a #spider crawling near the dead# in the well holds", /*french*/"une #Skulltula près des cercueils au fonds du puits# a", /*spanish*/"una #Skulltula junto a los muertos# del pozo otorga", /*italian*/"un #ragno dietro alle bare# nel pozzo nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[BOTTOM_OF_THE_WELL_MQ_GS_WEST_INNER_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider locked in a crypt# within the well guards", /*french*/"une #Skulltula embarrée dans la crypte au fonds du puits# a", /*spanish*/"una #Skulltula encerrada en una cripta# del pozo otorga"},
+                       Text{"a #spider locked in a crypt# within the well guards", /*french*/"une #Skulltula embarrée dans la crypte au fonds du puits# a", /*spanish*/"una #Skulltula encerrada en una cripta# del pozo otorga", /*italian*/"un #ragno in una cripta# nel pozzo possiede", /*german*/"Deutsch"},
   });
 
   /*--------------------------
