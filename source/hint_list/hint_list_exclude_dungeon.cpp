@@ -1520,74 +1520,74 @@ void HintTable_Init_Exclude_Dungeon() {
   ---------------------------*/
     hintTable[ICE_CAVERN_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#winds of ice# surround", /*french*/"#figé dans la glace rouge# gît", /*spanish*/"#heladas borrascas# rodean"},
+                       Text{"#winds of ice# surround", /*french*/"#figé dans la glace rouge# gît", /*spanish*/"#heladas borrascas# rodean", /*italian*/"dei #soffi gelati# circondano", /*german*/"Deutsch"},
   });
 
     hintTable[ICE_CAVERN_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #wall of ice# protects", /*french*/"#un mur de glace rouge# cache", /*spanish*/"una #gélida pared# protege"},
+                       Text{"a #wall of ice# protects", /*french*/"#un mur de glace rouge# cache", /*spanish*/"una #gélida pared# protege", /*italian*/"un #muro di ghiaccio# cela", /*german*/"Deutsch"},
   });
 
     hintTable[ICE_CAVERN_IRON_BOOTS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #monster in a frozen cavern# guards", /*french*/"le #monstre de la caverne de glace# protège", /*spanish*/"un #monstruo de una helada caverna# guarda"},
+                       Text{"a #monster in a frozen cavern# guards", /*french*/"le #monstre de la caverne de glace# protège", /*spanish*/"un #monstruo de una helada caverna# guarda", /*italian*/"un #guardiano in una caverna ghiacciata# protegge", /*german*/"Deutsch"},
   });
 
     hintTable[ICE_CAVERN_FREESTANDING_POH] = HintText::Exclude({
                        //obscure text
-                       Text{"a #wall of ice# protects", /*french*/"un #mur de glace rouge# cache", /*spanish*/"una #gélida pared# protege"},
+                       Text{"a #wall of ice# protects", /*french*/"un #mur de glace rouge# cache", /*spanish*/"una #gélida pared# protege", /*italian*/"un #muro di ghiaccio# cela", /*german*/"Deutsch"},
   });
 
 
     hintTable[ICE_CAVERN_MQ_IRON_BOOTS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #monster in a frozen cavern# guards", /*french*/"le #monstre de la caverne de glace# protège", /*spanish*/"un #monstruo de una helada caverna# guarda"},
+                       Text{"a #monster in a frozen cavern# guards", /*french*/"le #monstre de la caverne de glace# protège", /*spanish*/"un #monstruo de una helada caverna# guarda", /*italian*/"un #guardiano in una caverna ghiacciata# protegge", /*german*/"Deutsch"},
   });
 
     hintTable[ICE_CAVERN_MQ_COMPASS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#winds of ice# surround", /*french*/"#entouré de vent glacial# gît", /*spanish*/"#heladas borrascas# rodean"},
+                       Text{"#winds of ice# surround", /*french*/"#entouré de vent glacial# gît", /*spanish*/"#heladas borrascas# rodean", /*italian*/"dei #soffi gelati# circondano", /*german*/"Deutsch"},
   });
 
     hintTable[ICE_CAVERN_MQ_MAP_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #wall of ice# protects", /*french*/"#un mur de glace rouge# cache", /*spanish*/"una #gélida pared# protege"},
+                       Text{"a #wall of ice# protects", /*french*/"#un mur de glace rouge# cache", /*spanish*/"una #gélida pared# protege", /*italian*/"un #muro di ghiaccio# cela", /*german*/"Deutsch"},
   });
 
     hintTable[ICE_CAVERN_MQ_FREESTANDING_POH] = HintText::Exclude({
                        //obscure text
-                       Text{"#winds of ice# surround", /*french*/"#entouré de vent glacial# gît", /*spanish*/"#heladas borrascas# rodean"},
+                       Text{"#winds of ice# surround", /*french*/"#entouré de vent glacial# gît", /*spanish*/"#heladas borrascas# rodean", /*italian*/"dei #soffi gelati# circondano", /*german*/"Deutsch"},
   });
 
     hintTable[ICE_CAVERN_GS_PUSH_BLOCK_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider above icy pits# holds", /*french*/"une #Skulltula au dessus d'un goufre glacial# a", /*spanish*/"una #Skulltula sobre gélidos vacíos# otorga"},
+                       Text{"a #spider above icy pits# holds", /*french*/"une #Skulltula au dessus d'un goufre glacial# a", /*spanish*/"una #Skulltula sobre gélidos vacíos# otorga", /*italian*/"un ragno #sopra un crepaccio nel ghiaccio# cela", /*german*/"Deutsch"},
   });
 
     hintTable[ICE_CAVERN_GS_SPINNING_SCYTHE_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"#spinning ice# guards a spider holding", /*french*/"une #Skulltula près de deux lames de glace# a", /*spanish*/"unos #témpanos giratorios# custodian una Skulltula que otorga"},
+                       Text{"#spinning ice# guards a spider holding", /*french*/"une #Skulltula près de deux lames de glace# a", /*spanish*/"unos #témpanos giratorios# custodian una Skulltula que otorga", /*italian*/"un ragno #sopra un tritaghiaccio# nasconde", /*german*/"Deutsch"},
   });
 
     hintTable[ICE_CAVERN_GS_HEART_PIECE_ROOM] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider behind a wall of ice# hides", /*french*/"une #Skulltula derrière un mur de glace# a", /*spanish*/"una #Skulltula tras una gélida pared# otorga"},
+                       Text{"a #spider behind a wall of ice# hides", /*french*/"une #Skulltula derrière un mur de glace# a", /*spanish*/"una #Skulltula tras una gélida pared# otorga", /*italian*/"un #ragno dietro un muro di ghiaccio# cela", /*german*/"Deutsch"},
   });
 
 
     hintTable[ICE_CAVERN_MQ_GS_SCARECROW] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider above icy pits# holds", /*french*/"une #Skulltula au dessus d'un goufre glacial# a", /*spanish*/"una #Skulltula sobre gélidos vacíos# otorga"},
+                       Text{"a #spider above icy pits# holds", /*french*/"une #Skulltula au dessus d'un goufre glacial# a", /*spanish*/"una #Skulltula sobre gélidos vacíos# otorga", /*italian*/"un ragno #presso un crepaccio nel ghiaccio# cela", /*german*/"Deutsch"},
   });
 
     hintTable[ICE_CAVERN_MQ_GS_ICE_BLOCK] = HintText::Exclude({
                        //obscure text
-                       Text{"a #web of ice# surrounds a spider with", /*french*/"une #Skulltula protégée d'une toile glacée# a", /*spanish*/"una #gélida red# rodea a una Skulltula que otorga"},
+                       Text{"a #web of ice# surrounds a spider with", /*french*/"une #Skulltula protégée d'une toile glacée# a", /*spanish*/"una #gélida red# rodea a una Skulltula que otorga", /*italian*/"un #ragno in una tela di ghiaccio# si nasconde con", /*german*/"Deutsch"},
   });
 
     hintTable[ICE_CAVERN_MQ_GS_RED_ICE] = HintText::Exclude({
                        //obscure text
-                       Text{"a #spider in fiery ice# hoards", /*french*/"une #Skulltula figée dans la glace rouge# a", /*spanish*/"una #Skulltula tras un ardiente hielo# otorga"},
+                       Text{"a #spider in fiery ice# hoards", /*french*/"une #Skulltula figée dans la glace rouge# a", /*spanish*/"una #Skulltula tras un ardiente hielo# otorga", /*italian*/"un ragno nel #fuoco ghiacciato# ha", /*german*/"Deutsch"},
   });
 
   /*--------------------------
