@@ -172,65 +172,65 @@ int GetShopsanityReplaceAmount() {
 //Initialize the table of trick names with an easy, medium, and hard name for each language
 void InitTrickNames() {
   trickNameTable[GI_SWORD_KOKIRI] = {
-     Text{"Korok Sword", "Épée Korok", "Espada Korok"},
-     Text{"Hero's Sword", "Épée du héros", "Espada del héroe"},
-     Text{"Razor Sword", "Lame rasoir", "Espada de esmeril"}};
+     Text{"Korok Sword", "Épée Korok", "Espada Korok", "Spada dei Korogu", "Deutsch"},
+     Text{"Hero's Sword", "Épée du héros", "Espada del héroe", "Spada dell'eroe", "Deutsch"},
+     Text{"Razor Sword", "Lame rasoir", "Espada de esmeril", "Fendipiuma", "Deutsch"}};
   trickNameTable[GI_SWORD_MASTER] = {
-     Text{"Goddess Sword", "Épée de la déesse", "Espada Divina"},
-     Text{"Gilded Sword", "Excalibur", "Espada de los Sabios"},
-     Text{"Magical Sword", "Lame dorée", "Fay"}};
+     Text{"Goddess Sword", "Épée de la déesse", "Espada Divina", "Spada della dea", "Deutsch"},
+     Text{"Gilded Sword", "Excalibur", "Espada de los Sabios", "Spada aurea", "Deutsch"},
+     Text{"Magical Sword", "Lame dorée", "Fay", "Spada magica", "Deutsch"}};
   trickNameTable[GI_SWORD_KNIFE] = {
-     Text{"Big Goron's Sword", "Épée de gros Goron", "Espada de Big Goron"},
-     Text{"Fierce Deity's Sword", "Épée du dieu démon", "Espada de la Fiera Deidad"},
-     Text{"Biggoron's Knife", "Lame de Grogoron", "Daga de Biggoron"}};
+     Text{"Big Goron's Sword", "Épée de gros Goron", "Espada de Big Goron", "Coltello di Grande Goron", "Deutsch"},
+     Text{"Fierce Deity's Sword", "Épée du dieu démon", "Espada de la Fiera Deidad", "Spada della furia divina", "Deutsch"},
+     Text{"Biggoron's Knife", "Lame de Grogoron", "Daga de Biggoron", "Spada del Grande Goron", "Deutsch"}};
   trickNameTable[GI_SWORD_BGS] = {
-     Text{"Big Goron's Sword", "Épée de gros Goron", "Espada de Big Goron"},
-     Text{"Fierce Deity's Sword", "Épée du dieu démon", "Espada de la Fiera Deidad"},
-     Text{"Biggoron's Knife", "Lame de Grogoron", "Daga de Biggoron"}};
+     Text{"Big Goron's Sword", "Épée de gros Goron", "Espada de Big Goron", "Coltello di Grande Goron", "Deutsch"},
+     Text{"Fierce Deity's Sword", "Épée du dieu démon", "Espada de la Fiera Deidad", "Spada della furia divina", "Deutsch"},
+     Text{"Biggoron's Knife", "Lame de Grogoron", "Daga de Biggoron", "Spada del Grande Goron", "Deutsch"}};
   trickNameTable[GI_SHIELD_DEKU] = {
-     Text{"Boko Shield", "Bouclier Boko", "Escudo Boko"},
-     Text{"Ordon Shield", "Bouclier de Toal", "Escudo de Ordon"},
-     Text{"Wooden Shield", "Bouclier de bois", "Escudo de madera"}};
+     Text{"Boko Shield", "Bouclier Boko", "Escudo Boko", "Scudo boblin", "Deutsch"},
+     Text{"Ordon Shield", "Bouclier de Toal", "Escudo de Ordon", "Scudo di Tauro", "Deutsch"},
+     Text{"Wooden Shield", "Bouclier de bois", "Escudo de madera", "Scudo di legno", "Deutsch"}};
   trickNameTable[GI_SHIELD_HYLIAN] = {
-     Text{"Hyrule Shield", "Bouclier d'Hyrule", "Escudo Hylian"},
-     Text{"Goddess Shield", "Bouclier sacré", "Escudo Divino"},
-     Text{"Hero's Shield", "Bouclier du héros", "Escudo del héroe"}};
+     Text{"Hyrule Shield", "Bouclier d'Hyrule", "Escudo Hylian", "Scudo Hyrule", "Deutsch"},
+     Text{"Goddess Shield", "Bouclier sacré", "Escudo Divino", "Scudo della dea", "Deutsch"},
+     Text{"Hero's Shield", "Bouclier du héros", "Escudo del héroe", "Scudo dell'eroe", "Deutsch"}};
   trickNameTable[GI_SHIELD_MIRROR] = {
-     Text{"Magic Mirror", "Miroir magique", "Escudo mágico"},
-     Text{"Magical Shield", "Bouclier magique", "Escudo arcano"},
-     Text{"Mirror of Twilight", "Miroir des ombres", "Espejo del Crepúsculo"}};
+     Text{"Magic Mirror", "Miroir magique", "Escudo mágico", "Specchio magico", "Deutsch"},
+     Text{"Magical Shield", "Bouclier magique", "Escudo arcano", "Scudo magico", "Deutsch"},
+     Text{"Mirror of Twilight", "Miroir des ombres", "Espejo del Crepúsculo", "Specchio oscuro", "Deutsch"}};
   trickNameTable[GI_TUNIC_GORON] = {
-     Text{"Gerudo Tunic", "Tunique Gerudo", "Sayo gerudo"},
-     Text{"Magic Armor", "Armure magique", "Túnica Goron"},
-     Text{"Red Mail", "Habits rouges", "Ropas rojas"}};
+     Text{"Gerudo Tunic", "Tunique Gerudo", "Sayo gerudo", "Veste dei Gerudo", "Deutsch"},
+     Text{"Magic Armor", "Armure magique", "Túnica Goron", "Armatura magica", "Deutsch"},
+     Text{"Red Mail", "Habits rouges", "Ropas rojas", "Tunica rossa", "Deutsch"}};
   trickNameTable[GI_TUNIC_ZORA] = {
-     Text{"Rito Tunic", "Tunique Rito", "Sayo rito"},
-     Text{"Zora Armor", "Armure Zora", "Túnica Zora"},
-     Text{"Blue Mail", "Habits bleus", "Ropas azules"}};
+     Text{"Rito Tunic", "Tunique Rito", "Sayo rito", "Veste dei Rito", "Deutsch"},
+     Text{"Zora Armor", "Armure Zora", "Túnica Zora", "Armatura Zora", "Deutsch"},
+     Text{"Blue Mail", "Habits bleus", "Ropas azules", "Tunica blu", "Deutsch"}};
   trickNameTable[GI_BOOTS_IRON] = {
-     Text{"Iron Hoofs", "Patins de plomb", "Botas férreas"},
-     Text{"Snow Boots", "Bottes de neige", "Botas de nieve"},
-     Text{"Boots of Power", "Bottes de puissance", "Botas de plomo"}};
+     Text{"Iron Hoofs", "Patins de plomb", "Botas férreas", "Stivali di fermio", "Deutsch"},
+     Text{"Snow Boots", "Bottes de neige", "Botas de nieve", "Stivali da neve", "Deutsch"},
+     Text{"Boots of Power", "Bottes de puissance", "Botas de plomo", "Stivali di piombo", "Deutsch"}};
   trickNameTable[GI_BOOTS_HOVER] = {
-     Text{"Hover Hoofs", "Patins des airs", "Botas flotadoras"},
-     Text{"Pegasus Boots", "Bottes pégase", "Botas de Pegaso"},
-     Text{"Boots of Speed", "Bottes de vitesse", "Botas del desierto"}};
+     Text{"Hover Hoofs", "Patins des airs", "Botas flotadoras", "Stivali volanti", "Deutsch"},
+     Text{"Pegasus Boots", "Bottes pégase", "Botas de Pegaso", "Calzari di Pegaso", "Deutsch"},
+     Text{"Boots of Speed", "Bottes de vitesse", "Botas del desierto", "Stivali placcati", "Deutsch"}};
   trickNameTable[GI_WEIRD_EGG] = {
-     Text{"Poached Egg", "Œuf à la coque", "Huevo pasado"},
-     Text{"Lon Lon Egg", "Œuf Lon Lon", "Huevo Lon Lon"},
-     Text{"Zora Egg", "Œuf Zora", "Huevo Zora"}};
+     Text{"Poached Egg", "Œuf à la coque", "Huevo pasado", "Uovo sodo", "Deutsch"},
+     Text{"Lon Lon Egg", "Œuf Lon Lon", "Huevo Lon Lon", "Uovo Lon Lon", "Deutsch"},
+     Text{"Zora Egg", "Œuf Zora", "Huevo Zora", "Uovo di Zora", "Deutsch"}};
   trickNameTable[GI_LETTER_ZELDA] = {
-     Text{"Ruto's Letter", "Lettre de Ruto", "Carta de Ruto"},
-     Text{"Royal Letter", "Lettre royale", "Carta para Kafei"},
-     Text{"Zelda's Business Card", "Carte d'affaires de Zelda", "Carta"}};
+     Text{"Ruto's Letter", "Lettre de Ruto", "Carta de Ruto", "Lettera di Ruto", "Deutsch"},
+     Text{"Royal Letter", "Lettre royale", "Carta para Kafei", "Lettera della principessa", "Deutsch"},
+     Text{"Zelda's Business Card", "Carte d'affaires de Zelda", "Carta", "Biglietto da visita di Zelda", "Deutsch"}};
   trickNameTable[GI_BOOMERANG] = {
-     Text{"Prank Fetch Toy", "Inséparable bâtonnet", "Bumerang"},
-     Text{"Gale Boomerang", "Boomerang tornade", "Bumerán tornado"},
-     Text{"Magic Boomerang", "Boomerang magique", "Bumerán mágico"}};
+     Text{"Prank Fetch Toy", "Inséparable bâtonnet", "Bumerang", "Giocattolo da riporto", "Deutsch"},
+     Text{"Gale Boomerang", "Boomerang tornade", "Bumerán tornado", "Boomerang ciclone", "Deutsch"},
+     Text{"Magic Boomerang", "Boomerang magique", "Bumerán mágico", "Boomerang magico", "Deutsch"}};
   trickNameTable[GI_LENS] = {
-     Text{"Sheikah-leidoscope", "Sheikah-léidoscope", "Monóculo de la Verdad"},
-     Text{"Sheikah Sensor", "Sonar Sheikah", "Sensor Sheikah"},
-     Text{"Magnifying Lens", "Loupe", "Lente Aumentadora"}};
+     Text{"Sheikah-leidoscope", "Sheikah-léidoscope", "Monóculo de la Verdad", "Sheikah-leidoscopio", "Deutsch"},
+     Text{"Sheikah Sensor", "Sonar Sheikah", "Sensor Sheikah", "Sensore Sheikah", "Deutsch"},
+     Text{"Magnifying Lens", "Loupe", "Lente Aumentadora", "Lente di ingrandimento", "Deutsch"}};
   trickNameTable[GI_HAMMER] = {
      Text{"Goron Gavel", "Masse perforatrice", "Mazo Goron"},
      Text{"Magic Hammer", "Marteau magique", "Martillo mágico"},
