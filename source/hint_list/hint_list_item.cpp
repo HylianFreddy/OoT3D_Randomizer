@@ -618,7 +618,7 @@ void HintTable_Init_Item() {
 
     hintTable[PROGRESSIVE_OCARINA] = HintText::Item({
                        //obscure text
-                       Text{"a flute",       /*french*/"un bec musical",         /*spanish*/"un utensilio musical", /*italian*/"un piffero",        /*german*/"Deutsch"},
+                       Text{"a flute",       /*french*/"un bec musical",         /*spanish*/"un utensilio musical", /*italian*/"una piccola oca",   /*german*/"Deutsch"},
                        Text{"a music maker", /*french*/"un porteur de chansons", /*spanish*/"un instrumento",       /*italian*/"una patata bucata", /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
