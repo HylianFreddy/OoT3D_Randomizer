@@ -362,9 +362,9 @@ void HintTable_Init_Item() {
 
     hintTable[POCKET_EGG] = HintText::Item({
                        //obscure text
-                       Text{"a Cucco container",   /*french*/"un réservoir à Cocotte", /*spanish*/"cuco contenido",     /*italian*/"un contenitore di coccò", /*german*/"Deutsch"},
-                       Text{"a Cucco, eventually", /*french*/"un poussin éventuel",    /*spanish*/"un futuro cuco",     /*italian*/"un coccò (fra un po')",   /*german*/"Deutsch"},
-                       Text{"a fowl youth",        /*french*/"une omelette crue",      /*spanish*/"una dulce juventud", /*italian*/"una frittata cruda",      /*german*/"Deutsch"},
+                       Text{"a Cucco container",   /*french*/"un réservoir à Cocotte", /*spanish*/"cuco contenido",     /*italian*/"una noce di coccò",     /*german*/"Deutsch"},
+                       Text{"a Cucco, eventually", /*french*/"un poussin éventuel",    /*spanish*/"un futuro cuco",     /*italian*/"un coccò (fra un po')", /*german*/"Deutsch"},
+                       Text{"a fowl youth",        /*french*/"une omelette crue",      /*spanish*/"una dulce juventud", /*italian*/"una frittata cruda",    /*german*/"Deutsch"},
                      }, {
                        //ambiguous text
                        Text{"a trade quest item", /*french*/"un objet de quête d'échanges", /*spanish*/"un objeto de una misión secundaria", /*italian*/"un oggetto da scambiare", /*german*/"Deutsch"},
