@@ -1595,178 +1595,178 @@ void HintTable_Init_Exclude_Dungeon() {
   ---------------------------*/
     hintTable[GERUDO_TRAINING_GROUNDS_LOBBY_LEFT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #blinded eye in the Gerudo Training Grounds# drops", /*french*/"l'#Oeil dans le gymnase Gerudo# voit", /*spanish*/"#cegar un ojo en el Centro de Instrucción Gerudo# revela"},
+                       Text{"a #blinded eye in the Gerudo Training Grounds# drops", /*french*/"l'#Oeil dans le gymnase Gerudo# voit", /*spanish*/"#cegar un ojo en el Centro de Instrucción Gerudo# revela", /*italian*/"un #occhio accecato nella zona di addestramento Gerudo# mostra", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_LOBBY_RIGHT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #blinded eye in the Gerudo Training Grounds# drops", /*french*/"l'#Oeil dans le gymnase Gerudo# voit", /*spanish*/"#cegar un ojo en el Centro de Instrucción Gerudo# revela"},
+                       Text{"a #blinded eye in the Gerudo Training Grounds# drops", /*french*/"l'#Oeil dans le gymnase Gerudo# voit", /*spanish*/"#cegar un ojo en el Centro de Instrucción Gerudo# revela", /*italian*/"un #occhio accecato nella zona di addestramento Gerudo# mostra", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_STALFOS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#soldiers walking on shifting sands# in the Gerudo Training Grounds guard", /*french*/"les #squelettes# du gymnase Gerudo protègent", /*spanish*/"#soldados en resbaladizas arenas# del Centro de Instrucción Gerudo protegen"},
+                       Text{"#soldiers walking on shifting sands# in the Gerudo Training Grounds guard", /*french*/"les #squelettes# du gymnase Gerudo protègent", /*spanish*/"#soldados en resbaladizas arenas# del Centro de Instrucción Gerudo protegen", /*italian*/"addestrarsi combattendo #soldati sulla sabbia# procura", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_BEAMOS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#reptilian warriors# in the Gerudo Training Grounds protect", /*french*/"les #lézards# dans le gymnase Gerudo protègent", /*spanish*/"#unos escamosos guerreros# del Centro de Instrucción Gerudo protegen"},
+                       Text{"#reptilian warriors# in the Gerudo Training Grounds protect", /*french*/"les #lézards# dans le gymnase Gerudo protègent", /*spanish*/"#unos escamosos guerreros# del Centro de Instrucción Gerudo protegen", /*italian*/"addestrarsi combattendo #rettili guerrieri# procura", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_HIDDEN_CEILING_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Eye of Truth# in the Gerudo Training Grounds reveals", /*french*/"#bien caché# dans le gymnase Gerudo gît", /*spanish*/"el #Ojo de la Verdad# en el Centro de Instrucción Gerudo revela"},
+                       Text{"the #Eye of Truth# in the Gerudo Training Grounds reveals", /*french*/"#bien caché# dans le gymnase Gerudo gît", /*spanish*/"el #Ojo de la Verdad# en el Centro de Instrucción Gerudo revela", /*italian*/"l'#occhio della verità nella zona di addestramento Gerudo# mostra la via per", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MAZE_PATH_FIRST_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the first prize of #the thieves' training# is", /*french*/"le #premier trésor du gymnase Gerudo# est", /*spanish*/"el primer premio de la #instrucción bandida# se trata de"},
+                       Text{"the first prize of #the thieves' training# is", /*french*/"le #premier trésor du gymnase Gerudo# est", /*spanish*/"el primer premio de la #instrucción bandida# se trata de", /*italian*/"la prima ricompensa dell'#allenamento dei ladri# è", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MAZE_PATH_SECOND_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the second prize of #the thieves' training# is", /*french*/"le #deuxième trésor du gymnase Gerudo# est", /*spanish*/"el segundo premio de la #instrucción bandida# se trata de"},
+                       Text{"the second prize of #the thieves' training# is", /*french*/"le #deuxième trésor du gymnase Gerudo# est", /*spanish*/"el segundo premio de la #instrucción bandida# se trata de", /*italian*/"la seconda ricompensa dell'#allenamento dei ladri# è", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MAZE_PATH_THIRD_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the third prize of #the thieves' training# is", /*french*/"le #troisième trésor du gymnase Gerudo# est", /*spanish*/"el tercer premio de la #instrucción bandida# se trata de"},
+                       Text{"the third prize of #the thieves' training# is", /*french*/"le #troisième trésor du gymnase Gerudo# est", /*spanish*/"el tercer premio de la #instrucción bandida# se trata de", /*italian*/"la terza ricompensa dell'#allenamento dei ladri# è", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MAZE_RIGHT_CENTRAL_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Song of Time# in the Gerudo Training Grounds leads to", /*french*/"le #chant du temps# révèle dans le gymnase Gerudo", /*spanish*/"la #Canción del Tiempo# en el Centro de Instrucción Gerudo conduce a"},
+                       Text{"the #Song of Time# in the Gerudo Training Grounds leads to", /*french*/"le #chant du temps# révèle dans le gymnase Gerudo", /*spanish*/"la #Canción del Tiempo# en el Centro de Instrucción Gerudo conduce a", /*italian*/"la #Canzone del tempo# nella zona di addestramento Gerudo apre la via per", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MAZE_RIGHT_SIDE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Song of Time# in the Gerudo Training Grounds leads to", /*french*/"le #chant du temps# révèle dans le gymnase Gerudo", /*spanish*/"la #Canción del Tiempo# en el Centro de Instrucción Gerudo conduce a"},
+                       Text{"the #Song of Time# in the Gerudo Training Grounds leads to", /*french*/"le #chant du temps# révèle dans le gymnase Gerudo", /*spanish*/"la #Canción del Tiempo# en el Centro de Instrucción Gerudo conduce a", /*italian*/"la #Canzone del tempo# nella zona di addestramento Gerudo apre la via per", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_HAMMER_ROOM_CLEAR_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#fiery foes# in the Gerudo Training Grounds guard", /*french*/"les #limaces de feu# du gymnase Gerudo protègent", /*spanish*/"unos #flamígeros enemigos# del Centro de Instrucción Gerudo guardan"},
+                       Text{"#fiery foes# in the Gerudo Training Grounds guard", /*french*/"les #limaces de feu# du gymnase Gerudo protègent", /*spanish*/"unos #flamígeros enemigos# del Centro de Instrucción Gerudo guardan", /*italian*/"addestrarsi #combattendo nemici di fuoco# procura", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_HAMMER_ROOM_SWITCH_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#engulfed in flame# where thieves train lies", /*french*/"le #trésor enflammé# du gymnase Gerudo est", /*spanish*/"donde entrenan las bandidas #entre llamas# yace"},
+                       Text{"#engulfed in flame# where thieves train lies", /*french*/"le #trésor enflammé# du gymnase Gerudo est", /*spanish*/"donde entrenan las bandidas #entre llamas# yace", /*italian*/"un forziere #circondato di fiamme# dove i ladri si addestrano contiene", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_EYE_STATUE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"thieves #blind four faces# to find", /*french*/"l'#épreuve d'archerie# du gymnase Gerudo donne", /*spanish*/"las bandidas #ciegan cuatro bustos# para hallar"},
+                       Text{"thieves #blind four faces# to find", /*french*/"l'#épreuve d'archerie# du gymnase Gerudo donne", /*spanish*/"las bandidas #ciegan cuatro bustos# para hallar", /*italian*/"addestrarsi #accecando statue# procura", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_NEAR_SCARECROW_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"thieves #blind four faces# to find", /*french*/"l'#épreuve d'archerie# du gymnase Gerudo donne", /*spanish*/"las bandidas #ciegan cuatro bustos# para hallar"},
+                       Text{"thieves #blind four faces# to find", /*french*/"l'#épreuve d'archerie# du gymnase Gerudo donne", /*spanish*/"las bandidas #ciegan cuatro bustos# para hallar", /*italian*/"addestrarsi #accecando statue# procura", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_BEFORE_HEAVY_BLOCK_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#before a block of silver# thieves can find", /*french*/"#près d'un bloc argent# dans le gymnase Gerudo gît", /*spanish*/"#ante un plateado bloque# las bandidas hallan"},
+                       Text{"#before a block of silver# thieves can find", /*french*/"#près d'un bloc argent# dans le gymnase Gerudo gît", /*spanish*/"#ante un plateado bloque# las bandidas hallan", /*italian*/"addestrarsi #di fronte a un blocco d'argento# procura", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_HEAVY_BLOCK_FIRST_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #feat of strength# rewards thieves with", /*french*/"#derrière un bloc argent# dans le gymnase Gerudo gît", /*spanish*/"una #hazaña de fuerza# premia a las bandidas con"},
+                       Text{"a #feat of strength# rewards thieves with", /*french*/"#derrière un bloc argent# dans le gymnase Gerudo gît", /*spanish*/"una #hazaña de fuerza# premia a las bandidas con", /*italian*/"addestrarsi #spingendo un blocco d'argento# procura", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_HEAVY_BLOCK_SECOND_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #feat of strength# rewards thieves with", /*french*/"#derrière un bloc argent# dans le gymnase Gerudo gît", /*spanish*/"una #hazaña de fuerza# premia a las bandidas con"},
+                       Text{"a #feat of strength# rewards thieves with", /*french*/"#derrière un bloc argent# dans le gymnase Gerudo gît", /*spanish*/"una #hazaña de fuerza# premia a las bandidas con", /*italian*/"addestrarsi #spingendo un blocco d'argento# procura", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_HEAVY_BLOCK_THIRD_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #feat of strength# rewards thieves with", /*french*/"#derrière un bloc argent# dans le gymnase Gerudo gît", /*spanish*/"una #hazaña de fuerza# premia a las bandidas con"},
+                       Text{"a #feat of strength# rewards thieves with", /*french*/"#derrière un bloc argent# dans le gymnase Gerudo gît", /*spanish*/"una #hazaña de fuerza# premia a las bandidas con", /*italian*/"addestrarsi #spingendo un blocco d'argento# procura", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_HEAVY_BLOCK_FOURTH_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #feat of strength# rewards thieves with", /*french*/"#derrière un bloc argent# dans le gymnase Gerudo gît", /*spanish*/"una #hazaña de fuerza# premia a las bandidas con"},
+                       Text{"a #feat of strength# rewards thieves with", /*french*/"#derrière un bloc argent# dans le gymnase Gerudo gît", /*spanish*/"una #hazaña de fuerza# premia a las bandidas con", /*italian*/"addestrarsi #spingendo un blocco d'argento# procura", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_FREESTANDING_KEY] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Song of Time# in the Gerudo Training Grounds leads to", /*french*/"le #chant du temps# révèle dans le gymnase Gerudo", /*spanish*/"la #Canción del Tiempo# en el Centro de Instrucción Gerudo conduce a"},
+                       Text{"the #Song of Time# in the Gerudo Training Grounds leads to", /*french*/"le #chant du temps# révèle dans le gymnase Gerudo", /*spanish*/"la #Canción del Tiempo# en el Centro de Instrucción Gerudo conduce a", /*italian*/"la #Canzone del tempo# nella zona di addestramento Gerudo apre la via per", /*german*/"Deutsch"},
   });
 
 
     hintTable[GERUDO_TRAINING_GROUNDS_MQ_LOBBY_RIGHT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#thieves prepare for training# with", /*french*/"dans #l'entrée du gymnase Gerudo# gît", /*spanish*/"las #bandidas se instruyen# con"},
+                       Text{"#thieves prepare for training# with", /*french*/"dans #l'entrée du gymnase Gerudo# gît", /*spanish*/"las #bandidas se instruyen# con", /*italian*/"i #ladri si preparano all'addestramento# con", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MQ_LOBBY_LEFT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#thieves prepare for training# with", /*french*/"dans #l'entrée du gymnase Gerudo# gît", /*spanish*/"las #bandidas se instruyen# con"},
+                       Text{"#thieves prepare for training# with", /*french*/"dans #l'entrée du gymnase Gerudo# gît", /*spanish*/"las #bandidas se instruyen# con", /*italian*/"i #ladri si preparano all'addestramento# con", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MQ_FIRST_IRON_KNUCKLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#soldiers walking on shifting sands# in the Gerudo Training Grounds guard", /*french*/"les #squelettes# du gymnase Gerudo protègent", /*spanish*/"#soldados en resbaladizas arenas# del Centro de Instrucción Gerudo protegen"},
+                       Text{"#soldiers walking on shifting sands# in the Gerudo Training Grounds guard", /*french*/"les #squelettes# du gymnase Gerudo protègent", /*spanish*/"#soldados en resbaladizas arenas# del Centro de Instrucción Gerudo protegen", /*italian*/"addestrarsi combattendo un #soldato sulla sabbia# procura", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MQ_BEFORE_HEAVY_BLOCK_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#before a block of silver# thieves can find", /*french*/"#près d'un bloc argent# dans le gymnase Gerudo gît", /*spanish*/"#ante un plateado bloque# las bandidas hallan"},
+                       Text{"#before a block of silver# thieves can find", /*french*/"#près d'un bloc argent# dans le gymnase Gerudo gît", /*spanish*/"#ante un plateado bloque# las bandidas hallan", /*italian*/"addestrarsi #di fronte a un blocco d'argento# procura", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MQ_EYE_STATUE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"thieves #blind four faces# to find", /*french*/"l'#épreuve d'archerie# du gymnase Gerudo donne", /*spanish*/"las bandidas #ciegan cuatro bustos# para hallar"},
+                       Text{"thieves #blind four faces# to find", /*french*/"l'#épreuve d'archerie# du gymnase Gerudo donne", /*spanish*/"las bandidas #ciegan cuatro bustos# para hallar", /*italian*/"addestrarsi #accecando statue# procura", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MQ_FLAME_CIRCLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#engulfed in flame# where thieves train lies", /*french*/"le #trésor enflammé# du gymnase Gerudo est", /*spanish*/"donde entrenan las bandidas #entre llamas# yace"},
+                       Text{"#engulfed in flame# where thieves train lies", /*french*/"le #trésor enflammé# du gymnase Gerudo est", /*spanish*/"donde entrenan las bandidas #entre llamas# yace", /*italian*/"un forziere #circondato di fiamme# dove i ladri si addestrano contiene", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MQ_SECOND_IRON_KNUCKLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#fiery foes# in the Gerudo Training Grounds guard", /*french*/"les #ennemis de feu# du gymnase Gerudo protègent", /*spanish*/"unos #flamígeros enemigos# del Centro de Instrucción Gerudo guardan"},
+                       Text{"#fiery foes# in the Gerudo Training Grounds guard", /*french*/"les #ennemis de feu# du gymnase Gerudo protègent", /*spanish*/"unos #flamígeros enemigos# del Centro de Instrucción Gerudo guardan", /*italian*/"addestrarsi #combattendo nemici di fuoco# procura", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MQ_DINOLFOS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#reptilian warriors# in the Gerudo Training Grounds protect", /*french*/"les #lézards# dans le gymnase Gerudo protègent", /*spanish*/"#unos escamosos guerreros# del Centro de Instrucción Gerudo protegen"},
+                       Text{"#reptilian warriors# in the Gerudo Training Grounds protect", /*french*/"les #lézards# dans le gymnase Gerudo protègent", /*spanish*/"#unos escamosos guerreros# del Centro de Instrucción Gerudo protegen", /*italian*/"addestrarsi combattendo #rettili guerrieri# procura", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MQ_MAZE_RIGHT_CENTRAL_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #path of fire# leads thieves to", /*french*/"dans le #chemin enflammé# dans le gymnase Gerudo gît", /*spanish*/"un #camino de fuego# conduce a las bandidas a"},
+                       Text{"a #path of fire# leads thieves to", /*french*/"dans le #chemin enflammé# dans le gymnase Gerudo gît", /*spanish*/"un #camino de fuego# conduce a las bandidas a", /*italian*/"il #mare di fuoco# porta i ladri verso", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MQ_MAZE_PATH_FIRST_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the first prize of #the thieves' training# is", /*french*/"le #premier trésor du gymnase Gerudo# est", /*spanish*/"el primer premio de la #instrucción bandida# se trata de"},
+                       Text{"the first prize of #the thieves' training# is", /*french*/"le #premier trésor du gymnase Gerudo# est", /*spanish*/"el primer premio de la #instrucción bandida# se trata de", /*italian*/"la prima ricompensa dell'#allenamento dei ladri# è", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MQ_MAZE_RIGHT_SIDE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #path of fire# leads thieves to", /*french*/"dans le #chemin enflammé# dans le gymnase Gerudo gît", /*spanish*/"un #camino de fuego# conduce a las bandidas a"},
+                       Text{"a #path of fire# leads thieves to", /*french*/"dans le #chemin enflammé# dans le gymnase Gerudo gît", /*spanish*/"un #camino de fuego# conduce a las bandidas a", /*italian*/"il #mare di fuoco# porta i ladri verso", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MQ_MAZE_PATH_THIRD_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the third prize of #the thieves' training# is", /*french*/"le #troisième trésor du gymnase Gerudo# est", /*spanish*/"el tercer premio de la #instrucción bandida# se trata de"},
+                       Text{"the third prize of #the thieves' training# is", /*french*/"le #troisième trésor du gymnase Gerudo# est", /*spanish*/"el tercer premio de la #instrucción bandida# se trata de", /*italian*/"la terza ricompensa dell'#allenamento dei ladri# è", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MQ_MAZE_PATH_SECOND_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the second prize of #the thieves' training# is", /*french*/"le #deuxième trésor du gymnase Gerudo# est", /*spanish*/"el segundo premio de la #instrucción bandida# se trata de"},
+                       Text{"the second prize of #the thieves' training# is", /*french*/"le #deuxième trésor du gymnase Gerudo# est", /*spanish*/"el segundo premio de la #instrucción bandida# se trata de", /*italian*/"la seconda ricompensa dell'#allenamento dei ladri# è", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MQ_HIDDEN_CEILING_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Eye of Truth# in the Gerudo Training Grounds reveals", /*french*/"#bien caché# dans le gymnase Gerudo gît", /*spanish*/"el #Ojo de la Verdad# en el Centro de Instrucción Gerudo revela"},
+                       Text{"the #Eye of Truth# in the Gerudo Training Grounds reveals", /*french*/"#bien caché# dans le gymnase Gerudo gît", /*spanish*/"el #Ojo de la Verdad# en el Centro de Instrucción Gerudo revela", /*italian*/"l'#occhio della verità nella zona di addestramento Gerudo# mostra la via per", /*german*/"Deutsch"},
   });
 
     hintTable[GERUDO_TRAINING_GROUNDS_MQ_HEAVY_BLOCK_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"a #feat of strength# rewards thieves with", /*french*/"#derrière un bloc argent# dans le gymnase Gerudo gît", /*spanish*/"una #hazaña de fuerza# premia a las bandidas con"},
+                       Text{"a #feat of strength# rewards thieves with", /*french*/"#derrière un bloc argent# dans le gymnase Gerudo gît", /*spanish*/"una #hazaña de fuerza# premia a las bandidas con", /*italian*/"addestrarsi #spingendo un blocco d'argento# procura", /*german*/"Deutsch"},
   });
 
   /*--------------------------
