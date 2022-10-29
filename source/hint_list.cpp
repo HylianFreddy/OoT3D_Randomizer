@@ -75,7 +75,7 @@ void HintTable_Init() {
 
     hintTable[SHEIK_IN_FOREST] = HintText::Sometimes({
                        //obscure text
-                       Text{"#in a meadow# Sheik teaches", /*french*/"Sheik confiera, #dans une clairière#,", /*spanish*/"#en la pradera sagrada# Sheik enseña", /*italian*/", #in una radura#, Sheik insegna", /*german*/"Deutsch"},
+                       Text{"#in a meadow# Sheik teaches", /*french*/"Sheik confiera, #dans une clairière#,", /*spanish*/"#en la pradera sagrada# Sheik enseña", /*italian*/"#in una radura# Sheik insegna", /*german*/"Deutsch"},
   });
 
     hintTable[SHEIK_AT_TEMPLE] = HintText::Sometimes({
@@ -255,7 +255,7 @@ void HintTable_Init() {
                        Text{"the #first or second game chest# contains", /*french*/"le #premier ou deuxième coffre à jeu# contient", /*spanish*/"#el primer o segundo cofre del azar# revela", /*italian*/"#il primo o il secondo# forziere contiene", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #first locked room# in the chest game contains", /*french*/"la #première salle# de la chasse aux trésors contient", /*spanish*/"#en la primera sala del Cofre del Tesoro# aguarda", /*italian*/", nella sala della fortuna, la #prima stanza chiusa# nasconde", /*german*/"Deutsch"}
+                       Text{"the #first locked room# in the chest game contains", /*french*/"la #première salle# de la chasse aux trésors contient", /*spanish*/"#en la primera sala del Cofre del Tesoro# aguarda", /*italian*/"nella sala della fortuna la #prima stanza chiusa# nasconde", /*german*/"Deutsch"}
   );
 
     hintTable[MARKET_TREASURE_CHEST_GAME_ITEM_2] = HintText::Sometimes({
@@ -264,7 +264,7 @@ void HintTable_Init() {
                        Text{"the #third or fourth game chest# contains", /*french*/"le #troisième ou quatrième coffre à jeu# contient", /*spanish*/"#el tercer o cuarto cofre del azar# revela", /*italian*/"#il terzo o il quarto# forziere contiene", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #second locked room# in the chest game contains", /*french*/"la #deuxième salle# de la chasse aux trésors contient", /*spanish*/"#en la segunda sala del Cofre del Tesoro# aguarda", /*italian*/", nella sala della fortuna, la #seconda stanza chiusa# nasconde", /*german*/"Deutsch"}
+                       Text{"the #second locked room# in the chest game contains", /*french*/"la #deuxième salle# de la chasse aux trésors contient", /*spanish*/"#en la segunda sala del Cofre del Tesoro# aguarda", /*italian*/"nella sala della fortuna la #seconda stanza chiusa# nasconde", /*german*/"Deutsch"}
   );
 
     hintTable[MARKET_TREASURE_CHEST_GAME_ITEM_3] = HintText::Sometimes({
@@ -273,7 +273,7 @@ void HintTable_Init() {
                        Text{"the #fifth or sixth game chest# contains", /*french*/"le #cinquième ou sixième coffre à jeu# contient", /*spanish*/"#el quinto o sexto cofre del azar# revela", /*italian*/"#il quinto o il sesto# forziere contiene", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #third locked room# in the chest game contains", /*french*/"la #troisième salle# de la chasse aux trésors contient", /*spanish*/"#en la tercera sala del Cofre del Tesoro# aguarda", /*italian*/", nella sala della fortuna, la #terza stanza chiusa# nasconde", /*german*/"Deutsch"}
+                       Text{"the #third locked room# in the chest game contains", /*french*/"la #troisième salle# de la chasse aux trésors contient", /*spanish*/"#en la tercera sala del Cofre del Tesoro# aguarda", /*italian*/"nella sala della fortuna la #terza stanza chiusa# nasconde", /*german*/"Deutsch"}
   );
 
     hintTable[MARKET_TREASURE_CHEST_GAME_ITEM_4] = HintText::Sometimes({
@@ -282,7 +282,7 @@ void HintTable_Init() {
                        Text{"the #seventh or eighth game chest# contains", /*french*/"le #septième ou huitième coffre à jeu# contient", /*spanish*/"#el séptimo u octavo cofre del azar# revela", /*italian*/"#il settimo o l'ottavo# forziere contiene", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #fourth locked room# in the chest game contains", /*french*/"la #quatrième salle# de la chasse aux trésors contient", /*spanish*/"#en la cuarta sala del Cofre del Tesoro# aguarda", /*italian*/", nella sala della fortuna, la #quarta stanza chiusa# nasconde", /*german*/"Deutsch"}
+                       Text{"the #fourth locked room# in the chest game contains", /*french*/"la #quatrième salle# de la chasse aux trésors contient", /*spanish*/"#en la cuarta sala del Cofre del Tesoro# aguarda", /*italian*/"nella sala della fortuna la #quarta stanza chiusa# nasconde", /*german*/"Deutsch"}
   );
 
     hintTable[MARKET_TREASURE_CHEST_GAME_ITEM_5] = HintText::Sometimes({
@@ -291,7 +291,7 @@ void HintTable_Init() {
                        Text{"the #ninth or tenth game chest# contains", /*french*/"le #neuvième ou dixième coffre à jeu# contient", /*spanish*/"#el noveno o décimo cofre del azar# revela", /*italian*/"#il nono o il decimo# forziere contiene", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"the #fifth locked room# in the chest game contains", /*french*/"la #cinquième salle# de la chasse aux trésors contient", /*spanish*/"#en la quinta sala del Cofre del Tesoro# aguarda", /*italian*/", nella sala della fortuna, la #quinta stanza chiusa# nasconde", /*german*/"Deutsch"}
+                       Text{"the #fifth locked room# in the chest game contains", /*french*/"la #cinquième salle# de la chasse aux trésors contient", /*spanish*/"#en la quinta sala del Cofre del Tesoro# aguarda", /*italian*/"nella sala della fortuna la #quinta stanza chiusa# nasconde", /*german*/"Deutsch"}
   );
 
     hintTable[GF_HBA_1500_POINTS] = HintText::Sometimes({
@@ -329,12 +329,12 @@ void HintTable_Init() {
 
     hintTable[HC_GS_STORMS_GROTTO] = HintText::Sometimes({
                        //obscure text
-                       Text{"a #spider behind a muddy wall# in a grotto holds", /*french*/"l'#araignée derrière un mur de boue# dans une grotte donne", /*spanish*/"una #Skulltula tras la agrietada pared# de una cueva otorga", /*italian*/", #dietro la parete friabile di una grotta, un ragno# si nasconde con", /*german*/"Deutsch"},
+                       Text{"a #spider behind a muddy wall# in a grotto holds", /*french*/"l'#araignée derrière un mur de boue# dans une grotte donne", /*spanish*/"una #Skulltula tras la agrietada pared# de una cueva otorga", /*italian*/"un #ragno dietro la parete friabile di una grotta# si nasconde con", /*german*/"Deutsch"},
   });
 
     hintTable[HF_GS_COW_GROTTO] = HintText::Sometimes({
                        //obscure text
-                       Text{"a #spider behind webs# in a grotto holds", /*french*/"l'#araignée derrière une toile# dans une grotte donne", /*spanish*/"una #Skulltula tras la telaraña# de una cueva otorga", /*italian*/", #dietro una ragnatela in una grotta, un ragno# si nasconde con", /*german*/"Deutsch"},
+                       Text{"a #spider behind webs# in a grotto holds", /*french*/"l'#araignée derrière une toile# dans une grotte donne", /*spanish*/"una #Skulltula tras la telaraña# de una cueva otorga", /*italian*/"un #ragno dietro una ragnatela# in una grotta si nasconde con", /*german*/"Deutsch"},
   });
 
     hintTable[HF_COW_GROTTO_COW] = HintText::Sometimes({
@@ -342,7 +342,7 @@ void HintTable_Init() {
                        Text{"the #cobwebbed cow# gifts", /*french*/"la #vache prisonnière d'araignées# donne", /*spanish*/"una #vaca tras una telaraña# brinda", /*italian*/"un #ungulato nella prigione di un araneide# dona", /*german*/"Deutsch"},
                      }, {},
                        //clear text
-                       Text{"a #cow behind webs# in a grotto gifts", /*french*/"la #vache derrière les toiles# d'une grotte donne", /*spanish*/"una #vaca tras la telaraña# de una cueva brinda", /*italian*/", #dietro una ragnatela in una grotta, una mucca# regala", /*german*/"Deutsch"}
+                       Text{"a #cow behind webs# in a grotto gifts", /*french*/"la #vache derrière les toiles# d'une grotte donne", /*spanish*/"una #vaca tras la telaraña# de una cueva brinda", /*italian*/"una #mucca dietro una ragnatela# in una grotta regala", /*german*/"Deutsch"}
   );
 
     hintTable[ZF_GS_HIDDEN_CAVE] = HintText::Sometimes({

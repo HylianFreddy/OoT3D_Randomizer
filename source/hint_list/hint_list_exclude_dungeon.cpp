@@ -833,7 +833,7 @@ void HintTable_Init_Exclude_Dungeon() {
 
     hintTable[WATER_TEMPLE_CRACKED_WALL_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#through a crack# in the Water Temple is", /*french*/"le #mur fragile# du temple de l'eau cache", /*spanish*/"tras una #agrietada pared# del Templo del Agua yace", /*italian*/", #oltre una crepa# nel Santuario dell'Acqua, un forziere contiene", /*german*/"Deutsch"},
+                       Text{"#through a crack# in the Water Temple is", /*french*/"le #mur fragile# du temple de l'eau cache", /*spanish*/"tras una #agrietada pared# del Templo del Agua yace", /*italian*/"#oltre una crepa#, nel Santuario dell'Acqua, un forziere contiene", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_LONGSHOT_CHEST] = HintText::Exclude({
@@ -858,7 +858,7 @@ void HintTable_Init_Exclude_Dungeon() {
 
     hintTable[WATER_TEMPLE_MQ_LONGSHOT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#through a crack# in the Water Temple is", /*french*/"le #mur fragile# du temple de l'eau cache", /*spanish*/"tras una #agrietada pared# del Templo del Agua yace", /*italian*/", #oltre una crepa# nel Santuario dell'Acqua, un forziere contiene", /*german*/"Deutsch"},
+                       Text{"#through a crack# in the Water Temple is", /*french*/"le #mur fragile# du temple de l'eau cache", /*spanish*/"tras una #agrietada pared# del Templo del Agua yace", /*italian*/"#oltre una crepa#, nel Santuario dell'Acqua, un forziere contiene", /*german*/"Deutsch"},
   });
 
     hintTable[WATER_TEMPLE_MQ_COMPASS_CHEST] = HintText::Exclude({
