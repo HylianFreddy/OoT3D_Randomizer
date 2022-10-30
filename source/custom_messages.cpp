@@ -669,7 +669,7 @@ constexpr std::array DungeonColors = {
           }
         }
       }
-      return Text{"","",""}+UNSKIPPABLE()+INSTANT_TEXT_ON()+text+INSTANT_TEXT_OFF()+MESSAGE_END();
+      return Text{""}+UNSKIPPABLE()+INSTANT_TEXT_ON()+text+INSTANT_TEXT_OFF()+MESSAGE_END();
     }
 
     void ClearMessages() {
