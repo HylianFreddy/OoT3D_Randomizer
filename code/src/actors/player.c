@@ -7,6 +7,7 @@
 #include "fairy.h"
 #include "icetrap.h"
 #include "arrow.h"
+#include "input.h"
 
 #define PlayerActor_Init_addr 0x191844
 #define PlayerActor_Init ((ActorFunc)PlayerActor_Init_addr)
@@ -86,7 +87,19 @@ void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
+static s32 count = 0;
 void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
+
+    if (rInputCtx.pressed.d_up) {
+        DisplayTextbox(globalCtx, 0x9000 + count, 0);
+        count++;
+        if (count > 77) count = 0;
+    } else if (rInputCtx.pressed.d_down) {
+        DisplayTextbox(globalCtx, 0x9000 + count, 0);
+        count--;
+        if (count < 0) count = 77;
+    }
+
     Player* this = (Player*) thisx;
     PlayerActor_Update(thisx, globalCtx);
 
