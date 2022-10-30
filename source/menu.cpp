@@ -16,6 +16,11 @@
 #include "spoiler_log.hpp"
 #include "location_access.hpp"
 #include "debug.hpp"
+#include "text.hpp"
+
+int done = 0;
+int todo = 0;
+int comp = 0;
 
 namespace {
   bool seedChanged;
@@ -682,8 +687,8 @@ void GenerateRandomizer() {
   if (WriteAllPatches()) {
     printf("Done");
     if (Settings::PlayOption == PATCH_CONSOLE) {
-      printf("\x1b[14;10HQuit out using the home menu. Then\n");
-      printf("\x1b[15;10Henable game patching and launch OoT3D!\n");
+      printf("\x1b[14;10Hdone=%d, todo=%d, comp=%d\n", done, todo, comp);
+      done = todo = comp = 0;
     } else if (Settings::PlayOption == PATCH_CITRA) {
       printf("\x1b[14;10HCopy code.ips, exheader.bin and romfs to\n");
       printf("\x1b[15;10Hthe OoT3D mods folder, then launch OoT3D!\n");

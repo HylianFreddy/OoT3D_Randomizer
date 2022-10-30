@@ -1,9 +1,14 @@
 #pragma once
 
 #include <string>
+#include "debug.hpp"
 
 #define PLURAL 0
 #define SINGULAR 1
+
+extern int done;
+extern int todo;
+extern int comp;
 
 class Text {
 public:
@@ -16,7 +21,7 @@ public:
         EURfrench(generic),
         EURspanish(generic),
         EURitalian(generic),
-        EURgerman(std::move(generic)) {}
+        EURgerman(std::move(generic)) { todo++;}
 
     Text(std::string english_, std::string french_, std::string spanish_,
          std::string italian_, std::string german_)
@@ -27,7 +32,7 @@ public:
         EURfrench(std::move(french_)),
         EURspanish(std::move(spanish_)),
         EURitalian(std::move(italian_)),
-        EURgerman(std::move(german_)) {}
+        EURgerman(std::move(german_)) { done++;}
 
     Text(std::string NAenglish_, std::string NAfrench_, std::string NAspanish_,
          std::string EURenglish_, std::string EURfrench_, std::string EURspanish_,
@@ -39,7 +44,7 @@ public:
         EURfrench(std::move(EURfrench_)),
         EURspanish(std::move(EURspanish_)),
         EURitalian(std::move(EURitalian_)),
-        EURgerman(std::move(EURgerman_)) {}
+        EURgerman(std::move(EURgerman_)) { comp++;}
 
     const std::string& GetNAEnglish() const {
         return NAenglish;
@@ -95,12 +100,14 @@ public:
     }
 
     Text operator+ (const Text& right) const {
+        comp--;
         return Text{NAenglish + right.GetNAEnglish(), NAfrench + right.GetNAFrench(), NAspanish + right.GetNASpanish(),
                     EURenglish + right.GetEUREnglish(), EURfrench + right.GetEURFrench(), EURspanish + right.GetEURSpanish(),
                     EURitalian + right.GetEURItalian(), EURgerman + right.GetEURGerman()};
     }
 
     Text operator+ (const std::string& right) const {
+        comp--;
         return Text{NAenglish + right, NAfrench + right, NAspanish + right,
                     EURenglish + right, EURfrench + right, EURspanish + right,
                     EURitalian + right, EURgerman + right};
