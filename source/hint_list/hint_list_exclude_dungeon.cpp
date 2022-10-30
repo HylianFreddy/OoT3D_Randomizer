@@ -1774,194 +1774,194 @@ void HintTable_Init_Exclude_Dungeon() {
   ---------------------------*/
     hintTable[GANONS_TOWER_BOSS_KEY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #Evil King# hoards", /*french*/"le #Roi du Mal# possède", /*spanish*/"el #Rey del Mal# acapara"},
+                       Text{"the #Evil King# hoards", /*french*/"le #Roi du Mal# possède", /*spanish*/"el #Rey del Mal# acapara", /*italian*/"il #re del male# custodisce", /*german*/"Deutsch"},
   });
 
 
     hintTable[GANONS_CASTLE_FOREST_TRIAL_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of the wilds# holds", /*french*/"l'#épreuve des bois# contient", /*spanish*/"la #prueba de la naturaleza# brinda"},
+                       Text{"the #test of the wilds# holds", /*french*/"l'#épreuve des bois# contient", /*spanish*/"la #prueba de la naturaleza# brinda", /*italian*/"la #prova della natura# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_WATER_TRIAL_LEFT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of the seas# holds", /*french*/"l'#épreuve des mers# contient", /*spanish*/"la #prueba del mar# brinda"},
+                       Text{"the #test of the seas# holds", /*french*/"l'#épreuve des mers# contient", /*spanish*/"la #prueba del mar# brinda", /*italian*/"la #prova del mare# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_WATER_TRIAL_RIGHT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of the seas# holds", /*french*/"l'#épreuve des mers# contient", /*spanish*/"la #prueba del mar# brinda"},
+                       Text{"the #test of the seas# holds", /*french*/"l'#épreuve des mers# contient", /*spanish*/"la #prueba del mar# brinda", /*italian*/"la #prova del mare# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_SHADOW_TRIAL_FRONT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#music in the test of darkness# unveils", /*french*/"la #musique dans l'épreuve des ténèbres# révèle", /*spanish*/"la #música en la prueba de la oscuridad# revela"},
+                       Text{"#music in the test of darkness# unveils", /*french*/"la #musique dans l'épreuve des ténèbres# révèle", /*spanish*/"la #música en la prueba de la oscuridad# revela", /*italian*/"#musica nella prova dell'oscurità# apre la via per", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_SHADOW_TRIAL_GOLDEN_GAUNTLETS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#light in the test of darkness# unveils", /*french*/"la #lumière dans l'épreuve des ténèbres# révèle", /*spanish*/"la #luz en la prueba de la oscuridad# revela"},
+                       Text{"#light in the test of darkness# unveils", /*french*/"la #lumière dans l'épreuve des ténèbres# révèle", /*spanish*/"la #luz en la prueba de la oscuridad# revela", /*italian*/"#luce nella prova dell'oscurità# apre la via per", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_SPIRIT_TRIAL_CRYSTAL_SWITCH_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of the sands# holds", /*french*/"l'#épreuve des sables# contient", /*spanish*/"la #prueba de las arenas# brinda"},
+                       Text{"the #test of the sands# holds", /*french*/"l'#épreuve des sables# contient", /*spanish*/"la #prueba de las arenas# brinda", /*italian*/"la #prova delle sabbie# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_SPIRIT_TRIAL_INVISIBLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of the sands# holds", /*french*/"l'#épreuve des sables# contient", /*spanish*/"la #prueba de las arenas# brinda"},
+                       Text{"the #test of the sands# holds", /*french*/"l'#épreuve des sables# contient", /*spanish*/"la #prueba de las arenas# brinda", /*italian*/"la #prova delle sabbie# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_LIGHT_TRIAL_FIRST_LEFT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of radiance# holds", /*french*/"l'#épreuve du ciel# contient", /*spanish*/"la #prueba del resplandor# brinda"},
+                       Text{"the #test of radiance# holds", /*french*/"l'#épreuve du ciel# contient", /*spanish*/"la #prueba del resplandor# brinda", /*italian*/"la #prova dello splendore# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_LIGHT_TRIAL_SECOND_LEFT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of radiance# holds", /*french*/"l'#épreuve du ciel# contient", /*spanish*/"la #prueba del resplandor# brinda"},
+                       Text{"the #test of radiance# holds", /*french*/"l'#épreuve du ciel# contient", /*spanish*/"la #prueba del resplandor# brinda", /*italian*/"la #prova dello splendore# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_LIGHT_TRIAL_THIRD_LEFT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of radiance# holds", /*french*/"l'#épreuve du ciel# contient", /*spanish*/"la #prueba del resplandor# brinda"},
+                       Text{"the #test of radiance# holds", /*french*/"l'#épreuve du ciel# contient", /*spanish*/"la #prueba del resplandor# brinda", /*italian*/"la #prova dello splendore# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_LIGHT_TRIAL_FIRST_RIGHT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of radiance# holds", /*french*/"l'#épreuve du ciel# contient", /*spanish*/"la #prueba del resplandor# brinda"},
+                       Text{"the #test of radiance# holds", /*french*/"l'#épreuve du ciel# contient", /*spanish*/"la #prueba del resplandor# brinda", /*italian*/"la #prova dello splendore# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_LIGHT_TRIAL_SECOND_RIGHT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of radiance# holds", /*french*/"l'#épreuve du ciel# contient", /*spanish*/"la #prueba del resplandor# brinda"},
+                       Text{"the #test of radiance# holds", /*french*/"l'#épreuve du ciel# contient", /*spanish*/"la #prueba del resplandor# brinda", /*italian*/"la #prova dello splendore# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_LIGHT_TRIAL_THIRD_RIGHT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of radiance# holds", /*french*/"l'#épreuve du ciel# contient", /*spanish*/"la #prueba del resplandor# brinda"},
+                       Text{"the #test of radiance# holds", /*french*/"l'#épreuve du ciel# contient", /*spanish*/"la #prueba del resplandor# brinda", /*italian*/"la #prova dello splendore# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_LIGHT_TRIAL_INVISIBLE_ENEMIES_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of radiance# holds", /*french*/"l'#épreuve du ciel# contient", /*spanish*/"la #prueba del resplandor# brinda"},
+                       Text{"the #test of radiance# holds", /*french*/"l'#épreuve du ciel# contient", /*spanish*/"la #prueba del resplandor# brinda", /*italian*/"la #prova dello splendore# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_LIGHT_TRIAL_LULLABY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#music in the test of radiance# reveals", /*french*/"la #musique dans l'épreuve du ciel# révèle", /*spanish*/"la #música en la prueba del resplandor# revela"},
+                       Text{"#music in the test of radiance# reveals", /*french*/"la #musique dans l'épreuve du ciel# révèle", /*spanish*/"la #música en la prueba del resplandor# revela", /*italian*/"#musica nella prova dello splendore# cela", /*german*/"Deutsch"},
   });
 
 
     hintTable[GANONS_CASTLE_MQ_WATER_TRIAL_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of the seas# holds", /*french*/"l'#épreuve des mers# contient", /*spanish*/"la #prueba del mar# brinda"},
+                       Text{"the #test of the seas# holds", /*french*/"l'#épreuve des mers# contient", /*spanish*/"la #prueba del mar# brinda", /*italian*/"la #prova del mare# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_MQ_FOREST_TRIAL_EYE_SWITCH_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of the wilds# holds", /*french*/"l'#épreuve des bois# contient", /*spanish*/"la #prueba de la naturaleza# brinda"},
+                       Text{"the #test of the wilds# holds", /*french*/"l'#épreuve des bois# contient", /*spanish*/"la #prueba de la naturaleza# brinda", /*italian*/"la #prova della natura# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_MQ_FOREST_TRIAL_FROZEN_EYE_SWITCH_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of the wilds# holds", /*french*/"l'#épreuve des bois# contient", /*spanish*/"la #prueba de la naturaleza# brinda"},
+                       Text{"the #test of the wilds# holds", /*french*/"l'#épreuve des bois# contient", /*spanish*/"la #prueba de la naturaleza# brinda", /*italian*/"la #prova della natura# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_MQ_LIGHT_TRIAL_LULLABY_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#music in the test of radiance# reveals", /*french*/"la #musique dans l'épreuve du ciel# révèle", /*spanish*/"la #música en la prueba del resplandor# revela"},
+                       Text{"#music in the test of radiance# reveals", /*french*/"la #musique dans l'épreuve du ciel# révèle", /*spanish*/"la #música en la prueba del resplandor# revela", /*italian*/"#musica nella prova dello splendore# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_MQ_SHADOW_TRIAL_BOMB_FLOWER_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of darkness# holds", /*french*/"l'#épreuve des ténèbres# contient", /*spanish*/"la #prueba de la oscuridad# brinda"},
+                       Text{"the #test of darkness# holds", /*french*/"l'#épreuve des ténèbres# contient", /*spanish*/"la #prueba de la oscuridad# brinda", /*italian*/"la #prova dell'oscurità# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_MQ_SHADOW_TRIAL_EYE_SWITCH_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of darkness# holds", /*french*/"l'#épreuve des ténèbres# contient", /*spanish*/"la #prueba de la oscuridad# brinda"},
+                       Text{"the #test of darkness# holds", /*french*/"l'#épreuve des ténèbres# contient", /*spanish*/"la #prueba de la oscuridad# brinda", /*italian*/"la #prova dell'oscurità# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_MQ_SPIRIT_TRIAL_GOLDEN_GAUNTLETS_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#reflected light in the test of the sands# reveals", /*french*/"le #soleil dans l'épreuve des sables# révèle", /*spanish*/"#reflejar la luz en la prueba de las arenas# revela"},
+                       Text{"#reflected light in the test of the sands# reveals", /*french*/"le #soleil dans l'épreuve des sables# révèle", /*spanish*/"#reflejar la luz en la prueba de las arenas# revela", /*italian*/"#riflettendo nella prova delle sabbie# si ottiene", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_MQ_SPIRIT_TRIAL_SUN_BACK_RIGHT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#reflected light in the test of the sands# reveals", /*french*/"le #soleil dans l'épreuve des sables# révèle", /*spanish*/"#reflejar la luz en la prueba de las arenas# revela"},
+                       Text{"#reflected light in the test of the sands# reveals", /*french*/"le #soleil dans l'épreuve des sables# révèle", /*spanish*/"#reflejar la luz en la prueba de las arenas# revela", /*italian*/"#riflettendo nella prova delle sabbie# si ottiene", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_MQ_SPIRIT_TRIAL_SUN_BACK_LEFT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#reflected light in the test of the sands# reveals", /*french*/"le #soleil dans l'épreuve des sables# révèle", /*spanish*/"#reflejar la luz en la prueba de las arenas# revela"},
+                       Text{"#reflected light in the test of the sands# reveals", /*french*/"le #soleil dans l'épreuve des sables# révèle", /*spanish*/"#reflejar la luz en la prueba de las arenas# revela", /*italian*/"#riflettendo nella prova delle sabbie# si ottiene", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_MQ_SPIRIT_TRIAL_SUN_FRONT_LEFT_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#reflected light in the test of the sands# reveals", /*french*/"le #soleil dans l'épreuve des sables# révèle", /*spanish*/"#reflejar la luz en la prueba de las arenas# revela"},
+                       Text{"#reflected light in the test of the sands# reveals", /*french*/"le #soleil dans l'épreuve des sables# révèle", /*spanish*/"#reflejar la luz en la prueba de las arenas# revela", /*italian*/"#riflettendo nella prova delle sabbie# si ottiene", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_MQ_SPIRIT_TRIAL_FIRST_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#reflected light in the test of the sands# reveals", /*french*/"le #soleil dans l'épreuve des sables# révèle", /*spanish*/"#reflejar la luz en la prueba de las arenas# revela"},
+                       Text{"#reflected light in the test of the sands# reveals", /*french*/"le #soleil dans l'épreuve des sables# révèle", /*spanish*/"#reflejar la luz en la prueba de las arenas# revela", /*italian*/"#riflettendo nella prova delle sabbie# si ottiene", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_MQ_SPIRIT_TRIAL_INVISIBLE_CHEST] = HintText::Exclude({
                        //obscure text
-                       Text{"#reflected light in the test of the sands# reveals", /*french*/"le #soleil dans l'épreuve des sables# révèle", /*spanish*/"#reflejar la luz en la prueba de las arenas# revela"},
+                       Text{"#reflected light in the test of the sands# reveals", /*french*/"le #soleil dans l'épreuve des sables# révèle", /*spanish*/"#reflejar la luz en la prueba de las arenas# revela", /*italian*/"#riflettendo nella prova delle sabbie# si ottiene", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_MQ_FOREST_TRIAL_FREESTANDING_KEY] = HintText::Exclude({
                        //obscure text
-                       Text{"the #test of the wilds# holds", /*french*/"l'#épreuve des bois# révèle", /*spanish*/"la #prueba de la naturaleza# brinda"},
+                       Text{"the #test of the wilds# holds", /*french*/"l'#épreuve des bois# révèle", /*spanish*/"la #prueba de la naturaleza# brinda", /*italian*/"la #prova della natura# cela", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_DEKU_SCRUB_CENTER_LEFT] = HintText::Exclude({
                        //obscure text
-                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden"},
+                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden", /*italian*/"un #cespuglio nel castello di Ganon# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_DEKU_SCRUB_CENTER_RIGHT] = HintText::Exclude({
                        //obscure text
-                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden"},
+                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden", /*italian*/"un #cespuglio nel castello di Ganon# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_DEKU_SCRUB_RIGHT] = HintText::Exclude({
                        //obscure text
-                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden"},
+                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden", /*italian*/"un #cespuglio nel castello di Ganon# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_DEKU_SCRUB_LEFT] = HintText::Exclude({
                        //obscure text
-                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden"},
+                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden", /*italian*/"un #cespuglio nel castello di Ganon# vende", /*german*/"Deutsch"},
   });
 
 
     hintTable[GANONS_CASTLE_MQ_DEKU_SCRUB_RIGHT] = HintText::Exclude({
                        //obscure text
-                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden"},
+                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden", /*italian*/"un #cespuglio nel castello di Ganon# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_MQ_DEKU_SCRUB_CENTER_LEFT] = HintText::Exclude({
                        //obscure text
-                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden"},
+                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden", /*italian*/"un #cespuglio nel castello di Ganon# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_MQ_DEKU_SCRUB_CENTER] = HintText::Exclude({
                        //obscure text
-                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden"},
+                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden", /*italian*/"un #cespuglio nel castello di Ganon# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_MQ_DEKU_SCRUB_CENTER_RIGHT] = HintText::Exclude({
                        //obscure text
-                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden"},
+                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden", /*italian*/"un #cespuglio nel castello di Ganon# vende", /*german*/"Deutsch"},
   });
 
     hintTable[GANONS_CASTLE_MQ_DEKU_SCRUB_LEFT] = HintText::Exclude({
                        //obscure text
-                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden"},
+                       Text{"#scrubs in Ganon's Castle# sell", /*french*/"les #pestes Mojo dans le château de Ganon# vendent", /*spanish*/"los #dekus del Castillo de Ganon# venden", /*italian*/"un #cespuglio nel castello di Ganon# vende", /*german*/"Deutsch"},
   });
 }
