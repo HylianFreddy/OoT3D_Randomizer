@@ -1231,377 +1231,377 @@ void HintTable_Init() {
 
     hintTable[JUNK03] = HintText::Junk({
                      //obscure text
-                     Text{"They say that Zelda is a poor leader.", /*french*/"Selon moi, Zelda ne ferait pas un bon monarque.", /*spanish*/"Según dicen, Zelda es mala líder."},
+                     Text{"They say that Zelda is a poor leader.", /*french*/"Selon moi, Zelda ne ferait pas un bon monarque.", /*spanish*/"Según dicen, Zelda es mala líder.", /*italian*/"Ho sentito dire che Zelda non è brava a governare.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK04] = HintText::Junk({
                      //obscure text
-                     Text{"These hints can be quite useful. This is an exception.", /*french*/"Ces indices sont très utiles, à l'exception de celui-ci.", /*spanish*/"Las pistas suelen servir de ayuda. En cambio, esta no."},
+                     Text{"These hints can be quite useful. This is an exception.", /*french*/"Ces indices sont très utiles, à l'exception de celui-ci.", /*spanish*/"Las pistas suelen servir de ayuda. En cambio, esta no.", /*italian*/"Questi indizi sono molto utili. Io sono l'eccezione che conferma la regola.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK05] = HintText::Junk({
                      //obscure text
-                     Text{"They say that the Lizalfos in Dodongo's Cavern like to play in lava.", /*french*/"Selon moi, les Lézalfos de la caverne Dodongo aiment patauger dans la lave.", /*spanish*/"Según dicen, a los Lizalfos de la Cueva de los Dodongos les gusta jugar en la lava."},
+                     Text{"They say that the Lizalfos in Dodongo's Cavern like to play in lava.", /*french*/"Selon moi, les Lézalfos de la caverne Dodongo aiment patauger dans la lave.", /*spanish*/"Según dicen, a los Lizalfos de la Cueva de los Dodongos les gusta jugar en la lava.", /*italian*/"Ho sentito dire che i Lizalfos nella caverna dei Dodongo adorano giocare nella lava.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK06] = HintText::Junk({
                      //obscure text
-                     Text{"They say that all the Zora drowned in Wind Waker.", /*french*/"Selon moi, les Zoras se sont noyés dans Wind Waker.", /*spanish*/"Según dicen, en Wind Waker todos los zora se ahogaron."},
+                     Text{"They say that all the Zora drowned in Wind Waker.", /*french*/"Selon moi, les Zoras se sont noyés dans Wind Waker.", /*spanish*/"Según dicen, en Wind Waker todos los zora se ahogaron.", /*italian*/"Ho sentito dire che in Wind Waker tutti gli Zora sono annegati.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK07] = HintText::Junk({
                      //obscure text
-                     Text{"If Gorons eat rocks, does that mean I'm in danger?", /*french*/"Ne dis pas au Gorons que je suis ici. Ils mangent des roches, tu sais!", /*spanish*/"Si los Goron se tragan las piedras, ¿no me hace ser una especia vulnarable o algo así"},
+                     Text{"If Gorons eat rocks, does that mean I'm in danger?", /*french*/"Ne dis pas au Gorons que je suis ici. Ils mangent des roches, tu sais!", /*spanish*/"Si los Goron se tragan las piedras, ¿no me hace ser una especia vulnarable o algo así", /*italian*/"Ma se i Goron mangiano pietre... non è che sono in pericolo?", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK08] = HintText::Junk({
                      //obscure text
-                     Text{"'Member when Ganon was a blue pig?^I 'member.", /*french*/"Dans mon temps, Ganon était un cochon bleu...^Pff! Les jeunes de nos jours, et leur Ganondorf!", /*spanish*/"¿T'acuerdas cuando Ganon era un cerdo azul?^Qué tiempos, chico."},
+                     Text{"'Member when Ganon was a blue pig?^I 'member.", /*french*/"Dans mon temps, Ganon était un cochon bleu...^Pff! Les jeunes de nos jours, et leur Ganondorf!", /*spanish*/"¿T'acuerdas cuando Ganon era un cerdo azul?^Qué tiempos, chico.", /*italian*/"Mi ricordo i bei vecchi tempi, quando Ganon era un cinghiale blu.^Ah, i giovani d'oggi e il loro Ganondorf!", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK09] = HintText::Junk({
                      //obscure text
-                     Text{"One who does not have Triforce can't go in.", /*french*/"Ceux sans Triforce doivent rebrousser chemin.", /*spanish*/"Aquel que no porte la Trifuerza no podrá pasar."},
+                     Text{"One who does not have Triforce can't go in.", /*french*/"Ceux sans Triforce doivent rebrousser chemin.", /*spanish*/"Aquel que no porte la Trifuerza no podrá pasar.", /*italian*/"Coloro che non hanno la Triforza non potranno passare.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK10] = HintText::Junk({
                      //obscure text
-                     Text{"Save your future, end the Happy Mask Salesman.", /*french*/"Selon moi, tu t'éviteras des jours de malheur si tu vaincs le vendeur de masques...", /*spanish*/"Salva tu futuro, acaba con el dueño de La Máscara Feliz."},
+                     Text{"Save your future, end the Happy Mask Salesman.", /*french*/"Selon moi, tu t'éviteras des jours de malheur si tu vaincs le vendeur de masques...", /*spanish*/"Salva tu futuro, acaba con el dueño de La Máscara Feliz.", /*italian*/"Salva il tuo futuro! Fai fuori il venditore di maschere!", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK11] = HintText::Junk({
                      //obscure text
-                     Text{"Glitches are a pathway to many abilities some consider to be... Unnatural.", /*french*/"Les glitchs sont un moyen d'acquérir de nombreuses facultés considérées par certains comme... contraire à la nature.", /*spanish*/"Los glitches son el camino a muchas habilidades que varios consideran... nada natural."},
+                     Text{"Glitches are a pathway to many abilities some consider to be... Unnatural.", /*french*/"Les glitchs sont un moyen d'acquérir de nombreuses facultés considérées par certains comme... contraire à la nature.", /*spanish*/"Los glitches son el camino a muchas habilidades que varios consideran... nada natural.", /*italian*/"I glitch sono la via per acquistare molte capacità da alcuni ritenute ingiustamente non naturali.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK12] = HintText::Junk({
                      //obscure text
-                     Text{"I'm stoned. Get it?", /*french*/"Allez, roche, papier, ciseau...&Roche.", /*spanish*/"Me he quedado de piedra. ¿Lo pillas?"},
+                     Text{"I'm stoned. Get it?", /*french*/"Allez, roche, papier, ciseau...&Roche.", /*spanish*/"Me he quedado de piedra. ¿Lo pillas?", /*italian*/"AH! Non mi spaventare così. Mi hai proprio pietrificato!", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK13] = HintText::Junk({
                      //obscure text
-                     Text{"Hoot! Hoot! Would you like me to repeat that?", /*french*/"Hou hou! Veux-tu que je répète tout ça?", /*spanish*/"¡Buuu, buuu! ¿Te lo vuelvo a repetir?"},
+                     Text{"Hoot! Hoot! Would you like me to repeat that?", /*french*/"Hou hou! Veux-tu que je répète tout ça?", /*spanish*/"¡Buuu, buuu! ¿Te lo vuelvo a repetir?", /*italian*/"Uh uuh! Uh uuh! Vuoi che ti ripeta cos'ho appena detto?", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK14] = HintText::Junk({
                      //obscure text
-                     Text{"Gorons are stupid. They eat rocks.", /*french*/"Les Gorons sont des vraies têtes dures.", /*spanish*/"Los Goron son tontos. Se comen las piedras."},
+                     Text{"Gorons are stupid. They eat rocks.", /*french*/"Les Gorons sont des vraies têtes dures.", /*spanish*/"Los Goron son tontos. Se comen las piedras.", /*italian*/"I Goron sono stupidi. Hanno proprio la testa dura come la roccia.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK15] = HintText::Junk({
                      //obscure text
-                     Text{"They say that Lon Lon Ranch prospered under Ingo.", /*french*/"Selon moi, le ranch Lon Lon était plus prospère sous Ingo.", /*spanish*/"Según dicen, el Rancho Lon Lon prosperó gracias a Ingo."},
+                     Text{"They say that Lon Lon Ranch prospered under Ingo.", /*french*/"Selon moi, le ranch Lon Lon était plus prospère sous Ingo.", /*spanish*/"Según dicen, el Rancho Lon Lon prosperó gracias a Ingo.", /*italian*/"Ho sentito dire che la Fattoria Lon Lon è prosperata molto grazie a Ingo.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK16] = HintText::Junk({
                      //obscure text
-                     Text{"The single rupee is a unique item.", /*french*/"Nul objet n'est plus unique que le rubis vert.", /*spanish*/"La rupia de uno es un objeto singular."},
+                     Text{"The single rupee is a unique item.", /*french*/"Nul objet n'est plus unique que le rubis vert.", /*spanish*/"La rupia de uno es un objeto singular.", /*italian*/"La singola rupia verde è un oggetto più unico che raro.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK17] = HintText::Junk({
                      //obscure text
-                     Text{"Without the Lens of Truth, the Treasure Chest Mini-Game is a 1 out of 32 chance.^Good luck!", /*french*/"Gagner la chasse aux trésors est 1 chance sur 32.^Bonne chance!", /*spanish*/"Sin la Lupa de la Verdad, ganarías 1/32 veces en el Cofre del Tesoro.^¡Buena suerte con ello!"},
+                     Text{"Without the Lens of Truth, the Treasure Chest Mini-Game is a 1 out of 32 chance.^Good luck!", /*french*/"Gagner la chasse aux trésors est 1 chance sur 32.^Bonne chance!", /*spanish*/"Sin la Lupa de la Verdad, ganarías 1/32 veces en el Cofre del Tesoro.^¡Buena suerte con ello!", /*italian*/"Senza la lente della verità, la probabilità di vincere il gioco della sala della fortuna è 1 su 32.^Buona fortuna!", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK18] = HintText::Junk({
                      //obscure text
-                     Text{"Use bombs wisely.", /*french*/"Utilise les bombes avec précaution.", /*spanish*/"No desperdicies las bombas."},
+                     Text{"Use bombs wisely.", /*french*/"Utilise les bombes avec précaution.", /*spanish*/"No desperdicies las bombas.", /*italian*/"Non sprecare bombe.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK19] = HintText::Junk({
                      //obscure text
-                     Text{"They say that Volvagia hates splinters", /*french*/"Selon moi, Volvagia déteste les échardes.", /*spanish*/"Según dicen, Volvagia le teme a las astillas."},
+                     Text{"They say that Volvagia hates splinters", /*french*/"Selon moi, Volvagia déteste les échardes.", /*spanish*/"Según dicen, Volvagia le teme a las astillas.", /*italian*/"Ho sentito dire che Varubaja odia le schegge.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK20] = HintText::Junk({
                      //obscure text
-                     Text{"They say that funky monkeys can be spotted on Friday.", /*french*/"Selon moi, des capucins coquins sortent le vendredi.", /*spanish*/"Según dicen, en los viernes puedes hallar monos marchosos."},
+                     Text{"They say that funky monkeys can be spotted on Friday.", /*french*/"Selon moi, des capucins coquins sortent le vendredi.", /*spanish*/"Según dicen, en los viernes puedes hallar monos marchosos.", /*italian*/"Ho sentito dire che di venerdì si possono vedere scimmie stravaganti.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK21] = HintText::Junk({
                      //obscure text
-                     Text{"I found you, faker!", /*french*/"Ah-ha! Je t'ai trouvé!", /*spanish*/"¡Ahí estás, impostor!"},
+                     Text{"I found you, faker!", /*french*/"Ah-ha! Je t'ai trouvé!", /*spanish*/"¡Ahí estás, impostor!", /*italian*/"Ti ho trovato, impostore!", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK22] = HintText::Junk({
                      //obscure text
-                     Text{"They say the Groose is loose.", /*french*/"Selon moi, Hergo est le vrai héros.", /*spanish*/"Según dicen, Malton es un espanto."},
+                     Text{"They say the Groose is loose.", /*french*/"Selon moi, Hergo est le vrai héros.", /*spanish*/"Según dicen, Malton es un espanto.", /*italian*/"Ho sentito dire che Bado è proprio un baro!", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK23] = HintText::Junk({
                      //obscure text
-                     Text{"They say that players who select the \"ON\" option for \"MOTION CONTROL\" are the real \"Zelda players!\"", /*french*/"Selon moi, ceux qui utilisent les contrôles gyroscopiques sont les VRAIS joueurs.", /*spanish*/"Según dicen, aquellos que juegan usando el control por movimiento son los verdaderos jugadores de Zelda."},
+                     Text{"They say that players who select the \"ON\" option for \"MOTION CONTROL\" are the real \"Zelda players!\"", /*french*/"Selon moi, ceux qui utilisent les contrôles gyroscopiques sont les VRAIS joueurs.", /*spanish*/"Según dicen, aquellos que juegan usando el control por movimiento son los verdaderos jugadores de Zelda.", /*italian*/"Ho sentito dire che solo coloro che impostano i sensori di movimento su \"Sì\" sono i veri giocatori di Zelda!", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK24] = HintText::Junk({
                      //obscure text
-                     Text{"What happened to Sheik?", /*french*/"Donc... Qu'est-ce qui arrive avec Sheik?", /*spanish*/"¿Qué la habrá pasado a Sheik?"},
+                     Text{"What happened to Sheik?", /*french*/"Donc... Qu'est-ce qui arrive avec Sheik?", /*spanish*/"¿Qué la habrá pasado a Sheik?", /*italian*/"Cosa sarà successo a Sheik?", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK25] = HintText::Junk({
                      //obscure text
-                     Text{"L2P @.", /*french*/"Arrête de lire les indices et joue comme un grand, @.", /*spanish*/"Mira que eres novato, @."},
+                     Text{"L2P @.", /*french*/"Arrête de lire les indices et joue comme un grand, @.", /*spanish*/"Mira que eres novato, @.", /*italian*/"Sei proprio un novellino, @.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK26] = HintText::Junk({
                      //obscure text
-                     Text{"I've heard you can cheat at Sploosh Kaboom.", /*french*/"Selon moi, il y a une carte aux trésors à Mercantîle... Duh!", /*spanish*/"He oído por ahí que puedes hacer trampa en el Sploosh Kaboom."},
+                     Text{"I've heard you can cheat at Sploosh Kaboom.", /*french*/"Selon moi, il y a une carte aux trésors à Mercantîle... Duh!", /*spanish*/"He oído por ahí que puedes hacer trampa en el Sploosh Kaboom.", /*italian*/"Si dice che si possa barare al gioco di \"Sploosh\" e \"Kaboom\".", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK27] = HintText::Junk({
                      //obscure text
-                     Text{"I'm Lonk from Pennsylvania.", /*french*/"Je suis Lonk, le héros de Pennsylvanie!", /*spanish*/"Soy Lonk, de Pensilvania."},
+                     Text{"I'm Lonk from Pennsylvania.", /*french*/"Je suis Lonk, le héros de Pennsylvanie!", /*spanish*/"Soy Lonk, de Pensilvania.", /*italian*/"Sono Lonk, dalla Pennsylvania.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK28] = HintText::Junk({
                      //obscure text
-                     Text{"I bet you'd like to have more bombs.", /*french*/"Je parie que tu veux plus de bombes.", /*spanish*/"Me apuesto a que quisieras tener más bombas."},
+                     Text{"I bet you'd like to have more bombs.", /*french*/"Je parie que tu veux plus de bombes.", /*spanish*/"Me apuesto a que quisieras tener más bombas.", /*italian*/"Scommetto ti piacerebbe avere più bombe, eh?", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK29] = HintText::Junk({
                      //obscure text
-                     Text{"When all else fails, use Fire.", /*french*/"Quand rien ne marche, utilise le feu.", /*spanish*/"Cuando nada funcione, usa el fuego."},
+                     Text{"When all else fails, use Fire.", /*french*/"Quand rien ne marche, utilise le feu.", /*spanish*/"Cuando nada funcione, usa el fuego.", /*italian*/"Se nient'altro funziona, usa il fuoco.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK30] = HintText::Junk({
                      //obscure text
-                     Text{"Here's a hint, @. Don't be bad.", /*french*/"Selon moi, la #Triforce# n'est pas dans le jeu... Duh!", /*spanish*/"Aquí tienes una pista, @: deja de ser manco."},
+                     Text{"Here's a hint, @. Don't be bad.", /*french*/"Selon moi, la #Triforce# n'est pas dans le jeu... Duh!", /*spanish*/"Aquí tienes una pista, @: deja de ser manco.", /*italian*/"Eccoti un indizio, @: gioca meglio.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK31] = HintText::Junk({
                      //obscure text
-                     Text{"Game Over. Return of Ganon.", /*french*/"Partie terminée. RETOUR DE GANON.", /*spanish*/"Fin de la partida. El regreso de Ganon."},
+                     Text{"Game Over. Return of Ganon.", /*french*/"Partie terminée. RETOUR DE GANON.", /*spanish*/"Fin de la partida. El regreso de Ganon.", /*italian*/"Game Over. Ritorno di Ganon.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK32] = HintText::Junk({
                      //obscure text
-                     Text{"May the way of the Hero lead to the Triforce.", /*french*/"Que le chemin du héros te mène à la Triforce.", /*spanish*/"Puede que la senda del héroe te lleve hacia la Trifuerza."},
+                     Text{"May the way of the Hero lead to the Triforce.", /*french*/"Que le chemin du héros te mène à la Triforce.", /*spanish*/"Puede que la senda del héroe te lleve hacia la Trifuerza.", /*italian*/"Che il cammino dell'eroe possa condurre alla Triforza!", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK33] = HintText::Junk({
                      //obscure text
-                     Text{"Can't find an item? Scan an Amiibo.", /*french*/"Tu cherches de quoi? Utilise un Amiibo!", /*spanish*/"¿No encuentras algo? Escanea un amiibo."},
+                     Text{"Can't find an item? Scan an Amiibo.", /*french*/"Tu cherches de quoi? Utilise un Amiibo!", /*spanish*/"¿No encuentras algo? Escanea un amiibo.", /*italian*/"Non riesci a trovare un oggetto? Scansiona un Amiibo!", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK34] = HintText::Junk({
                      //obscure text
-                     Text{"They say this game has just a few glitches.", /*french*/"Selon moi, ce jeu est complètement exempt de glitchs.", /*spanish*/"Dicen que este juego apenas tiene glitches."},
+                     Text{"They say this game has just a few glitches.", /*french*/"Selon moi, ce jeu est complètement exempt de glitchs.", /*spanish*/"Dicen que este juego apenas tiene glitches.", /*italian*/"Ho sentito dire che di glitch questo gioco ne ha proprio pochi.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK35] = HintText::Junk({
                      //obscure text
-                     Text{"BRRING BRRING This is Ulrira. Wrong number?", /*french*/"DRING DRING!! Pépé le Ramollo à l'appareil... Quoi? Faux numéro?", /*spanish*/"¡Ring! ¡Ring! Al habla Ulrira. ¿Me he equivocado de número?"},
+                     Text{"BRRING BRRING This is Ulrira. Wrong number?", /*french*/"DRING DRING!! Pépé le Ramollo à l'appareil... Quoi? Faux numéro?", /*spanish*/"¡Ring! ¡Ring! Al habla Ulrira. ¿Me he equivocado de número?", /*italian*/"DRIIIN! DRIIIN! Pronto? Sono Ulrira. Hai sbagliato numero?", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK36] = HintText::Junk({
                      //obscure text
-                     Text{"Tingle Tingle Kooloo Limpah!", /*french*/"Tingle! Tingle! Kooloolin... Pah!", /*spanish*/"Tingle, Tingle, Kurulín... ¡PA!"},
+                     Text{"Tingle Tingle Kooloo Limpah!", /*french*/"Tingle! Tingle! Kooloolin... Pah!", /*spanish*/"Tingle, Tingle, Kurulín... ¡PA!", /*italian*/COLOR(QM_GREEN)+"Tingle, Tingle!&Kururìn-PA!"+COLOR(QM_WHITE), /*german*/"Deutsch"},
     });
 
     hintTable[JUNK37] = HintText::Junk({
                      //obscure text
-                     Text{"L is real 2401", /*french*/"L is real 2401", /*spanish*/"L es real 2401."},
+                     Text{"L is real 2401", /*french*/"L is real 2401", /*spanish*/"L es real 2401.", /*italian*/"L is real 2401", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK38] = HintText::Junk({
                      //obscure text
-                     Text{"They say that Ganondorf will appear in the next Mario Tennis.", /*french*/"Selon moi, Ganondorf sera la nouvelle recrue dans Mario Tennis.", /*spanish*/"Según dicen, Ganondorf estará en el próximo Mario Tennis."},
+                     Text{"They say that Ganondorf will appear in the next Mario Tennis.", /*french*/"Selon moi, Ganondorf sera la nouvelle recrue dans Mario Tennis.", /*spanish*/"Según dicen, Ganondorf estará en el próximo Mario Tennis.", /*italian*/"Ho sentito dire che Ganondorf apparirà nel prossimo Mario Tennis.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK39] = HintText::Junk({
                      //obscure text
-                     Text{"Medigoron sells the earliest Breath of the Wild demo.", /*french*/"Selon moi, Medigoron vend une démo de #Breath of the Wild#.", /*spanish*/"Medigoron vende la primera demo del Breath of the Wild."},
+                     Text{"Medigoron sells the earliest Breath of the Wild demo.", /*french*/"Selon moi, Medigoron vend une démo de #Breath of the Wild#.", /*spanish*/"Medigoron vende la primera demo del Breath of the Wild.", /*italian*/"Ho sentito dire che Medigoron vende la prima demo di Breath of the Wild.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK40] = HintText::Junk({
                      //obscure text
-                     Text{"Can you move me? I don't get great service here.", /*french*/"Peux-tu me déplacer? J'ai pas une bonne réception ici.", /*spanish*/"¿Puedes llevarme a otro lado? Aquí nadie me presta atención."},
+                     Text{"Can you move me? I don't get great service here.", /*french*/"Peux-tu me déplacer? J'ai pas une bonne réception ici.", /*spanish*/"¿Puedes llevarme a otro lado? Aquí nadie me presta atención.", /*italian*/"Potrebbe spostarmi? Non ricevo un grande servizio qui.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK41] = HintText::Junk({
                      //obscure text
-                     Text{"They say if you use Strength on the truck, you can find Mew.", /*french*/"Selon moi, #Mew# se trouve dessous le camion... Duh!", /*spanish*/"Según dicen, puedes hallar un Mew usando Fuerza contra el camión de Ciudad Carmín."},
+                     Text{"They say if you use Strength on the truck, you can find Mew.", /*french*/"Selon moi, #Mew# se trouve dessous le camion... Duh!", /*spanish*/"Según dicen, puedes hallar un Mew usando Fuerza contra el camión de Ciudad Carmín.", /*italian*/"Ho sentito dire che usando Forza sul camioncino, puoi trovare Mew.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK42] = HintText::Junk({
                      //obscure text
-                     Text{"I'm a helpful hint Gossip Stone!^See, I'm helping.", /*french*/"Salut! Je suis une pierre de bons conseils!^Tiens, tu vois? J'aide bien, hein?", /*spanish*/"Soy una Piedra Sheikah muy útil.^¡Mira cómo te ayudo!"},
+                     Text{"I'm a helpful hint Gossip Stone!^See, I'm helping.", /*french*/"Salut! Je suis une pierre de bons conseils!^Tiens, tu vois? J'aide bien, hein?", /*spanish*/"Soy una Piedra Sheikah muy útil.^¡Mira cómo te ayudo!", /*italian*/"Sono un'utile pietra del pettegolezzo!^Non vedi, ti sto aiutando!", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK43] = HintText::Junk({
                      //obscure text
-                     Text{"Dear @, please come to the castle. I've baked a cake for you.&Yours truly, Princess Zelda.", /*french*/"Mon très cher @:&Viens vite au château, je t'ai préparé un délicieux gâteau...&À bientôt, Princesse Zelda", /*spanish*/"Querido @: Por favor, ven al castillo. He hecho una tarta para ti.&Sinceramente tuya: Princesa Zelda."},
+                     Text{"Dear @, please come to the castle. I've baked a cake for you.&Yours truly, Princess Zelda.", /*french*/"Mon très cher @:&Viens vite au château, je t'ai préparé un délicieux gâteau...&À bientôt, Princesse Zelda", /*spanish*/"Querido @: Por favor, ven al castillo. He hecho una tarta para ti.&Sinceramente tuya: Princesa Zelda.", /*italian*/"Caro @, vieni al castello, ho preparato una torta per te.&Con affetto, la Principessa Zelda.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK44] = HintText::Junk({
                      //obscure text
-                     Text{"They say all toasters toast toast.", /*french*/"Selon moi, les grille-pains grillent du pain.", /*spanish*/"Según dicen, todas las tostadoras tostan tostadas tostadas."},
+                     Text{"They say all toasters toast toast.", /*french*/"Selon moi, les grille-pains grillent du pain.", /*spanish*/"Según dicen, todas las tostadoras tostan tostadas tostadas.", /*italian*/"Ho sentito dire che tutti i tostapane tostano pane.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK45] = HintText::Junk({
                      //obscure text
-                     Text{"You thought it would be a useful hint, but it was me, junk hint!", /*french*/"Tu t'attendais à un bon indice... Mais c'était moi, un mauvais indice!", /*spanish*/"Je... Creeías que iba a ser una piedra de utilidad, ¡pero no, era yo, la piedra de la agonía!"},
+                     Text{"You thought it would be a useful hint, but it was me, junk hint!", /*french*/"Tu t'attendais à un bon indice... Mais c'était moi, un mauvais indice!", /*spanish*/"Je... Creeías que iba a ser una piedra de utilidad, ¡pero no, era yo, la piedra de la agonía!", /*italian*/"Pensavi che fossi un indizio utile, invece ero io, Dato Inutile Oltraggioso!", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK46] = HintText::Junk({
                      //obscure text
-                     Text{"They say that quest guidance can be found at a talking rock.", /*french*/"Selon moi, des #indices# se trouvent auprès d'une pierre parlante... Duh!", /*spanish*/"Según dicen, puedes consultarle ayuda a rocas parlanchinas."},
+                     Text{"They say that quest guidance can be found at a talking rock.", /*french*/"Selon moi, des #indices# se trouvent auprès d'une pierre parlante... Duh!", /*spanish*/"Según dicen, puedes consultarle ayuda a rocas parlanchinas.", /*italian*/"Ho sentito dire che le pietre parlanti possono aiutare gli avventurieri.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK47] = HintText::Junk({
                      //obscure text
-                     Text{"They say that the final item you're looking for can be found somewhere in Hyrule.", /*french*/"Selon moi, le #dernier objet# se trouve quelque part dans Hyrule... Duh!", /*spanish*/"Según dicen, el último objeto que te falte puede estar en cualquier rincón de Hyrule."},
+                     Text{"They say that the final item you're looking for can be found somewhere in Hyrule.", /*french*/"Selon moi, le #dernier objet# se trouve quelque part dans Hyrule... Duh!", /*spanish*/"Según dicen, el último objeto que te falte puede estar en cualquier rincón de Hyrule.", /*italian*/"Ho sentito dire che quell'oggetto che stai cercando si trova ad Hyrule da qualche parte.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK48] = HintText::Junk({
                      //obscure text
-                     Text{"Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.", /*french*/"Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.", /*spanish*/"Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep."},
+                     Text{"Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.", /*french*/"Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.", /*spanish*/"Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.", /*italian*/"Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK49] = HintText::Junk({
                      //obscure text
-                     Text{"They say that Barinade fears Deku Nuts.", /*french*/"Selon moi, Barinade a la frousse des noix Mojo.", /*spanish*/"Según dicen, lo que más teme a Barinade son las nueces deku."},
+                     Text{"They say that Barinade fears Deku Nuts.", /*french*/"Selon moi, Barinade a la frousse des noix Mojo.", /*spanish*/"Según dicen, lo que más teme a Barinade son las nueces deku.", /*italian*/"Ho sentito dire che Cnidade teme le noci Deku.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK50] = HintText::Junk({
                      //obscure text
-                     Text{"They say that Flare Dancers do not fear Goron-crafted blades.", /*french*/"Selon moi, le danse-flamme n'a pas peur des armes de Goron.", /*spanish*/"Según dicen, los Bailafuegos no le temen a las armas forjadas por Gorons."},
+                     Text{"They say that Flare Dancers do not fear Goron-crafted blades.", /*french*/"Selon moi, le danse-flamme n'a pas peur des armes de Goron.", /*spanish*/"Según dicen, los Bailafuegos no le temen a las armas forjadas por Gorons.", /*italian*/"Ho sentito dire che i Fiammerini non temono le lame forgiate dai Goron.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK51] = HintText::Junk({
                      //obscure text
-                     Text{"They say that Morpha is easily trapped in a corner.", /*french*/"Selon moi, Morpha est facilement coincé.", /*spanish*/"Según dicen, puedes atrapar a Morpha con facilidad en una esquina."},
+                     Text{"They say that Morpha is easily trapped in a corner.", /*french*/"Selon moi, Morpha est facilement coincé.", /*spanish*/"Según dicen, puedes atrapar a Morpha con facilidad en una esquina.", /*italian*/"Ho sentito dire che è facile intrappolare Morpha in un angolo.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK52] = HintText::Junk({
                      //obscure text
-                     Text{"They say that Bongo Bongo really hates the cold.", /*french*/"Selon moi, Bongo Bongo a facilement froid aux doigts.", /*spanish*/"Según dicen, Bongo Bongo odia a muerte el frío."},
+                     Text{"They say that Bongo Bongo really hates the cold.", /*french*/"Selon moi, Bongo Bongo a facilement froid aux doigts.", /*spanish*/"Según dicen, Bongo Bongo odia a muerte el frío.", /*italian*/"Ho sentito dire che Bongo Bongo odia a morte il freddo.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK53] = HintText::Junk({
                      //obscure text
-                     Text{"They say that your sword is most powerful when you put it away.", /*french*/"Selon moi, ton épée est à pleine puissance quand tu la rengaines.", /*spanish*/"Según dicen, tu espada se vuelve más poderosa si la guardas."},
+                     Text{"They say that your sword is most powerful when you put it away.", /*french*/"Selon moi, ton épée est à pleine puissance quand tu la rengaines.", /*spanish*/"Según dicen, tu espada se vuelve más poderosa si la guardas.", /*italian*/"Ho sentito dire che la spada è molto più potente quando è nel fodero.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK54] = HintText::Junk({
                      //obscure text
-                     Text{"They say that bombing the hole Volvagia last flew into can be rewarding.", /*french*/"Selon moi, le trou où se creuse Volvagia est vulnérable aux bombes.", /*spanish*/"Según dicen, trae buena suerte colocar una bomba en el último agujero de donde salió Volvagia."},
+                     Text{"They say that bombing the hole Volvagia last flew into can be rewarding.", /*french*/"Selon moi, le trou où se creuse Volvagia est vulnérable aux bombes.", /*spanish*/"Según dicen, trae buena suerte colocar una bomba en el último agujero de donde salió Volvagia.", /*italian*/"Ho sentito dire che porta bene buttare bombe sull'ultima buca in cui si è infilato Varubaja.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK55] = HintText::Junk({
                      //obscure text
-                     Text{"They say that invisible ghosts can be exposed with Deku Nuts.", /*french*/"Selon moi, des fantômes invisibles apparaissent avec des noix Mojo.", /*spanish*/"Según dicen, puedes exponer a los espectros invisibles con nueces deku."},
+                     Text{"They say that invisible ghosts can be exposed with Deku Nuts.", /*french*/"Selon moi, des fantômes invisibles apparaissent avec des noix Mojo.", /*spanish*/"Según dicen, puedes exponer a los espectros invisibles con nueces deku.", /*italian*/"Ho sentito dire che puoi far apparire i fantasmi invisibili usando noci Deku.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK56] = HintText::Junk({
                      //obscure text
-                     Text{"They say that the real Phantom Ganon is bright and loud.", /*french*/"Selon moi, le vrai spectre de Ganon est clair et bruyant.", /*spanish*/"Según dicen, el verdadero Ganon Fantasma es brillante y ruidoso."},
+                     Text{"They say that the real Phantom Ganon is bright and loud.", /*french*/"Selon moi, le vrai spectre de Ganon est clair et bruyant.", /*spanish*/"Según dicen, el verdadero Ganon Fantasma es brillante y ruidoso.", /*italian*/"Ho sentito dire che il vero Spettro Ganon è brillante e rumoroso.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK57] = HintText::Junk({
                      //obscure text
-                     Text{"They say that walking backwards is very fast.", /*french*/"Selon moi, tu fais marche arrière très rapidement pour un héros.", /*spanish*/"Según dicen, es más rápido caminar hacia atrás."},
+                     Text{"They say that walking backwards is very fast.", /*french*/"Selon moi, tu fais marche arrière très rapidement pour un héros.", /*spanish*/"Según dicen, es más rápido caminar hacia atrás.", /*italian*/"Ho sentito dire che camminando all'indietro si va molto veloci.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK58] = HintText::Junk({
                      //obscure text
-                     Text{"They say that leaping above the Market entrance enriches most children.", /*french*/"Selon moi, les enfants riches se pavanent en haut du pont-levis.", /*spanish*/"Según dicen, saltar por las cadenas a la entrada de la plaza enriquece a muchos chiquillos."},
+                     Text{"They say that leaping above the Market entrance enriches most children.", /*french*/"Selon moi, les enfants riches se pavanent en haut du pont-levis.", /*spanish*/"Según dicen, saltar por las cadenas a la entrada de la plaza enriquece a muchos chiquillos.", /*italian*/"Ho sentito dire che saltare sopra il ponte levatoio rende i bambini ricchi.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK59] = HintText::Junk({
                      //obscure text
-                     Text{"They say Ingo is not very good at planning ahead.", /*french*/"Selon moi, Ingo ne fait pas un très bon geôlier.", /*spanish*/"Según dicen, a Ingo no se le da especialmente bien planificar con antelación."},
+                     Text{"They say Ingo is not very good at planning ahead.", /*french*/"Selon moi, Ingo ne fait pas un très bon geôlier.", /*spanish*/"Según dicen, a Ingo no se le da especialmente bien planificar con antelación.", /*italian*/"Ho sentito dire che Ingo non è bravo a fare piani.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK60] = HintText::Junk({
                      //obscure text
-                     Text{"You found a spiritual Stone! By which I mean, I worship Nayru.", /*french*/"Vous avez trouvé une pierre spirituelle! En effet, je vénère la déesse Hylia.", /*spanish*/"¡Has encontrado una piedra espiritual! Es que le rindo culto a Nayru..."},
+                     Text{"You found a Spiritual Stone! By which I mean, I worship Nayru.", /*french*/"Vous avez trouvé une pierre spirituelle! En effet, je vénère la déesse Hylia.", /*spanish*/"¡Has encontrado una piedra espiritual! Es que le rindo culto a Nayru...", /*italian*/"Hai trovato una pietra spirituale! Sai com'è, io venero Nayru.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK61] = HintText::Junk({
                      //obscure text
-                     Text{"They say that a flying strike with a Deku Stick is no stronger than a grounded one.", /*french*/"Selon moi, un coup de bâton sauté n'est pas meilleur qu'au sol.", /*spanish*/"Según dicen, los golpes aéreos con palos deku son tan fuertes como los normales."},
+                     Text{"They say that a flying strike with a Deku Stick is no stronger than a grounded one.", /*french*/"Selon moi, un coup de bâton sauté n'est pas meilleur qu'au sol.", /*spanish*/"Según dicen, los golpes aéreos con palos deku son tan fuertes como los normales.", /*italian*/"Ho sentito dire che un colpo aereo con un ramo Deku non è affatto più forte di uno normale.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK62] = HintText::Junk({
                      //obscure text
-                     Text{"Open your eyes.^Open your eyes.^Wake up, @.", /*french*/"Réveille-toi...^Réveille-toi.^Ouvre les yeux, @.", /*spanish*/"Abre los ojos...^Abre los ojos...^Despierta, @..."},
+                     Text{"Open your eyes.^Open your eyes.^Wake up, @.", /*french*/"Réveille-toi...^Réveille-toi.^Ouvre les yeux, @.", /*spanish*/"Abre los ojos...^Abre los ojos...^Despierta, @...", /*italian*/"Svegliati...^Svegliati...^Apri gli occhi, @...", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK63] = HintText::Junk({
                      //obscure text
-                     Text{"They say that the Nocturne of Shadow can bring you very close to Ganon.", /*french*/"Selon moi, le nocturne de l'ombre peut t'amener très près de Ganon.", /*spanish*/"Según dicen, el Nocturno de la sombra te puede acercar mucho a Ganon."},
+                     Text{"They say that the Nocturne of Shadow can bring you very close to Ganon.", /*french*/"Selon moi, le nocturne de l'ombre peut t'amener très près de Ganon.", /*spanish*/"Según dicen, el Nocturno de la sombra te puede acercar mucho a Ganon.", /*italian*/"Ho sentito dire che il Notturno delle ombre può portarti molto vicino a Ganon.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK64] = HintText::Junk({
                      //obscure text
-                     Text{"They say that Twinrova always casts the same spell the first three times.", /*french*/"Selon moi, Twinrova lance toujours les mêmes trois premiers sorts.", /*spanish*/"Según dicen, Birova siempre lanza el mismo hechizo las tres primeras veces."},
+                     Text{"They say that Twinrova always casts the same spell the first three times.", /*french*/"Selon moi, Twinrova lance toujours les mêmes trois premiers sorts.", /*spanish*/"Según dicen, Birova siempre lanza el mismo hechizo las tres primeras veces.", /*italian*/"Ho sentito dire che Kotakoume spara sempre la stessa magia le prime tre volte.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK65] = HintText::Junk({
                      //obscure text
-                     Text{"They say that the nightly builds may be unstable.", /*french*/"Selon moi, les « nightly builds » peuvent être instables.", /*spanish*/"Según dicen, las últimas nightlies pueden llegar a ser algo inestables."},
+                     Text{"They say that the nightly builds may be unstable.", /*french*/"Selon moi, les « nightly builds » peuvent être instables.", /*spanish*/"Según dicen, las últimas nightlies pueden llegar a ser algo inestables.", /*italian*/"Ho sentito dire che le versioni \"nightly\" potrebbero essere instabili.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK66] = HintText::Junk({
                      //obscure text
-                     Text{"You're playing a Randomizer. I'm randomized!^Here's a random number:  #4#.&Enjoy your Randomizer!", /*french*/"Tu joues à un randomizer. Je suis aléatoire!^Voici un nombre aléatoire: #4#.&Bonne partie!", /*spanish*/"¡Estás jugando un Randomizer! ¡Yo también estoy aleatorizada!^Aquí tienes un número aleatorio:  #8#.&¡Diviértete!"},
+                     Text{"You're playing a Randomizer. I'm randomized!^Here's a random number:  #4#.&Enjoy your Randomizer!", /*french*/"Tu joues à un randomizer. Je suis aléatoire!^Voici un nombre aléatoire: #4#.&Bonne partie!", /*spanish*/"¡Estás jugando un Randomizer! ¡Yo también estoy aleatorizada!^Aquí tienes un número aleatorio:  #8#.&¡Diviértete!", /*italian*/"Stai giocando a un Randomizer. Io sono randomizzata!^Eccoti un numero random:  #4#.&Buon divertimento!", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK67] = HintText::Junk({
                      //obscure text
-                     Text{"They say Ganondorf's bolts can be reflected with glass or steel.", /*french*/"Selon moi, les éclairs de Ganon se reflètent sur l'acier et le verre.", /*spanish*/"Según dicen, puedes reflejar las esferas de energía de Ganondorf con cristal y acero."},
+                     Text{"They say Ganondorf's bolts can be reflected with glass or steel.", /*french*/"Selon moi, les éclairs de Ganon se reflètent sur l'acier et le verre.", /*spanish*/"Según dicen, puedes reflejar las esferas de energía de Ganondorf con cristal y acero.", /*italian*/"Ho sentito dire che i colpi magici di Ganondorf si riflettono sull'acciaio e sul vetro.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK68] = HintText::Junk({
                      //obscure text
-                     Text{"They say Ganon's tail is vulnerable to nuts, arrows, swords, explosives, hammers...^...sticks, seeds, boomerangs...^...rods, shovels, iron balls, angry bees...", /*french*/"Selon moi, la queue de Ganon est vulnérable aux noix, flèches, épées, bombes, marteaux...^...bâtons, graines, boomerangs...^...baguettes, pelles, boulets de fer, abeilles enragées...", /*spanish*/"Según dicen, la cola de Ganon es vulnerable a nueces, flechas, espadas, explosivos, martillos...^...palos, semillas, bumeráns...^...cetros, palas, bolas de hierro, abejas..."},
+                     Text{"They say Ganon's tail is vulnerable to nuts, arrows, swords, explosives, hammers...^...sticks, seeds, boomerangs...^...rods, shovels, iron balls, angry bees...", /*french*/"Selon moi, la queue de Ganon est vulnérable aux noix, flèches, épées, bombes, marteaux...^...bâtons, graines, boomerangs...^...baguettes, pelles, boulets de fer, abeilles enragées...", /*spanish*/"Según dicen, la cola de Ganon es vulnerable a nueces, flechas, espadas, explosivos, martillos...^...palos, semillas, bumeráns...^...cetros, palas, bolas de hierro, abejas...", /*italian*/"Ho sentito dire che la coda di Ganon è vulnerabile a spade, frecce, martelli, esplosivi, noci...^...bastoni, semi, boomerang...^...bacchette, badili, palle di ferro, api irascibili...", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK69] = HintText::Junk({
                      //obscure text
-                     Text{"They say that you're wasting time reading this hint, but I disagree. Talk to me again!", /*french*/"Selon moi... tu sais quoi? Parle-moi encore, et je te le dirai!", /*spanish*/"Según dicen, pierdes el tiempo en leer esta pista, pero no pienso igual. ¡Vuelve a hablarme, ya verás!"},
+                     Text{"They say that you're wasting time reading this hint, but I disagree. Talk to me again!", /*french*/"Selon moi... tu sais quoi? Parle-moi encore, et je te le dirai!", /*spanish*/"Según dicen, pierdes el tiempo en leer esta pista, pero no pienso igual. ¡Vuelve a hablarme, ya verás!", /*italian*/"Ho sentito dire che stai perdendo tempo a leggere questo messaggio, ma io non sono affatto d'accordo. Parlami di nuovo!", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK70] = HintText::Junk({
                      //obscure text
-                     Text{"They say Ganondorf knows where to find the instrument of his doom.", /*french*/"Selon moi, Ganondorf sait où il a caché son point faible.", /*spanish*/"Según dicen, Ganondorf sabe dónde hallar el instrumento de su perdición."},
+                     Text{"They say Ganondorf knows where to find the instrument of his doom.", /*french*/"Selon moi, Ganondorf sait où il a caché son point faible.", /*spanish*/"Según dicen, Ganondorf sabe dónde hallar el instrumento de su perdición.", /*italian*/"Ho sentito dire che Ganondorf sa dove trovare lo strumento della sua sconfitta.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK71] = HintText::Junk({
                      //obscure text
-                     Text{"I heard @ is pretty good at Zelda.", /*french*/"Apparemment, @ est super bon à Zelda.", /*spanish*/"He oído que a @ se le dan muy bien los Zelda."},
+                     Text{"I heard @ is pretty good at Zelda.", /*french*/"Apparemment, @ est super bon à Zelda.", /*spanish*/"He oído que a @ se le dan muy bien los Zelda.", /*italian*/"Dicono che @ sia davvero bravo a Zelda.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK72] = HintText::Junk({
                      //obscure text
-                     Text{"Hi @, we've been trying to reach you about your car's extended warranty. ", /*french*/"Bonjour, @. Vous avez une voiture? Vous savez, nous offrons des assurances abordables...", /*spanish*/"Buenas, @. Le llamamos para ofrecerle un nuevo seguro de hogar que puede pagar en cómodos plazos, sin intereses ni comisiones."},
+                     Text{"Hi @, we've been trying to reach you about your car's extended warranty. ", /*french*/"Bonjour, @. Vous avez une voiture? Vous savez, nous offrons des assurances abordables...", /*spanish*/"Buenas, @. Le llamamos para ofrecerle un nuevo seguro de hogar que puede pagar en cómodos plazos, sin intereses ni comisiones.", /*italian*/"Congratulazioni @! Sei stato sorteggiato come vincitore di una Pleistescion 5! Clicca qui per ritirare il tuo premio: bombch.us/DR1b", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK73] = HintText::Junk({
                      //obscure text
-                     Text{"They say that the best weapon against Iron Knuckles is item 176.", /*french*/"Selon moi, les hache-viandes sont vulnérables contre l'objet 176.", /*spanish*/"Según dicen, la mejor arma para enfrentarse a los Nudillos de hierro es el objeto 176."},
+                     Text{"They say that the best weapon against Iron Knuckles is item 176.", /*french*/"Selon moi, les hache-viandes sont vulnérables contre l'objet 176.", /*spanish*/"Según dicen, la mejor arma para enfrentarse a los Nudillos de hierro es el objeto 176.", /*italian*/"Ho sentito dire che l'arma più forte contro i guerrieri d'acciaio è l'oggetto 176.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK74] = HintText::Junk({
                      //obscure text
-                     Text{"They say that it's actually possible to beat the running man.", /*french*/"Selon moi, il est possible de battre le coureur.&Donc, tu prends ton arc, et...", /*spanish*/"Según dicen, con mucha perseverancia puedes ganarle al corredor con la capucha de conejo."},
+                     Text{"They say that it's actually possible to beat the running man.", /*french*/"Selon moi, il est possible de battre le coureur.&Donc, tu prends ton arc, et...", /*spanish*/"Según dicen, con mucha perseverancia puedes ganarle al corredor con la capucha de conejo.", /*italian*/"Ho sentito dire che è veramente possibile vincere contro il corridore.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK75] = HintText::Junk({
                      //obscure text
-                     Text{"They say that the stone-cold guardian of the Well is only present during work hours.", /*french*/"Selon moi, le gardien de pierre du puits quitte le soir pour aller se coucher.", /*spanish*/"Según dicen, la inmensa roca que bloquea el pozo solo trabaja en horas laborales."},
+                     Text{"They say that the stone-cold guardian of the Well is only present during work hours.", /*french*/"Selon moi, le gardien de pierre du puits quitte le soir pour aller se coucher.", /*spanish*/"Según dicen, la inmensa roca que bloquea el pozo solo trabaja en horas laborales.", /*italian*/"Ho sentito dire che il roccioso guardiano del pozzo è presente solo in orario lavorativo.", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK76] = HintText::Junk({
                      //obscure text
-                     Text{"They say this hint makes more sense in other languages.", /*french*/"Selon moi, ces indices auraient pu être mieux traduits... Duh!", /*spanish*/"Según dicen, esta pista revela algo de vital importancia si cambias el idioma del juego..."},
+                     Text{"They say this hint makes more sense in other languages.", /*french*/"Selon moi, ces indices auraient pu être mieux traduits... Duh!", /*spanish*/"Según dicen, esta pista revela algo de vital importancia si cambias el idioma del juego...", /*italian*/"Ho sentito dire che la traduzione italiana avrebbe potuto essere fatta meglio...", /*german*/"Deutsch"},
     });
 
     hintTable[JUNK77] = HintText::Junk({
                      //obscure text
-                     Text{"BOK? No way.", /*french*/"BD'accord? Hors de question.", /*spanish*/"¿BVale? Ni hablar."},
+                     Text{"BOK? No way.", /*french*/"BD'accord? Hors de question.", /*spanish*/"¿BVale? Ni hablar.", /*italian*/"BVa bene? Non ci penso nemmeno.", /*german*/"Deutsch"},
     });
 
     /*--------------------------
