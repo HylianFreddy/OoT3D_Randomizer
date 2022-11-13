@@ -1115,6 +1115,9 @@ std::string PLAYER_NAME() {
 std::string PLAY_OCARINA() {
     return "\x7F\x0C"s;
 }
+std::string PLAY_SFX(u16 x) {
+    return "\x7F\x0E\x00\x01\x00"s + char(x >> 8) + char(x & 0x00FF);
+}
 std::string ITEM_OBTAINED(u8 x) {
     return "\x7F\x0F"s + char(x);
 }

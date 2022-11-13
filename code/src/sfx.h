@@ -1,6 +1,8 @@
 #ifndef _SFX_H_
 #define _SFX_H_
 
+#include "sfx_list.h"
+
 #define SFX_BASE 0x1000001
 #define SFX_COUNT 1388
 #define SFX_COUNT_TRIMMED (1388 - 233)

@@ -1,5 +1,6 @@
 #include "hint_list.hpp"
 #include "custom_messages.hpp"
+#include "sound_effects.hpp"
 
 #include <array>
 
@@ -1223,7 +1224,7 @@ void HintTable_Init() {
 
     hintTable[JUNK01] = HintText::Junk({
                      // obscure text
-                     Text{"Remember to check your 3DS battery level&and save often.", /*french*/"Surveillez votre batterie 3DS et sauvegardez souvent!", /*spanish*/"No te olvides de revisar la batería de la 3DS y guarda partida de vez en cuando.", /*italian*/"Ricorda di controllare la batteria del 3DS e di salvare spesso.", /*german*/"Denk daran, regelmäßig den Akku deines 3DS zu überprüfen und häufig zu #speichern#."},
+                     Text{"Remember to check your 3DS battery level and save often.", /*french*/"Surveillez votre batterie 3DS et sauvegardez souvent!", /*spanish*/"No te olvides de revisar la batería de la 3DS y guarda partida de vez en cuando.", /*italian*/"Ricorda di controllare la batteria del 3DS e di salvare spesso.", /*german*/"Denk daran, regelmäßig den Akku deines 3DS zu überprüfen und häufig zu #speichern#."},
     });
 
     hintTable[JUNK02] = HintText::Junk({

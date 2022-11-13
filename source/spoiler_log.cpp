@@ -10,6 +10,7 @@
 #include "tinyxml2.h"
 #include "utils.hpp"
 #include "shops.hpp"
+#include "custom_messages.hpp"
 
 #include <3ds.h>
 #include <cstdio>
@@ -554,6 +555,16 @@ static void WriteHints(tinyxml2::XMLDocument& spoilerLog) {
         auto text = location->GetPlacedItemName().GetNAEnglish();
         std::replace(text.begin(), text.end(), '&', ' ');
         std::replace(text.begin(), text.end(), '^', ' ');
+        size_t colorCode = text.find("\x7F\x1D");
+        while (colorCode != std::string::npos) {
+            text.replace(colorCode, 3, "");
+            colorCode = text.find("\x7F\x1D");
+        }
+        size_t sfxCode = text.find("\x7F\x0E\x00\x01\x00");
+        while (sfxCode != std::string::npos) {
+            text.replace(sfxCode, 7, "");
+            sfxCode = text.find("\x7F\x0E\x00\x01\x00");
+        }
         node->SetText(text.c_str());
     }
 
