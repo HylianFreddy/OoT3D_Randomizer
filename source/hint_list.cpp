@@ -1457,9 +1457,13 @@ void HintTable_Init() {
                      Text{"They say that the final item you're looking for can be found somewhere in Hyrule.", /*french*/"Selon moi, le #dernier objet# se trouve quelque part dans Hyrule... Duh!", /*spanish*/"Según dicen, el último objeto que te falte puede estar en cualquier rincón de Hyrule.", /*italian*/"Ho sentito dire che quell'oggetto che stai cercando si trova ad Hyrule da qualche parte.", /*german*/"Man erzählt sich, der Gegenstand nachdem du gerade suchst, wäre irgendwo in Hyrule zu finden."},
     });
 
+    Text tempMweepHint = Text{""};
+    for (int i = 12; i > 0; i--) {
+      tempMweepHint = tempMweepHint + PLAY_SFX(NA_SE_VO_KZ_MOVE) + Text{"Mweep.", /*french*/"Mwip.", /*spanish*/"Mweep.", /*italian*/"Mweep.", /*german*/"Miep."} + (i > 1 ? "^" : "");
+    }
     hintTable[JUNK48] = HintText::Junk({
                      // obscure text
-                     Text{"Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.", /*french*/"Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.^Mwip.", /*spanish*/"Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.", /*italian*/"Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.^Mweep.", /*german*/"Miep.^Miep.^Miep.^Miep.^Miep.^Miep.^Miep.^Miep.^Miep.^Miep.^Miep.^Miep."},
+                     tempMweepHint,
     });
 
     hintTable[JUNK49] = HintText::Junk({
