@@ -70,9 +70,9 @@ enum class HintCategory {
 class HintText {
   public:
     HintText() = default;
-    HintText(std::vector<Text> obscureText_, std::vector<Text> ambiguousText_, Text clearText_, HintCategory type_)
+    HintText(std::vector<Text> obscureText_, std::vector<Text> ambiguousText_, Text clearText_, HintCategory type_, std::string extraControlCodes_ = "")
         : obscureText(std::move(obscureText_)), ambiguousText(std::move(ambiguousText_)),
-          clearText(std::move(clearText_)), type(type_) {
+          clearText(std::move(clearText_)), type(type_), extraControlCodes(std::move(extraControlCodes_)) {
     }
 
     static auto Item(std::vector<Text>&& obscureText, std::vector<Text>&& ambiguousText = {}, Text&& clearText = {}) {
@@ -105,8 +105,8 @@ class HintText {
         return HintText{ std::move(obscureText), std::move(ambiguousText), std::move(clearText), HintCategory::Region };
     }
 
-    static auto Junk(std::vector<Text>&& obscureText, std::vector<Text>&& ambiguousText = {}, Text&& clearText = {}) {
-        return HintText{ std::move(obscureText), std::move(ambiguousText), std::move(clearText), HintCategory::Junk };
+    static auto Junk(std::vector<Text>&& obscureText, std::vector<Text>&& ambiguousText = {}, Text&& clearText = {}, std::string&& extraControlCodes = "") {
+        return HintText{ std::move(obscureText), std::move(ambiguousText), std::move(clearText), HintCategory::Junk, std::move(extraControlCodes) };
     }
 
     static auto DungeonName(std::vector<Text>&& obscureText, std::vector<Text>&& ambiguousText = {},
@@ -232,6 +232,7 @@ class HintText {
     std::vector<Text> ambiguousText = {};
     Text clearText;
     HintCategory type;
+    std::string extraControlCodes; // used for SFX
 };
 
 using ConditionalAlwaysHint = std::pair<LocationKey, std::function<bool()>>;

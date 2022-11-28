@@ -20,6 +20,7 @@ using namespace CustomMessages;
 // '%d' indicates a number will be placed there.
 // '$' at the end of an item name indicates that it's plural.
 // '|' separates singular and plural form.
+// '÷' indicates sound effects and other fixed control codes defined in the hint object.
 
 std::array<HintText, KEY_ENUM_MAX> hintTable;
 // clang-format off
@@ -1234,8 +1235,9 @@ void HintTable_Init() {
 
     hintTable[JUNK03] = HintText::Junk({
                      // obscure text
-                     Text{PLAY_SFX(NA_SE_VO_Z1_SURPRISE)} + Text{"They say that Zelda is a poor leader.", /*french*/"Selon moi, Zelda ne ferait pas un bon monarque.", /*spanish*/"Según dicen, Zelda es mala líder.", /*italian*/"Ho sentito dire che Zelda non è brava a governare.", /*german*/"Man erzählt sich, Zelda sei eine schlechte Anführerin."},
-    });
+                     Text{"÷"} + Text{"They say that Zelda is a poor leader.", /*french*/"Selon moi, Zelda ne ferait pas un bon monarque.", /*spanish*/"Según dicen, Zelda es mala líder.", /*italian*/"Ho sentito dire che Zelda non è brava a governare.", /*german*/"Man erzählt sich, Zelda sei eine schlechte Anführerin."},
+                    }, {}, {}, PLAY_SFX(NA_SE_VO_Z1_SURPRISE)
+    );
 
     hintTable[JUNK04] = HintText::Junk({
                      // obscure text
