@@ -814,6 +814,210 @@ static s16 Gfx_Scroll(s16 current, s16 scrollDelta, u16 itemCount) {
     return current;
 }
 
+static const char* const FlagGroupNames[] = {
+    "switch", //0x0
+    "temp_switch",
+    "unknown_1",
+    "unknown_2",
+    "chest",
+    "clear",
+    "temp_clear",
+    "collect",
+    "temp_collect",
+    "gold_skulltulas",
+    "event_chk_inf",
+    "item_get_inf",
+    "inf_table (part 1/2)",
+    "inf_table (part 2/2)",
+    "event_inf", // 0xE
+};
+
+typedef enum {
+    FLAGS_SWITCH,
+    FLAGS_TEMP_SWITCH,
+    FLAGS_ROOMS,
+    FLAGS_FLOORS,
+    FLAGS_CHEST,
+    FLAGS_CLEAR,
+    FLAGS_TEMP_CLEAR,
+    FLAGS_COLLECT,
+    FLAGS_TEMP_COLLECT,
+    FLAGS_GOLD_SKULLTULAS,
+    FLAGS_EVENT_CHK_INF,
+    FLAGS_ITEM_GET_INF,
+    FLAGS_INF_TABLE_1,
+    FLAGS_INF_TABLE_2,
+    FLAGS_EVENT_INF,
+} FlagsGroups;
+
+void Debug_ShowObjects(void) {
+    static u16 objectId = 0;
+    static s8  digitIdx = 0;
+
+
+    Draw_ClearFramebuffer();
+
+    do
+    {
+        Draw_ClearFramebuffer();
+        Draw_DrawFormattedString(10, 10, COLOR_TITLE, "Currently Loaded Objects: %02d/%02d", rExtendedObjectCtx.num, OBJECT_EXCHANGE_BANK_MAX);
+        Draw_DrawFormattedString(30, 50, COLOR_TITLE, "Object ID: %04X      (Y) Push    (X) Pop", objectId);
+        Draw_DrawFormattedString(30 + (14 - digitIdx) * SPACING_X, 50, COLOR_GREEN, "%01X", (objectId >> (digitIdx*4)) & 0xF);
+
+        for (int i = 0; i < rExtendedObjectCtx.num; i++) {
+            Draw_DrawFormattedString((i % 2 ? 171 : 51), 70 + (i / 2) * SPACING_Y, COLOR_WHITE, "%08X %04X",
+                                        &rExtendedObjectCtx.status[i], rExtendedObjectCtx.status[i].id);
+        }
+
+        Draw_FlushFramebuffer();
+        //Draw_Unlock();
+
+        Draw_CopyBackBuffer();
+
+        u32 pressed = Input_WaitWithTimeout(1000, closingButton);
+        if(pressed & BUTTON_B)
+            break;
+        else if((pressed & BUTTON_Y) && objectId != 0 && rExtendedObjectCtx.num < OBJECT_EXCHANGE_BANK_MAX) {
+            Object_Spawn(&(rExtendedObjectCtx), (s16)objectId);
+        }
+        else if((pressed & BUTTON_X) && rExtendedObjectCtx.num > 0) {
+            rExtendedObjectCtx.status[--rExtendedObjectCtx.num].id = 0;
+            Draw_ClearFramebuffer();
+        }
+        else if(pressed & BUTTON_UP) {
+            objectId += (1 << digitIdx*4);
+        }
+        else if(pressed & BUTTON_DOWN) {
+            objectId -= (1 << digitIdx*4);
+        }
+        else if(pressed & BUTTON_RIGHT) {
+            digitIdx--;
+        }
+        else if(pressed & BUTTON_LEFT) {
+            digitIdx++;
+        }
+
+        if(digitIdx > 3)
+            digitIdx = 0;
+        else if(digitIdx < 0)
+            digitIdx = 3;
+
+    } while(true);
+}
+
+void Debug_FlagsEditor(void) {
+    static s32 row = 0;
+    static s32 column = 0;
+    static s32 group = 10;
+    static u16* flags = (u16*)&gSaveContext.eventChkInf;
+
+    static const u8 RowAmounts[] = {2, 2, 2, 2, 2, 2, 2, 2, 2, 11, 14, 4, 16, 14, 4};
+
+    Draw_ClearFramebuffer();
+    if (gSettingsContext.playOption == 0) { Draw_FlushFramebuffer(); }
+
+    #define WHITE_OR_BLUE_AT(X,Y) ((row == X && column == Y) ? COLOR_TITLE : COLOR_WHITE)
+    #define FLAG_STATUS(X,Y)  (*(flags + X) >> Y & 1)
+    #define CURSOR_CHAR 176
+
+    do
+    {
+        Draw_ClearBackbuffer();
+        //Draw_Lock();
+        // Title
+        Draw_DrawFormattedString(10, 10, COLOR_TITLE, "RespawnFlag: %04X", gSaveContext.respawnFlag);
+        // Arrows to change group
+        Draw_DrawCharacter(70, 30, WHITE_OR_BLUE_AT(0,0), 17);
+        Draw_DrawCharacter(90, 30, WHITE_OR_BLUE_AT(0,1), 16);
+        // Group name
+        Draw_DrawString(120, 30, COLOR_WHITE, FlagGroupNames[group]);
+        // Flags column indices
+        for (s32 j = 0; j < 16; j++) {
+            Draw_DrawFormattedString(70 + j * 2 * SPACING_X, 50, (row > 0 && column == j) ? COLOR_TITLE : COLOR_LIGHT_GRAY, "%X", j);
+        }
+        // Flags row indices
+        for (s32 i = 0; i < RowAmounts[group]; i++) {
+            Draw_DrawFormattedString(30, 50 + (i + 1) * SPACING_Y, (row == i + 1) ? COLOR_TITLE : COLOR_LIGHT_GRAY, "%04X", i * 16 + (group == FLAGS_INF_TABLE_2 ? 0x100 : 0));
+        }
+        // Flags
+        for (s32 i = 0; i < RowAmounts[group]; i++) {
+            for (s32 j = 0; j < 16; j++) {
+                Draw_DrawCharacter(70 + j * 2 * SPACING_X, 50 + (i + 1) * SPACING_Y, FLAG_STATUS(i, j) ? COLOR_GREEN : COLOR_RED, FLAG_STATUS(i, j) ? '1' : '0');
+            }
+        }
+        // Cursor
+        if (row > 0) {
+            Draw_DrawCharacter(70 + column * 2 * SPACING_X, 50 + (row) * SPACING_Y, COLOR_TITLE, CURSOR_CHAR);
+        }
+
+        Draw_FlushFramebuffer();
+        //Draw_Unlock();
+
+        Draw_CopyBackBuffer();
+
+        u32 pressed = Input_WaitWithTimeout(1000, closingButton);
+
+        if (pressed & BUTTON_B){
+            break;
+        }
+        else if (pressed & BUTTON_A){
+            if(row != 0) {
+                *(flags + row - 1) ^= 1 << column;
+            }
+            else {
+                group += (column == 0 ? -1 : 1);
+                if(group > 14) group = 0;
+                else if(group < 0) group = 14;
+
+                switch (group) {
+                    case FLAGS_GOLD_SKULLTULAS  : flags = (u16*)&gSaveContext.gsFlags; break;
+                    case FLAGS_EVENT_CHK_INF    : flags = (u16*)&gSaveContext.eventChkInf; break;
+                    case FLAGS_ITEM_GET_INF     : flags = (u16*)&gSaveContext.itemGetInf; break;
+                    case FLAGS_INF_TABLE_1      : flags = (u16*)&gSaveContext.infTable; break;
+                    case FLAGS_INF_TABLE_2      : flags = ((u16*)&gSaveContext.infTable) + 16; break;
+                    case FLAGS_EVENT_INF        : flags = (u16*)&gSaveContext.eventInf; break;
+                    default : flags = ((u16*)&(gGlobalContext->actorCtx.flags.swch)) + group * 2; break;
+                }
+
+                //Draw_Lock();
+                Draw_ClearFramebuffer();
+                //Draw_Unlock();
+            }
+        }
+        else{
+            if (pressed & BUTTON_UP){
+                row--;
+                if (row == 0 && column > 1) column = 1;
+            }
+            if (pressed & BUTTON_DOWN){
+                row++;
+                if (row > RowAmounts[group] && column > 1) column = 1;
+            }
+            if (pressed & BUTTON_RIGHT){
+                column++;
+            }
+            if (pressed & BUTTON_LEFT){
+                column--;
+            }
+        }
+
+        if(row > RowAmounts[group])
+            row = 0;
+        else if(row < 0)
+            row = RowAmounts[group];
+
+        if(column > 15 || (row == 0 && column > 1))
+            column = 0;
+        else if(column < 0) {
+            column = (row == 0 ? 1 : 15);
+        }
+
+
+    } while(true);
+
+    #undef WHITE_OR_BLUE_AT
+}
+
 static void Gfx_ShowMenu(void) {
     pressed = 0;
 
@@ -1178,8 +1382,10 @@ void Gfx_Update(void) {
 
     Gfx_UpdatePlayTime();
 
-    if (!isAsleep && openingButton() && IsInGame()) {
-        Gfx_ShowMenu();
+    if (false) Gfx_ShowMenu();
+
+    if (!isAsleep && openingButton()) {
+        Debug_ShowObjects();
         // Check again as it's possible the system was put to sleep while the menu was open
         if (!isAsleep) {
             svcSleepThread(1000 * 1000 * 300LL);
