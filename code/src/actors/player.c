@@ -9,6 +9,9 @@
 #include "arrow.h"
 #include "grotto.h"
 #include "item_override.h"
+#include "objects.h"
+#include "string.h"
+#include "gfx.h"
 
 #define PlayerActor_Init_addr 0x191844
 #define PlayerActor_Init ((ActorFunc)PlayerActor_Init_addr)
@@ -89,7 +92,36 @@ void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
+
+static char link_v2[322976] = {0};
+static u8 loaded = FALSE;
+
 void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
+
+
+    s32 i;
+    if (gSaveContext.linkAge == 0 && !loaded) {
+        for (i = 0; i < gGlobalContext->objectCtx.num; i++) {
+            if (gGlobalContext->objectCtx.status[i].id == 0x14) break;
+        }
+        value1 = (u32) gGlobalContext->objectCtx.status[i].zarInfo.cmbPtrs;
+        if (value1) {
+            value2 = (u32)(*((u32*)(value1)));
+            if (value2) {
+                value3 = (u32)(*((u32*)(value2)));
+                if (value3) {
+                    value4 = (u32)(*((u32*)(value3)));
+                    const void* cmb = (const void*) value3;
+                    loaded = TRUE;
+                    memcpy(&link_v2, cmb, sizeof link_v2);
+                }
+            }
+        }
+    }
+
+    if (link_v2[0] == 0x63)
+        gSaveContext.rupees++;
+
     Player* this = (Player*)thisx;
     PlayerActor_Update(thisx, globalCtx);
 

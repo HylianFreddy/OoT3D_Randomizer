@@ -19,7 +19,10 @@
 
 u32 pressed;
 bool handledInput;
-u32 value;
+u32 value1 = 0;
+u32 value2 = 0;
+u32 value3 = 0;
+u32 value4 = 0;
 
 static u8 GfxInit        = 0;
 static u32 closingButton = 0;
@@ -852,7 +855,7 @@ typedef enum {
 } FlagsGroups;
 
 //Memory Editor values
-u32 memoryEditorAddress = (int)&gSaveContext;
+u32 memoryEditorAddress = (int)0x89accf8;
 static s32 selectedRow = 0;
 static s32 selectedColumn = 0;
 static u8  isValidMemory = 0;
@@ -1232,7 +1235,7 @@ void Debug_ShowObjects(void) {
     do
     {
         Draw_ClearFramebuffer();
-        Draw_DrawFormattedString(10, 10, COLOR_TITLE, "Value: %08X", value);
+        Draw_DrawFormattedString(10, 10, COLOR_TITLE, "Values: %08X, %08X, %08X, %08X", value1, value2, value3, value4);
         Draw_DrawFormattedString(30, 50, COLOR_TITLE, "Object ID: %04X      (Y) Push    (X) Pop", objectId);
         Draw_DrawFormattedString(30 + (14 - digitIdx) * SPACING_X, 50, COLOR_GREEN, "%01X", (objectId >> (digitIdx*4)) & 0xF);
 
