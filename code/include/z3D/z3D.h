@@ -375,7 +375,9 @@ typedef struct ZARInfo {
 
 typedef struct {
     /* 0x00 */ s16 id;
-    /* 0x02 */ char unk_02[0x0E];
+    /* 0x02 */ char unk_02[0x06];
+    /* 0x08 */ u32 size;
+    /* 0x0C */ char unk_0C[0x04];
     /* 0x10 */ ZARInfo zarInfo;
 } ObjectStatus; // size = 0x80
 
@@ -403,7 +405,9 @@ typedef struct GlobalContext {
     // /* 0x0000 */ GameState state;
     /* 0x0000 */ char unk_0[0x0104];
     /* 0x0104 */ s16 sceneNum;
-    /* 0x0106 */ char unk_106[0x0012];
+    /* 0x0106 */ char                  unk_106[0x000A];
+    /* 0x0110 */ void*                 sceneSegment;
+    /* 0x0114 */ char                  unk_114[0x0004];
     /* 0x0118 */ SubGlobalContext_118 sub118;
     /* 0x017C */ char unk_17C[0x08D8];
     /* 0x0A54 */ Camera* cameraPtrs[4];

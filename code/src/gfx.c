@@ -19,6 +19,7 @@
 
 u32 pressed;
 bool handledInput;
+u32 value;
 
 static u8 GfxInit        = 0;
 static u32 closingButton = 0;
@@ -850,38 +851,409 @@ typedef enum {
     FLAGS_EVENT_INF,
 } FlagsGroups;
 
+//Memory Editor values
+u32 memoryEditorAddress = (int)&gSaveContext;
+static s32 selectedRow = 0;
+static s32 selectedColumn = 0;
+static u8  isValidMemory = 0;
+
+MemInfo query_memory_permissions(u32 address) {
+    MemInfo memory_info = {};
+    PageInfo page_info = {};
+    svcQueryMemory(&memory_info, &page_info, address);
+    return memory_info;
+}
+
+bool is_valid_memory_read(const MemInfo* info) {
+    return (info->perm & MEMPERM_READ) != 0;
+}
+
+bool is_valid_memory_write(const MemInfo* info) {
+    return (info->perm & MEMPERM_WRITE) != 0;
+}
+
+static void checkValidMemory(void) {
+    MemInfo address_start_info = query_memory_permissions((int)memoryEditorAddress);
+    MemInfo address_end_info = query_memory_permissions((int)memoryEditorAddress + 127);
+    isValidMemory = is_valid_memory_read(&address_start_info) && is_valid_memory_read(&address_end_info);
+}
+
+static u32 addrHistory[10] = {0};
+static s8 addrHistoryTop = -1;
+
+void pushHistory(u32 addr) {
+    if (addrHistoryTop >= 9) {
+        for (s32 i = 0; i < 10; i++) {
+            addrHistory[i] = addrHistory[i+1];
+        }
+        addrHistory[addrHistoryTop] = addr;
+    }
+    else
+        addrHistory[++addrHistoryTop] = addr;
+}
+u32 popHistory(void) {
+    if (addrHistoryTop < 0)
+        return memoryEditorAddress;
+
+    return addrHistory[addrHistoryTop--];
+}
+
+void Debug_MemoryEditor(void) {
+
+
+    Draw_ClearBackbuffer();
+    Draw_ClearFramebuffer();
+
+
+    checkValidMemory();
+    if (!isValidMemory) selectedColumn = selectedRow = 0;
+
+    #define WHITE_OR_GREEN_AT(X,Y) ((selectedRow == X && selectedColumn == Y) ? COLOR_GREEN : COLOR_WHITE)
+    #define WHITE_OR_BLUE_AT(X,Y)  ((selectedRow == X && selectedColumn == Y) ? COLOR_TITLE : COLOR_WHITE)
+
+    do
+    {
+        Draw_ClearBackbuffer();
+    Draw_ClearFramebuffer();
+        // Title
+        Draw_DrawString(10, 10, COLOR_TITLE, "Memory Editor");
+        // Address selection
+        Draw_DrawFormattedString(30, 30, (selectedRow == 0 && selectedColumn == 0) ? COLOR_GREEN : COLOR_WHITE, "%08X", memoryEditorAddress);
+        // Scroll buttons
+        Draw_DrawCharacter(40, 30 + SPACING_Y, WHITE_OR_BLUE_AT(1,0), 31);
+        Draw_DrawCharacter(60, 30 + SPACING_Y, WHITE_OR_BLUE_AT(1,1), 30);
+        // Go To Preset button
+        Draw_DrawString(90, 30, WHITE_OR_BLUE_AT(0,1), "Go To Preset");
+        // Byte index markers
+        for (s32 j = 0; j < 8; j++) {
+            s32 digit = (j + memoryEditorAddress + ((selectedRow > 1 && selectedRow % 2 == 0) ? 0 : 8)) % 16;
+            Draw_DrawFormattedString(90 + j * SPACING_X * 3, 30 + SPACING_Y, (selectedRow > 1 && selectedColumn == j) ? COLOR_TITLE : COLOR_GRAY, "%X", digit);
+        }
+        // Memory addresses and values
+        for (s32 i = 0; i < 16; i++) {
+            u32 yPos = 30 + (i + 2) * SPACING_Y;
+            Draw_DrawFormattedString(30, yPos, selectedRow == (i+2) ? COLOR_TITLE : COLOR_GRAY, "%08X", memoryEditorAddress + i * 8);
+            if (isValidMemory) {
+                for (s32 j = 0; j < 8; j++) {
+                    u8 dst;
+                    memcpy(&dst, (void*)(memoryEditorAddress + i * 8 + j), sizeof(dst));
+                    Draw_DrawFormattedString(90 + j * SPACING_X * 3, yPos, WHITE_OR_GREEN_AT(i+2,j), "%02X", dst);
+                }
+            }
+            else {
+                Draw_DrawString(120, 30 + 10 * SPACING_Y, COLOR_RED, "Invalid Memory");
+            }
+        }
+
+
+
+        Draw_CopyBackBuffer();
+
+        u32 pressed = Input_WaitWithTimeout(1000, closingButton);
+
+        if (pressed & BUTTON_B){
+            if (ADDITIONAL_FLAG_BUTTON) {
+                memoryEditorAddress = popHistory();
+                checkValidMemory();
+
+        Draw_ClearBackbuffer();
+                Draw_ClearFramebuffer();
+
+
+            }
+            else
+                break;
+        }
+        else if (pressed & BUTTON_A){
+            if (selectedRow == 0 && selectedColumn == 0) {
+                MemoryEditor_EditAddress();
+            }
+            else if (selectedRow == 0 && selectedColumn == 1) {
+                MemoryEditor_GoToPreset();
+            }
+            else if (selectedRow == 1) {
+                u8 amount = ADDITIONAL_FLAG_BUTTON ? 0x80 : 8;
+                memoryEditorAddress += (selectedColumn == 0 ? amount : -amount);
+                checkValidMemory();
+            }
+            else if (ADDITIONAL_FLAG_BUTTON) {
+                MemoryEditor_FollowPointer();
+            }
+            else {
+                MemoryEditor_EditValue();
+            }
+        }
+        else {
+            if (pressed & BUTTON_UP){
+                selectedRow--;
+                if (selectedRow == 0) selectedColumn = 0;
+                if (selectedRow == 1) selectedColumn = 1;
+            }
+            if (pressed & BUTTON_DOWN){
+                selectedRow++;
+                if (selectedRow == 2) selectedColumn = 0;
+            }
+            if (pressed & BUTTON_RIGHT){
+                selectedColumn++;
+            }
+            if (pressed & BUTTON_LEFT){
+                selectedColumn--;
+            }
+            if (pressed & BUTTON_L1) {
+                selectedRow = selectedColumn = 0;
+            }
+        }
+
+        if(selectedRow > 17 || (selectedRow > 1 && !isValidMemory))
+            selectedRow = selectedColumn = 0;
+        else if(selectedRow < 0) {
+            selectedRow = isValidMemory ? 17 : 1;
+            selectedColumn = 0;
+        }
+
+        if(selectedColumn > 7 || (selectedRow <= 1 && selectedColumn > 1))
+            selectedColumn = 0;
+        else if(selectedColumn < 0) {
+            switch (selectedRow) {
+                case 0:
+                case 1:
+                    selectedColumn = 1; break;
+                default:
+                    selectedColumn = 7; break;
+            }
+        }
+
+    } while(true);
+}
+
+void MemoryEditor_EditAddress(void) {
+    static s8 digitIndex = 0;
+    u32 oldAddress = memoryEditorAddress;
+
+    do
+    {
+        Draw_DrawFormattedString(30, 30, COLOR_GREEN, "%08X", memoryEditorAddress);
+        Draw_DrawFormattedString(30 + (7 - digitIndex) * SPACING_X, 30, COLOR_RED, "%X", (memoryEditorAddress >> (digitIndex*4)) & 0xF);
+
+        Draw_CopyBackBuffer();
+
+        u32 pressed = Input_WaitWithTimeout(1000, closingButton);
+
+        if (pressed & (BUTTON_B | BUTTON_A)){
+            break;
+        }
+        else if (pressed & BUTTON_UP){
+            memoryEditorAddress += (1 << digitIndex*4);
+        }
+        else if (pressed & BUTTON_DOWN){
+            memoryEditorAddress -= (1 << digitIndex*4);
+        }
+        else if (pressed & BUTTON_RIGHT){
+            digitIndex--;
+        }
+        else if (pressed & BUTTON_LEFT){
+            digitIndex++;
+        }
+
+        if(digitIndex > 7)
+            digitIndex = 0;
+        else if(digitIndex < 0)
+            digitIndex = 7;
+
+    } while(true);
+
+    if (memoryEditorAddress != oldAddress)
+        pushHistory(oldAddress);
+
+    checkValidMemory();
+
+
+        Draw_ClearBackbuffer();
+    Draw_ClearFramebuffer();
+
+
+}
+
+void MemoryEditor_EditValue(void) {
+    u32 posX = 90 + selectedColumn * SPACING_X * 3;
+    u32 posY = 30 + selectedRow * SPACING_Y;
+    void* address = (void*)(memoryEditorAddress + (selectedRow - 2) * 8 + selectedColumn);
+
+    u8 value;
+    memcpy(&value, address, sizeof(value));
+
+    do
+    {
+
+        Draw_DrawFormattedString(posX, posY, COLOR_RED, "%02X", value);
+
+
+        Draw_CopyBackBuffer();
+        u32 pressed = Input_WaitWithTimeout(1000, closingButton);
+
+        if (pressed & (BUTTON_B | BUTTON_A)){
+            break;
+        }
+        else if (pressed & BUTTON_UP){
+            value++;
+        }
+        else if (pressed & BUTTON_DOWN){
+            value--;
+        }
+        else if (pressed & BUTTON_RIGHT){
+            value+=0x10;
+        }
+        else if (pressed & BUTTON_LEFT){
+            value-=0x10;
+        }
+
+    } while(true);
+
+    MemInfo address_info = query_memory_permissions((int)address);
+    if (is_valid_memory_write(&address_info)) {
+        memcpy(address, &value, sizeof(value));
+    }
+}
+
+void MemoryEditor_GoToPreset(void) {
+
+    static s32 selected = 0;
+    static const char* const names[] = {
+        "Save Context",
+        "Static Context / GameInfo",
+        "Global Context / PlayState",
+        "Current Scene Segment",
+        "Gear Usability Table",
+        "Item Usability Table",
+        "Actor Overlay Table",
+        "Entrance Table",
+        "Scene Table",
+    };
+    const void* const addresses[] = {
+        &gSaveContext,
+        &gStaticContext,
+        gGlobalContext,
+        gGlobalContext->sceneSegment,
+        gGearUsabilityTable,
+        gItemUsabilityTable,
+        gActorOverlayTable,
+        gEntranceTable,
+        gSceneTable,
+    };
+    const s32 addressesCount = sizeof(addresses)/sizeof(addresses[0]);
+
+
+        Draw_ClearBackbuffer();
+    Draw_ClearFramebuffer();
+
+
+
+    do
+    {
+        Draw_ClearBackbuffer();
+    Draw_ClearFramebuffer();
+
+        // Title
+        Draw_DrawString(10, 10, COLOR_TITLE, "Preset Memory Addresses");
+        // Address presets
+        for (s32 j = 0; j < addressesCount; j++) {
+            Draw_DrawFormattedString(30, 30 + j * SPACING_Y, (selected == j) ? COLOR_TITLE : COLOR_WHITE, "%08X : %s", addresses[j], names[j]);
+            Draw_DrawCharacter(10, 30 + j * SPACING_Y, COLOR_TITLE, (selected == j) ? '>' : ' ');
+        }
+
+
+
+
+        Draw_CopyBackBuffer();
+        u32 pressed = Input_WaitWithTimeout(1000, closingButton);
+
+        if (pressed & BUTTON_B){
+            break;
+        }
+        else if (pressed & BUTTON_A){
+            pushHistory(memoryEditorAddress);
+            memoryEditorAddress = (u32)(addresses[selected]);
+            break;
+        }
+        else {
+            if (pressed & BUTTON_UP){
+                selected--;
+            }
+            if (pressed & BUTTON_DOWN){
+                selected++;
+            }
+        }
+
+        if (selected > addressesCount - 1)
+            selected = 0;
+
+        if (selected < 0)
+            selected = addressesCount - 1;
+
+    } while(true);
+
+    checkValidMemory();
+
+
+    Draw_ClearFramebuffer();
+
+
+}
+
+void MemoryEditor_FollowPointer(void) {
+    pushHistory(memoryEditorAddress);
+    u32 byteAddress = (memoryEditorAddress + (selectedRow - 2) * 8 + selectedColumn);
+    u32 pointerAddress = byteAddress - byteAddress % 4;
+    if (pointerAddress >= (u32)gGlobalContext->sceneSegment && pointerAddress < (u32)gGlobalContext->sceneSegment + 0x1000) // Manage segment addresses for the scene file headers
+        memoryEditorAddress = (u32)gGlobalContext->sceneSegment + *(u32*)(pointerAddress);
+    else
+        memoryEditorAddress = *(u32*)pointerAddress;
+
+    checkValidMemory();
+
+
+        Draw_ClearBackbuffer();
+    Draw_ClearFramebuffer();
+
+
+}
+
+//#define OBJ_CTX rExtendedObjectCtx
+#define OBJ_CTX gGlobalContext->objectCtx
+
 void Debug_ShowObjects(void) {
     static u16 objectId = 0;
     static s8  digitIdx = 0;
 
 
+    Draw_ClearBackbuffer();
     Draw_ClearFramebuffer();
 
     do
     {
         Draw_ClearFramebuffer();
-        Draw_DrawFormattedString(10, 10, COLOR_TITLE, "Currently Loaded Objects: %02d/%02d", rExtendedObjectCtx.num, OBJECT_EXCHANGE_BANK_MAX);
+        Draw_DrawFormattedString(10, 10, COLOR_TITLE, "Value: %08X", value);
         Draw_DrawFormattedString(30, 50, COLOR_TITLE, "Object ID: %04X      (Y) Push    (X) Pop", objectId);
         Draw_DrawFormattedString(30 + (14 - digitIdx) * SPACING_X, 50, COLOR_GREEN, "%01X", (objectId >> (digitIdx*4)) & 0xF);
 
-        for (int i = 0; i < rExtendedObjectCtx.num; i++) {
-            Draw_DrawFormattedString((i % 2 ? 171 : 51), 70 + (i / 2) * SPACING_Y, COLOR_WHITE, "%08X %04X",
-                                        &rExtendedObjectCtx.status[i], rExtendedObjectCtx.status[i].id);
+        for (int i = 0; i < OBJ_CTX.num; i++) {
+            Draw_DrawFormattedString((i % 2 ? 171 : 51), 70 + (i / 2) * SPACING_Y, COLOR_WHITE, "%08X %04X %04X",
+                                        &OBJ_CTX.status[i], OBJ_CTX.status[i].id, OBJ_CTX.status[i].size);
         }
 
-        Draw_FlushFramebuffer();
-        //Draw_Unlock();
+
+        //
 
         Draw_CopyBackBuffer();
 
         u32 pressed = Input_WaitWithTimeout(1000, closingButton);
         if(pressed & BUTTON_B)
             break;
-        else if((pressed & BUTTON_Y) && objectId != 0 && rExtendedObjectCtx.num < OBJECT_EXCHANGE_BANK_MAX) {
-            Object_Spawn(&(rExtendedObjectCtx), (s16)objectId);
+        else if((pressed & BUTTON_Y) && objectId != 0 && OBJ_CTX.num < OBJECT_EXCHANGE_BANK_MAX) {
+            ExtendedObject_Spawn(&(OBJ_CTX), (s16)objectId);
         }
-        else if((pressed & BUTTON_X) && rExtendedObjectCtx.num > 0) {
-            rExtendedObjectCtx.status[--rExtendedObjectCtx.num].id = 0;
+        else if((pressed & BUTTON_X) && OBJ_CTX.num > 0) {
+            OBJ_CTX.status[--OBJ_CTX.num].id = 0;
             Draw_ClearFramebuffer();
         }
         else if(pressed & BUTTON_UP) {
@@ -914,8 +1286,9 @@ void Debug_FlagsEditor(void) {
     static const u8 RowAmounts[] = {2, 2, 2, 2, 2, 2, 2, 2, 2, 11, 14, 4, 16, 14, 4};
 
     Draw_ClearFramebuffer();
-    if (gSettingsContext.playOption == 0) { Draw_FlushFramebuffer(); }
+    if (gSettingsContext.playOption == 0) {  }
 
+    #undef WHITE_OR_BLUE_AT
     #define WHITE_OR_BLUE_AT(X,Y) ((row == X && column == Y) ? COLOR_TITLE : COLOR_WHITE)
     #define FLAG_STATUS(X,Y)  (*(flags + X) >> Y & 1)
     #define CURSOR_CHAR 176
@@ -923,7 +1296,7 @@ void Debug_FlagsEditor(void) {
     do
     {
         Draw_ClearBackbuffer();
-        //Draw_Lock();
+        //
         // Title
         Draw_DrawFormattedString(10, 10, COLOR_TITLE, "RespawnFlag: %04X", gSaveContext.respawnFlag);
         // Arrows to change group
@@ -950,8 +1323,8 @@ void Debug_FlagsEditor(void) {
             Draw_DrawCharacter(70 + column * 2 * SPACING_X, 50 + (row) * SPACING_Y, COLOR_TITLE, CURSOR_CHAR);
         }
 
-        Draw_FlushFramebuffer();
-        //Draw_Unlock();
+
+        //
 
         Draw_CopyBackBuffer();
 
@@ -979,9 +1352,9 @@ void Debug_FlagsEditor(void) {
                     default : flags = ((u16*)&(gGlobalContext->actorCtx.flags.swch)) + group * 2; break;
                 }
 
-                //Draw_Lock();
+                //
                 Draw_ClearFramebuffer();
-                //Draw_Unlock();
+                //
             }
         }
         else{
@@ -1023,7 +1396,7 @@ static void Gfx_ShowMenu(void) {
 
     Draw_ClearFramebuffer();
     if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
-        Draw_FlushFramebuffer();
+
     }
 
     do {
@@ -1168,7 +1541,7 @@ static void Gfx_ShowMenu(void) {
                 Draw_ClearBackbuffer();
                 Draw_CopyBackBuffer();
                 if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
-                    Draw_FlushFramebuffer();
+
                 }
                 break;
             } else if (pressed & BUTTON_R1) {
@@ -1205,7 +1578,7 @@ static void Gfx_ShowMenu(void) {
         Gfx_DrawHeader();
         Draw_CopyBackBuffer();
         if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
-            Draw_FlushFramebuffer();
+
         }
 
         pressed = Input_WaitWithTimeout(1000, closingButton);
@@ -1216,7 +1589,7 @@ static void Gfx_ShowMenu(void) {
 static void Gfx_ShowMultiplayerSyncMenu(void) {
     Draw_ClearFramebuffer();
     if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
-        Draw_FlushFramebuffer();
+
     }
 
     do {
@@ -1259,7 +1632,7 @@ static void Gfx_ShowMultiplayerSyncMenu(void) {
                 Draw_ClearBackbuffer();
                 Draw_CopyBackBuffer();
                 if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
-                    Draw_FlushFramebuffer();
+
                 }
                 mp_isSyncing     = false;
                 mSaveContextInit = true;
@@ -1280,7 +1653,7 @@ static void Gfx_ShowMultiplayerSyncMenu(void) {
                 Draw_ClearBackbuffer();
                 Draw_CopyBackBuffer();
                 if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
-                    Draw_FlushFramebuffer();
+
                 }
                 mp_isSyncing = false;
                 break;
@@ -1290,7 +1663,7 @@ static void Gfx_ShowMultiplayerSyncMenu(void) {
 
         Draw_CopyBackBuffer();
         if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
-            Draw_FlushFramebuffer();
+
         }
 
         svcSleepThread(1000 * 1000 * 1000LL);
@@ -1386,6 +1759,7 @@ void Gfx_Update(void) {
 
     if (!isAsleep && openingButton()) {
         Debug_ShowObjects();
+        Debug_MemoryEditor();
         // Check again as it's possible the system was put to sleep while the menu was open
         if (!isAsleep) {
             svcSleepThread(1000 * 1000 * 300LL);
