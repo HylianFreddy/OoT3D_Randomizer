@@ -1996,6 +1996,26 @@ SetFWPlayerParams_patch:
 AboutToPickUpActor_patch:
     bl hook_AboutToPickUpActor
 
+.section .patch_OverrideLimbDrawGameplayCommon
+.global OverrideLimbDraw_patch
+OverrideLimbDraw_patch:
+    bx lr
+
+.section .patch_PostLimbDrawGameplay
+.global patch_PostLimbDrawGameplayy
+patch_PostLimbDrawGameplayy:
+    bx lr
+
+.section .patch_DrawGameplay
+.global patch_DrawGameplayy
+patch_DrawGameplayy:
+    cmp r0,#0x0
+
+.section .patch_test
+.global patch_testt
+patch_testt:
+    nop
+
 @ ----------------------------------
 @ ----------------------------------
 

@@ -272,8 +272,29 @@ SECTIONS
 		*(.patch_GoronShopPurchaseableCheck)
 	}
 
-	.patch_PlayerEditAndRetrieveCMB 0x191970 : {
+	/*.patch_PlayerEditAndRetrieveCMB 0x191970 : {
 		*(.patch_PlayerEditAndRetrieveCMB)
+	}*/
+
+	/*draws first person items and Link during pause?*/
+	/*.patch_OverrideLimbDrawGameplayCommon 0x3255f0 : {
+		*(.patch_OverrideLimbDrawGameplayCommon)
+	}*/
+
+	/*first person camera focus point, deku stick?*/
+	/*.patch_PostLimbDrawGameplay 0x4c1c90 : {
+		*(.patch_PostLimbDrawGameplay)
+	}*/
+
+	/*.patch_DrawGameplay 0x4c13dc : {
+		*(.patch_DrawGameplay)
+	}*/
+
+	/*0x4c123c: head and hands*/
+	/*0x4c459C: head (and right hand doesn't reset?)*/
+
+	.patch_test 0x4c4684 : {
+		*(.patch_test)
 	}
 
 	.patch_SetChildCustomTunic 0x191DB0 : {

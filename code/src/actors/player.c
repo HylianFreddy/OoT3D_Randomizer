@@ -33,14 +33,24 @@
 u16 healthDecrement = 0;
 u8 storedMask       = 0;
 
+static char link_v2[322976] = {0};
+//static char zero[322976] = {0};
+static u8 loaded = FALSE;
+
 void* Player_EditAndRetrieveCMB(ZARInfo* zarInfo, u32 objModelIdx) {
     void* cmbMan = ZAR_GetCMBByIndex(zarInfo, objModelIdx);
+    /*if (loaded) {
+        *((u32*)cmbMan) = (u32)(&link_v2);
+        gSaveContext.rupees++;
+    }*/
 
-    if (gSaveContext.linkAge == 0) {
+    if (gSaveContext.linkAge == 0 && loaded) {
         void* cmb = (void*)(((char*)zarInfo->buf) + 0xDAE8);
+        //memcpy(cmb, (const void*)link_v2, sizeof link_v2);
         CustomModel_EditLinkToCustomTunic(cmb);
-    } else {
+    } else if (loaded) {
         void* cmb = (void*)(((char*)zarInfo->buf) + 0xDACC);
+        //memcpy(cmb, (const void*)zero, sizeof link_v2); // invisible, but no unmapped reads
         CustomModel_EditChildLinkToCustomTunic(cmb);
     }
 
@@ -92,10 +102,6 @@ void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-
-static char link_v2[322976] = {0};
-static u8 loaded = FALSE;
-
 void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 
 
@@ -119,8 +125,6 @@ void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         }
     }
 
-    if (link_v2[0] == 0x63)
-        gSaveContext.rupees++;
 
     Player* this = (Player*)thisx;
     PlayerActor_Update(thisx, globalCtx);
