@@ -4,6 +4,7 @@
 #include "objects.h"
 
 #define NAVI_COLORS_ARRAY ((Color_RGBA8*)0x50C998)
+#define FAIRY_COLOR_SPEED 17 // 255 = 3*17*5
 
 static u8 lastTargetActorType = 0;
 // Data to manage the rainbow colors
@@ -43,22 +44,6 @@ u8 Fairy_IsNaviOuterRainbowForActorType(u8 type) {
     }
 }
 
-void Fairy_ChangeRainbowColorRGBAf(Color_RGBAf* color) {
-#define COLOR_SPEED 17 // 255 = 3*17*5
-    if (color->r == 255.0f && color->g != 255.0f && color->b == 0)
-        color->g += COLOR_SPEED;
-    else if (color->r != 0 && color->g == 255.0f && color->b == 0)
-        color->r -= COLOR_SPEED;
-    else if (color->r == 0 && color->g == 255.0f && color->b != 255.0f)
-        color->b += COLOR_SPEED;
-    else if (color->r == 0 && color->g != 0 && color->b == 255.0f)
-        color->g -= COLOR_SPEED;
-    else if (color->r != 255.0f && color->g == 0 && color->b == 255.0f)
-        color->r += COLOR_SPEED;
-    else if (color->r == 255.0f && color->g == 0 && color->b != 0)
-        color->b -= COLOR_SPEED;
-}
-
 void Fairy_ApplyColorToTargetCMAB(void* cmab, Color_RGBA8 color) {
     // keyframe 1
     *(f32*)(cmab + 0x6C) = color.r / 255.0f;
@@ -76,7 +61,7 @@ void Fairy_ApplyColorToTargetCMAB(void* cmab, Color_RGBA8 color) {
 
 void Fairy_UpdateRainbowNaviColors(EnElf* navi) {
     if (Fairy_IsNaviInnerRainbowForActorType(lastTargetActorType)) {
-        Fairy_ChangeRainbowColorRGBAf(&(navi->innerColor));
+        Colors_ChangeRainbowColorRGBAf(&(navi->innerColor), FAIRY_COLOR_SPEED, 255.0f);
         // Note: target pointer color won't cycle if Navi isn't hovering above that actor
         // (i.e. she's following the target reticle on a different actor)
         staticRainbowColor.r = navi->innerColor.r;
@@ -85,7 +70,7 @@ void Fairy_UpdateRainbowNaviColors(EnElf* navi) {
         staticRainbowColor.a = 0xFF;
     }
     if (Fairy_IsNaviOuterRainbowForActorType(lastTargetActorType)) {
-        Fairy_ChangeRainbowColorRGBAf(&(navi->outerColor));
+        Colors_ChangeRainbowColorRGBAf(&(navi->outerColor), FAIRY_COLOR_SPEED, 255.0f);
     }
 
     // Handle target pointer color
