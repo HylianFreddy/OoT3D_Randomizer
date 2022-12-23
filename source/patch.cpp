@@ -561,6 +561,33 @@ bool WriteAllPatches() {
     return false;
   }
 
+  /*--------------------------------
+  |          Bomb Colors           |
+  ---------------------------------*/
+
+  const u32 BOMBCOLOR_ADDR = 0x004D9274;
+  Cosmetics::Color_RGBAf rBombColor = Cosmetics::HexStrToColorRGBAf(Settings::finalChuTrailOuterColor);
+
+  // Write Bomb Color address to code
+  patchOffset = V_TO_P(BOMBCOLOR_ADDR);
+  patchSize = sizeof(rBombColor);
+  if (ctx.customTrailEffects &&
+      !WritePatch(patchOffset, patchSize, (char*)&rBombColor, code, bytesWritten, totalRW, buf)) {
+    return false;
+  }
+
+
+  const u32 SHOCKWAVECOLOR_ADDR = 0x00520250;
+  Cosmetics::Color_RGBA8 rShockWaveColor = Cosmetics::HexStrToColorRGBA8(Settings::finalChuTrailOuterColor);
+
+  // Write Shock Wave Color address to code
+  patchOffset = V_TO_P(SHOCKWAVECOLOR_ADDR);
+  patchSize = sizeof(rShockWaveColor);
+  if (ctx.customTrailEffects &&
+      !WritePatch(patchOffset, patchSize, (char*)&rShockWaveColor, code, bytesWritten, totalRW, buf)) {
+    return false;
+  }
+
   /*-------------------------
   |           EOF           |
   --------------------------*/

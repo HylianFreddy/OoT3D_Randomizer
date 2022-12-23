@@ -1,6 +1,7 @@
 #include "z3D/z3D.h"
 #include "settings.h"
 #include "colors.h"
+#include "draw.h"
 
 typedef struct {
     /* 0x00 */ s32 state;
@@ -186,4 +187,11 @@ u32 updateChuTrailColors(EffectBlure* effect, Vec3f* p1, Vec3f* p2) {
     }
 
     return handleLongTrails(gSettingsContext.bombchuTrailDuration, effect, p1, p2);
+}
+
+void chucolor(u8* what) {
+
+    for (int i = 0; i<12;i++) {
+        Draw_DrawFormattedStringTop(100,10 +i*11,COLOR_WHITE,"colordata? : %02X", *(what+i));
+    }
 }

@@ -49,6 +49,7 @@
 #include "collapsing_platform.h"
 #include "carpenter.h"
 #include "pushblock.h"
+#include "draw.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -60,7 +61,21 @@ typedef void (*TitleCard_Update_proc)(GlobalContext* globalCtx, TitleCardContext
 #define TitleCard_Update_addr 0x47953C
 #define TitleCard_Update ((TitleCard_Update_proc)TitleCard_Update_addr)
 
+
+/*#define chuu ((ActorFunc)0x247c40)
+
+void chu(Actor* thisx, GlobalContext* globalCtx) {
+    for (int i = 0; i<12;i++) {
+        Draw_DrawFormattedStringTop(100,10 +i*11,COLOR_WHITE,"colordata? : %02X", *(((u8*)thisx)+0x148+i));
+    }
+
+    chuu(thisx, globalCtx);
+}*/
+
 void Actor_Init() {
+   // gActorOverlayTable[0xDA].initInfo->update = chu;
+
+
     gActorOverlayTable[0x0].initInfo->init = PlayerActor_rInit;
     gActorOverlayTable[0x0].initInfo->update = PlayerActor_rUpdate;
     gActorOverlayTable[0x0].initInfo->destroy = PlayerActor_rDestroy;

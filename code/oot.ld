@@ -808,9 +808,9 @@ SECTIONS
 		*(.patch_ConvertBombDropTwo)
 	}
 
-	.patch_SetSFX 0x37547C : {
+	/*.patch_SetSFX 0x37547C : {
 		*(.patch_SetSFX)
-	}
+	}*/
 
 	.patch_GKSetDurability 0x376BDC : {
 		*(.patch_GKSetDurability)
@@ -1317,6 +1317,61 @@ SECTIONS
 	.patch_TycoonWalletSize 0x53CC08 : {
 		*(.patch_TycoonWalletSize)
 	}
+
+	/*0x0050C998 Navi Colors address
+	  NOP:
+		0x47BC00 = massive pointer at 000
+		0x47BC1C = nothing?
+		0x47BC80 = drawn in front of Link, not drawn if Link is not covering it
+		0x47BC8C = nothing?
+	*/
+
+	.patch_CMABfunction 0x372DD4 : {
+		*(.patch_CMABfunction)
+	}/**/
+
+	/*.patch_drawTarget 0x45A0D4 : {
+		*(.patch_drawTarget)
+	}/*nop function to not draw reticle and arrow*/
+
+	/*.patch_targetReticle 0x47B1FC : {
+		*(.patch_targetReticle)
+	}/*force branch to skip drawing 4 arrows*/
+
+	/*.patch_targetReticle2 0x47BB00 : {
+		*(.patch_targetReticle2)
+	}/**/
+
+	/*.patch_targetArrow 0x47b288 : {
+		*(.patch_targetArrow)
+	}/**/
+
+	/*.patch_targetColor 0x50CA00 : {
+		*(.patch_targetColor)
+	}/**/
+
+
+
+
+	/*.patch_bombExp 0x1D584C : {
+		*(.patch_bombExp)
+	}/**/
+
+	/*.patch_bombColor 0x4D9274 : {
+		*(.patch_bombColor)
+	}/**/
+
+	/*.patch_waveColor 0x520250 : {
+		*(.patch_waveColor)
+	}/**/
+
+	/*.patch_bombColor2 0x1D52E8 : {
+		*(.patch_bombColor2)
+	}/**/
+
+	/*.patch_chucolor 0x247C10 : {
+		*(.patch_chucolor)
+	}/**/
 
 	. = 0x005C7000;
     .text : {

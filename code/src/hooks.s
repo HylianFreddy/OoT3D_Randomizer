@@ -1442,6 +1442,15 @@ hook_RainbowChuTrail:
     strb r7,[r0,#0x282]
     bx lr
 
+.global hook_chucolor
+hook_chucolor:
+    strb r5,[r0,#0xAC]
+    push {r0-r12, lr}
+    cpy r0,r1
+    bl chucolor
+    pop {r0-r12, lr}
+    bx lr
+
 .section .loader
 .global hook_into_loader
 hook_into_loader:

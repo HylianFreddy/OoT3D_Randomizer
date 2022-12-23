@@ -1755,6 +1755,64 @@ RainbowChuTrailOne_patch:
 RainbowChuTrailTwo_patch:
     bl hook_RainbowChuTrail
 
+.section .patch_CMABfunction
+.global patch_CMABfunctiond
+patch_CMABfunctiond:
+    b 0x371E60
+
+.section .patch_drawTarget
+.global patch_drawtargetReticlee
+patch_drawtargetReticlee:
+    nop
+
+.section .patch_targetReticle
+.global patch_targetReticled
+patch_targetReticled:
+    b 0x47BAB8
+
+.section .patch_targetReticle2
+.global patch_targetReticle2d
+patch_targetReticle2d:
+    b 0x47BB28
+    # b 0x47BCD8 (return)
+
+.section .patch_targetArrow
+.global patch_targetArrowd
+patch_targetArrowd:
+    b 0x47b2e8
+
+
+
+
+
+.section .patch_bombExp
+.global patch_bombExpp
+patch_bombExpp:
+    nop
+
+.section .patch_bombColor
+.global patch_bombColorr
+patch_bombColorr:
+    # GBR?
+    .word 0x3f800000
+    .word 0x00000000
+    .word 0x00000000
+
+.section .patch_waveColor
+.global patch_waveColorr
+patch_waveColorr:
+    .word 0xFF00FF00
+
+.section .patch_bombColor2
+.global patch_bombColor22
+patch_bombColor22:
+    nop
+
+.section .patch_chucolor
+.global patch_chucolorr
+patch_chucolorr:
+    nop
+
 .section .patch_loader
 .global loader_patch
 
