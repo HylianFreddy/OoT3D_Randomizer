@@ -9,6 +9,7 @@
 #include "arrow.h"
 #include "grotto.h"
 #include "item_override.h"
+#include "draw.h"
 
 #define PlayerActor_Init_addr 0x191844
 #define PlayerActor_Init ((ActorFunc)PlayerActor_Init_addr)
@@ -29,6 +30,8 @@
 
 u16 healthDecrement = 0;
 u8 storedMask       = 0;
+u32 rainbowTunicColor = 0;
+Color_RGBAf colors;
 
 void* Player_EditAndRetrieveCMB(ZARInfo* zarInfo, u32 objModelIdx) {
     void* cmbMan = ZAR_GetCMBByIndex(zarInfo, objModelIdx);
@@ -64,6 +67,18 @@ void* Player_GetCustomTunicCMAB(ZARInfo* originalZarInfo, u32 originalIndex) {
         *(cmabChunk+48) = 0.0f;
 
         return cmabMan;
+        /*
+
+        void* p = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo, TEXANIM_LINK_BODY);
+        f32* cmabChunk = *((f32**)p);
+        *(cmabChunk+28) = 255;
+        // *(cmabChunk+29) = 1;
+        *(cmabChunk+38) = 1;
+        // *(cmabChunk+39) = 1;
+        *(cmabChunk+48) = 1;
+        // *(cmabChunk+49) = 1;
+        return p;
+        */
     } else {
         return ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo, TEXANIM_CHILD_LINK_BODY);
     }
@@ -83,6 +98,13 @@ void Player_SetChildCustomTunicCMAB(void) {
 }
 
 void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
+    gSettingsContext.customTunicColors = ON;
+    gSettingsContext.customNaviColors = ON;
+    gSettingsContext.rainbowIdleNaviInnerColor = ON;
+    gSettingsContext.rainbowIdleNaviOuterColor = ON;
+    ((u32*)0x50C998)[4] = 0xFF00FF00;
+    ((u32*)0x50C998)[5] = 0xFF00FF00;
+
     if (IceTrap_ActiveCurse == ICETRAP_CURSE_SHIELD) {
         gSaveContext.equips.equipment &= ~0xF0; // unequip shield
     }
@@ -175,6 +197,19 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
     *(cmabChunk+28) = color.r;
     *(cmabChunk+38) = color.g;
     *(cmabChunk+48) = color.b;
+
+    Draw_ClearFramebuffer();
+    Draw_ClearBackbuffer();
+    Draw_DrawFormattedString(10, 16 + (SPACING_Y), COLOR_WHITE, "%04f %04f %04f", *(cmabChunk+28), *(cmabChunk+38), *(cmabChunk+48));
+    Draw_CopyBackBuffer();
+    colors = color;
+
+
+    /*u8 red = (*(cmabChunk+28)) * 255;
+    red += 0x1;
+    *(cmabChunk+28) = red / 255.0f;
+    *(cmabChunk+38) += 0x100000;
+    *(cmabChunk+48) += 0x100000;*/
 
     PlayerActor_Draw(thisx, globalCtx);
 }

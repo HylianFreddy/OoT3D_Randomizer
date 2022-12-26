@@ -16,6 +16,7 @@
 #include "draw.h"
 #include "input.h"
 #include "multiplayer.h"
+#include "player.h"
 
 u32 pressed;
 bool handledInput;
@@ -356,10 +357,8 @@ static void Gfx_UpdatePlayTime(void) {
 static void Gfx_DrawSeedHash(void) {
     u8 offsetY = 0;
     Draw_DrawFormattedString(10, 16 + (SPACING_Y * offsetY++), COLOR_TITLE, "Seed Hash:");
-    for (u32 hashIndex = 0; hashIndex < ARRAY_SIZE(gSettingsContext.hashIndexes); ++hashIndex) {
-        Draw_DrawFormattedString(10 + (SPACING_X * 4), 16 + (SPACING_Y * offsetY++), COLOR_WHITE, "%s",
-                                 hashIconNames[gSettingsContext.hashIndexes[hashIndex]]);
-    }
+
+    Draw_DrawFormattedString(10, 16 + (SPACING_Y), COLOR_WHITE, "%04f %04f %04f", colors.r, colors.g, colors.b);
     offsetY++;
 
     Draw_DrawString(10, 16 + (SPACING_Y * offsetY++), COLOR_TITLE, "Play time:");
