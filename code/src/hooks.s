@@ -1728,6 +1728,29 @@ hook_AboutToPickUpActor:
     subeq lr,lr,#0x8
     bx lr
 
+.global hook_TargetReticleColor
+hook_TargetReticleColor:
+    mov r4,#0x0
+    push {r0-r12,lr}
+    cpy r0,r6 @ Target Context
+    bl Fairy_SetTargetReticleColor
+    cmp r0,#0x0
+    pop {r0-r12,lr}
+    bxeq lr    @ no custom Navi colors, return to original code
+    b 0x47B2E8 @ colors applied, skip original code
+
+.global hook_TargetPointerColor
+hook_TargetPointerColor:
+    ldr r0,[r6,#0x120]
+    push {r0-r12,lr}
+    cpy r0,r6 @ Target Context
+    cpy r1,r4 @ Targeted actor
+    bl Fairy_SetTargetPointerColor
+    cmp r0,#0x0
+    pop {r0-r12,lr}
+    bxeq lr    @ no custom Navi colors, return to original code
+    b 0x47BB30 @ colors applied, skip original code
+
 @ ----------------------------------
 @ ----------------------------------
 

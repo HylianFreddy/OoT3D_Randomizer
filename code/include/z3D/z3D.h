@@ -479,6 +479,28 @@ typedef struct {
     /* 0x03 */ u8 flags3;
 } RestrictionFlags;
 
+typedef struct TargetContext {
+    /* 0x000 */ char unk_000[0x4E];
+    /* 0x04E */ u8 actorTypeInReticle;
+    /* 0x04F */ char unk_04F[0x61];
+    /* 0x0B0 */ SkeletonAnimationModel* skelVisibleTargetPointer; // gets culled when behind a wall
+    /* 0x0B4 */ SkeletonAnimationModel* skelVisibleTargetReticleArrowOne;
+    /* 0x0B8 */ SkeletonAnimationModel* skelVisibleTargetReticleArrowTwo;
+    /* 0x0BC */ SkeletonAnimationModel* skelVisibleTargetReticleArrowThree;
+    /* 0x0C0 */ SkeletonAnimationModel* skelVisibleTargetReticleArrowFour;
+    /* 0x0C4 */ char unk_0B4[0x20];
+    /* 0x0E4 */ SkeletonAnimationModel* skelHiddenTargetPointer; // drawn even when behind walls
+    /* 0x0E8 */ SkeletonAnimationModel* skelHiddenTargetReticleArrowOne;
+    /* 0x0EC */ SkeletonAnimationModel* skelHiddenTargetReticleArrowTwo;
+    /* 0x0F0 */ SkeletonAnimationModel* skelHiddenTargetReticleArrowThree;
+    /* 0x0F4 */ SkeletonAnimationModel* skelHiddenTargetReticleArrowFour;
+    /* 0x0F8 */ char unk_0E8[0x28];
+    /* 0x120 */ ZARInfo* zarInfo;
+    /* 0x124 */ char unk_120[0x4];
+    /* 0x128 */ u32 targetActorType;
+    // ... size unknown
+} TargetContext;
+
 extern GlobalContext* gGlobalContext;
 extern const u32 ItemSlots[];
 extern const char DungeonNames[][25];
