@@ -55,7 +55,15 @@ void* Player_GetCustomTunicCMAB(ZARInfo* originalZarInfo, u32 originalIndex) {
         exObjectBankIdx = Object_Spawn(&rExtendedObjectCtx, OBJECT_CUSTOM_GENERAL_ASSETS);
     }
     if (gSaveContext.linkAge == 0) {
-        return ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo, TEXANIM_LINK_BODY);
+        void* cmabMan = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo, TEXANIM_LINK_BODY);
+
+        f32* cmabChunk = *((f32**)cmabMan);
+
+        *(cmabChunk+28) = 1.0f;
+        *(cmabChunk+38) = 0.0f;
+        *(cmabChunk+48) = 0.0f;
+
+        return cmabMan;
     } else {
         return ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo, TEXANIM_CHILD_LINK_BODY);
     }
