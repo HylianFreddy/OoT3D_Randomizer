@@ -148,6 +148,26 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
             PLAYER->sheathDLists = PlayerDListGroup_EmptySheathChildWithHylianShield;
         }
     }
+
+    #define TUNIC_COLOR_SPEED 1/255.0f
+
+    s16 exObjectBankIdx = Object_GetIndex(&rExtendedObjectCtx, OBJECT_CUSTOM_GENERAL_ASSETS);
+    void* cmabManager = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo, TEXANIM_LINK_BODY);
+    f32* cmabChunk = *((f32**)cmabManager);
+
+    Color_RGBAf color = {
+        .r = *(cmabChunk+28),
+        .g = *(cmabChunk+38),
+        .b = *(cmabChunk+48),
+        .a = 1.0f,
+    };
+
+    Colors_ChangeRainbowColorRGBAf(&color, TUNIC_COLOR_SPEED, 1.0f);
+
+    *(cmabChunk+28) = color.r;
+    *(cmabChunk+38) = color.g;
+    *(cmabChunk+48) = color.b;
+
     PlayerActor_Draw(thisx, globalCtx);
 }
 
