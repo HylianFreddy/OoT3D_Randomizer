@@ -35,3 +35,4 @@ extern const PatchSymbols EurSymbols;
 extern const PatchSymbols UsaSymbols;
 
 bool WriteAllPatches();
+bool WriteCosmeticPatches();

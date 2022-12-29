@@ -48,6 +48,7 @@ void PrintGenerateMenu();
 void ClearDescription();
 void PrintDescription(std::string_view description);
 void GenerateRandomizer();
+void GenerateCosmeticsOnly();
 std::string GetInput(const char* hintText);
 
 extern void MenuInit();

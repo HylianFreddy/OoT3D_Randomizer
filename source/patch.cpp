@@ -721,3 +721,31 @@ bool WriteAllPatches() {
 
     return true;
 }
+
+void WriteCosmeticPatches() {
+    Result res             = 0;
+    FS_Archive sdmcArchive = 0;
+    Handle code;
+    u32 bytesWritten = 0;
+    u32 totalRW      = 0;
+    char buf[512];
+    std::string titleId;
+    PatchSymbols patchSymbols;
+    if (Settings::Region == REGION_EUR) {
+        titleId      = "0004000000033600";
+        patchSymbols = EurSymbols;
+    } else { // REGION_NA
+        titleId      = "0004000000033500";
+        patchSymbols = UsaSymbols;
+    }
+
+    // Open SD archive
+    if (!R_SUCCEEDED(res = FSUSER_OpenArchive(&sdmcArchive, ARCHIVE_SDMC, fsMakePath(PATH_EMPTY, "")))) {
+        return false;
+    }
+
+    Result rc = romfsInit();
+    if (rc) {
+        printf("\nromfsInit: %08lX\n", rc);
+    }
+}

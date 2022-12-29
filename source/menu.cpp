@@ -685,6 +685,25 @@ static void RestoreOverrides() {
     LoadCachedCosmetics();
 }
 
+void GenerateCosmeticsOnly() {
+    consoleSelect(&topScreen);
+    consoleClear();
+    printf("\x1b[6;10HCaching Cosmetic Settings...");
+    SaveCachedCosmetics();
+    printf("Done");
+
+    Settings::UpdateSettings();
+
+    printf("\x1b[12;10HWriting Patch...");
+    if (WriteCosmeticPatches()) {
+        printf("\x1b[14;10HCosmetics updated\n");
+    } else {
+        printf("Failed\nPress Select to exit.\n");
+    }
+
+    RestoreOverrides();
+}
+
 void GenerateRandomizer() {
 
     consoleSelect(&topScreen);
