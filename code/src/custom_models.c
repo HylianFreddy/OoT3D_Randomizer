@@ -23,8 +23,7 @@ void CustomModel_EditLinkToCustomTunic(void* linkCMB) {
 
     // Edit combinerIndices
     EDIT_BYTE(0x6C4, 0x04); // Update combinerCount
-    EDIT_BYTE(0x6CC, 0x0B);
-    EDIT_BYTE(0x6CD, 0x00); // Add new combiner index (Replacing one of the combiners used by unused deku stick)
+    EDIT_BYTE(0x6CC, 0x0B); EDIT_BYTE(0x6CD, 0x00); // Add new combiner index (Replacing one of the combiners used by unused deku stick)
     EDIT_BYTE(0x6CE, 0x11);
     EDIT_BYTE(0x6CF, 0x00);
 
