@@ -1160,6 +1160,10 @@ SECTIONS
 		*(.patch_ItemsMenuDraw)
 	}
 
+	.patch_GearMenuEmptySlot 0x438C20 : {
+		*(.patch_GearMenuEmptySlot)
+	}
+
 	.patch_LoadGame 0x4473A0 : {
 		*(.patch_LoadGame)
 	}

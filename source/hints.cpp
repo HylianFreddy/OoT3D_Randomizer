@@ -25,19 +25,19 @@ constexpr std::array<HintSetting, 4> hintSettingTable{ {
         .dungeonsBarrenLimit = 1,
         .namedItemsRequired  = false,
         .distTable           = { {
-                      { .type = HintType::Trial, .order = 1, .weight = 0, .fixed = 0, .copies = 0 },
-                      { .type = HintType::Always, .order = 2, .weight = 0, .fixed = 0, .copies = 0 },
-                      { .type = HintType::Woth, .order = 3, .weight = 0, .fixed = 0, .copies = 0 },
-                      { .type = HintType::Barren, .order = 4, .weight = 0, .fixed = 0, .copies = 0 },
-                      { .type = HintType::Entrance, .order = 5, .weight = 0, .fixed = 0, .copies = 0 },
-                      { .type = HintType::Sometimes, .order = 6, .weight = 0, .fixed = 0, .copies = 0 },
-                      { .type = HintType::Random, .order = 7, .weight = 0, .fixed = 0, .copies = 0 },
-                      { .type = HintType::Item, .order = 8, .weight = 0, .fixed = 0, .copies = 0 },
-                      { .type = HintType::Song, .order = 9, .weight = 0, .fixed = 0, .copies = 0 },
-                      { .type = HintType::Overworld, .order = 10, .weight = 0, .fixed = 0, .copies = 0 },
-                      { .type = HintType::Dungeon, .order = 11, .weight = 0, .fixed = 0, .copies = 0 },
-                      { .type = HintType::Junk, .order = 12, .weight = 99, .fixed = 0, .copies = 0 },
-                      { .type = HintType::NamedItem, .order = 13, .weight = 0, .fixed = 0, .copies = 0 },
+            { .type = HintType::Trial, .order = 1, .weight = 0, .fixed = 0, .copies = 0 },
+            { .type = HintType::Always, .order = 2, .weight = 0, .fixed = 0, .copies = 0 },
+            { .type = HintType::Woth, .order = 3, .weight = 0, .fixed = 0, .copies = 0 },
+            { .type = HintType::Barren, .order = 4, .weight = 0, .fixed = 0, .copies = 0 },
+            { .type = HintType::Entrance, .order = 5, .weight = 0, .fixed = 0, .copies = 0 },
+            { .type = HintType::Sometimes, .order = 6, .weight = 0, .fixed = 0, .copies = 0 },
+            { .type = HintType::Random, .order = 7, .weight = 0, .fixed = 0, .copies = 0 },
+            { .type = HintType::Item, .order = 8, .weight = 0, .fixed = 0, .copies = 0 },
+            { .type = HintType::Song, .order = 9, .weight = 0, .fixed = 0, .copies = 0 },
+            { .type = HintType::Overworld, .order = 10, .weight = 0, .fixed = 0, .copies = 0 },
+            { .type = HintType::Dungeon, .order = 11, .weight = 0, .fixed = 0, .copies = 0 },
+            { .type = HintType::Junk, .order = 12, .weight = 99, .fixed = 0, .copies = 0 },
+            { .type = HintType::NamedItem, .order = 13, .weight = 0, .fixed = 0, .copies = 0 },
         } },
     },
 
@@ -47,19 +47,19 @@ constexpr std::array<HintSetting, 4> hintSettingTable{ {
         .dungeonsBarrenLimit = 1,
         .namedItemsRequired  = true,
         .distTable           = { {
-                      { .type = HintType::Trial, .order = 1, .weight = 0, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Always, .order = 2, .weight = 0, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Woth, .order = 3, .weight = 7, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Barren, .order = 4, .weight = 4, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Entrance, .order = 5, .weight = 6, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Sometimes, .order = 6, .weight = 0, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Random, .order = 7, .weight = 12, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Item, .order = 8, .weight = 10, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Song, .order = 9, .weight = 2, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Overworld, .order = 10, .weight = 4, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Dungeon, .order = 11, .weight = 3, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Junk, .order = 12, .weight = 6, .fixed = 0, .copies = 1 },
-                      { .type = HintType::NamedItem, .order = 13, .weight = 0, .fixed = 0, .copies = 1 },
+            { .type = HintType::Trial, .order = 1, .weight = 0, .fixed = 0, .copies = 1 },
+            { .type = HintType::Always, .order = 2, .weight = 0, .fixed = 0, .copies = 1 },
+            { .type = HintType::Woth, .order = 3, .weight = 7, .fixed = 0, .copies = 1 },
+            { .type = HintType::Barren, .order = 4, .weight = 4, .fixed = 0, .copies = 1 },
+            { .type = HintType::Entrance, .order = 5, .weight = 6, .fixed = 0, .copies = 1 },
+            { .type = HintType::Sometimes, .order = 6, .weight = 0, .fixed = 0, .copies = 1 },
+            { .type = HintType::Random, .order = 7, .weight = 12, .fixed = 0, .copies = 1 },
+            { .type = HintType::Item, .order = 8, .weight = 10, .fixed = 0, .copies = 1 },
+            { .type = HintType::Song, .order = 9, .weight = 2, .fixed = 0, .copies = 1 },
+            { .type = HintType::Overworld, .order = 10, .weight = 4, .fixed = 0, .copies = 1 },
+            { .type = HintType::Dungeon, .order = 11, .weight = 3, .fixed = 0, .copies = 1 },
+            { .type = HintType::Junk, .order = 12, .weight = 6, .fixed = 0, .copies = 1 },
+            { .type = HintType::NamedItem, .order = 13, .weight = 0, .fixed = 0, .copies = 1 },
         } },
     },
 
@@ -69,19 +69,19 @@ constexpr std::array<HintSetting, 4> hintSettingTable{ {
         .dungeonsBarrenLimit = 1,
         .namedItemsRequired  = true,
         .distTable           = { {
-                      { .type = HintType::Trial, .order = 1, .weight = 0, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Always, .order = 2, .weight = 0, .fixed = 0, .copies = 2 },
-                      { .type = HintType::Woth, .order = 3, .weight = 12, .fixed = 0, .copies = 2 },
-                      { .type = HintType::Barren, .order = 4, .weight = 12, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Entrance, .order = 5, .weight = 4, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Sometimes, .order = 6, .weight = 0, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Random, .order = 7, .weight = 8, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Item, .order = 8, .weight = 8, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Song, .order = 9, .weight = 4, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Overworld, .order = 10, .weight = 6, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Dungeon, .order = 11, .weight = 6, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Junk, .order = 12, .weight = 0, .fixed = 0, .copies = 1 },
-                      { .type = HintType::NamedItem, .order = 13, .weight = 0, .fixed = 0, .copies = 1 },
+            { .type = HintType::Trial, .order = 1, .weight = 0, .fixed = 0, .copies = 1 },
+            { .type = HintType::Always, .order = 2, .weight = 0, .fixed = 0, .copies = 2 },
+            { .type = HintType::Woth, .order = 3, .weight = 12, .fixed = 0, .copies = 2 },
+            { .type = HintType::Barren, .order = 4, .weight = 12, .fixed = 0, .copies = 1 },
+            { .type = HintType::Entrance, .order = 5, .weight = 4, .fixed = 0, .copies = 1 },
+            { .type = HintType::Sometimes, .order = 6, .weight = 0, .fixed = 0, .copies = 1 },
+            { .type = HintType::Random, .order = 7, .weight = 8, .fixed = 0, .copies = 1 },
+            { .type = HintType::Item, .order = 8, .weight = 8, .fixed = 0, .copies = 1 },
+            { .type = HintType::Song, .order = 9, .weight = 4, .fixed = 0, .copies = 1 },
+            { .type = HintType::Overworld, .order = 10, .weight = 6, .fixed = 0, .copies = 1 },
+            { .type = HintType::Dungeon, .order = 11, .weight = 6, .fixed = 0, .copies = 1 },
+            { .type = HintType::Junk, .order = 12, .weight = 0, .fixed = 0, .copies = 1 },
+            { .type = HintType::NamedItem, .order = 13, .weight = 0, .fixed = 0, .copies = 1 },
         } },
     },
 
@@ -91,19 +91,19 @@ constexpr std::array<HintSetting, 4> hintSettingTable{ {
         .dungeonsBarrenLimit = 40,
         .namedItemsRequired  = true,
         .distTable           = { {
-                      { .type = HintType::Trial, .order = 1, .weight = 0, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Always, .order = 2, .weight = 0, .fixed = 0, .copies = 2 },
-                      { .type = HintType::Woth, .order = 3, .weight = 15, .fixed = 0, .copies = 2 },
-                      { .type = HintType::Barren, .order = 4, .weight = 15, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Entrance, .order = 5, .weight = 10, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Sometimes, .order = 6, .weight = 0, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Random, .order = 7, .weight = 0, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Item, .order = 8, .weight = 5, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Song, .order = 9, .weight = 2, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Overworld, .order = 10, .weight = 7, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Dungeon, .order = 11, .weight = 7, .fixed = 0, .copies = 1 },
-                      { .type = HintType::Junk, .order = 12, .weight = 0, .fixed = 0, .copies = 1 },
-                      { .type = HintType::NamedItem, .order = 13, .weight = 0, .fixed = 0, .copies = 1 },
+            { .type = HintType::Trial, .order = 1, .weight = 0, .fixed = 0, .copies = 1 },
+            { .type = HintType::Always, .order = 2, .weight = 0, .fixed = 0, .copies = 2 },
+            { .type = HintType::Woth, .order = 3, .weight = 15, .fixed = 0, .copies = 2 },
+            { .type = HintType::Barren, .order = 4, .weight = 15, .fixed = 0, .copies = 1 },
+            { .type = HintType::Entrance, .order = 5, .weight = 10, .fixed = 0, .copies = 1 },
+            { .type = HintType::Sometimes, .order = 6, .weight = 0, .fixed = 0, .copies = 1 },
+            { .type = HintType::Random, .order = 7, .weight = 0, .fixed = 0, .copies = 1 },
+            { .type = HintType::Item, .order = 8, .weight = 5, .fixed = 0, .copies = 1 },
+            { .type = HintType::Song, .order = 9, .weight = 2, .fixed = 0, .copies = 1 },
+            { .type = HintType::Overworld, .order = 10, .weight = 7, .fixed = 0, .copies = 1 },
+            { .type = HintType::Dungeon, .order = 11, .weight = 7, .fixed = 0, .copies = 1 },
+            { .type = HintType::Junk, .order = 12, .weight = 0, .fixed = 0, .copies = 1 },
+            { .type = HintType::NamedItem, .order = 13, .weight = 0, .fixed = 0, .copies = 1 },
         } },
     },
 } };
@@ -651,46 +651,73 @@ static Text BuildGanonBossKeyText() {
 
 static void CreateAltarText() {
 
+    Text emeraldText   = BuildDungeonRewardText(ITEM_KOKIRI_EMERALD, KOKIRI_EMERALD);
+    Text rubyText      = BuildDungeonRewardText(ITEM_GORON_RUBY, GORON_RUBY);
+    Text sapphireText  = BuildDungeonRewardText(ITEM_ZORA_SAPPHIRE, ZORA_SAPPHIRE);
+    Text lightMedText  = BuildDungeonRewardText(ITEM_MEDALLION_LIGHT, LIGHT_MEDALLION);
+    Text forestMedText = BuildDungeonRewardText(ITEM_MEDALLION_FOREST, FOREST_MEDALLION);
+    Text fireMedText   = BuildDungeonRewardText(ITEM_MEDALLION_FIRE, FIRE_MEDALLION);
+    Text waterMedText  = BuildDungeonRewardText(ITEM_MEDALLION_WATER, WATER_MEDALLION);
+    Text spiritMedText = BuildDungeonRewardText(ITEM_MEDALLION_SPIRIT, SPIRIT_MEDALLION);
+    Text shadowMedText = BuildDungeonRewardText(ITEM_MEDALLION_SHADOW, SHADOW_MEDALLION);
+
     // Child Altar Text
-    Text childText =
-        Hint(SPIRITUAL_STONE_TEXT_START).GetText() + "^" +
-        // Spiritual Stones
-        (StartingKokiriEmerald.Value<u8>() ? Text{ "##" }
-                                           : BuildDungeonRewardText(ITEM_KOKIRI_EMERALD, KOKIRI_EMERALD)) +
-        (StartingGoronRuby.Value<u8>() ? Text{ "##" } : BuildDungeonRewardText(ITEM_GORON_RUBY, GORON_RUBY)) +
-        (StartingZoraSapphire.Value<u8>() ? Text{ "##" } : BuildDungeonRewardText(ITEM_ZORA_SAPPHIRE, ZORA_SAPPHIRE)) +
-        // How to open Door of Time, the event trigger is necessary to read the altar multiple times
-        BuildDoorOfTimeText() + EVENT_TRIGGER();
-    CreateMessageFromTextObject(0x7040, 0, 2, 3, AddColorsAndFormat(childText, { QM_GREEN, QM_RED, QM_BLUE }));
+    const std::vector<u8>& stoneColors = { QM_GREEN, QM_RED, QM_BLUE };
+
+    Text childText = Hint(SPIRITUAL_STONE_TEXT_START).GetText() + "^" +
+                     // Spiritual Stones
+                     (StartingKokiriEmerald.Value<u8>() ? Text{ "##" } : emeraldText) +
+                     (StartingGoronRuby.Value<u8>() ? Text{ "##" } : rubyText) +
+                     (StartingZoraSapphire.Value<u8>() ? Text{ "##" } : sapphireText) +
+                     // How to open Door of Time, the event trigger is necessary to read the altar multiple times
+                     BuildDoorOfTimeText() + EVENT_TRIGGER();
+
+    CreateMessageFromTextObject(0x7040, 0, 2, 3, AddColorsAndFormat(childText, stoneColors));
+
+    // Inventory Stone Hints
+    const std::vector<Text>& stoneHints = { emeraldText, rubyText, sapphireText };
+    for (u32 i = 0; i < stoneHints.size(); i++) {
+        Text invText = AddColorsAndFormat(stoneHints[i], { stoneColors[i] });
+        invText.Replace(MESSAGE_END(), SHOP_MESSAGE_BOX());
+        invText.Replace(WAIT_FOR_INPUT(), "");
+        invText = invText + MESSAGE_END();
+        CreateMessageFromTextObject(0x7300 + i, 0, 2, 3, invText);
+    }
 
     // Adult Altar Text
-    Text adultText =
-        Hint(ADULT_ALTAR_TEXT_START).GetText() + "^" +
-        // Medallion Areas
-        (StartingLightMedallion.Value<u8>() ? Text{ "##" }
-                                            : BuildDungeonRewardText(ITEM_MEDALLION_LIGHT, LIGHT_MEDALLION)) +
-        (StartingForestMedallion.Value<u8>() ? Text{ "##" }
-                                             : BuildDungeonRewardText(ITEM_MEDALLION_FOREST, FOREST_MEDALLION)) +
-        (StartingFireMedallion.Value<u8>() ? Text{ "##" }
-                                           : BuildDungeonRewardText(ITEM_MEDALLION_FIRE, FIRE_MEDALLION)) +
-        (StartingWaterMedallion.Value<u8>() ? Text{ "##" }
-                                            : BuildDungeonRewardText(ITEM_MEDALLION_WATER, WATER_MEDALLION)) +
-        (StartingSpiritMedallion.Value<u8>() ? Text{ "##" }
-                                             : BuildDungeonRewardText(ITEM_MEDALLION_SPIRIT, SPIRIT_MEDALLION)) +
-        (StartingShadowMedallion.Value<u8>() ? Text{ "##" }
-                                             : BuildDungeonRewardText(ITEM_MEDALLION_SHADOW, SHADOW_MEDALLION)) +
+    Text adultText = Hint(ADULT_ALTAR_TEXT_START).GetText() + "^" +
+                     // Medallion Areas
+                     (StartingLightMedallion.Value<u8>() ? Text{ "##" } : lightMedText) +
+                     (StartingForestMedallion.Value<u8>() ? Text{ "##" } : forestMedText) +
+                     (StartingFireMedallion.Value<u8>() ? Text{ "##" } : fireMedText) +
+                     (StartingWaterMedallion.Value<u8>() ? Text{ "##" } : waterMedText) +
+                     (StartingSpiritMedallion.Value<u8>() ? Text{ "##" } : spiritMedText) +
+                     (StartingShadowMedallion.Value<u8>() ? Text{ "##" } : shadowMedText) +
 
-        // Bridge requirement
-        BuildBridgeReqsText() +
+                     // Bridge requirement
+                     BuildBridgeReqsText() +
 
-        // Ganons Boss Key requirement
-        BuildGanonBossKeyText() +
+                     // Ganons Boss Key requirement
+                     BuildGanonBossKeyText() +
 
-        // End
-        Hint(ADULT_ALTAR_TEXT_END).GetText() + EVENT_TRIGGER();
+                     // End
+                     Hint(ADULT_ALTAR_TEXT_END).GetText() + EVENT_TRIGGER();
+
     CreateMessageFromTextObject(0x7088, 0, 2, 3,
                                 AddColorsAndFormat(adultText, { QM_RED, QM_YELLOW, QM_GREEN, QM_RED, QM_BLUE, QM_YELLOW,
                                                                 QM_PINK, QM_RED, QM_RED, QM_RED, QM_RED }));
+
+    // Inventory Medallion Hints
+    const std::vector<Text>& medallionHints = { forestMedText, fireMedText,   waterMedText,
+                                                spiritMedText, shadowMedText, lightMedText };
+    const std::vector<u8>& medallionColors  = { QM_GREEN, QM_RED, QM_BLUE, QM_YELLOW, QM_PINK, QM_YELLOW };
+    for (u32 i = 0; i < medallionHints.size(); i++) {
+        Text invText = AddColorsAndFormat(medallionHints[i], { medallionColors[i] });
+        invText.Replace(MESSAGE_END(), SHOP_MESSAGE_BOX());
+        invText.Replace(WAIT_FOR_INPUT(), "");
+        invText = invText + MESSAGE_END();
+        CreateMessageFromTextObject(0x7303 + i, 0, 2, 3, invText);
+    }
 }
 
 void CreateMerchantsHints() {
