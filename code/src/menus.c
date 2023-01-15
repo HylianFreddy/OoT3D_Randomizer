@@ -12,7 +12,8 @@
 #define gGearMenuSpritesManager (*(MenuSpriteManager**)0x50447C)
 
 #define gItemsMenuSelectedSlot (*(s32*)0x506748)
-#define gGearMenuSelectedSlot (*(s32*)0x50448C)
+#define gGearMenuSelectedSlot (*(s32*)0x50448C) // stores cursor position for the Gear menu
+#define gGearMenuCurrentSlot (*(s32*)0x50448C) // slot that is currently shown on screen; reset to -1 when closing menu or switching tabs
 
 typedef void (*MenuSpritesManager_RegisterItemSprite_proc)(MenuSpriteManager* menuMan, s32 spriteId, s32 itemId);
 #define MenuSpritesManager_RegisterItemSprite ((MenuSpritesManager_RegisterItemSprite_proc)0x2F8D74)
@@ -67,7 +68,15 @@ void ItemsMenu_Draw(void) {
     }
 }
 
-u16 GearMenu_GetMedallionHint(void) {
+static u16 ownedSongs = 0;
+u16 GearMenu_GetInventoryHint(void) {
+    if (gGearMenuSelectedSlot == GEARSLOT_OCARINA) {
+        ownedSongs =
+            (gSaveContext.questItems & 0b111111000000) | ((gSaveContext.questItems >> 12) & 0b111111); // 0xFC0 0x3F
+        return 0x86F;
+    }
+    ownedSongs = 0;
+
     if (gGearMenuSelectedSlot >= GEARSLOT_KOKIRI_EMERALD && gGearMenuSelectedSlot <= GEARSLOT_ZORA_SAPPHIRE &&
         gExtSaveData.extInf[EXTINF_TOTALTAR_FLAGS] & (1 << AGE_CHILD)) {
         return 0x7300 + gGearMenuSelectedSlot - GEARSLOT_KOKIRI_EMERALD;
@@ -77,6 +86,35 @@ u16 GearMenu_GetMedallionHint(void) {
         return 0x7303 + gGearMenuSelectedSlot - GEARSLOT_FOREST_MEDALLION;
     }
     return 0;
+}
+
+void GearMenu_PrintSongs(void) {
+    //gGearMenuSelectedSlot = GEARSLOT_BIGGORON_SWORD;
+    return;
+
+
+    static s32 currentSong = 0;
+    if (gGearMenuCurrentSlot != GEARSLOT_OCARINA || ownedSongs == 0) {
+        currentSong = 0;
+        return;
+    }
+
+    //if (ownedSongs & 1 == 1 || !rInputCtx.pressed.a) {} // what???
+
+
+
+    for (s32 i = 0; i < 12; i++) {
+        currentSong = (currentSong + 1) % 12;
+        if (((ownedSongs >> currentSong) & 1) == 1) {
+            ContinueTextbox(gGlobalContext, 0x9AD + currentSong);
+        }
+
+        u8 shift = (currentSong + i) % 12;
+        if (((ownedSongs >> shift) & 1) == 1) {
+            currentSong = 0;
+            //return 0x9AD + currentSong;
+        }
+    }
 }
 
 u16 SaveMenu_IgnoreOpen(void) {

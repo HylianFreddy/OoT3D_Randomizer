@@ -945,7 +945,7 @@ hook_ItemsMenuDraw:
 .global hook_GearMenuEmptySlot
 hook_GearMenuEmptySlot:
     push {r0,r2-r12, lr}
-    bl   GearMenu_GetMedallionHint
+    bl   GearMenu_GetInventoryHint
     cpy  r1,r0
     pop  {r0,r2-r12, lr}
     cmp  r1,#0x0
