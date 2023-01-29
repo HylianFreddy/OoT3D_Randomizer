@@ -803,6 +803,13 @@ string_view damageMultiDesc           = "Changes the amount of damage taken.\n" 
                                         "\n"                                               //
                                         "If set to OHKO, Link will die in one hit.";       //
 /*------------------------------                                                           //
+|       DAMAGE MULTIPLIER      |                                                           //
+------------------------------*/                                                           //
+string_view bonkDamageDesc            = "When rolling, hitting a wall or object will hurt\n"
+                                        "Link.\n"                                          //
+                                        "Damage is unaffected by the damage multiplier\n"  //
+                                        "setting.";                                        //
+/*------------------------------                                                           //
 |        STARTING TIME         |                                                           //
 ------------------------------*/                                                           //
 string_view startingTimeDesc          = "Change up Link's sleep routine.";                 //

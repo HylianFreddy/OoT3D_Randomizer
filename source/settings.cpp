@@ -322,6 +322,7 @@ Option CompassesShowReward = Option::U8  ("Compasses Show Rewards", {"No", "Yes"
 Option CompassesShowWotH   = Option::U8  ("Compasses Show WotH",    {"No", "Yes"},                                                          {compassesShowWotHDesc},                                                                                          OptionCategory::Setting,    ON);
 Option MapsShowDungeonMode = Option::U8  ("Maps Show Dungeon Modes",{"No", "Yes"},                                                          {mapsShowDungeonModesDesc},                                                                                       OptionCategory::Setting,    ON);
 Option DamageMultiplier    = Option::U8  ("Damage Multiplier",      {"x1/2", "x1", "x2", "x4", "x8", "x16", "OHKO"},                        {damageMultiDesc},                                                                                                OptionCategory::Setting,    DAMAGEMULTIPLIER_DEFAULT);
+Option BonkDamage          = Option::U8  ("Bonk Damage",            {"None", "1/4 Heart", "1/2 Heart", "1 Heart", "2 Hearts", "OHKO"},      {bonkDamageDesc});
 Option StartingTime        = Option::U8  ("Starting Time",          {"Day", "Night"},                                                       {startingTimeDesc});
 Option ChestAnimations     = Option::Bool("Chest Animations",       {"Always Fast", "Match Contents"},                                      {chestAnimDesc});
 Option ChestSize           = Option::Bool("Chest Size and Color",   {"Vanilla", "Match Contents"},                                          {chestSizeDesc});
@@ -342,6 +343,7 @@ std::vector<Option *> miscOptions = {
     &CompassesShowWotH,
     &MapsShowDungeonMode,
     &DamageMultiplier,
+    &BonkDamage,
     &StartingTime,
     &ChestAnimations,
     &ChestSize,
@@ -1417,6 +1419,7 @@ SettingsContext FillContext() {
     ctx.compassesShowWotH   = CompassesShowWotH.Value<u8>();
     ctx.mapsShowDungeonMode = MapsShowDungeonMode.Value<u8>();
     ctx.damageMultiplier    = DamageMultiplier.Value<u8>();
+    ctx.bonkDamage          = BonkDamage.Value<u8>();
     ctx.startingTime        = StartingTime.Value<u8>();
     ctx.chestAnimations     = (ChestAnimations) ? 1 : 0;
     ctx.chestSize           = (ChestSize) ? 1 : 0;

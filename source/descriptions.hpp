@@ -261,6 +261,7 @@ extern string_view compassesShowWotHDesc;
 extern string_view mapsShowDungeonModesDesc;
 
 extern string_view damageMultiDesc;
+extern string_view bonkDamageDesc;
 
 extern string_view startingTimeDesc;
 
