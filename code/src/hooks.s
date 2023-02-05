@@ -1826,6 +1826,14 @@ hook_OoBBombchuThree:
     ldrsh r0,[r5,#0xE]
     bx lr
 
+.global hook_Model_EnableMeshGroupByIndex
+hook_Model_EnableMeshGroupByIndex:
+    push {r0,r2-r12,lr}
+    bl Player_OverrideDekuStickMesh
+    cpy r1,r0
+    pop {r0,r2-r12,lr}
+    b 0x4C8B8C
+
 @ ----------------------------------
 @ ----------------------------------
 

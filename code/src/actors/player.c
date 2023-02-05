@@ -9,6 +9,7 @@
 #include "arrow.h"
 #include "grotto.h"
 #include "item_override.h"
+#include "common.h"
 
 #define PlayerActor_Init_addr 0x191844
 #define PlayerActor_Init ((ActorFunc)PlayerActor_Init_addr)
@@ -187,4 +188,16 @@ s32 Player_CanPickUpThisActor(Actor* interactedActor) {
         default:
             return 1;
     }
+}
+
+u32 Player_OverrideDekuStickMesh(void* unk, u32 meshGroupIndex) {
+    if (IsInGameOrBossChallenge() && gSaveContext.linkAge == AGE_ADULT && gSettingsContext.stickAsAdult &&
+        PLAYER->heldItemActionParam == 6 && // holding a deku stick
+        meshGroupIndex == 23 &&             // meshGroupIndex for deku stick in child object and shield in adult object
+        unk == PLAYER->skelAnime.unk_28->unk_draw_struct_14 // check that this is for the player model
+    ) {
+        return 44; // meshGroupIndex for unused deku stick in adult object
+    }
+
+    return meshGroupIndex;
 }

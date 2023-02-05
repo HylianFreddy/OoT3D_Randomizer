@@ -2093,6 +2093,11 @@ OoBBombchuTwo_patch:
 OoBBombchuThree_patch:
     bl hook_OoBBombchuThree
 
+.section .patch_Model_EnableMeshGroupByIndex
+.global Model_EnableMeshGroupByIndex_patch
+Model_EnableMeshGroupByIndex_patch:
+    b hook_Model_EnableMeshGroupByIndex
+
 @ ----------------------------------
 @ ----------------------------------
 
