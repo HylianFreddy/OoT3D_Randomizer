@@ -31,7 +31,7 @@ include $(DEVKITARM)/3ds_rules
 #     - icon.png
 #     - <libctru folder>/default_icon.png
 #---------------------------------------------------------------------------------
-APP_TITLE       :=  Ocarina of Time 3D Randomizer
+APP_TITLE       :=  OoT3DR_custom
 APP_AUTHOR      :=  Gamestabled
 APP_DESCRIPTION :=  A different Ocarina of Time experience
 TARGET		    :=	$(notdir $(CURDIR))

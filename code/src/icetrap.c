@@ -17,7 +17,7 @@ static u32 source[16];
 
 s8 IceTrap_ActiveCurse         = -1;
 static s16 previousTimer1Value = 0;
-static s16 previousTimer2Value = 30;
+static s16 previousTimer2Value = 60;
 u32 dizzyCurseSeed             = 0;
 u16 rollOffset                 = 0;
 u16 targetOffset               = 0;
@@ -198,7 +198,7 @@ u8 IceTrap_ActivateCurseTrap(u8 curseType) {
     } while (1);
 
     gSaveContext.timer2State = 4; // "active"
-    gSaveContext.timer2Value = 30;
+    gSaveContext.timer2Value = 60;
     TimerFrameCounter        = 30;
     DisplayTextbox(gGlobalContext, CURSETRAP_TEXT_BASE_INDEX + curseType - ICETRAP_CURSE_SHIELD, 0);
     PlaySound(0x100035C); // Poe laugh SFX
@@ -212,7 +212,7 @@ void IceTrap_DispelCurses(void) {
         gGearUsabilityTable[GearSlot(ITEM_SHIELD_HYLIAN)] = 0x09;
         gGearUsabilityTable[GearSlot(ITEM_SHIELD_MIRROR)] = gSettingsContext.mirrorShieldAsChild ? 0x09 : 0x00;
         gStaticContext.renderGeometryDisable              = 0;
-        previousTimer2Value                               = 30;
+        previousTimer2Value                               = 60;
         gSaveContext.timer2State                          = 0;
         IceTrap_ActiveCurse                               = -1;
     }
@@ -252,11 +252,11 @@ void IceTrap_HandleCurses(void) {
 
     // During the blindness curse, show geometry for 1 second every 20
     if (IceTrap_ActiveCurse == ICETRAP_CURSE_BLIND) {
-        if (gSaveContext.timer2Value != previousTimer2Value && gSaveContext.timer2Value % 10 == 0) {
+        if (gSaveContext.timer2Value != previousTimer2Value && gSaveContext.timer2Value % 20 == 0) {
             gStaticContext.dekuNutFlash          = -1;
             gStaticContext.renderGeometryDisable = 0;
-        } else if (gSaveContext.timer2Value != previousTimer2Value && gSaveContext.timer2Value % 10 == 9 &&
-                   gSaveContext.timer2Value < 29) {
+        } else if (gSaveContext.timer2Value != previousTimer2Value && gSaveContext.timer2Value % 20 == 19 &&
+                   gSaveContext.timer2Value < 59) {
             gStaticContext.dekuNutFlash          = -1;
             gStaticContext.renderGeometryDisable = 1;
         }

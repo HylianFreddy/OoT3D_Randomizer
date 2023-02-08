@@ -442,18 +442,6 @@ static void SetMinimalItemPool() {
     ReplaceMaxItem(HEART_CONTAINER, 2 - StartingHearts.Value<u8>());
 }
 
-static void SetCustomItemPool() {
-    ReplaceMaxItem(PROGRESSIVE_BOMBCHUS, 1);
-    ReplaceMaxItem(PROGRESSIVE_STICK_UPGRADE, 0);
-    ReplaceMaxItem(PROGRESSIVE_NUT_UPGRADE, 0);
-    ReplaceMaxItem(PROGRESSIVE_BOMB_BAG, 1);
-    ReplaceMaxItem(PROGRESSIVE_BOW, 1);
-    ReplaceMaxItem(PROGRESSIVE_SLINGSHOT, 1);
-    ReplaceMaxItem(BOMBCHU_5, 0);
-    ReplaceMaxItem(BOMBCHU_10, 0);
-    ReplaceMaxItem(BOMBCHU_20, 1);
-}
-
 void GenerateItemPool() {
 
     ItemPool.clear();
@@ -1037,11 +1025,8 @@ void GenerateItemPool() {
         SetScarceItemPool();
     } else if (ItemPoolValue.Is(ITEMPOOL_MINIMAL)) {
         SetMinimalItemPool();
-    } else {
-        SetCustomItemPool();
-        if (RemoveDoubleDefense) {
-            ReplaceMaxItem(DOUBLE_DEFENSE, 0);
-        }
+    } else if (RemoveDoubleDefense) {
+        ReplaceMaxItem(DOUBLE_DEFENSE, 0);
     }
 
     // this feels ugly and there's probably a better way, but
