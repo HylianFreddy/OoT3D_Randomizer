@@ -9,6 +9,6 @@ void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx);
 void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx);
 void PlayerActor_rDestroy(Actor* thisx, GlobalContext* globalCtx);
 void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx);
-s32 Player_ShouldDrawHookshotParts(void);
+s32 Player_ShouldDrawAdultItems(void);
 
 #endif //_PLAYER_H_

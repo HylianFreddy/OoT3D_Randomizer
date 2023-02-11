@@ -1691,10 +1691,10 @@ LHOwlEntranceOverride_patch:
 SavewarpSetRespawnFlag_patch:
     bl hook_SavewarpSetRespawnFlag
 
-.section .patch_ChildHoverBoots
-.global ChildHoverBoots_patch
-ChildHoverBoots_patch:
-    b hook_ChildHoverBoots
+.section .patch_AdultItemsCMABsAsChild
+.global AdultItemsCMABsAsChild_patch
+AdultItemsCMABsAsChild_patch:
+    bl hook_AdultItemsCMABsAsChild
 
 .section .patch_NockArrow
 .global NockArrow_patch
@@ -1705,11 +1705,6 @@ NockArrow_patch:
 .global DecreaseArrowCount_patch
 DecreaseArrowCount_patch:
     bl hook_ArrowsOrSeeds
-
-.section .patch_HookshotDrawRedLaser
-.global HookshotDrawRedLaser_patch
-HookshotDrawRedLaser_patch:
-    bl hook_HookshotDrawRedLaser
 
 .section .patch_HookshotDrawChain
 .global HookshotDrawChain_patch

@@ -9,7 +9,7 @@
 
 void ArmsHook_rInit(Actor* thisx, GlobalContext* globalCtx) {
     ArmsHook_Init(thisx, globalCtx);
-    if (!Player_ShouldDrawHookshotParts()) {
+    if (!Player_ShouldDrawAdultItems()) {
         thisx->scale.x /= 5;
         thisx->scale.y /= 5;
         thisx->scale.z /= 5;

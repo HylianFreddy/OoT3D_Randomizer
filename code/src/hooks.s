@@ -1308,15 +1308,13 @@ hook_SavewarpSetRespawnFlag:
     mov r0,#0xFF
     bx lr
 
-.global hook_ChildHoverBoots
-hook_ChildHoverBoots:
-    beq 0x2D5F04
+.global hook_AdultItemsCMABsAsChild
+hook_AdultItemsCMABsAsChild:
     push {r0-r12, lr}
-    bl Player_ShouldDrawHoverBootsEffect
+    bl Player_ShouldDrawAdultItems
     cmp r0,#0x0
     pop {r0-r12, lr}
-    beq 0x2D5F04
-    b 0x2D5DFC
+    bx lr
 
 .global hook_ArrowsOrSeeds
 hook_ArrowsOrSeeds:
@@ -1326,19 +1324,10 @@ hook_ArrowsOrSeeds:
     pop {r0-r12, lr}
     bx lr
 
-.global hook_HookshotDrawRedLaser
-hook_HookshotDrawRedLaser:
-    push {r0-r12, lr}
-    bl Player_ShouldDrawHookshotParts
-    cmp r0,#0x0
-    pop {r0-r12, lr}
-    bxeq lr
-    b 0x4C55C0
-
 .global hook_HookshotDrawChain
 hook_HookshotDrawChain:
     push {r0-r12, lr}
-    bl Player_ShouldDrawHookshotParts
+    bl Player_ShouldDrawAdultItems
     cmp r0,#0x0
     pop {r0-r12, lr}
     beq 0x2202BC
@@ -1356,7 +1345,7 @@ hook_HookshotRotation:
 .global hook_LinkReflection
 hook_LinkReflection:
     push {r0-r12, lr}
-    bl Player_ShouldDrawHookshotParts
+    bl Player_ShouldDrawAdultItems
     cmp r0,#0x1
     pop {r0-r12, lr}
     streq r1,[r0,#0x714]
