@@ -45,6 +45,10 @@ void ItemOverride_Init(void) {
     rDummyActor->update = (void*)1;
     rDummyActor->parent = NULL;
 
+
+    gSettingsContext.hoverbootsAsChild = 1;
+    gSettingsContext.hookshotAsChild = 1;
+
     // Enable items by age as determined by settings
     if (gSettingsContext.stickAsAdult) {
         gItemUsabilityTable[ITEM_STICK] = 0x09;

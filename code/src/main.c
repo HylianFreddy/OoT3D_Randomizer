@@ -12,6 +12,7 @@
 #include "multiplayer.h"
 #include "grotto.h"
 #include "item_effect.h"
+#include "player.h"
 
 #include "z3D/z3D.h"
 #include "3ds/extdata.h"
@@ -29,12 +30,13 @@ void Randomizer_Init() {
     Entrance_Init();
     ItemOverride_Init();
     extDataInit();
+    Player_LoadStaticModels();
 }
 
 void before_GlobalContext_Update(GlobalContext* globalCtx) {
     if (!rRandomizerInit) {
-        Randomizer_Init();
         set_GlobalContext(globalCtx);
+        Randomizer_Init();
         rRandomizerInit = 1;
     }
     ItemOverride_Update();

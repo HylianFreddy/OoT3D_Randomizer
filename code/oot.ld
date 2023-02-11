@@ -436,6 +436,10 @@ SECTIONS
 		*(.patch_CanPlayBombchuBowlingTwo)
 	}
 
+	/*.patch_HookshotCMB 0x1EC064 : {
+		*(.patch_HookshotCMB)
+	}*/
+
 	.patch_BoomerangTrailEffect 0x1F4220 : {
 		*(.patch_BoomerangTrailEffect)
 	} /*EnBoom_Draw*/

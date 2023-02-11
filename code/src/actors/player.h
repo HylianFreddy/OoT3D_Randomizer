@@ -4,10 +4,12 @@
 #include "z3D/z3D.h"
 
 extern u16 healthDecrement;
+extern char* sHookshotCMB;
 
 void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx);
 void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx);
 void PlayerActor_rDestroy(Actor* thisx, GlobalContext* globalCtx);
 void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx);
+void Player_LoadStaticModels(void);
 
 #endif //_PLAYER_H_

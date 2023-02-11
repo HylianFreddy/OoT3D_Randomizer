@@ -10,6 +10,9 @@
 #include "grotto.h"
 #include "item_override.h"
 #include "common.h"
+#include "oot_malloc.h"
+
+#include <string.h>
 
 #define PlayerActor_Init_addr 0x191844
 #define PlayerActor_Init ((ActorFunc)PlayerActor_Init_addr)
@@ -30,6 +33,8 @@
 
 u16 healthDecrement = 0;
 u8 storedMask       = 0;
+
+char* sHookshotCMB = 0;
 
 void** Player_EditAndRetrieveCMB(ZARInfo* zarInfo, u32 objModelIdx) {
     void** cmbMan = ZAR_GetCMBByIndex(zarInfo, objModelIdx);
@@ -106,6 +111,10 @@ void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
 void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     Player* this = (Player*)thisx;
     PlayerActor_Update(thisx, globalCtx);
+
+    //if (sHookshotCMB != 0 && sHookshotCMB[0x10]=='h' && sHookshotCMB[0x11]=='o') {
+        //gSaveContext.rupees++;
+    //}
 
     Arrow_HandleSwap(this, globalCtx);
 
@@ -205,4 +214,30 @@ u32 Player_OverrideDekuStickMesh(void* unk, u32 meshGroupIndex) {
     }
 
     return meshGroupIndex;
+}
+
+void Player_LoadStaticModels(void) {
+    s16 adultObjectBankIdx = Object_Spawn(&rExtendedObjectCtx, 0x14);
+    //s16 childObjectBankIdx = Object_Spawn(&rExtendedObjectCtx, 0x15);
+
+    //Hookshot tip
+    void** cmbMan = ZAR_GetCMBByIndex(&rExtendedObjectCtx.status[adultObjectBankIdx].zarInfo, 1);
+    sHookshotCMB = (char*) SystemArena_Malloc(0x1C00);
+    memcpy(sHookshotCMB, *cmbMan, 0x1C00);
+}
+
+typedef void* (*CMBManager_Init_proc)(void* cmbMan, void* cmb);
+#define CMBManager_Init ((CMBManager_Init_proc)0x320458)
+
+void Player_OverrideHookshotCMB(void** cmbMan, s32 loopCounter) {
+    //gSaveContext.rupees = loopCounter;
+    if (loopCounter == 0) {
+        //char newCmbMan[0x48] = {0};
+        gSaveContext.ammo[2]++;
+        *cmbMan = sHookshotCMB;
+    }
+
+    if (*cmbMan != 0 && ((char*)(*cmbMan))[0x10]=='h' && ((char*)(*cmbMan))[0x11]=='o') {
+        gSaveContext.rupees++;
+    }
 }

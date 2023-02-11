@@ -1324,6 +1324,15 @@ hook_ArrowsOrSeeds:
     pop {r0-r12, lr}
     bx lr
 
+.global hook_HookshotCMB
+hook_HookshotCMB:
+    push {r0-r12, lr}
+    cpy r1,r4
+    bl Player_OverrideHookshotCMB
+    pop {r0-r12, lr}
+    ldr r2,[r6,#0x0]
+    bx lr
+
 .global hook_HookshotDrawChain
 hook_HookshotDrawChain:
     push {r0-r12, lr}

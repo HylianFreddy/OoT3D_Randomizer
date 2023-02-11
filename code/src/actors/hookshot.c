@@ -1,6 +1,8 @@
 #include "z3D/z3D.h"
 #include "hookshot.h"
 #include "settings.h"
+#include "player.h"
+#include "objects.h"
 
 #define ArmsHook_Init_addr 0x1EBF84
 #define ArmsHook_Init ((ActorFunc)ArmsHook_Init_addr)
@@ -14,6 +16,9 @@ void ArmsHook_rInit(Actor* thisx, GlobalContext* globalCtx) {
         thisx->scale.y /= 5;
         thisx->scale.z /= 5;
     }
+    s16 objectBankIdx = Object_GetIndex(&gGlobalContext->objectCtx, 1);
+    void** cmbMan = (void**)ZAR_GetCMBByIndex(&gGlobalContext->objectCtx.status[objectBankIdx].zarInfo, 1);
+    *cmbMan = sHookshotCMB;
 }
 
 f32 Hookshot_GetZRotation(void) {

@@ -1706,6 +1706,9 @@ NockArrow_patch:
 DecreaseArrowCount_patch:
     bl hook_ArrowsOrSeeds
 
+.section .patch_HookshotCMB
+    bl hook_HookshotCMB
+
 .section .patch_HookshotDrawChain
 .global HookshotDrawChain_patch
 HookshotDrawChain_patch:
