@@ -1311,8 +1311,8 @@ hook_SavewarpSetRespawnFlag:
 .global hook_AdultItemsCMABsAsChild
 hook_AdultItemsCMABsAsChild:
     push {r0-r12, lr}
-    bl Player_ShouldDrawAdultItems
-    cmp r0,#0x0
+    bl Player_ShouldApplyAdultItemsCMABs
+    cmp r0,#0x1
     pop {r0-r12, lr}
     bx lr
 
@@ -1327,7 +1327,7 @@ hook_ArrowsOrSeeds:
 .global hook_HookshotDrawChain
 hook_HookshotDrawChain:
     push {r0-r12, lr}
-    bl Player_ShouldDrawAdultItems
+    bl Player_IsAdult
     cmp r0,#0x0
     pop {r0-r12, lr}
     beq 0x2202BC
@@ -1345,7 +1345,7 @@ hook_HookshotRotation:
 .global hook_LinkReflection
 hook_LinkReflection:
     push {r0-r12, lr}
-    bl Player_ShouldDrawAdultItems
+    bl Player_IsAdult
     cmp r0,#0x1
     pop {r0-r12, lr}
     streq r1,[r0,#0x714]

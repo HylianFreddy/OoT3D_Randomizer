@@ -167,9 +167,12 @@ f32 Player_GetSpeedMultiplier(void) {
     return speedMultiplier;
 }
 
-s32 Player_ShouldDrawAdultItems() {
-    return gSaveContext.linkAge == AGE_ADULT ||
-           (!gSettingsContext.hoverbootsAsChild && !gSettingsContext.hookshotAsChild);
+s32 Player_IsAdult() {
+    return gSaveContext.linkAge == AGE_ADULT;
+}
+
+s32 Player_ShouldApplyAdultItemsCMABs() {
+    return gSaveContext.linkAge == AGE_ADULT || gSettingsContext.hoverbootsAsChild || gSettingsContext.hookshotAsChild;
 }
 
 s32 Player_ShouldUseSlingshot() {
