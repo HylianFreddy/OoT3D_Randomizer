@@ -207,6 +207,7 @@ extern string_view lacsStoneCountDesc;
 extern string_view lacsRewardCountDesc;
 extern string_view lacsDungeonCountDesc;
 extern string_view lacsTokenCountDesc;
+extern string_view lacsHeartCountDesc;
 
 extern string_view childStealthDesc;
 

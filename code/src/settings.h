@@ -78,6 +78,7 @@ typedef enum {
     LACSCONDITION_REWARDS,
     LACSCONDITION_DUNGEONS,
     LACSCONDITION_TOKENS,
+    LACSCONDITION_HEARTS,
 } LACSConditionSetting;
 
 typedef enum {
@@ -235,6 +236,7 @@ typedef enum {
     GANONSBOSSKEY_LACS_REWARDS,
     GANONSBOSSKEY_LACS_DUNGEONS,
     GANONSBOSSKEY_LACS_TOKENS,
+    GANONSBOSSKEY_LACS_HEARTS,
 } GanonsBossKeySetting;
 
 typedef enum {
@@ -502,6 +504,7 @@ typedef struct {
     u8 lacsRewardCount;
     u8 lacsDungeonCount;
     u8 lacsTokenCount;
+    u8 lacsHeartCount;
 
     u8 ringFortress;
     u8 ringForest;

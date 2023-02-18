@@ -643,6 +643,8 @@ string_view lacsDungeonCountDesc      = "Set the number of completed dungeons re
                                         "into the blue warp at the end of them.";          //
 string_view lacsTokenCountDesc        = "Set the number of Gold Skulltula Tokens required\n"
                                         "to trigger the Light Arrow Cutscene.";            //
+string_view lacsHeartCountDesc        = "Set the number of Hearts required to trigger the\n"
+                                        "Light Arrow Cutscene.";                           //
 /*------------------------------                                                           //
 |      SKIP CHILD STEALTH      |                                                           //
 ------------------------------*/                                                           //

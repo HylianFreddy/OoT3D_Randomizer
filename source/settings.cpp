@@ -218,23 +218,24 @@ std::vector<Option *> shuffleOptions = {
 };
 
 // Shuffle Dungeon Items
-Option RandomizeDungeon    = Option::Bool("Randomize Settings",        {"No","Yes"},                                                           {dungeonRandomize},                                                                                                    OptionCategory::Toggle);
+Option RandomizeDungeon    = Option::Bool("Randomize Settings",        {"No","Yes"},                                                           {dungeonRandomize},                                                                                               OptionCategory::Toggle);
 Option MapsAndCompasses    = Option::U8  ("Maps/Compasses",            {"Start With", "Vanilla", "Own Dungeon", "Any Dungeon", "Overworld", "Anywhere"},
-                                                                        {mapCompassStartWith, mapCompassVanilla, mapCompassOwnDungeon, mapCompassAnyDungeon, mapCompassOverworld, mapCompassAnywhere},                                                            OptionCategory::Setting,    MAPSANDCOMPASSES_OWN_DUNGEON);
+                                                                        {mapCompassStartWith, mapCompassVanilla, mapCompassOwnDungeon, mapCompassAnyDungeon, mapCompassOverworld, mapCompassAnywhere},                                                           OptionCategory::Setting,    MAPSANDCOMPASSES_OWN_DUNGEON);
 Option Keysanity           = Option::U8  ("Small Keys",                {"Start With", "Vanilla", "Own Dungeon", "Any Dungeon", "Overworld", "Anywhere"},
-                                                                        {smallKeyStartWith, smallKeyVanilla, smallKeyOwnDungeon, smallKeyAnyDungeon, smallKeyOverworld, smallKeyAnywhere},                                                                        OptionCategory::Setting,    KEYSANITY_OWN_DUNGEON);
+                                                                        {smallKeyStartWith, smallKeyVanilla, smallKeyOwnDungeon, smallKeyAnyDungeon, smallKeyOverworld, smallKeyAnywhere},                                                                       OptionCategory::Setting,    KEYSANITY_OWN_DUNGEON);
 Option GerudoKeys          = Option::U8  ("Gerudo Fortress Keys",      {"Vanilla", "Any Dungeon", "Overworld", "Anywhere"},
                                                                         {gerudoKeysVanilla, gerudoKeysAnyDungeon, gerudoKeysOverworld, gerudoKeysAnywhere});
 Option BossKeysanity       = Option::U8  ("Boss Keys",                 {"Start With", "Vanilla", "Own Dungeon", "Any Dungeon", "Overworld", "Anywhere"},
-                                                                        {bossKeyStartWith, bossKeyVanilla, bossKeyOwnDungeon, bossKeyAnyDungeon, bossKeyOverworld, bossKeyAnywhere},                                                                              OptionCategory::Setting,    BOSSKEYSANITY_OWN_DUNGEON);
-Option GanonsBossKey       = Option::U8  ("Ganon's Boss Key",          {"Start With", "Vanilla", "Own Dungeon", "Any Dungeon", "Overworld", "Anywhere", "LACS-Vanilla", "LACS-Medallions", "LACS-Stones", "LACS-Rewards", "LACS-Dungeons", "LACS-Tokens"},
-                                                                        {ganonKeyStartWith, ganonKeyVanilla, ganonKeyOwnDungeon, ganonKeyAnyDungeon, ganonKeyOverworld, ganonKeyAnywhere, ganonKeyLACS},                                                          OptionCategory::Setting,    GANONSBOSSKEY_OWN_DUNGEON);
+                                                                        {bossKeyStartWith, bossKeyVanilla, bossKeyOwnDungeon, bossKeyAnyDungeon, bossKeyOverworld, bossKeyAnywhere},                                                                             OptionCategory::Setting,    BOSSKEYSANITY_OWN_DUNGEON);
+Option GanonsBossKey       = Option::U8  ("Ganon's Boss Key",          {"Start With", "Vanilla", "Own Dungeon", "Any Dungeon", "Overworld", "Anywhere", "LACS-Vanilla", "LACS-Medallions", "LACS-Stones", "LACS-Rewards", "LACS-Dungeons", "LACS-Tokens", "LACS-Hearts"},
+                                                                        {ganonKeyStartWith, ganonKeyVanilla, ganonKeyOwnDungeon, ganonKeyAnyDungeon, ganonKeyOverworld, ganonKeyAnywhere, ganonKeyLACS},                                                         OptionCategory::Setting,    GANONSBOSSKEY_OWN_DUNGEON);
 u8 LACSCondition           = 0;
 Option LACSMedallionCount  = Option::U8  (2, "Medallion Count",        {NumOpts(0, 6)},                                                        {lacsMedallionCountDesc},                                                                                         OptionCategory::Setting,    1,                          true);
 Option LACSStoneCount      = Option::U8  (2, "Stone Count",            {NumOpts(0, 3)},                                                        {lacsStoneCountDesc},                                                                                             OptionCategory::Setting,    1,                          true);
 Option LACSRewardCount     = Option::U8  (2, "Reward Count",           {NumOpts(0, 9)},                                                        {lacsRewardCountDesc},                                                                                            OptionCategory::Setting,    1,                          true);
 Option LACSDungeonCount    = Option::U8  (2, "Dungeon Count",          {NumOpts(0, 8)},                                                        {lacsDungeonCountDesc},                                                                                           OptionCategory::Setting,    1,                          true);
 Option LACSTokenCount      = Option::U8  (2, "Token Count",            {NumOpts(0, 100)},                                                      {lacsTokenCountDesc},                                                                                             OptionCategory::Setting,    1,                          true);
+Option LACSHeartCount      = Option::U8  (2, "Heart Count",            {NumOpts(0, 20)},                                                       {lacsHeartCountDesc},                                                                                             OptionCategory::Setting,    1,                          true);
 Option KeyRings            = Option::U8  ("Key Rings",                 {"Off", "On", "Random"},                                                {keyRingDesc});
 Option RingFortress        = Option::Bool(2, "Gerudo Fortress",        {"Off", "On"},                                                          {keyRingDesc},                                                                                                    OptionCategory::Setting);
 Option RingForest          = Option::Bool(2, "Forest Temple",          {"Off", "On"},                                                          {keyRingDesc},                                                                                                    OptionCategory::Setting);
@@ -258,6 +259,7 @@ std::vector<Option *> shuffleDungeonItemOptions = {
     &LACSRewardCount,
     &LACSDungeonCount,
     &LACSTokenCount,
+    &LACSHeartCount,
     &KeyRings,
     &RingFortress,
     &RingForest,
@@ -1393,6 +1395,7 @@ SettingsContext FillContext() {
     ctx.lacsRewardCount    = LACSRewardCount.Value<u8>();
     ctx.lacsDungeonCount   = LACSDungeonCount.Value<u8>();
     ctx.lacsTokenCount     = LACSTokenCount.Value<u8>();
+    ctx.lacsHeartCount     = LACSHeartCount.Value<u8>();
 
     ctx.ringFortress = (RingFortress) ? 1 : 0;
     ctx.ringForest   = (RingForest) ? 1 : 0;
@@ -2159,6 +2162,14 @@ void ForceChange(u32 kDown, Option* currentSetting) {
             LACSTokenCount.Hide();
         }
 
+        // Only show Heart Count if setting Ganons Boss Key to LACS Hearts
+        if (GanonsBossKey.Is(GANONSBOSSKEY_LACS_HEARTS)) {
+            LACSHeartCount.Unhide();
+        } else {
+            LACSHeartCount.SetSelectedIndex(20);
+            LACSHeartCount.Hide();
+        }
+
         if (KeyRings.Is(ON)) {
             for (Option* option : keyRingOptions) {
                 option->Unhide();
@@ -2884,6 +2895,8 @@ void UpdateSettings() {
         LACSCondition = LACSCONDITION_DUNGEONS;
     } else if (GanonsBossKey.Is(GANONSBOSSKEY_LACS_TOKENS)) {
         LACSCondition = LACSCONDITION_TOKENS;
+    } else if (GanonsBossKey.Is(GANONSBOSSKEY_LACS_HEARTS)) {
+        LACSCondition = LACSCONDITION_HEARTS;
     } else {
         LACSCondition = LACSCONDITION_VANILLA;
     }

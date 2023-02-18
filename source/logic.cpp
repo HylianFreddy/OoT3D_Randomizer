@@ -848,7 +848,8 @@ void UpdateHelpers() {
         (LACSCondition == LACSCONDITION_MEDALLIONS && MedallionCount >= LACSMedallionCount.Value<u8>()) ||
         (LACSCondition == LACSCONDITION_REWARDS && StoneCount + MedallionCount >= LACSRewardCount.Value<u8>()) ||
         (LACSCondition == LACSCONDITION_DUNGEONS && DungeonCount >= LACSDungeonCount.Value<u8>()) ||
-        (LACSCondition == LACSCONDITION_TOKENS && GoldSkulltulaTokens >= LACSTokenCount.Value<u8>());
+        (LACSCondition == LACSCONDITION_TOKENS && GoldSkulltulaTokens >= LACSTokenCount.Value<u8>()) ||
+        (LACSCondition == LACSCONDITION_HEARTS && Hearts >= LACSHeartCount.Value<u8>());
 }
 
 bool SmallKeys(Key dungeon, u8 requiredAmount) {

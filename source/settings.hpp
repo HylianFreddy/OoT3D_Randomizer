@@ -407,6 +407,7 @@ extern Option LACSStoneCount;
 extern Option LACSRewardCount;
 extern Option LACSDungeonCount;
 extern Option LACSTokenCount;
+extern Option LACSHeartCount;
 extern Option KeyRings;
 extern Option RingFortress;
 extern Option RingForest;
