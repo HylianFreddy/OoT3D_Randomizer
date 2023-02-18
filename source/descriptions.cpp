@@ -148,6 +148,8 @@ string_view bridgeDungeons            = "The Rainbow Bridge requires completing 
                                         "into the blue warp at the end of them.";          //
 string_view bridgeTokens              = "The Rainbow Bridge requires collecting a\n"       //
                                         "configurable number of Gold Skulltula Tokens.";   //
+string_view bridgeHearts              = "The Rainbow Bridge requires collecting a\n"       //
+                                        "configurable number of Hearts.";                  //
 /*------------------------------                                                           //
 |      BRIDGE CONDITIONS       |                                                           //
 ------------------------------*/                                                           //
@@ -162,6 +164,8 @@ string_view bridgeDungeonCountDesc    = "Set the number of completed dungeons re
                                         "spawn the Rainbow Bridge.";                       //
 string_view bridgeTokenCountDesc      = "Set the number of Gold Skulltula Tokens required\n"
                                         "to spawn the Rainbow Bridge.";                    //
+string_view bridgeHeartCountDesc      = "Set the number of Hearts required to spawn the\n" //
+                                        "Rainbow Bridge.";                                 //
 /*------------------------------                                                           //
 |     RANDOM GANONS TRIALS     |                                                           //
 ------------------------------*/                                                           //

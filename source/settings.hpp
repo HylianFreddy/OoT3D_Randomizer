@@ -351,6 +351,7 @@ extern Option BridgeMedallionCount;
 extern Option BridgeRewardCount;
 extern Option BridgeDungeonCount;
 extern Option BridgeTokenCount;
+extern Option BridgeHeartCount;
 extern Option RandomGanonsTrials;
 extern Option GanonsTrialsCount;
 

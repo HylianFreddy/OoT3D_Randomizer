@@ -69,6 +69,7 @@ typedef enum {
     RAINBOWBRIDGE_REWARDS,
     RAINBOWBRIDGE_DUNGEONS,
     RAINBOWBRIDGE_TOKENS,
+    RAINBOWBRIDGE_HEARTS,
 } RainbowBridgeSetting;
 
 typedef enum {
@@ -449,6 +450,7 @@ typedef struct {
     u8 bridgeRewardCount;
     u8 bridgeDungeonCount;
     u8 bridgeTokenCount;
+    u8 bridgeHeartCount;
     u8 randomGanonsTrials;
     u8 ganonsTrialsCount;
 

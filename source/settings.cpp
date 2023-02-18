@@ -60,12 +60,14 @@ Option OpenDoorOfTime      = Option::U8  ("Door of Time",           {"Open", "Cl
 Option ZorasFountain       = Option::U8  ("Zora's Fountain",        {"Normal", "Adult", "Open"},                                                  {fountainNormal, fountainAdult, fountainOpen});
 Option OpenJabu            = Option::U8  ("Jabu-Jabu",              {"Closed", "Open"},                                                           {jabuJabuCloseDesc, jabuJabuOpenDesc});
 Option GerudoFortress      = Option::U8  ("Gerudo Fortress",        {"Normal", "Fast", "Open"},                                                   {gerudoNormal, gerudoFast, gerudoOpen});
-Option Bridge              = Option::U8  ("Rainbow Bridge",         {"Open", "Vanilla", "Stones", "Medallions", "Rewards", "Dungeons", "Tokens"}, {bridgeOpen, bridgeVanilla, bridgeStones, bridgeMedallions, bridgeRewards, bridgeDungeons, bridgeTokens},   OptionCategory::Setting,    RAINBOWBRIDGE_MEDALLIONS);
+Option Bridge              = Option::U8  ("Rainbow Bridge",         {"Open", "Vanilla", "Stones", "Medallions", "Rewards", "Dungeons", "Tokens", "Hearts"},
+                                                                     {bridgeOpen, bridgeVanilla, bridgeStones, bridgeMedallions, bridgeRewards, bridgeDungeons, bridgeTokens, bridgeHearts},                                                                  OptionCategory::Setting,    RAINBOWBRIDGE_MEDALLIONS);
 Option BridgeStoneCount    = Option::U8  (2, "Stone Count",         {NumOpts(0, 3)},                                                              {bridgeStoneCountDesc},                                                                                     OptionCategory::Setting,    1,                          true);
 Option BridgeMedallionCount= Option::U8  (2, "Medallion Count",     {NumOpts(0, 6)},                                                              {bridgeMedallionCountDesc},                                                                                 OptionCategory::Setting,    6);
 Option BridgeRewardCount   = Option::U8  (2, "Reward Count",        {NumOpts(0, 9)},                                                              {bridgeRewardCountDesc},                                                                                    OptionCategory::Setting,    1,                          true);
 Option BridgeDungeonCount  = Option::U8  (2, "Dungeon Count",       {NumOpts(0, 8)},                                                              {bridgeDungeonCountDesc},                                                                                   OptionCategory::Setting,    1,                          true);
 Option BridgeTokenCount    = Option::U8  (2, "Token Count",         {NumOpts(0, 100)},                                                            {bridgeTokenCountDesc},                                                                                     OptionCategory::Setting,    1,                          true);
+Option BridgeHeartCount    = Option::U8  (2, "Heart Count",         {NumOpts(0, 20)},                                                             {bridgeHeartCountDesc},                                                                                     OptionCategory::Setting,    1,                          true);
 Option RandomGanonsTrials  = Option::Bool("Random Ganon's Trials",  {"Off", "On"},                                                                {randomGanonsTrialsDesc},                                                                                   OptionCategory::Setting,    ON);
 Option GanonsTrialsCount   = Option::U8  (2, "Trial Count",         {NumOpts(0, 6)},                                                              {ganonsTrialCountDesc},                                                                                     OptionCategory::Setting,    1,                          true);
 std::vector<Option *> openOptions = {
@@ -82,6 +84,7 @@ std::vector<Option *> openOptions = {
     &BridgeRewardCount,
     &BridgeDungeonCount,
     &BridgeTokenCount,
+    &BridgeHeartCount,
     &RandomGanonsTrials,
     &GanonsTrialsCount,
 };
@@ -1342,6 +1345,7 @@ SettingsContext FillContext() {
     ctx.bridgeRewardCount    = BridgeRewardCount.Value<u8>();
     ctx.bridgeDungeonCount   = BridgeDungeonCount.Value<u8>();
     ctx.bridgeTokenCount     = BridgeTokenCount.Value<u8>();
+    ctx.bridgeHeartCount     = BridgeHeartCount.Value<u8>();
     ctx.randomGanonsTrials   = (RandomGanonsTrials) ? 1 : 0;
     ctx.ganonsTrialsCount    = GanonsTrialsCount.Value<u8>();
 
@@ -1990,8 +1994,16 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         if (Bridge.Is(RAINBOWBRIDGE_TOKENS)) {
             BridgeTokenCount.Unhide();
         } else {
-            BridgeTokenCount.SetSelectedIndex(1);
+            BridgeTokenCount.SetSelectedIndex(100);
             BridgeTokenCount.Hide();
+        }
+
+        // Only show token count option if Tokens is selected
+        if (Bridge.Is(RAINBOWBRIDGE_HEARTS)) {
+            BridgeHeartCount.Unhide();
+        } else {
+            BridgeHeartCount.SetSelectedIndex(20);
+            BridgeHeartCount.Hide();
         }
 
         // Only show Trial Count option if Random Trial Count is off

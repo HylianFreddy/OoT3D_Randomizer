@@ -55,12 +55,14 @@ extern string_view bridgeMedallions;
 extern string_view bridgeRewards;
 extern string_view bridgeDungeons;
 extern string_view bridgeTokens;
+extern string_view bridgeHearts;
 
 extern string_view bridgeStoneCountDesc;
 extern string_view bridgeMedallionCountDesc;
 extern string_view bridgeRewardCountDesc;
 extern string_view bridgeDungeonCountDesc;
 extern string_view bridgeTokenCountDesc;
+extern string_view bridgeHeartCountDesc;
 
 extern string_view randomGanonsTrialsDesc;
 
