@@ -2966,4 +2966,21 @@ const std::vector<Menu*> GetAllOptionMenus() {
     return allMenus;
 }
 
+bool ValidateSettings() {
+    s32 maxHearts;
+    switch (ItemPoolValue.Value<u8>()) {
+        case ITEMPOOL_MINIMAL:
+            maxHearts = 3;
+        case ITEMPOOL_SCARCE:
+            maxHearts = 12;
+    }
+    if ((Bridge.Is(RAINBOWBRIDGE_HEARTS) && BridgeHeartCount.Value<u8>() > maxHearts) ||
+        (GanonsBossKey.Is(GANONSBOSSKEY_LACS_HEARTS) && LACSHeartCount.Value<u8>() > maxHearts)) {
+            printf("\x1b[6;10HNot enough Hearts in pool.");
+            return false;
+    }
+
+    return true;
+}
+
 } // namespace Settings

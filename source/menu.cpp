@@ -688,6 +688,10 @@ static void RestoreOverrides() {
 
 void GenerateRandomizer() {
 
+    if (!Settings::ValidateSettings()) {
+        return;
+    }
+
     consoleSelect(&topScreen);
     consoleClear();
     printf("\x1b[6;10HCaching Settings...");

@@ -334,6 +334,7 @@ void ResolveExcludedLocationConflicts();
 void RandomizeAllSettings(const bool selectOptions = false);
 void ForceChange(u32 kDown, Option* currentSetting);
 const std::vector<Menu*> GetAllOptionMenus();
+bool ValidateSettings();
 
 extern std::string seed;
 extern std::string version;
