@@ -1,4 +1,5 @@
 #include "z3D/z3D.h"
+#include "z3D/actors/z_en_bom.h"
 #include "objects.h"
 #include "custom_models.h"
 #include "settings.h"
@@ -160,8 +161,8 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 static u8 swimBoostTimer = 0;
-#define SWIM_BOOST_POWER (f32)1
-#define SWIM_BOOST_DURATION 20
+#define SWIM_BOOST_POWER (f32)3
+#define SWIM_BOOST_DURATION 40
 
 f32 Player_GetSpeedMultiplier(void) {
     f32 speedMultiplier = 1;
@@ -172,19 +173,30 @@ f32 Player_GetSpeedMultiplier(void) {
 
     if (customSpeedBoost) {
         // Constant speed boost
-        if (PLAYER->stateFuncPtr == (void*)0x4BA378) {
-            speedMultiplier *= 1.5;
-
-            // Extra speed boost in Hyrule Field
-            if (gGlobalContext->sceneNum == 0x51) {
-                speedMultiplier *= 2;
+        if (PLAYER->stateFuncPtr == (void*)0x4BA378 && rInputCtx.touchHeld &&
+            (rInputCtx.touchX > 0x40 && rInputCtx.touchX < 0x100) &&
+            (rInputCtx.touchY > 0x25 && rInputCtx.touchY < 0xC8)
+        ) {
+            if (rInputCtx.touchY > 145) {
+                speedMultiplier *= 1.5;
+            } else if (rInputCtx.touchY > 91) {
+                speedMultiplier *= 3.0;
+            } else {
+                speedMultiplier *= 5.0;
             }
         }
 
         // Swim boost
-        if (PLAYER->stateFuncPtr == (void*)0x4A3344) {
+        u32 swimFunc = gSettingsContext.region == REGION_EUR ? 0x4A3364 : 0x4A3344;
+        if (PLAYER->stateFuncPtr == (void*)swimFunc) {
             if (rInputCtx.pressed.b) {
                 swimBoostTimer = SWIM_BOOST_DURATION;
+                EnBom* bomb = (EnBom*)Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x10, PLAYER->actor.world.pos.x,
+                    PLAYER->actor.world.pos.y, PLAYER->actor.world.pos.z, PLAYER->actor.world.rot.x,
+                    PLAYER->actor.world.rot.y, PLAYER->actor.world.rot.z, 0);
+                bomb->timer = 1; // no damage if 1 or 0
+                //Collider_UpdateSpheres(0, &bomb->explosionCollider, &bomb->actor.modelMtx);
+                //EnBom_Draw(&bomb->actor, gGlobalContext);
             }
 
             speedMultiplier *= 1 + SWIM_BOOST_POWER * ((f32)swimBoostTimer / SWIM_BOOST_DURATION);

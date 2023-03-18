@@ -144,12 +144,13 @@ typedef struct {
     /* 0x13 */ u8 ocFlags2;         // Flags related to which colliders it can OC collide with.
     /* 0x14 */ u8 colType;          // Determines hitmarks and sound effects during AC collisions.
     /* 0x15 */ u8 shape;            // JntSph, Cylinder, Tris, or Quad
+    /* 0x16 */ u8 unk_16[0x2];
 } Collider;                         // size = 0x18
 
 typedef struct {
     /* 0x00 */ Collider base;
-    /* 0x18 */      // ColliderInfo info;
-    /* 0x40 */      // Cylinderf dim;
+    /* 0x18 */ u8 unk_18[0x28]; // ColliderInfo info;
+    /* 0x40 */ u8 unk_16[0x18]; // Cylinderf dim;
 } ColliderCylinder; // size = 0x58
 
 typedef struct {
@@ -334,6 +335,9 @@ void Actor_Kill(Actor* actor);
 typedef u32 (*Actor_HasParent_proc)(Actor* actor, struct GlobalContext* globalCtx);
 #define Actor_HasParent_addr 0x371E40
 #define Actor_HasParent ((Actor_HasParent_proc)Actor_HasParent_addr)
+
+typedef void (*Collider_UpdateSpheres_proc)(s32 limb, void* collider, nn_math_MTX34* modelMtx);
+#define Collider_UpdateSpheres ((Collider_UpdateSpheres_proc)0x357750)
 
 typedef f32 (*Actor_WorldDistXYZToActor_proc)(Actor* a, Actor* b) __attribute__((pcs("aapcs-vfp")));
 #define Actor_WorldDistXYZToActor ((Actor_WorldDistXYZToActor_proc)0x3306C4)
