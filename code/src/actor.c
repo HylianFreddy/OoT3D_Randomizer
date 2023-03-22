@@ -10,7 +10,7 @@
 #include "ocarina.h"
 #include "cow.h"
 #include "string.h"
-#include "ganondorf_organ.h"
+#include "ganondorf.h"
 #include "checkable_spot.h"
 #include "twinrova.h"
 #include "nabooru.h"

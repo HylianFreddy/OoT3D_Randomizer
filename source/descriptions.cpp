@@ -652,9 +652,9 @@ string_view skipTowerEscapeDesc       = "The tower escape sequence between Ganon
 /*------------------------------                                                           //
 |      SKIP FINAL FIGHTS       |                                                           //
 ------------------------------*/                                                           //
-string_view skipFinalBattlesDesc      = "Ganondorf will be so weak that a single Light\n"  //
-                                        "Arrow will be enough to seal him in the Sacred\n" //
-                                        "Realm, skipping straight to the end credits.";    //
+string_view skipFinalBattlesDesc      = "Ganondorf will be so weak that a single hit from\n"
+                                        "the Master Sword will be enough to seal him in the"
+                                        "Sacred Realm, skipping straight to the end credits";
 /*------------------------------                                                           //
 |       SKIP EPONA RACE        |                                                           //
 ------------------------------*/                                                           //

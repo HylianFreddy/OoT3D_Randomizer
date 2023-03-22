@@ -1588,13 +1588,6 @@ hook_RestoreISG:
     pop {lr}
     bx lr
 
-.global hook_GanondorfHitByLightArrow
-hook_GanondorfHitByLightArrow:
-    push {r0-r12,lr}
-    bl Settings_GanondorfCreditsWarp
-    pop {r0-r12,lr}
-    b 0x36AE14
-
 .global hook_GrannyTextID
 hook_GrannyTextID:
     push {r1-r12,lr}
@@ -1709,7 +1702,10 @@ hook_CollisionATvsAC:
     push {r0-r12,lr}
     cpy r0,r1  @ AT collider
     cpy r1,r12 @ AC collider
+    push {r0,r1}
     bl RedIce_CheckIceArrow
+    pop {r0,r1}
+    bl Ganondorf_CreditsWarp
     pop {r0-r12,lr}
     bx lr
 
