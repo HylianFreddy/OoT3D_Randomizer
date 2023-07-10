@@ -1855,6 +1855,15 @@ void HintTable_Init() {
                 /*german*/"Die Weisen werden darauf&warten, dass der Held #%d&|Skulltula-Symbol|Skulltula-Symbole|# sammelt."},
     });
 
+    hintTable[BRIDGE_HEARTS_HINT] = HintText::Bridge({
+                     // obscure text
+                     Text{"The awakened ones will await for the&Hero to collect #%d |Heart|Hearts|#.",
+                /*french*/"Les êtres de sagesse attendront le&héros muni de #%d |Heart|Hearts|#.",
+               /*spanish*/"Los sabios aguardarán a que el héroe&obtenga #%d |Heart|Hearts|#.",
+               /*italian*/"I Saggi aspetteranno che l'Eroe&ottenga #%d |cuore|cuori|#.",
+                /*german*/"Die Weisen werden darauf&warten, dass der Held #%d&|Heart|Hearts|# sammelt."},
+    });
+
     /*--------------------------
     | GANON BOSS KEY HINT TEXT |
     ---------------------------*/
@@ -1978,6 +1987,15 @@ void HintTable_Init() {
                /*spanish*/"Y Zelda entregará la llave&del #señor del mal# tras obtener&#%d |símbolo|símbolos| de&skulltula dorada#.",
                /*italian*/"E la chiave del #re del male# sarà&ricevuta da Zelda dopo aver ottenuto&#%d |teschio|teschi| d'oro#.",
                 /*german*/"Und der #Schlüssel des Bösen# wird&von Zelda verliehen, sobald #%d&|Skulltula-Symbol# gesammelt wurde|Skulltula-Symbole# gesammelt wurden|."},
+    });
+
+    hintTable[LACS_HEARTS_HINT] = HintText::LACS({
+                     // obscure text                                                     singular                 plural
+                     Text{"And the #evil one#'s key will be&provided by Zelda once #%d |Heart#&is|Hearts#&are| retrieved.",
+                /*french*/"Aussi, Zelda crééra la clé du&#Malin# avec #%d ???#.",
+               /*spanish*/"Y Zelda entregará la llave&del #señor del mal# tras obtener&???#%d #.",
+               /*italian*/"E la chiave del #re del male# sarà&ricevuta da Zelda dopo aver ottenuto&#%d |cuore|cuori|#.",
+                /*german*/"Und der #Schlüssel des Bösen# wird&von Zelda verliehen, sobald #%d&???# gesammelt wurden|."},
     });
     /*--------------------------
     |     TRIAL HINT TEXT      |
