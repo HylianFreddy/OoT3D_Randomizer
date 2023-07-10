@@ -3100,4 +3100,23 @@ bool GlitchEnabled(Option& glitchOption) {
     return Logic.Is(LOGIC_GLITCHED) && isMiscGlitch() && glitchOption;
 }
 
+bool ValidateSettings() {
+    s32 maxHearts = 20;
+    switch (ItemPoolValue.Value<u8>()) {
+        case ITEMPOOL_MINIMAL:
+            maxHearts = 3;
+            break;
+        case ITEMPOOL_SCARCE:
+            maxHearts = 12;
+            break;
+    }
+    if ((Bridge.Is(RAINBOWBRIDGE_HEARTS) && BridgeHeartCount.Value<u8>() > maxHearts) ||
+        (GanonsBossKey.Is(GANONSBOSSKEY_LACS_HEARTS) && LACSHeartCount.Value<u8>() > maxHearts)) {
+            printf("\x1b[6;0HNot enough Hearts in pool! \n\nPlease choose a different Item Pool\nsetting or lower the Heart requirement.");
+            return false;
+    }
+
+    return true;
+}
+
 } // namespace Settings
