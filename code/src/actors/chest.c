@@ -26,10 +26,16 @@ u32 isBombchuMajor(void) {
 }
 
 void EnBox_rInit(Actor* thisx, GlobalContext* globalCtx) {
+    EnBox_Init(thisx, globalCtx);
+    Chest_ChangeAppearance(thisx, globalCtx, ((gSaveContext.questItems >> 21) & 1)); // shard of agony inventory flag
+}
+
+void Chest_ChangeAppearance(Actor* thisx, GlobalContext* globalCtx, u8 haveShardOfAgony) {
     EnBox* this    = (EnBox*)thisx;
     sLastTrapChest = 0;
 
     u8 vanilla = (gSettingsContext.chestAppearance == CHESTAPPEARANCE_VANILLA) ||
+                 (gSettingsContext.chestAgony && !haveShardOfAgony) ||
                  (globalCtx->sceneNum == 16 && thisx->room != 6); // treasure chest shop, final room
 
     ItemOverride thisOverride = ItemOverride_Lookup(thisx, globalCtx->sceneNum, 0);
@@ -43,8 +49,6 @@ void EnBox_rInit(Actor* thisx, GlobalContext* globalCtx) {
     if (type == CHEST_BOMBCHUS) {
         type = isBombchuMajor() ? CHEST_MAJOR : CHEST_JUNK;
     }
-
-    EnBox_Init(thisx, globalCtx);
 
     // Change Chest Model
     if (type == CHEST_BOSS_KEY ||

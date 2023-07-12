@@ -5,6 +5,7 @@
 #include "multiplayer.h"
 #include "dungeon.h"
 #include "common.h"
+#include "actors/chest.h"
 
 void ItemEffect_None(SaveContext* saveCtx, s16 arg1, s16 arg2) {
 }
@@ -422,4 +423,13 @@ void ItemEffect_OwnAdultTrade(SaveContext* saveCtx, s16 arg1, s16 arg2) {
 
 void ItemEffect_GiveWeirdEgg(SaveContext* saveCtx, s16 arg1, s16 arg2) {
     gSaveContext.sceneFlags[0x60].unk |= 0x1 << 0x10;
+}
+
+void ItemEffect_ShardOfAgony(SaveContext* saveCtx, s16 arg1, s16 arg2) {
+    if (IsInGame()) {
+        for (Actor* actor = gGlobalContext->actorCtx.actorList[ACTORTYPE_CHEST].first; actor != NULL;
+             actor        = actor->next) {
+            Chest_ChangeAppearance(actor, gGlobalContext, TRUE);
+        }
+    }
 }
