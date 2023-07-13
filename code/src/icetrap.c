@@ -19,6 +19,8 @@ s8 IceTrap_ActiveCurse         = -1;
 static s16 previousTimer1Value = 0;
 static s16 previousTimer2Value = 60;
 u32 dizzyCurseSeed             = 0;
+u16 rollOffset                 = 0;
+u16 targetOffset               = 0;
 
 // LUT for 1 - 0.5sin(0.5x) * 1.1^-x where x = 30 - INDEX
 const f32 SCALE_TRAP[] = { 1.000f, 0.971f, 0.966f, 0.969f, 0.982f, 1.003f, 1.027f, 1.049f, 1.061f, 1.059f,
@@ -54,10 +56,18 @@ void IceTrap_InitTypes(void) {
         possibleChestTraps[possibleChestTrapsAmount++] = ICETRAP_CURSE_SHIELD;
         possibleChestTraps[possibleChestTrapsAmount++] = ICETRAP_CURSE_DIZZY;
         possibleChestTraps[possibleChestTrapsAmount++] = ICETRAP_CURSE_BLIND;
+        possibleChestTraps[possibleChestTrapsAmount++] = ICETRAP_CURSE_SLOW;
         possibleItemTraps[possibleItemTrapsAmount++]   = ICETRAP_CURSE_SWORD;
         possibleItemTraps[possibleItemTrapsAmount++]   = ICETRAP_CURSE_SHIELD;
         possibleItemTraps[possibleItemTrapsAmount++]   = ICETRAP_CURSE_DIZZY;
         possibleItemTraps[possibleItemTrapsAmount++]   = ICETRAP_CURSE_BLIND;
+        possibleItemTraps[possibleItemTrapsAmount++]   = ICETRAP_CURSE_SLOW;
+    }
+    if (gSettingsContext.screenTraps) {
+        possibleChestTraps[possibleChestTrapsAmount++] = ICETRAP_CURSE_CROOKED;
+        possibleChestTraps[possibleChestTrapsAmount++] = ICETRAP_CURSE_UNSTABLE;
+        possibleItemTraps[possibleItemTrapsAmount++]   = ICETRAP_CURSE_CROOKED;
+        possibleItemTraps[possibleItemTrapsAmount++]   = ICETRAP_CURSE_UNSTABLE;
     }
 }
 
@@ -113,7 +123,7 @@ void IceTrap_Give(void) {
             PLAYER->actor.colChkInfo.damage = 0;
         } else {
             PLAYER->actor.colChkInfo.damage =
-                (gSettingsContext.mirrorWorld) ? 16 : 8; // Damage Multiplier is accounted for by the patch
+                (gSaveContext.masterQuestFlag) ? 16 : 8; // Damage Multiplier is accounted for by the patch
         }
 
         if (PLAYER->invincibilityTimer > 0) {
@@ -173,6 +183,14 @@ u8 IceTrap_ActivateCurseTrap(u8 curseType) {
                 gStaticContext.dekuNutFlash          = -1;
                 gStaticContext.renderGeometryDisable = 1;
                 break;
+            case ICETRAP_CURSE_SLOW:
+                break;
+            case ICETRAP_CURSE_CROOKED:
+                targetOffset = dizzyCurseSeed % 0xC001 + 0x2000;
+                break;
+            case ICETRAP_CURSE_UNSTABLE:
+                targetOffset = dizzyCurseSeed % 0x4001 - 0x2000;
+                break;
             default:
                 return 0;
         }
@@ -182,7 +200,7 @@ u8 IceTrap_ActivateCurseTrap(u8 curseType) {
     gSaveContext.timer2State = 4; // "active"
     gSaveContext.timer2Value = 60;
     TimerFrameCounter        = 30;
-    DisplayTextbox(gGlobalContext, 0x8FF0 + curseType - ICETRAP_CURSE_SHIELD, 0);
+    DisplayTextbox(gGlobalContext, CURSETRAP_TEXT_BASE_INDEX + curseType - ICETRAP_CURSE_SHIELD, 0);
     PlaySound(0x100035C); // Poe laugh SFX
     IceTrap_ActiveCurse = (s8)curseType;
     return 1;
@@ -200,7 +218,29 @@ void IceTrap_DispelCurses(void) {
     }
 }
 
+u16 lerps(u16 a, u16 b, f32 t) {
+    u16 tmp;
+    if (a < b) {
+        tmp = a;
+        a   = b;
+        b   = tmp;
+        t   = 1 - t;
+    }
+
+    if (a - b < 0x8000) {
+        return a + t * (b - a);
+    }
+    // Use overflow to lerp in other direction
+    return a + t * (u16)(b - a);
+}
+
 void IceTrap_HandleCurses(void) {
+    if (IceTrap_ActiveCurse == ICETRAP_CURSE_CROOKED || IceTrap_ActiveCurse == ICETRAP_CURSE_UNSTABLE) {
+        rollOffset = lerps(rollOffset, targetOffset, 0.1);
+    } else {
+        rollOffset = lerps(rollOffset, 0, 0.1);
+    }
+
     if (IceTrap_ActiveCurse < 0)
         return;
 
@@ -220,6 +260,11 @@ void IceTrap_HandleCurses(void) {
             gStaticContext.dekuNutFlash          = -1;
             gStaticContext.renderGeometryDisable = 1;
         }
+        previousTimer2Value = gSaveContext.timer2Value;
+    }
+
+    if (IceTrap_ActiveCurse == ICETRAP_CURSE_UNSTABLE && gSaveContext.timer2Value != previousTimer2Value) {
+        targetOffset += Hash(targetOffset) % 0x4001 - 0x2000;
         previousTimer2Value = gSaveContext.timer2Value;
     }
 
@@ -284,4 +329,8 @@ btn_t IceTrap_RandomizeButtons(btn_t in) {
     out.r     = arr[2];
     out.l     = arr[3];
     return out;
+}
+
+u16 IceTrap_CamRoll(u16 roll) {
+    return roll + rollOffset;
 }

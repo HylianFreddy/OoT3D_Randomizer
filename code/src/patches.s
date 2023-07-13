@@ -41,11 +41,6 @@ OverrideTextID_patch:
 OverrideItemID_patch:
     b hook_OverrideItemID
 
-.section .patch_OverrideGraphicID_351B94
-.global OverrideGraphicID_patch_351B94
-OverrideGraphicID_patch_351B94:
-    bl hook_OverrideGraphicID_351B94
-
 .section .patch_OverrideGraphicID_35495C
 .global OverrideGraphicID_patch_35495C
 OverrideGraphicID_patch_35495C:
@@ -923,6 +918,21 @@ SwapFaroresWind_patch:
 BombchuShopAlwaysOpen_patch:
     nop
 
+.section .patch_KingDodongoID
+    .short 0x27
+
+.section .patch_KingDodongoFireBreathID
+    .short 0x30
+
+.section .patch_PhantomGanonLightningID
+    .short 0x6D
+
+.section .patch_GohmaLarvaID
+    .short 0x2B
+
+.section .patch_VolvagiaRockID
+    .short 0xAD
+
 .section .patch_BombchuCheapestPriceOne
     .word 0x0063FFFF
 
@@ -1228,6 +1238,11 @@ SariasSongHintsOne_patch:
 .global SariasSongHintsTwo_patch
 SariasSongHintsTwo_patch:
     bl Hints_GetNextSariasSongHint
+
+.section .patch_HyperActors
+.global HyperActors_patch
+HyperActors_patch:
+    bl hook_HyperActors
 
 .section .patch_TitleCardUpdate
 .global TitleCardUpdate_patch
@@ -1647,10 +1662,10 @@ MultiplyPlayerSpeed_patch:
 RunAnimationSpeed_patch:
     bl hook_RunAnimationSpeed
 
-.section .patch_SilenceNavi
-.global SilenceNavi_patch
-SilenceNavi_patch:
-    bl hook_SilenceNavi
+.section .patch_NaviNotifications
+.global NaviNotifications_patch
+NaviNotifications_patch:
+    bl hook_NaviNotifications
 
 .section .patch_ChestMinigame_RewardChestVisibility
 .global ChestMinigame_RewardChestVisibility_patch
@@ -1713,10 +1728,15 @@ LHOwlEntranceOverride_patch:
 SavewarpSetRespawnFlag_patch:
     bl hook_SavewarpSetRespawnFlag
 
-.section .patch_ChildHoverBoots
-.global ChildHoverBoots_patch
-ChildHoverBoots_patch:
-    b hook_ChildHoverBoots
+.section .patch_AdultItemsCMABsAsChild
+.global AdultItemsCMABsAsChild_patch
+AdultItemsCMABsAsChild_patch:
+    bl hook_AdultItemsCMABsAsChild
+
+.section .patch_Model_EnableMeshGroupByIndex
+.global Model_EnableMeshGroupByIndex_patch
+Model_EnableMeshGroupByIndex_patch:
+    b hook_Model_EnableMeshGroupByIndex
 
 .section .patch_NockArrow
 .global NockArrow_patch
@@ -1727,11 +1747,6 @@ NockArrow_patch:
 .global DecreaseArrowCount_patch
 DecreaseArrowCount_patch:
     bl hook_ArrowsOrSeeds
-
-.section .patch_HookshotDrawRedLaser
-.global HookshotDrawRedLaser_patch
-HookshotDrawRedLaser_patch:
-    bl hook_HookshotDrawRedLaser
 
 .section .patch_HookshotDrawChain
 .global HookshotDrawChain_patch
@@ -2033,6 +2048,21 @@ InitSceneEntranceOverride_patch:
 CollisionATvsAC_patch:
     bl hook_CollisionATvsAC
 
+.section .patch_CollisionCheck_SetAC_Once
+.global CollisionCheck_SetAC_Once_patch
+CollisionCheck_SetAC_Once_patch:
+    bl hook_CollisionCheck_SetAll_Once
+
+.section .patch_CollisionCheck_SetAT_Once
+.global CollisionCheck_SetAT_Once_patch
+CollisionCheck_SetAT_Once_patch:
+    bl hook_CollisionCheck_SetAll_Once
+
+.section .patch_CollisionCheck_SetOC_Once
+.global CollisionCheck_SetOC_Once_patch
+CollisionCheck_SetOC_Once_patch:
+    bl hook_CollisionCheck_SetAll_Once
+
 .section .patch_GanonDrawMasterSword
 .global GanonDrawMasterSword_patch
 GanonDrawMasterSword_patch:
@@ -2047,11 +2077,6 @@ SetFWPlayerParams_patch:
 .global AboutToPickUpActor_patch
 AboutToPickUpActor_patch:
     bl hook_AboutToPickUpActor
-
-.section .patch_GoronPotGuaranteeReward
-.global GoronPotGuaranteeReward_patch
-GoronPotGuaranteeReward_patch:
-    bl hook_GoronPotGuaranteeReward
 
 .section .patch_TargetReticleColor
 .global TargetReticleColor_patch
@@ -2068,15 +2093,10 @@ TargetPointerColor_patch:
 ShadowShip_CSTimer_patch:
     .word 0xC3
 
-.section .patch_ShadowShip_Accel
-.global ShadowShip_Accel_patch
-ShadowShip_Accel_patch:
-    .word 0x3F800000
-
-.section .patch_ShadowShip_TopSpeed
-.global ShadowShip_TopSpeed_patch
-ShadowShip_TopSpeed_patch:
-    .word 0x41A00000
+.section .patch_ShadowShip_Speed
+.global ShadowShip_Speed_patch
+ShadowShip_Speed_patch:
+    bl hook_ShadowShip_Speed
 
 .section .patch_MaskSalesmanCheckNoMaskOne
 .global MaskSalesmanCheckNoMaskOne_patch
@@ -2114,6 +2134,71 @@ OoBBombchuTwo_patch:
 .global OoBBombchuThree_patch
 OoBBombchuThree_patch:
     bl hook_OoBBombchuThree
+
+.section .patch_CamRoll
+.global CamRoll_patch
+CamRoll_patch:
+    bl hook_CamRoll
+
+.section .patch_CamUpdate
+.global CamUpdate_patch
+CamUpdate_patch:
+    bl hook_CamUpdate
+
+.section .patch_Sheik_GetTextID
+.global Sheik_GetTextID_patch
+Sheik_GetTextID_patch:
+    b hook_Sheik_GetTextID
+
+.section .patch_OnActorSetup_SceneChange
+.global OnActorSetup_SceneChange_patch
+OnActorSetup_SceneChange_patch:
+    bl hook_OnActorSetup_SceneChange
+
+.section .patch_AfterActorSetup_SceneChange
+.global AfterActorSetup_SceneChange_patch
+AfterActorSetup_SceneChange_patch:
+    b hook_AfterActorSetup_SceneChange
+
+.section .patch_OnActorSetup_RoomChange
+.global OnActorSetup_RoomChange_patch
+OnActorSetup_RoomChange_patch:
+    bl hook_OnActorSetup_RoomChange
+
+.section .patch_AfterActorSetup_RoomChange
+.global AfterActorSetup_RoomChange_patch
+AfterActorSetup_RoomChange_patch:
+    b hook_AfterActorSetup_RoomChange
+
+.section .patch_RandomGsLoc_CustomTangibilityCheck
+.global RandomGsLoc_CustomTangibilityCheck_patch
+RandomGsLoc_CustomTangibilityCheck_patch:
+    b hook_RandomGsLoc_CustomTangibilityCheck
+
+.section .patch_RandomGsLoc_CustomTokenSpawnOffset
+.global RandomGsLoc_CustomTokenSpawnOffset_patch
+RandomGsLoc_CustomTokenSpawnOffset_patch:
+    bl hook_RandomGsLoc_CustomTokenSpawnOffset
+
+.section .patch_RandomGsLoc_BlockSpawn_Crate
+.global RandomGsLoc_BlockSpawn_Crate_patch
+RandomGsLoc_BlockSpawn_Crate_patch:
+    bl hook_RandomGsLoc_BlockSpawn_Crate
+
+.section .patch_RandomGsLoc_BlockSpawn_Tree
+.global RandomGsLoc_BlockSpawn_Tree_patch
+RandomGsLoc_BlockSpawn_Tree_patch:
+    bl hook_RandomGsLoc_BlockSpawn_Tree
+
+.section .patch_RandomGsLoc_BlockSpawn_Soil
+.global RandomGsLoc_BlockSpawn_Soil_patch
+RandomGsLoc_BlockSpawn_Soil_patch:
+    bl hook_RandomGsLoc_BlockSpawn_Soil
+
+.section .patch_RandomGsLoc_SkipSoilJingle
+.global RandomGsLoc_SkipSoilJingle_patch
+RandomGsLoc_SkipSoilJingle_patch:
+    bl hook_RandomGsLoc_SkipSoilJingle
 
 @ ----------------------------------
 @ ----------------------------------

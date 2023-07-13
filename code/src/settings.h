@@ -258,6 +258,12 @@ typedef enum {
 } SkipSongReplaysSetting;
 
 typedef enum {
+    NAVINOTIFS_SILENCED,
+    NAVINOTIFS_NORMAL,
+    NAVINOTIFS_CONSTANT,
+} NaviNotificationsSetting;
+
+typedef enum {
     INCLUDE,
     EXCLUDE,
 } ExcludeLocationSetting;
@@ -289,6 +295,7 @@ typedef enum {
     HINTDISTRIBUTION_BALANCED,
     HINTDISTRIBUTION_STRONG,
     HINTDISTRIBUTION_VERYSTRONG,
+    HINTDISTRIBUTION_PLAYTHROUGH,
 } HintDistributionSettings;
 
 typedef enum {
@@ -323,6 +330,12 @@ typedef enum {
     RANDOMTRAPS_BASIC,
     RANDOMTRAPS_ADVANCED,
 } RandomTrapDamageSetting;
+
+typedef enum {
+    HYPERACTORS_OFF,
+    HYPERACTORS_ON,
+    HYPERACTORS_CHOOSE,
+} HyperActorsSetting;
 
 typedef enum {
     ITEMPOOL_MINIMAL,
@@ -536,6 +549,7 @@ typedef struct {
     u8 gossipStoneHints;
     u8 totAltarHints;
     u8 ganonHints;
+    u8 sheikHints;
     u8 compassesShowReward;
     u8 compassesShowWotH;
     u8 mapsShowDungeonMode;
@@ -549,7 +563,12 @@ typedef struct {
     u8 fireTrap;
     u8 antiFairyTrap;
     u8 curseTraps;
+    u8 screenTraps;
     u8 extraArrowEffects;
+    u8 hyperBosses;
+    u8 hyperMiddleBosses;
+    u8 hyperEnemies;
+    u8 freeCamera;
 
     u8 faroresWindAnywhere;
     u8 stickAsAdult;
@@ -588,8 +607,9 @@ typedef struct {
     u8 motionControl;
     u8 playMusic;
     u8 playSFX;
-    u8 silenceNavi;
+    u8 naviNotifications;
     u8 ignoreMaskReaction;
+    u8 freeCamControl;
 
     u8 customTunicColors;
     u8 customNaviColors;

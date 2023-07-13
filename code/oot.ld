@@ -120,6 +120,10 @@ SECTIONS
 		*(.patch_FairyPickupHealAmount)
 	}
 
+	.patch_RandomGsLoc_SkipSoilJingle 0x15DBD8 : {
+		*(.patch_RandomGsLoc_SkipSoilJingle)
+	}
+
 	.patch_GrannyBottleCheck 0x161044 : {
 		*(.patch_GrannyBottleCheck)
 	}
@@ -174,6 +178,10 @@ SECTIONS
 
 	.patch_CheckFadoCanSpawnInLostWoods 0x1657EC : {
 		*(.patch_CheckFadoCanSpawnInLostWoods)
+	}
+
+	.patch_RandomGsLoc_BlockSpawn_Tree 0x16C43C : {
+		*(.patch_RandomGsLoc_BlockSpawn_Tree)
 	}
 
 	.patch_MedigoronSetRewardFlag 0x16C918 : {
@@ -274,6 +282,10 @@ SECTIONS
 
 	.patch_PlayerEditAndRetrieveCMB 0x191970 : {
 		*(.patch_PlayerEditAndRetrieveCMB)
+	}
+
+	.patch_AdultItemsCMABsAsChild 0x191BB0 : {
+		*(.patch_AdultItemsCMABsAsChild)
 	}
 
 	.patch_SetChildCustomTunic 0x191DB0 : {
@@ -568,8 +580,8 @@ SECTIONS
 		*(.patch_GanonDrawMasterSword)
 	}
 
-	.patch_SilenceNavi 0x26807C : {
-		*(.patch_SilenceNavi)
+	.patch_NaviNotifications 0x267E04 : {
+		*(.patch_NaviNotifications)
 	}
 
 	.patch_CheckGerudoToken_269884 0x269884 : {
@@ -636,6 +648,10 @@ SECTIONS
 		*(.patch_LostWoodsShootingGameTwo)
 	}
 
+	.patch_Sheik_GetTextID 0x2A4B44 : {
+		*(.patch_Sheik_GetTextID)
+	}
+
 	.patch_SerenadeCheckChestFlag 0x2B2544 : {
 		*(.patch_SerenadeCheckChestFlag)
 	}
@@ -684,8 +700,12 @@ SECTIONS
 		*(.patch_GetCustomMessageTextOne)
 	}
 
-	.patch_ChildHoverBoots 0x2D5DF8 : {
-		*(.patch_ChildHoverBoots)
+	.patch_CamUpdate 0x2D84C8 : {
+	    * (.patch_CamUpdate)
+	}
+
+	.patch_CamRoll 0x2D88E4 : {
+	    *(.patch_CamRoll)
 	}
 
 	.patch_InstantTextFirstLine 0x2E049C : {
@@ -792,6 +812,10 @@ SECTIONS
 		*(.patch_FWandWarpSongTimerDepletion)
 	}
 
+	.patch_RandomGsLoc_CustomTangibilityCheck 0x3415B0 : {
+		*(.patch_RandomGsLoc_CustomTangibilityCheck)
+	}
+
 	.patch_MasterQuestGoldSkulltulaCheck 0x3415C8 : {
 		*(.patch_MasterQuestGoldSkulltulaCheck)
 	}
@@ -814,10 +838,6 @@ SECTIONS
 
 	.patch_FWGetSet 0x3519CC : {
 		*(.patch_FWGetSet)
-	}
-
-	.patch_OverrideGraphicID_351B94 0x351B94 : {
-		*(.patch_OverrideGraphicID_351B94)
 	}
 
 	.patch_ApplyDamageMultiplier 0x352DC0 : {
@@ -884,6 +904,10 @@ SECTIONS
 		*(.patch_IncomingGetItemID)
 	}
 
+	.patch_Model_EnableMeshGroupByIndex 0x372670 : {
+		*(.patch_Model_EnableMeshGroupByIndex)
+	}
+
 	.patch_MaskSalesmanCheckNoMaskOne 0x372B64 : {
 	    *(.patch_MaskSalesmanCheckNoMask)
 	}
@@ -898,6 +922,18 @@ SECTIONS
 
 	.patch_SetSFX 0x37547C : {
 		*(.patch_SetSFX)
+	}
+
+	.patch_CollisionCheck_SetAC_Once 0x376174 : {
+		*(.patch_CollisionCheck_SetAC_Once)
+	}
+
+	.patch_CollisionCheck_SetAT_Once 0x3761FC : {
+		*(.patch_CollisionCheck_SetAT_Once)
+	}
+
+	.patch_CollisionCheck_SetOC_Once 0x3762B0 : {
+		*(.patch_CollisionCheck_SetOC_Once)
 	}
 
 	.patch_GKSetDurability 0x376BDC : {
@@ -976,6 +1012,14 @@ SECTIONS
 		*(.patch_GerudoArcheryOne)
 	}
 
+	.patch_RandomGsLoc_CustomTokenSpawnOffset 0x3B94C4 : {
+		*(.patch_RandomGsLoc_CustomTokenSpawnOffset)
+	}
+
+	.patch_RandomGsLoc_BlockSpawn_Crate 0x3BCA68 : {
+		*(.patch_RandomGsLoc_BlockSpawn_Crate)
+	}
+
 	.patch_MovableBlockCooldownTimer 0x3BD46C : {
 		*(.patch_MovableBlockCooldownTimer)
 	}
@@ -992,12 +1036,12 @@ SECTIONS
 		*(.patch_MilkCrateSpeed)
 	}
 
-	.patch_ForestTempleBasementPuzzleDelay 0x3BFA8C : {
-		*(.patch_ForestTempleBasementPuzzleDelay)
+	.patch_RandomGsLoc_BlockSpawn_Soil 0x3BF690 : {
+		*(.patch_RandomGsLoc_BlockSpawn_Soil)
 	}
 
-	.patch_GoronPotGuaranteeReward 0x3C148C : {
-		*(.patch_GoronPotGuaranteeReward)
+	.patch_ForestTempleBasementPuzzleDelay 0x3BFA8C : {
+		*(.patch_ForestTempleBasementPuzzleDelay)
 	}
 
 	.patch_GerudoArcheryTwo 0x3C2D80 : {
@@ -1044,12 +1088,8 @@ SECTIONS
 		*(.patch_MidoCheckDekuTreeClearFour)
 	}
 
-	.patch_ShadowShip_Accel 0x3DFBD8 : {
-		*(.patch_ShadowShip_Accel)
-	}
-
-	.patch_ShadowShip_TopSpeed 0x3DFBDC : {
-		*(.patch_ShadowShip_TopSpeed)
+	.patch_ShadowShip_Speed 0x3DFB30 : {
+		*(.patch_ShadowShip_Speed)
 	}
 
 	.patch_BombPurchaseableCheck 0x3CE800 : {
@@ -1308,6 +1348,14 @@ SECTIONS
 		*(.patch_OpenSaveDontSpoilTradeItems)
 	}
 
+	.patch_OnActorSetup_SceneChange 0x452250 : {
+		*(.patch_OnActorSetup_SceneChange)
+	}
+
+	.patch_AfterActorSetup_SceneChange 0x4522B8 : {
+		*(.patch_AfterActorSetup_SceneChange)
+	}
+
 	.patch_before_GlobalContext_Update 0x452390 : {
 		*(.patch_before_GlobalContext_Update)
 	}
@@ -1378,6 +1426,18 @@ SECTIONS
 
 	.patch_ChildDontEquipSwordSlotByDefault 0x45F49C : {
 		*(.patch_ChildDontEquipSwordSlotByDefault)
+	}
+
+	.patch_OnActorSetup_RoomChange 0x4613C4 : {
+		*(.patch_OnActorSetup_RoomChange)
+	}
+
+	.patch_AfterActorSetup_RoomChange 0x461434 : {
+		*(.patch_AfterActorSetup_RoomChange)
+	}
+
+	.patch_HyperActors 0x461790 : {
+		*(.patch_HyperActors)
 	}
 
 	.patch_TitleCardUpdate 0x4618B8 : {
@@ -1508,10 +1568,6 @@ SECTIONS
 		*(.patch_HookshotRotation)
 	}
 
-	.patch_HookshotDrawRedLaser 0x4C2620 : {
-		*(.patch_HookshotDrawRedLaser)
-	}
-
 	.patch_EditDrawGetItemAfterModelSpawn 0x4C61A4 : {
 		*(.patch_EditDrawGetItemAfterModelSpawn)
 	}
@@ -1528,6 +1584,26 @@ SECTIONS
 
 	.patch_DampeSetCollectibleFlag 0x4D9D50 : {
 		*(.patch_DampeSetCollectibleFlag)
+	}
+
+	.patch_KingDodongoID 0x514594 : {
+		*(.patch_KingDodongoID)
+	}
+
+	.patch_KingDodongoFireBreathID 0x520D38 : {
+		*(.patch_KingDodongoFireBreathID)
+	}
+
+	.patch_PhantomGanonLightningID 0x523698 : {
+		*(.patch_PhantomGanonLightningID)
+	}
+
+	.patch_GohmaLarvaID 0x525F24 : {
+		*(.patch_GohmaLarvaID)
+	}
+
+	.patch_VolvagiaRockID 0x52FDB4 : {
+		*(.patch_VolvagiaRockID)
 	}
 
 	.patch_BombchuCheapestPriceOne 0x525348 : {

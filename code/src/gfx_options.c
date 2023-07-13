@@ -5,11 +5,12 @@
 #include "draw.h"
 #include "input.h"
 #include "common.h"
+#include "settings.h"
 
 #define BORDER_WIDTH 2
 #define CHOICE_COLUMN 220
 #define DESCRIPTION_ROW 184
-#define OPTIONS_COUNT 5
+#define OPTIONS_COUNT 6
 
 typedef struct {
     char name[30];
@@ -43,11 +44,12 @@ void InitOptions(void) {
 
     // Silence Navi
     altNum = 0;
-    strcpy(options[opNum].name, "Silence Navi");
-    strcpy(options[opNum].alternatives[altNum++], "Off");
-    strcpy(options[opNum].alternatives[altNum++], "On");
-    strcpy(options[opNum].description, "Prevents Navi from alerting you about advice.");
-    options[opNum++].optionPointer = &gExtSaveData.option_SilenceNavi;
+    strcpy(options[opNum].name, "Navi Notifications");
+    strcpy(options[opNum].alternatives[altNum++], "Silenced");
+    strcpy(options[opNum].alternatives[altNum++], "Normal");
+    strcpy(options[opNum].alternatives[altNum++], "Constant");
+    strcpy(options[opNum].description, "Determines the frequency of Navi's notifications.");
+    options[opNum++].optionPointer = &gExtSaveData.option_NaviNotifications;
 
     // Ignore Mask Reaction
     altNum = 0;
@@ -66,6 +68,19 @@ void InitOptions(void) {
     strcpy(options[opNum].alternatives[altNum++], "Skip (Keep SFX)");
     strcpy(options[opNum].description, "Toggle skipping the automatic replay after\nyou play a song.");
     options[opNum++].optionPointer = &gExtSaveData.option_SkipSongReplays;
+
+    // Free Camera Control
+    if (gSettingsContext.freeCamera) {
+        altNum = 0;
+        strcpy(options[opNum].name, "Free Camera Control");
+        strcpy(options[opNum].alternatives[altNum++], "Normal");
+        strcpy(options[opNum].alternatives[altNum++], "Invert Y-Axis");
+        strcpy(options[opNum].alternatives[altNum++], "Invert X-Axis");
+        strcpy(options[opNum].alternatives[altNum++], "Invert Both");
+        strcpy(options[opNum].description,
+               "Change the input directions of the free camera.\n\nThis feature is not available on old 3DS systems.");
+        options[opNum++].optionPointer = &gExtSaveData.option_FreeCamControl;
+    }
 }
 
 void Gfx_DrawOptions(void) {

@@ -1,4 +1,5 @@
 #include "z3D/z3D.h"
+#include "common.h"
 #include "owl.h"
 #include "item00.h"
 #include "heart_container.h"
@@ -52,6 +53,7 @@
 #include "spin_attack.h"
 #include "deku_scrubs.h"
 #include "bean_plant.h"
+#include "sheik.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -114,6 +116,7 @@ void Actor_Init() {
 
     gActorOverlayTable[0x8C].initInfo->update = DemoKankyo_rUpdate;
 
+    gActorOverlayTable[0x95].initInfo->init   = EnSw_rInit;
     gActorOverlayTable[0x95].initInfo->update = EnSw_rUpdate;
 
     gActorOverlayTable[0x9C].initInfo->update = BgSpot02Objects_rUpdate;
@@ -247,7 +250,7 @@ void Actor_Init() {
     strncpy(gObjectTable[OBJECT_CUSTOM_SMALL_KEY_GTG].filename, gObjectTable[OBJECT_GI_KEY].filename, 0x40);
     strncpy(gObjectTable[OBJECT_CUSTOM_SMALL_KEY_GANON].filename, gObjectTable[OBJECT_GI_KEY].filename, 0x40);
 
-    // Define object 128 to be by default the same as object
+    // Define object 128 to be by default the same as object 185
     strncpy(gObjectTable[OBJECT_CUSTOM_BOSS_KEYS].filename, gObjectTable[OBJECT_GI_BOSSKEY].filename, 0x40);
 
     // Define draw item 3 (corresponding to gid 4) to be double defense custom model
@@ -271,6 +274,11 @@ void Actor_Init() {
     gDrawItemTable[7].objectModelIdx = 0;
 }
 
+void ActorSetup_Extra() {
+    Sheik_Spawn();
+    GsQueue_Update();
+}
+
 void TitleCard_rUpdate(GlobalContext* globalCtx, TitleCardContext* titleCtx) {
     if (ItemOverride_IsAPendingOverride()) {
         titleCtx->delayTimer    = 0;
@@ -280,4 +288,137 @@ void TitleCard_rUpdate(GlobalContext* globalCtx, TitleCardContext* titleCtx) {
     }
 
     TitleCard_Update(globalCtx, titleCtx);
+}
+
+u8 ActorSetup_ShouldSkipEntry(ActorEntry* actorEntry) {
+    // Alternate Gold Skulltula Locations
+    if (actorEntry->id == 0x95 && (actorEntry->params & 0xE000) && Gs_HasAltLoc(actorEntry, GS_PPT_ACTORENTRY, TRUE)) {
+        return TRUE;
+    }
+
+    return FALSE;
+}
+
+void ActorSetup_After(void) {
+    Gs_QueueAlternateLocated();
+}
+
+static s32 hyperActors_ExtraUpdate = 0;
+
+s32 HyperActors_GetExtraUpdate(void) {
+    return hyperActors_ExtraUpdate;
+}
+
+void HyperActors_UpdateAgain(Actor* thisx) {
+    if (thisx->colorFilterTimer > 0) {
+        thisx->colorFilterTimer--;
+    }
+    hyperActors_ExtraUpdate = 1;
+    thisx->update(thisx, gGlobalContext);
+    hyperActors_ExtraUpdate = 0;
+}
+
+void HyperActors_Main(Actor* thisx, GlobalContext* globalCtx) {
+    thisx->update(thisx, globalCtx);
+
+    if (!IsInGame() || thisx->update == NULL || (PLAYER != NULL && Player_InBlockingCsMode(globalCtx, PLAYER))) {
+        return;
+    }
+
+    if (gSettingsContext.hyperBosses == ON) {
+        if ((thisx->id == 0x28) ||                                           // Gohma
+            (thisx->id == 0x27 || thisx->id == 0x30) ||                      // King Dodongo + Fire Breath
+            (thisx->id == 0xBA && thisx->params == -1) ||                    // Barinade
+            (thisx->id == 0x52 || thisx->id == 0x67 || thisx->id == 0x6D) || // Phantom Ganon + Horse + Lightning
+            (thisx->id == 0x96 || thisx->id == 0xA2 || thisx->id == 0xAD) || // Volvagia + Rock Attack
+            (thisx->id == 0xC4) ||                                           // Morpha
+            (thisx->id == 0xE9 && thisx->params == -1) ||                    // Bongo Bongo
+            (thisx->id == 0xDC) ||                                           // Twinrova
+            (thisx->id == 0xE8) ||                                           // Ganondorf
+            (thisx->id == 0x17A)) {                                          // Ganon
+
+            // Special case to update in order for Barinade and Bongo Bongo
+            if (thisx->id == 0xBA || thisx->id == 0xE9) {
+                for (Actor* actor = gGlobalContext->actorCtx.actorList[ACTORTYPE_BOSS].first; actor != NULL;
+                     actor        = actor->next) {
+                    if (actor == thisx || actor->update == NULL) {
+                        continue;
+                    }
+                    HyperActors_UpdateAgain(actor);
+                }
+            }
+            HyperActors_UpdateAgain(thisx);
+        }
+    }
+
+    if (gSettingsContext.hyperMiddleBosses == ON) {
+        if ((thisx->id == 0x2) ||   // Stalfos
+            (thisx->id == 0x33) ||  // Dark Link
+            (thisx->id == 0x91) ||  // Poe Sisters
+            (thisx->id == 0x99) ||  // Flare Dancer
+            (thisx->id == 0xA3) ||  // Flare Dancer's Fireball
+            (thisx->id == 0xA4) ||  // Dead Hand
+            (thisx->id == 0xA5) ||  // Dead Hand's Hands
+            (thisx->id == 0xAB) ||  // Flare Dancer Core
+            (thisx->id == 0xC6) ||  // Big Octo
+            (thisx->id == 0x113) || // Iron Knuckle
+            (thisx->id == 0x197)) { // Gerudo Fighter
+
+            HyperActors_UpdateAgain(thisx);
+        }
+    }
+
+    if (gSettingsContext.hyperEnemies == ON) {
+        if ((thisx->id == 0xD) ||                            // Poe & Composer Brothers
+            (thisx->id == 0xE) ||                            // Octorok
+            (thisx->id == 0x11) ||                           // Wallmaster
+            (thisx->id == 0x12) ||                           // Dodongo
+            (thisx->id == 0x13) ||                           // Keese
+            (thisx->id == 0x1B) ||                           // Tektite
+            (thisx->id == 0x1C) ||                           // Leever
+            (thisx->id == 0x1D) ||                           // Peahat
+            (thisx->id == 0x25) ||                           // Lizalfos & Dinalfos
+            (thisx->id == 0x2B) ||                           // Gohma Larva
+            (thisx->id == 0x2D) ||                           // Shabom
+            (thisx->id == 0x2F) ||                           // Baby Dodongo
+            (thisx->id == 0x34) ||                           // Biri
+            (thisx->id == 0x35) ||                           // Tailpasaran
+            (thisx->id == 0x37) ||                           // Skulltula
+            (thisx->id == 0x38) ||                           // Torch Slug
+            (thisx->id == 0x3A) ||                           // Stinger (Land)
+            (thisx->id == 0x4B) ||                           // Moblin
+            (thisx->id == 0x54 && thisx->params != 0) ||     // Armos (Enemy)
+            (thisx->id == 0x55) ||                           // Deku Baba
+            (thisx->id == 0x60) ||                           // Mad Scrub
+            (thisx->id == 0x63) ||                           // Bari
+            (thisx->id == 0x69) ||                           // Bubble
+            (thisx->id == 0x6B) ||                           // Flying Floor Tile
+            (thisx->id == 0x8A) ||                           // Beamos
+            (thisx->id == 0x8E) ||                           // Floormaster
+            (thisx->id == 0x90) ||                           // Redead & Gibdo
+            (thisx->id == 0x95) ||                           // Skullwalltula
+            (thisx->id == 0xC5) ||                           // Shell Blade
+            (thisx->id == 0xC7) ||                           // Wilted Deku Baba
+            (thisx->id == 0xDD) ||                           // Like Like
+            (thisx->id == 0xDE) ||                           // Parasitic Tentacle
+            (thisx->id == 0xE0) ||                           // Anubis
+            (thisx->id == 0xE1) ||                           // Anubis Fire
+            (thisx->id == 0xEC) ||                           // Spike Trap
+            (thisx->id == 0x115 && thisx->params == 0x3F) || // Skull Kid (Hostile)
+            (thisx->id == 0x116) ||                          // Skull Kid's Needle
+            (thisx->id == 0x11D) ||                          // Flying Pot
+            (thisx->id == 0x121) ||                          // Freezard
+            (thisx->id == 0x175) ||                          // Big Poe
+            (thisx->id == 0x18C) ||                          // Stinger (Water)
+            (thisx->id == 0x192) ||                          // Deku Scrub (Deku Tree)
+            (thisx->id == 0x193) ||                          // Deku Scrub Projectile
+            (thisx->id == 0x195) ||                          // Business Scrub (Hostile)
+            (thisx->id == 0x1AF) ||                          // Wolfos
+            (thisx->id == 0x1B0) ||                          // Stalchild
+            (thisx->id == 0x1C0) ||                          // Guay
+            (thisx->id == 0x1C1)) {                          // Door Mimic
+
+            HyperActors_UpdateAgain(thisx);
+        }
+    }
 }

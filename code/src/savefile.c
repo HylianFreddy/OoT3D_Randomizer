@@ -97,13 +97,6 @@ void SaveFile_Init(u32 fileBaseIndex) {
         gSaveContext.infTable[29]          = 0x00; // Unset swordless flag
     }
 
-    // set master quest flag for mirror world
-    if (gSettingsContext.mirrorWorld == ON) {
-        gSaveContext.masterQuestFlag = 1;
-    } else {
-        gSaveContext.masterQuestFlag = 0;
-    }
-
     if (gSettingsContext.startingTime == STARTINGTIME_NIGHT) {
         gSaveContext.dayTime = 0x1400; // Set night time
     }
@@ -480,6 +473,8 @@ void SaveFile_SetStartingInventory(void) {
 
     if (gSettingsContext.startingChildTrade) {
         gSaveContext.items[SLOT_TRADE_CHILD] = ITEM_MASK_BUNNY;
+        SaveFile_BorrowMask(0x21);
+        gSaveContext.sceneFlags[0x60].unk |= 0x1 << 0x11;
     }
 
     if (gSettingsContext.startingOcarina > 0) {
@@ -684,7 +679,7 @@ u8 SaveFile_InventoryMenuHasSlot(u8 adult, u8 itemSlot) {
 }
 
 void SaveFile_SetOwnedTradeItemEquipped(void) {
-    if (gSaveContext.sceneFlags[0x60].unk == 0) {
+    if ((gSaveContext.sceneFlags[0x60].unk & 0x7FF) == 0) {
         gSaveContext.items[SLOT_TRADE_ADULT] = 0xFF;
         SaveFile_ResetItemSlotsIfMatchesID(SLOT_TRADE_ADULT);
     } else {
@@ -718,9 +713,10 @@ void SaveFile_InitExtSaveData(u32 saveNumber, u8 fromSaveCreation) {
     // Ingame Options
     gExtSaveData.option_EnableBGM          = gSettingsContext.playMusic;
     gExtSaveData.option_EnableSFX          = gSettingsContext.playSFX;
-    gExtSaveData.option_SilenceNavi        = gSettingsContext.silenceNavi;
+    gExtSaveData.option_NaviNotifications  = gSettingsContext.naviNotifications;
     gExtSaveData.option_IgnoreMaskReaction = gSettingsContext.ignoreMaskReaction;
     gExtSaveData.option_SkipSongReplays    = gSettingsContext.skipSongReplays;
+    gExtSaveData.option_FreeCamControl     = gSettingsContext.freeCamControl;
 }
 
 void SaveFile_LoadExtSaveData(u32 saveNumber) {

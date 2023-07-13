@@ -46,7 +46,8 @@ typedef struct SkeletonAnimationModel {
     /* 0x04 */ char unk_04[0x08];
     /* 0x0C */ SkeletonAnimationModel_unk_0C* unk_0C;
     /* 0x10 */ SkeletonAnimationModel_unk_10* unk_10;
-    /* 0x14 */ char unk_14[0x68];
+    /* 0x14 */ void* unk_draw_struct_14;
+    /* 0x18 */ char unk_18[0x64];
     /* 0x7C */ nn_math_MTX34 mtx;
     /* 0xAC */ s8 unk_AC;
     /* 0xAD */ char unk_AD[0x03];
@@ -208,7 +209,9 @@ typedef struct Actor {
     /* 0x115 */ u8 targetPriority;      // Lower values have higher priority. Resets to 0 when player stops targeting
     /* 0x116 */ u16 textId;             // Text ID to pass to link/display when interacting with the actor
     /* 0x118 */ u16 freezeTimer;        // Actor does not update when set. Timer decrements automatically
-    /* 0x120 */ char unk_118[0x7];
+    /* 0x11A */ s16 colorFilterTimer;
+    /* 0x11C */ u32 colorFilterParams;
+    /* 0x120 */ char unk_120;
     /* 0x121 */ u8 isDrawn;     // Set to true if the actor is currently being drawn. Always stays false for lens actors
     /* 0x122 */ u8 unk_122;     // Set within a routine that deals with collision
     /* 0x123 */ u8 naviEnemyId; // Sets what 0600 dialog to display when talking to navi. Default 0xFF
@@ -244,18 +247,6 @@ typedef struct DynaPolyActor {
     /* 0x1B8 */ u8 unk_1B8;
     /* 0x1BA */ s16 unk_1BA;
 } DynaPolyActor; // size = 0x1BC
-
-typedef struct {
-    /* 0x00 */ Actor* actor;
-    /* 0x04 */ char unk_04[0x10];
-    /* 0x14 */ Vec3f scale1;
-    /* 0x20 */ Vec3s rot1;
-    /* 0x28 */ Vec3f pos1;
-    /* 0x34 */ Vec3f scale2;
-    /* 0x40 */ Vec3s rot2;
-    /* 0x48 */ Vec3f pos2;
-    /* 0x54 */ char unk_54[0x18];
-} ActorMesh; // size = 0x6C
 
 typedef struct {
     /* 0x0000 */ Actor actor;
@@ -305,7 +296,9 @@ typedef struct {
     /* 0x221C */ float xzSpeed; // probably
     /* 0x2220 */ char unk_2220[0x0007];
     /* 0x2227 */ s8 meleeWeaponState;
-    /* 0x2228 */ char unk_2228[0x260];
+    /* 0x2228 */ char unk_2228[0x0020];
+    /* 0x2248 */ s16 fishingState; // 1: casting line, 2: can reel, 3: holding catch
+    /* 0x224A */ char unk_224A[0x023E];
     /* 0x2488 */ s8 invincibilityTimer; // prevents damage when nonzero
                                         // (positive = visible, counts towards zero each frame)
     /* 0x2489 */ char unk_2489[0x27B];
@@ -341,5 +334,8 @@ void Actor_Kill(Actor* actor);
 typedef u32 (*Actor_HasParent_proc)(Actor* actor, struct GlobalContext* globalCtx);
 #define Actor_HasParent_addr 0x371E40
 #define Actor_HasParent ((Actor_HasParent_proc)Actor_HasParent_addr)
+
+typedef f32 (*Actor_WorldDistXYZToActor_proc)(Actor* a, Actor* b) __attribute__((pcs("aapcs-vfp")));
+#define Actor_WorldDistXYZToActor ((Actor_WorldDistXYZToActor_proc)0x3306C4)
 
 #endif

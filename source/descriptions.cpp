@@ -778,6 +778,16 @@ string_view uselessHintsDesc          = "Only junk hints.";                     
 string_view balancedHintsDesc         = "Recommended hint spread.";                        //
 string_view strongHintsDesc           = "More useful hints.";                              //
 string_view veryStrongHintsDesc       = "Many powerful hints.";                            //
+string_view playthroughHintsDesc      = "The playthrough locations will be hinted at what\n"
+                                        "they contain and in what general area they are.\n"//
+                                        "\n"                                               //
+                                        "Not compatible with No Logic.";                   //
+                                                                                           //
+/*------------------------------                                                           //
+|      BONUS GOSSIP HINTS      |                                                           //
+------------------------------*/                                                           //
+string_view bonusGossipHintsDesc      = "Adds Sun's Song and warp songs to gossip stone\n" //
+                                        "hints after all playthrough hints have been set.";//
                                                                                            //
 /*------------------------------                                                           //
 |     MISCELLANEOUS HINTS      |                                                           //
@@ -794,7 +804,10 @@ string_view totAltarHintsDesc         = "The Temple of Time altar will reveal th
                                         "and Rainbow Bridge as adult.";                    //
 string_view ganonHintsDesc            = "Talking to Ganondorf in his boss room will tell\n"//
                                         "you the location of the Light Arrows and, if it\n"//
-                                        "was shuffled, the Master Sword.";                 //
+                                        "was shuffled, the Master Sword.\n"                //
+                                        "\n"                                               //
+                                        "When trials are on, Sheik will appear to relay\n" //
+                                        "these hints in Ganon's Castle.";                  //
 /*------------------------------                                                           //
 |  MAP AND COMPASS GIVES INFO  |                                                           //
 ------------------------------*/                                                           //
@@ -980,9 +993,9 @@ string_view ageItemsInLogicDesc       = "Using items as the wrong age may be req
 /*------------------------------                                                           //
 |    ENABLE ADULT DEKU STICK   |                                                           //
 ------------------------------*/                                                           //
-string_view adultStickDesc            = "Adult Link can wield a deku stick. In game Adult\n"
-                                        "Link will look like he's holding a Hylian Shield,\n"
-                                        "but rest assured it is a deku stick.";            //
+string_view adultStickDesc            = "Adult Link can wield a Deku Stick.\n"             //
+                                        "It will look like the N64 Deku Stick, but with a\n"
+                                        "simpler texture.";                                //
                                                                                            //
 /*------------------------------                                                           //
 |    ENABLE ADULT BOOMERANG    |                                                           //
@@ -993,6 +1006,7 @@ string_view adultBoomerangDesc        = "Adult Link can throw the boomerang.";  
 |     ENABLE CHILD HAMMER      |                                                           //
 ------------------------------*/                                                           //
 string_view childHammerDesc           = "Child Link can swing the Megaton Hammer.";        //
+                                                                                           //
 /*------------------------------                                                           //
 |    ENABLE ADULT SLINGSHOT    |                                                           //
 ------------------------------*/                                                           //
@@ -1009,9 +1023,7 @@ string_view childBowDesc              = "Child Link can use the Bow. It will loo
 |    ENABLE CHILD HOOKSHOT     |                                                           //
 ------------------------------*/                                                           //
 string_view childHookshotDesc         = "Child Link can use the Hookshot/Longshot.\n"      //
-                                        "It will be difficult to aim, the red dot and\n"   //
-                                        "laser won't appear and the hook will look like\n" //
-                                        "a small bomb.";                                   //
+                                        "The hook will look like a small bomb.";           //
 /*------------------------------                                                           //
 |   ENABLE CHILD IRON BOOTS    |                                                           //
 ------------------------------*/                                                           //
@@ -1020,8 +1032,7 @@ string_view childIronBootsDesc        = "Child Link can equip the Iron Boots."; 
 /*------------------------------                                                           //
 |   ENABLE CHILD HOVER BOOTS   |                                                           //
 ------------------------------*/                                                           //
-string_view childHoverBootsDesc       = "Child Link can equip the Hover Boots. The yellow\n"
-                                        "circle beneath Link's feet won't appear.";        //
+string_view childHoverBootsDesc       = "Child Link can equip the Hover Boots.";           //
                                                                                            //
 /*------------------------------                                                           //
 |     ENABLE ADULT MASKS       |                                                           //
@@ -1115,7 +1126,10 @@ string_view mp_SharedAmmoDesc         = "Syncs ammo when shared progress is on,\
 /*------------------------------                                                           //
 |       INGAME DEFAULTS        |                                                           //
 ------------------------------*/                                                           //
-string_view silenceNaviDesc           = "Prevents Navi from alerting you about advice.";   //
+string_view naviNotificationsDesc     = "Adjust how much Navi should bother you.\n"        //
+                                        "Silenced prevents it completely, while Constant\n"//
+                                        "can be used to allow repeated attempts at related\n"
+                                        "glitches without having to reload the save.";     //
 string_view ignoreMaskReactionDesc    = "Causes NPCs to respond normally when wearing\n"   //
                                         "masks. Does not apply to trade quest dialouges."; //
                                                                                            //
@@ -1168,18 +1182,18 @@ string_view shuffleBGMDesc            = "Shuffle background music.\n"           
                                         "The group categories are Area Themes, Event Music,"
                                         "and Battle Themes.\n"                             //
                                         "\"Own\" is for Custom Music, limiting the original\n"
-                                        "music to only appear at it's original place.\n";  //
+                                        "music to only appear at its original place.\n";   //
 string_view shuffleMelodiesDesc       = "Shuffle played-once music.\n"                     //
                                         "Mixed allows any melody to appear anywhere.\n"    //
                                         "The group categories are Fanfares,\n"             //
                                         "and Ocarina Songs.\n"                             //
                                         "\"Own\" is for Custom Music, limiting the original\n"
-                                        "music to only appear at it's original place.\n";  //
+                                        "music to only appear at its original place.\n";   //
 string_view customMusicDesc           = "Add custom music to the pool. The sound archive\n"//
                                         "has to be placed in the Custom Music folder.";    //
 string_view customMusicOnlyDesc       = "Excludes the game's original music from the pool.\n"
                                         "If there's not enough custom music, the original\n"
-                                        "song with be used.";                              //
+                                        "song will be used.";                              //
 /*------------------------------                                                           //
 |         SHUFFLE SFX          |                                                           //
 ------------------------------*/                                                           //
@@ -1211,6 +1225,7 @@ string_view antiFairyTrapDesc         = "This dangerous fairy will inflict up to
                                         "have less than that.";                            //
                                                                                            //
 string_view curseTrapsDesc            = "Some traps will apply status effects for 1 minute.";
+string_view screenTrapsDesc           = "Extra curses are added that rotate the screen.";  //
                                                                                            //
 /*------------------------------                                                           //
 |      EXTRA ARROW EFFECTS     |                                                           //
@@ -1219,6 +1234,46 @@ string_view extraArrowEffectsDesc     = "Ice Arrows will act like blue fire, mel
                                         "ice and breaking mud walls in Dodongo's Cavern.\n\n"
                                         "Light Arrows will activate Sun Switches like in\n"//
                                         "Majora's Mask.";                                  //
+                                                                                           //
+/*------------------------------                                                           //
+|         HYPER ACTORS         |                                                           //
+------------------------------*/                                                           //
+string_view hyperActorsDesc           = "Powers up the selected actors, allowing them to\n"//
+                                        "move and act twice as fast!";                     //
+                                                                                           //
+string_view hyperBossesDesc           = "Affects all of the main bosses, including both\n" //
+                                        "Ganon phases.";                                   //
+                                                                                           //
+string_view hyperMiddleBossesDesc     = "Affects all middle bosses, like Dark Link and\n"  //
+                                        "Dead Hand. This also includes Iron Knuckles and\n"//
+                                        "Stalfos.";                                        //
+                                                                                           //
+string_view hyperEnemiesDesc          = "Affects all regular enemies.";                    //
+                                                                                           //
+/*------------------------------                                                           //
+|          FREE CAMERA         |                                                           //
+------------------------------*/                                                           //
+string_view freeCamDesc               = "Use the C-stick to control the camera on new 3DS\n"
+                                        "systems and Citra.\n\n"                           //
+                                        "Go to Personalization Settings > Ingame Defaults\n"
+                                        "for camera control options.";                     //
+                                                                                           //
+/*------------------------------                                                           //
+|      RANDOM GS LOCATIONS     |                                                           //
+------------------------------*/                                                           //
+string_view randomGsLocationsDesc     = "Moves Gold Skulltulas to different locations\n"   //
+                                        "around the same area as the original.\n"          //
+                                        "The age they appear in is always the same as the\n"
+                                        "original. If it hides during the night mostly\n"  //
+                                        "depends on if the sun can reach it.\n"            //
+                                        "They will never be in generic areas, such as\n"   //
+                                        "Business Scrub grottos, Fairy Fountains, etc.\n"  //
+                                        "Some new locations are only available with certain"
+                                        "settings enabled, like tricks and glitches.\n"    //
+                                        "The logic is updated for any that are moved.";    //
+                                                                                           //
+string_view gsLocGuaranteeNewDesc     = "Excludes the original location from the Gold\n"   //
+                                        "Skulltula's available locations pool.";           //
                                                                                            //
                                                                                            //--------------//
 /*------------------------------                                                                           //
@@ -1563,6 +1618,12 @@ string_view LogicShadowStatueDesc                     = "Difficulty: Novice\n"  
                                                         "By sending a Bombchu around the edge of the gorge,"
                                                         "you can knock down the statue without needing a\n"//
                                                         "Bow. Applies in both vanilla and MQ Shadow.";     //
+string_view LogicShadowBongoDesc                      = "Difficulty Expert\n"                              //
+                                                        "Using precise sword slashes, Bongo Bongo can be\n"//
+                                                        "defeated without using projectiles.\n"            //
+                                                        "This trick is much more difficult when done with\n"
+                                                        "Kokiri Sword vs Master Sword or Biggorron Sword.\n"
+                                                        "Useful for Boss Entrance Randomizer.";            //
 string_view LogicChildDeadhandDesc                    = "Difficulty: Novice\n"                             //
                                                         "Requires 10 stick slashes.";                      //
 string_view LogicGtgWithoutHookshotDesc               = "Difficulty: Expert\n"                             //

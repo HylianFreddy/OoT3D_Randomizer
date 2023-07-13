@@ -11,15 +11,16 @@ static const std::string cmetaExtension = ".cmeta";
 
 // Sequence Data
 
-SequenceData::SequenceData() : dataType(DataType_Raw), rawBytesPtr(nullptr), bankNum(0), chFlags(0), volume(0) {
+SequenceData::SequenceData()
+    : dataType(DataType_Raw), rawBytesPtr(nullptr), banks({ 0, 0, 0, 0 }), chFlags(0), volume(0) {
 }
 
-SequenceData::SequenceData(std::vector<u8>* rawBytesPtr_, u32 bankNum_, u16 chFlags_, u8 volume_)
-    : dataType(DataType_Raw), rawBytesPtr(rawBytesPtr_), bankNum(bankNum_), chFlags(chFlags_), volume(volume_) {
+SequenceData::SequenceData(std::vector<u8>* rawBytesPtr_, std::array<u32, 4> banks_, u16 chFlags_, u8 volume_)
+    : dataType(DataType_Raw), rawBytesPtr(rawBytesPtr_), banks(banks_), chFlags(chFlags_), volume(volume_) {
 }
 
-SequenceData::SequenceData(std::string filePath_, u32 bankNum_, u16 chFlags_, u8 volume_)
-    : dataType(DataType_Path), filePath(filePath_), bankNum(bankNum_), chFlags(chFlags_), volume(volume_) {
+SequenceData::SequenceData(std::string filePath_, std::array<u32, 4> banks_, u16 chFlags_, u8 volume_)
+    : dataType(DataType_Path), filePath(filePath_), banks(banks_), chFlags(chFlags_), volume(volume_) {
 }
 
 SequenceData::~SequenceData() = default;
@@ -40,8 +41,8 @@ std::vector<u8> SequenceData::GetData(FS_Archive archive_) {
     }
 }
 
-u32 SequenceData::GetBank() {
-    return bankNum;
+std::array<u32, 4> SequenceData::GetBanks() {
+    return banks;
 }
 
 u16 SequenceData::GetChFlags() {
@@ -63,13 +64,6 @@ MusicCategoryNode::MusicCategoryNode(std::string Name_, std::vector<MusicCategor
 
 MusicCategoryNode::~MusicCategoryNode() = default;
 
-void MusicCategoryNode::CreateDirectories(FS_Archive sdmcArchive) {
-    FSUSER_CreateDirectory(sdmcArchive, fsMakePath(PATH_ASCII, GetFullPath().c_str()), FS_ATTRIBUTE_DIRECTORY);
-    for (auto& child : children) {
-        child->CreateDirectories(sdmcArchive);
-    }
-}
-
 std::string MusicCategoryNode::GetFullPath() {
     if (fullPath.empty()) {
         std::string finalPath = Name + '/';
@@ -81,6 +75,16 @@ std::string MusicCategoryNode::GetFullPath() {
         fullPath = finalPath;
     }
     return fullPath;
+}
+
+std::vector<std::string> MusicCategoryNode::GetDirectories() {
+    std::vector<std::string> dirs;
+    dirs.push_back(GetFullPath());
+    for (auto child : children) {
+        auto childDirs = child->GetDirectories();
+        dirs.insert(dirs.end(), childDirs.begin(), childDirs.end());
+    }
+    return dirs;
 }
 
 void MusicCategoryNode::SetParent(MusicCategoryNode* parent_) {
@@ -108,9 +112,9 @@ void MusicCategoryNode::AddNewSeqData(SequenceData seqData) {
 void MusicCategoryNode::AddExternalSeqDatas(FS_Archive sdmcArchive) {
     for (const auto& bcseq : fs::directory_iterator(GetFullPath())) {
         if (bcseq.is_regular_file() && bcseq.path().extension().string() == bcseqExtension) {
-            u8 bank     = 7;   // Set bank to Orchestra by default
-            u16 chFlags = -1;  // Enable all channel flags by default
-            u8 volume   = 127; // 100% by default
+            std::array<u32, 4> banks = { 7, 7, 7, 7 }; // Set banks to Orchestra by default
+            u16 chFlags              = -1;             // Enable all channel flags by default
+            u8 volume                = 127;            // 100% by default
 
             // Check for cmeta file
             auto fileName = bcseq.path().stem().string();
@@ -120,26 +124,27 @@ void MusicCategoryNode::AddExternalSeqDatas(FS_Archive sdmcArchive) {
 
                     BinaryDataReader br(sdmcArchive, cmeta.path().string());
                     // Bank
-                    if (br.GetFileSize() >= 1) {
-                        bank = br.ReadByte();
-                        br.position += 3; // Only one bank can be set for now, jump over the extra bytes
-
-                        // Channel Flags
-                        if (br.GetFileSize() >= 6) {
-                            chFlags = br.ReadU16();
-
-                            // Volume
-                            if (br.GetFileSize() >= 7) {
-                                volume = br.ReadByte();
-                            }
+                    for (size_t bnkIdx = 0; bnkIdx < 4; bnkIdx++) {
+                        if (br.GetFileSize() >= bnkIdx + 1) {
+                            banks[bnkIdx] = br.ReadByte();
+                        } else {
+                            break;
                         }
+                    }
+                    // Channel Flags
+                    if (br.GetFileSize() >= 6) {
+                        chFlags = br.ReadU16();
+                    }
+                    // Volume
+                    if (br.GetFileSize() >= 7) {
+                        volume = br.ReadByte();
                     }
                     br.Close();
                     break;
                 }
             }
 
-            seqDatas.push_back(SequenceData(bcseq.path().string(), bank, chFlags, volume));
+            seqDatas.push_back(SequenceData(bcseq.path().string(), banks, chFlags, volume));
         }
     }
     for (auto child : children) {

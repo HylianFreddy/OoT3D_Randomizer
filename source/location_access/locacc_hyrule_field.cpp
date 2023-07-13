@@ -112,45 +112,38 @@ void AreaTable_Init_HyruleField() {
                  Entrance(HYRULE_FIELD, { [] { return true; } }),
              });
 
-    areaTable[HF_COW_GROTTO] = Area(
-        "HF Cow Grotto", "HF Cow Grotto", NONE, NO_DAY_NIGHT_CYCLE, grottoEvents,
-        {
-            // Locations
-            LocationAccess(HF_GS_COW_GROTTO, { [] { return HasFireSource && HookshotOrBoomerang; },
-                                               /*Glitched*/
-                                               [] {
-                                                   return (CanUse(STICKS) && Bombs && CanSurviveDamage &&
-                                                           CanDoGlitch(GlitchType::QPA, GlitchDifficulty::NOVICE)) &&
-                                                          HookshotOrBoomerang;
-                                               } }),
-            LocationAccess(HF_COW_GROTTO_COW,
-                           { [] { return HasFireSource && CanPlay(EponasSong); },
-                             /*Glitched*/
-                             [] {
-                                 return ((CanUse(STICKS) && Bombs && CanSurviveDamage &&
-                                          CanDoGlitch(GlitchType::QPA, GlitchDifficulty::NOVICE)) ||
-                                         HasFireSource) &&
-                                        (CanDoGlitch(GlitchType::OutdoorBombOI, GlitchDifficulty::INTERMEDIATE) ||
-                                         ((Bugs || Fish) && CanShield && Bombs &&
-                                          (CanSurviveDamage || (NumBottles >= 2 && Fairy)) &&
-                                          CanDoGlitch(GlitchType::QPA, GlitchDifficulty::ADVANCED)) ||
-                                         ((Bugs || Fish) && HasBombchus && CanShield &&
-                                          CanDoGlitch(GlitchType::ActionSwap, GlitchDifficulty::ADVANCED)) ||
-                                         Ocarina) &&
-                                        EponasSong;
-                             } }),
-            LocationAccess(HF_COW_GROTTO_GOSSIP_STONE, { [] { return HasFireSource; },
-                                                         /*Glitched*/
-                                                         [] {
-                                                             return CanUse(STICKS) && Bombs && CanSurviveDamage &&
-                                                                    CanDoGlitch(GlitchType::QPA,
-                                                                                GlitchDifficulty::NOVICE);
-                                                         } }),
-        },
-        {
-            // Exits
-            Entrance(HYRULE_FIELD, { [] { return true; } }),
-        });
+    areaTable[HF_COW_GROTTO] =
+        Area("HF Cow Grotto", "HF Cow Grotto", NONE, NO_DAY_NIGHT_CYCLE, grottoEvents,
+             {
+                 // Locations
+                 LocationAccess(HF_COW_GROTTO_COW,
+                                { [] { return HasFireSource && CanPlay(EponasSong); },
+                                  /*Glitched*/
+                                  [] {
+                                      return ((CanUse(STICKS) && Bombs && CanSurviveDamage &&
+                                               CanDoGlitch(GlitchType::QPA, GlitchDifficulty::NOVICE)) ||
+                                              HasFireSource) &&
+                                             (CanDoGlitch(GlitchType::OutdoorBombOI, GlitchDifficulty::INTERMEDIATE) ||
+                                              ((Bugs || Fish) && CanShield && Bombs &&
+                                               (CanSurviveDamage || (NumBottles >= 2 && Fairy)) &&
+                                               CanDoGlitch(GlitchType::QPA, GlitchDifficulty::ADVANCED)) ||
+                                              ((Bugs || Fish) && HasBombchus && CanShield &&
+                                               CanDoGlitch(GlitchType::ActionSwap, GlitchDifficulty::ADVANCED)) ||
+                                              Ocarina) &&
+                                             EponasSong;
+                                  } }),
+                 LocationAccess(HF_COW_GROTTO_GOSSIP_STONE, { [] { return HasFireSource; },
+                                                              /*Glitched*/
+                                                              [] {
+                                                                  return CanUse(STICKS) && Bombs && CanSurviveDamage &&
+                                                                         CanDoGlitch(GlitchType::QPA,
+                                                                                     GlitchDifficulty::NOVICE);
+                                                              } }),
+             },
+             {
+                 // Exits
+                 Entrance(HYRULE_FIELD, { [] { return true; } }),
+             });
 
     areaTable[HF_NEAR_MARKET_GROTTO] =
         Area("HF Near Market Grotto", "HF Near Market Grotto", NONE, NO_DAY_NIGHT_CYCLE, grottoEvents,
@@ -175,16 +168,11 @@ void AreaTable_Init_HyruleField() {
                                           Entrance(HYRULE_FIELD, { [] { return true; } }),
                                       });
 
-    areaTable[HF_NEAR_KAK_GROTTO] =
-        Area("HF Near Kak Grotto", "HF Near Kak Grotto", NONE, NO_DAY_NIGHT_CYCLE, {},
-             {
-                 // Locations
-                 LocationAccess(HF_GS_NEAR_KAK_GROTTO, { [] { return HookshotOrBoomerang; } }),
-             },
-             {
-                 // Exits
-                 Entrance(HYRULE_FIELD, { [] { return true; } }),
-             });
+    areaTable[HF_NEAR_KAK_GROTTO] = Area("HF Near Kak Grotto", "HF Near Kak Grotto", NONE, NO_DAY_NIGHT_CYCLE, {}, {},
+                                         {
+                                             // Exits
+                                             Entrance(HYRULE_FIELD, { [] { return true; } }),
+                                         });
 
     areaTable[HF_TEKTITE_GROTTO] =
         Area("HF Tektite Grotto", "HF Tektite Grotto", NONE, NO_DAY_NIGHT_CYCLE, {},
@@ -247,21 +235,6 @@ void AreaTable_Init_HyruleField() {
                                           ((Bugs || Fish) &&
                                            CanDoGlitch(GlitchType::ActionSwap, GlitchDifficulty::NOVICE)))) ||
                                         CanDoGlitch(GlitchType::BombHover, GlitchDifficulty::INTERMEDIATE);
-                             } }),
-            LocationAccess(LH_GS_BEAN_PATCH, { [] { return CanPlantBugs && CanChildAttack; } }),
-            LocationAccess(LH_GS_LAB_WALL, { [] {
-                               return IsChild && (HookshotOrBoomerang || (LogicLabWallGS && CanJumpslash)) && AtNight &&
-                                      CanGetNightTimeGS;
-                           } }),
-            LocationAccess(LH_GS_SMALL_ISLAND,
-                           { [] { return IsChild && CanChildAttack && AtNight && CanGetNightTimeGS; } }),
-            LocationAccess(LH_GS_TREE,
-                           { [] { return IsAdult && CanUse(LONGSHOT) && AtNight && CanGetNightTimeGS; },
-                             /*Glitched*/
-                             [] {
-                                 return (CanDoGlitch(GlitchType::HookshotJump_Bonk, GlitchDifficulty::INTERMEDIATE) ||
-                                         CanDoGlitch(GlitchType::HookshotJump_Boots, GlitchDifficulty::NOVICE)) &&
-                                        AtNight && CanGetNightTimeGS;
                              } }),
             LocationAccess(LH_LAB_GOSSIP_STONE, { [] { return true; } }),
             LocationAccess(LH_GOSSIP_STONE_SOUTHEAST, { [] { return true; } }),
@@ -349,21 +322,6 @@ void AreaTable_Init_HyruleField() {
                               CanUse(NAYRUS_LOVE) && CanDoGlitch(GlitchType::CutsceneDive, GlitchDifficulty::NOVICE));
                   } }),
             LocationAccess(LH_TRADE_FROG, { [] { return IsAdult && EyeballFrog; } }),
-            LocationAccess(
-                LH_GS_LAB_CRATE,
-                { [] { return CanUse(IRON_BOOTS) && CanUse(HOOKSHOT); },
-                  /*Glitched*/
-                  [] {
-                      return (CanDoGlitch(GlitchType::RestrictedItems, GlitchDifficulty::NOVICE) && HasBombchus &&
-                              (HasBottle || (IsAdult && (HasBoots || ClaimCheck)) || (IsChild && WeirdEgg)) &&
-                              (CanDoGlitch(GlitchType::TripleSlashClip, GlitchDifficulty::ADVANCED) ||
-                               ((Bugs || Fish) && CanUse(HOVER_BOOTS) &&
-                                CanDoGlitch(GlitchType::CutsceneDive, GlitchDifficulty::INTERMEDIATE)) ||
-                               (CanUse(FARORES_WIND) && CanUse(NAYRUS_LOVE) &&
-                                CanDoGlitch(GlitchType::CutsceneDive, GlitchDifficulty::NOVICE)) ||
-                               ProgressiveScale >= 2 || CanUse(IRON_BOOTS))) ||
-                             (CanUse(IRON_BOOTS) && CanDoGlitch(GlitchType::ISG, GlitchDifficulty::NOVICE));
-                  } }),
         },
         {
             // Exits
@@ -402,29 +360,18 @@ void AreaTable_Init_HyruleField() {
              },
              {
                  // Locations
-                 LocationAccess(SONG_FROM_MALON,
-                                { [] { return IsChild && ZeldasLetter && Ocarina && AtDay; },
-                                  /*Glitched*/
-                                  [] {
-                                      return (CanDoGlitch(GlitchType::OutdoorBombOI, GlitchDifficulty::INTERMEDIATE) ||
-                                              ((Bugs || Fish) && CanShield &&
-                                               (CanSurviveDamage || (Fairy && NumBottles >= 2)) &&
-                                               CanDoGlitch(GlitchType::QPA, GlitchDifficulty::ADVANCED)) ||
-                                              ((Bugs || Fish) && CanShield && HasBombchus &&
-                                               CanDoGlitch(GlitchType::ActionSwap, GlitchDifficulty::ADVANCED))) &&
-                                             IsChild && ZeldasLetter && AtDay;
-                                  } }),
-                 LocationAccess(LLR_GS_TREE, { [] { return IsChild; } }),
-                 LocationAccess(LLR_GS_RAIN_SHED, { [] { return IsChild && AtNight && CanGetNightTimeGS; } }),
-                 LocationAccess(LLR_GS_HOUSE_WINDOW,
-                                { [] { return IsChild && HookshotOrBoomerang && AtNight && CanGetNightTimeGS; } }),
-                 LocationAccess(LLR_GS_BACK_WALL,
-                                { [] { return IsChild && HookshotOrBoomerang && AtNight && CanGetNightTimeGS; },
-                                  /*Glitched*/
-                                  [] {
-                                      return CanDoGlitch(GlitchType::BombHover, GlitchDifficulty::INTERMEDIATE) &&
-                                             IsChild && AtNight && CanGetNightTimeGS;
-                                  } }),
+                 LocationAccess(
+                     SONG_FROM_MALON,
+                     { [] { return IsChild && WeirdEgg && ChildCanAccess(HYRULE_CASTLE_GROUNDS) && Ocarina && AtDay; },
+                       /*Glitched*/
+                       [] {
+                           return (CanDoGlitch(GlitchType::OutdoorBombOI, GlitchDifficulty::INTERMEDIATE) ||
+                                   ((Bugs || Fish) && CanShield && (CanSurviveDamage || (Fairy && NumBottles >= 2)) &&
+                                    CanDoGlitch(GlitchType::QPA, GlitchDifficulty::ADVANCED)) ||
+                                   ((Bugs || Fish) && CanShield && HasBombchus &&
+                                    CanDoGlitch(GlitchType::ActionSwap, GlitchDifficulty::ADVANCED))) &&
+                                  IsChild && WeirdEgg && ChildCanAccess(HYRULE_CASTLE_GROUNDS) && AtDay;
+                       } }),
              },
              {
                  // Exits
@@ -435,16 +382,17 @@ void AreaTable_Init_HyruleField() {
                  Entrance(LLR_GROTTO, { [] { return IsChild; } }),
              });
 
-    areaTable[LLR_TALONS_HOUSE] =
-        Area("LLR Talons House", "LLR Talons House", NONE, NO_DAY_NIGHT_CYCLE, {},
-             {
-                 // Locations
-                 LocationAccess(LLR_TALONS_CHICKENS, { [] { return IsChild && AtDay && ZeldasLetter; } }),
-             },
-             {
-                 // Exits
-                 Entrance(LON_LON_RANCH, { [] { return true; } }),
-             });
+    areaTable[LLR_TALONS_HOUSE] = Area(
+        "LLR Talons House", "LLR Talons House", NONE, NO_DAY_NIGHT_CYCLE, {},
+        {
+            // Locations
+            LocationAccess(LLR_TALONS_CHICKENS,
+                           { [] { return IsChild && AtDay && WeirdEgg && ChildCanAccess(HYRULE_CASTLE_GROUNDS); } }),
+        },
+        {
+            // Exits
+            Entrance(LON_LON_RANCH, { [] { return true; } }),
+        });
 
     areaTable[LLR_STABLES] =
         Area("LLR Stables", "LLR Stables", NONE, NO_DAY_NIGHT_CYCLE, {},

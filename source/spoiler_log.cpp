@@ -10,6 +10,7 @@
 #include "tinyxml2.h"
 #include "utils.hpp"
 #include "shops.hpp"
+#include "gold_skulltulas.hpp"
 
 #include <3ds.h>
 #include <cstdio>
@@ -20,6 +21,9 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <filesystem>
+
+namespace fs = std::filesystem;
 
 namespace {
 std::string placementtxt;
@@ -37,6 +41,25 @@ constexpr std::array<std::string_view, 32> hashIcons = {
 static RandomizerHash randomizerHash;
 static SpoilerData spoilerData;
 static std::array<SpoilerDataLocs, SPOILER_LOCDATS> spoilerDataLocs;
+
+void CreateLogDirectories(FS_Archive sdmcArchive) {
+    std::vector<std::string> dirs = {
+        "/OoT3DR/",
+        "/OoT3DR/Logs/",
+    };
+
+    const auto printInfo = [&](int progress) {
+        consoleClear();
+        printf("\x1b[10;10HCreating Log Directories");
+        printf("\x1b[11;10HProgress: %d/%d", progress, dirs.size());
+    };
+
+    printInfo(0);
+    for (size_t i = 0; i < dirs.size(); i++) {
+        FSUSER_CreateDirectory(sdmcArchive, fsMakePath(PATH_ASCII, dirs[i].c_str()), FS_ATTRIBUTE_DIRECTORY);
+        printInfo(i + 1);
+    }
+}
 
 void GenerateHash() {
     for (size_t i = 0; i < randomizerHash.size(); i++) {
@@ -73,7 +96,7 @@ const SpoilerDataLocs* GetSpoilerDataLocs(size_t index) {
 }
 
 static auto GetGeneralPath() {
-    return "/3ds/" + Settings::seed + " (" + GetRandomizerHashAsString() + ")";
+    return "/OoT3DR/Logs/" + Settings::seed + " (" + GetRandomizerHashAsString() + ")";
 }
 
 static auto GetSpoilerLogPath() {
@@ -511,6 +534,39 @@ static void WriteRequiredTrials(tinyxml2::XMLDocument& spoilerLog) {
     }
 }
 
+// Writes the area and a description of where any moved Gold Skulltulas are.
+static void WriteNewGsLocations(tinyxml2::XMLDocument& spoilerLog) {
+    if (!Settings::RandomGsLocations) {
+        return;
+    }
+
+    auto parentNode = spoilerLog.NewElement("gold-skulltulas");
+
+    for (auto gs : gsTable) {
+        if (!gs.second->IsRelevant() || gs.second->GetAssignedLocation() == nullptr) {
+            continue;
+        }
+
+        auto node = parentNode->InsertNewChildElement("gs");
+
+        node->SetAttribute("name", Location(gs.first)->GetName().c_str());
+
+        constexpr int16_t LONGEST_NAME = 56; // The longest name of a location.
+        // Insert a padding so we get a kind of table in the XML document.
+        int16_t requiredPadding = LONGEST_NAME - Location(gs.first)->GetName().length();
+        if (requiredPadding >= 0) {
+            std::string padding(requiredPadding, ' ');
+            node->SetAttribute("_", padding.c_str());
+        }
+
+        std::string locationStr = AreaTable(gs.second->GetAssignedLocation()->areaKey)->regionName + ": " +
+                                  gs.second->GetAssignedLocation()->description.data();
+        node->SetText(locationStr.c_str());
+    }
+
+    spoilerLog.RootElement()->InsertEndChild(parentNode);
+}
+
 // Writes the intended playthrough to the spoiler log, separated into spheres.
 static void WritePlaythrough(tinyxml2::XMLDocument& spoilerLog) {
     auto playthroughNode = spoilerLog.NewElement("playthrough");
@@ -615,6 +671,7 @@ bool SpoilerLog_Write() {
     }
     WriteMasterQuestDungeons(spoilerLog);
     WriteRequiredTrials(spoilerLog);
+    WriteNewGsLocations(spoilerLog);
     WritePlaythrough(spoilerLog);
     WriteWayOfTheHeroLocation(spoilerLog);
 
@@ -656,6 +713,7 @@ bool PlacementLog_Write() {
     WriteEnabledGlitches(placementLog);
     WriteMasterQuestDungeons(placementLog);
     WriteRequiredTrials(placementLog);
+    WriteNewGsLocations(placementLog);
 
     placementtxt = "\n" + placementtxt;
 

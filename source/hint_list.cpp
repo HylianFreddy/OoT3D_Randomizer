@@ -1967,7 +1967,7 @@ void HintTable_Init() {
                      Text{"And the #evil one#'s key will be&provided by Zelda once #%d |Dungeon#&is|Dungeons#&are| conquered.",
                 /*french*/"Aussi, Zelda crééra la clé du&#Malin# une fois #%d |donjon conquéri|donjons conquéris|#.",
                /*spanish*/"Y Zelda entregará la llave&del #señor del mal# tras completar&#%d |mazmorra|mazmorras|#.",
-               /*italian*/"E la chiave del #re del male# sarà&ricevuta da Zelda dopo aver completato&#%d dungeon#.",
+               /*italian*/"E la chiave del #re del male# sarà&ricevuta da Zelda dopo aver&completato #%d dungeon#.",
                 /*german*/"Und der #Schlüssel des Bösen# wird&von Zelda verliehen, sobald #%d&|Labyrinth# abgeschlossen wurde|Labyrinthe# abgeschlossen wurden|."},
     });
 
@@ -2222,6 +2222,55 @@ void HintTable_Init() {
                /*spanish*/"Hoy daremos lugar a la línea temporal del Héroe Derrotado.&¡Prepárate para el culmen de esta saga!",
                /*italian*/"Questo giorno segnerà l'inizio della linea temporale dell'Eroe Sconfitto.",
                 /*german*/"Heute beginnen wir die&'Der Held wurde besiegt'-Zeitlinie."},
+    });
+
+    /*--------------------------
+    |      SHEIK LINE TEXT     |
+    ---------------------------*/
+
+    hintTable[SHEIK_LIGHT_ARROW_LOCATION_HINT] = HintText::SheikLine({
+                     // obscure text
+                     Text{"I overheard Ganondorf say that he put #the Light Arrows# in ",
+                /*french*/"J'ai entendu Ganondorf dire qu'il a caché #les flèches de lumière# dans ",
+               /*spanish*/"Escuché a Ganondorf decir que pusó #las flechas de luz# en ",
+               /*italian*/"Ho scoperto che Ganondorf ha nascosto #le frecce di luce# presso ",
+                /*german*/"Ich habe mitbekommen, wie Ganondorf gesagt hat, dass er #die Lichtpfeile# "}, // + versteckt hat
+    });
+
+    hintTable[SHEIK_MASTER_SWORD_LOCATION_HINT] = HintText::SheikLine({
+                     // obscure text
+                     Text{"He also stole #the Master Sword# and hid it in ",
+                /*french*/"Il aurait aussi volé #l'épée de légende#, qu'il aurait caché dans ",
+               /*spanish*/"Él también robó #la Espada Maestra# y la escondió en ",
+               /*italian*/"Ha anche rubato #la spada suprema#. L'ho sentito dire qualcosa riguardo ",
+                /*german*/"Er hat außerdem #das Master-Schwert# gestohlen und "}, // + versteckt
+    });
+
+    hintTable[SHEIK_LINE01] = HintText::SheikLine({
+                     // obscure text
+                     Text{"@, I'll be waiting at Ganon's Castle once you have his #boss key#.",
+                /*french*/"@, je t'attendrai au château de Ganon une fois que tu auras sa #clé d'or#.",
+               /*spanish*/"@, te esperé en el Castillo de Ganon cuando hás obtenido su #llave de jefe#.",
+               /*italian*/"@, ti aspetterò al castello di Ganon quando avrai ottenuto la sua #grande chiave#.",
+                /*german*/"@, ich werde bei Ganons Schloss warten, sobald du seinen #Bossschlüssel# gefunden hast."},
+    });
+
+    hintTable[SHEIK_LINE02] = HintText::SheikLine({
+                     // obscure text
+                     Text{"It's time.",
+                /*french*/"Le moment est venu.",
+               /*spanish*/"Ya es la hora.",
+               /*italian*/"È giunto il momento.",
+                /*german*/"Es ist Zeit."},
+    });
+
+    hintTable[SHEIK_LINE03] = HintText::SheikLine({
+                     // obscure text
+                     Text{"Looks like you're ready.^Good luck.",
+                /*french*/"On dirait que tu es prêt.^Je te souhaite bonne chance.",
+               /*spanish*/"Parece que estás listo.^Buena suerte.",
+               /*italian*/"Sembra che tu sia pronto.^Buona fortuna.",
+                /*german*/"Scheint als wärst du bereit.^Viel Glück."},
     });
 
     /*--------------------------

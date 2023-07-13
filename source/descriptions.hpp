@@ -255,6 +255,9 @@ extern string_view uselessHintsDesc;
 extern string_view balancedHintsDesc;
 extern string_view strongHintsDesc;
 extern string_view veryStrongHintsDesc;
+extern string_view playthroughHintsDesc;
+
+extern string_view bonusGossipHintsDesc;
 
 extern string_view miscHintsDesc;
 extern string_view totAltarHintsDesc;
@@ -345,7 +348,7 @@ extern string_view mp_SharedHealthDesc;
 extern string_view mp_SharedRupeesDesc;
 extern string_view mp_SharedAmmoDesc;
 
-extern string_view silenceNaviDesc;
+extern string_view naviNotificationsDesc;
 extern string_view ignoreMaskReactionDesc;
 
 extern string_view naviColorsDesc;
@@ -379,7 +382,15 @@ extern string_view advancedTrapDmgDesc;
 extern string_view fireTrapDesc;
 extern string_view antiFairyTrapDesc;
 extern string_view curseTrapsDesc;
+extern string_view screenTrapsDesc;
 extern string_view extraArrowEffectsDesc;
+extern string_view hyperActorsDesc;
+extern string_view hyperBossesDesc;
+extern string_view hyperMiddleBossesDesc;
+extern string_view hyperEnemiesDesc;
+extern string_view freeCamDesc;
+extern string_view randomGsLocationsDesc;
+extern string_view gsLocGuaranteeNewDesc;
 
 extern string_view ToggleAllTricksDesc;
 
@@ -458,6 +469,7 @@ extern string_view LogicShadowFireArrowEntryDesc;
 extern string_view LogicShadowUmbrellaDesc;
 extern string_view LogicShadowFreestandingKeyDesc;
 extern string_view LogicShadowStatueDesc;
+extern string_view LogicShadowBongoDesc;
 extern string_view LogicChildDeadhandDesc;
 extern string_view LogicGtgWithoutHookshotDesc;
 extern string_view LogicGtgFakeWallDesc;

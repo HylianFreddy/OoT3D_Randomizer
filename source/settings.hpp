@@ -18,6 +18,7 @@
 #include "menu.hpp"
 #include "pool_functions.hpp"
 #include "utils.hpp"
+#include "glitches.hpp"
 
 class Option {
   public:
@@ -334,6 +335,15 @@ void ResolveExcludedLocationConflicts();
 void RandomizeAllSettings(const bool selectOptions = false);
 void ForceChange(u32 kDown, Option* currentSetting);
 const std::vector<Menu*> GetAllOptionMenus();
+/// Gives the numerical value of the selected glitch option.
+/// Always returns 0 if logic is not set to Glitched.
+u8 GlitchValue(Option& glitchOption);
+/// Checks if the glitch's set difficulty is the same or higher than the given difficulty.
+/// Always returns false if logic is not set to Glitched.
+bool GlitchEnabled(Option& glitchOption, GlitchDifficulty glitchDifficulty);
+/// Checks if the misc glitch is enabled.
+/// Always returns false if logic is not set to Glitched.
+bool GlitchEnabled(Option& glitchOption);
 
 extern std::string seed;
 extern std::string version;
@@ -439,6 +449,7 @@ extern Option Racing;
 extern Option GossipStoneHints;
 extern Option ClearerHints;
 extern Option HintDistribution;
+extern Option BonusGossipHints;
 extern Option MiscHints;
 extern Option ToTAltarHints;
 extern Option GanonHints;
@@ -458,7 +469,15 @@ extern Option RandomTrapDmg;
 extern Option FireTrap;
 extern Option AntiFairyTrap;
 extern Option CurseTraps;
+extern Option ScreenTraps;
 extern Option ExtraArrowEffects;
+extern Option HyperActors;
+extern Option HyperBosses;
+extern Option HyperMiddleBosses;
+extern Option HyperEnemies;
+extern Option FreeCamera;
+extern Option RandomGsLocations;
+extern Option GsLocGuaranteeNew;
 extern bool HasNightStart;
 
 extern Option FaroresWindAnywhere;
@@ -633,6 +652,7 @@ extern Option LogicShadowFireArrowEntry;
 extern Option LogicShadowUmbrella;
 extern Option LogicShadowFreestandingKey;
 extern Option LogicShadowStatue;
+extern Option LogicShadowBongo;
 extern Option LogicChildDeadhand;
 extern Option LogicGtgWithoutHookshot;
 extern Option LogicGtgFakeWall;
@@ -705,8 +725,9 @@ extern Option CameraControl;
 extern Option MotionControl;
 extern Option TogglePlayMusic;
 extern Option TogglePlaySFX;
-extern Option SilenceNavi;
+extern Option NaviNotifications;
 extern Option IgnoreMaskReaction;
+extern Option FreeCamControl;
 
 // Cosmetic Settings
 extern Option CustomTunicColors;

@@ -13,6 +13,7 @@
 #include "descriptions.hpp"
 #include "trial.hpp"
 #include "keys.hpp"
+#include "gold_skulltulas.hpp"
 
 using namespace Cosmetics;
 using namespace Dungeon;
@@ -316,7 +317,8 @@ std::vector<Option *> timesaverOptions = {
 // Misc Settings
 Option Racing              = Option::Bool("Racing",                 {"Off", "On"},                                                          {racingDesc});
 Option GossipStoneHints    = Option::U8  ("Gossip Stone Hints",     {"No Hints", "Need Nothing", "Mask of Truth", "Shard of Agony"},        {gossipStonesHintsDesc},                                                                                          OptionCategory::Setting,    HINTS_NEED_NOTHING);
-Option HintDistribution    = Option::U8  (2, "Hint Distribution",   {"Useless", "Balanced", "Strong", "Very Strong"},                       {uselessHintsDesc, balancedHintsDesc, strongHintsDesc, veryStrongHintsDesc},                                      OptionCategory::Setting,    HINTDISTRIBUTION_BALANCED);
+Option HintDistribution    = Option::U8  (2, "Hint Distribution",   {"Useless", "Balanced", "Strong", "Very Strong", "Playthrough"},        {uselessHintsDesc, balancedHintsDesc, strongHintsDesc, veryStrongHintsDesc, playthroughHintsDesc},                OptionCategory::Setting,    HINTDISTRIBUTION_BALANCED);
+Option BonusGossipHints    = Option::Bool(4, "Bonus Hints",         {"Off", "On"},                                                          {bonusGossipHintsDesc});
 Option MiscHints           = Option::U8  ("Miscellaneous Hints",    {"All Disabled",  "All Enabled", "Choose"},                             {miscHintsDesc},                                                                                                  OptionCategory::Setting,    TOGGLE_ALL_ENABLED);
 Option ToTAltarHints       = Option::Bool(2, "Temple of Time Altar",{"Off", "On"},                                                          {totAltarHintsDesc});
 Option GanonHints          = Option::Bool(2, "Ganondorf",           {"Off", "On"},                                                          {ganonHintsDesc});
@@ -335,12 +337,21 @@ Option RandomTrapDmg       = Option::U8  ("Random Trap Damage",     {"Off", "Bas
 Option FireTrap            = Option::Bool(2, "Fire Trap",           {"Off", "On"},                                                          {fireTrapDesc},                                                                                                   OptionCategory::Setting,    ON);
 Option AntiFairyTrap       = Option::Bool(2, "Anti-Fairy Trap",     {"Off", "On"},                                                          {antiFairyTrapDesc},                                                                                              OptionCategory::Setting,    ON);
 Option CurseTraps          = Option::Bool(2, "Curse Traps",         {"Off", "On"},                                                          {curseTrapsDesc},                                                                                                 OptionCategory::Setting);
+Option ScreenTraps         = Option::Bool(4, "Screen Traps",        {"Off", "On"},                                                          {screenTrapsDesc},                                                                                                OptionCategory::Setting);
 Option ExtraArrowEffects   = Option::Bool("Extra Arrow Effects",    {"Off", "On"},                                                          {extraArrowEffectsDesc});
+Option HyperActors         = Option::U8  ("Hyper Actors",           {"All Off", "All On", "Choose"},                                        {hyperActorsDesc});
+Option HyperBosses         = Option::Bool(2, "Hyper Bosses",        {"Off", "On"},                                                          {hyperBossesDesc});
+Option HyperMiddleBosses   = Option::Bool(2, "Hyper Middle Bosses", {"Off", "On"},                                                          {hyperMiddleBossesDesc});
+Option HyperEnemies        = Option::Bool(2, "Hyper Enemies",       {"Off", "On"},                                                          {hyperEnemiesDesc});
+Option FreeCamera          = Option::Bool("Free Camera",            {"Off", "On"},                                                          {freeCamDesc},                                                                                                    OptionCategory::Setting,    ON);
+Option RandomGsLocations   = Option::Bool("Random GS Locations",    {"Off", "On"},                                                          {randomGsLocationsDesc});
+Option GsLocGuaranteeNew   = Option::Bool(2, "Guarantee New",       {"Off", "On"},                                                          {gsLocGuaranteeNewDesc});
 bool HasNightStart         = false;
 std::vector<Option *> miscOptions = {
     &Racing,
     &GossipStoneHints,
     &HintDistribution,
+    &BonusGossipHints,
     &MiscHints,
     &ToTAltarHints,
     &GanonHints,
@@ -359,7 +370,15 @@ std::vector<Option *> miscOptions = {
     &FireTrap,
     &AntiFairyTrap,
     &CurseTraps,
+    &ScreenTraps,
     &ExtraArrowEffects,
+    &HyperActors,
+    &HyperBosses,
+    &HyperMiddleBosses,
+    &HyperEnemies,
+    &FreeCamera,
+    &RandomGsLocations,
+    &GsLocGuaranteeNew,
 };
 
 // Item Usability Settings
@@ -733,6 +752,7 @@ Option LogicShadowFireArrowEntry        = LogicTrick("ShT Entry\n  w/ Fire Arrow
 Option LogicShadowUmbrella              = LogicTrick("ShT Stone Umbrella\n  w/ Hover Boots",      LogicShadowUmbrellaDesc);
 Option LogicShadowFreestandingKey       = LogicTrick("ShT Skull Vase Key\n  w/ Bombchu",          LogicShadowFreestandingKeyDesc);
 Option LogicShadowStatue                = LogicTrick("ShT River Statue\n  w/ Bombchu",            LogicShadowStatueDesc);
+Option LogicShadowBongo                 = LogicTrick("ShT Bongo\n  w/o Projectiles",              LogicShadowBongoDesc);
 Option LogicChildDeadhand               = LogicTrick("BotW Deadhand\n  w/o Sword",                LogicChildDeadhandDesc);
 Option LogicGtgWithoutHookshot          = LogicTrick("GTG West Silver Rupee\n  w/o Hookshot",     LogicGtgWithoutHookshotDesc);
 Option LogicGtgFakeWall                 = LogicTrick("GTG Invisible Wall\n  w/ Hover Boots",      LogicGtgFakeWallDesc);
@@ -824,6 +844,7 @@ std::vector<Option *> trickOptions = {
     &LogicShadowUmbrella,
     &LogicShadowFreestandingKey,
     &LogicShadowStatue,
+    &LogicShadowBongo,
     &LogicChildDeadhand,
     &LogicGtgWithoutHookshot,
     &LogicGtgFakeWall,
@@ -920,6 +941,7 @@ Option GlitchModernHalfie      = Option::Bool("Modern Halfie",               {"O
 Option GlitchJabuSwitch        = Option::Bool("Jabu Switch\n  w/ CS item",   {"Off", "On"}, {GlitchJabuSwitchDesc});
 Option GlitchForestBKSkip      = Option::Bool("Forest Temple\n  BK Skip",    {"Off", "On"}, {GlitchForestBKSkipDesc});
 Option GlitchFireGrunzClip     = Option::Bool("Fire Temple\n  Grunz Clip",   {"Off", "On"}, {GlitchFireGrunzClipDesc});
+// These are all expected to be booleans by the GlitchEnabled function
 std::vector<Option*> miscGlitches = {
     &GlitchWWTEscape,
     &GlitchGVTentAsChild,
@@ -968,23 +990,25 @@ std::vector<Option*> preferenceOptions = {
     &ArrowSwitchButton,
 };
 
-Option ZTargeting         = Option::U8("L-Targeting",          {"Switch", "Hold"},                                 {""},                     OptionCategory::Cosmetic, 1);
-Option CameraControl      = Option::U8("Camera Control",       {"Normal", "Invert Y-axis"},                        {""},                     OptionCategory::Cosmetic);
-Option MotionControl      = Option::U8("Motion Control",       {"On", "Off"},                                      {""},                     OptionCategory::Cosmetic);
-Option TogglePlayMusic    = Option::U8("Play Music",           {"Off", "On"},                                      {""},                     OptionCategory::Cosmetic, 1);
-Option TogglePlaySFX      = Option::U8("Play Sound Effects",   {"Off", "On"},                                      {""},                     OptionCategory::Cosmetic, 1);
-Option SilenceNavi        = Option::U8("Silence Navi",         {"Off", "On"},                                      {silenceNaviDesc},        OptionCategory::Cosmetic);
-Option IgnoreMaskReaction = Option::U8("Ignore Mask Reaction", {"Off", "On"},                                      {ignoreMaskReactionDesc}, OptionCategory::Cosmetic);
-Option SkipSongReplays    = Option::U8("Skip Song Replays",    {"Don't Skip", "Skip (No SFX)", "Skip (Keep SFX)"}, {skipSongReplaysDesc},    OptionCategory::Cosmetic);
+Option ZTargeting         = Option::U8("L-Targeting",          {"Switch", "Hold"},                                          {""},                     OptionCategory::Cosmetic, 1);
+Option CameraControl      = Option::U8("Camera Control",       {"Normal", "Invert Y-axis"},                                 {""},                     OptionCategory::Cosmetic);
+Option MotionControl      = Option::U8("Motion Control",       {"On", "Off"},                                               {""},                     OptionCategory::Cosmetic);
+Option TogglePlayMusic    = Option::U8("Play Music",           {"Off", "On"},                                               {""},                     OptionCategory::Cosmetic, 1);
+Option TogglePlaySFX      = Option::U8("Play Sound Effects",   {"Off", "On"},                                               {""},                     OptionCategory::Cosmetic, 1);
+Option NaviNotifications  = Option::U8("Navi Notifications",   {"Silenced", "Normal", "Constant"},                          {naviNotificationsDesc},  OptionCategory::Cosmetic, NAVINOTIFS_NORMAL);
+Option IgnoreMaskReaction = Option::U8("Ignore Mask Reaction", {"Off", "On"},                                               {ignoreMaskReactionDesc}, OptionCategory::Cosmetic);
+Option SkipSongReplays    = Option::U8("Skip Song Replays",    {"Don't Skip", "Skip (No SFX)", "Skip (Keep SFX)"},          {skipSongReplaysDesc},    OptionCategory::Cosmetic);
+Option FreeCamControl     = Option::U8("Free Camera Control",  {"Normal", "Invert Y-Axis", "Invert X-Axis", "Invert Both"}, {""},                     OptionCategory::Cosmetic);
 std::vector<Option*> ingameDefaultOptions = {
     &ZTargeting,
     &CameraControl,
     &MotionControl,
     &TogglePlayMusic,
     &TogglePlaySFX,
-    &SilenceNavi,
+    &NaviNotifications,
     &IgnoreMaskReaction,
     &SkipSongReplays,
+    &FreeCamControl,
 };
 
 // Function to make options vectors for Navi and Tunic colors without the "Same as ..." option
@@ -1424,6 +1448,8 @@ SettingsContext FillContext() {
     ctx.gossipStoneHints    = GossipStoneHints.Value<u8>();
     ctx.totAltarHints       = ToTAltarHints ? 1 : 0;
     ctx.ganonHints          = GanonHints ? 1 : 0;
+    ctx.sheikHints          = (GanonHints && GanonsTrialsCount.Value<u8>() > 0 &&
+                      (!StartingLightArrows || (ShuffleMasterSword && !StartingMasterSword)));
     ctx.compassesShowReward = CompassesShowReward.Value<u8>();
     ctx.compassesShowWotH   = CompassesShowWotH.Value<u8>();
     ctx.mapsShowDungeonMode = MapsShowDungeonMode.Value<u8>();
@@ -1440,7 +1466,12 @@ SettingsContext FillContext() {
     ctx.fireTrap            = (FireTrap) ? 1 : 0;
     ctx.antiFairyTrap       = (AntiFairyTrap) ? 1 : 0;
     ctx.curseTraps          = (CurseTraps) ? 1 : 0;
+    ctx.screenTraps         = (ScreenTraps) ? 1 : 0;
     ctx.extraArrowEffects   = (ExtraArrowEffects) ? 1 : 0;
+    ctx.hyperBosses         = (HyperBosses) ? 1 : 0;
+    ctx.hyperMiddleBosses   = (HyperMiddleBosses) ? 1 : 0;
+    ctx.hyperEnemies        = (HyperEnemies) ? 1 : 0;
+    ctx.freeCamera          = (FreeCamera) ? 1 : 0;
 
     ctx.faroresWindAnywhere  = (FaroresWindAnywhere) ? 1 : 0;
     ctx.stickAsAdult         = (StickAsAdult) ? 1 : 0;
@@ -1479,8 +1510,9 @@ SettingsContext FillContext() {
     ctx.motionControl      = MotionControl.Value<u8>();
     ctx.playMusic          = TogglePlayMusic.Value<u8>();
     ctx.playSFX            = TogglePlaySFX.Value<u8>();
-    ctx.silenceNavi        = SilenceNavi.Value<u8>();
+    ctx.naviNotifications  = NaviNotifications.Value<u8>();
     ctx.ignoreMaskReaction = IgnoreMaskReaction.Value<u8>();
+    ctx.freeCamControl     = FreeCamControl.Value<u8>();
 
     ctx.customTunicColors           = (CustomTunicColors) ? 1 : 0;
     ctx.customNaviColors            = (CustomNaviColors) ? 1 : 0;
@@ -2171,11 +2203,26 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         }
     }
 
+    // Since No Logic doesn't create a playthrough, select the next best hint distribution
+    if (Logic.Is(LOGIC_NONE) && HintDistribution.Is(HINTDISTRIBUTION_PLAYTHROUGH)) {
+        if (currentSetting == &HintDistribution && kDown & KEY_RIGHT) {
+            HintDistribution.SetSelectedIndex(HINTDISTRIBUTION_USELESS);
+        } else {
+            HintDistribution.SetSelectedIndex(HINTDISTRIBUTION_VERYSTRONG);
+        }
+    }
+
     // Only show hint options if hints are enabled
     if (GossipStoneHints.Is(HINTS_NO_HINTS)) {
         HintDistribution.Hide();
+        BonusGossipHints.Hide();
     } else {
         HintDistribution.Unhide();
+        if (HintDistribution.Is(HINTDISTRIBUTION_PLAYTHROUGH)) {
+            BonusGossipHints.Unhide();
+        } else {
+            BonusGossipHints.Hide();
+        }
     }
 
     // Manage toggle for misc hints options
@@ -2190,6 +2237,48 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         FireTrap.Hide();
         AntiFairyTrap.Hide();
         CurseTraps.Hide();
+        CurseTraps.SetSelectedIndex(0);
+    }
+
+    if (CurseTraps) {
+        ScreenTraps.Unhide();
+    } else {
+        ScreenTraps.Hide();
+        ScreenTraps.SetSelectedIndex(0);
+    }
+
+    static const std::vector<Option*> hyperActorOptions = {
+        &HyperBosses,
+        &HyperMiddleBosses,
+        &HyperEnemies,
+    };
+    if (HyperActors.Is(HYPERACTORS_OFF)) {
+        for (auto op : hyperActorOptions) {
+            op->SetSelectedIndex(OFF);
+            op->Hide();
+        }
+    } else if (HyperActors.Is(HYPERACTORS_ON)) {
+        for (auto op : hyperActorOptions) {
+            op->SetSelectedIndex(ON);
+            op->Hide();
+        }
+    } else {
+        for (auto op : hyperActorOptions) {
+            op->Unhide();
+        }
+    }
+
+    if (FreeCamera) {
+        FreeCamControl.Unhide();
+    } else {
+        FreeCamControl.Hide();
+        FreeCamControl.SetSelectedIndex(0);
+    }
+
+    if (RandomGsLocations) {
+        GsLocGuaranteeNew.Unhide();
+    } else {
+        GsLocGuaranteeNew.Hide();
     }
 
     // Manage toggle for item usability options
@@ -2316,6 +2405,7 @@ void ForceChange(u32 kDown, Option* currentSetting) {
                 LogicSpiritSunChest.SetSelectedIndex(1);
                 // LogicShadowFireArrowEntry.SetSelectedIndex(1);
                 LogicShadowUmbrella.SetSelectedIndex(1);
+                LogicShadowBongo.SetSelectedIndex(1);
                 LogicGtgWithoutHookshot.SetSelectedIndex(1);
             }
         }
@@ -2941,4 +3031,47 @@ const std::vector<Menu*> GetAllOptionMenus() {
     return allMenus;
 }
 
+bool IsGlitchOption(Option& option) {
+    for (auto op : glitchCategories) {
+        if (op == &ToggleAllGlitches) {
+            continue;
+        }
+        if (&option == op) {
+            return true;
+        }
+    }
+    return false;
+}
+
+u8 GlitchValue(Option& glitchOption) {
+    if (Logic.IsNot(LOGIC_GLITCHED) || !IsGlitchOption(glitchOption)) {
+        return 0;
+    }
+    for (size_t difficulty = 0; difficulty < GlitchDifficulties.size(); difficulty++) {
+        if (glitchOption.GetSelectedOptionText() == GlitchDifficulties[difficulty]) {
+            return difficulty;
+        }
+    }
+    return 0;
+}
+
+bool GlitchEnabled(Option& glitchOption, GlitchDifficulty glitchDifficulty) {
+    if (Logic.IsNot(LOGIC_GLITCHED) || !IsGlitchOption(glitchOption)) {
+        return false;
+    }
+    return GlitchValue(glitchOption) >= static_cast<u8>(glitchDifficulty);
+}
+
+bool GlitchEnabled(Option& glitchOption) {
+    auto isMiscGlitch = [&] {
+        for (auto op : miscGlitches) {
+            if (&glitchOption == op) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    return Logic.Is(LOGIC_GLITCHED) && isMiscGlitch() && glitchOption;
+}
 } // namespace Settings
