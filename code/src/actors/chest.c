@@ -27,6 +27,13 @@ u32 isBombchuMajor(void) {
 
 void EnBox_rInit(Actor* thisx, GlobalContext* globalCtx) {
     EnBox_Init(thisx, globalCtx);
+
+    // Set mipmap count to 1 for both chest models, to avoid issues with custom textures
+    void** cmbMan = ZAR_GetCMBByIndex(((EnBox*)thisx)->zarInfo, 1);
+    *((u8*)(*cmbMan) + 0x59C) = 1;
+    *((u8*)(*cmbMan) + 0x530) = 1;
+
+    // Change Appearance depending on settings
     Chest_ChangeAppearance(thisx, globalCtx, ((gSaveContext.questItems >> 21) & 1)); // shard of agony inventory flag
 }
 
@@ -78,11 +85,6 @@ void Chest_ChangeAppearance(Actor* thisx, GlobalContext* globalCtx, u8 haveShard
         if (exObjectBankIdx < 0) {
             exObjectBankIdx = Object_Spawn(&rExtendedObjectCtx, OBJECT_CUSTOM_GENERAL_ASSETS);
         }
-
-        void** cmbMan = ZAR_GetCMBByIndex(this->zarInfo, 1);
-        // Set mipmap count to 1 for both chest models
-        *((u8*)(*cmbMan) + 0x59C) = 1;
-        *((u8*)(*cmbMan) + 0x530) = 1;
 
         if (type == CHEST_MAJOR) {
             cmabMan = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo, TEXANIM_GOLD_CHEST);
