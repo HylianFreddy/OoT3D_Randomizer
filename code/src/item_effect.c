@@ -427,9 +427,9 @@ void ItemEffect_GiveWeirdEgg(SaveContext* saveCtx, s16 arg1, s16 arg2) {
 
 void ItemEffect_ShardOfAgony(SaveContext* saveCtx, s16 arg1, s16 arg2) {
     if (IsInGame()) {
-        for (Actor* actor = gGlobalContext->actorCtx.actorList[ACTORTYPE_CHEST].first; actor != NULL;
-             actor        = actor->next) {
-            Chest_ChangeAppearance(actor, gGlobalContext, TRUE);
+        Actor* chest = gGlobalContext->actorCtx.actorList[ACTORTYPE_CHEST].first;
+        for (; chest != NULL; chest = chest->next) {
+            Chest_ChangeAppearance(chest, gGlobalContext, TRUE);
         }
     }
 }
