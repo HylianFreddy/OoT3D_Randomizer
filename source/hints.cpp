@@ -616,7 +616,8 @@ static void CreateDampeHint() {
 static void CreateSkulltulaHints() {
     // Create a message for each cursed man that gives a reward.
     for (int i = 0; i < 5; i++) {
-        Text rewardItemText = Location(KAK_10_GOLD_SKULLTULA_REWARD + i)->GetPlacedItem().GetHint().GetText();
+        Text rewardItemText = Location(KAK_10_GOLD_SKULLTULA_REWARD + i)->GetPlacedItem().GetHint().GetTextCopy();
+        rewardItemText.Replace("$", "");
         Text hintText = Hint(HOUSE_OF_SKULLTULA_HINT).GetTextCopy();
         hintText.Replace("%d", std::to_string((i+1)*10));
         hintText.Replace("%s", rewardItemText);
