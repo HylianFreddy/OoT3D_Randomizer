@@ -609,7 +609,7 @@ static void CreateDampeHint() {
                            : GetHintRegion(Location(hookshotLocation[0])->GetParentRegionKey())->GetHint();
 
     auto dampeText = Hint(DAMPE_DIARY_HINT).GetText();
-    dampeText.Replace("%s", hookLocHint.GetClear());
+    dampeText.Replace("%s", hookLocHint.GetText());
     CreateMessageFromTextObject(0x5003, 0, 2, 3, AddColorsAndFormat(dampeText, { QM_PINK, QM_RED }));
 }
 
