@@ -2344,22 +2344,13 @@ void HintTable_Init() {
     |         DAMPÉ DIARY TEXT         |
     -----------------------------------*/
 
-    hintTable[DAMPE_DIARY_FIRST] = HintText::DampeHint({
+    hintTable[DAMPE_DIARY_HINT] = HintText::DampeHint({
                      // obscure text
-                     Text{"Whoever reads this, please enter #",
-                /*french*/"Toi, le petit curieux qui lit ce journal, viens dans #",
-               /*spanish*/"A quien lea estas palabras: Entra en #",
-               /*italian*/"Chiunque legga questo, visiti #",
-                /*german*/"Wer immer dies liest, der m?ge #"},
-    });
-
-    hintTable[DAMPE_DIARY_SECOND] = HintText::DampeHint({
-                     // obscure text
-                     Text{"#. I will let you have my stretching, shrinking #keepsake#.^I'm waiting for you.&--Dampé",
-                /*french*/"#. ##Et peut-??tre???uras-tu droit  mon pr?ieux ?tr?sor.^Je t'attends...&Igor",
-               /*spanish*/"# ##y mi fant?stico tesoro cser para ti.^Te espero.&- Damp",
-               /*italian*/"#.## Gli darò il mio tesoro BOING BOING.^Firmato:&Danpei",
-                /*german*/"# ##betreten. Ihm gebe ich meinen langen, kurzen  Schatz^Ich warte!&Boris"},
+                     Text{"Whoever reads this, please enter #%s#. I will let you have my stretching, shrinking #keepsake#.^I'm waiting for you.&--Dampé",
+                /*french*/"Toi, le petit curieux qui lit ce journal, viens dans #%s#. ##Et peut-??tre???uras-tu droit  mon pr?ieux ?tr?sor.^Je t'attends...&Igor",
+               /*spanish*/"A quien lea estas palabras: Entra en #%s# ##y mi fant?stico tesoro cser para ti.^Te espero.&- Damp",
+               /*italian*/"Chiunque legga questo, visiti #%s#.## Gli darò il mio tesoro BOING BOING.^Firmato:&Danpei",
+                /*german*/"Wer immer dies liest, der m?ge #%s# ##betreten. Ihm gebe ich meinen langen, kurzen  Schatz^Ich warte!&Boris"},
     });
 }
 // clang-format on

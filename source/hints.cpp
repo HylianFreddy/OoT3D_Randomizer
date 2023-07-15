@@ -608,7 +608,8 @@ static void CreateDampeHint() {
                            ? Hint(YOUR_POCKET)
                            : GetHintRegion(Location(hookshotLocation[0])->GetParentRegionKey())->GetHint();
 
-    auto dampeText = Hint(DAMPE_DIARY_FIRST).GetText() + hookLocHint.GetText() + Hint(DAMPE_DIARY_SECOND).GetText();
+    auto dampeText = Hint(DAMPE_DIARY_HINT).GetText();
+    dampeText.Replace("%s", hookLocHint.GetClear());
     CreateMessageFromTextObject(0x5003, 0, 2, 3, AddColorsAndFormat(dampeText, { QM_PINK, QM_RED }));
 }
 
