@@ -59,7 +59,7 @@ void Chest_ChangeAppearance(Actor* thisx, GlobalContext* globalCtx, u8 haveShard
 
     // Change Chest Model
     if (type == CHEST_BOSS_KEY ||
-        ((gSettingsContext.chestAppearance != CHESTAPPEARANCE_VANILLA) && (type == CHEST_SMALL_KEY))) {
+        (!vanilla && (type == CHEST_SMALL_KEY))) {
         // 0: Fancy Chest   1: Wooden Chest   2: Fancy Lid   3: Wooden Lid
         Model_EnableMeshGroupByIndex(this->skelAnime.unk_28, 0);
         Model_EnableMeshGroupByIndex(this->skelAnime.unk_28, 2);
