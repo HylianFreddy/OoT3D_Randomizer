@@ -231,7 +231,8 @@ Option GerudoKeys          = Option::U8  ("Gerudo Fortress Keys",      {"Vanilla
                                                                         {gerudoKeysVanilla, gerudoKeysAnyDungeon, gerudoKeysOverworld, gerudoKeysAnywhere});
 Option BossKeysanity       = Option::U8  ("Boss Keys",                 {"Start With", "Vanilla", "Own Dungeon", "Any Dungeon", "Overworld", "Anywhere"},
                                                                         {bossKeyStartWith, bossKeyVanilla, bossKeyOwnDungeon, bossKeyAnyDungeon, bossKeyOverworld, bossKeyAnywhere},                                                                             OptionCategory::Setting,    BOSSKEYSANITY_OWN_DUNGEON);
-Option GanonsBossKey       = Option::U8  ("Ganon's Boss Key",          {"Start With", "Vanilla", "Own Dungeon", "Any Dungeon", "Overworld", "Anywhere", "LACS-Vanilla", "LACS-Medallions", "LACS-Stones", "LACS-Rewards", "LACS-Dungeons", "LACS-Tokens", "LACS-Hearts"},
+Option GanonsBossKey       = Option::U8  ("Ganon's Boss Key",          {"Start With", "Vanilla", "Own Dungeon", "Any Dungeon", "Overworld", "Anywhere",
+                                                                        "LACS-Vanilla", "LACS-Medallions", "LACS-Stones", "LACS-Rewards", "LACS-Dungeons", "LACS-Tokens", "LACS-Hearts"},
                                                                         {ganonKeyStartWith, ganonKeyVanilla, ganonKeyOwnDungeon, ganonKeyAnyDungeon, ganonKeyOverworld, ganonKeyAnywhere, ganonKeyLACS},                                                         OptionCategory::Setting,    GANONSBOSSKEY_OWN_DUNGEON);
 u8 LACSCondition           = 0;
 Option LACSMedallionCount  = Option::U8  (2, "Medallion Count",        {NumOpts(0, 6)},                                                        {lacsMedallionCountDesc},                                                                                         OptionCategory::Setting,    1,                          true);
@@ -3103,8 +3104,9 @@ bool ValidateSettings() {
     }
     if ((Bridge.Is(RAINBOWBRIDGE_HEARTS) && BridgeHeartCount.Value<u8>() > maxHearts) ||
         (GanonsBossKey.Is(GANONSBOSSKEY_LACS_HEARTS) && LACSHeartCount.Value<u8>() > maxHearts)) {
-        printf("\x1b[6;0HNot enough Hearts in pool! \n\nPlease choose a different Item Pool\nsetting or lower the "
-               "Heart requirement.");
+        printf("\x1b[6;0HNot enough Hearts in pool!\n\n"
+               "Please choose a different Item Pool\n"
+               "setting or lower the Hearts requirement.");
         return false;
     }
 

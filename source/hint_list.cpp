@@ -1990,7 +1990,7 @@ void HintTable_Init() {
     });
 
     hintTable[LACS_HEARTS_HINT] = HintText::LACS({
-                     // obscure text                                                     singular                 plural
+                     // obscure text                                                     singular  plural
                      Text{"And the #evil one#'s key will be&provided by Zelda once #%d |Heart#&is|Hearts#&are| retrieved.",
                 /*french*/"Aussi, Zelda crééra la clé du&#Malin# avec #%d |cœur|cœurs|#.",
                /*spanish*/"Y Zelda entregará la llave&del #señor del mal# tras obtener&#%d |corazón|corazones|#.",
