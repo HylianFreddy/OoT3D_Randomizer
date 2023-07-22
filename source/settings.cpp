@@ -3103,8 +3103,9 @@ bool ValidateSettings() {
     }
     if ((Bridge.Is(RAINBOWBRIDGE_HEARTS) && BridgeHeartCount.Value<u8>() > maxHearts) ||
         (GanonsBossKey.Is(GANONSBOSSKEY_LACS_HEARTS) && LACSHeartCount.Value<u8>() > maxHearts)) {
-            printf("\x1b[6;0HNot enough Hearts in pool! \n\nPlease choose a different Item Pool\nsetting or lower the Heart requirement.");
-            return false;
+        printf("\x1b[6;0HNot enough Hearts in pool! \n\nPlease choose a different Item Pool\nsetting or lower the "
+               "Heart requirement.");
+        return false;
     }
 
     return true;
