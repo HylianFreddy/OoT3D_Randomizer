@@ -573,7 +573,8 @@ typedef struct GlobalContext {
     /* 0x3A58 */ ObjectContext objectCtx;
     /* 0x43DC */ char unk_43DC[0x0854];
     /* 0x4C30 */ s8 roomNum;
-    /* 0x4C31 */ char unk_4C31[0x0FCF];
+    /* 0x4C31 */ char unk_4C31[0x0FCB];
+    /* 0x5BFC */ u32 gameplayFrames;
     /* 0x5C00 */ u8 linkAgeOnLoad;
     /* 0x5C01 */ u8 unk_5C01;
     /* 0x5C02 */ u8 curSpawn;
