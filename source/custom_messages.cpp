@@ -1055,6 +1055,14 @@ void CreateAlwaysIncludedMessages() {
         rutoDialog.Replace("$", ""); // Plural marker
         CreateMessageFromTextObject(0x4050, 0, 2, 3, AddColorsAndFormat(rutoDialog, { itemColor }));
     }
+
+    for (ItemKey soulKey = SOUL_DEKU_BABA; soulKey <= SOUL_DEKU_BABA; soulKey++) {
+        Text soulText = Text{ "You got the #", "Vous obtenez #", "¡Has obtenido #", "Hai ottenuto l'#", "Du hast #" } +
+                        ItemTable(soulKey).GetName() + "#!";
+
+        CreateMessageFromTextObject(0x9450 + soulKey - SOUL_DEKU_BABA, 0, 2, 3,
+                                    AddColorsAndFormat(soulText, { QM_RED }));
+    }
 }
 
 std::vector<Text> CreateBaseCompassTexts() {

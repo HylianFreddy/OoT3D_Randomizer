@@ -437,7 +437,7 @@ void ItemEffect_ShardOfAgony(SaveContext* saveCtx, s16 arg1, s16 arg2) {
 
 void ItemEffect_EnemySoul(SaveContext* saveCtx, s16 enemyActorId, s16 secondaryActorId) {
     Actor_SetEnemySoulFlag(enemyActorId);
-    if (secondaryActorId) {
+    if (secondaryActorId > 0) {
         Actor_SetEnemySoulFlag(secondaryActorId);
     }
 }
