@@ -1,5 +1,7 @@
 #include "z3D/z3D.h"
 #include "common.h"
+#include "actor.h"
+#include "savefile.h"
 #include "owl.h"
 #include "item00.h"
 #include "heart_container.h"
@@ -55,6 +57,7 @@
 #include "bean_plant.h"
 #include "sheik.h"
 #include "skulltula_people.h"
+#include "red_ice.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -424,4 +427,32 @@ void HyperActors_Main(Actor* thisx, GlobalContext* globalCtx) {
             HyperActors_UpdateAgain(thisx);
         }
     }
+}
+
+u8 Actor_GetEnemySoulFlag(s16 actorId) {
+    return gExtSaveData.enemySoulsFlags[actorId >> 4] & (actorId & 0xF);
+}
+
+void Actor_SetEnemySoulFlag(s16 actorId) {
+    gExtSaveData.enemySoulsFlags[actorId >> 4] |= (actorId & 0xF);
+}
+
+void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
+    static Vec3f vecEmpty;
+    if (/*setting &&*/ actor->type == ACTORTYPE_ENEMY && !Actor_GetEnemySoulFlag(actor->id)) {
+        return EffectSsDeadDb_Spawn(globalCtx, &actor->world.pos, &vecEmpty, &vecEmpty, 100, -1, 80, 80, 80, 0xFF, 100,
+                                    100, 100, 1, 8, 0);
+    }
+
+    actor->draw(actor, globalCtx);
+}
+
+s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
+    RedIce_CheckIceArrow(at, ac);
+
+    if (ac->actor != 0 && ac->actor->type == ACTORTYPE_ENEMY && !Actor_GetEnemySoulFlag(ac->actor->id)) {
+        return 0; // ignore this collision
+    }
+
+    return 1; // continue as normal
 }
