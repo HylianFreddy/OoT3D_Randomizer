@@ -6,6 +6,7 @@
 #include "dungeon.h"
 #include "common.h"
 #include "actors/chest.h"
+#include "actor.h"
 
 void ItemEffect_None(SaveContext* saveCtx, s16 arg1, s16 arg2) {
 }
@@ -431,5 +432,12 @@ void ItemEffect_ShardOfAgony(SaveContext* saveCtx, s16 arg1, s16 arg2) {
         for (; chest != NULL; chest = chest->next) {
             Chest_ChangeAppearance(chest, gGlobalContext);
         }
+    }
+}
+
+void ItemEffect_EnemySoul(SaveContext* saveCtx, s16 enemyActorId, s16 secondaryActorId) {
+    Actor_SetEnemySoulFlag(enemyActorId);
+    if (secondaryActorId) {
+        Actor_SetEnemySoulFlag(secondaryActorId);
     }
 }

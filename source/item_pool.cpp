@@ -254,6 +254,9 @@ const std::array<ItemKey, 10> tradeItems = {
     EYEDROPS,
     CLAIM_CHECK,
 };
+const std::array<ItemKey, 1> enemySouls = {
+    SOUL_DEKU_BABA,
+};
 
 void AddItemToPool(std::vector<ItemKey>& pool, ItemKey item, size_t count /*= 1*/) {
     pool.insert(pool.end(), count, item);
@@ -1009,6 +1012,8 @@ void GenerateItemPool() {
     } else {
         IceTrapModels.push_back(GI_SWORD_BGS);
     }
+
+    AddItemsToPool(ItemPool, enemySouls);
 
     // Replace ice traps with junk from the pending junk pool if necessary
     if (IceTrapValue.Is(ICETRAPS_OFF)) {

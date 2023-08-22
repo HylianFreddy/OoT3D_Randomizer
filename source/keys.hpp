@@ -242,6 +242,9 @@ typedef enum {
     BUY_RED_POTION_40,
     BUY_RED_POTION_50,
 
+    // ENEMY SOULS
+    SOUL_DEKU_BABA,
+
     // ITEMLOCATIONS
 
     // DUNGEON REWARDS

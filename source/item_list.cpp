@@ -242,6 +242,9 @@ void ItemTable_Init() {                               //Item Type               
     itemTable[BUY_RED_POTION_40]                 = Item(ITEMTYPE_SHOP,              0x30,                 false,       &noVariable,                BOTTLE_WITH_RED_POTION,    40,     Text{"Buy Red Potion [40]",             "Acheter: Potion rouge [40]",       "Comprar poción roja [40]",                 "Pozione vita in vendita [40]",             "Rotes Elixier [40]"});
     itemTable[BUY_RED_POTION_50]                 = Item(ITEMTYPE_SHOP,              0x31,                 false,       &noVariable,                BOTTLE_WITH_RED_POTION,    50,     Text{"Buy Red Potion [50]",             "Acheter: Potion rouge [50]",       "Comprar poción roja [50]",                 "Pozione vita in vendita [50]",             "Rotes Elixier [50]"});
 
+    // Enemy souls
+    itemTable[SOUL_DEKU_BABA]                    = Item(ITEMTYPE_ENEMY_SOUL,        0xDF,                 true,        &noVariable,                NONE,                              Text{"Deku Baba Soul",                  "",                                 "",                                         "Anima di Deku Baba",                       ""});
+
     itemTable[TRIFORCE]                          = Item(ITEMTYPE_EVENT,             GI_RUPEE_RED_LOSE,    false,       &noVariable,                NONE,                              Text{"Triforce",                        "Triforce",                         "Trifuerza",                                "Triforza",                                 "Triforce"});
     itemTable[HINT]                              = Item(ITEMTYPE_EVENT,             GI_RUPEE_BLUE_LOSE,   false,       &noVariable,                NONE,                              Text{"Hint",                            "Indice",                           "Pista",                                    "Indizio",                                  "Hinweis"});
 
