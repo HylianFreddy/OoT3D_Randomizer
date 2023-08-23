@@ -452,7 +452,8 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
 s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
     RedIce_CheckIceArrow(at, ac);
 
-    if (ac->actor != 0 && ac->actor->type == ACTORTYPE_ENEMY && !Actor_GetEnemySoulFlag(ac->actor->id)) {
+    if (ac->actor != 0 && (ac->actor->type == ACTORTYPE_ENEMY || ac->actor->id == 0x95) &&
+        !Actor_GetEnemySoulFlag(ac->actor->id)) {
         return 0; // ignore this collision
     }
 
