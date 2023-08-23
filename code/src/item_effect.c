@@ -439,5 +439,8 @@ void ItemEffect_EnemySoul(SaveContext* saveCtx, s16 enemyActorId, s16 secondaryA
     Actor_SetEnemySoulFlag(enemyActorId);
     if (secondaryActorId > 0) {
         Actor_SetEnemySoulFlag(secondaryActorId);
+        if (secondaryActorId == 0x195) { // special case for Mad Scrub
+            Actor_SetEnemySoulFlag(0x060);
+        }
     }
 }
