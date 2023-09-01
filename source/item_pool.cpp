@@ -1047,7 +1047,9 @@ void GenerateItemPool() {
         IceTrapModels.push_back(GI_SWORD_BGS);
     }
 
-    AddItemsToPool(ItemPool, enemySouls);
+    if (ShuffleEnemySouls) {
+        AddItemsToPool(ItemPool, enemySouls);
+    }
 
     // Replace ice traps with junk from the pending junk pool if necessary
     if (IceTrapValue.Is(ICETRAPS_OFF)) {

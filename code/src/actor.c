@@ -437,11 +437,17 @@ void Actor_SetEnemySoulFlag(s16 actorId) {
     gExtSaveData.enemySoulsFlags[actorId >> 4] |= (actorId & 0xF);
 }
 
+u8 Actor_IsEnemy(Actor* actor) {
+    return actor->type == ACTORTYPE_ENEMY ||
+           actor->type == ACTORTYPE_BOSS ||
+           actor->id == 0x95; // Gold Skulltula, ACTORTYPE_NPC
+}
+
 void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
     static Vec3f vecEmpty;
     u8 jitterAbs = globalCtx->gameplayFrames % 10;
     s16 jitter   = (jitterAbs == 0 ? 1 : -1) * jitterAbs;
-    if (/*setting &&*/ actor->type == ACTORTYPE_ENEMY && !Actor_GetEnemySoulFlag(actor->id)) {
+    if (gSettingsContext.shuffleEnemySouls && Actor_IsEnemy(actor) && !Actor_GetEnemySoulFlag(actor->id)) {
         EffectSsDeadDb_Spawn(globalCtx, &actor->world.pos, &vecEmpty, &vecEmpty, 100 + jitter, -1, 80, 80, 80, 0xFF, 20,
                              20, 100, 1, 8, 0);
     }
@@ -452,8 +458,7 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
 s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
     RedIce_CheckIceArrow(at, ac);
 
-    if (ac->actor != 0 && (ac->actor->type == ACTORTYPE_ENEMY || ac->actor->id == 0x95) &&
-        !Actor_GetEnemySoulFlag(ac->actor->id)) {
+    if (gSettingsContext.shuffleEnemySouls && ac->actor != 0 && Actor_IsEnemy(ac->actor) && !Actor_GetEnemySoulFlag(ac->actor->id)) {
         return 0; // ignore this collision
     }
 
