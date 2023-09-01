@@ -263,7 +263,7 @@ const std::array<ItemKey, 35> enemySouls = {
     SOUL_TEKTITE,
     SOUL_LEEVER,
     SOUL_PEAHAT,
-    SOUL_LIZALFOS_DINALFOS,
+    SOUL_LIZALFOS_DINOLFOS,
     SOUL_GOHMA_LARVA,
     SOUL_SHABOM,
     SOUL_BIRI_BARI,
