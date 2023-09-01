@@ -254,7 +254,7 @@ const std::array<ItemKey, 10> tradeItems = {
     EYEDROPS,
     CLAIM_CHECK,
 };
-const std::array<ItemKey, 37> enemySouls = {
+const std::array<ItemKey, 35> enemySouls = {
     SOUL_POE,
     SOUL_OCTOROK,
     SOUL_WALLMASTER,
@@ -266,7 +266,6 @@ const std::array<ItemKey, 37> enemySouls = {
     SOUL_LIZALFOS_DINALFOS,
     SOUL_GOHMA_LARVA,
     SOUL_SHABOM,
-    SOUL_BABY_DODONGO,
     SOUL_BIRI_BARI,
     SOUL_TAILPASARAN,
     SOUL_SKULLTULA,
@@ -275,7 +274,6 @@ const std::array<ItemKey, 37> enemySouls = {
     SOUL_MOBLIN,
     SOUL_ARMOS,
     SOUL_DEKU_BABA,
-    SOUL_MAD_SCRUB,
     SOUL_BUBBLE,
     SOUL_FLYING_FLOOR_TILE,
     SOUL_BEAMOS,
