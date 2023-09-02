@@ -440,7 +440,8 @@ void Actor_SetEnemySoulFlag(s16 actorId) {
 u8 Actor_IsEnemy(Actor* actor) {
     return actor->type == ACTORTYPE_ENEMY ||
            actor->type == ACTORTYPE_BOSS ||
-           actor->id == 0x95; // Gold Skulltula, ACTORTYPE_NPC
+           actor->id == 0x95 || // Gold Skulltula, ACTORTYPE_NPC
+           actor->id == 0x186;  // Purple Gerudo
 }
 
 void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {

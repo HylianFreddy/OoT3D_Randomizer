@@ -441,6 +441,10 @@ void ItemEffect_EnemySoul(SaveContext* saveCtx, s16 enemyActorId, s16 secondaryA
         Actor_SetEnemySoulFlag(secondaryActorId);
         if (secondaryActorId == 0x195) { // special case for Mad Scrub
             Actor_SetEnemySoulFlag(0x060);
+        } else if (secondaryActorId == 0x175) {
+            Actor_SetEnemySoulFlag(0x91); // Poe Sisters
+        } else if (secondaryActorId == 0x113) {
+            Actor_SetEnemySoulFlag(0x186); // Purple Gerudo
         }
     }
 }

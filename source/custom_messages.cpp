@@ -1056,7 +1056,7 @@ void CreateAlwaysIncludedMessages() {
         CreateMessageFromTextObject(0x4050, 0, 2, 3, AddColorsAndFormat(rutoDialog, { itemColor }));
     }
 
-    for (ItemKey soulKey = SOUL_POE; soulKey <= SOUL_DOOR_MIMIC; soulKey++) {
+    for (ItemKey soulKey = SOUL_POE; soulKey <= SOUL_GANON; soulKey++) {
         Text soulText = Text{ "You got the #", "Vous obtenez #", "¡Has obtenido #", "Hai ottenuto l'#", "Du hast #" } +
                         ItemTable(soulKey).GetName() + "#!";
 
