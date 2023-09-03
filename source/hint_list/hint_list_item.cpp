@@ -2137,6 +2137,15 @@ void HintTable_Init_Item() {
                      }
     );
 
+    hintTable[SOUL_FLYING_POT] = HintText::Item({
+                       // obscure text
+                       Text{"the Flying Pot Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Vaso volante", /*german*/""},
+                     }, {
+                       // ambiguous text
+                       Text{"a Soul", /*french*/"", /*spanish*/"", /*italian*/"un'anima", /*german*/""},
+                     }
+    );
+
     hintTable[SOUL_FLYING_FLOOR_TILE] = HintText::Item({
                        // obscure text
                        Text{"the Flying Floor Tile Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Piastrella volante", /*german*/""},

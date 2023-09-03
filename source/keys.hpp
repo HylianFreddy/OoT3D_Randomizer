@@ -263,7 +263,8 @@ typedef enum {
     SOUL_ARMOS,
     SOUL_DEKU_BABA,
     SOUL_BUBBLE,
-    SOUL_FLYING_FLOOR_TILE, // remove? like pots?
+    SOUL_FLYING_POT,        // remove?
+    SOUL_FLYING_FLOOR_TILE, // remove?
     SOUL_BEAMOS,
     SOUL_FLOORMASTER,
     SOUL_REDEAD_GIBDO,
