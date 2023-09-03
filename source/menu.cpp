@@ -61,9 +61,9 @@ void MenuInit() {
     // Create directories
     FS_Archive sdmcArchive;
     if (R_SUCCEEDED(FSUSER_OpenArchive(&sdmcArchive, ARCHIVE_SDMC, fsMakePath(PATH_EMPTY, "")))) {
-        CreateLogDirectories(sdmcArchive);
-        CreatePresetDirectories(sdmcArchive);
-        Music::CreateMusicDirectories(sdmcArchive);
+        // CreateLogDirectories(sdmcArchive);
+        // CreatePresetDirectories(sdmcArchive);
+        // Music::CreateMusicDirectories(sdmcArchive);
 
         FSUSER_CloseArchive(sdmcArchive);
     } else {
