@@ -430,11 +430,11 @@ void HyperActors_Main(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 u8 Actor_GetEnemySoulFlag(s16 actorId) {
-    return gExtSaveData.enemySoulsFlags[actorId >> 4] & (actorId & 0xF);
+    return gExtSaveData.enemySoulsFlags[actorId >> 4] & (1 << (actorId & 0xF));
 }
 
 void Actor_SetEnemySoulFlag(s16 actorId) {
-    gExtSaveData.enemySoulsFlags[actorId >> 4] |= (actorId & 0xF);
+    gExtSaveData.enemySoulsFlags[actorId >> 4] |= (1 << (actorId & 0xF));
 }
 
 u8 Actor_IsEnemy(Actor* actor) {
