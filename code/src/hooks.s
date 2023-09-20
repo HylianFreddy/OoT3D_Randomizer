@@ -2086,9 +2086,32 @@ hook_RandomGsLoc_SkipSoilJingle:
 .global hook_ActorDrawCall
 hook_ActorDrawCall:
     push {r0-r12, lr}
+    bl Actor_rDraw
+    pop {r0-r12, lr}
+    bx lr
+
+.global hook_FlyingPotCollision
+hook_FlyingPotCollision:
+    strh r0,[r4,#0xBE]
+    push {r0-r12, lr}
+    cpy r0,r4 @ Actor
+    bl FlyingTraps_ShouldCollide
+    cmp r0,#0x1
+    pop {r0-r12, lr}
+    bne 0x11DEE4 @ Skip collision checks
+    bx lr
+
+.global hook_FlyingTileCollision
+hook_FlyingTileCollision:
+    cpy r0,r5
+    push {r0-r12, lr}
+    cpy r0,r4 @ Actor
+    bl FlyingTraps_ShouldCollide
+    cmp r0,#0x1
     pop {r0-r12, lr}
     bxeq lr
-    bx r2
+    add lr,lr,#0x8 @ Skip setting actionFunc
+    bx lr
 
 @ ----------------------------------
 @ ----------------------------------

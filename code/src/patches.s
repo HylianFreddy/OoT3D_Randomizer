@@ -2203,7 +2203,17 @@ RandomGsLoc_SkipSoilJingle_patch:
 .section .patch_ActorDrawCall
 .global ActorDrawCall_patch
 ActorDrawCall_patch:
-    bl Actor_rDraw @hook_ActorDrawCall
+    bl hook_ActorDrawCall
+
+.section .patch_FlyingPotCollision
+.global FlyingPotCollision_patch
+FlyingPotCollision_patch:
+    bl hook_FlyingPotCollision
+
+.section .patch_FlyingTileCollision
+.global FlyingTileCollision_patch
+FlyingTileCollision_patch:
+    bl hook_FlyingTileCollision
 
 @ ----------------------------------
 @ ----------------------------------

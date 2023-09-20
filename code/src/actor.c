@@ -435,7 +435,7 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
         static Vec3f vecEmpty;
         u8 jitterAbs = globalCtx->gameplayFrames % 10;
         s16 jitter   = (jitterAbs == 0 ? 1 : -1) * jitterAbs;
-        if (!EnemySouls_GetEnemySoulFlag(actor)) {
+        if (!EnemySouls_CheckEnemySoul(actor)) {
             EffectSsDeadDb_Spawn(globalCtx, &actor->world.pos, &vecEmpty, &vecEmpty, 100 + jitter, -1, 80, 80, 80, 0xFF, 20,
                                 20, 100, 1, 8, 0);
         }
@@ -447,7 +447,7 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
 s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
     RedIce_CheckIceArrow(at, ac);
 
-    if (gSettingsContext.shuffleEnemySouls && ac->actor != 0 && !EnemySouls_GetEnemySoulFlag(ac->actor)) {
+    if (gSettingsContext.shuffleEnemySouls && ac->actor != 0 && !EnemySouls_CheckEnemySoul(ac->actor)) {
         return 0; // ignore this collision
     }
 

@@ -75,7 +75,7 @@ static EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
     return SOUL_NONE;
 }
 
-u8 EnemySouls_GetEnemySoulFlag(Actor* actor) {
+u8 EnemySouls_CheckEnemySoul(Actor* actor) {
     EnemySoulId soulId = EnemySouls_GetSoulId(actor->id);
     return soulId == SOUL_NONE ||
         (gExtSaveData.enemySoulsFlags[soulId >> 4] & (1 << (soulId & 0xF)));
@@ -83,4 +83,9 @@ u8 EnemySouls_GetEnemySoulFlag(Actor* actor) {
 
 void EnemySouls_SetEnemySoulFlag(EnemySoulId soulId) {
     gExtSaveData.enemySoulsFlags[soulId >> 4] |= (1 << (soulId & 0xF));
+}
+
+// Used for flying pots and flying floor tiles
+u8 FlyingTraps_ShouldCollide(Actor* actor) {
+    return EnemySouls_CheckEnemySoul(actor);
 }

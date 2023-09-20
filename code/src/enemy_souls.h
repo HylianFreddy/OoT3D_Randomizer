@@ -56,7 +56,7 @@ typedef enum EnemySoulId {
     SOUL_GANON,
 } EnemySoulId;
 
-u8   EnemySouls_GetEnemySoulFlag(Actor* actor);
+u8   EnemySouls_CheckEnemySoul(Actor* actor);
 void EnemySouls_SetEnemySoulFlag(EnemySoulId soulId);
 
 #endif //_ENEMYSOULS_H_
