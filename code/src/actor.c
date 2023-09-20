@@ -2,6 +2,7 @@
 #include "common.h"
 #include "actor.h"
 #include "savefile.h"
+#include "enemy_souls.h"
 #include "owl.h"
 #include "item00.h"
 #include "heart_container.h"
@@ -429,28 +430,15 @@ void HyperActors_Main(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-u8 Actor_GetEnemySoulFlag(s16 actorId) {
-    return gExtSaveData.enemySoulsFlags[actorId >> 4] & (1 << (actorId & 0xF));
-}
-
-void Actor_SetEnemySoulFlag(s16 actorId) {
-    gExtSaveData.enemySoulsFlags[actorId >> 4] |= (1 << (actorId & 0xF));
-}
-
-u8 Actor_IsEnemy(Actor* actor) {
-    return actor->type == ACTORTYPE_ENEMY ||
-           actor->type == ACTORTYPE_BOSS ||
-           actor->id == 0x95 || // Gold Skulltula, ACTORTYPE_NPC
-           actor->id == 0x186;  // Purple Gerudo
-}
-
 void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
-    static Vec3f vecEmpty;
-    u8 jitterAbs = globalCtx->gameplayFrames % 10;
-    s16 jitter   = (jitterAbs == 0 ? 1 : -1) * jitterAbs;
-    if (gSettingsContext.shuffleEnemySouls && Actor_IsEnemy(actor) && !Actor_GetEnemySoulFlag(actor->id)) {
-        EffectSsDeadDb_Spawn(globalCtx, &actor->world.pos, &vecEmpty, &vecEmpty, 100 + jitter, -1, 80, 80, 80, 0xFF, 20,
-                             20, 100, 1, 8, 0);
+    if (gSettingsContext.shuffleEnemySouls) {
+        static Vec3f vecEmpty;
+        u8 jitterAbs = globalCtx->gameplayFrames % 10;
+        s16 jitter   = (jitterAbs == 0 ? 1 : -1) * jitterAbs;
+        if (!EnemySouls_GetEnemySoulFlag(actor)) {
+            EffectSsDeadDb_Spawn(globalCtx, &actor->world.pos, &vecEmpty, &vecEmpty, 100 + jitter, -1, 80, 80, 80, 0xFF, 20,
+                                20, 100, 1, 8, 0);
+        }
     }
 
     actor->draw(actor, globalCtx);
@@ -459,7 +447,7 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
 s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
     RedIce_CheckIceArrow(at, ac);
 
-    if (gSettingsContext.shuffleEnemySouls && ac->actor != 0 && Actor_IsEnemy(ac->actor) && !Actor_GetEnemySoulFlag(ac->actor->id)) {
+    if (gSettingsContext.shuffleEnemySouls && ac->actor != 0 && !EnemySouls_GetEnemySoulFlag(ac->actor)) {
         return 0; // ignore this collision
     }
 

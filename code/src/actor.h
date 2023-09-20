@@ -6,7 +6,5 @@
 void Actor_Init();
 void ActorSetup_Extra();
 s32 Actor_CollisionATvsAC(Collider* at, Collider* ac);
-void Actor_SetEnemySoulFlag(s16 actorId);
-u8 Actor_GetEnemySoulFlag(s16 actorId);
 
 #endif //_ACTOR_H_

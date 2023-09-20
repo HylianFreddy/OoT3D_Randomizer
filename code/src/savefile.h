@@ -45,6 +45,7 @@ typedef enum {
 typedef struct {
     u32 version;            // Needs to always be the first field of the structure
     u8 extInf[EXTINF_SIZE]; // Used for various bit flags that should also be synced in multiplayer
+    u8 enemySoulsFlags[8];  // 64 bits (at least one for each EnemySoulId)
     struct {
         Vec3i pos;
         s32 yaw;
@@ -59,7 +60,6 @@ typedef struct {
     u32 scenesDiscovered[SAVEFILE_SCENES_DISCOVERED_IDX_COUNT];
     u32 entrancesDiscovered[SAVEFILE_ENTRANCES_DISCOVERED_IDX_COUNT];
     u8 permadeath;
-    u16 enemySoulsFlags[30]; // 0x1E0 bits, one for each actor ID
     // Ingame Options, all need to be s8
     s8 option_EnableBGM;
     s8 option_EnableSFX;

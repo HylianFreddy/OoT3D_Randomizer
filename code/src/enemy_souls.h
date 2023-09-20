@@ -1,0 +1,64 @@
+#ifndef _ENEMYSOULS_H_
+#define _ENEMYSOULS_H_
+
+#include "z3D/z3D.h"
+
+typedef enum EnemySoulId {
+    SOUL_NONE,
+    SOUL_POE,
+    SOUL_OCTOROK,
+    SOUL_WALLMASTER,
+    SOUL_DODONGO,
+    SOUL_KEESE,
+    SOUL_TEKTITE,
+    SOUL_LEEVER,
+    SOUL_PEAHAT,
+    SOUL_LIZALFOS_DINOLFOS,
+    SOUL_GOHMA_LARVA,
+    SOUL_SHABOM,
+    SOUL_BIRI_BARI,
+    SOUL_TAILPASARAN,
+    SOUL_SKULLTULA,
+    SOUL_TORCH_SLUG,
+    SOUL_STINGER,
+    SOUL_MOBLIN,
+    SOUL_ARMOS,
+    SOUL_DEKU_BABA,
+    SOUL_BUBBLE,
+    SOUL_FLYING_POT,        // remove?
+    SOUL_FLYING_FLOOR_TILE, // remove?
+    SOUL_BEAMOS,
+    SOUL_FLOORMASTER,
+    SOUL_REDEAD_GIBDO,
+    SOUL_SHELL_BLADE,
+    SOUL_LIKE_LIKE,
+    SOUL_PARASITIC_TENTACLE, // merge with barinade?
+    SOUL_ANUBIS,
+    SOUL_SKULL_KID, // not a monster?
+    SOUL_FREEZARD,
+    SOUL_DEKU_SCRUB,
+    SOUL_WOLFOS,
+    SOUL_STALCHILD,
+    SOUL_GUAY,
+    SOUL_DOOR_MIMIC,
+    SOUL_STALFOS,
+    SOUL_DARK_LINK,
+    SOUL_FLARE_DANCER,
+    SOUL_DEAD_HAND,
+    SOUL_BIG_OCTO,
+    SOUL_GERUDO,
+    SOUL_GOHMA,
+    SOUL_KING_DODONGO,
+    SOUL_BARINADE,
+    SOUL_PHANTOM_GANON,
+    SOUL_VOLVAGIA,
+    SOUL_MORPHA,
+    SOUL_BONGO_BONGO,
+    SOUL_TWINROVA,
+    SOUL_GANON,
+} EnemySoulId;
+
+u8   EnemySouls_GetEnemySoulFlag(Actor* actor);
+void EnemySouls_SetEnemySoulFlag(EnemySoulId soulId);
+
+#endif //_ENEMYSOULS_H_

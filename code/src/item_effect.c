@@ -6,7 +6,7 @@
 #include "dungeon.h"
 #include "common.h"
 #include "actors/chest.h"
-#include "actor.h"
+#include "enemy_souls.h"
 
 void ItemEffect_None(SaveContext* saveCtx, s16 arg1, s16 arg2) {
 }
@@ -435,16 +435,6 @@ void ItemEffect_ShardOfAgony(SaveContext* saveCtx, s16 arg1, s16 arg2) {
     }
 }
 
-void ItemEffect_EnemySoul(SaveContext* saveCtx, s16 enemyActorId, s16 secondaryActorId) {
-    Actor_SetEnemySoulFlag(enemyActorId);
-    if (secondaryActorId > 0) {
-        Actor_SetEnemySoulFlag(secondaryActorId);
-        if (secondaryActorId == 0x195) { // special case for Mad Scrub
-            Actor_SetEnemySoulFlag(0x060);
-        } else if (secondaryActorId == 0x175) {
-            Actor_SetEnemySoulFlag(0x91); // Poe Sisters
-        } else if (secondaryActorId == 0x113) {
-            Actor_SetEnemySoulFlag(0x186); // Purple Gerudo
-        }
-    }
+void ItemEffect_EnemySoul(SaveContext* saveCtx, s16 soulId, s16 arg2) {
+    EnemySouls_SetEnemySoulFlag(soulId);
 }
