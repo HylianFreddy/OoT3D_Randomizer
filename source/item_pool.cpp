@@ -254,17 +254,15 @@ const std::array<ItemKey, 10> tradeItems = {
     EYEDROPS,
     CLAIM_CHECK,
 };
-const std::array<ItemKey, 35> enemySouls = {
+const std::array<ItemKey, 49> enemySouls = {
     ITEM_SOUL_POE,
     ITEM_SOUL_OCTOROK,
     ITEM_SOUL_WALLMASTER,
-    ITEM_SOUL_DODONGO,
     ITEM_SOUL_KEESE,
     ITEM_SOUL_TEKTITE,
     ITEM_SOUL_LEEVER,
     ITEM_SOUL_PEAHAT,
     ITEM_SOUL_LIZALFOS_DINOLFOS,
-    ITEM_SOUL_GOHMA_LARVA,
     ITEM_SOUL_SHABOM,
     ITEM_SOUL_BIRI_BARI,
     ITEM_SOUL_TAILPASARAN,
@@ -275,6 +273,7 @@ const std::array<ItemKey, 35> enemySouls = {
     ITEM_SOUL_ARMOS,
     ITEM_SOUL_DEKU_BABA,
     ITEM_SOUL_BUBBLE,
+    ITEM_SOUL_FLYING_POT,
     ITEM_SOUL_FLYING_FLOOR_TILE,
     ITEM_SOUL_BEAMOS,
     ITEM_SOUL_FLOORMASTER,
@@ -290,6 +289,21 @@ const std::array<ItemKey, 35> enemySouls = {
     ITEM_SOUL_STALCHILD,
     ITEM_SOUL_GUAY,
     ITEM_SOUL_DOOR_MIMIC,
+    ITEM_SOUL_STALFOS,
+    ITEM_SOUL_DARK_LINK,
+    ITEM_SOUL_FLARE_DANCER,
+    ITEM_SOUL_DEAD_HAND,
+    ITEM_SOUL_BIG_OCTO,
+    ITEM_SOUL_GERUDO,
+    ITEM_SOUL_GOHMA,
+    ITEM_SOUL_DODONGO,
+    ITEM_SOUL_BARINADE,
+    ITEM_SOUL_PHANTOM_GANON,
+    ITEM_SOUL_VOLVAGIA,
+    ITEM_SOUL_MORPHA,
+    ITEM_SOUL_BONGO_BONGO,
+    ITEM_SOUL_TWINROVA,
+    ITEM_SOUL_GANON,
 };
 
 void AddItemToPool(std::vector<ItemKey>& pool, ItemKey item, size_t count /*= 1*/) {

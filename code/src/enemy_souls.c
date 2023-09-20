@@ -8,14 +8,11 @@ static EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
         case 0x091: return SOUL_POE; // Poe Sisters
         case 0x00E: return SOUL_OCTOROK;
         case 0x011: return SOUL_WALLMASTER;
-        case 0x012: return SOUL_DODONGO; // Dodongo
-        case 0x02F: return SOUL_DODONGO; // Baby Dodongo
         case 0x013: return SOUL_KEESE;
         case 0x01B: return SOUL_TEKTITE;
         case 0x01C: return SOUL_LEEVER;
         case 0x01D: return SOUL_PEAHAT;
         case 0x025: return SOUL_LIZALFOS_DINOLFOS;
-        case 0x02B: return SOUL_GOHMA_LARVA;
         case 0x02D: return SOUL_SHABOM;
         case 0x034: return SOUL_BIRI_BARI; // Biri
         case 0x063: return SOUL_BIRI_BARI; // Bari
@@ -58,8 +55,11 @@ static EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
         case 0x186: return SOUL_GERUDO; // Purple Gerudo guards
         case 0x197: return SOUL_GERUDO; // Gerudo fighters
         case 0x113: return SOUL_GERUDO; // Iron Knuckles
-        case 0x028: return SOUL_GOHMA;
-        case 0x027: return SOUL_KING_DODONGO;
+        case 0x028: return SOUL_GOHMA; // Queen Gohma
+        case 0x02B: return SOUL_GOHMA; // Gohma Larva/Egg
+        case 0x012: return SOUL_DODONGO; // Dodongo
+        case 0x02F: return SOUL_DODONGO; // Baby Dodongo
+        case 0x027: return SOUL_DODONGO; // King Dodongo
         case 0x0BA: return SOUL_BARINADE;
         case 0x052: return SOUL_PHANTOM_GANON; // PG
         case 0x067: return SOUL_PHANTOM_GANON; // Horse

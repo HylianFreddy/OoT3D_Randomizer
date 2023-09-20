@@ -1984,15 +1984,6 @@ void HintTable_Init_Item() {
                      }
     );
 
-    hintTable[ITEM_SOUL_DODONGO] = HintText::Item({
-                       // obscure text
-                       Text{"the Dodongo Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Dodongo", /*german*/""},
-                     }, {
-                       // ambiguous text
-                       Text{"a Soul", /*french*/"", /*spanish*/"", /*italian*/"un'anima", /*german*/""},
-                     }
-    );
-
     hintTable[ITEM_SOUL_KEESE] = HintText::Item({
                        // obscure text
                        Text{"the Keese Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Pipistrello", /*german*/""},
@@ -2032,15 +2023,6 @@ void HintTable_Init_Item() {
     hintTable[ITEM_SOUL_LIZALFOS_DINOLFOS] = HintText::Item({
                        // obscure text
                        Text{"the Lizalfos and Dinolfos Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Lizalfos e Dinolfos", /*german*/""},
-                     }, {
-                       // ambiguous text
-                       Text{"a Soul", /*french*/"", /*spanish*/"", /*italian*/"un'anima", /*german*/""},
-                     }
-    );
-
-    hintTable[ITEM_SOUL_GOHMA_LARVA] = HintText::Item({
-                       // obscure text
-                       Text{"the Gohma Larva Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Larva di Gohma", /*german*/""},
                      }, {
                        // ambiguous text
                        Text{"a Soul", /*french*/"", /*spanish*/"", /*italian*/"un'anima", /*german*/""},
@@ -2344,9 +2326,9 @@ void HintTable_Init_Item() {
                      }
     );
 
-    hintTable[ITEM_SOUL_KING_DODONGO] = HintText::Item({
+    hintTable[ITEM_SOUL_DODONGO] = HintText::Item({
                        // obscure text
-                       Text{"the King Dodongo Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Mega Dodongo", /*german*/""},
+                       Text{"the Dodongo Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Dodongo", /*german*/""},
                      }, {
                        // ambiguous text
                        Text{"a Soul", /*french*/"", /*spanish*/"", /*italian*/"un'anima", /*german*/""},
