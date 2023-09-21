@@ -48,6 +48,10 @@ SECTIONS
 		*(.patch_ItemEtceteraModelDraw)
 	}
 
+	.patch_FlyingPotCollision 0x11DB34 : {
+		*(.patch_FlyingPotCollision)
+	}
+
 	.patch_SariasSongItemGive 0x12C84C : {
 		*(.patch_SariasSongItemGive)
 	}
@@ -594,6 +598,10 @@ SECTIONS
 
 	.patch_BoleroLocation 0x26C448 : {
 		*(.patch_BoleroLocation)
+	}
+
+	.patch_FlyingTileCollision 0x26E730 : {
+		*(.patch_FlyingTileCollision)
 	}
 
 	.patch_RedBoulderExplode 0x26FE7C : {
