@@ -326,8 +326,6 @@ void HyperActors_UpdateAgain(Actor* thisx) {
 }
 
 void HyperActors_Main(Actor* thisx, GlobalContext* globalCtx) {
-    thisx->update(thisx, globalCtx);
-
     if (!IsInGame() || thisx->update == NULL || (PLAYER != NULL && Player_InBlockingCsMode(globalCtx, PLAYER))) {
         return;
     }
@@ -427,6 +425,21 @@ void HyperActors_Main(Actor* thisx, GlobalContext* globalCtx) {
 
             HyperActors_UpdateAgain(thisx);
         }
+    }
+}
+
+void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
+    u8 tempHammerQuakeFlag = globalCtx->actorCtx.hammerQuakeFlag;
+
+    if (!EnemySouls_CheckSoulForActor(actor)) {
+        globalCtx->actorCtx.hammerQuakeFlag = 0;
+    }
+
+    actor->update(actor, globalCtx);
+    HyperActors_Main(actor, globalCtx);
+
+    if (tempHammerQuakeFlag != 0) {
+        globalCtx->actorCtx.hammerQuakeFlag = tempHammerQuakeFlag;
     }
 }
 

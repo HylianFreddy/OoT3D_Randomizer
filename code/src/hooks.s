@@ -333,10 +333,10 @@ hook_ApplyDamageMultiplier:
     pop {r0-r3, r5-r12, lr}
     bx lr
 
-.global hook_HyperActors
-hook_HyperActors:
+.global hook_ActorUpdate
+hook_ActorUpdate:
     push {r0-r12, lr}
-    bl HyperActors_Main
+    bl Actor_rUpdate
     pop {r0-r12, lr}
     bx lr
 
@@ -2083,8 +2083,8 @@ hook_RandomGsLoc_SkipSoilJingle:
     ldrsh r0,[r0,#0x1C]
     bx lr
 
-.global hook_ActorDrawCall
-hook_ActorDrawCall:
+.global hook_ActorDraw
+hook_ActorDraw:
     push {r0-r12, lr}
     bl Actor_rDraw
     pop {r0-r12, lr}
