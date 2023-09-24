@@ -296,7 +296,13 @@ static void Gfx_DrawButtonPrompts(void) {
     } else if (curMenuIdx == PAGE_ENEMYSOULS) {
         Draw_DrawIcon(offsetX, promptY, COLOR_WHITE, ICON_BUTTON_DPAD);
         offsetX += buttonSpacing;
-        Draw_DrawString(offsetX, textY, COLOR_TITLE, "Scroll");
+        nextStr = "Scroll";
+        Draw_DrawString(offsetX, textY, COLOR_TITLE, nextStr);
+        offsetX += (strlen(nextStr) + 1) * SPACING_X;
+        Draw_DrawIcon(offsetX, promptY, COLOR_BUTTON_A, ICON_BUTTON_A);
+        offsetX += buttonSpacing;
+        static char* debugToggleStrings[] = {"OFF", "Remove all souls", "Have all souls"};
+        Draw_DrawFormattedString(offsetX, textY, COLOR_TITLE, "DebugToggle: %s", debugToggleStrings[EnemySouls_DebugToggle]);
     } else if (curMenuIdx == PAGE_SPHERES) {
         Draw_DrawIcon(offsetX, promptY, COLOR_WHITE, ICON_BUTTON_DPAD);
         offsetX += buttonSpacing;
@@ -920,7 +926,10 @@ static void Gfx_ShowMenu(void) {
                 handledInput  = true;
             }
         } else if (curMenuIdx == PAGE_ENEMYSOULS) {
-            if (pressed & (BUTTON_UP | CPAD_UP | BUTTON_DOWN | CPAD_DOWN)) {
+            if (pressed & BUTTON_A) {
+                EnemySouls_DebugToggle = (EnemySouls_DebugToggle + 1) % 3;
+                handledInput  = true;
+            } else if (pressed & (BUTTON_UP | CPAD_UP | BUTTON_DOWN | CPAD_DOWN)) {
                 soulsScroll   = (soulsScroll + 1) % 2;
                 handledInput  = true;
             }

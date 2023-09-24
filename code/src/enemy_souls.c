@@ -77,6 +77,14 @@ static EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
     return SOUL_NONE;
 }
 
+enum {
+    ENEMYSOULSDEBUGTOGGLE_OFF,
+    ENEMYSOULSDEBUGTOGGLE_REMOVE,
+    ENEMYSOULSDEBUGTOGGLE_HAVE,
+} EnemySoulsDebugToggle;
+
+u8 EnemySouls_DebugToggle = ENEMYSOULSDEBUGTOGGLE_OFF;
+
 u16 EnemySouls_GetSoulFlag(EnemySoulId soulId) {
     return gExtSaveData.enemySoulsFlags[soulId >> 4] & (1 << (soulId & 0xF));
 }
@@ -89,7 +97,13 @@ u8 EnemySouls_CheckSoulForActor(Actor* actor) {
     if (gSettingsContext.shuffleEnemySouls == OFF) {
         return TRUE;
     }
+    if (EnemySouls_DebugToggle == ENEMYSOULSDEBUGTOGGLE_HAVE) {
+        return TRUE;
+    }
 
     EnemySoulId soulId = EnemySouls_GetSoulId(actor->id);
+    if (soulId != SOUL_NONE && EnemySouls_DebugToggle == ENEMYSOULSDEBUGTOGGLE_REMOVE) {
+        return FALSE;
+    }
     return soulId == SOUL_NONE || EnemySouls_GetSoulFlag(soulId);
 }
