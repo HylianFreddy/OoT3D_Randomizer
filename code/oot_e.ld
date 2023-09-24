@@ -700,6 +700,10 @@ SECTIONS
 		*(.patch_GetCustomMessageTextOne)
 	}
 
+	.patch_ActorDrawCall 0x2D6310 : {
+		*(.patch_ActorDrawCall)
+	}
+
 	.patch_CamUpdate 0x2D84C8 : {
 	    * (.patch_CamUpdate)
 	}

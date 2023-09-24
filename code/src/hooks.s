@@ -1746,9 +1746,11 @@ hook_CollisionATvsAC:
     push {r0-r12,lr}
     cpy r0,r1  @ AT collider
     cpy r1,r12 @ AC collider
-    bl RedIce_CheckIceArrow
+    bl Actor_CollisionATvsAC
+    cmp r0,#0x1
     pop {r0-r12,lr}
-    bx lr
+    bxeq lr
+    b 0x3192E4
 
 .global hook_CollisionCheck_SetAll_Once
 hook_CollisionCheck_SetAll_Once:
@@ -2080,6 +2082,13 @@ hook_RandomGsLoc_SkipSoilJingle:
     # If false
     ldrsh r0,[r0,#0x1C]
     bx lr
+
+.global hook_ActorDrawCall
+hook_ActorDrawCall:
+    push {r0-r12, lr}
+    pop {r0-r12, lr}
+    bxeq lr
+    bx r2
 
 @ ----------------------------------
 @ ----------------------------------

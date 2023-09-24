@@ -1,5 +1,8 @@
 #include "z3D/z3D.h"
 #include "common.h"
+#include "actor.h"
+#include "savefile.h"
+#include "enemy_souls.h"
 #include "owl.h"
 #include "item00.h"
 #include "heart_container.h"
@@ -55,6 +58,7 @@
 #include "bean_plant.h"
 #include "sheik.h"
 #include "skulltula_people.h"
+#include "red_ice.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -424,4 +428,27 @@ void HyperActors_Main(Actor* thisx, GlobalContext* globalCtx) {
             HyperActors_UpdateAgain(thisx);
         }
     }
+}
+
+void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
+    if (!EnemySouls_CheckSoulForActor(actor)) {
+        // temporary way to mark invulnerable enemies
+        static Vec3f vecEmpty;
+        u8 jitterAbs = globalCtx->gameplayFrames % 10;
+        s16 jitter   = (jitterAbs == 0 ? 1 : -1) * jitterAbs;
+        EffectSsDeadDb_Spawn(globalCtx, &actor->world.pos, &vecEmpty, &vecEmpty, 100 + jitter, -1, 80, 80, 80, 0xFF, 20,
+                            20, 100, 1, 8, 0);
+    }
+
+    actor->draw(actor, globalCtx);
+}
+
+s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
+    RedIce_CheckIceArrow(at, ac);
+
+    if (ac->actor != 0 && !EnemySouls_CheckSoulForActor(ac->actor)) {
+        return 0; // ignore this collision
+    }
+
+    return 1; // continue as normal
 }

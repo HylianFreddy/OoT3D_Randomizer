@@ -573,7 +573,8 @@ typedef struct GlobalContext {
     /* 0x3A58 */ ObjectContext objectCtx;
     /* 0x43DC */ char unk_43DC[0x0854];
     /* 0x4C30 */ s8 roomNum;
-    /* 0x4C31 */ char unk_4C31[0x0FCF];
+    /* 0x4C31 */ char unk_4C31[0x0FCB];
+    /* 0x5BFC */ u32 gameplayFrames;
     /* 0x5C00 */ u8 linkAgeOnLoad;
     /* 0x5C01 */ u8 unk_5C01;
     /* 0x5C02 */ u8 curSpawn;
@@ -860,5 +861,12 @@ typedef void (*Animation_Change_proc)(SkelAnime* anime, s32 animation_index, f32
                                       f32 end_frame, f32 morph_frames, s32 mode) __attribute__((pcs("aapcs-vfp")));
 #define Animation_Change_addr 0x375C08
 #define Animation_Change ((Animation_Change_proc)Animation_Change_addr)
+
+typedef void (*EffectSsDeadDb_Spawn_proc)(GlobalContext* globalCtx, Vec3f* position, Vec3f* velocity,
+                                          Vec3f* acceleration, s16 scale, s16 scale_step, s16 prim_r, s16 prim_g,
+                                          s16 prim_b, s16 prim_a, s16 env_r, s16 env_g, s16 env_b, s16 unused,
+                                          s32 frame_duration, s16 play_sound);
+#define EffectSsDeadDb_Spawn_addr 0x3642F4
+#define EffectSsDeadDb_Spawn ((EffectSsDeadDb_Spawn_proc)EffectSsDeadDb_Spawn_addr)
 
 #endif //_Z3D_H_

@@ -2200,6 +2200,11 @@ RandomGsLoc_BlockSpawn_Soil_patch:
 RandomGsLoc_SkipSoilJingle_patch:
     bl hook_RandomGsLoc_SkipSoilJingle
 
+.section .patch_ActorDrawCall
+.global ActorDrawCall_patch
+ActorDrawCall_patch:
+    bl Actor_rDraw @hook_ActorDrawCall
+
 @ ----------------------------------
 @ ----------------------------------
 

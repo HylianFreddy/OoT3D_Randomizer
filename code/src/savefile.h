@@ -45,6 +45,7 @@ typedef enum {
 typedef struct {
     u32 version;            // Needs to always be the first field of the structure
     u8 extInf[EXTINF_SIZE]; // Used for various bit flags that should also be synced in multiplayer
+    u16 enemySoulsFlags[4]; // 64 bits (at least one for each EnemySoulId)
     struct {
         Vec3i pos;
         s32 yaw;

@@ -531,6 +531,12 @@ string_view chestMinigameDesc         = "The 5 key chests in the Treasure Chest 
                                         "If you choose the \"pack\" option, you will get\n"//
                                         "all the keys at once, in a single item.";         //
 /*------------------------------                                                           //
+|     SHUFFLE ENEMY SOULS      |                                                           //
+------------------------------*/                                                           //
+string_view enemySoulDesc             = "Enemies will be invincible until you find their\n"//
+                                        "\"soul\". Each enemy type will have a soul added\n"
+                                        "into the item pool.";                             //
+/*------------------------------                                                           //
 |      MAPS AND COMPASSES      |                                                           //
 ------------------------------*/                                                           //
 string_view mapCompassStartWith       = "Maps and Compasses are given to you from the\n"   //
