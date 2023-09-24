@@ -69,7 +69,7 @@ void AreaTable_Init_GanonsCastle() {
             },
             {
                 // Locations
-                LocationAccess(GANONS_CASTLE_FOREST_TRIAL_CHEST, { [] { return CanAdultDamage || CanChildDamage; } }),
+                LocationAccess(GANONS_CASTLE_FOREST_TRIAL_CHEST, { [] { return SoulWolfos && (CanAdultDamage || CanChildDamage); } }),
             },
             {});
 
@@ -90,7 +90,7 @@ void AreaTable_Init_GanonsCastle() {
                 EventAccess(&BlueFireAccess, { [] { return BlueFireAccess || HasBottle; } }),
                 EventAccess(&FairyPot, { [] { return FairyPot || BlueFire; } }),
                 EventAccess(&WaterTrialClear,
-                            { [] { return BlueFire && IsAdult && CanUse(MEGATON_HAMMER) && CanUse(LIGHT_ARROWS); } }),
+                            { [] { return SoulFreezard && BlueFire && IsAdult && CanUse(MEGATON_HAMMER) && CanUse(LIGHT_ARROWS); } }),
             },
             {
                 // Locations
@@ -107,7 +107,7 @@ void AreaTable_Init_GanonsCastle() {
                          return CanUse(LIGHT_ARROWS) && CanUse(MEGATON_HAMMER) &&
                                 ((FireArrows && (LogicLensCastle || CanUse(LENS_OF_TRUTH))) ||
                                  (CanUse(LONGSHOT) &&
-                                  (CanUse(HOVER_BOOTS) || (DinsFire && (LogicLensCastle || CanUse(LENS_OF_TRUTH))))));
+                                  ((SoulLikeLike && CanUse(HOVER_BOOTS)) || (DinsFire && (LogicLensCastle || CanUse(LENS_OF_TRUTH))))));
                      } }),
                  },
                  {
@@ -118,7 +118,7 @@ void AreaTable_Init_GanonsCastle() {
                                     } }),
                      LocationAccess(GANONS_CASTLE_SHADOW_TRIAL_GOLDEN_GAUNTLETS_CHEST, { [] {
                                         return CanUse(FIRE_ARROWS) ||
-                                               (CanUse(LONGSHOT) && (CanUse(HOVER_BOOTS) || CanUse(DINS_FIRE)));
+                                               (CanUse(LONGSHOT) && ((SoulLikeLike && CanUse(HOVER_BOOTS)) || CanUse(DINS_FIRE)));
                                     } }),
                  },
                  {});
@@ -165,7 +165,7 @@ void AreaTable_Init_GanonsCastle() {
                      LocationAccess(GANONS_CASTLE_LIGHT_TRIAL_SECOND_RIGHT_CHEST, { [] { return true; } }),
                      LocationAccess(GANONS_CASTLE_LIGHT_TRIAL_THIRD_RIGHT_CHEST, { [] { return true; } }),
                      LocationAccess(GANONS_CASTLE_LIGHT_TRIAL_INVISIBLE_ENEMIES_CHEST,
-                                    { [] { return LogicLensCastle || CanUse(LENS_OF_TRUTH); } }),
+                                    { [] { return SoulSkulltula && SoulKeese && (LogicLensCastle || CanUse(LENS_OF_TRUTH)); } }),
                      LocationAccess(GANONS_CASTLE_LIGHT_TRIAL_LULLABY_CHEST,
                                     { [] { return CanPlay(ZeldasLullaby) && SmallKeys(GANONS_CASTLE, 1); } }),
                  },
@@ -177,13 +177,14 @@ void AreaTable_Init_GanonsCastle() {
         {
             // Locations
             LocationAccess(GANONS_TOWER_BOSS_KEY_CHEST,
-                           { [] { return CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD); } }),
+                           { [] { return SoulLizalfosDinolfos && SoulStalfos && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD)); } }),
             LocationAccess(GANONDORF_HINT, { [] {
-                               return BossKeyGanonsCastle &&
+                               return SoulLizalfosDinolfos && SoulStalfos && SoulGerudo && BossKeyGanonsCastle &&
                                       (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD));
                            } }),
             LocationAccess(GANON, { [] {
-                               return BossKeyGanonsCastle && CanUse(LIGHT_ARROWS) && CanUse(MASTER_SWORD) && Hearts > 0;
+                               return SoulLizalfosDinolfos && SoulStalfos && SoulGerudo && SoulGanon && BossKeyGanonsCastle &&
+                                      CanUse(LIGHT_ARROWS) && CanUse(MASTER_SWORD) && Hearts > 0;
                            } }),
         },
         {});

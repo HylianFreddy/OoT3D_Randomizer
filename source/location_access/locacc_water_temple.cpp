@@ -181,15 +181,15 @@ void AreaTable_Init_WaterTemple() {
                  {
                      // Locations
                      LocationAccess(WATER_TEMPLE_MAP_CHEST, { [] {
-                                        return (MagicMeter && CanUse(KOKIRI_SWORD)) || CanUse(MASTER_SWORD) ||
-                                               CanUse(BIGGORON_SWORD) || CanUse(HOOKSHOT);
+                                        return SoulSpike && ((MagicMeter && CanUse(KOKIRI_SWORD)) || CanUse(MASTER_SWORD) ||
+                                               CanUse(BIGGORON_SWORD) || CanUse(HOOKSHOT));
                                     } }),
                  },
                  {
                      // Exits
                      Entrance(WATER_TEMPLE_EAST_LOWER, { [] {
-                                  return (MagicMeter && CanUse(KOKIRI_SWORD)) || CanUse(MASTER_SWORD) ||
-                                         CanUse(BIGGORON_SWORD) || CanUse(HOOKSHOT);
+                                  return SoulSpike && ((MagicMeter && CanUse(KOKIRI_SWORD)) || CanUse(MASTER_SWORD) ||
+                                         CanUse(BIGGORON_SWORD) || CanUse(HOOKSHOT));
                               } }),
                  });
 
@@ -212,15 +212,15 @@ void AreaTable_Init_WaterTemple() {
                  {
                      // Locations
                      LocationAccess(WATER_TEMPLE_TORCHES_CHEST, { [] {
-                                        return (MagicMeter && CanUse(KOKIRI_SWORD)) || CanUse(MASTER_SWORD) ||
-                                               CanUse(BIGGORON_SWORD) || CanUse(HOOKSHOT);
+                                        return SoulShellBlade && ((MagicMeter && CanUse(KOKIRI_SWORD)) || CanUse(MASTER_SWORD) ||
+                                               CanUse(BIGGORON_SWORD) || CanUse(HOOKSHOT));
                                     } }),
                  },
                  {
                      // Exits
                      Entrance(WATER_TEMPLE_EAST_LOWER, { [] {
-                                  return (MagicMeter && CanUse(KOKIRI_SWORD)) || CanUse(MASTER_SWORD) ||
-                                         CanUse(BIGGORON_SWORD) || CanUse(HOOKSHOT);
+                                  return SoulShellBlade && ((MagicMeter && CanUse(KOKIRI_SWORD)) || CanUse(MASTER_SWORD) ||
+                                         CanUse(BIGGORON_SWORD) || CanUse(HOOKSHOT));
                               } }),
                  });
 
@@ -431,7 +431,7 @@ void AreaTable_Init_WaterTemple() {
             {
                 // Locations
                 LocationAccess(WATER_TEMPLE_CENTRAL_PILLAR_CHEST,
-                               { [] { return CanUse(HOOKSHOT) && CanUse(IRON_BOOTS) && WaterTimer >= 40; } }),
+                               { [] { return SoulSpike && SoulShellBlade && CanUse(HOOKSHOT) && CanUse(IRON_BOOTS) && WaterTimer >= 40; } }),
             },
             {
                 // Exits
@@ -525,11 +525,11 @@ void AreaTable_Init_WaterTemple() {
                  {
                      // Exits
                      Entrance(WATER_TEMPLE_DRAGON_PILLARS_ROOM, { [] {
-                                  return (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD)) &&
+                                  return SoulDarkLink && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD)) &&
                                          Hearts > 0;
                               } }),
                      Entrance(WATER_TEMPLE_LONGSHOT_ROOM, { [] {
-                                  return (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD)) &&
+                                  return SoulDarkLink && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD)) &&
                                          Hearts > 0;
                               } }),
                  });
@@ -702,7 +702,7 @@ void AreaTable_Init_WaterTemple() {
             // Events
             EventAccess(&WaterTempleClear, { [] {
                 return WaterTempleClear ||
-                       (CanUse(HOOKSHOT) && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD)));
+                       (SoulMorpha && CanUse(HOOKSHOT) && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD)));
             } }),
         },
         {

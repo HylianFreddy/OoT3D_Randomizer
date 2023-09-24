@@ -33,10 +33,10 @@ void AreaTable_Init_GerudoTrainingGrounds() {
                 LocationAccess(GERUDO_TRAINING_GROUNDS_LOBBY_RIGHT_CHEST,
                                { [] { return CanUse(BOW) || CanUse(SLINGSHOT); } }),
                 LocationAccess(GERUDO_TRAINING_GROUNDS_STALFOS_CHEST, { [] {
-                                   return CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD);
+                                   return SoulStalfos && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD));
                                } }),
                 LocationAccess(GERUDO_TRAINING_GROUNDS_BEAMOS_CHEST, { [] {
-                                   return HasExplosives &&
+                                   return SoulBeamos && SoulLizalfosDinolfos && HasExplosives &&
                                           (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD));
                                } }),
             },
@@ -44,11 +44,11 @@ void AreaTable_Init_GerudoTrainingGrounds() {
                 // Exits
                 Entrance(GERUDO_TRAINING_GROUNDS_ENTRYWAY, { [] { return true; } }),
                 Entrance(GERUDO_TRAINING_GROUNDS_HEAVY_BLOCK_ROOM, { [] {
-                             return (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD)) &&
+                             return SoulStalfos && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD)) &&
                                     (CanUse(HOOKSHOT) || LogicGtgWithoutHookshot);
                          } }),
                 Entrance(GERUDO_TRAINING_GROUNDS_LAVA_ROOM, { [] {
-                             return Here(GERUDO_TRAINING_GROUNDS_LOBBY, [] {
+                             return SoulBeamos && SoulLizalfosDinolfos && Here(GERUDO_TRAINING_GROUNDS_LOBBY, [] {
                                  return (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD)) &&
                                         HasExplosives;
                              });
@@ -131,8 +131,8 @@ void AreaTable_Init_GerudoTrainingGrounds() {
                  {
                      // Locations
                      LocationAccess(GERUDO_TRAINING_GROUNDS_HAMMER_ROOM_CLEAR_CHEST, { [] {
-                                        return CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                               CanUse(MEGATON_HAMMER);
+                                        return SoulKeese && SoulTorchSlug && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
+                                               CanUse(MEGATON_HAMMER));
                                     } }),
                      LocationAccess(GERUDO_TRAINING_GROUNDS_HAMMER_ROOM_SWITCH_CHEST,
                                     { [] { return CanUse(MEGATON_HAMMER) || (CanTakeDamage && LogicFlamingChests); } }),
@@ -173,7 +173,7 @@ void AreaTable_Init_GerudoTrainingGrounds() {
                  NO_DAY_NIGHT_CYCLE, {},
                  {
                      // Locations
-                     LocationAccess(GERUDO_TRAINING_GROUNDS_BEFORE_HEAVY_BLOCK_CHEST, { [] { return CanJumpslash; } }),
+                     LocationAccess(GERUDO_TRAINING_GROUNDS_BEFORE_HEAVY_BLOCK_CHEST, { [] { return SoulWolfos && CanJumpslash; } }),
                  },
                  {
                      // Exits
@@ -193,10 +193,10 @@ void AreaTable_Init_GerudoTrainingGrounds() {
                  NO_DAY_NIGHT_CYCLE, {},
                  {
                      // Locations
-                     LocationAccess(GERUDO_TRAINING_GROUNDS_HEAVY_BLOCK_FIRST_CHEST, { [] { return CanJumpslash; } }),
-                     LocationAccess(GERUDO_TRAINING_GROUNDS_HEAVY_BLOCK_SECOND_CHEST, { [] { return CanJumpslash; } }),
-                     LocationAccess(GERUDO_TRAINING_GROUNDS_HEAVY_BLOCK_THIRD_CHEST, { [] { return CanJumpslash; } }),
-                     LocationAccess(GERUDO_TRAINING_GROUNDS_HEAVY_BLOCK_FOURTH_CHEST, { [] { return CanJumpslash; } }),
+                     LocationAccess(GERUDO_TRAINING_GROUNDS_HEAVY_BLOCK_FIRST_CHEST, { [] { return SoulLikeLike && CanJumpslash; } }),
+                     LocationAccess(GERUDO_TRAINING_GROUNDS_HEAVY_BLOCK_SECOND_CHEST, { [] { return SoulLikeLike && CanJumpslash; } }),
+                     LocationAccess(GERUDO_TRAINING_GROUNDS_HEAVY_BLOCK_THIRD_CHEST, { [] { return SoulLikeLike && CanJumpslash; } }),
+                     LocationAccess(GERUDO_TRAINING_GROUNDS_HEAVY_BLOCK_FOURTH_CHEST, { [] { return SoulLikeLike && CanJumpslash; } }),
                  },
                  {});
     }

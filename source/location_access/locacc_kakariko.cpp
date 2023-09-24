@@ -320,9 +320,9 @@ void AreaTable_Init_Kakariko() {
                                         {
                                             // Locations
                                             LocationAccess(KAK_REDEAD_GROTTO_CHEST, { [] {
-                                                               return CanUse(STICKS) || CanUse(KOKIRI_SWORD) ||
+                                                               return SoulRedeadGibdo && (CanUse(STICKS) || CanUse(KOKIRI_SWORD) ||
                                                                       CanUse(DINS_FIRE) || CanUse(MEGATON_HAMMER) ||
-                                                                      CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD);
+                                                                      CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD));
                                                            } }),
                                         },
                                         {
@@ -443,7 +443,7 @@ void AreaTable_Init_Kakariko() {
                        /*Glitched*/
                        [] { return CanUse(STICKS) && CanDoGlitch(GlitchType::QPA, GlitchDifficulty::INTERMEDIATE); } }),
                  LocationAccess(SONG_FROM_COMPOSERS_GRAVE,
-                                { [] { return CanUseProjectile || CanJumpslash || CanUse(MEGATON_HAMMER); } }),
+                                { [] { return SoulKeese && (CanUseProjectile || CanJumpslash || CanUse(MEGATON_HAMMER)); } }),
              },
              {
                  // Exits

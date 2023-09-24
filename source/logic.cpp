@@ -204,6 +204,56 @@ u8 PieceOfHeart    = 0;
 u8 HeartContainer  = 0;
 bool DoubleDefense = false;
 
+bool SoulPoe               = false;
+bool SoulOctorok           = false;
+bool SoulWallmaster        = false;
+bool SoulKeese             = false;
+bool SoulTektite           = false;
+bool SoulLeever            = false;
+bool SoulPeahat            = false;
+bool SoulLizalfosDinolfos  = false;
+bool SoulShabom            = false;
+bool SoulBiriBari          = false;
+bool SoulTailpasaran       = false;
+bool SoulSkulltula         = false;
+bool SoulTorchSlug         = false;
+bool SoulStinger           = false;
+bool SoulMoblin            = false;
+bool SoulArmos             = false;
+bool SoulDekuBaba          = false;
+bool SoulBubble            = false;
+bool SoulFlyingPot         = false;
+bool SoulFlyingFloorTile   = false;
+bool SoulBeamos            = false;
+bool SoulFloormaster       = false;
+bool SoulRedeadGibdo       = false;
+bool SoulShellBlade        = false;
+bool SoulLikeLike          = false;
+bool SoulParasiticTentacle = false;
+bool SoulAnubis            = false;
+bool SoulSpike             = false;
+bool SoulSkullKid          = false;
+bool SoulFreezard          = false;
+bool SoulDekuScrub         = false;
+bool SoulWolfos            = false;
+bool SoulStalchild         = false;
+bool SoulGuay              = false;
+bool SoulDoorMimic         = false;
+bool SoulStalfos           = false;
+bool SoulDarkLink          = false;
+bool SoulFlareDancer       = false;
+bool SoulDeadHand          = false;
+bool SoulGerudo            = false;
+bool SoulGohma             = false;
+bool SoulDodongo           = false;
+bool SoulBarinade          = false;
+bool SoulPhantomGanon      = false;
+bool SoulVolvagia          = false;
+bool SoulMorpha            = false;
+bool SoulBongoBongo        = false;
+bool SoulTwinrova          = false;
+bool SoulGanon             = false;
+
 /* --- HELPERS, EVENTS, AND LOCATION ACCESS --- */
 /* These are used to simplify reading the logic, but need to be updated
 /  every time a base value is updated.                       */
@@ -780,13 +830,13 @@ void UpdateHelpers() {
     HasFireSourceWithTorch = HasFireSource || CanUse(STICKS);
 
     // Gerudo Fortress
-    CanFinishGerudoFortress =
-        (GerudoFortress.Is(GERUDOFORTRESS_NORMAL) && GerudoFortressKeys >= 4 &&
+    CanFinishGerudoFortress = SoulGerudo &&
+        ((GerudoFortress.Is(GERUDOFORTRESS_NORMAL) && GerudoFortressKeys >= 4 &&
          (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD)) &&
          (GerudoToken || CanUse(BOW) || CanUse(HOOKSHOT) || CanUse(HOVER_BOOTS) || LogicGerudoKitchen)) ||
         (GerudoFortress.Is(GERUDOFORTRESS_FAST) && GerudoFortressKeys >= 1 &&
          (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD))) ||
-        (GerudoFortress.IsNot(GERUDOFORTRESS_NORMAL) && GerudoFortress.IsNot(GERUDOFORTRESS_FAST));
+        (GerudoFortress.IsNot(GERUDOFORTRESS_NORMAL) && GerudoFortress.IsNot(GERUDOFORTRESS_FAST)));
 
     HasShield    = CanUse(HYLIAN_SHIELD) || CanUse(DEKU_SHIELD); // Mirror shield can't reflect attacks
     CanShield    = CanUse(MIRROR_SHIELD) || HasShield;
@@ -1109,6 +1159,56 @@ void LogicReset() {
     PieceOfHeart   = 0;
     HeartContainer = 0;
     DoubleDefense  = false;
+
+    SoulPoe               = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulOctorok           = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulWallmaster        = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulKeese             = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulTektite           = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulLeever            = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulPeahat            = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulLizalfosDinolfos  = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulShabom            = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulBiriBari          = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulTailpasaran       = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulSkulltula         = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulTorchSlug         = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulStinger           = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulMoblin            = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulArmos             = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulDekuBaba          = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulBubble            = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulFlyingPot         = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulFlyingFloorTile   = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulBeamos            = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulFloormaster       = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulRedeadGibdo       = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulShellBlade        = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulLikeLike          = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulParasiticTentacle = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulAnubis            = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulSpike             = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulSkullKid          = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulFreezard          = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulDekuScrub         = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulWolfos            = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulStalchild         = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulGuay              = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulDoorMimic         = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulStalfos           = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulDarkLink          = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulFlareDancer       = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulDeadHand          = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulGerudo            = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulGohma             = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulDodongo           = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulBarinade          = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulPhantomGanon      = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulVolvagia          = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulMorpha            = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulBongoBongo        = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulTwinrova          = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulGanon             = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
 
     /* --- HELPERS, EVENTS, AND LOCATION ACCESS --- */
     /* These are used to simplify reading the logic, but need to be updated

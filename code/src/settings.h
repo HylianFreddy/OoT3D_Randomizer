@@ -191,6 +191,11 @@ typedef enum {
 } ShuffleChestMinigameSetting;
 
 typedef enum {
+    SHUFFLEENEMYSOULS_OFF,
+    SHUFFLEENEMYSOULS_ALL,
+} ShuffleEnemySoulsSetting;
+
+typedef enum {
     MAPSANDCOMPASSES_START_WITH,
     MAPSANDCOMPASSES_VANILLA,
     MAPSANDCOMPASSES_OWN_DUNGEON,
