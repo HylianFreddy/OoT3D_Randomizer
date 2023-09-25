@@ -16,6 +16,7 @@
 #include "input.h"
 #include "multiplayer.h"
 #include "dungeon.h"
+#include "enemy_souls.h"
 
 u32 pressed;
 bool handledInput;
@@ -24,6 +25,7 @@ static u8 GfxInit        = 0;
 static u32 closingButton = 0;
 static u8 currentSphere  = 0;
 static s16 spoilerScroll = 0;
+static s16 soulsScroll   = 0;
 
 static s16 allItemsScroll   = 0;
 static s16 groupItemsScroll = 0;
@@ -153,6 +155,7 @@ static char* spoilerEntranceGroupNames[] = {
 typedef enum {
     PAGE_SEEDHASH,
     PAGE_DUNGEONITEMS,
+    PAGE_ENEMYSOULS,
     PAGE_SPHERES,
     PAGE_ITEMTRACKER_ALL,
     PAGE_ITEMTRACKER_GROUPS,
@@ -290,6 +293,10 @@ static void Gfx_DrawButtonPrompts(void) {
         Draw_DrawIcon(offsetX, promptY, COLOR_BUTTON_A, ICON_BUTTON_A);
         offsetX += buttonSpacing;
         Draw_DrawString(offsetX, textY, COLOR_TITLE, "Toggle Legend");
+    } else if (curMenuIdx == PAGE_ENEMYSOULS) {
+        Draw_DrawIcon(offsetX, promptY, COLOR_WHITE, ICON_BUTTON_DPAD);
+        offsetX += buttonSpacing;
+        Draw_DrawString(offsetX, textY, COLOR_TITLE, "Scroll");
     } else if (curMenuIdx == PAGE_SPHERES) {
         Draw_DrawIcon(offsetX, promptY, COLOR_WHITE, ICON_BUTTON_DPAD);
         offsetX += buttonSpacing;
@@ -512,6 +519,74 @@ static void Gfx_DrawDungeonItems(void) {
         }
 
         yPos += spacingY;
+    }
+}
+
+static void Gfx_DrawEnemySouls(void) {
+    Draw_DrawString(10, 16, COLOR_TITLE, "Enemy Souls Obtained");
+
+    static char* soulsNames[] = {
+        "Poe (all)",
+        "Octorok, Big Octo",
+        "Wallmaster",
+        "Keese (all)",
+        "Tektite",
+        "Leever",
+        "Peahat",
+        "Lizalfos, Dinolfos",
+        "Shabom",
+        "Biri, Bari",
+        "Tailpasaran",
+        "Skulltula (all)",
+        "Torch Slug",
+        "Stinger",
+        "Moblin, Club Moblin",
+        "Armos",
+        "Deku Baba (all)",
+        "Bubble (all)",
+        "Flying Pot",
+        "Flying Floor Tile",
+        "Beamos",
+        "Floormaster",
+        "Redead, Gibdo",
+        "Shell Blade",
+        "Like Like",
+        "Parasitic Tentacle",
+        "Anubis",
+        "Spike",
+        "Skull Kid",
+        "Freezard",
+        "Deku Scrub (all)",
+        "Wolfos (all)",
+        "Stalchild",
+        "Guay",
+        "Door Mimic",
+        "Stalfos",
+        "Dark Link",
+        "Flare Dancer",
+        "Dead Hand",
+        "Gerudo (all + Iron Knuckles)",
+        "Gohma, Gohma Larva",
+        "Dodongo (all)",
+        "Barinade",
+        "Phantom Ganon",
+        "Volvagia",
+        "Morpha",
+        "Bongo Bongo",
+        "Twinrova",
+        "Ganondorf, Ganon",
+    };
+
+    u8 startIndex = soulsScroll <= 0 ? 0  : 32;
+    u8 endIndex   = soulsScroll <= 0 ? 32 : ARRAY_SIZE(soulsNames);
+
+    for (u8 i = startIndex; i < endIndex; i++) {
+        u16 posX = 10 + (((i % 32) / 16) * (SPACING_X * 30));
+        u16 posY = 30 + (SPACING_Y * (i % 16));
+
+        Draw_DrawRect(posX, posY, 9, 9, COLOR_WHITE);
+        Draw_DrawRect(posX + 1, posY + 1, 7, 7, EnemySouls_GetSoulFlag(i + 1) ? COLOR_GREEN : COLOR_BLACK);
+        Draw_DrawString(posX + SPACING_X * 2, posY, COLOR_WHITE, soulsNames[i]);
     }
 }
 
@@ -775,7 +850,10 @@ static void Gfx_DrawEntranceTracker(void) {
 
 static void (*menu_draw_funcs[])(void) = {
     // Make sure these line up with the GfxPage enum above
-    Gfx_DrawSeedHash,        Gfx_DrawDungeonItems, Gfx_DrawSpoilerData,
+    Gfx_DrawSeedHash,        //
+    Gfx_DrawDungeonItems,    //
+    Gfx_DrawEnemySouls,      //
+    Gfx_DrawSpoilerData,     //
     Gfx_DrawItemTracker,     // All
     Gfx_DrawItemTracker,     // Groups
     Gfx_DrawEntranceTracker, // All
@@ -839,6 +917,11 @@ static void Gfx_ShowMenu(void) {
         if (curMenuIdx == PAGE_DUNGEONITEMS) {
             if (pressed & BUTTON_A) {
                 showingLegend = !showingLegend;
+                handledInput  = true;
+            }
+        } else if (curMenuIdx == PAGE_ENEMYSOULS) {
+            if (pressed & (BUTTON_UP | CPAD_UP | BUTTON_DOWN | CPAD_DOWN)) {
+                soulsScroll   = (soulsScroll + 1) % 2;
                 handledInput  = true;
             }
         } else if (curMenuIdx == PAGE_SPHERES && gSpoilerData.SphereCount > 0) {
@@ -1119,6 +1202,9 @@ void Gfx_Init(void) {
     else if (gSettingsContext.menuOpeningButton == 5)
         closingButton = BUTTON_B | BUTTON_LEFT;
 
+    if (!gSettingsContext.shuffleEnemySouls) {
+        menu_draw_funcs[PAGE_ENEMYSOULS] = NULL;
+    }
     if (!gSettingsContext.ingameSpoilers) {
         menu_draw_funcs[PAGE_SPHERES] = NULL;
     }
