@@ -209,6 +209,10 @@ void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalC
             cmb    = (void*)(((char*)ZARBuf) + 0xA4);
             CustomModel_EditHeartContainerToDoubleDefense(cmb);
             break;
+        case OBJECT_CUSTOM_ENEMY_SOUL:
+            ZARBuf = ExtendedObject_GetStatus(OBJECT_CUSTOM_ENEMY_SOUL)->zarInfo.buf;
+            CustomModel_EditShopFairyToEnemySoul(ZARBuf);
+            break;
     }
 
     item->model = SkeletonAnimationModel_Spawn(&item->actor, globalCtx, objectId, objModelIdx);

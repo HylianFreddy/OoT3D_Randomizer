@@ -12,8 +12,10 @@ The following custom objectIds are currently being used:
 126: GTG Small Key
 127: Ganon Small Key
 128: Boss Keys
+228: Enemy Souls
 
 The following custom graphicIds are currently being used:
+3: Enemy Souls
 4: Double Defense
 5: Child Songs
 6: Adult Songs

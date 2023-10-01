@@ -66,6 +66,7 @@
 #define OBJECT_GI_HEARTS 189
 #define OBJECT_GI_OCARINA 222
 #define OBJECT_GI_OCARINA_0 270
+#define OBJECT_GI_SHOP_FAIRY 375
 
 typedef void (*TitleCard_Update_proc)(GlobalContext* globalCtx, TitleCardContext* titleCtx);
 #ifdef Version_EUR
@@ -262,6 +263,15 @@ void Actor_Init() {
 
     // Define object 128 to be by default the same as object 185
     strncpy(gObjectTable[OBJECT_CUSTOM_BOSS_KEYS].filename, gObjectTable[OBJECT_GI_BOSSKEY].filename, 0x40);
+
+    // Define object 228 to be by default the same as object 375
+    strncpy(gObjectTable[OBJECT_CUSTOM_ENEMY_SOUL].filename, gObjectTable[OBJECT_GI_SHOP_FAIRY].filename, 0x40);
+
+    // Define draw item 2 (corresponding to gid 3) to be the enemy soul custom model
+    gDrawItemTable[2].objectId        = OBJECT_CUSTOM_ENEMY_SOUL;
+    gDrawItemTable[2].objectModelIdx  = 0; // glass case model
+    gDrawItemTable[2].objectModelIdx2 = 1; // fairy orb model
+    gDrawItemTable[2].cmabIndex2      = 0; // fairy orb displacement
 
     // Define draw item 3 (corresponding to gid 4) to be double defense custom model
     gDrawItemTable[3].objectId       = OBJECT_CUSTOM_DOUBLE_DEFENSE;

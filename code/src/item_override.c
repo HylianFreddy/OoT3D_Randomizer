@@ -501,6 +501,7 @@ void ItemOverride_GetSkulltulaToken(Actor* tokenActor) {
 
 void ItemOverride_EditDrawGetItemBeforeModelSpawn(void) {
     void* cmb;
+    void* ZARBuf;
 
     switch (rActiveItemGraphicId) {
         case GID_CUSTOM_DOUBLE_DEFENSE:
@@ -522,6 +523,10 @@ void ItemOverride_EditDrawGetItemBeforeModelSpawn(void) {
         case GID_CUSTOM_BOSS_KEYS:
             cmb = (void*)(((char*)PLAYER->giDrawSpace) + 0x78);
             CustomModel_SetBossKeyToRGBA565(cmb);
+            break;
+        case GID_CUSTOM_ENEMY_SOUL:
+            ZARBuf = PLAYER->giDrawSpace;
+            CustomModel_EditShopFairyToEnemySoul(ZARBuf);
             break;
     }
 }

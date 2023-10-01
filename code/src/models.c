@@ -67,6 +67,9 @@ void Model_Init(Model* model, GlobalContext* globalCtx) {
             cmb = (void*)(((char*)ZARBuf) + 0xA4);
             CustomModel_EditHeartContainerToDoubleDefense(cmb);
             break;
+        case OBJECT_CUSTOM_ENEMY_SOUL:
+            CustomModel_EditShopFairyToEnemySoul(ZARBuf);
+            break;
     }
 
     model->saModel =

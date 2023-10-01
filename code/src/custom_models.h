@@ -8,6 +8,7 @@ void CustomModel_ApplyColorEditsToSmallKey(void* smallKeyCMB, s32 keyType);
 void CustomModel_EditTitleScreenLogo(void* titleScreenZAR);
 void CustomModel_SetOcarinaToRGBA565(void* fairyOcarinaCMB);
 void CustomModel_SetBossKeyToRGBA565(void* bossKeyCMB);
+void CustomModel_EditShopFairyToEnemySoul(void* ZARBuf);
 void CustomModel_Update(void);
 
 #define OBJECT_CUSTOM_DOUBLE_DEFENSE 4
@@ -24,7 +25,9 @@ void CustomModel_Update(void);
 #define OBJECT_CUSTOM_SMALL_KEY_GANON 127
 #define OBJECT_CUSTOM_BOSS_KEYS 128
 #define OBJECT_CUSTOM_GENERAL_ASSETS 182
+#define OBJECT_CUSTOM_ENEMY_SOUL 228
 
+#define GID_CUSTOM_ENEMY_SOUL 3
 #define GID_CUSTOM_DOUBLE_DEFENSE 4
 #define GID_CUSTOM_CHILD_SONGS 5
 #define GID_CUSTOM_ADULT_SONGS 6
