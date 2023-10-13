@@ -656,6 +656,22 @@ typedef struct TargetContext {
     // ... size unknown
 } TargetContext;
 
+typedef struct SubMainClass_180 {
+    /* 0x000 */ char unk_00[0x8];
+    /* 0x008 */ s32 saModelsCount1;
+    /* 0x00C */ s32 saModelsCount2;
+    /* 0x010 */ char unk_10[0x10];
+    /* 0x020 */ struct {SkeletonAnimationModel* saModel; u32 unk;}* saModelsList1;
+    /* 0x024 */ struct {SkeletonAnimationModel* saModel; u32 unk;}* saModelsList2;
+    /* ... size unknown*/
+} SubMainClass_180;
+
+typedef struct MainClass {
+    /* 0x000 */ char unk_00[0x180];
+    /* 0x180 */ SubMainClass_180 sub180;
+    /* ... size unknown*/
+} MainClass;
+
 extern GlobalContext* gGlobalContext;
 extern const u32 ItemSlots[];
 extern const char DungeonNames[][25];
@@ -673,6 +689,7 @@ extern const char DungeonNames[][25];
 #define gDrawItemTable ((DrawItemTableEntry*)0x4D88C8)
 #define gRestrictionFlags ((RestrictionFlags*)0x539DC4)
 #define PLAYER ((Player*)gGlobalContext->actorCtx.actorList[ACTORTYPE_PLAYER].first)
+#define gMainClass ((MainClass*)0x5BE5B8)
 
 #define GearSlot(X) (X - ITEM_SWORD_KOKIRI)
 

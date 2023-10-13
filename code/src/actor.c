@@ -457,16 +457,33 @@ void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
 }
 
 void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
-    if (!EnemySouls_CheckSoulForActor(actor)) {
-        // temporary way to mark invulnerable enemies
-        static Vec3f vecEmpty;
-        u8 jitterAbs = globalCtx->gameplayFrames % 10;
-        s16 jitter   = (jitterAbs == 0 ? 1 : -1) * jitterAbs;
-        EffectSsDeadDb_Spawn(globalCtx, &actor->world.pos, &vecEmpty, &vecEmpty, 100 + jitter, -1, 80, 80, 80, 0xFF, 20,
+    static Vec3f vecAcc = {0};
+    static Vec3f vecVel = {0};
+
+    // As a temporary way to mark invulnerable enemies whose soul has not been collected yet,
+    // the model will not be rendered and a flame will take its place.
+    s32 missingEnemySoul = !EnemySouls_CheckSoulForActor(actor);
+    if (missingEnemySoul && actor->scale.x != 0) {
+        s32 velFrameIdx = (globalCtx->gameplayFrames % 16);
+        s32 accFrameIdx = (globalCtx->gameplayFrames % 4);
+        s32 bossMult = (actor->type == ACTORTYPE_BOSS ? 4 : 1);
+        vecAcc.y = 0.12f * accFrameIdx * bossMult;
+        vecVel.x = 0.5f * Math_SinS(0x1000 * velFrameIdx) * bossMult;
+        vecVel.z = 0.5f * Math_CosS(0x1000 * velFrameIdx) * bossMult;
+        s16 scale = 150 * bossMult;
+        EffectSsDeadDb_Spawn(globalCtx, &actor->focus.pos, &vecVel, &vecAcc, scale, -1, 80, 80, 80, 0xFF, 20,
                             20, 100, 1, 8, 0);
     }
 
+    s32 origSaModelsCount1 = gMainClass->sub180.saModelsCount1;
+    s32 origSaModelsCount2 = gMainClass->sub180.saModelsCount2;
+
     actor->draw(actor, globalCtx);
+
+    if (missingEnemySoul) { // make enemy invisible
+        gMainClass->sub180.saModelsCount1 = origSaModelsCount1; // 3D models
+        gMainClass->sub180.saModelsCount2 = origSaModelsCount2; // 2D billboards
+    }
 }
 
 s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
