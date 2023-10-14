@@ -94,7 +94,8 @@ void EnemySouls_SetSoulFlag(EnemySoulId soulId) {
 }
 
 u8 EnemySouls_CheckSoulForActor(Actor* actor) {
-    if (gSettingsContext.shuffleEnemySouls == OFF) {
+    if ((gSettingsContext.shuffleEnemySouls == OFF) ||
+        (actor->id == 0x054 && actor->params == 0)) { // Armos statue
         return TRUE;
     }
     if (EnemySouls_DebugToggle == ENEMYSOULSDEBUGTOGGLE_HAVE) {

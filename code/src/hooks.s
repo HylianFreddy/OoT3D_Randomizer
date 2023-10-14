@@ -2095,10 +2095,10 @@ hook_FlyingPotCollision:
     strh r0,[r4,#0xBE]
     push {r0-r12, lr}
     cpy r0,r4 @ Actor
-    bl EnemySouls_CheckSoulForActor
+    bl FlyingTraps_Pot_OnImpact
     cmp r0,#0x1
     pop {r0-r12, lr}
-    bne 0x11DEE4 @ Skip collision checks
+    bne 0x11DEE4 @ Skip collision checks and return
     bx lr
 
 .global hook_FlyingTileCollision
@@ -2106,11 +2106,10 @@ hook_FlyingTileCollision:
     cpy r0,r5
     push {r0-r12, lr}
     cpy r0,r4 @ Actor
-    bl EnemySouls_CheckSoulForActor
+    bl FlyingTraps_Tile_OnImpact
     cmp r0,#0x1
     pop {r0-r12, lr}
-    bxeq lr
-    add lr,lr,#0x8 @ Skip setting actionFunc
+    addne lr,lr,#0x8 @ Skip setting actionFunc
     bx lr
 
 @ ----------------------------------

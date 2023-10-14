@@ -462,8 +462,9 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
 
     // As a temporary way to mark invulnerable enemies whose soul has not been collected yet,
     // the model will not be rendered and a flame will take its place.
-    s32 missingEnemySoul = !EnemySouls_CheckSoulForActor(actor);
-    if (missingEnemySoul && actor->scale.x != 0) {
+    s32 shouldDrawSoulless = !EnemySouls_CheckSoulForActor(actor) && actor->scale.x != 0 &&
+                                actor->id != 0x11D && actor->id != 0x06B; // flying traps
+    if (shouldDrawSoulless) {
         s32 velFrameIdx = (globalCtx->gameplayFrames % 16);
         s32 accFrameIdx = (globalCtx->gameplayFrames % 4);
         s32 bossMult = (actor->type == ACTORTYPE_BOSS ? 4 : 1);
@@ -480,7 +481,7 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
 
     actor->draw(actor, globalCtx);
 
-    if (missingEnemySoul) { // make enemy invisible
+    if (shouldDrawSoulless) { // make enemy invisible
         gMainClass->sub180.saModelsCount1 = origSaModelsCount1; // 3D models
         gMainClass->sub180.saModelsCount2 = origSaModelsCount2; // 2D billboards
     }
