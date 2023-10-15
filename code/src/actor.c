@@ -472,8 +472,8 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
         vecVel.x = 0.5f * Math_SinS(0x1000 * velFrameIdx) * bossMult;
         vecVel.z = 0.5f * Math_CosS(0x1000 * velFrameIdx) * bossMult;
         s16 scale = 150 * bossMult;
-        EffectSsDeadDb_Spawn(globalCtx, &actor->focus.pos, &vecVel, &vecAcc, scale, -1, 80, 80, 80, 0xFF, 20,
-                            20, 100, 1, 8, 0);
+        EffectSsDeadDb_Spawn(globalCtx, &actor->focus.pos, &vecVel, &vecAcc, scale, -1, 0x6E, 0x05, 0xFF, 0xFF, 0x28,
+                             0x00, 0xFF, 1, 8, 0);
     }
 
     s32 origSaModelsCount1 = gMainClass->sub180.saModelsCount1;
