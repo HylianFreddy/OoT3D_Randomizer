@@ -393,8 +393,10 @@ void ItemOverride_Update(void) {
     IceTrap_Update();
     CustomModel_Update();
     u8 readyStatus = ItemOverride_PlayerIsReady();
-    if (readyStatus) {
+    if (readyStatus == READY_ON_LAND) {
         ItemOverride_PopIceTrap();
+    }
+    if (readyStatus) {
         if (IceTrap_IsPending()) {
             IceTrap_Give();
         } else {
