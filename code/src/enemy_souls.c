@@ -14,7 +14,7 @@ static EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
         case 0x01B: return SOUL_TEKTITE;
         case 0x01C: return SOUL_LEEVER;
         case 0x01D: return SOUL_PEAHAT;
-        case 0x025: return SOUL_LIZALFOS_DINOLFOS;
+        case 0x025: return SOUL_LIZALFOS;
         case 0x02D: return SOUL_SHABOM;
         case 0x034: return SOUL_BIRI_BARI; // Biri
         case 0x063: return SOUL_BIRI_BARI; // Bari
@@ -30,13 +30,13 @@ static EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
         case 0x0C7: return SOUL_DEKU_BABA; // Withered
         case 0x069: return SOUL_BUBBLE;
         case 0x11D: return SOUL_FLYING_POT;
-        case 0x06B: return SOUL_FLYING_FLOOR_TILE;
+        case 0x06B: return SOUL_FLYING_TILE;
         case 0x08A: return SOUL_BEAMOS;
         case 0x08E: return SOUL_FLOORMASTER;
         case 0x090: return SOUL_REDEAD_GIBDO;
         case 0x0C5: return SOUL_SHELL_BLADE;
         case 0x0DD: return SOUL_LIKE_LIKE;
-        case 0x0DE: return SOUL_PARASITIC_TENTACLE;
+        case 0x0DE: return SOUL_TENTACLE;
         case 0x0E0: return SOUL_ANUBIS;
         case 0x0EC: return SOUL_SPIKE;
         case 0x115: return SOUL_SKULL_KID;

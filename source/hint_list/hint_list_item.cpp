@@ -2020,7 +2020,7 @@ void HintTable_Init_Item() {
                      }
     );
 
-    hintTable[ITEM_SOUL_LIZALFOS_DINOLFOS] = HintText::Item({
+    hintTable[ITEM_SOUL_LIZALFOS] = HintText::Item({
                        // obscure text
                        Text{"the Lizalfos and Dinolfos Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Lizalfos e Dinolfos", /*german*/""},
                      }, {
@@ -2128,7 +2128,7 @@ void HintTable_Init_Item() {
                      }
     );
 
-    hintTable[ITEM_SOUL_FLYING_FLOOR_TILE] = HintText::Item({
+    hintTable[ITEM_SOUL_FLYING_TILE] = HintText::Item({
                        // obscure text
                        Text{"the Flying Floor Tile Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Piastrella volante", /*german*/""},
                      }, {
@@ -2182,7 +2182,7 @@ void HintTable_Init_Item() {
                      }
     );
 
-    hintTable[ITEM_SOUL_PARASITIC_TENTACLE] = HintText::Item({
+    hintTable[ITEM_SOUL_TENTACLE] = HintText::Item({
                        // obscure text
                        Text{"the Parasitic Tentacle Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Tentacolo", /*german*/""},
                      }, {

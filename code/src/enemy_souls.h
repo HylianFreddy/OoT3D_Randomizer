@@ -12,7 +12,7 @@ typedef enum EnemySoulId {
     SOUL_TEKTITE,
     SOUL_LEEVER,
     SOUL_PEAHAT,
-    SOUL_LIZALFOS_DINOLFOS,
+    SOUL_LIZALFOS,
     SOUL_SHABOM,
     SOUL_BIRI_BARI,
     SOUL_TAILPASARAN,
@@ -24,13 +24,13 @@ typedef enum EnemySoulId {
     SOUL_DEKU_BABA,
     SOUL_BUBBLE,
     SOUL_FLYING_POT,        // remove?
-    SOUL_FLYING_FLOOR_TILE, // remove?
+    SOUL_FLYING_TILE, // remove?
     SOUL_BEAMOS,
     SOUL_FLOORMASTER,
     SOUL_REDEAD_GIBDO,
     SOUL_SHELL_BLADE,
     SOUL_LIKE_LIKE,
-    SOUL_PARASITIC_TENTACLE, // merge with barinade?
+    SOUL_TENTACLE, // merge with barinade?
     SOUL_ANUBIS,
     SOUL_SPIKE,
     SOUL_SKULL_KID, // not a monster?
