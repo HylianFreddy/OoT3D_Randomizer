@@ -20,7 +20,6 @@ typedef struct {
                                          TexAnim frame for songs
                                          key ID for small keys */
     u8 chestType;
-    s16 graphicId;
 
     upgradeFunc upgrade;
 

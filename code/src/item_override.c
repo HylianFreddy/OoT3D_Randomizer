@@ -24,12 +24,12 @@ static ItemOverride rPendingOverrideQueue[3] = { 0 };
 static Actor* rDummyActor                    = NULL;
 
 static ItemOverride rActiveItemOverride = { 0 };
+DrawItemTableEntry rActiveDrawItem      = { 0 };
 ItemRow* rActiveItemRow                 = NULL;
 // Split active_item_row into variables for convenience in ASM
 u32 rActiveItemActionId  = 0;
 u32 rActiveItemTextId    = 0;
 u32 rActiveItemObjectId  = 0;
-u32 rActiveItemGraphicId = 0;
 u32 rActiveItemChestType = 0;
 
 static u8 rSatisfiedPendingFrames      = 0;
@@ -189,7 +189,7 @@ static void ItemOverride_Activate(ItemOverride override) {
     ItemRow* itemRow   = ItemTable_GetItemRow(resolvedItemId);
     u8 looksLikeItemId = override.value.looksLikeItemId;
 
-    if (override.value.itemId == 0x7C) { // Ice trap
+    if (override.value.itemId == GI_ICE_TRAP) {
         looksLikeItemId = 0;
     }
 
@@ -197,18 +197,26 @@ static void ItemOverride_Activate(ItemOverride override) {
     rActiveItemRow       = itemRow;
     rActiveItemActionId  = itemRow->actionId;
     rActiveItemTextId    = itemRow->textId;
-    rActiveItemObjectId  = itemRow->objectId;
-    rActiveItemGraphicId = looksLikeItemId ? ItemTable_GetItemRow(looksLikeItemId)->graphicId : itemRow->graphicId;
     rActiveItemChestType = itemRow->chestType;
+
+    ItemRow* drawItemRow = looksLikeItemId ? ItemTable_GetItemRow(looksLikeItemId) : itemRow;
+    rActiveDrawItem = (DrawItemTableEntry){
+        .objectId        = drawItemRow->objectId,
+        .objectModelIdx  = drawItemRow->objectModelIdx,
+        .cmabIndex       = drawItemRow->cmabIndex,
+        .objectModelIdx2 = drawItemRow->objectModelIdx2,
+        .cmabIndex2      = drawItemRow->cmabIndex2,
+    };
+    rActiveItemObjectId = rActiveDrawItem.objectId;
 }
 
 static void ItemOverride_Clear(void) {
     rActiveItemOverride  = (ItemOverride){ 0 };
+    rActiveDrawItem      = (DrawItemTableEntry){ 0 };
     rActiveItemRow       = NULL;
     rActiveItemActionId  = 0;
     rActiveItemTextId    = 0;
     rActiveItemObjectId  = 0;
-    rActiveItemGraphicId = 0;
     rActiveItemChestType = 0;
 }
 
@@ -501,27 +509,45 @@ void ItemOverride_GetSkulltulaToken(Actor* tokenActor) {
     }
 }
 
+static s32 ItemOverride_IsDrawItemVanilla(void) {
+    return rActiveItemRow == NULL ||         // No item override
+           PLAYER->itemActionParam > 0x2B || // Using trade item
+           PauseContext_GetState() != 0;     // On pause screen
+}
+
 void ItemOverride_EditDrawGetItemBeforeModelSpawn(void) {
     void* cmb;
 
-    switch (rActiveItemGraphicId) {
-        case GID_CUSTOM_DOUBLE_DEFENSE:
+    if (ItemOverride_IsDrawItemVanilla()) {
+        return;
+    }
+
+    switch (rActiveItemObjectId) {
+        case OBJECT_CUSTOM_DOUBLE_DEFENSE:
             cmb = (void*)(((char*)PLAYER->giDrawSpace) + 0xA4);
             CustomModel_EditHeartContainerToDoubleDefense(cmb);
             break;
-        case GID_CUSTOM_CHILD_SONGS:
+        case OBJECT_CUSTOM_CHILD_SONGS:
             cmb = (void*)(((char*)PLAYER->giDrawSpace) + 0x2E60);
             CustomModel_SetOcarinaToRGBA565(cmb);
             break;
-        case GID_CUSTOM_ADULT_SONGS:
+        case OBJECT_CUSTOM_ADULT_SONGS:
             cmb = (void*)(((char*)PLAYER->giDrawSpace) + 0xE8);
             CustomModel_SetOcarinaToRGBA565(cmb);
             break;
-        case GID_CUSTOM_SMALL_KEYS:
+        case OBJECT_CUSTOM_SMALL_KEY_FOREST:
+        case OBJECT_CUSTOM_SMALL_KEY_FIRE:
+        case OBJECT_CUSTOM_SMALL_KEY_WATER:
+        case OBJECT_CUSTOM_SMALL_KEY_SHADOW:
+        case OBJECT_CUSTOM_SMALL_KEY_BOTW:
+        case OBJECT_CUSTOM_SMALL_KEY_SPIRIT:
+        case OBJECT_CUSTOM_SMALL_KEY_FORTRESS:
+        case OBJECT_CUSTOM_SMALL_KEY_GTG:
+        case OBJECT_CUSTOM_SMALL_KEY_GANON:
             cmb = (void*)(((char*)PLAYER->giDrawSpace) + 0x74);
             CustomModel_ApplyColorEditsToSmallKey(cmb, rActiveItemRow->special);
             break;
-        case GID_CUSTOM_BOSS_KEYS:
+        case OBJECT_CUSTOM_BOSS_KEYS:
             cmb = (void*)(((char*)PLAYER->giDrawSpace) + 0x78);
             CustomModel_SetBossKeyToRGBA565(cmb);
             break;
@@ -531,22 +557,26 @@ void ItemOverride_EditDrawGetItemBeforeModelSpawn(void) {
 void ItemOverride_EditDrawGetItemAfterModelSpawn(SkeletonAnimationModel* model) {
     void* cmabMan;
 
-    switch (rActiveItemGraphicId) {
-        case GID_CUSTOM_CHILD_SONGS:
+    if (ItemOverride_IsDrawItemVanilla()) {
+        return;
+    }
+
+    switch (rActiveItemObjectId) {
+        case OBJECT_CUSTOM_CHILD_SONGS:
             cmabMan = ExtendedObject_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_CHILD_SONG);
             TexAnim_Spawn(model->unk_0C, cmabMan);
             model->unk_0C->animSpeed = 0.0f;
             model->unk_0C->animMode  = 0;
             model->unk_0C->curFrame  = rActiveItemRow->special;
             break;
-        case GID_CUSTOM_ADULT_SONGS:
+        case OBJECT_CUSTOM_ADULT_SONGS:
             cmabMan = ExtendedObject_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_ADULT_SONG);
             TexAnim_Spawn(model->unk_0C, cmabMan);
             model->unk_0C->animSpeed = 0.0f;
             model->unk_0C->animMode  = 0;
             model->unk_0C->curFrame  = rActiveItemRow->special;
             break;
-        case GID_CUSTOM_BOSS_KEYS:
+        case OBJECT_CUSTOM_BOSS_KEYS:
             cmabMan = ExtendedObject_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_BOSS_KEY);
             TexAnim_Spawn(model->unk_0C, cmabMan);
             model->unk_0C->animSpeed = 0.0f;
@@ -598,4 +628,11 @@ void ItemOverride_CheckStartingItem() {
         }
         EventSet(0x00);
     }
+}
+
+DrawItemTableEntry* ItemOverride_GetDrawItem(DrawItemTableEntry* original) {
+    if (ItemOverride_IsDrawItemVanilla()) {
+        return original;
+    }
+    return &rActiveDrawItem;
 }
