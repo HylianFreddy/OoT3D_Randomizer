@@ -8,6 +8,7 @@ void CustomModel_ApplyColorEditsToSmallKey(void* smallKeyCMB, s32 keyType);
 void CustomModel_EditTitleScreenLogo(void* titleScreenZAR);
 void CustomModel_SetOcarinaToRGBA565(void* fairyOcarinaCMB);
 void CustomModel_SetBossKeyToRGBA565(void* bossKeyCMB);
+void CustomModel_SetSoldOutToRGBA565(void* soldOutCMB);
 void CustomModel_Update(void);
 
 #define OBJECT_CUSTOM_DOUBLE_DEFENSE 4
@@ -24,6 +25,7 @@ void CustomModel_Update(void);
 #define OBJECT_CUSTOM_SMALL_KEY_GANON 127
 #define OBJECT_CUSTOM_BOSS_KEYS 128
 #define OBJECT_CUSTOM_GENERAL_ASSETS 182
+#define OBJECT_CUSTOM_OCARINA_BUTTON 288
 
 typedef enum {
     TEXANIM_COPY_NINTENDO,
@@ -37,6 +39,7 @@ typedef enum {
     TEXANIM_KEY_CHEST,
     TEXANIM_HEART_CHEST,
     TEXANIM_SKULL_CHEST,
+    TEXANIM_OCARINA_NOTE_BUTTON,
 } CustomGeneralAssetsTexAnims;
 
 typedef enum {

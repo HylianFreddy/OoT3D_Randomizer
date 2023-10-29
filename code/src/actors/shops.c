@@ -209,6 +209,11 @@ void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalC
             cmb    = (void*)(((char*)ZARBuf) + 0xA4);
             CustomModel_EditHeartContainerToDoubleDefense(cmb);
             break;
+        case OBJECT_CUSTOM_OCARINA_BUTTON:
+            ZARBuf = ExtendedObject_GetStatus(OBJECT_CUSTOM_OCARINA_BUTTON)->zarInfo.buf;
+            cmb = (void*)(((char*)ZARBuf) + 0xA4);
+            CustomModel_SetSoldOutToRGBA565(cmb);
+            break;
     }
 
     item->model = SkeletonAnimationModel_Spawn(&item->actor, globalCtx, objectId, objModelIdx);
@@ -228,6 +233,11 @@ void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalC
         item->model->unk_0C->curFrame  = special;
     } else if (objectId == OBJECT_CUSTOM_BOSS_KEYS) {
         Model_SetAnim(item->model, OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_BOSS_KEY);
+        item->model->unk_0C->animSpeed = 0.0f;
+        item->model->unk_0C->animMode  = 0;
+        item->model->unk_0C->curFrame  = special;
+    } else if (objectId == OBJECT_CUSTOM_OCARINA_BUTTON) {
+        Model_SetAnim(item->model, OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_OCARINA_NOTE_BUTTON);
         item->model->unk_0C->animSpeed = 0.0f;
         item->model->unk_0C->animMode  = 0;
         item->model->unk_0C->curFrame  = special;

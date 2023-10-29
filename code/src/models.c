@@ -67,6 +67,10 @@ void Model_Init(Model* model, GlobalContext* globalCtx) {
             cmb = (void*)(((char*)ZARBuf) + 0xA4);
             CustomModel_EditHeartContainerToDoubleDefense(cmb);
             break;
+        case OBJECT_CUSTOM_OCARINA_BUTTON:
+            cmb = (void*)(((char*)ZARBuf) + 0xA4);
+            CustomModel_SetSoldOutToRGBA565(cmb);
+            break;
     }
 
     model->saModel =
@@ -92,6 +96,11 @@ void Model_Init(Model* model, GlobalContext* globalCtx) {
         model->saModel->unk_0C->curFrame  = model->itemRow->special;
     } else if (model->itemRow->objectId == OBJECT_CUSTOM_BOSS_KEYS) {
         Model_SetAnim(model->saModel, OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_BOSS_KEY);
+        model->saModel->unk_0C->animSpeed = 0.0f;
+        model->saModel->unk_0C->animMode  = 0;
+        model->saModel->unk_0C->curFrame  = model->itemRow->special;
+    } else if (model->itemRow->objectId == OBJECT_CUSTOM_OCARINA_BUTTON) {
+        Model_SetAnim(model->saModel, OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_OCARINA_NOTE_BUTTON);
         model->saModel->unk_0C->animSpeed = 0.0f;
         model->saModel->unk_0C->animMode  = 0;
         model->saModel->unk_0C->curFrame  = model->itemRow->special;

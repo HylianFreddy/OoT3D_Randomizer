@@ -551,6 +551,10 @@ void ItemOverride_EditDrawGetItemBeforeModelSpawn(void) {
             cmb = (void*)(((char*)PLAYER->giDrawSpace) + 0x78);
             CustomModel_SetBossKeyToRGBA565(cmb);
             break;
+        case OBJECT_CUSTOM_OCARINA_BUTTON:
+            cmb = (void*)(((char*)PLAYER->giDrawSpace) + 0xA4);
+            CustomModel_SetSoldOutToRGBA565(cmb);
+            break;
     }
 }
 
@@ -583,6 +587,12 @@ void ItemOverride_EditDrawGetItemAfterModelSpawn(SkeletonAnimationModel* model) 
             model->unk_0C->animMode  = 0;
             model->unk_0C->curFrame  = rActiveItemRow->special;
             break;
+        case OBJECT_CUSTOM_OCARINA_BUTTON:
+            cmabMan = ExtendedObject_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_OCARINA_NOTE_BUTTON);
+            TexAnim_Spawn(model->unk_0C, cmabMan);
+            model->unk_0C->animSpeed = 0.0f;
+            model->unk_0C->animMode  = 0;
+            model->unk_0C->curFrame  = rActiveItemRow->special;
     }
 }
 

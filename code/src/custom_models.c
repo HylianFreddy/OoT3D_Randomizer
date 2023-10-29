@@ -227,6 +227,13 @@ void CustomModel_SetBossKeyToRGBA565(void* bossKeyCMB) {
     EDIT_BYTE(0x44B, 0x00);
 }
 
+void CustomModel_SetSoldOutToRGBA565(void* soldOutCMB) {
+    char* BASE_ = (char*)soldOutCMB;
+
+    // EDIT_BYTE(0x26E, 0x01);
+    EDIT_BYTE(0x274, 0x5B); // ImageFormat: 0x6758 -> 0x675B
+}
+
 void CustomModel_Update(void) {
     // Make sure custom_assets is loaded
     if (ExtendedObject_GetIndex(&gGlobalContext->objectCtx, OBJECT_CUSTOM_GENERAL_ASSETS) < 0) {
