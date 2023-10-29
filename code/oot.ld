@@ -740,8 +740,16 @@ SECTIONS
 		*(.patch_CorrectCompassChestsTwo)
 	}
 
+	.patch_OcarinaNoteButtonsPress 0x2F6500 : {
+	    * (.patch_OcarinaNoteButtonsPress)
+	}
+
 	.patch_OverrideDrawItemOne 0x2F7498 : {
 		*(.patch_OverrideDrawItemOne)
+	}
+
+	.patch_OcarinaNoteButtonsDraw 0x2F9430 : {
+	    * (.patch_OcarinaNoteButtonsDraw)
 	}
 
 	.patch_SaveGame 0x2FBFA8 : {
