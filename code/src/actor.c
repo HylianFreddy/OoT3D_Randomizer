@@ -263,6 +263,9 @@ void Actor_Init() {
 
     // Define object 128 to be by default the same as object 185
     strncpy(gObjectTable[OBJECT_CUSTOM_BOSS_KEYS].filename, gObjectTable[OBJECT_GI_BOSSKEY].filename, 0x40);
+
+    // Define object 228 to be by default the same as object 375
+    strncpy(gObjectTable[OBJECT_CUSTOM_ENEMY_SOUL].filename, gObjectTable[OBJECT_GI_SHOP_FAIRY].filename, 0x40);
 }
 
 void ActorSetup_Extra() {
