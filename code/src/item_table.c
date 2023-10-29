@@ -274,11 +274,11 @@ static ItemRow rItemTable[] = {
 
     [GI_CHEST_GAME_KEY]     = ITEM_ROW(0x53, CHEST_SMALL_KEY, 0x41, 0x00F3,   0x00AA, 0x00, 0xFF, 0xFF, 0xFF,   0xFF, ItemUpgrade_None, ItemEffect_GiveSmallKey, DUNGEON_TREASURE_CHEST_SHOP, -1), // Small Key (Chest Game)
 
-    [GI_OCARINA_BUTTON_L]   = ITEM_ROW(0x53, CHEST_MAJOR,     0x41, 0x0001,   0x00DE, 0x00, 0xFF, 0xFF, 0xFF,   0xFF, ItemUpgrade_None, ItemEffect_OcarinaNote, OCARINA_BUTTON_L, -1), // Ocarina Note Button L
-    [GI_OCARINA_BUTTON_R]   = ITEM_ROW(0x53, CHEST_MAJOR,     0x41, 0x0001,   0x00DE, 0x00, 0xFF, 0xFF, 0xFF,   0xFF, ItemUpgrade_None, ItemEffect_OcarinaNote, OCARINA_BUTTON_R, -1), // Ocarina Note Button R
-    [GI_OCARINA_BUTTON_X]   = ITEM_ROW(0x53, CHEST_MAJOR,     0x41, 0x0001,   0x00DE, 0x00, 0xFF, 0xFF, 0xFF,   0xFF, ItemUpgrade_None, ItemEffect_OcarinaNote, OCARINA_BUTTON_X, -1), // Ocarina Note Button X
-    [GI_OCARINA_BUTTON_Y]   = ITEM_ROW(0x53, CHEST_MAJOR,     0x41, 0x0001,   0x00DE, 0x00, 0xFF, 0xFF, 0xFF,   0xFF, ItemUpgrade_None, ItemEffect_OcarinaNote, OCARINA_BUTTON_Y, -1), // Ocarina Note Button Y
-    [GI_OCARINA_BUTTON_A]   = ITEM_ROW(0x53, CHEST_MAJOR,     0x41, 0x0001,   0x00DE, 0x00, 0xFF, 0xFF, 0xFF,   0xFF, ItemUpgrade_None, ItemEffect_OcarinaNote, OCARINA_BUTTON_A, -1), // Ocarina Note Button A
+    [GI_OCARINA_BUTTON_L]   = ITEM_ROW(0x53, CHEST_MAJOR,     0x41, 0x93F0,   0x00DE, 0x00, 0xFF, 0xFF, 0xFF,   0xFF, ItemUpgrade_None, ItemEffect_OcarinaNote, OCARINA_BUTTON_L, -1), // Ocarina Note Button L
+    [GI_OCARINA_BUTTON_R]   = ITEM_ROW(0x53, CHEST_MAJOR,     0x41, 0x93F1,   0x00DE, 0x00, 0xFF, 0xFF, 0xFF,   0xFF, ItemUpgrade_None, ItemEffect_OcarinaNote, OCARINA_BUTTON_R, -1), // Ocarina Note Button R
+    [GI_OCARINA_BUTTON_X]   = ITEM_ROW(0x53, CHEST_MAJOR,     0x41, 0x93F2,   0x00DE, 0x00, 0xFF, 0xFF, 0xFF,   0xFF, ItemUpgrade_None, ItemEffect_OcarinaNote, OCARINA_BUTTON_X, -1), // Ocarina Note Button X
+    [GI_OCARINA_BUTTON_Y]   = ITEM_ROW(0x53, CHEST_MAJOR,     0x41, 0x93F3,   0x00DE, 0x00, 0xFF, 0xFF, 0xFF,   0xFF, ItemUpgrade_None, ItemEffect_OcarinaNote, OCARINA_BUTTON_Y, -1), // Ocarina Note Button Y
+    [GI_OCARINA_BUTTON_A]   = ITEM_ROW(0x53, CHEST_MAJOR,     0x41, 0x93F4,   0x00DE, 0x00, 0xFF, 0xFF, 0xFF,   0xFF, ItemUpgrade_None, ItemEffect_OcarinaNote, OCARINA_BUTTON_A, -1), // Ocarina Note Button A
 
 };
 // clang-format on
