@@ -71,6 +71,7 @@ typedef struct {
     s8 option_SkipSongReplays;
     s8 option_FreeCamControl;
     s8 option_FireballLink;
+    s8 option_HyperActors;
 } ExtSaveData;
 
 #ifdef DECLARE_EXTSAVEDATA

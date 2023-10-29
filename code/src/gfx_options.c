@@ -97,6 +97,14 @@ void InitOptions(void) {
     strcpy(options[opNum].alternatives[altNum++], "On");
     strcpy(options[opNum].description, "");
     options[opNum++].optionPointer = &gExtSaveData.option_FireballLink;
+
+    // Hyper Actors
+    altNum = 0;
+    strcpy(options[opNum].name, "Hyper Actors");
+    strcpy(options[opNum].alternatives[altNum++], "Off");
+    strcpy(options[opNum].alternatives[altNum++], "On");
+    strcpy(options[opNum].description, "");
+    options[opNum++].optionPointer = &gExtSaveData.option_HyperActors;
 }
 
 void Gfx_DrawOptions(void) {
