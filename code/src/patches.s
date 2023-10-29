@@ -56,6 +56,11 @@ OverrideDrawItemTwo_patch:
 OverrideDrawItemThree_patch:
     bl hook_OverrideDrawItemThree
 
+.section .patch_OverrideGiDrawIdPlusOne
+.global OverrideGiDrawIdPlusOne_patch
+OverrideGiDrawIdPlusOne_patch:
+    bl hook_OverrideGiDrawIdPlusOne
+
 .section .patch_EditDrawGetItemBeforeModelSpawn
 .global EditDrawGetItemBeforeModelSpawn_patch
 EditDrawGetItemBeforeModelSpawn_patch:

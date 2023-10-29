@@ -1568,6 +1568,10 @@ SECTIONS
 		*(.patch_CriticalHealthCheckThree)
 	}
 
+	.patch_OverrideGiDrawIdPlusOne 0x4BC610 : {
+		*(.patch_OverrideGiDrawIdPlusOne)
+	}
+
 	.patch_EditDrawGetItemBeforeModelSpawn 0x4C0FD0 : {
 		*(.patch_EditDrawGetItemBeforeModelSpawn)
 	}

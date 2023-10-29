@@ -384,7 +384,7 @@ typedef enum {
     /* 0xB0 */ GI_FIRE_SMALL_KEY,
     /* 0xB1 */ GI_WATER_SMALL_KEY,
     /* 0xB2 */ GI_SPIRIT_SMALL_KEY,
-    /* 0xB3 */ GI_SHADOW_TSMALL_KEY,
+    /* 0xB3 */ GI_SHADOW_SMALL_KEY,
     /* 0xB4 */ GI_BOTW_SMALL_KEY,
     /* 0xB5 */ GI_GTG_SMALL_KEY,
     /* 0xB6 */ GI_FORTRESS_SMALL_KEY,

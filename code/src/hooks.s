@@ -122,6 +122,14 @@ hook_OverrideDrawItemThree:
     pop {r0-r4,r6-r12, lr}
     bx lr
 
+.global hook_OverrideGiDrawIdPlusOne
+hook_OverrideGiDrawIdPlusOne:
+    push {r1-r12, lr}
+    bl ItemOverride_OverrideGiDrawIdPlusOne
+    pop {r1-r12, lr}
+    strh r0,[r6,#0x4e]
+    bx lr
+
 .global hook_EditDrawGetItemBeforeModelSpawn
 hook_EditDrawGetItemBeforeModelSpawn:
     push {r0-r12, lr}

@@ -183,7 +183,7 @@ void Model_UpdateMatrix(Model* model) {
     if (model->saModel2 != NULL) {
         f32 tempRotY = model->actor->shape.rot.y;
         // The second model should always face the camera, except for Skull Token
-        if (model->itemRow->objectId != 0x0024) {
+        if (model->itemRow->objectId != 0x015C) {
             model->actor->shape.rot.y = gGlobalContext->mainCamera.camDir.y;
         }
         Actor_SetModelMatrixWrapper(model->actor, &model->saModel2->mtx);

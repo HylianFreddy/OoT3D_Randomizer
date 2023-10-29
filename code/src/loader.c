@@ -27,7 +27,10 @@ void loader_main(void) {
     if (res < 0)
         svcBreak(1);
 
-    // Hacky solution to be able to edit gGearUsabilityTable, which is normally in RO data
+    // Hacky solution to be able to edit gDrawItemTable, which is normally in RO data
+    res = svcControlProcessMemory(getCurrentProcessHandle(), 0x4D8000, 0x4D8000, 0x1000, MEMOP_PROT,
+                                  MEMPERM_READ | MEMPERM_WRITE);
+    // Same for gGearUsabilityTable
     res = svcControlProcessMemory(getCurrentProcessHandle(), 0x4D4000, 0x4D4000, 0x1000, MEMOP_PROT,
                                   MEMPERM_READ | MEMPERM_WRITE);
 
