@@ -409,6 +409,7 @@ extern Option ShuffleMerchants;
 extern Option ShuffleFrogSongRupees;
 extern Option ShuffleAdultTradeQuest;
 extern Option ShuffleChestMinigame;
+extern Option ShuffleOcarinaButtons;
 
 extern Option MapsAndCompasses;
 extern Option Keysanity;

@@ -199,6 +199,7 @@ Option ShuffleMerchants       = Option::U8  ("Shuffle Merchants",      {"Off", "
 Option ShuffleAdultTradeQuest = Option::Bool("Shuffle Adult Trade",    {"Off", "On"},                                                     {adultTradeDesc});
 Option ShuffleChestMinigame   = Option::U8  ("Shuffle Chest Minigame", {"Off", "On (Separate)", "On (Pack)"},                             {chestMinigameDesc});
 Option ShuffleFrogSongRupees  = Option::Bool("Shuffle Frog Rupees",    {"Off", "On"},                                                     {frogSongRupeesDesc});
+Option ShuffleOcarinaButtons  = Option::Bool("Shuffle Ocarina Buttons",{"Off", "On"},                                                     {ocarinaButtonsDesc});
 std::vector<Option *> shuffleOptions = {
     &RandomizeShuffle,
     &ShuffleRewards,
@@ -219,6 +220,7 @@ std::vector<Option *> shuffleOptions = {
     &ShuffleAdultTradeQuest,
     &ShuffleChestMinigame,
     &ShuffleFrogSongRupees,
+    &ShuffleOcarinaButtons,
 };
 
 // Shuffle Dungeon Items
@@ -1423,6 +1425,7 @@ SettingsContext FillContext() {
     ctx.shuffleFrogSongRupees  = (ShuffleFrogSongRupees) ? 1 : 0;
     ctx.shuffleAdultTradeQuest = (ShuffleAdultTradeQuest) ? 1 : 0;
     ctx.shuffleChestMinigame   = ShuffleChestMinigame.Value<u8>();
+    ctx.shuffleOcarinaButtons  = (ShuffleOcarinaButtons) ? 1 : 0;
 
     ctx.mapsAndCompasses   = MapsAndCompasses.Value<u8>();
     ctx.keysanity          = Keysanity.Value<u8>();
