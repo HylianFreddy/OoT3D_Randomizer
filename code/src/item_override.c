@@ -636,3 +636,16 @@ DrawItemTableEntry* ItemOverride_GetDrawItem(DrawItemTableEntry* original) {
     }
     return &rActiveDrawItem;
 }
+
+// Overrides setting PLAYER->giDrawIdPlusOne, which is used to set the mesh for rupee models.
+s16 ItemOverride_OverrideGiDrawIdPlusOne(s16 originalDrawItemID) {
+    if (ItemOverride_IsDrawItemVanilla()) {
+        return originalDrawItemID;
+    }
+
+    if (rActiveItemObjectId == 0x017F) { // Set the mesh for rupees
+        return rActiveItemRow->special + 1;
+    }
+
+    return 1; // Default value that won't change the mesh.
+}
