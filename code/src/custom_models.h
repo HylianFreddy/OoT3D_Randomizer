@@ -3,12 +3,10 @@
 
 void CustomModel_EditLinkToCustomTunic(void* linkCMB);
 void CustomModel_EditChildLinkToCustomTunic(void* linkCMB);
-void CustomModel_EditHeartContainerToDoubleDefense(void* heartContainerCMB);
-void CustomModel_ApplyColorEditsToSmallKey(void* smallKeyCMB, s32 keyType);
 void CustomModel_EditTitleScreenLogo(void* titleScreenZAR);
-void CustomModel_SetOcarinaToRGBA565(void* fairyOcarinaCMB);
-void CustomModel_SetBossKeyToRGBA565(void* bossKeyCMB);
 void CustomModel_Update(void);
+void CustomModels_EditItemCMB(void* ZARBuf, u16 objectId, s8 special);
+void CustomModels_ApplyItemCMAB(SkeletonAnimationModel* model, u16 objectId, s8 special);
 
 #define OBJECT_CUSTOM_DOUBLE_DEFENSE 4
 #define OBJECT_CUSTOM_CHILD_SONGS 5
