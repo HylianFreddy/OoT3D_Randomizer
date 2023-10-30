@@ -516,79 +516,19 @@ static s32 ItemOverride_IsDrawItemVanilla(void) {
 }
 
 void ItemOverride_EditDrawGetItemBeforeModelSpawn(void) {
-    void* cmb;
-    void* ZARBuf;
-
     if (ItemOverride_IsDrawItemVanilla()) {
         return;
     }
 
-    switch (rActiveItemObjectId) {
-        case OBJECT_CUSTOM_DOUBLE_DEFENSE:
-            cmb = (void*)(((char*)PLAYER->giDrawSpace) + 0xA4);
-            CustomModel_EditHeartContainerToDoubleDefense(cmb);
-            break;
-        case OBJECT_CUSTOM_CHILD_SONGS:
-            cmb = (void*)(((char*)PLAYER->giDrawSpace) + 0x2E60);
-            CustomModel_SetOcarinaToRGBA565(cmb);
-            break;
-        case OBJECT_CUSTOM_ADULT_SONGS:
-            cmb = (void*)(((char*)PLAYER->giDrawSpace) + 0xE8);
-            CustomModel_SetOcarinaToRGBA565(cmb);
-            break;
-        case OBJECT_CUSTOM_SMALL_KEY_FOREST:
-        case OBJECT_CUSTOM_SMALL_KEY_FIRE:
-        case OBJECT_CUSTOM_SMALL_KEY_WATER:
-        case OBJECT_CUSTOM_SMALL_KEY_SHADOW:
-        case OBJECT_CUSTOM_SMALL_KEY_BOTW:
-        case OBJECT_CUSTOM_SMALL_KEY_SPIRIT:
-        case OBJECT_CUSTOM_SMALL_KEY_FORTRESS:
-        case OBJECT_CUSTOM_SMALL_KEY_GTG:
-        case OBJECT_CUSTOM_SMALL_KEY_GANON:
-            cmb = (void*)(((char*)PLAYER->giDrawSpace) + 0x74);
-            CustomModel_ApplyColorEditsToSmallKey(cmb, rActiveItemRow->special);
-            break;
-        case OBJECT_CUSTOM_BOSS_KEYS:
-            cmb = (void*)(((char*)PLAYER->giDrawSpace) + 0x78);
-            CustomModel_SetBossKeyToRGBA565(cmb);
-            break;
-        case OBJECT_CUSTOM_ENEMY_SOUL:
-            ZARBuf = PLAYER->giDrawSpace;
-            CustomModel_EditShopFairyToEnemySoul(ZARBuf);
-            break;
-    }
+    CustomModels_EditItemCMB(PLAYER->giDrawSpace, rActiveItemObjectId, rActiveItemRow->special);
 }
 
 void ItemOverride_EditDrawGetItemAfterModelSpawn(SkeletonAnimationModel* model) {
-    void* cmabMan;
-
     if (ItemOverride_IsDrawItemVanilla()) {
         return;
     }
 
-    switch (rActiveItemObjectId) {
-        case OBJECT_CUSTOM_CHILD_SONGS:
-            cmabMan = ExtendedObject_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_CHILD_SONG);
-            TexAnim_Spawn(model->unk_0C, cmabMan);
-            model->unk_0C->animSpeed = 0.0f;
-            model->unk_0C->animMode  = 0;
-            model->unk_0C->curFrame  = rActiveItemRow->special;
-            break;
-        case OBJECT_CUSTOM_ADULT_SONGS:
-            cmabMan = ExtendedObject_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_ADULT_SONG);
-            TexAnim_Spawn(model->unk_0C, cmabMan);
-            model->unk_0C->animSpeed = 0.0f;
-            model->unk_0C->animMode  = 0;
-            model->unk_0C->curFrame  = rActiveItemRow->special;
-            break;
-        case OBJECT_CUSTOM_BOSS_KEYS:
-            cmabMan = ExtendedObject_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_BOSS_KEY);
-            TexAnim_Spawn(model->unk_0C, cmabMan);
-            model->unk_0C->animSpeed = 0.0f;
-            model->unk_0C->animMode  = 0;
-            model->unk_0C->curFrame  = rActiveItemRow->special;
-            break;
-    }
+    CustomModels_ApplyItemCMAB(model, rActiveItemObjectId, rActiveItemRow->special);
 }
 
 s32 ItemOverride_GiveSariasGift(void) {
