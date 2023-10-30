@@ -1032,11 +1032,11 @@ void LogicReset() {
     NocturneOfShadow_item = false;
     PreludeOfLight_item   = false;
     // Ocarina notes buttons
-    OcarinaButtonL = ShuffleOcarinaButtons.Is(OFF);
-    OcarinaButtonR = ShuffleOcarinaButtons.Is(OFF);
-    OcarinaButtonX = ShuffleOcarinaButtons.Is(OFF);
-    OcarinaButtonY = ShuffleOcarinaButtons.Is(OFF);
-    OcarinaButtonA = ShuffleOcarinaButtons.Is(OFF);
+    OcarinaButtonL = !ShuffleOcarinaButtons;
+    OcarinaButtonR = !ShuffleOcarinaButtons;
+    OcarinaButtonX = !ShuffleOcarinaButtons;
+    OcarinaButtonY = !ShuffleOcarinaButtons;
+    OcarinaButtonA = !ShuffleOcarinaButtons;
     // Songs + their ocarina notes
     ZeldasLullaby    = false;
     SariasSong       = false;
