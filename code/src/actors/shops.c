@@ -168,13 +168,12 @@ void ShopsanityItem_1C4Func(GlobalContext* globalCtx, EnGirlA* item) {
 void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalCtx, s16 objectId, s16 objModelIdx,
                                 s16 objModelIdx2, s16 cmabIdx, s16 cmabIdx2, s16 special) {
     EnGirlA* item = &shopItem->super;
-    void* ZARBuf = ExtendedObject_GetStatus(objectId)->zarInfo.buf;
 
     DeleteModel_At(&item->model);
     DeleteModel_At(&item->model2);
 
     // edit the cmbs for custom models
-    CustomModels_EditItemCMB(ZARBuf, objectId, special);
+    CustomModels_EditItemCMB(NULL, objectId, special);
 
     item->model = SkeletonAnimationModel_Spawn(&item->actor, globalCtx, objectId, objModelIdx);
     if (objectId == 0x017F) { // Set the mesh for rupees

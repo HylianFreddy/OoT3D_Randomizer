@@ -263,6 +263,13 @@ void CustomModel_Update(void) {
 void CustomModels_EditItemCMB(void* ZARBuf, u16 objectId, s8 special) {
     void* cmb;
 
+    if (ZARBuf == NULL) {
+        ObjectStatus*  obj = ExtendedObject_GetStatus(objectId);
+        if (obj != NULL) {
+            ZARBuf = obj->zarInfo.buf;
+        }
+    }
+
     switch (objectId) {
         case OBJECT_CUSTOM_DOUBLE_DEFENSE:
             cmb = ((char*)ZARBuf) + 0xA4;
