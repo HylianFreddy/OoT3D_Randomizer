@@ -300,7 +300,7 @@ void CustomModels_EditItemCMB(void* ZARBuf, u16 objectId, s8 special) {
             CustomModel_SetBossKeyToRGBA565(cmb);
             break;
         case OBJECT_CUSTOM_ENEMY_SOUL:
-            ZARBuf = PLAYER->giDrawSpace;
+            // This function takes the ZARBuf instead of the CMB
             CustomModel_EditShopFairyToEnemySoul(ZARBuf);
             break;
     }
