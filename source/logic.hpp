@@ -92,6 +92,7 @@ extern bool OcarinaButtonR;
 extern bool OcarinaButtonX;
 extern bool OcarinaButtonY;
 extern bool OcarinaButtonA;
+extern u8 OcarinaButtonsCount;
 // Songs + their ocarina notes
 extern bool ZeldasLullaby;
 extern bool SariasSong;

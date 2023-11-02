@@ -97,6 +97,7 @@ bool OcarinaButtonR = false;
 bool OcarinaButtonX = false;
 bool OcarinaButtonY = false;
 bool OcarinaButtonA = false;
+u8 OcarinaButtonsCount = 0;
 // Songs + their ocarina notes
 bool ZeldasLullaby    = false;
 bool SariasSong       = false;
@@ -710,6 +711,7 @@ void UpdateHelpers() {
     AdultsWallet    = ProgressiveWallet >= 1;
     BiggoronSword   = BiggoronSword || ProgressiveGiantKnife >= 2;
 
+    OcarinaButtonsCount = OcarinaButtonL + OcarinaButtonR + OcarinaButtonX + OcarinaButtonY + OcarinaButtonA;
     ZeldasLullaby    = ZeldasLullaby_item && OcarinaButtonX && OcarinaButtonA && OcarinaButtonY;
     SariasSong       = SariasSong_item && OcarinaButtonR && OcarinaButtonY && OcarinaButtonX;
     SunsSong         = SunsSong_item && OcarinaButtonY && OcarinaButtonR && OcarinaButtonA;
@@ -1037,6 +1039,7 @@ void LogicReset() {
     OcarinaButtonX = !ShuffleOcarinaButtons;
     OcarinaButtonY = !ShuffleOcarinaButtons;
     OcarinaButtonA = !ShuffleOcarinaButtons;
+    OcarinaButtonsCount = 0;
     // Songs + their ocarina notes
     ZeldasLullaby    = false;
     SariasSong       = false;

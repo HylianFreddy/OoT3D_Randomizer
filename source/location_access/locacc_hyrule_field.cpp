@@ -196,8 +196,7 @@ void AreaTable_Init_HyruleField() {
             EventAccess(&ButterflyFairy, { [] { return ButterflyFairy || CanUse(STICKS); } }),
             EventAccess(&BugShrub, { [] { return BugShrub || (IsChild && CanCutShrubs); } }),
             EventAccess(&ChildScarecrow,
-                        { [] { return ChildScarecrow || (IsChild && Ocarina &&
-                                (OcarinaButtonL + OcarinaButtonR + OcarinaButtonX + OcarinaButtonY + OcarinaButtonA >= 2)); },
+                        { [] { return ChildScarecrow || (IsChild && Ocarina && (OcarinaButtonsCount >= 2)); },
                           /*Glitched*/
                           [] {
                               return (CanDoGlitch(GlitchType::OutdoorBombOI, GlitchDifficulty::INTERMEDIATE) ||
@@ -209,8 +208,7 @@ void AreaTable_Init_HyruleField() {
                                        CanDoGlitch(GlitchType::ActionSwap, GlitchDifficulty::NOVICE))) &&
                                      IsChild;
                           } }),
-            EventAccess(&AdultScarecrow, { [] { return AdultScarecrow || (IsAdult && Ocarina &&
-                                (OcarinaButtonL + OcarinaButtonR + OcarinaButtonX + OcarinaButtonY + OcarinaButtonA >= 2)); },
+            EventAccess(&AdultScarecrow, { [] { return AdultScarecrow || (IsAdult && Ocarina && (OcarinaButtonsCount >= 2)); },
                                            /*Glitched*/
                                            [] {
                                                return (CanDoGlitch(GlitchType::OutdoorBombOI,
