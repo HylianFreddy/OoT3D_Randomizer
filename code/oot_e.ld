@@ -740,10 +740,6 @@ SECTIONS
 		*(.patch_CorrectCompassChestsTwo)
 	}
 
-	.patch_OcarinaNoteButtonsPress 0x2F6500 : {
-	    * (.patch_OcarinaNoteButtonsPress)
-	}
-
 	.patch_OverrideDrawItemOne 0x2F7498 : {
 		*(.patch_OverrideDrawItemOne)
 	}
@@ -1226,6 +1222,10 @@ SECTIONS
 
 	.patch_SleepQueryCallback 0x3FD6C4 : {
 		*(.patch_SleepQueryCallback)
+	}
+
+	.patch_OcarinaNoteButtonsPress 0x41AAD0 : {
+	    * (.patch_OcarinaNoteButtonsPress)
 	}
 
 	.patch_CurseTrapDizzyStick 0x41AB48 : {

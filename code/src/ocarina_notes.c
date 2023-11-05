@@ -72,17 +72,12 @@ void OcarinaNotes_MoveButtons(void* spriteStruct, Vec2f* posOffset, u32 unk, u32
     }
 }
 
-
-void OcarinaNotes_HandleInputs(void) {
-    OcarinaInputOne.l &= OcarinaNotes_IsButtonOwned(OCARINA_BUTTON_L);
-    OcarinaInputOne.r &= OcarinaNotes_IsButtonOwned(OCARINA_BUTTON_R);
-    OcarinaInputOne.x &= OcarinaNotes_IsButtonOwned(OCARINA_BUTTON_X);
-    OcarinaInputOne.y &= OcarinaNotes_IsButtonOwned(OCARINA_BUTTON_Y);
-    OcarinaInputOne.a &= OcarinaNotes_IsButtonOwned(OCARINA_BUTTON_A);
-
-    OcarinaInputTwo.l &= OcarinaNotes_IsButtonOwned(OCARINA_BUTTON_L);
-    OcarinaInputTwo.r &= OcarinaNotes_IsButtonOwned(OCARINA_BUTTON_R);
-    OcarinaInputTwo.x &= OcarinaNotes_IsButtonOwned(OCARINA_BUTTON_X);
-    OcarinaInputTwo.y &= OcarinaNotes_IsButtonOwned(OCARINA_BUTTON_Y);
-    OcarinaInputTwo.a &= OcarinaNotes_IsButtonOwned(OCARINA_BUTTON_A);
+u32 OcarinaNotes_HandleInputs(u32 ocarinaInputs) {
+    static const u32 btnShifts[5] = {7, 9, 10, 11, 8}; // not the same offsets as the btn_t struct
+    u32 ownedBtnsMask = 0;
+    for (OcarinaNoteButton btn = 0; btn < 5; btn++) {
+        ownedBtnsMask |= (OcarinaNotes_IsButtonOwned(btn) << btnShifts[btn]);
+    }
+    ocarinaInputs &= ownedBtnsMask;
+    return ocarinaInputs;
 }

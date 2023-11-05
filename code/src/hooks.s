@@ -2070,10 +2070,10 @@ hook_OcarinaNoteButtonsDraw:
 
 .global hook_OcarinaNoteButtonsPress
 hook_OcarinaNoteButtonsPress:
-    add sp,sp,#0x20
-    push {r0-r12, lr}
+    cpy r0,r6
+    push {r1-r12, lr}
     bl OcarinaNotes_HandleInputs
-    pop {r0-r12, lr}
+    pop {r1-r12, lr}
     bx lr
 
 @ ----------------------------------

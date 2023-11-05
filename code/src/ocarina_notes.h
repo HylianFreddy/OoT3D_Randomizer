@@ -61,8 +61,6 @@ enum OcarinaSprites {
 }; // max 0x6C
 
 #define OcarinaUIStruct (*((void**)0x5093EC))
-#define OcarinaInputOne (*((btn_t*)0x509410))
-#define OcarinaInputTwo (*((btn_t*)0x50942C))
 
 s32 OcarinaNotes_IsButtonOwned(OcarinaNoteButton button);
 void OcarinaNotes_RegisterButtonOwned(OcarinaNoteButton button);
