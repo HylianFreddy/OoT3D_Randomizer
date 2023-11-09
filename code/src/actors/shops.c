@@ -173,7 +173,11 @@ void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalC
     DeleteModel_At(&item->model2);
 
     // edit the cmbs for custom models
-    CustomModels_EditItemCMB(NULL, objectId, special);
+    ObjectStatus* obj = ExtendedObject_GetStatus(objectId);
+    if (obj != NULL) {
+        void* ZARBuf = obj->zarInfo.buf;
+        CustomModels_EditItemCMB(ZARBuf, objectId, special);
+    }
 
     item->model = SkeletonAnimationModel_Spawn(&item->actor, globalCtx, objectId, objModelIdx);
     if (objectId == 0x017F) { // Set the mesh for rupees
