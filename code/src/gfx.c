@@ -1299,11 +1299,14 @@ static u8 openingButton(void) {
             (gSettingsContext.menuOpeningButton == 5 && rInputCtx.cur.d_left));
 }
 
+void Menu_CheckAndTriggerSariaHint(void);
 void Gfx_Update(void) {
     if (!GfxInit) {
         Gfx_Init();
         lastTick = svcGetSystemTick();
     }
+
+    Menu_CheckAndTriggerSariaHint();
 
     if (mp_isSyncing) {
         Gfx_ShowMultiplayerSyncMenu();
