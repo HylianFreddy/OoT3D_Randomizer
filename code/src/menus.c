@@ -4,6 +4,7 @@
 #include "savefile.h"
 #include "settings.h"
 #include "dungeon_rewards.h"
+#include "common.h"
 
 #define gItemsMenuSpritesManager (*(MenuSpriteManager**)0x506734)
 #define gBowMenuSpritesManager (*(MenuSpriteManager**)0x506738)
@@ -149,4 +150,12 @@ u16 GearMenu_GetRewardHint(void) {
 u16 SaveMenu_IgnoreOpen(void) {
     return (gSettingsContext.menuOpeningButton == 0 && rInputCtx.cur.sel) ||
            (gSettingsContext.menuOpeningButton == 1 && rInputCtx.cur.strt);
+}
+
+void Menu_CheckAndTriggerSariaHint(void) {
+    if (IsInGameOrBossChallenge() && PauseContext_GetState() && PLAYER->naviActor != NULL &&
+        gGearMenuSelectedSlot == GEARSLOT_OCARINA && rInputCtx.cur.a) {
+        PLAYER->naviTextId = -0xE0;
+        PLAYER->naviActor->flags |= (1 << 16);
+    }
 }
