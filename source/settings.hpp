@@ -409,6 +409,7 @@ extern Option ShuffleMerchants;
 extern Option ShuffleFrogSongRupees;
 extern Option ShuffleAdultTradeQuest;
 extern Option ShuffleChestMinigame;
+extern Option ShuffleEnemySouls;
 
 extern Option MapsAndCompasses;
 extern Option Keysanity;

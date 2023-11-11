@@ -48,6 +48,10 @@ SECTIONS
 		*(.patch_ItemEtceteraModelDraw)
 	}
 
+	.patch_FlyingPotCollision 0x11DB34 : {
+		*(.patch_FlyingPotCollision)
+	}
+
 	.patch_SariasSongItemGive 0x12C84C : {
 		*(.patch_SariasSongItemGive)
 	}
@@ -596,6 +600,10 @@ SECTIONS
 		*(.patch_BoleroLocation)
 	}
 
+	.patch_FlyingTileCollision 0x26E730 : {
+		*(.patch_FlyingTileCollision)
+	}
+
 	.patch_RedBoulderExplode 0x26FE7C : {
 		*(.patch_RedBoulderExplode)
 	}
@@ -698,6 +706,10 @@ SECTIONS
 
 	.patch_GetCustomMessageTextOne 0x2CD3EC : {
 		*(.patch_GetCustomMessageTextOne)
+	}
+
+	.patch_ActorDraw 0x2D6310 : {
+		*(.patch_ActorDraw)
 	}
 
 	.patch_CamUpdate 0x2D84C8 : {
@@ -1440,8 +1452,8 @@ SECTIONS
 		*(.patch_AfterActorSetup_RoomChange)
 	}
 
-	.patch_HyperActors 0x461790 : {
-		*(.patch_HyperActors)
+	.patch_ActorUpdate 0x461790 : {
+		*(.patch_ActorUpdate)
 	}
 
 	.patch_TitleCardUpdate 0x4618B8 : {

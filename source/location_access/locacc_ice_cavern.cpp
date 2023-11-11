@@ -29,7 +29,7 @@ void AreaTable_Init_IceCavern() {
                      // Exits
                      Entrance(ICE_CAVERN_ENTRYWAY, { [] { return true; } }),
                      Entrance(ICE_CAVERN_MAIN, { [] {
-                                  return Here(ICE_CAVERN_BEGINNING, [] {
+                                  return SoulFreezard && Here(ICE_CAVERN_BEGINNING, [] {
                                       return CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) || HasExplosives ||
                                              CanUse(DINS_FIRE);
                                   });
@@ -47,9 +47,9 @@ void AreaTable_Init_IceCavern() {
                 LocationAccess(ICE_CAVERN_MAP_CHEST, { [] { return BlueFire && IsAdult; } }),
                 LocationAccess(ICE_CAVERN_COMPASS_CHEST, { [] { return BlueFire; } }),
                 LocationAccess(ICE_CAVERN_IRON_BOOTS_CHEST,
-                               { [] { return BlueFire && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(DINS_FIRE)); } }),
+                               { [] { return BlueFire && SoulWolfos && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(DINS_FIRE)); } }),
                 LocationAccess(SHEIK_IN_ICE_CAVERN, { [] {
-                                   return BlueFire && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(DINS_FIRE)) &&
+                                   return BlueFire && SoulWolfos && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(DINS_FIRE)) &&
                                           IsAdult;
                                } }),
                 LocationAccess(ICE_CAVERN_FREESTANDING_POH, { [] { return BlueFire; } }),

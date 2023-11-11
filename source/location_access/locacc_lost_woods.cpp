@@ -31,7 +31,7 @@ void AreaTable_Init_LostWoods() {
             Entrance(KF_KOKIRI_SHOP, { [] { return true; } }),
             Entrance(KF_OUTSIDE_DEKU_TREE,
                      { [] {
-                          return (IsAdult && (CanAdultDamage || ForestTempleClear)) ||
+                          return (IsAdult && ((SoulSkulltula && CanAdultDamage) || ForestTempleClear)) ||
                                  (IsChild && (OpenForest.Is(OPENFOREST_OPEN) || ShowedMidoSwordAndShield));
                       },
                        /*Glitched*/
@@ -69,14 +69,14 @@ void AreaTable_Init_LostWoods() {
              {
                  // Events
                  EventAccess(&DekuBabaSticks, { [] {
-                     return DekuBabaSticks || ((IsAdult && (MasterSword || BiggoronSword) &&
-                                                ShuffleDungeonEntrances.Is(SHUFFLEDUNGEONS_OFF)) ||
-                                               KokiriSword || Boomerang);
+                     return DekuBabaSticks || (SoulDekuBaba && ((IsAdult && (MasterSword || BiggoronSword) &&
+                                            ShuffleDungeonEntrances.Is(SHUFFLEDUNGEONS_OFF)) ||
+                                            KokiriSword || Boomerang));
                  } }),
                  EventAccess(&DekuBabaNuts, { [] {
-                     return DekuBabaNuts || ((IsAdult && (MasterSword || BiggoronSword) &&
-                                              ShuffleDungeonEntrances.Is(SHUFFLEDUNGEONS_OFF)) ||
-                                             KokiriSword || Slingshot || Sticks || HasExplosives || CanUse(DINS_FIRE));
+                     return DekuBabaNuts || (SoulDekuBaba && ((IsAdult && (MasterSword || BiggoronSword) &&
+                                            ShuffleDungeonEntrances.Is(SHUFFLEDUNGEONS_OFF)) ||
+                                            KokiriSword || Slingshot || Sticks || HasExplosives || CanUse(DINS_FIRE)));
                  } }),
                  EventAccess(&ShowedMidoSwordAndShield,
                              { [] { return ShowedMidoSwordAndShield || (IsChild && KokiriSword && DekuShield); } }),
@@ -100,7 +100,7 @@ void AreaTable_Init_LostWoods() {
                             } }),
                  Entrance(KOKIRI_FOREST,
                           { [] {
-                               return (IsAdult && (CanAdultDamage || ForestTempleClear)) ||
+                               return (IsAdult && ((SoulSkulltula && CanAdultDamage) || ForestTempleClear)) ||
                                       (IsChild && (OpenForest.Is(OPENFOREST_OPEN) || ShowedMidoSwordAndShield));
                            },
                             /*Glitched*/
@@ -376,8 +376,9 @@ void AreaTable_Init_LostWoods() {
                  // Exits
                  Entrance(LW_BEYOND_MIDO, { [] { return true; } }),
                  Entrance(SACRED_FOREST_MEADOW, { [] {
-                              return CanUse(SLINGSHOT) || CanUse(STICKS) || CanUse(KOKIRI_SWORD) || CanUse(DINS_FIRE) ||
-                                     CanUse(MEGATON_HAMMER) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD);
+                              return ((IsChild && SoulWolfos) || (IsAdult && SoulMoblin)) &&
+                                     (CanUse(SLINGSHOT) || CanUse(STICKS) || CanUse(KOKIRI_SWORD) || CanUse(DINS_FIRE) ||
+                                     CanUse(MEGATON_HAMMER) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD));
                           } }),
                  Entrance(SFM_WOLFOS_GROTTO, { [] { return CanOpenBombGrotto; } }),
              });
@@ -432,10 +433,10 @@ void AreaTable_Init_LostWoods() {
                                         {
                                             // Locations
                                             LocationAccess(SFM_WOLFOS_GROTTO_CHEST, { [] {
-                                                               return CanUse(SLINGSHOT) || CanUse(STICKS) ||
+                                                               return SoulWolfos && (CanUse(SLINGSHOT) || CanUse(STICKS) ||
                                                                       CanUse(KOKIRI_SWORD) || CanUse(DINS_FIRE) ||
                                                                       CanUse(MEGATON_HAMMER) || CanUse(MASTER_SWORD) ||
-                                                                      CanUse(BIGGORON_SWORD);
+                                                                      CanUse(BIGGORON_SWORD));
                                                            } }),
                                         },
                                         {

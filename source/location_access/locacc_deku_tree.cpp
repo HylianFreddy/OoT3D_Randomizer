@@ -28,12 +28,12 @@ void AreaTable_Init_DekuTree() {
             {
                 // Events
                 EventAccess(&DekuBabaSticks, { [] {
-                    return DekuBabaSticks || (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                              CanUse(BOOMERANG));
+                    return DekuBabaSticks || (SoulDekuBaba && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
+                                              CanUse(BOOMERANG)));
                 } }),
                 EventAccess(&DekuBabaNuts, { [] {
-                    return DekuBabaNuts || (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
-                                            CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE));
+                    return DekuBabaNuts || (SoulDekuBaba && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
+                                            CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE)));
                 } }),
             },
             {
@@ -46,7 +46,7 @@ void AreaTable_Init_DekuTree() {
                 Entrance(DEKU_TREE_2F_MIDDLE_ROOM, { [] { return true; } }),
                 Entrance(DEKU_TREE_COMPASS_ROOM, { [] { return true; } }),
                 Entrance(DEKU_TREE_BASEMENT_LOWER, { [] {
-                             return Here(DEKU_TREE_LOBBY, [] { return CanAdultAttack || CanChildAttack || Nuts; });
+                             return Here(DEKU_TREE_LOBBY, [] { return HasFireSourceWithTorch || (SoulSkulltula && (CanAdultAttack || CanChildAttack || Nuts)); });
                          } }),
                 Entrance(DEKU_TREE_OUTSIDE_BOSS_ROOM,
                          { [] { return false; },
@@ -66,10 +66,10 @@ void AreaTable_Init_DekuTree() {
             {
                 // Exits
                 Entrance(DEKU_TREE_LOBBY, { [] {
-                             return Here(DEKU_TREE_2F_MIDDLE_ROOM, [] { return HasShield || CanUse(MEGATON_HAMMER); });
+                             return Here(DEKU_TREE_2F_MIDDLE_ROOM, [] { return SoulDekuScrub && (HasShield || CanUse(MEGATON_HAMMER)); });
                          } }),
                 Entrance(DEKU_TREE_SLINGSHOT_ROOM, { [] {
-                             return Here(DEKU_TREE_2F_MIDDLE_ROOM, [] { return HasShield || CanUse(MEGATON_HAMMER); });
+                             return Here(DEKU_TREE_2F_MIDDLE_ROOM, [] { return SoulDekuScrub && (HasShield || CanUse(MEGATON_HAMMER)); });
                          } }),
             });
 
@@ -96,12 +96,12 @@ void AreaTable_Init_DekuTree() {
             {
                 // Events
                 EventAccess(&DekuBabaSticks, { [] {
-                    return DekuBabaSticks || (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                              CanUse(BOOMERANG));
+                    return DekuBabaSticks || (SoulDekuBaba && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
+                                              CanUse(BOOMERANG)));
                 } }),
                 EventAccess(&DekuBabaNuts, { [] {
-                    return DekuBabaNuts || (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
-                                            CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE));
+                    return DekuBabaNuts || (SoulDekuBaba && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
+                                            CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE)));
                 } }),
             },
             {
@@ -123,12 +123,12 @@ void AreaTable_Init_DekuTree() {
             {
                 // Events
                 EventAccess(&DekuBabaSticks, { [] {
-                    return DekuBabaSticks || (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                              CanUse(BOOMERANG));
+                    return DekuBabaSticks || (SoulDekuBaba && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
+                                              CanUse(BOOMERANG)));
                 } }),
                 EventAccess(&DekuBabaNuts, { [] {
-                    return DekuBabaNuts || (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
-                                            CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE));
+                    return DekuBabaNuts || (SoulDekuBaba && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
+                                            CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE)));
                 } }),
             },
             {
@@ -175,12 +175,12 @@ void AreaTable_Init_DekuTree() {
                  {
                      // Events
                      EventAccess(&DekuBabaSticks, { [] {
-                         return DekuBabaSticks || (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
-                                                   CanUse(BIGGORON_SWORD) || CanUse(BOOMERANG));
+                         return DekuBabaSticks || (SoulDekuBaba && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
+                                                   CanUse(BIGGORON_SWORD) || CanUse(BOOMERANG)));
                      } }),
                      EventAccess(&DekuBabaNuts, { [] {
-                         return DekuBabaNuts || (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
-                                                 CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE));
+                         return DekuBabaNuts || (SoulDekuBaba && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
+                                                 CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE)));
                      } }),
                  },
                  {},
@@ -198,16 +198,16 @@ void AreaTable_Init_DekuTree() {
             {
                 // Events
                 EventAccess(&DekuBabaSticks, { [] {
-                    return DekuBabaSticks ||
+                    return DekuBabaSticks || (SoulDekuBaba &&
                            (Here(DEKU_TREE_BASEMENT_BACK_LOBBY, [] { return HasFireSourceWithTorch || CanUse(BOW); }) &&
                             (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                             CanUse(BOOMERANG)));
+                             CanUse(BOOMERANG))));
                 } }),
                 EventAccess(&DekuBabaNuts, { [] {
-                    return DekuBabaNuts ||
+                    return DekuBabaNuts || (SoulDekuBaba &&
                            (Here(DEKU_TREE_BASEMENT_BACK_LOBBY, [] { return HasFireSourceWithTorch || CanUse(BOW); }) &&
                             (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) || CanUse(MEGATON_HAMMER) ||
-                             HasExplosives || CanUse(DINS_FIRE)));
+                             HasExplosives || CanUse(DINS_FIRE))));
                 } }),
             },
             {},
@@ -249,12 +249,12 @@ void AreaTable_Init_DekuTree() {
             {
                 // Events
                 EventAccess(&DekuBabaSticks, { [] {
-                    return DekuBabaSticks || (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                              CanUse(BOOMERANG));
+                    return DekuBabaSticks || (SoulDekuBaba && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
+                                              CanUse(BOOMERANG)));
                 } }),
                 EventAccess(&DekuBabaNuts, { [] {
-                    return DekuBabaNuts || (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
-                                            CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE));
+                    return DekuBabaNuts || (SoulDekuBaba && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
+                                            CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE)));
                 } }),
             },
             {},
@@ -275,7 +275,7 @@ void AreaTable_Init_DekuTree() {
                      // Exits
                      Entrance(DEKU_TREE_BASEMENT_UPPER, { [] { return true; } }),
                      Entrance(DEKU_TREE_BOSS_ENTRYWAY,
-                              { [] { return Here(DEKU_TREE_OUTSIDE_BOSS_ROOM, [] { return HasShield; }); } }),
+                              { [] { return Here(DEKU_TREE_OUTSIDE_BOSS_ROOM, [] { return SoulDekuScrub && HasShield; }); } }),
                  });
     }
 
@@ -288,12 +288,12 @@ void AreaTable_Init_DekuTree() {
             {
                 // Events
                 EventAccess(&DekuBabaSticks, { [] {
-                    return DekuBabaSticks || (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                              CanUse(BOOMERANG));
+                    return DekuBabaSticks || (SoulDekuBaba && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
+                                              CanUse(BOOMERANG)));
                 } }),
                 EventAccess(&DekuBabaNuts, { [] {
-                    return DekuBabaNuts || (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
-                                            CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE));
+                    return DekuBabaNuts || (SoulDekuBaba && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
+                                            CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE)));
                 } }),
             },
             {
@@ -441,11 +441,11 @@ void AreaTable_Init_DekuTree() {
                  // Events
                  EventAccess(&DekuTreeClear, { [] {
                                                   return DekuTreeClear ||
-                                                         (CanJumpslash && (Nuts || CanUse(SLINGSHOT) || CanUse(BOW) ||
+                                                         (SoulGohma && CanJumpslash && (Nuts || CanUse(SLINGSHOT) || CanUse(BOW) ||
                                                                            HookshotOrBoomerang));
                                               },
                                                /*Glitched*/
-                                               [] { return CanDoGlitch(GlitchType::ISG, GlitchDifficulty::NOVICE); } }),
+                                               [] { return SoulGohma && CanDoGlitch(GlitchType::ISG, GlitchDifficulty::NOVICE); } }),
              },
              {
                  // Locations

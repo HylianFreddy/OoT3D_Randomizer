@@ -712,6 +712,7 @@ void SaveFile_InitExtSaveData(u32 saveNumber, u8 fromSaveCreation) {
     memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
     memset(&gExtSaveData.entrancesDiscovered, 0, sizeof(gExtSaveData.entrancesDiscovered));
     gExtSaveData.permadeath = fromSaveCreation ? gSettingsContext.permadeath : 0;
+    memset(&gExtSaveData.enemySoulsFlags, 0, sizeof(gExtSaveData.enemySoulsFlags));
     // Ingame Options
     gExtSaveData.option_EnableBGM          = gSettingsContext.playMusic;
     gExtSaveData.option_EnableSFX          = gSettingsContext.playSFX;

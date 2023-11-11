@@ -67,7 +67,7 @@ void AreaTable_Init_JabuJabusBelly() {
                 Entrance(JABU_JABUS_BELLY_MAIN_LOWER, { [] { return true; } }),
                 Entrance(JABU_JABUS_BELLY_FORKED_CORRIDOR, { [] { return true; } }),
                 Entrance(JABU_JABUS_BELLY_BIGOCTO_ROOM,
-                         { [] { return Here(JABU_JABUS_BELLY_GREEN_TENTACLE, [] { return CanUse(BOOMERANG); }); } }),
+                         { [] { return Here(JABU_JABUS_BELLY_GREEN_TENTACLE, [] { return SoulParasiticTentacle && CanUse(BOOMERANG); }); } }),
             });
 
         areaTable[JABU_JABUS_BELLY_MAIN_LOWER] =
@@ -161,18 +161,18 @@ void AreaTable_Init_JabuJabusBelly() {
                 Entrance(JABU_JABUS_BELLY_BOOMERANG_ROOM, { [] { return true; } }),
                 Entrance(JABU_JABUS_BELLY_MAP_ROOM, { [] { return true; } }),
                 Entrance(JABU_JABUS_BELLY_COMPASS_ROOM,
-                         { [] { return Here(JABU_JABUS_BELLY_MAP_ROOM, [] { return CanUse(BOOMERANG); }); } }),
+                         { [] { return Here(JABU_JABUS_BELLY_MAP_ROOM, [] { return SoulParasiticTentacle && CanUse(BOOMERANG); }); } }),
                 Entrance(JABU_JABUS_BELLY_BLUE_TENTACLE,
-                         { [] { return Here(JABU_JABUS_BELLY_MAP_ROOM, [] { return CanUse(BOOMERANG); }); } }),
+                         { [] { return Here(JABU_JABUS_BELLY_MAP_ROOM, [] { return SoulParasiticTentacle && CanUse(BOOMERANG); }); } }),
                 Entrance(JABU_JABUS_BELLY_GREEN_TENTACLE,
-                         { [] { return Here(JABU_JABUS_BELLY_BLUE_TENTACLE, [] { return CanUse(BOOMERANG); }); } }),
+                         { [] { return Here(JABU_JABUS_BELLY_BLUE_TENTACLE, [] { return SoulParasiticTentacle && CanUse(BOOMERANG); }); } }),
             });
 
         areaTable[JABU_JABUS_BELLY_BOOMERANG_ROOM] =
             Area("Jabu Jabus Belly Boomerang Room", "Jabu Jabus Belly", JABU_JABUS_BELLY, NO_DAY_NIGHT_CYCLE, {},
                  {
                      // Locations
-                     LocationAccess(JABU_JABUS_BELLY_BOOMERANG_CHEST, { [] { return true; } }),
+                     LocationAccess(JABU_JABUS_BELLY_BOOMERANG_CHEST, { [] { return SoulStinger; } }),
                  },
                  {
                      // Exits
@@ -183,7 +183,7 @@ void AreaTable_Init_JabuJabusBelly() {
             Area("Jabu Jabus Belly Map Room", "Jabu Jabus Belly", JABU_JABUS_BELLY, NO_DAY_NIGHT_CYCLE, {},
                  {
                      // Locations
-                     LocationAccess(JABU_JABUS_BELLY_MAP_CHEST, { [] { return CanUse(BOOMERANG); } }),
+                     LocationAccess(JABU_JABUS_BELLY_MAP_CHEST, { [] { return SoulParasiticTentacle && CanUse(BOOMERANG); } }),
                  },
                  {
                      // Exits
@@ -194,7 +194,7 @@ void AreaTable_Init_JabuJabusBelly() {
             "Jabu Jabus Belly Compass Room", "Jabu Jabus Belly", JABU_JABUS_BELLY, NO_DAY_NIGHT_CYCLE, {},
             {
                 // Locations
-                LocationAccess(JABU_JABUS_BELLY_COMPASS_CHEST, { [] { return CanAdultAttack || CanChildAttack; } }),
+                LocationAccess(JABU_JABUS_BELLY_COMPASS_CHEST, { [] { return SoulShabom && (CanAdultAttack || CanChildAttack); } }),
             },
             {
                 // Exits
@@ -206,7 +206,7 @@ void AreaTable_Init_JabuJabusBelly() {
             {
                 // Exits
                 Entrance(JABU_JABUS_BELLY_FORKED_CORRIDOR,
-                         { [] { return Here(JABU_JABUS_BELLY_BLUE_TENTACLE, [] { return CanUse(BOOMERANG); }); } }),
+                         { [] { return Here(JABU_JABUS_BELLY_BLUE_TENTACLE, [] { return SoulParasiticTentacle && CanUse(BOOMERANG); }); } }),
             });
 
         areaTable[JABU_JABUS_BELLY_GREEN_TENTACLE] = Area(
@@ -214,7 +214,7 @@ void AreaTable_Init_JabuJabusBelly() {
             {
                 // Exits
                 Entrance(JABU_JABUS_BELLY_FORKED_CORRIDOR,
-                         { [] { return Here(JABU_JABUS_BELLY_GREEN_TENTACLE, [] { return CanUse(BOOMERANG); }); } }),
+                         { [] { return Here(JABU_JABUS_BELLY_GREEN_TENTACLE, [] { return SoulParasiticTentacle && CanUse(BOOMERANG); }); } }),
             });
 
         areaTable[JABU_JABUS_BELLY_BIGOCTO_ROOM] =
@@ -223,7 +223,7 @@ void AreaTable_Init_JabuJabusBelly() {
                      // Exits
                      Entrance(JABU_JABUS_BELLY_MAIN_LOWER, { [] { return true; } }),
                      Entrance(JABU_JABUS_BELLY_ABOVE_BIGOCTO, { [] {
-                                  return Here(JABU_JABUS_BELLY_BIGOCTO_ROOM, [] {
+                                  return SoulOctorok && Here(JABU_JABUS_BELLY_BIGOCTO_ROOM, [] {
                                       return (CanUse(BOOMERANG) || Nuts) && (CanUse(KOKIRI_SWORD) || CanUse(STICKS));
                                   });
                               } }),
@@ -381,7 +381,7 @@ void AreaTable_Init_JabuJabusBelly() {
              {
                  // Events
                  EventAccess(&JabuJabusBellyClear,
-                             { [] { return JabuJabusBellyClear || (CanUse(BOOMERANG) && CanJumpslash); } }),
+                             { [] { return JabuJabusBellyClear || (SoulBarinade && CanUse(BOOMERANG) && CanJumpslash); } }),
              },
              {
                  // Locations
