@@ -10,7 +10,7 @@
 #define BORDER_WIDTH 2
 #define CHOICE_COLUMN 220
 #define DESCRIPTION_ROW 184
-#define OPTIONS_COUNT 10
+#define OPTIONS_COUNT 11
 
 typedef struct {
     char name[30];
@@ -89,6 +89,14 @@ void InitOptions(void) {
     strcpy(options[opNum].alternatives[altNum++], "On");
     strcpy(options[opNum].description, "");
     options[opNum++].optionPointer = &customSpeedBoost;
+
+    // Fireball Link
+    altNum = 0;
+    strcpy(options[opNum].name, "Fireball Link");
+    strcpy(options[opNum].alternatives[altNum++], "Off");
+    strcpy(options[opNum].alternatives[altNum++], "On");
+    strcpy(options[opNum].description, "");
+    options[opNum++].optionPointer = &gExtSaveData.option_FireballLink;
 }
 
 void Gfx_DrawOptions(void) {

@@ -727,6 +727,7 @@ void SaveFile_InitExtSaveData(u32 saveNumber, u8 fromSaveCreation) {
     gExtSaveData.option_IgnoreMaskReaction = gSettingsContext.ignoreMaskReaction;
     gExtSaveData.option_SkipSongReplays    = gSettingsContext.skipSongReplays;
     gExtSaveData.option_FreeCamControl     = gSettingsContext.freeCamControl;
+    gExtSaveData.option_FireballLink       = 0;
 }
 
 void SaveFile_LoadExtSaveData(u32 saveNumber) {
