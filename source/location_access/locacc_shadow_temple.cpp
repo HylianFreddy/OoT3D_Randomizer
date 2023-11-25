@@ -148,7 +148,7 @@ void AreaTable_Init_ShadowTemple() {
             {
                 // Locations
                 LocationAccess(SHADOW_TEMPLE_WIND_HINT_CHEST, { [] { return true; } }),
-                LocationAccess(SHADOW_TEMPLE_AFTER_WIND_ENEMY_CHEST, { [] { return SoulFlyingPot && SoulRedeadGibdo && CanJumpslash; } }),
+                LocationAccess(SHADOW_TEMPLE_AFTER_WIND_ENEMY_CHEST, { [] { return SoulFlyingTrap && SoulRedeadGibdo && CanJumpslash; } }),
                 LocationAccess(SHADOW_TEMPLE_AFTER_WIND_HIDDEN_CHEST, { [] { return true; } }),
                 LocationAccess(SHADOW_TEMPLE_GS_NEAR_SHIP,
                                { [] { return CanJumpslash && CanUse(LONGSHOT) && SmallKeys(SHADOW_TEMPLE, 4, 5); } }),
@@ -165,7 +165,7 @@ void AreaTable_Init_ShadowTemple() {
                 // Locations
                 LocationAccess(SHADOW_TEMPLE_SPIKE_WALLS_LEFT_CHEST, { [] { return CanUse(DINS_FIRE); } }),
                 LocationAccess(SHADOW_TEMPLE_BOSS_KEY_CHEST, { [] { return CanUse(DINS_FIRE); } }),
-                LocationAccess(SHADOW_TEMPLE_INVISIBLE_FLOORMASTER_CHEST, { [] { return SoulFloormaster && CanJumpslash; } }),
+                LocationAccess(SHADOW_TEMPLE_INVISIBLE_FLOORMASTER_CHEST, { [] { return SoulWallmaster && CanJumpslash; } }),
                 LocationAccess(SHADOW_TEMPLE_GS_TRIPLE_GIANT_POT, { [] { return CanAdultAttack; } }),
             },
             {

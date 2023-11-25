@@ -1975,15 +1975,6 @@ void HintTable_Init_Item() {
                      }
     );
 
-    hintTable[ITEM_SOUL_WALLMASTER] = HintText::Item({
-                       // obscure text
-                       Text{"the Wallmaster Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Mano Rapace", /*german*/""},
-                     }, {
-                       // ambiguous text
-                       Text{"a Soul", /*french*/"", /*spanish*/"", /*italian*/"un'anima", /*german*/""},
-                     }
-    );
-
     hintTable[ITEM_SOUL_KEESE] = HintText::Item({
                        // obscure text
                        Text{"the Keese Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Pipistrello", /*german*/""},
@@ -2119,18 +2110,9 @@ void HintTable_Init_Item() {
                      }
     );
 
-    hintTable[ITEM_SOUL_FLYING_POT] = HintText::Item({
+    hintTable[ITEM_SOUL_FLYING_TRAP] = HintText::Item({
                        // obscure text
-                       Text{"the Flying Pot Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Vaso volante", /*german*/""},
-                     }, {
-                       // ambiguous text
-                       Text{"a Soul", /*french*/"", /*spanish*/"", /*italian*/"un'anima", /*german*/""},
-                     }
-    );
-
-    hintTable[ITEM_SOUL_FLYING_TILE] = HintText::Item({
-                       // obscure text
-                       Text{"the Flying Floor Tile Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Piastrella volante", /*german*/""},
+                       Text{"the Flying Pot & Tile Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Vaso e Piastrella volante", /*german*/""},
                      }, {
                        // ambiguous text
                        Text{"a Soul", /*french*/"", /*spanish*/"", /*italian*/"un'anima", /*german*/""},
@@ -2146,9 +2128,9 @@ void HintTable_Init_Item() {
                      }
     );
 
-    hintTable[ITEM_SOUL_FLOORMASTER] = HintText::Item({
+    hintTable[ITEM_SOUL_WALLMASTER] = HintText::Item({
                        // obscure text
-                       Text{"the Floormaster Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Mano Diabolica", /*german*/""},
+                       Text{"the Wallmaster & Floormaster Soul", /*french*/"", /*spanish*/"", /*italian*/"l'anima di Mano Diabolica e Mano Rapace", /*german*/""},
                      }, {
                        // ambiguous text
                        Text{"a Soul", /*french*/"", /*spanish*/"", /*italian*/"un'anima", /*german*/""},

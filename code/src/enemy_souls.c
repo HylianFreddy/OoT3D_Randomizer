@@ -9,7 +9,6 @@ static EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
         case 0x091: return SOUL_POE; // Poe Sisters
         case 0x00E: return SOUL_OCTOROK; // Octorok
         case 0x0C6: return SOUL_OCTOROK; // Big Octo
-        case 0x011: return SOUL_WALLMASTER;
         case 0x013: return SOUL_KEESE;
         case 0x01B: return SOUL_TEKTITE;
         case 0x01C: return SOUL_LEEVER;
@@ -29,10 +28,11 @@ static EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
         case 0x055: return SOUL_DEKU_BABA; // Normal
         case 0x0C7: return SOUL_DEKU_BABA; // Withered
         case 0x069: return SOUL_BUBBLE;
-        case 0x11D: return SOUL_FLYING_POT;
-        case 0x06B: return SOUL_FLYING_TILE;
+        case 0x11D: return SOUL_FLYING_TRAP; // Flying Pot
+        case 0x06B: return SOUL_FLYING_TRAP; // Flying Tile
         case 0x08A: return SOUL_BEAMOS;
-        case 0x08E: return SOUL_FLOORMASTER;
+        case 0x011: return SOUL_WALLMASTER; // Wallmaster
+        case 0x08E: return SOUL_WALLMASTER; // Floormaster
         case 0x090: return SOUL_REDEAD_GIBDO;
         case 0x0C5: return SOUL_SHELL_BLADE;
         case 0x0DD: return SOUL_LIKE_LIKE;

@@ -301,7 +301,7 @@ void AreaTable_Init_ForestTemple() {
             "Forest Temple Floormaster Room", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE, {},
             {
                 // Locations
-                LocationAccess(FOREST_TEMPLE_FLOORMASTER_CHEST, { [] { return SoulFloormaster && (CanAdultDamage || CanChildDamage); } }),
+                LocationAccess(FOREST_TEMPLE_FLOORMASTER_CHEST, { [] { return SoulWallmaster && (CanAdultDamage || CanChildDamage); } }),
             },
             {
                 // Exits

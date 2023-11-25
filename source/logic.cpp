@@ -206,7 +206,6 @@ bool DoubleDefense = false;
 
 bool SoulPoe               = false;
 bool SoulOctorok           = false;
-bool SoulWallmaster        = false;
 bool SoulKeese             = false;
 bool SoulTektite           = false;
 bool SoulLeever            = false;
@@ -222,10 +221,9 @@ bool SoulMoblin            = false;
 bool SoulArmos             = false;
 bool SoulDekuBaba          = false;
 bool SoulBubble            = false;
-bool SoulFlyingPot         = false;
-bool SoulFlyingFloorTile   = false;
+bool SoulFlyingTrap        = false;
 bool SoulBeamos            = false;
-bool SoulFloormaster       = false;
+bool SoulWallmaster        = false;
 bool SoulRedeadGibdo       = false;
 bool SoulShellBlade        = false;
 bool SoulLikeLike          = false;
@@ -1162,7 +1160,6 @@ void LogicReset() {
 
     SoulPoe               = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
     SoulOctorok           = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
-    SoulWallmaster        = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
     SoulKeese             = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
     SoulTektite           = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
     SoulLeever            = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
@@ -1178,10 +1175,9 @@ void LogicReset() {
     SoulArmos             = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
     SoulDekuBaba          = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
     SoulBubble            = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
-    SoulFlyingPot         = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
-    SoulFlyingFloorTile   = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulFlyingTrap        = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
     SoulBeamos            = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
-    SoulFloormaster       = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
+    SoulWallmaster        = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
     SoulRedeadGibdo       = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
     SoulShellBlade        = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);
     SoulLikeLike          = ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_OFF);

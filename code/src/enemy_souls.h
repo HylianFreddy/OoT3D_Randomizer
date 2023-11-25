@@ -7,7 +7,6 @@ typedef enum EnemySoulId {
     SOUL_NONE,
     SOUL_POE,
     SOUL_OCTOROK,
-    SOUL_WALLMASTER,
     SOUL_KEESE,
     SOUL_TEKTITE,
     SOUL_LEEVER,
@@ -23,10 +22,9 @@ typedef enum EnemySoulId {
     SOUL_ARMOS,
     SOUL_DEKU_BABA,
     SOUL_BUBBLE,
-    SOUL_FLYING_POT,        // remove?
-    SOUL_FLYING_TILE, // remove?
+    SOUL_FLYING_TRAP,
     SOUL_BEAMOS,
-    SOUL_FLOORMASTER,
+    SOUL_WALLMASTER, // also Floormaster
     SOUL_REDEAD_GIBDO,
     SOUL_SHELL_BLADE,
     SOUL_LIKE_LIKE,

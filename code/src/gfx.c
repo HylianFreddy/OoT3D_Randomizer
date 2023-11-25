@@ -534,7 +534,6 @@ static void Gfx_DrawEnemySouls(void) {
     static char* soulsNames[] = {
         "Poe (all)",
         "Octorok, Big Octo",
-        "Wallmaster",
         "Keese (all)",
         "Tektite",
         "Leever",
@@ -550,10 +549,9 @@ static void Gfx_DrawEnemySouls(void) {
         "Armos",
         "Deku Baba (all)",
         "Bubble (all)",
-        "Flying Pot",
-        "Flying Floor Tile",
+        "Flying Pot & Tile",
         "Beamos",
-        "Floormaster",
+        "Wallmaster & Floormaster",
         "Redead, Gibdo",
         "Shell Blade",
         "Like Like",
@@ -587,7 +585,7 @@ static void Gfx_DrawEnemySouls(void) {
     u8 endIndex   = soulsScroll <= 0 ? 32 : ARRAY_SIZE(soulsNames);
 
     for (u8 i = startIndex; i < endIndex; i++) {
-        u16 posX = 10 + (((i % 32) / 16) * (SPACING_X * 30));
+        u16 posX = 10 + (((i % 32) / 16) * (SPACING_X * 25));
         u16 posY = 30 + (SPACING_Y * (i % 16));
 
         Draw_DrawRect(posX, posY, 9, 9, COLOR_WHITE);
