@@ -170,6 +170,22 @@ void ItemEffect_BeanPack(SaveContext* saveCtx, s16 arg1, s16 arg2) {
     saveCtx->ammo[SLOT_BEAN] += 10; // 10 Magic Beans
 }
 
+void ItemEffect_TriforcePiece(SaveContext* saveCtx, s16 arg1, s16 arg2) {
+    gExtSaveData.extInf[EXTINF_TRIFORCE_PIECES]++;
+    if (gSettingsContext.triforceHunt &&
+        gExtSaveData.extInf[EXTINF_TRIFORCE_PIECES] == gSettingsContext.triforcePiecesRequired) {
+        // Save progress
+        SaveGame(gGlobalContext, FALSE);
+        // Warp to Ganon sealing cutscene
+        gGlobalContext->nextEntranceIndex = 0x00A0;
+        gSaveContext.nextCutsceneIndex    = 0xFFF8;
+        gEntranceTable[0x00A0].field |= 0x8000; // continue playing background music (namely get item fanfare)
+        gGlobalContext->fadeOutTransition = 0x2F;
+        gGlobalContext->sceneLoadFlag     = 0x14;
+        PLAYER->stateFlags1 |= 1; // Loading area
+    }
+}
+
 // With the No Ammo Drops option on, when the player gets an ammo upgrade,
 // the ammo count increases by 10 instead of being set to the maximum
 typedef void (*Inventory_ChangeUpgrade_proc)(u32 upgrade, u32 value);

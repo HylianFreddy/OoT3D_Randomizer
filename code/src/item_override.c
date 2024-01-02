@@ -322,7 +322,6 @@ void ItemOverride_AfterItemReceived(void) {
         return;
     }
     ItemOverride_AfterKeyReceived(key);
-    ItemOverride_Clear();
 }
 
 static u32 ItemOverride_PlayerIsReadyOnLand(void) {
@@ -534,6 +533,27 @@ void ItemOverride_EditDrawGetItemAfterModelSpawn(SkeletonAnimationModel* model) 
     CustomModels_ApplyItemCMAB(model, rActiveItemObjectId, rActiveItemRow->special);
 }
 
+// Called every frame while the GetItem is drawn
+void ItemOverride_EditDrawGetItemAfterMatrixUpdate(SkeletonAnimationModel* model) {
+    if (ItemOverride_IsDrawItemVanilla()) {
+        return;
+    }
+
+    if (rActiveItemObjectId == OBJECT_CUSTOM_TRIFORCE_PIECE) {
+        f32 scale = 0.05f;
+        Vec3f posOffset = (Vec3f){ 0.0f, -800.0f, 0.0f };
+
+        nn_math_MTX44 scaleMtx = { 0 };
+        scaleMtx.data[0][0] = scale;
+        scaleMtx.data[1][1] = scale;
+        scaleMtx.data[2][2] = scale;
+        scaleMtx.data[3][3] = 1.0f;
+
+        Matrix_Multiply(&model->mtx, &model->mtx, &scaleMtx);
+        Matrix_UpdatePosition(&model->mtx, &model->mtx, &posOffset);
+    }
+}
+
 s32 ItemOverride_GiveSariasGift(void) {
     u32 receivedGift = EventCheck(0xC1);
     if (receivedGift == 0 &&
@@ -596,4 +616,17 @@ s16 ItemOverride_OverrideGiDrawIdPlusOne(s16 originalDrawItemID) {
     }
 
     return 1; // Default value that won't change the mesh.
+}
+
+void ItemOverride_PushHardcodedItem(s16 getItemId) {
+    ItemOverride override = {
+        .key =  {
+            .type = OVR_DELAYED, // random value to have non-zero key
+        },
+        .value = {
+            .itemId = getItemId,
+            .player = 0xFF,
+        }
+    };
+    ItemOverride_PushPendingOverride(override);
 }

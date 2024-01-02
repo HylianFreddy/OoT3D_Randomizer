@@ -227,6 +227,14 @@ static void CustomModel_SetBossKeyToRGBA565(void* bossKeyCMB) {
     EDIT_BYTE(0x44B, 0x00);
 }
 
+static void CustomModel_EditTriforce(void* triforceCMB) {
+    char* BASE_ = (char*)triforceCMB;
+
+    // Set number of vertices from 0x120 to 0x60 so only one triangle will be drawn.
+    EDIT_BYTE(0x3FC, 0x60);
+    EDIT_BYTE(0x3FD, 0x00);
+}
+
 void CustomModel_Update(void) {
     // Make sure custom_assets is loaded
     if (ExtendedObject_GetIndex(&gGlobalContext->objectCtx, OBJECT_CUSTOM_GENERAL_ASSETS) < 0) {
@@ -265,6 +273,10 @@ void CustomModels_EditItemCMB(void* ZARBuf, u16 objectId, s8 special) {
         case OBJECT_CUSTOM_BOSS_KEYS:
             cmb = ((char*)ZARBuf) + 0x78;
             CustomModel_SetBossKeyToRGBA565(cmb);
+            break;
+        case OBJECT_CUSTOM_TRIFORCE_PIECE:
+            cmb = ((char*)ZARBuf) + 0xF0;
+            CustomModel_EditTriforce(cmb);
             break;
     }
 }

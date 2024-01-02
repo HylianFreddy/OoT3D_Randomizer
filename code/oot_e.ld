@@ -1244,8 +1244,12 @@ SECTIONS
 		*(.patch_GearMenuEmptySlot)
 	}
 
-	.patch_LoadGame 0x4473A0 : {
-		*(.patch_LoadGame)
+	.patch_BeforeLoadGame 0x4473A0 : {
+		*(.patch_BeforeLoadGame)
+	}
+
+	.patch_AfterLoadGame 0x449F20 : {
+		*(.patch_AfterLoadGame)
 	}
 
 	.patch_DontSetMotionSetting 0x447430 : {
@@ -1566,6 +1570,10 @@ SECTIONS
 
 	.patch_HookshotRotation 0x4C2524 : {
 		*(.patch_HookshotRotation)
+	}
+
+	.patch_EditDrawGetItemAfterMatrixUpdate 0x4C4D14 : {
+		*(.patch_EditDrawGetItemAfterMatrixUpdate)
 	}
 
 	.patch_EditDrawGetItemAfterModelSpawn 0x4C61A4 : {

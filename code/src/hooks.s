@@ -146,6 +146,14 @@ hook_EditDrawDetItemAfterModelSpawn:
     str r0,[r6,#0x78]
     bx lr
 
+.global hook_EditDrawGetItemAfterMatrixUpdate
+hook_EditDrawGetItemAfterMatrixUpdate:
+    push {r0-r12, lr}
+    cpy r0,r1 @ SkeletonAnimationModel
+    bl ItemOverride_EditDrawGetItemAfterMatrixUpdate
+    pop {r0-r12, lr}
+    b 0x330B98
+
 # TODO: Text ID in game gets messed up,
 # Gives the "What's that?" text instead of
 # the text about moving the statue
@@ -1076,17 +1084,24 @@ hook_LostWoodsBridgeMusic:
     pop {r0-r12, lr}
     bx lr
 
-.global hook_LoadGame
-hook_LoadGame:
+.global hook_BeforeLoadGame
+hook_BeforeLoadGame:
     add r0, r4, r5
     push {r0-r12, lr}
-    bl SaveFile_LoadExtSaveData
+    bl SaveFile_BeforeLoadGame
     pop {r0-r12, lr}
 .if _EUR_==1
     b 0x4473A4
 .else
     b 0x447384
 .endif
+
+.global hook_AfterLoadGame
+hook_AfterLoadGame:
+    push {r0-r12, lr}
+    bl SaveFile_AfterLoadGame
+    pop {r0-r12, lr}
+    pop {r4-r6, pc}
 
 .global hook_SaveGame
 hook_SaveGame:

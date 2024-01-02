@@ -37,6 +37,8 @@ s32 numShopItemsLoaded = 0; // Used to determine params. Reset this to 0 in ossa
 
 #define EnGirlA_InitializeItemAction ((EnGirlAActionFunc)0x14D5C8)
 
+void ShopsanityItem_Draw(Actor* itemx, GlobalContext* globalCtx);
+
 // Checks for if item is of a certain type
 
 u8 ShopsanityItem_IsBombs(u8 id) {
@@ -223,6 +225,7 @@ void ShopsanityItem_InitializeItem(EnGirlA* item, GlobalContext* globalCtx) {
         u16 index                 = ShopsanityItem_GetIndex(shopItem);
         item->actor.textId        = 0x9200 + index * 2;
         item->itemBuyPromptTextId = 0x9200 + index * 2 + 1;
+        item->actor.draw = ShopsanityItem_Draw;
     }
 }
 
@@ -316,6 +319,26 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
         }
         item->rObjBankIndex = objBankIndex;
     }
+}
+
+void ShopsanityItem_Draw(Actor* itemx, GlobalContext* globalCtx) {
+    ShopsanityItem* item  = (ShopsanityItem*)itemx;
+    ItemOverride override = ItemOverride_Lookup(&item->super.actor, globalCtx->sceneNum, item->getItemId);
+    if (ItemTable_GetItemRow(override.value.itemId)->objectId == OBJECT_CUSTOM_TRIFORCE_PIECE) {
+        f32 scale = 0.05f;
+        Vec3f posOffset = (Vec3f){ 0.0f, -800.0f, 0.0f };
+
+        nn_math_MTX44 scaleMtx = { 0 };
+        scaleMtx.data[0][0] = scale;
+        scaleMtx.data[1][1] = scale;
+        scaleMtx.data[2][2] = scale;
+        scaleMtx.data[3][3] = 1.0f;
+
+        Matrix_Multiply(&item->super.actor.modelMtx, &item->super.actor.modelMtx, &scaleMtx);
+        Matrix_UpdatePosition(&item->super.actor.modelMtx, &item->super.actor.modelMtx, &posOffset);
+    }
+
+    EnGirlA_Draw(itemx, globalCtx);
 }
 
 void ShopsanityItem_SellOut(Actor* itemx, u16 index) {

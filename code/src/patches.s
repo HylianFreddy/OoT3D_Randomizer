@@ -71,6 +71,11 @@ EditDrawGetItemBeforeModelSpawn_patch:
 EditDrawGetItemAfterModelSpawn_patch:
     bl hook_EditDrawDetItemAfterModelSpawn
 
+.section .patch_EditDrawGetItemAfterMatrixUpdate
+.global EditDrawGetItemAfterMatrixUpdate_patch
+EditDrawGetItemAfterMatrixUpdate_patch:
+    bl hook_EditDrawGetItemAfterMatrixUpdate
+
 .section .patch_NoLensOfTruthNaviText
     nop
 
@@ -1582,10 +1587,15 @@ EnteredLocation_patch:
 LostWoodsBridgeMusic_patch:
     bl hook_LostWoodsBridgeMusic
 
-.section .patch_LoadGame
-.global .LoadGame_patch
-LoadGame_patch:
-    b hook_LoadGame
+.section .patch_BeforeLoadGame
+.global BeforeLoadGame_patch
+BeforeLoadGame_patch:
+    b hook_BeforeLoadGame
+
+.section .patch_AfterLoadGame
+.global AfterLoadGame_patch
+AfterLoadGame_patch:
+    b hook_AfterLoadGame
 
 .section .patch_SaveGame
 .global .SaveGame_patch
