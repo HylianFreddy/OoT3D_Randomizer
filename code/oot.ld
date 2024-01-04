@@ -52,6 +52,10 @@ SECTIONS
 		*(.patch_FlyingPotCollision)
 	}
 
+	.patch_DodongoAfterSwallowBomb 0x11E4B8 : {
+		*(.patch_DodongoAfterSwallowBomb)
+	}
+
 	.patch_SariasSongItemGive 0x12C84C : {
 		*(.patch_SariasSongItemGive)
 	}
@@ -398,6 +402,10 @@ SECTIONS
 
 	.patch_FishingSizeIgnoreAdult 0x1C3E40 : {
 		*(.patch_FishingSizeIgnoreAdult)
+	}
+
+	.patch_BabyDodongoAfterSwallowBomb 0x1C42DC : {
+		*(.patch_BabyDodongoAfterSwallowBomb)
 	}
 
 	.patch_BiggoronAfterGiveItem 0x1C4E4C : {
@@ -1026,6 +1034,10 @@ SECTIONS
 
 	.patch_GerudoArcheryOne 0x3AFA34 : {
 		*(.patch_GerudoArcheryOne)
+	}
+
+	.patch_ShabomAfterDamagePlayer 0x3B5060 : {
+		*(.patch_ShabomAfterDamagePlayer)
 	}
 
 	.patch_RandomGsLoc_CustomTokenSpawnOffset 0x3B94C4 : {

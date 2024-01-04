@@ -60,6 +60,7 @@
 #include "skulltula_people.h"
 #include "red_ice.h"
 #include "shabom.h"
+#include "anubis.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -97,7 +98,7 @@ void Actor_Init() {
     gActorOverlayTable[0x15].initInfo->update  = EnItem00_rUpdate;
     gActorOverlayTable[0x15].initInfo->draw    = EnItem00_rDraw;
 
-    gActorOverlayTable[0x2D].initInfo->update = EnBubble_rUpdate;
+    // gActorOverlayTable[0x2D].initInfo->update = EnBubble_rUpdate;
 
     gActorOverlayTable[0x2E].initInfo->init   = DoorShutter_rInit;
     gActorOverlayTable[0x2E].initInfo->update = (ActorFunc)DoorShutter_rUpdate;
@@ -142,6 +143,8 @@ void Actor_Init() {
     gActorOverlayTable[0xDC].initInfo->update  = Boss_Tw_rUpdate;
     gActorOverlayTable[0xDC].initInfo->draw    = Boss_Tw_rDraw;
     gActorOverlayTable[0xDC].initInfo->destroy = Boss_Tw_rDestroy;
+
+    gActorOverlayTable[0xE0].initInfo->update  = EnAnubice_rUpdate;
 
     gActorOverlayTable[0xE6].initInfo->init = BgBdanSwitch_rInit;
 

@@ -1,5 +1,4 @@
 #include "z3D/z3D.h"
-#include "settings.h"
 #include "flying_traps.h"
 #include "enemy_souls.h"
 

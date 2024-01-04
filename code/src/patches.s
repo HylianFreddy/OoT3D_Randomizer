@@ -2215,6 +2215,21 @@ FlyingPotCollision_patch:
 FlyingTileCollision_patch:
     bl hook_FlyingTileCollision
 
+.section .patch_ShabomAfterDamagePlayer
+.global ShabomAfterDamagePlayer_patch
+ShabomAfterDamagePlayer_patch:
+    bl hook_ShabomAfterDamagePlayer
+
+.section .patch_DodongoAfterSwallowBomb
+.global DodongoAfterSwallowBomb_patch
+DodongoAfterSwallowBomb_patch:
+    bl hook_DodongoAfterSwallowBomb
+
+.section .patch_BabyDodongoAfterSwallowBomb
+.global BabyDodongoAfterSwallowBomb_patch
+BabyDodongoAfterSwallowBomb_patch:
+    bl hook_BabyDodongoAfterSwallowBomb
+
 @ ----------------------------------
 @ ----------------------------------
 

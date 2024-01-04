@@ -2089,6 +2089,37 @@ hook_FlyingTileCollision:
     addne lr,lr,#0x8 @ Skip setting actionFunc
     bx lr
 
+.global hook_ShabomAfterDamagePlayer
+hook_ShabomAfterDamagePlayer:
+    push {r0-r12, lr}
+    bl Shabom_CheckEnemySoul
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    beq 0x3B511C @ Skip popping
+    strh r10,[r5,#0x80]
+
+.global hook_DodongoAfterSwallowBomb
+hook_DodongoAfterSwallowBomb:
+    mov r1,#0xA
+    push {r0-r12, lr}
+    cpy r0,r4 @ Actor
+    bl Dodongos_AfterSwallowBomb_Normal
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    bne 0x11E4F4
+    bx lr
+
+.global hook_BabyDodongoAfterSwallowBomb
+hook_BabyDodongoAfterSwallowBomb:
+    mov r3,#0x8
+    push {r0-r12, lr}
+    cpy r0,r4 @ Actor
+    bl Dodongos_AfterSwallowBomb_Baby
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    bne 0x1C4370
+    bx lr
+
 @ ----------------------------------
 @ ----------------------------------
 
