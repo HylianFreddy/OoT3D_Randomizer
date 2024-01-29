@@ -418,6 +418,13 @@ void ItemOverride_Update(void) {
             }
         }
     }
+
+    // Clear the active override once the GetItem process has finished,
+    // or when walking away from a chest without opening it.
+    if (rActiveItemRow != NULL &&
+        (PLAYER->getItemId == 0 || ((s8)PLAYER->getItemId < 0 && PLAYER->interactRangeActor == NULL))) {
+        ItemOverride_Clear();
+    }
 }
 
 void ItemOverride_GetItem(Actor* fromActor, Player* player, s8 incomingItemId) {
