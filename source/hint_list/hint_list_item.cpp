@@ -1957,7 +1957,7 @@ void HintTable_Init_Item() {
     //                    }
     // );
 
-    hintTable[ITEM_OCARINA_BUTTON_L] = HintText::Item({
+    hintTable[OCA_BUTTON_ITEM_L] = HintText::Item({
                        // obscure text
                        Text{"the Ocarina L Button", /*french*/"", /*spanish*/"", /*italian*/"il pulsante L dell'ocarina", /*german*/""},
                      }, {
@@ -1966,7 +1966,7 @@ void HintTable_Init_Item() {
                      }
     );
 
-    hintTable[ITEM_OCARINA_BUTTON_R] = HintText::Item({
+    hintTable[OCA_BUTTON_ITEM_R] = HintText::Item({
                        // obscure text
                        Text{"the Ocarina R Button", /*french*/"", /*spanish*/"", /*italian*/"il pulsante R dell'ocarina", /*german*/""},
                      }, {
@@ -1975,7 +1975,7 @@ void HintTable_Init_Item() {
                      }
     );
 
-    hintTable[ITEM_OCARINA_BUTTON_X] = HintText::Item({
+    hintTable[OCA_BUTTON_ITEM_X] = HintText::Item({
                        // obscure text
                        Text{"the Ocarina X Button", /*french*/"", /*spanish*/"", /*italian*/"il pulsante X dell'ocarina", /*german*/""},
                      }, {
@@ -1984,7 +1984,7 @@ void HintTable_Init_Item() {
                      }
     );
 
-    hintTable[ITEM_OCARINA_BUTTON_Y] = HintText::Item({
+    hintTable[OCA_BUTTON_ITEM_Y] = HintText::Item({
                        // obscure text
                        Text{"the Ocarina Y Button", /*french*/"", /*spanish*/"", /*italian*/"il pulsante Y dell'ocarina", /*german*/""},
                      }, {
@@ -1993,7 +1993,7 @@ void HintTable_Init_Item() {
                      }
     );
 
-    hintTable[ITEM_OCARINA_BUTTON_A] = HintText::Item({
+    hintTable[OCA_BUTTON_ITEM_A] = HintText::Item({
                        // obscure text
                        Text{"the Ocarina A Button", /*french*/"", /*spanish*/"", /*italian*/"il pulsante A dell'ocarina", /*german*/""},
                      }, {

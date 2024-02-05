@@ -255,7 +255,7 @@ const std::array<ItemKey, 10> tradeItems = {
     CLAIM_CHECK,
 };
 const std::array<ItemKey, 5> ocarinaNoteButtons = {
-    ITEM_OCARINA_BUTTON_L, ITEM_OCARINA_BUTTON_R, ITEM_OCARINA_BUTTON_X, ITEM_OCARINA_BUTTON_Y, ITEM_OCARINA_BUTTON_A,
+    OCA_BUTTON_ITEM_L, OCA_BUTTON_ITEM_R, OCA_BUTTON_ITEM_X, OCA_BUTTON_ITEM_Y, OCA_BUTTON_ITEM_A,
 };
 
 void AddItemToPool(std::vector<ItemKey>& pool, ItemKey item, size_t count /*= 1*/) {
