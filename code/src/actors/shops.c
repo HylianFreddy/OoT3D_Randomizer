@@ -324,19 +324,8 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
 void ShopsanityItem_Draw(Actor* itemx, GlobalContext* globalCtx) {
     ShopsanityItem* item  = (ShopsanityItem*)itemx;
     ItemOverride override = ItemOverride_Lookup(&item->super.actor, globalCtx->sceneNum, item->getItemId);
-    if (ItemTable_GetItemRow(override.value.itemId)->objectId == OBJECT_CUSTOM_TRIFORCE_PIECE) {
-        f32 scale = 0.05f;
-        Vec3f posOffset = (Vec3f){ 0.0f, -800.0f, 0.0f };
 
-        nn_math_MTX44 scaleMtx = { 0 };
-        scaleMtx.data[0][0] = scale;
-        scaleMtx.data[1][1] = scale;
-        scaleMtx.data[2][2] = scale;
-        scaleMtx.data[3][3] = 1.0f;
-
-        Matrix_Multiply(&item->super.actor.modelMtx, &item->super.actor.modelMtx, &scaleMtx);
-        Matrix_UpdatePosition(&item->super.actor.modelMtx, &item->super.actor.modelMtx, &posOffset);
-    }
+    CustomModels_UpdateMatrix(&item->super.actor.modelMtx, ItemTable_GetItemRow(override.value.itemId)->objectId);
 
     EnGirlA_Draw(itemx, globalCtx);
 }

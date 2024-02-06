@@ -7,6 +7,7 @@ void CustomModel_EditTitleScreenLogo(void* titleScreenZAR);
 void CustomModel_Update(void);
 void CustomModels_EditItemCMB(void* ZARBuf, u16 objectId, s8 special);
 void CustomModels_ApplyItemCMAB(SkeletonAnimationModel* model, u16 objectId, s8 special);
+void CustomModels_UpdateMatrix(nn_math_MTX34* modelMtx, u16 objectId);
 
 #define OBJECT_CUSTOM_DOUBLE_DEFENSE 4
 #define OBJECT_CUSTOM_CHILD_SONGS 5

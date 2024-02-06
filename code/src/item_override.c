@@ -546,19 +546,7 @@ void ItemOverride_EditDrawGetItemAfterMatrixUpdate(SkeletonAnimationModel* model
         return;
     }
 
-    if (rActiveItemObjectId == OBJECT_CUSTOM_TRIFORCE_PIECE) {
-        f32 scale = 0.05f;
-        Vec3f posOffset = (Vec3f){ 0.0f, -800.0f, 0.0f };
-
-        nn_math_MTX44 scaleMtx = { 0 };
-        scaleMtx.data[0][0] = scale;
-        scaleMtx.data[1][1] = scale;
-        scaleMtx.data[2][2] = scale;
-        scaleMtx.data[3][3] = 1.0f;
-
-        Matrix_Multiply(&model->mtx, &model->mtx, &scaleMtx);
-        Matrix_UpdatePosition(&model->mtx, &model->mtx, &posOffset);
-    }
+    CustomModels_UpdateMatrix(&model->mtx, rActiveItemObjectId);
 }
 
 s32 ItemOverride_GiveSariasGift(void) {
