@@ -39,13 +39,14 @@ typedef enum {
     EXTINF_HASTIMETRAVELED,
     EXTINF_MASTERSWORDFLAGS,
     EXTINF_TOTALTAR_FLAGS,
+    EXTINF_ENEMYSOULSFLAGS_START, // 64 bits (at least one for each EnemySoulId)
+    EXTINF_ENEMYSOULSFLAGS_END = EXTINF_ENEMYSOULSFLAGS_START + 7,
     EXTINF_SIZE,
 } ExtInf;
 
 typedef struct {
     u32 version;            // Needs to always be the first field of the structure
     u8 extInf[EXTINF_SIZE]; // Used for various bit flags that should also be synced in multiplayer
-    u16 enemySoulsFlags[4]; // 64 bits (at least one for each EnemySoulId)
     struct {
         Vec3i pos;
         s32 yaw;

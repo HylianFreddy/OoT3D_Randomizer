@@ -2,6 +2,7 @@
 #include "savefile.h"
 #include "settings.h"
 
+// clang-format off
 static EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
     switch (actorId) {
         case 0x00D: return SOUL_POE; // Small Poe
@@ -76,6 +77,7 @@ static EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
 
     return SOUL_NONE;
 }
+// clang-format on
 
 enum {
     ENEMYSOULSDEBUGTOGGLE_OFF,
@@ -85,17 +87,16 @@ enum {
 
 u8 EnemySouls_DebugToggle = ENEMYSOULSDEBUGTOGGLE_OFF;
 
-u16 EnemySouls_GetSoulFlag(EnemySoulId soulId) {
-    return gExtSaveData.enemySoulsFlags[soulId >> 4] & (1 << (soulId & 0xF));
+u8 EnemySouls_GetSoulFlag(EnemySoulId soulId) {
+    return gExtSaveData.extInf[EXTINF_ENEMYSOULSFLAGS_START + (soulId >> 3)] & (1 << (soulId & 0b111));
 }
 
 void EnemySouls_SetSoulFlag(EnemySoulId soulId) {
-    gExtSaveData.enemySoulsFlags[soulId >> 4] |= (1 << (soulId & 0xF));
+    gExtSaveData.extInf[EXTINF_ENEMYSOULSFLAGS_START + (soulId >> 3)] |= (1 << (soulId & 0b111));
 }
 
 u8 EnemySouls_CheckSoulForActor(Actor* actor) {
-    if ((gSettingsContext.shuffleEnemySouls == OFF) ||
-        (actor->id == 0x054 && actor->params == 0)) { // Armos statue
+    if ((gSettingsContext.shuffleEnemySouls == OFF) || (actor->id == 0x054 && actor->params == 0 /* Armos statue */)) {
         return TRUE;
     }
     if (EnemySouls_DebugToggle == ENEMYSOULSDEBUGTOGGLE_HAVE) {
