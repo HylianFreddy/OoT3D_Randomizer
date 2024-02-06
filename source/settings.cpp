@@ -199,7 +199,7 @@ Option ShuffleMerchants       = Option::U8  ("Shuffle Merchants",      {"Off", "
 Option ShuffleAdultTradeQuest = Option::Bool("Shuffle Adult Trade",    {"Off", "On"},                                                     {adultTradeDesc});
 Option ShuffleChestMinigame   = Option::U8  ("Shuffle Chest Minigame", {"Off", "On (Separate)", "On (Pack)"},                             {chestMinigameDesc});
 Option ShuffleFrogSongRupees  = Option::Bool("Shuffle Frog Rupees",    {"Off", "On"},                                                     {frogSongRupeesDesc});
-Option ShuffleEnemySouls      = Option::U8  ("Shuffle Enemy Souls",    {"Off", "All"},                                                    {enemySoulDesc});
+Option ShuffleEnemySouls      = Option::U8  ("Shuffle Enemy Souls",    {"Off", "On"},                                                     {enemySoulDesc});
 std::vector<Option *> shuffleOptions = {
     &RandomizeShuffle,
     &ShuffleRewards,
@@ -661,6 +661,103 @@ std::vector<Option *> startingStonesMedallionsOptions = {
     &StartingShadowMedallion,
 };
 
+Option StartingSoulPoe =                Option::U8  ("Poe (all)",              {"Off", "On"}, {""});
+Option StartingSoulOctorok =            Option::U8  ("Octorok, Big Octo",      {"Off", "On"}, {""});
+Option StartingSoulKeese =              Option::U8  ("Keese (all)",            {"Off", "On"}, {""});
+Option StartingSoulTektite =            Option::U8  ("Tektite",                {"Off", "On"}, {""});
+Option StartingSoulLeever =             Option::U8  ("Leever",                 {"Off", "On"}, {""});
+Option StartingSoulPeahat =             Option::U8  ("Peahat",                 {"Off", "On"}, {""});
+Option StartingSoulLizalfosDinolfos =   Option::U8  ("Lizalfos, Dinolfos",     {"Off", "On"}, {""});
+Option StartingSoulShabom =             Option::U8  ("Shabom",                 {"Off", "On"}, {""});
+Option StartingSoulBiriBari =           Option::U8  ("Biri, Bari",             {"Off", "On"}, {""});
+Option StartingSoulTailpasaran =        Option::U8  ("Tailpasaran",            {"Off", "On"}, {""});
+Option StartingSoulSkulltula =          Option::U8  ("Skulltula (all)",        {"Off", "On"}, {""});
+Option StartingSoulTorchSlug =          Option::U8  ("Torch Slug",             {"Off", "On"}, {""});
+Option StartingSoulStinger =            Option::U8  ("Stinger",                {"Off", "On"}, {""});
+Option StartingSoulMoblin =             Option::U8  ("Moblin, Club Moblin",    {"Off", "On"}, {""});
+Option StartingSoulArmos =              Option::U8  ("Armos",                  {"Off", "On"}, {""});
+Option StartingSoulDekuBaba =           Option::U8  ("Deku Baba (all)",        {"Off", "On"}, {""});
+Option StartingSoulBubble =             Option::U8  ("Bubble (all)",           {"Off", "On"}, {""});
+Option StartingSoulFlyingTrap =         Option::U8  ("Flying Pot & Tile",      {"Off", "On"}, {""});
+Option StartingSoulBeamos =             Option::U8  ("Beamos",                 {"Off", "On"}, {""});
+Option StartingSoulWallmaster =         Option::U8  ("Wallmaster, Floormaster",{"Off", "On"}, {""});
+Option StartingSoulRedeadGibdo =        Option::U8  ("Redead, Gibdo",          {"Off", "On"}, {""});
+Option StartingSoulShellBlade =         Option::U8  ("Shell Blade",            {"Off", "On"}, {""});
+Option StartingSoulLikeLike =           Option::U8  ("Like Like",              {"Off", "On"}, {""});
+Option StartingSoulParasiticTentacle =  Option::U8  ("Parasitic Tentacle",     {"Off", "On"}, {""});
+Option StartingSoulAnubis =             Option::U8  ("Anubis",                 {"Off", "On"}, {""});
+Option StartingSoulSpike =              Option::U8  ("Spike",                  {"Off", "On"}, {""});
+Option StartingSoulSkullKid =           Option::U8  ("Skull Kid",              {"Off", "On"}, {""});
+Option StartingSoulFreezard =           Option::U8  ("Freezard",               {"Off", "On"}, {""});
+Option StartingSoulDekuScrub =          Option::U8  ("Deku Scrub (all)",       {"Off", "On"}, {""});
+Option StartingSoulWolfos =             Option::U8  ("Wolfos (all)",           {"Off", "On"}, {""});
+Option StartingSoulStalchild =          Option::U8  ("Stalchild",              {"Off", "On"}, {""});
+Option StartingSoulGuay =               Option::U8  ("Guay",                   {"Off", "On"}, {""});
+Option StartingSoulDoorMimic =          Option::U8  ("Door Mimic",             {"Off", "On"}, {""});
+Option StartingSoulStalfos =            Option::U8  ("Stalfos",                {"Off", "On"}, {""});
+Option StartingSoulDarkLink =           Option::U8  ("Dark Link",              {"Off", "On"}, {""});
+Option StartingSoulFlareDancer =        Option::U8  ("Flare Dancer",           {"Off", "On"}, {""});
+Option StartingSoulDeadHand =           Option::U8  ("Dead Hand",              {"Off", "On"}, {""});
+Option StartingSoulGerudo =             Option::U8  ("Gerudo, Iron Knuckle",   {"Off", "On"}, {""});
+Option StartingSoulGohma =              Option::U8  ("Gohma, Gohma Larva",     {"Off", "On"}, {""});
+Option StartingSoulDodongo =            Option::U8  ("Dodongo (all)",          {"Off", "On"}, {""});
+Option StartingSoulBarinade =           Option::U8  ("Barinade",               {"Off", "On"}, {""});
+Option StartingSoulPhantomGanon =       Option::U8  ("Phantom Ganon",          {"Off", "On"}, {""});
+Option StartingSoulVolvagia =           Option::U8  ("Volvagia",               {"Off", "On"}, {""});
+Option StartingSoulMorpha =             Option::U8  ("Morpha",                 {"Off", "On"}, {""});
+Option StartingSoulBongoBongo =         Option::U8  ("Bongo Bongo",            {"Off", "On"}, {""});
+Option StartingSoulTwinrova =           Option::U8  ("Twinrova",               {"Off", "On"}, {""});
+Option StartingSoulGanon =              Option::U8  ("Ganondorf, Ganon",       {"Off", "On"}, {""});
+std::vector<Option *> startingEnemySoulsOptions = {
+    &StartingSoulPoe,
+    &StartingSoulOctorok,
+    &StartingSoulKeese,
+    &StartingSoulTektite,
+    &StartingSoulLeever,
+    &StartingSoulPeahat,
+    &StartingSoulLizalfosDinolfos,
+    &StartingSoulShabom,
+    &StartingSoulBiriBari,
+    &StartingSoulTailpasaran,
+    &StartingSoulSkulltula,
+    &StartingSoulTorchSlug,
+    &StartingSoulStinger,
+    &StartingSoulMoblin,
+    &StartingSoulArmos,
+    &StartingSoulDekuBaba,
+    &StartingSoulBubble,
+    &StartingSoulFlyingTrap,
+    &StartingSoulBeamos,
+    &StartingSoulWallmaster,
+    &StartingSoulRedeadGibdo,
+    &StartingSoulShellBlade,
+    &StartingSoulLikeLike,
+    &StartingSoulParasiticTentacle,
+    &StartingSoulAnubis,
+    &StartingSoulSpike,
+    &StartingSoulSkullKid,
+    &StartingSoulFreezard,
+    &StartingSoulDekuScrub,
+    &StartingSoulWolfos,
+    &StartingSoulStalchild,
+    &StartingSoulGuay,
+    &StartingSoulDoorMimic,
+    &StartingSoulStalfos,
+    &StartingSoulDarkLink,
+    &StartingSoulFlareDancer,
+    &StartingSoulDeadHand,
+    &StartingSoulGerudo,
+    &StartingSoulGohma,
+    &StartingSoulDodongo,
+    &StartingSoulBarinade,
+    &StartingSoulPhantomGanon,
+    &StartingSoulVolvagia,
+    &StartingSoulMorpha,
+    &StartingSoulBongoBongo,
+    &StartingSoulTwinrova,
+    &StartingSoulGanon,
+};
+
 Option StartingConsumables      = Option::Bool("Start with Consumables", {"No",               "Yes"},                                                     {startWithConsumablesDesc});
 Option StartingMaxRupees        = Option::Bool("Start with Max Rupees",  {"No",               "Yes"},                                                     {startWithMaxRupeesDesc});
 Option StartingSkulltulaToken   = Option::U8  ("Gold Skulltula Tokens",  {NumOpts(0, 100)},                                                               {""});
@@ -674,12 +771,14 @@ Menu startingItems            = Menu::SubMenu("Items",                &startingI
 Menu startingSongs            = Menu::SubMenu("Ocarina Songs",        &startingSongsOptions,            "", false);
 Menu startingEquipment        = Menu::SubMenu("Equipment & Upgrades", &startingEquipmentOptions,        "", false);
 Menu startingStonesMedallions = Menu::SubMenu("Stones & Medallions",  &startingStonesMedallionsOptions, "", false);
+Menu startingEnemySouls       = Menu::SubMenu("Enemy Souls",          &startingEnemySoulsOptions,       "", false);
 Menu startingOthers           = Menu::SubMenu("Other",                &startingOthersOptions,           "", false);
 std::vector<Menu *> startingInventoryOptions = {
     &startingItems,
     &startingSongs,
     &startingEquipment,
     &startingStonesMedallions,
+    &startingEnemySouls,
     &startingOthers,
 };
 Option Logic              = Option::U8  ("Logic",                   {"Glitchless", "Glitched", "No Logic", "Vanilla"}, {logicGlitchless, logicGlitched, logicNoLogic, logicVanilla});
@@ -1660,6 +1759,13 @@ SettingsContext FillContext() {
     ctx.startingDungeonReward |= StartingSpiritMedallion.Value<u8>() << 3;
     ctx.startingDungeonReward |= StartingShadowMedallion.Value<u8>() << 4;
 
+    // Starting enemy souls
+    u32 soulBitIdx = 1; // skip SOUL_NONE
+    for (Option* opt : startingEnemySoulsOptions) {
+        ctx.startingEnemySouls[soulBitIdx >> 3] |= opt->Value<u8>() << (soulBitIdx & 0b111);
+        soulBitIdx++;
+    }
+
     ctx.startingTokens = StartingSkulltulaToken.Value<u8>();
 
     // Give the Gerudo Token if Gerudo Fortress is Open and Shuffle Gerudo Card is off
@@ -2187,6 +2293,13 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         }
     } else {
         LinksPocketItem.Unlock();
+    }
+
+    if (ShuffleEnemySouls || RandomizeShuffle) {
+        startingEnemySouls.Unlock();
+    } else {
+        startingEnemySouls.Lock();
+        startingInventory.ResetMenuIndex();
     }
 
     if (!RandomizeDungeon) {

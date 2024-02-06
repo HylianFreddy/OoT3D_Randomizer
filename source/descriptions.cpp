@@ -535,7 +535,9 @@ string_view chestMinigameDesc         = "The 5 key chests in the Treasure Chest 
 ------------------------------*/                                                           //
 string_view enemySoulDesc             = "Enemies will be invincible until you find their\n"//
                                         "\"soul\". Each enemy type will have a soul added\n"
-                                        "into the item pool.";                             //
+                                        "into the item pool.\n\n"                          //
+                                        "You can exclude some enemies by adding their\n"   //
+                                        "souls in the Starting Inventory.";                //
 /*------------------------------                                                           //
 |      MAPS AND COMPASSES      |                                                           //
 ------------------------------*/                                                           //

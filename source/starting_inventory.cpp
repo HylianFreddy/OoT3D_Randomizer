@@ -181,6 +181,11 @@ void GenerateStartingInventory() {
             AddItemToInventory(TREASURE_GAME_HEART);
         }
     }
+
+    ItemKey soulItem = SOUL_ITEM_POE;
+    for (Option* opt : startingEnemySoulsOptions) {
+        AddItemToInventory(soulItem++, opt->Value<u8>());
+    }
 }
 
 bool StartingInventoryHasBottle() {

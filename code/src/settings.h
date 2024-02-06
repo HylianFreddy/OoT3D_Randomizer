@@ -191,11 +191,6 @@ typedef enum {
 } ShuffleChestMinigameSetting;
 
 typedef enum {
-    SHUFFLEENEMYSOULS_OFF,
-    SHUFFLEENEMYSOULS_ALL,
-} ShuffleEnemySoulsSetting;
-
-typedef enum {
     MAPSANDCOMPASSES_START_WITH,
     MAPSANDCOMPASSES_VANILLA,
     MAPSANDCOMPASSES_OWN_DUNGEON,
@@ -730,6 +725,8 @@ typedef struct {
     u32 startingDungeonReward;
     u32 startingEquipment;
     u32 startingUpgrades;
+
+    u8 startingEnemySouls[8];
 
     u8 startingTokens;
 
