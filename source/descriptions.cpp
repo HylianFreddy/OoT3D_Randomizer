@@ -535,7 +535,8 @@ string_view chestMinigameDesc         = "The 5 key chests in the Treasure Chest 
 ------------------------------*/                                                           //
 string_view ocarinaButtonsDesc        = "Enabling this locks all Ocarina inputs, and adds\n"
                                         "5 new items to find that each unlock one of the 5\n"
-                                        "Ocarina notes.";                                  //
+                                        "Ocarina notes.\n\n"                               //
+                                        "They can also be added to the Starting Inventory.";
 /*------------------------------                                                           //
 |      MAPS AND COMPASSES      |                                                           //
 ------------------------------*/                                                           //

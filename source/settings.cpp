@@ -661,6 +661,19 @@ std::vector<Option *> startingStonesMedallionsOptions = {
     &StartingShadowMedallion,
 };
 
+Option StartingOcarinaButtonL = Option::U8  ("Ocarina Button L", {"Off", "On"}, {""});
+Option StartingOcarinaButtonR = Option::U8  ("Ocarina Button R", {"Off", "On"}, {""});
+Option StartingOcarinaButtonX = Option::U8  ("Ocarina Button X", {"Off", "On"}, {""});
+Option StartingOcarinaButtonY = Option::U8  ("Ocarina Button Y", {"Off", "On"}, {""});
+Option StartingOcarinaButtonA = Option::U8  ("Ocarina Button A", {"Off", "On"}, {""});
+std::vector<Option *> startingOcarinaButtonsOptions = {
+    &StartingOcarinaButtonL,
+    &StartingOcarinaButtonR,
+    &StartingOcarinaButtonX,
+    &StartingOcarinaButtonY,
+    &StartingOcarinaButtonA,
+};
+
 Option StartingConsumables      = Option::Bool("Start with Consumables", {"No",               "Yes"},                                                     {startWithConsumablesDesc});
 Option StartingMaxRupees        = Option::Bool("Start with Max Rupees",  {"No",               "Yes"},                                                     {startWithMaxRupeesDesc});
 Option StartingSkulltulaToken   = Option::U8  ("Gold Skulltula Tokens",  {NumOpts(0, 100)},                                                               {""});
@@ -674,12 +687,14 @@ Menu startingItems            = Menu::SubMenu("Items",                &startingI
 Menu startingSongs            = Menu::SubMenu("Ocarina Songs",        &startingSongsOptions,            "", false);
 Menu startingEquipment        = Menu::SubMenu("Equipment & Upgrades", &startingEquipmentOptions,        "", false);
 Menu startingStonesMedallions = Menu::SubMenu("Stones & Medallions",  &startingStonesMedallionsOptions, "", false);
+Menu startingOcarinaButtons   = Menu::SubMenu("Ocarina Buttons",      &startingOcarinaButtonsOptions,   "", false);
 Menu startingOthers           = Menu::SubMenu("Other",                &startingOthersOptions,           "", false);
 std::vector<Menu *> startingInventoryOptions = {
     &startingItems,
     &startingSongs,
     &startingEquipment,
     &startingStonesMedallions,
+    &startingOcarinaButtons,
     &startingOthers,
 };
 Option Logic              = Option::U8  ("Logic",                   {"Glitchless", "Glitched", "No Logic", "Vanilla"}, {logicGlitchless, logicGlitched, logicNoLogic, logicVanilla});
@@ -1660,6 +1675,12 @@ SettingsContext FillContext() {
     ctx.startingDungeonReward |= StartingSpiritMedallion.Value<u8>() << 3;
     ctx.startingDungeonReward |= StartingShadowMedallion.Value<u8>() << 4;
 
+    ctx.startingOcarinaButtons |= StartingOcarinaButtonL.Value<u8>() << 0;
+    ctx.startingOcarinaButtons |= StartingOcarinaButtonR.Value<u8>() << 1;
+    ctx.startingOcarinaButtons |= StartingOcarinaButtonX.Value<u8>() << 2;
+    ctx.startingOcarinaButtons |= StartingOcarinaButtonY.Value<u8>() << 3;
+    ctx.startingOcarinaButtons |= StartingOcarinaButtonA.Value<u8>() << 4;
+
     ctx.startingTokens = StartingSkulltulaToken.Value<u8>();
 
     // Give the Gerudo Token if Gerudo Fortress is Open and Shuffle Gerudo Card is off
@@ -2187,6 +2208,13 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         }
     } else {
         LinksPocketItem.Unlock();
+    }
+
+    if (ShuffleOcarinaButtons || RandomizeShuffle) {
+        startingOcarinaButtons.Unlock();
+    } else {
+        startingOcarinaButtons.Lock();
+        startingInventory.ResetMenuIndex();
     }
 
     if (!RandomizeDungeon) {

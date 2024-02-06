@@ -726,6 +726,8 @@ typedef struct {
     u32 startingEquipment;
     u32 startingUpgrades;
 
+    u8 startingOcarinaButtons;
+
     u8 startingTokens;
 
 } SettingsContext;
