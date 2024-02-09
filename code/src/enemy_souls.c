@@ -1,3 +1,4 @@
+#define CREATE_SOULMENUNAMES
 #include "enemy_souls.h"
 #include "savefile.h"
 #include "settings.h"
@@ -88,10 +89,16 @@ enum {
 u8 EnemySouls_DebugToggle = ENEMYSOULSDEBUGTOGGLE_OFF;
 
 u8 EnemySouls_GetSoulFlag(EnemySoulId soulId) {
+    if (soulId == SOUL_NONE) {
+        return 1;
+    }
     return gExtSaveData.extInf[EXTINF_ENEMYSOULSFLAGS_START + (soulId >> 3)] & (1 << (soulId & 0b111));
 }
 
 void EnemySouls_SetSoulFlag(EnemySoulId soulId) {
+    if (soulId == SOUL_NONE) {
+        return;
+    }
     gExtSaveData.extInf[EXTINF_ENEMYSOULSFLAGS_START + (soulId >> 3)] |= (1 << (soulId & 0b111));
 }
 

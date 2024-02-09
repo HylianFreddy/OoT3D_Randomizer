@@ -7,6 +7,8 @@
 #include "item_list.hpp"
 #include "settings.hpp"
 
+#include "../code/src/enemy_souls.h"
+
 using namespace Settings;
 using namespace Dungeon;
 
@@ -182,9 +184,10 @@ void GenerateStartingInventory() {
         }
     }
 
-    ItemKey soulItem = SOUL_ITEM_POE;
-    for (Option* opt : startingEnemySoulsOptions) {
-        AddItemToInventory(soulItem++, opt->Value<u8>());
+    for (u32 i = 0; i < SOUL_MAX; i++) {
+        Option* opt = startingEnemySoulsOptions.at(i);
+        ItemKey soulItem = SOUL_ITEM_POE + SoulMenuNames[i].soulId;
+        AddItemToInventory(soulItem, opt->Value<u8>());
     }
 }
 

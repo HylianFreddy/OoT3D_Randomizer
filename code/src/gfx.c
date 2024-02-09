@@ -531,66 +531,17 @@ static void Gfx_DrawDungeonItems(void) {
 static void Gfx_DrawEnemySouls(void) {
     Draw_DrawString(10, 16, COLOR_TITLE, "Enemy Souls Obtained");
 
-    static char* soulsNames[] = {
-        "Poe (all)",
-        "Octorok, Big Octo",
-        "Keese (all)",
-        "Tektite",
-        "Leever",
-        "Peahat",
-        "Lizalfos, Dinolfos",
-        "Shabom",
-        "Biri, Bari",
-        "Tailpasaran",
-        "Skulltula (all)",
-        "Torch Slug",
-        "Stinger",
-        "Moblin, Club Moblin",
-        "Armos",
-        "Deku Baba (all)",
-        "Bubble (all)",
-        "Flying Pot & Tile",
-        "Beamos",
-        "Wallmaster & Floormaster",
-        "Redead, Gibdo",
-        "Shell Blade",
-        "Like Like",
-        "Parasitic Tentacle",
-        "Anubis",
-        "Spike",
-        "Skull Kid",
-        "Freezard",
-        "Deku Scrub (all)",
-        "Wolfos (all)",
-        "Stalchild",
-        "Guay",
-        "Door Mimic",
-        "Stalfos",
-        "Dark Link",
-        "Flare Dancer",
-        "Dead Hand",
-        "Gerudo (all + Iron Knuckles)",
-        "Gohma, Gohma Larva",
-        "Dodongo (all)",
-        "Barinade",
-        "Phantom Ganon",
-        "Volvagia",
-        "Morpha",
-        "Bongo Bongo",
-        "Twinrova",
-        "Ganondorf, Ganon",
-    };
-
     u8 startIndex = soulsScroll <= 0 ? 0  : 32;
-    u8 endIndex   = soulsScroll <= 0 ? 32 : ARRAY_SIZE(soulsNames);
+    u8 endIndex   = soulsScroll <= 0 ? 32 : ARRAY_SIZE(SoulMenuNames);
 
     for (u8 i = startIndex; i < endIndex; i++) {
         u16 posX = 10 + (((i % 32) / 16) * (SPACING_X * 25));
         u16 posY = 30 + (SPACING_Y * (i % 16));
+        SoulMenuInfo info = SoulMenuNames[i];
 
         Draw_DrawRect(posX, posY, 9, 9, COLOR_WHITE);
-        Draw_DrawRect(posX + 1, posY + 1, 7, 7, EnemySouls_GetSoulFlag(i + 1) ? COLOR_GREEN : COLOR_BLACK);
-        Draw_DrawString(posX + SPACING_X * 2, posY, COLOR_WHITE, soulsNames[i]);
+        Draw_DrawRect(posX + 1, posY + 1, 7, 7, EnemySouls_GetSoulFlag(info.soulId) ? COLOR_GREEN : COLOR_BLACK);
+        Draw_DrawString(posX + SPACING_X * 2, posY, COLOR_WHITE, info.name);
     }
 }
 
