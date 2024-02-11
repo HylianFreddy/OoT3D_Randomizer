@@ -3156,6 +3156,8 @@ bool GlitchEnabled(Option& glitchOption) {
 }
 
 bool ValidateSettings() {
+    bool valid = true;
+    u8 posY = 5;
     s32 maxHearts = 20;
     switch (ItemPoolValue.Value<u8>()) {
         case ITEMPOOL_MINIMAL:
@@ -3167,13 +3169,31 @@ bool ValidateSettings() {
     }
     if ((Bridge.Is(RAINBOWBRIDGE_HEARTS) && BridgeHeartCount.Value<u8>() > maxHearts) ||
         (GanonsBossKey.Is(GANONSBOSSKEY_LACS_HEARTS) && LACSHeartCount.Value<u8>() > maxHearts)) {
-        printf("\x1b[6;0HNot enough Hearts in pool!\n\n"
+        printf("\x1b[%d;0H"
+               "----------------------------------------"
+               "Not enough Hearts in pool!\n\n"
                "Please choose a different Item Pool\n"
-               "setting or lower the Hearts requirement.");
-        return false;
+               "setting or lower the Hearts requirement."
+               "----------------------------------------", posY);
+        valid = false;
+        posY += 7;
     }
 
-    return true;
+    if (ShuffleEnemySouls && Logic.IsNot(LOGIC_NONE) && Logic.IsNot(LOGIC_VANILLA) && MQDungeonCount.IsNot(0)) {
+        printf("\x1b[%d;0H"
+               "----------------------------------------"
+               "Enemy Soul Shuffle currently does not\n"
+               "have logic for Master Quest dungeons.\n\n"
+               "Please disable one of the following:\n"
+               " - MQ Dungeons (setting Count to 0)\n"
+               " - Logic\n"
+               " - Enemy Soul Shuffle\n"
+               "----------------------------------------", posY);
+        valid = false;
+        posY += 10;
+    }
+
+    return valid;
 }
 
 } // namespace Settings
