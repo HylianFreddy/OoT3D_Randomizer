@@ -708,8 +708,16 @@ SECTIONS
 	    *(.patch_CamRoll)
 	}
 
+	.patch_CheckForTextControlCode 0x2E0490 : {
+	    * (.patch_CheckForTextControlCode)
+	}
+
 	.patch_InstantTextFirstLine 0x2E049C : {
 		*(.patch_InstantTextFirstLine)
+	}
+
+	.patch_HandleTextControlCode 0x2E057C : {
+	    * (.patch_HandleTextControlCode)
 	}
 
 	.patch_InstantTextBoxBreak 0x2E0664 : {

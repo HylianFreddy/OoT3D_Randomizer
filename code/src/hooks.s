@@ -2073,6 +2073,25 @@ hook_RandomGsLoc_SkipSoilJingle:
     ldrsh r0,[r0,#0x1C]
     bx lr
 
+.global hook_HandleTextControlCode
+hook_HandleTextControlCode:
+    ldrb r0,[r6,#0x4] @ Control Code identifier
+    push {r0-r12, lr}
+    cpy r1,r5 @ Text Object
+    cpy r2,r3 @ Unk pointer
+    bl Message_HandleTextControlCode
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    bxeq lr    @ Not a custom control char, resume base game code
+    b 0x2E0ED4 @ Handled custom control char, skip base game code
+
+.global hook_CheckForTextControlCode
+hook_CheckForTextControlCode:
+    push {r1-r12, lr}
+    bl Message_rCheckForControlCodes
+    pop {r1-r12, lr}
+    bx lr
+
 @ ----------------------------------
 @ ----------------------------------
 

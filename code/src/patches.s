@@ -2210,6 +2210,16 @@ RandomGsLoc_BlockSpawn_Soil_patch:
 RandomGsLoc_SkipSoilJingle_patch:
     bl hook_RandomGsLoc_SkipSoilJingle
 
+.section .patch_HandleTextControlCode
+.global HandleTextControlCode_patch
+HandleTextControlCode_patch:
+    bl hook_HandleTextControlCode
+
+.section .patch_CheckForTextControlCode
+.global CheckForTextControlCode_patch
+CheckForTextControlCode_patch:
+    bl hook_CheckForTextControlCode
+
 @ ----------------------------------
 @ ----------------------------------
 
