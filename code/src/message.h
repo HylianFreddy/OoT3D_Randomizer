@@ -110,4 +110,7 @@ typedef void (*Message_UnkControlCodeHandler_proc)(void* textObj, UnkTextControl
 typedef char* (*Message_CheckForControlCodes_proc)(void* data, char* nextChars);
 #define Message_CheckForControlCodes ((Message_CheckForControlCodes_proc)0x4C08C0)
 
+typedef void (*Message_SetInstantText_proc)(void* textObj);
+#define Message_SetInstantText ((Message_SetInstantText_proc)0x40B608)
+
 #endif //_MESSAGE_H_

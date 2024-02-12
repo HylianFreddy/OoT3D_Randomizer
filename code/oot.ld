@@ -712,24 +712,8 @@ SECTIONS
 	    * (.patch_CheckForTextControlCode)
 	}
 
-	.patch_InstantTextFirstLine 0x2E049C : {
-		*(.patch_InstantTextFirstLine)
-	}
-
 	.patch_HandleTextControlCode 0x2E057C : {
 	    * (.patch_HandleTextControlCode)
-	}
-
-	.patch_InstantTextBoxBreak 0x2E0664 : {
-		*(.patch_InstantTextBoxBreak)
-	}
-
-	.patch_InstantTextRemoveOff 0x2E06C8 : {
-		*(.patch_InstantTextRemoveOff)
-	}
-
-	.patch_SkippableText 0x2E09BC : {
-		*(.patch_SkippableText)
 	}
 
 	.patch_SceneInitAfterCopyScenes 0x2EAFDC : {

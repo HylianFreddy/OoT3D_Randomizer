@@ -1340,26 +1340,6 @@ SongOfTimeJingle_patch:
 GKSetDurability_patch:
     b hook_GKSetDurability
 
-.section .patch_SkippableText
-.global SkippableText_patch
-SkippableText_patch:
-    b hook_SkippableText
-
-.section .patch_InstantTextFirstLine
-.global InstantTextFirstLine_patch
-InstantTextFirstLine_patch:
-    bl hook_InstantTextFirstLine
-
-.section .patch_InstantTextBoxBreak
-.global InstantTextBoxBreak_patch
-InstantTextBoxBreak_patch:
-    b hook_InstantTextBoxBreak
-
-.section .patch_InstantTextRemoveOff
-.global InstantTextRemoveOff_patch
-InstantTextRemoveOff_patch:
-    b hook_InstantTextRemoveOff
-
 .section .patch_TurboTextAdvance
 .global TurboTextAdvance_patch
 TurboTextAdvance_patch:
