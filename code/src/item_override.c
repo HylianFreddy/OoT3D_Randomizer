@@ -420,9 +420,10 @@ void ItemOverride_Update(void) {
     }
 
     // Clear the active override once the GetItem process has finished,
-    // or when walking away from a chest without opening it.
+    // or when walking away from a chest without opening it or a collectible without collecting it.
+    // This will also keep the override if the player is doing a GIM-like glitch.
     if (rActiveItemRow != NULL &&
-        (PLAYER->getItemId == 0 || ((s8)PLAYER->getItemId < 0 && PLAYER->interactRangeActor == NULL))) {
+        (PLAYER->getItemId == 0 || (PLAYER->interactRangeActor == NULL && (PLAYER->stateFlags1 & 0x400) == 0))) {
         ItemOverride_Clear();
     }
 }
