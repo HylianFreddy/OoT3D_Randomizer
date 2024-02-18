@@ -40,7 +40,8 @@ void AreaTable_Init_ForestTemple() {
                  {
                      // Exits
                      Entrance(FOREST_TEMPLE_FIRST_ROOM, { [] { return true; } }),
-                     Entrance(FOREST_TEMPLE_LOBBY, { [] { return SoulSkulltula && (CanAdultAttack || CanChildAttack || Nuts); } }),
+                     Entrance(FOREST_TEMPLE_LOBBY,
+                              { [] { return SoulSkulltula && (CanAdultAttack || CanChildAttack || Nuts); } }),
                  });
 
         areaTable[FOREST_TEMPLE_LOBBY] = Area(
@@ -101,8 +102,8 @@ void AreaTable_Init_ForestTemple() {
                  {
                      // Locations
                      LocationAccess(FOREST_TEMPLE_FIRST_STALFOS_CHEST, { [] {
-                                        return SoulStalfos && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                               CanUse(MEGATON_HAMMER));
+                                        return SoulStalfos && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
+                                                               CanUse(BIGGORON_SWORD) || CanUse(MEGATON_HAMMER));
                                     } }),
                  },
                  {
@@ -115,12 +116,13 @@ void AreaTable_Init_ForestTemple() {
             {
                 // Events
                 EventAccess(&DekuBabaSticks, { [] {
-                    return DekuBabaSticks || (SoulDekuBaba && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                              CanUse(BOOMERANG)));
+                    return DekuBabaSticks || (SoulDekuBaba && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
+                                                               CanUse(BIGGORON_SWORD) || CanUse(BOOMERANG)));
                 } }),
                 EventAccess(&DekuBabaNuts, { [] {
-                    return DekuBabaNuts || (SoulDekuBaba && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
-                                            CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE)));
+                    return DekuBabaNuts ||
+                           (SoulDekuBaba && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
+                                             CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE)));
                 } }),
             },
             {},
@@ -166,11 +168,12 @@ void AreaTable_Init_ForestTemple() {
                      // Events
                      EventAccess(&DekuBabaSticks, { [] {
                          return DekuBabaSticks || (SoulDekuBaba && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
-                                                   CanUse(BIGGORON_SWORD) || CanUse(BOOMERANG)));
+                                                                    CanUse(BIGGORON_SWORD) || CanUse(BOOMERANG)));
                      } }),
                      EventAccess(&DekuBabaNuts, { [] {
-                         return DekuBabaNuts || (SoulDekuBaba && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
-                                                 CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE)));
+                         return DekuBabaNuts ||
+                                (SoulDekuBaba && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
+                                                  CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE)));
                      } }),
                  },
                  {},
@@ -187,12 +190,13 @@ void AreaTable_Init_ForestTemple() {
             {
                 // Events
                 EventAccess(&DekuBabaSticks, { [] {
-                    return DekuBabaSticks || (SoulDekuBaba && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                              CanUse(BOOMERANG)));
+                    return DekuBabaSticks || (SoulDekuBaba && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
+                                                               CanUse(BIGGORON_SWORD) || CanUse(BOOMERANG)));
                 } }),
                 EventAccess(&DekuBabaNuts, { [] {
-                    return DekuBabaNuts || (SoulDekuBaba && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
-                                            CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE)));
+                    return DekuBabaNuts ||
+                           (SoulDekuBaba && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
+                                             CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE)));
                 } }),
             },
             {
@@ -222,12 +226,13 @@ void AreaTable_Init_ForestTemple() {
             {
                 // Events
                 EventAccess(&DekuBabaSticks, { [] {
-                    return DekuBabaSticks || (SoulDekuBaba && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                              CanUse(BOOMERANG)));
+                    return DekuBabaSticks || (SoulDekuBaba && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
+                                                               CanUse(BIGGORON_SWORD) || CanUse(BOOMERANG)));
                 } }),
                 EventAccess(&DekuBabaNuts, { [] {
-                    return DekuBabaNuts || (SoulDekuBaba && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
-                                            CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE)));
+                    return DekuBabaNuts ||
+                           (SoulDekuBaba && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
+                                             CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE)));
                 } }),
             },
             {},
@@ -247,27 +252,27 @@ void AreaTable_Init_ForestTemple() {
                      // Locations
                      LocationAccess(FOREST_TEMPLE_MAP_CHEST, { [] {
                                         return SoulBubble && Here(FOREST_TEMPLE_MAP_ROOM, [] {
-                                            return HasExplosives || CanUse(MEGATON_HAMMER) || CanUse(BOW) ||
-                                                   ((CanJumpslash || CanUse(SLINGSHOT)) &&
-                                                    (Nuts || HookshotOrBoomerang || CanShield));
-                                        });
+                                                   return HasExplosives || CanUse(MEGATON_HAMMER) || CanUse(BOW) ||
+                                                          ((CanJumpslash || CanUse(SLINGSHOT)) &&
+                                                           (Nuts || HookshotOrBoomerang || CanShield));
+                                               });
                                     } }),
                  },
                  {
                      // Exits
                      Entrance(FOREST_TEMPLE_NW_OUTDOORS_LOWER, { [] {
                                   return SoulBubble && Here(FOREST_TEMPLE_MAP_ROOM, [] {
-                                      return HasExplosives || CanUse(MEGATON_HAMMER) || CanUse(BOW) ||
-                                             ((CanJumpslash || CanUse(SLINGSHOT)) &&
-                                              (Nuts || HookshotOrBoomerang || CanShield));
-                                  });
+                                             return HasExplosives || CanUse(MEGATON_HAMMER) || CanUse(BOW) ||
+                                                    ((CanJumpslash || CanUse(SLINGSHOT)) &&
+                                                     (Nuts || HookshotOrBoomerang || CanShield));
+                                         });
                               } }),
                      Entrance(FOREST_TEMPLE_NE_OUTDOORS_UPPER, { [] {
                                   return SoulBubble && Here(FOREST_TEMPLE_MAP_ROOM, [] {
-                                      return HasExplosives || CanUse(MEGATON_HAMMER) || CanUse(BOW) ||
-                                             ((CanJumpslash || CanUse(SLINGSHOT)) &&
-                                              (Nuts || HookshotOrBoomerang || CanShield));
-                                  });
+                                             return HasExplosives || CanUse(MEGATON_HAMMER) || CanUse(BOW) ||
+                                                    ((CanJumpslash || CanUse(SLINGSHOT)) &&
+                                                     (Nuts || HookshotOrBoomerang || CanShield));
+                                         });
                               } }),
                  });
 
@@ -290,31 +295,33 @@ void AreaTable_Init_ForestTemple() {
                      // Exits
                      Entrance(FOREST_TEMPLE_NW_OUTDOORS_UPPER, { [] {
                                   return SoulBubble && Here(FOREST_TEMPLE_BELOW_BOSS_KEY_CHEST, [] {
-                                      return HasExplosives || CanUse(MEGATON_HAMMER) || CanUse(BOW) ||
-                                             ((CanJumpslash || CanUse(SLINGSHOT)) &&
-                                              (Nuts || HookshotOrBoomerang || CanShield));
-                                  });
+                                             return HasExplosives || CanUse(MEGATON_HAMMER) || CanUse(BOW) ||
+                                                    ((CanJumpslash || CanUse(SLINGSHOT)) &&
+                                                     (Nuts || HookshotOrBoomerang || CanShield));
+                                         });
                               } }),
                  });
 
-        areaTable[FOREST_TEMPLE_FLOORMASTER_ROOM] = Area(
-            "Forest Temple Floormaster Room", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE, {},
-            {
-                // Locations
-                LocationAccess(FOREST_TEMPLE_FLOORMASTER_CHEST, { [] { return SoulWallmaster && (CanAdultDamage || CanChildDamage); } }),
-            },
-            {
-                // Exits
-                Entrance(FOREST_TEMPLE_NW_OUTDOORS_UPPER, { [] { return true; } }),
-            });
+        areaTable[FOREST_TEMPLE_FLOORMASTER_ROOM] =
+            Area("Forest Temple Floormaster Room", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE, {},
+                 {
+                     // Locations
+                     LocationAccess(FOREST_TEMPLE_FLOORMASTER_CHEST,
+                                    { [] { return SoulWallmaster && (CanAdultDamage || CanChildDamage); } }),
+                 },
+                 {
+                     // Exits
+                     Entrance(FOREST_TEMPLE_NW_OUTDOORS_UPPER, { [] { return true; } }),
+                 });
 
-        areaTable[FOREST_TEMPLE_WEST_CORRIDOR] = Area(
-            "Forest Temple West Corridor", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE, {}, {},
-            {
-                // Exits
-                Entrance(FOREST_TEMPLE_LOBBY, { [] { return SmallKeys(FOREST_TEMPLE, 1, 5); } }),
-                Entrance(FOREST_TEMPLE_BLOCK_PUSH_ROOM, { [] { return SoulSkulltula &&(CanAdultAttack || CanChildAttack || Nuts); } }),
-            });
+        areaTable[FOREST_TEMPLE_WEST_CORRIDOR] =
+            Area("Forest Temple West Corridor", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE, {}, {},
+                 {
+                     // Exits
+                     Entrance(FOREST_TEMPLE_LOBBY, { [] { return SmallKeys(FOREST_TEMPLE, 1, 5); } }),
+                     Entrance(FOREST_TEMPLE_BLOCK_PUSH_ROOM,
+                              { [] { return SoulSkulltula && (CanAdultAttack || CanChildAttack || Nuts); } }),
+                 });
 
         areaTable[FOREST_TEMPLE_BLOCK_PUSH_ROOM] = Area(
             "Forest Temple Block Push Room", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE, {},
@@ -389,40 +396,40 @@ void AreaTable_Init_ForestTemple() {
                      Entrance(FOREST_TEMPLE_BLOCK_PUSH_ROOM, { [] { return SmallKeys(FOREST_TEMPLE, 2); } }),
                  });
 
-        areaTable[FOREST_TEMPLE_RED_POE_ROOM] =
-            Area("Forest Temple Red Poe Room", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE,
-                 {
-                     // Events
-                     EventAccess(&ForestTempleJoelle, { [] { return ForestTempleJoelle || (SoulPoe && CanUse(BOW)); } }),
-                 },
-                 {
-                     // Locations
-                     LocationAccess(FOREST_TEMPLE_RED_POE_CHEST, { [] { return ForestTempleJoelle; } }),
-                 },
-                 {
-                     // Exits
-                     Entrance(FOREST_TEMPLE_NW_CORRIDOR_TWISTED, { [] { return SmallKeys(FOREST_TEMPLE, 3); } }),
-                     Entrance(FOREST_TEMPLE_UPPER_STALFOS, { [] { return true; } }),
-                 });
+        areaTable[FOREST_TEMPLE_RED_POE_ROOM] = Area(
+            "Forest Temple Red Poe Room", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE,
+            {
+                // Events
+                EventAccess(&ForestTempleJoelle, { [] { return ForestTempleJoelle || (SoulPoe && CanUse(BOW)); } }),
+            },
+            {
+                // Locations
+                LocationAccess(FOREST_TEMPLE_RED_POE_CHEST, { [] { return ForestTempleJoelle; } }),
+            },
+            {
+                // Exits
+                Entrance(FOREST_TEMPLE_NW_CORRIDOR_TWISTED, { [] { return SmallKeys(FOREST_TEMPLE, 3); } }),
+                Entrance(FOREST_TEMPLE_UPPER_STALFOS, { [] { return true; } }),
+            });
 
         areaTable[FOREST_TEMPLE_UPPER_STALFOS] =
             Area("Forest Temple Upper Stalfos", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE, {},
                  {
                      // Locations
                      LocationAccess(FOREST_TEMPLE_BOW_CHEST, { [] {
-                                        return SoulStalfos && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                               CanUse(MEGATON_HAMMER));
+                                        return SoulStalfos && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
+                                                               CanUse(BIGGORON_SWORD) || CanUse(MEGATON_HAMMER));
                                     } }),
                  },
                  {
                      // Exits
                      Entrance(FOREST_TEMPLE_RED_POE_ROOM, { [] {
-                                  return SoulStalfos && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                         CanUse(MEGATON_HAMMER));
+                                  return SoulStalfos && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
+                                                         CanUse(BIGGORON_SWORD) || CanUse(MEGATON_HAMMER));
                               } }),
                      Entrance(FOREST_TEMPLE_BLUE_POE_ROOM, { [] {
-                                  return SoulStalfos && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                         CanUse(MEGATON_HAMMER));
+                                  return SoulStalfos && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
+                                                         CanUse(BIGGORON_SWORD) || CanUse(MEGATON_HAMMER));
                               } }),
                  });
 
@@ -492,13 +499,15 @@ void AreaTable_Init_ForestTemple() {
                      Entrance(FOREST_TEMPLE_EAST_CORRIDOR, { [] { return ForestTempleAmy; } }),
                  });
 
-        areaTable[FOREST_TEMPLE_EAST_CORRIDOR] = Area(
-            "Forest Temple East Corridor", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE, {}, {},
-            {
-                // Exits
-                Entrance(FOREST_TEMPLE_LOBBY, { [] { return SoulSkulltula && (CanAdultAttack || CanChildAttack || Nuts); } }),
-                Entrance(FOREST_TEMPLE_GREEN_POE_ROOM, { [] { return SoulSkulltula && (CanAdultAttack || CanChildAttack || Nuts); } }),
-            });
+        areaTable[FOREST_TEMPLE_EAST_CORRIDOR] =
+            Area("Forest Temple East Corridor", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE, {}, {},
+                 {
+                     // Exits
+                     Entrance(FOREST_TEMPLE_LOBBY,
+                              { [] { return SoulSkulltula && (CanAdultAttack || CanChildAttack || Nuts); } }),
+                     Entrance(FOREST_TEMPLE_GREEN_POE_ROOM,
+                              { [] { return SoulSkulltula && (CanAdultAttack || CanChildAttack || Nuts); } }),
+                 });
 
         areaTable[FOREST_TEMPLE_BOSS_REGION] =
             Area("Forest Temple Boss Region", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE, {},
@@ -615,11 +624,12 @@ void AreaTable_Init_ForestTemple() {
                      // Events
                      EventAccess(&DekuBabaSticks, { [] {
                          return DekuBabaSticks || (SoulDekuBaba && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
-                                                   CanUse(BIGGORON_SWORD) || CanUse(BOOMERANG)));
+                                                                    CanUse(BIGGORON_SWORD) || CanUse(BOOMERANG)));
                      } }),
                      EventAccess(&DekuBabaNuts, { [] {
-                         return DekuBabaNuts || (SoulDekuBaba && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
-                                                 CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE)));
+                         return DekuBabaNuts ||
+                                (SoulDekuBaba && (CanJumpslash || CanUse(SLINGSHOT) || CanUse(BOW) ||
+                                                  CanUse(MEGATON_HAMMER) || HasExplosives || CanUse(DINS_FIRE)));
                      } }),
                  },
                  {
@@ -739,8 +749,9 @@ void AreaTable_Init_ForestTemple() {
         {
             // Events
             EventAccess(&ForestTempleClear, { [] {
-                return ForestTempleClear || (SoulPhantomGanon && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD)) &&
-                                             (CanUse(HOOKSHOT) || CanUse(BOW) || CanUse(SLINGSHOT)));
+                return ForestTempleClear ||
+                       (SoulPhantomGanon && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD)) &&
+                        (CanUse(HOOKSHOT) || CanUse(BOW) || CanUse(SLINGSHOT)));
             } }),
         },
         {

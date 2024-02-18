@@ -301,8 +301,9 @@ static void Gfx_DrawButtonPrompts(void) {
         offsetX += (strlen(nextStr) + 1) * SPACING_X;
         Draw_DrawIcon(offsetX, promptY, COLOR_BUTTON_A, ICON_BUTTON_A);
         offsetX += buttonSpacing;
-        static char* debugToggleStrings[] = {"OFF", "Remove all souls", "Have all souls"};
-        Draw_DrawFormattedString(offsetX, textY, COLOR_TITLE, "DebugToggle: %s", debugToggleStrings[EnemySouls_DebugToggle]);
+        static char* debugToggleStrings[] = { "OFF", "Remove all souls", "Have all souls" };
+        Draw_DrawFormattedString(offsetX, textY, COLOR_TITLE, "DebugToggle: %s",
+                                 debugToggleStrings[EnemySouls_DebugToggle]);
     } else if (curMenuIdx == PAGE_SPHERES) {
         Draw_DrawIcon(offsetX, promptY, COLOR_WHITE, ICON_BUTTON_DPAD);
         offsetX += buttonSpacing;
@@ -531,12 +532,12 @@ static void Gfx_DrawDungeonItems(void) {
 static void Gfx_DrawEnemySouls(void) {
     Draw_DrawString(10, 16, COLOR_TITLE, "Enemy Souls Obtained");
 
-    u8 startIndex = soulsScroll <= 0 ? 0  : 32;
+    u8 startIndex = soulsScroll <= 0 ? 0 : 32;
     u8 endIndex   = soulsScroll <= 0 ? 32 : ARRAY_SIZE(SoulMenuNames);
 
     for (u8 i = startIndex; i < endIndex; i++) {
-        u16 posX = 10 + (((i % 32) / 16) * (SPACING_X * 25));
-        u16 posY = 30 + (SPACING_Y * (i % 16));
+        u16 posX          = 10 + (((i % 32) / 16) * (SPACING_X * 25));
+        u16 posY          = 30 + (SPACING_Y * (i % 16));
         SoulMenuInfo info = SoulMenuNames[i];
 
         Draw_DrawRect(posX, posY, 9, 9, COLOR_WHITE);
@@ -877,10 +878,10 @@ static void Gfx_ShowMenu(void) {
         } else if (curMenuIdx == PAGE_ENEMYSOULS) {
             if (pressed & BUTTON_A) {
                 EnemySouls_DebugToggle = (EnemySouls_DebugToggle + 1) % 3;
-                handledInput  = true;
+                handledInput           = true;
             } else if (pressed & (BUTTON_UP | CPAD_UP | BUTTON_DOWN | CPAD_DOWN)) {
-                soulsScroll   = (soulsScroll + 1) % 2;
-                handledInput  = true;
+                soulsScroll  = (soulsScroll + 1) % 2;
+                handledInput = true;
             }
         } else if (curMenuIdx == PAGE_SPHERES && gSpoilerData.SphereCount > 0) {
             // Spoiler log

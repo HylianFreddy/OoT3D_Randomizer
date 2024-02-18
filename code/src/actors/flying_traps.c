@@ -7,7 +7,7 @@
 
 s32 FlyingTraps_Tile_OnImpact(EnYukabyun* this) {
     if (!EnemySouls_CheckSoulForActor(&this->base)) {
-        this->actionFunc = EnYukabyun_Levitate;
+        this->actionFunc  = EnYukabyun_Levitate;
         this->waitCounter = 0;
         return 0;
     }
@@ -16,7 +16,7 @@ s32 FlyingTraps_Tile_OnImpact(EnYukabyun* this) {
 
 s32 FlyingTraps_Pot_OnImpact(EnTuboTrap* this) {
     if (this->base.bgCheckFlags & 0x1) { // Standing on the ground
-        this->actionFunc = EnTuboTrap_WaitForProximity;
+        this->actionFunc   = EnTuboTrap_WaitForProximity;
         this->base.gravity = 0;
         this->base.speedXZ = 0;
     }

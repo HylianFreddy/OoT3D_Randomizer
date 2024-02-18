@@ -185,7 +185,7 @@ void GenerateStartingInventory() {
     }
 
     for (u32 i = 0; i < SOUL_MAX; i++) {
-        Option* opt = startingEnemySoulsOptions.at(i);
+        Option* opt      = startingEnemySoulsOptions.at(i);
         ItemKey soulItem = SOUL_ITEM_POE + SoulMenuNames[i].soulId;
         AddItemToInventory(soulItem, opt->Value<u8>());
     }

@@ -16,7 +16,7 @@ s32 Dodongos_AfterSwallowBomb_Normal(EnDodongo* this) {
 
 s32 Dodongos_AfterSwallowBomb_Baby(EnDodojr* this) {
     if (!EnemySouls_CheckSoulForActor(&this->base)) {
-        this->counter = 3;
+        this->counter    = 3;
         this->actionFunc = EnDodojr_JumpAttackBounce;
         return 1;
     }

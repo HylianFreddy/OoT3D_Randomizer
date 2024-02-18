@@ -1060,7 +1060,8 @@ void CreateAlwaysIncludedMessages() {
         Text soulText = Text{ "You got the #", "Vous obtenez #", "¡Has obtenido #", "Hai ottenuto l'#", "Du hast #" } +
                         ItemTable(soulKey).GetName() + "#!";
 
-        CreateMessageFromTextObject(0x9450 + soulKey - SOUL_ITEM_POE, 0, 2, 3, AddColorsAndFormat(soulText, { QM_RED }));
+        CreateMessageFromTextObject(0x9450 + soulKey - SOUL_ITEM_POE, 0, 2, 3,
+                                    AddColorsAndFormat(soulText, { QM_RED }));
     }
 }
 

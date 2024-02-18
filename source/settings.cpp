@@ -1681,7 +1681,7 @@ SettingsContext FillContext() {
     // Starting enemy souls
     for (u32 i = 0; i < SOUL_MAX; i++) {
         u32 soulBitIdx = SoulMenuNames[i].soulId;
-        Option* opt = startingEnemySoulsOptions.at(i);
+        Option* opt    = startingEnemySoulsOptions.at(i);
         ctx.startingEnemySouls[soulBitIdx >> 3] |= opt->Value<u8>() << (soulBitIdx & 0b111);
     }
 
@@ -2672,7 +2672,7 @@ std::vector<std::pair<Option*, u8>> vanillaLogicOverrides = {
     { &ShuffleAdultTradeQuest, SHUFFLEADULTTRADEQUEST_ON },
     { &ShuffleChestMinigame, SHUFFLECHESTMINIGAME_OFF },
     { &ShuffleFrogSongRupees, SHUFFLEFROGSONGRUPEES_OFF },
-    { &ShuffleEnemySouls, OFF},
+    { &ShuffleEnemySouls, OFF },
     { &Keysanity, KEYSANITY_ANY_DUNGEON }, // Set small keys to any dungeon so FiT basement door will be locked
     { &GossipStoneHints, HINTS_NO_HINTS },
 };
@@ -3156,8 +3156,8 @@ bool GlitchEnabled(Option& glitchOption) {
 }
 
 bool ValidateSettings() {
-    bool valid = true;
-    u8 posY = 5;
+    bool valid    = true;
+    u8 posY       = 5;
     s32 maxHearts = 20;
     switch (ItemPoolValue.Value<u8>()) {
         case ITEMPOOL_MINIMAL:
@@ -3174,7 +3174,8 @@ bool ValidateSettings() {
                "Not enough Hearts in pool!\n\n"
                "Please choose a different Item Pool\n"
                "setting or lower the Hearts requirement."
-               "----------------------------------------", posY);
+               "----------------------------------------",
+               posY);
         valid = false;
         posY += 7;
     }
@@ -3188,7 +3189,8 @@ bool ValidateSettings() {
                " - MQ Dungeons (setting Count to 0)\n"
                " - Logic\n"
                " - Enemy Soul Shuffle\n"
-               "----------------------------------------", posY);
+               "----------------------------------------",
+               posY);
         valid = false;
         posY += 10;
     }

@@ -656,13 +656,18 @@ typedef struct TargetContext {
     // ... size unknown
 } TargetContext;
 
+typedef struct SAModelListEntry {
+    SkeletonAnimationModel* saModel;
+    u32 unk;
+} SAModelListEntry;
+
 typedef struct SubMainClass_180 {
     /* 0x000 */ char unk_00[0x8];
     /* 0x008 */ s32 saModelsCount1;
     /* 0x00C */ s32 saModelsCount2;
     /* 0x010 */ char unk_10[0x10];
-    /* 0x020 */ struct {SkeletonAnimationModel* saModel; u32 unk;}* saModelsList1;
-    /* 0x024 */ struct {SkeletonAnimationModel* saModel; u32 unk;}* saModelsList2;
+    /* 0x020 */ SAModelListEntry* saModelsList1;
+    /* 0x024 */ SAModelListEntry* saModelsList2;
     /* ... size unknown*/
 } SubMainClass_180;
 

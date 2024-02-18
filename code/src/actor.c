@@ -144,7 +144,7 @@ void Actor_Init() {
     gActorOverlayTable[0xDC].initInfo->draw    = Boss_Tw_rDraw;
     gActorOverlayTable[0xDC].initInfo->destroy = Boss_Tw_rDestroy;
 
-    gActorOverlayTable[0xE0].initInfo->update  = EnAnubice_rUpdate;
+    gActorOverlayTable[0xE0].initInfo->update = EnAnubice_rUpdate;
 
     gActorOverlayTable[0xE6].initInfo->init = BgBdanSwitch_rInit;
 
@@ -432,21 +432,21 @@ void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
 }
 
 void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
-    static Vec3f vecAcc = {0};
-    static Vec3f vecVel = {0};
+    static Vec3f vecAcc = { 0 };
+    static Vec3f vecVel = { 0 };
 
     // As a temporary way to mark invulnerable enemies whose soul has not been collected yet,
     // the model will not be rendered and a flame will take its place.
-    s32 shouldDrawSoulless = !EnemySouls_CheckSoulForActor(actor) && actor->scale.x != 0 &&
-                                actor->id != 0x11D && actor->id != 0x06B; // flying traps
+    s32 shouldDrawSoulless = !EnemySouls_CheckSoulForActor(actor) && actor->scale.x != 0 && actor->id != 0x11D &&
+                             actor->id != 0x06B; // flying traps
     if (shouldDrawSoulless && (PauseContext_GetState() == 0)) {
         s32 velFrameIdx = (rGameplayFrames % 16);
         s32 accFrameIdx = (rGameplayFrames % 4);
-        s32 bossMult = (actor->type == ACTORTYPE_BOSS ? 4 : 1);
-        vecAcc.y = 0.12f * accFrameIdx * bossMult;
-        vecVel.x = 0.5f * Math_SinS(0x1000 * velFrameIdx) * bossMult;
-        vecVel.z = 0.5f * Math_CosS(0x1000 * velFrameIdx) * bossMult;
-        s16 scale = 150 * bossMult;
+        s32 bossMult    = (actor->type == ACTORTYPE_BOSS ? 4 : 1);
+        vecAcc.y        = 0.12f * accFrameIdx * bossMult;
+        vecVel.x        = 0.5f * Math_SinS(0x1000 * velFrameIdx) * bossMult;
+        vecVel.z        = 0.5f * Math_CosS(0x1000 * velFrameIdx) * bossMult;
+        s16 scale       = 150 * bossMult;
         EffectSsDeadDb_Spawn(globalCtx, &actor->focus.pos, &vecVel, &vecAcc, scale, -1, 0x6E, 0x05, 0xFF, 0xFF, 0x28,
                              0x00, 0xFF, 1, 8, 0);
     }
@@ -456,7 +456,8 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
 
     actor->draw(actor, globalCtx);
 
-    if (shouldDrawSoulless) { // make enemy invisible
+    if (shouldDrawSoulless) {
+        // make enemy invisible
         gMainClass->sub180.saModelsCount1 = origSaModelsCount1; // 3D models
         gMainClass->sub180.saModelsCount2 = origSaModelsCount2; // 2D billboards
     }

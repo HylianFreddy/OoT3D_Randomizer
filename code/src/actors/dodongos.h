@@ -17,7 +17,7 @@ typedef struct EnDodongo {
     /* 0x097C */ EnDodongoActionFunc actionFunc;
     /* 0x0980 */ char unk_980[0x47C];
 } EnDodongo; // size = 0xDFC
- _Static_assert(sizeof(EnDodongo) == 0xDFC, "EnDodongo size");
+_Static_assert(sizeof(EnDodongo) == 0xDFC, "EnDodongo size");
 
 typedef struct EnDodojr {
     /* 0x0000 */ Actor base;
@@ -30,6 +30,6 @@ typedef struct EnDodojr {
     /* 0x0510 */ s16 counter; // Used for bouncing and flashing when dying.
     /* 0x0512 */ char unk_512[0x00D];
 } EnDodojr; // size = 0x520
- _Static_assert(sizeof(EnDodojr) == 0x520, "EnDodojr size");
+_Static_assert(sizeof(EnDodojr) == 0x520, "EnDodojr size");
 
 #endif //_DODONGOS_H_
