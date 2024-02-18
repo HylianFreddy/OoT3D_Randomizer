@@ -230,7 +230,6 @@ static void CustomModel_SetBossKeyToRGBA565(void* bossKeyCMB) {
 static void CustomModel_SetSoldOutToRGBA565(void* soldOutCMB) {
     char* BASE_ = (char*)soldOutCMB;
 
-    // EDIT_BYTE(0x26E, 0x01);
     EDIT_BYTE(0x274, 0x5B); // ImageFormat: 0x6758 -> 0x675B
 }
 
