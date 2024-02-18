@@ -225,7 +225,7 @@ void ShopsanityItem_InitializeItem(EnGirlA* item, GlobalContext* globalCtx) {
         u16 index                 = ShopsanityItem_GetIndex(shopItem);
         item->actor.textId        = 0x9200 + index * 2;
         item->itemBuyPromptTextId = 0x9200 + index * 2 + 1;
-        item->actor.draw = ShopsanityItem_Draw;
+        item->actor.draw          = ShopsanityItem_Draw;
     }
 }
 

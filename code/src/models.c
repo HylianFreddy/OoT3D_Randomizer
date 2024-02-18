@@ -240,7 +240,7 @@ void Model_Create(Model* model, GlobalContext* globalCtx) {
             case 0x019C: // Kokiri Emerald
             case 0x019D: // Goron Ruby
             case 0x019E: // Zora Sapphire
-                newModel->scale = 0.2f;
+                newModel->scale     = 0.2f;
                 newModel->posOffset = (Vec3f){ 0 };
                 break;
             case OBJECT_CUSTOM_TRIFORCE_PIECE:
@@ -248,7 +248,7 @@ void Model_Create(Model* model, GlobalContext* globalCtx) {
                 newModel->posOffset = (Vec3f){ 0.0f, -800.0f, 0.0f };
                 break;
             default:
-                newModel->scale = 0.3f;
+                newModel->scale     = 0.3f;
                 newModel->posOffset = (Vec3f){ 0 };
                 break;
         }

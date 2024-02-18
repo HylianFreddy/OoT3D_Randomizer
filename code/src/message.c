@@ -46,7 +46,7 @@ const char* Message_GetCustomText(void* param_1, u32 offset) {
 
 #define MESSAGE_MAX_CUSTOM_STRING_SIZE 10
 u32 Message_HandleTextControlCode(TextControlCode ctrl, void* textObj, UnkTextControlData* data) {
-    static u16 utf16Str[MESSAGE_MAX_CUSTOM_STRING_SIZE] = {0};
+    static u16 utf16Str[MESSAGE_MAX_CUSTOM_STRING_SIZE] = { 0 };
     char str[MESSAGE_MAX_CUSTOM_STRING_SIZE];
 
     // Make text skippable or instant depending on setting.
@@ -61,9 +61,9 @@ u32 Message_HandleTextControlCode(TextControlCode ctrl, void* textObj, UnkTextCo
         snprintf_(str, MESSAGE_MAX_CUSTOM_STRING_SIZE, "%d", gExtSaveData.extInf[EXTINF_TRIFORCE_PIECES]);
         utf8_to_utf16(utf16Str, (u8*)str, strlen(str));
         Message_UnkControlCodeHandler(textObj, &data);
-        data->unk_05 = 0;
+        data->unk_05         = 0;
         data->stringToInsert = utf16Str;
-        data->stringLength = strlen(str);
+        data->stringLength   = strlen(str);
         return 1;
     }
 

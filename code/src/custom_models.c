@@ -315,7 +315,7 @@ void CustomModels_UpdateMatrix(nn_math_MTX34* modelMtx, u16 objectId) {
 
     switch (objectId) {
         case OBJECT_CUSTOM_TRIFORCE_PIECE:
-            scale = 0.05f;
+            scale     = 0.05f;
             posOffset = (Vec3f){ 0.0f, -800.0f, 0.0f };
             break;
         default:
@@ -323,10 +323,10 @@ void CustomModels_UpdateMatrix(nn_math_MTX34* modelMtx, u16 objectId) {
     }
 
     nn_math_MTX44 scaleMtx = { 0 };
-    scaleMtx.data[0][0] = scale;
-    scaleMtx.data[1][1] = scale;
-    scaleMtx.data[2][2] = scale;
-    scaleMtx.data[3][3] = 1.0f;
+    scaleMtx.data[0][0]    = scale;
+    scaleMtx.data[1][1]    = scale;
+    scaleMtx.data[2][2]    = scale;
+    scaleMtx.data[3][3]    = 1.0f;
 
     Matrix_Multiply(modelMtx, modelMtx, &scaleMtx);
     Matrix_UpdatePosition(modelMtx, modelMtx, &posOffset);

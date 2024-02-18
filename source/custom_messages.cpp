@@ -1058,11 +1058,12 @@ void CreateAlwaysIncludedMessages() {
 
     // Triforce Piece
     {
-        Text triforceMsg = Text{ /*english*/ "You found a piece of the #Triforce#!&You have #" + TRIFORCE_PIECE_COUNT() + "#!",
-                                 /*french */ "",
-                                 /*spanish*/ "",
-                                 /*italian*/ "Hai ottenuto un frammento della #Triforza#!&Ne hai #" + TRIFORCE_PIECE_COUNT() + "#!",
-                                 /*german */ "" };
+        Text triforceMsg =
+            Text{ /*english*/ "You found a piece of the #Triforce#!&You have #" + TRIFORCE_PIECE_COUNT() + "#!",
+                  /*french */ "",
+                  /*spanish*/ "",
+                  /*italian*/ "Hai ottenuto un frammento della #Triforza#!&Ne hai #" + TRIFORCE_PIECE_COUNT() + "#!",
+                  /*german */ "" };
         CreateMessageFromTextObject(0x9003, 0, 2, 3, AddColorsAndFormat(triforceMsg, { QM_RED, QM_RED }));
     }
 }
