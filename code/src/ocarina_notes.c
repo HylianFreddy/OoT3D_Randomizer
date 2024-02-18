@@ -4,7 +4,7 @@
 
 s32 OcarinaNotes_IsButtonOwned(OcarinaNoteButton button) {
     return (gSettingsContext.shuffleOcarinaButtons == OFF) ||
-            (gExtSaveData.extInf[EXTINF_OCARINA_BUTTONS] & (1 << button));
+           (gExtSaveData.extInf[EXTINF_OCARINA_BUTTONS] & (1 << button));
 }
 
 void OcarinaNotes_RegisterButtonOwned(OcarinaNoteButton button) {
@@ -73,8 +73,8 @@ void OcarinaNotes_MoveButtons(void* spriteStruct, Vec2f* posOffset, u32 unk, u32
 }
 
 u32 OcarinaNotes_HandleInputs(u32 ocarinaInputs) {
-    static const u32 btnShifts[5] = {7, 9, 10, 11, 8}; // not the same offsets as the btn_t struct
-    u32 ownedBtnsMask = 0;
+    static const u32 btnShifts[5] = { 7, 9, 10, 11, 8 }; // not the same offsets as the btn_t struct
+    u32 ownedBtnsMask             = 0;
     for (OcarinaNoteButton btn = 0; btn < 5; btn++) {
         ownedBtnsMask |= (OcarinaNotes_IsButtonOwned(btn) << btnShifts[btn]);
     }

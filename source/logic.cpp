@@ -92,11 +92,11 @@ bool RequiemOfSpirit_item  = false;
 bool NocturneOfShadow_item = false;
 bool PreludeOfLight_item   = false;
 // Ocarina notes buttons
-bool OcarinaButtonL = false;
-bool OcarinaButtonR = false;
-bool OcarinaButtonX = false;
-bool OcarinaButtonY = false;
-bool OcarinaButtonA = false;
+bool OcarinaButtonL    = false;
+bool OcarinaButtonR    = false;
+bool OcarinaButtonX    = false;
+bool OcarinaButtonY    = false;
+bool OcarinaButtonA    = false;
 u8 OcarinaButtonsCount = 0;
 // Songs + their ocarina notes
 bool ZeldasLullaby    = false;
@@ -712,18 +712,18 @@ void UpdateHelpers() {
     BiggoronSword   = BiggoronSword || ProgressiveGiantKnife >= 2;
 
     OcarinaButtonsCount = OcarinaButtonL + OcarinaButtonR + OcarinaButtonX + OcarinaButtonY + OcarinaButtonA;
-    ZeldasLullaby    = ZeldasLullaby_item && OcarinaButtonX && OcarinaButtonA && OcarinaButtonY;
-    SariasSong       = SariasSong_item && OcarinaButtonR && OcarinaButtonY && OcarinaButtonX;
-    SunsSong         = SunsSong_item && OcarinaButtonY && OcarinaButtonR && OcarinaButtonA;
-    SongOfStorms     = SongOfStorms_item && OcarinaButtonL && OcarinaButtonR && OcarinaButtonA;
-    EponasSong       = EponasSong_item && OcarinaButtonA && OcarinaButtonX && OcarinaButtonY;
-    SongOfTime       = SongOfTime_item && OcarinaButtonY && OcarinaButtonL && OcarinaButtonR;
-    MinuetOfForest   = MinuetOfForest_item && OcarinaButtonL && OcarinaButtonA && OcarinaButtonX && OcarinaButtonY;
-    BoleroOfFire     = BoleroOfFire_item && OcarinaButtonR && OcarinaButtonL && OcarinaButtonY;
-    SerenadeOfWater  = SerenadeOfWater_item && OcarinaButtonL && OcarinaButtonR && OcarinaButtonY && OcarinaButtonX;
-    RequiemOfSpirit  = RequiemOfSpirit_item && OcarinaButtonL && OcarinaButtonR && OcarinaButtonY;
-    NocturneOfShadow = NocturneOfShadow_item && OcarinaButtonX && OcarinaButtonY && OcarinaButtonL && OcarinaButtonR;
-    PreludeOfLight   = PreludeOfLight_item && OcarinaButtonA && OcarinaButtonY && OcarinaButtonX;
+    ZeldasLullaby       = ZeldasLullaby_item && OcarinaButtonX && OcarinaButtonA && OcarinaButtonY;
+    SariasSong          = SariasSong_item && OcarinaButtonR && OcarinaButtonY && OcarinaButtonX;
+    SunsSong            = SunsSong_item && OcarinaButtonY && OcarinaButtonR && OcarinaButtonA;
+    SongOfStorms        = SongOfStorms_item && OcarinaButtonL && OcarinaButtonR && OcarinaButtonA;
+    EponasSong          = EponasSong_item && OcarinaButtonA && OcarinaButtonX && OcarinaButtonY;
+    SongOfTime          = SongOfTime_item && OcarinaButtonY && OcarinaButtonL && OcarinaButtonR;
+    MinuetOfForest      = MinuetOfForest_item && OcarinaButtonL && OcarinaButtonA && OcarinaButtonX && OcarinaButtonY;
+    BoleroOfFire        = BoleroOfFire_item && OcarinaButtonR && OcarinaButtonL && OcarinaButtonY;
+    SerenadeOfWater     = SerenadeOfWater_item && OcarinaButtonL && OcarinaButtonR && OcarinaButtonY && OcarinaButtonX;
+    RequiemOfSpirit     = RequiemOfSpirit_item && OcarinaButtonL && OcarinaButtonR && OcarinaButtonY;
+    NocturneOfShadow    = NocturneOfShadow_item && OcarinaButtonX && OcarinaButtonY && OcarinaButtonL && OcarinaButtonR;
+    PreludeOfLight      = PreludeOfLight_item && OcarinaButtonA && OcarinaButtonY && OcarinaButtonX;
 
     ScarecrowSong    = ScarecrowSong || FreeScarecrow || (ChildScarecrow && AdultScarecrow);
     Scarecrow        = Hookshot && CanPlay(ScarecrowSong);
@@ -1034,11 +1034,11 @@ void LogicReset() {
     NocturneOfShadow_item = false;
     PreludeOfLight_item   = false;
     // Ocarina notes buttons
-    OcarinaButtonL = !ShuffleOcarinaButtons;
-    OcarinaButtonR = !ShuffleOcarinaButtons;
-    OcarinaButtonX = !ShuffleOcarinaButtons;
-    OcarinaButtonY = !ShuffleOcarinaButtons;
-    OcarinaButtonA = !ShuffleOcarinaButtons;
+    OcarinaButtonL      = !ShuffleOcarinaButtons;
+    OcarinaButtonR      = !ShuffleOcarinaButtons;
+    OcarinaButtonX      = !ShuffleOcarinaButtons;
+    OcarinaButtonY      = !ShuffleOcarinaButtons;
+    OcarinaButtonA      = !ShuffleOcarinaButtons;
     OcarinaButtonsCount = 0;
     // Songs + their ocarina notes
     ZeldasLullaby    = false;

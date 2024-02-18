@@ -208,17 +208,17 @@ void AreaTable_Init_HyruleField() {
                                        CanDoGlitch(GlitchType::ActionSwap, GlitchDifficulty::NOVICE))) &&
                                      IsChild;
                           } }),
-            EventAccess(&AdultScarecrow, { [] { return AdultScarecrow || (IsAdult && Ocarina && (OcarinaButtonsCount >= 2)); },
-                                           /*Glitched*/
-                                           [] {
-                                               return (CanDoGlitch(GlitchType::OutdoorBombOI,
-                                                                   GlitchDifficulty::INTERMEDIATE) ||
-                                                       ((Bugs || Fish) && CanShield &&
-                                                        CanDoGlitch(GlitchType::QPA, GlitchDifficulty::ADVANCED)) ||
-                                                       ((Bugs || Fish) && CanDoGlitch(GlitchType::ActionSwap,
-                                                                                      GlitchDifficulty::NOVICE))) &&
-                                                      IsAdult;
-                                           } }),
+            EventAccess(&AdultScarecrow,
+                        { [] { return AdultScarecrow || (IsAdult && Ocarina && (OcarinaButtonsCount >= 2)); },
+                          /*Glitched*/
+                          [] {
+                              return (CanDoGlitch(GlitchType::OutdoorBombOI, GlitchDifficulty::INTERMEDIATE) ||
+                                      ((Bugs || Fish) && CanShield &&
+                                       CanDoGlitch(GlitchType::QPA, GlitchDifficulty::ADVANCED)) ||
+                                      ((Bugs || Fish) &&
+                                       CanDoGlitch(GlitchType::ActionSwap, GlitchDifficulty::NOVICE))) &&
+                                     IsAdult;
+                          } }),
         },
         {
             // Locations
