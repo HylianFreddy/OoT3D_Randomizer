@@ -24,14 +24,14 @@ typedef enum EnemySoulId {
     SOUL_BUBBLE,
     SOUL_FLYING_TRAP,
     SOUL_BEAMOS,
-    SOUL_WALLMASTER, // also Floormaster
+    SOUL_WALLMASTER,
     SOUL_REDEAD_GIBDO,
     SOUL_SHELL_BLADE,
     SOUL_LIKE_LIKE,
-    SOUL_TENTACLE, // merge with barinade?
+    SOUL_TENTACLE,
     SOUL_ANUBIS,
     SOUL_SPIKE,
-    SOUL_SKULL_KID, // not a monster?
+    SOUL_SKULL_KID,
     SOUL_FREEZARD,
     SOUL_DEKU_SCRUB,
     SOUL_WOLFOS,

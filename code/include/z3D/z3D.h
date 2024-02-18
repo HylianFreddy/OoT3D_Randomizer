@@ -666,8 +666,8 @@ typedef struct SubMainClass_180 {
     /* 0x008 */ s32 saModelsCount1;
     /* 0x00C */ s32 saModelsCount2;
     /* 0x010 */ char unk_10[0x10];
-    /* 0x020 */ SAModelListEntry* saModelsList1;
-    /* 0x024 */ SAModelListEntry* saModelsList2;
+    /* 0x020 */ SAModelListEntry* saModelsList1; // 3D models
+    /* 0x024 */ SAModelListEntry* saModelsList2; // 2D billboards
     /* ... size unknown*/
 } SubMainClass_180;
 
