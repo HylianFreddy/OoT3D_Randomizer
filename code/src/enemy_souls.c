@@ -80,14 +80,6 @@ static EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
 }
 // clang-format on
 
-enum {
-    ENEMYSOULSDEBUGTOGGLE_OFF,
-    ENEMYSOULSDEBUGTOGGLE_REMOVE,
-    ENEMYSOULSDEBUGTOGGLE_HAVE,
-} EnemySoulsDebugToggle;
-
-u8 EnemySouls_DebugToggle = ENEMYSOULSDEBUGTOGGLE_OFF;
-
 u8 EnemySouls_GetSoulFlag(EnemySoulId soulId) {
     if (soulId == SOUL_NONE) {
         return 1;
@@ -106,13 +98,7 @@ u8 EnemySouls_CheckSoulForActor(Actor* actor) {
     if ((gSettingsContext.shuffleEnemySouls == OFF) || (actor->id == 0x054 && actor->params == 0 /* Armos statue */)) {
         return TRUE;
     }
-    if (EnemySouls_DebugToggle == ENEMYSOULSDEBUGTOGGLE_HAVE) {
-        return TRUE;
-    }
 
     EnemySoulId soulId = EnemySouls_GetSoulId(actor->id);
-    if (soulId != SOUL_NONE && EnemySouls_DebugToggle == ENEMYSOULSDEBUGTOGGLE_REMOVE) {
-        return FALSE;
-    }
     return soulId == SOUL_NONE || EnemySouls_GetSoulFlag(soulId);
 }

@@ -123,6 +123,4 @@ u8 EnemySouls_GetSoulFlag(EnemySoulId soulId);
 void EnemySouls_SetSoulFlag(EnemySoulId soulId);
 u8 EnemySouls_CheckSoulForActor(Actor* actor);
 
-extern u8 EnemySouls_DebugToggle;
-
 #endif //_ENEMYSOULS_H_
