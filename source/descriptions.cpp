@@ -533,11 +533,13 @@ string_view chestMinigameDesc         = "The 5 key chests in the Treasure Chest 
 /*------------------------------                                                           //
 |     SHUFFLE ENEMY SOULS      |                                                           //
 ------------------------------*/                                                           //
-string_view enemySoulDesc             = "Enemies will be invincible until you find their\n"//
-                                        "\"soul\". Each enemy type will have a soul added\n"
-                                        "into the item pool.\n\n"                          //
+string_view enemySoulDesc             = "Enemies will be invincible and appear as a purple\n"
+                                        "flame until you find their \"soul\".\n"           //
+                                        "Each enemy type will have a soul added into the\n"//
+                                        "item pool.\n\n"                                   //
                                         "You can exclude some enemies by adding their\n"   //
-                                        "souls in the Starting Inventory.";                //
+                                        "souls in the Starting Inventory.\n\n"             //
+                                        "WARNING: Incompatible with Master Quest Logic.";  //
 /*------------------------------                                                           //
 |      MAPS AND COMPASSES      |                                                           //
 ------------------------------*/                                                           //

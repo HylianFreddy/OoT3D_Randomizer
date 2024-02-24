@@ -870,7 +870,7 @@ static void Gfx_ShowMenu(void) {
                 handledInput  = true;
             }
         } else if (curMenuIdx == PAGE_ENEMYSOULS) {
-            if (pressed & (BUTTON_UP | CPAD_UP | BUTTON_DOWN | CPAD_DOWN)) {
+            if (pressed & (PAD_UP | PAD_DOWN | PAD_RIGHT | PAD_LEFT)) {
                 soulsScroll  = (soulsScroll + 1) % 2;
                 handledInput = true;
             }
