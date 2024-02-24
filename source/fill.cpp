@@ -573,6 +573,10 @@ static void CalculateWotH() {
 
 // Will place things completely randomly, no logic checks are performed
 static void FastFill(std::vector<ItemKey> items, std::vector<LocationKey> locations, bool endOnItemsEmpty = false) {
+    // PlaceItemInLocation(MARKET_POTION_SHOP_ITEM_1, BUY_BLUE_FIRE);
+    // PlaceItemInLocation(MARKET_POTION_SHOP_ITEM_2, ITEM_BIG_POE);
+    // PlaceItemInLocation(GERUDO_TRAINING_GROUNDS_LOBBY_LEFT_CHEST, SHARD_OF_AGONY);
+    // PlaceItemInLocation(GERUDO_TRAINING_GROUNDS_LOBBY_RIGHT_CHEST, MEGATON_HAMMER);
     // Loop until locations are empty, or also end if items are empty and the parameters specify to end
     // then
     while (!locations.empty() && (!endOnItemsEmpty || !items.empty())) {

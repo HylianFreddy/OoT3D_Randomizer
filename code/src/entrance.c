@@ -413,6 +413,9 @@ void Entrance_SetGameOverEntrance(void) {
 // https://wiki.cloudmodding.com/oot/Entrance_Table_(Data)
 void Entrance_SetSavewarpEntrance(void) {
 
+    // gSaveContext.entranceIndex = 0x0000;
+    // return;
+
     s16 scene = gSaveContext.sceneIndex;
 
     // When in a boss room and boss shuffle is on, use the boss scene override to remap to its
