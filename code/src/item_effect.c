@@ -20,29 +20,6 @@ void ItemEffect_FullHeal(SaveContext* saveCtx, s16 arg1, s16 arg2) {
     }
 }
 
-// void give_triforce_piece(SaveContext* saveCtx, s16 arg1, s16 arg2) {
-//     save->scene_flags[0x48].unk_00_ += 1; //Unused word in scene x48.
-//     set_triforce_render();
-
-//     // Trigger win when the target is hit
-//     if (save->scene_flags[0x48].unk_00_ == triforce_pieces_requied) {
-//         // Give GC boss key to allow beating the game again afterwards
-//         give_dungeon_item(save, 0x01, 10);
-
-//         // Save Game
-//         save->entrance_index = z64_game.entrance_index;
-//         save->scene_index = z64_game.scene_index;
-//         commit_scene_flags(&z64_game);
-//         save_game(&z64_game + 0x1F74);
-
-//         // warp to start of credits sequence
-//         z64_file.cutscene_next = 0xFFF8;
-//         z64_game.entrance_index = 0x00A0;
-//         z64_game.scene_load_flag = 0x14;
-//         z64_game.fadeout_transition = 0x01;
-//     }
-// }
-
 void ItemEffect_GiveTycoonWallet(SaveContext* saveCtx, s16 arg1, s16 arg2) {
     saveCtx->upgrades |= 3 << 12;
     if (gSettingsContext.startingMaxRupees)
