@@ -742,6 +742,7 @@ void GenerateItemPool() {
 
     if (TriforceHunt) {
         AddItemToMainPool(TRIFORCE_PIECE, TriforcePiecesTotal.Value<u8>() + 1);
+        IceTrapModels.push_back(GI_TRIFORCE_PIECE);
     }
 
     if (ItemPoolValue.Is(ITEMPOOL_PLENTIFUL)) {
