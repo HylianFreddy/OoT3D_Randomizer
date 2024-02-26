@@ -1015,6 +1015,9 @@ void GenerateItemPool() {
 
     if (ShuffleOcarinaButtons) {
         AddItemsToPool(ItemPool, ocarinaNoteButtons);
+        if (ItemPoolValue.Is(ITEMPOOL_PLENTIFUL)) {
+            AddItemsToPool(PendingJunkPool, ocarinaNoteButtons);
+        }
     }
 
     // Replace ice traps with junk from the pending junk pool if necessary
