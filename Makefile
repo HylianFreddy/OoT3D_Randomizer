@@ -73,6 +73,8 @@ endif
 # Enable this to skip building the basecode patches
 app_only ?= 0
 
+CXXFLAGS += -g -DCOMMIT_NUMBER=\"$(shell git show --no-patch --format=format:"%h")\"
+
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
