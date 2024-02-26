@@ -1024,6 +1024,9 @@ void GenerateItemPool() {
 
     if (ShuffleEnemySouls) {
         AddItemsToPool(ItemPool, enemySouls);
+        if (ItemPoolValue.Is(ITEMPOOL_PLENTIFUL)) {
+            AddItemsToPool(PendingJunkPool, enemySouls);
+        }
     }
 
     // Replace ice traps with junk from the pending junk pool if necessary
