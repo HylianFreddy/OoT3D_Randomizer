@@ -2790,6 +2790,7 @@ void RandomizeAllSettings(const bool selectOptions /*= false*/) {
 
     // resolve any settings that need to change
     if (selectOptions) {
+        ValidateSettings();
         ForceChange(0, nullptr);
     }
 }
@@ -3155,9 +3156,15 @@ bool GlitchEnabled(Option& glitchOption) {
     return Logic.Is(LOGIC_GLITCHED) && isMiscGlitch() && glitchOption;
 }
 
+// This function checks for conflicting settings similarly to ForceChange, but:
+// - it only gets called when generating a seed instead of after any input on settings menus, and
+// - it only changes the selected options if the setting is hidden (randomized), otherwise it prints an error message to
+//   let the player choose how to solve the conflict.
 bool ValidateSettings() {
     bool valid    = true;
     u8 posY       = 5;
+
+    // Check Heart requirements
     s32 maxHearts = 20;
     switch (ItemPoolValue.Value<u8>()) {
         case ITEMPOOL_MINIMAL:
@@ -3167,8 +3174,22 @@ bool ValidateSettings() {
             maxHearts = 12;
             break;
     }
-    if ((Bridge.Is(RAINBOWBRIDGE_HEARTS) && BridgeHeartCount.Value<u8>() > maxHearts) ||
-        (GanonsBossKey.Is(GANONSBOSSKEY_LACS_HEARTS) && LACSHeartCount.Value<u8>() > maxHearts)) {
+    bool printHeartError = false;
+    if (Bridge.Is(RAINBOWBRIDGE_HEARTS) && BridgeHeartCount.Value<u8>() > maxHearts) {
+        if (BridgeHeartCount.IsHidden()) {
+            BridgeHeartCount.SetSelectedIndex(maxHearts);
+        } else {
+            printHeartError = true;
+        }
+    }
+    if (GanonsBossKey.Is(GANONSBOSSKEY_LACS_HEARTS) && LACSHeartCount.Value<u8>() > maxHearts) {
+        if (LACSHeartCount.IsHidden()) {
+            LACSHeartCount.SetSelectedIndex(maxHearts);
+        } else {
+            printHeartError = true;
+        }
+    }
+    if (printHeartError) {
         printf("\x1b[%d;0H"
                "----------------------------------------"
                "Not enough Hearts in pool!\n\n"
@@ -3180,19 +3201,24 @@ bool ValidateSettings() {
         posY += 7;
     }
 
+    // Check that there are no MQ dungeons with Enemy Souls
     if (ShuffleEnemySouls && Logic.IsNot(LOGIC_NONE) && Logic.IsNot(LOGIC_VANILLA) && MQDungeonCount.IsNot(0)) {
-        printf("\x1b[%d;0H"
-               "----------------------------------------"
-               "Enemy Soul Shuffle currently does not\n"
-               "have logic for Master Quest dungeons.\n\n"
-               "Please disable one of the following:\n"
-               " - MQ Dungeons (setting Count to 0)\n"
-               " - Logic\n"
-               " - Enemy Soul Shuffle\n"
-               "----------------------------------------",
-               posY);
-        valid = false;
-        posY += 10;
+        if (ShuffleEnemySouls.IsHidden()) {
+            ShuffleEnemySouls.SetSelectedIndex(OFF);
+        } else {
+            printf("\x1b[%d;0H"
+                   "----------------------------------------"
+                   "Enemy Soul Shuffle currently does not\n"
+                   "have logic for Master Quest dungeons.\n\n"
+                   "Please disable one of the following:\n"
+                   " - MQ Dungeons (setting Count to 0)\n"
+                   " - Logic\n"
+                   " - Enemy Soul Shuffle\n"
+                   "----------------------------------------",
+                   posY);
+            valid = false;
+            posY += 10;
+        }
     }
 
     return valid;
