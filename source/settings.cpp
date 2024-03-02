@@ -3161,8 +3161,8 @@ bool GlitchEnabled(Option& glitchOption) {
 // - it only changes the selected options if the setting is hidden (randomized), otherwise it prints an error message to
 //   let the player choose how to solve the conflict.
 bool ValidateSettings() {
-    bool valid    = true;
-    u8 posY       = 5;
+    bool valid = true;
+    u8 posY    = 5;
 
     // Check Heart requirements
     s32 maxHearts = 20;
