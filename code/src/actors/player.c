@@ -1,5 +1,4 @@
 #include "z3D/z3D.h"
-#include "z3D/actors/z_en_bom.h"
 #include "objects.h"
 #include "custom_models.h"
 #include "settings.h"
@@ -191,12 +190,6 @@ f32 Player_GetSpeedMultiplier(void) {
         if (PLAYER->stateFuncPtr == (void*)swimFunc) {
             if (rInputCtx.pressed.b) {
                 swimBoostTimer = SWIM_BOOST_DURATION;
-                EnBom* bomb = (EnBom*)Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x10, PLAYER->actor.world.pos.x,
-                    PLAYER->actor.world.pos.y, PLAYER->actor.world.pos.z, PLAYER->actor.world.rot.x,
-                    PLAYER->actor.world.rot.y, PLAYER->actor.world.rot.z, 0);
-                bomb->timer = 1; // no damage if 1 or 0
-                //Collider_UpdateSpheres(0, &bomb->explosionCollider, &bomb->actor.modelMtx);
-                //EnBom_Draw(&bomb->actor, gGlobalContext);
             }
 
             speedMultiplier *= 1 + SWIM_BOOST_POWER * ((f32)swimBoostTimer / SWIM_BOOST_DURATION);
