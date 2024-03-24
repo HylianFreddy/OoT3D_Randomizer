@@ -64,6 +64,7 @@ void MenuInit() {
         // CreateLogDirectories(sdmcArchive);
         // CreatePresetDirectories(sdmcArchive);
         // Music::CreateMusicDirectories(sdmcArchive);
+        Music::musicDirsCreated = true;
 
         FSUSER_CloseArchive(sdmcArchive);
     } else {
