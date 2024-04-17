@@ -9,6 +9,7 @@
 #include "entrance.hpp"
 #include "hints.hpp"
 #include "gold_skulltulas.hpp"
+#include "ocarina_notes.hpp"
 
 #include <array>
 #include <cstring>
@@ -644,6 +645,25 @@ bool WriteAllPatches() {
 
     if (!WritePatch(patchOffset, patchSize, (char*)Gs_GetOverrideData()->data(), code, bytesWritten, totalRW, buf)) {
         return false;
+    }
+
+    /*---------------------------------
+    |        Random Song Notes        |
+    ---------------------------------*/
+
+    // Overwrite the game's gOcarinaSongButtons struct with the randomized songs.
+    // The other structs that hold song data will be modified at runtime via basepatch code, copying from
+    // gOcarinaSongButtons.
+
+    if (Settings::RandomSongNotes) {
+        const u32 OCARINASONGBUTTONS_ADDR = 0x0054C222;
+
+        patchOffset = V_TO_P(OCARINASONGBUTTONS_ADDR);
+        patchSize   = sizeof(rSongData);
+
+        if (!WritePatch(patchOffset, patchSize, (char*)&rSongData, code, bytesWritten, totalRW, buf)) {
+            return false;
+        }
     }
 
     /*-------------------------
