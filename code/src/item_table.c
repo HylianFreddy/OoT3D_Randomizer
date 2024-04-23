@@ -329,6 +329,7 @@ static ItemRow rItemTable[] = {
     [GI_OCARINA_BUTTON_X]   = ITEM_ROW(0x53, CHEST_MAJOR,     0x41, 0x93F2,   0x0123, 0x00, 0xFF, 0xFF, 0xFF,   0x02, ItemUpgrade_None, ItemEffect_OcarinaNote, OCARINA_BUTTON_X, -1), // Ocarina Note Button X
     [GI_OCARINA_BUTTON_Y]   = ITEM_ROW(0x53, CHEST_MAJOR,     0x41, 0x93F3,   0x0123, 0x00, 0xFF, 0xFF, 0xFF,   0x03, ItemUpgrade_None, ItemEffect_OcarinaNote, OCARINA_BUTTON_Y, -1), // Ocarina Note Button Y
     [GI_OCARINA_BUTTON_A]   = ITEM_ROW(0x53, CHEST_MAJOR,     0x41, 0x93F4,   0x0123, 0x00, 0xFF, 0xFF, 0xFF,   0x04, ItemUpgrade_None, ItemEffect_OcarinaNote, OCARINA_BUTTON_A, -1), // Ocarina Note Button A
+
 };
 // clang-format on
 

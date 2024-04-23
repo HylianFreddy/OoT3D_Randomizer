@@ -14,6 +14,7 @@
 #include "trial.hpp"
 #include "keys.hpp"
 #include "gold_skulltulas.hpp"
+#include "ocarina_notes.hpp"
 
 #define CREATE_SOULMENUNAMES
 #include "../code/src/enemy_souls.h"
@@ -339,6 +340,7 @@ Option ToTAltarHints       = Option::Bool(2, "Temple of Time Altar",{"Off", "On"
 Option GanonHints          = Option::Bool(2, "Ganondorf",           {"Off", "On"},                                                          {ganonHintsDesc});
 Option DampeHint           = Option::Bool(2, "Dampe's Diary",       {"Off", "On"},                                                          {dampeHintDesc});
 Option SkulltulaHints      = Option::Bool(2, "House of Skulltula",  {"Off", "On"},                                                          {skulltulaHintDesc});
+Option FishingHints        = Option::Bool(2, "Fishing Prizes",      {"Off", "On"},                                                          {fishingHintsDesc});
 Option ClearerHints        = Option::U8  ("Hint Clarity",           {"Obscure", "Ambiguous", "Clear"},                                      {obscureHintsDesc, ambiguousHintsDesc, clearHintsDesc});
 Option CompassesShowReward = Option::U8  ("Compasses Show Rewards", {"No", "Yes"},                                                          {compassesShowRewardsDesc});
 Option CompassesShowWotH   = Option::U8  ("Compasses Show WotH",    {"No", "Yes"},                                                          {compassesShowWotHDesc},                                                                                          OptionCategory::Setting,    ON);
@@ -360,6 +362,7 @@ std::vector<Option *> miscOptions = {
     &GanonHints,
     &DampeHint,
     &SkulltulaHints,
+    &FishingHints,
     &ClearerHints,
     &CompassesShowReward,
     &CompassesShowWotH,
@@ -449,6 +452,7 @@ Option HyperEnemies        = Option::Bool(2, "Hyper Enemies",       {"Off", "On"
 Option FreeCamera          = Option::Bool("Free Camera",            {"Off", "On"},                                                          {freeCamDesc},                                                                                                    OptionCategory::Setting,    ON);
 Option RandomGsLocations   = Option::Bool("Random GS Locations",    {"Off", "On"},                                                          {randomGsLocationsDesc});
 Option GsLocGuaranteeNew   = Option::Bool(2, "Guarantee New",       {"Off", "On"},                                                          {gsLocGuaranteeNewDesc});
+Option RandomSongNotes     = Option::Bool("Random Ocarina Melodies",{"Off", "On"},                                                          {randomSongNotesDesc});
 std::vector<Option*> gameplayOptions = {
     &FastBunnyHood,
     &KeepFWWarpPoint,
@@ -467,6 +471,7 @@ std::vector<Option*> gameplayOptions = {
     &FreeCamera,
     &RandomGsLocations,
     &GsLocGuaranteeNew,
+    &RandomSongNotes,
 };
 
 // Excluded Locations (Individual definitions made in ItemLocation class)
@@ -1261,6 +1266,7 @@ std::string finalChuTrailOuterColor   = BombchuTrailOuterColor.GetSelectedOption
 Option ColoredKeys =     Option::Bool("Colored Small Keys", {"Off", "On"},                                {coloredKeysDesc},                                                                                                                                  OptionCategory::Cosmetic);
 Option ColoredBossKeys = Option::Bool("Colored Boss Keys",  {"Off", "On"},                                {coloredBossKeysDesc},                                                                                                                              OptionCategory::Cosmetic);
 Option MirrorWorld =     Option::U8  ("Mirror World",       {"Off", "On", "Scene", "Entrance", "Random"}, {mirrorWorldOffDesc, mirrorWorldOnDesc, mirrorWorldSceneDesc, mirrorWorldEntranceDesc, mirrorWorldRandomDesc},                                      OptionCategory::Cosmetic);
+Option BetaSoldOut =     Option::Bool("Beta Sold-Out Model",{"Off", "On"},                                {betaSoldOutDesc},                                                                                                                                  OptionCategory::Cosmetic);
 
 std::vector<Option *> cosmeticOptions = {
     &CustomTunicColors,
@@ -1292,6 +1298,7 @@ std::vector<Option *> cosmeticOptions = {
     &ColoredKeys,
     &ColoredBossKeys,
     &MirrorWorld,
+    &BetaSoldOut,
 };
 
 static std::vector<std::string> musicOptions = {"Off", "On (Mixed)", "On (Grouped)", "On (Own)"};
@@ -1521,6 +1528,7 @@ SettingsContext FillContext() {
                       (!StartingLightArrows || (ShuffleMasterSword && !StartingMasterSword)));
     ctx.dampeHint           = DampeHint ? 1 : 0;
     ctx.skulltulaHints      = SkulltulaHints ? 1 : 0;
+    ctx.fishingHints        = FishingHints ? 1 : 0;
     ctx.compassesShowReward = CompassesShowReward.Value<u8>();
     ctx.compassesShowWotH   = CompassesShowWotH.Value<u8>();
     ctx.mapsShowDungeonMode = MapsShowDungeonMode.Value<u8>();
@@ -1544,6 +1552,7 @@ SettingsContext FillContext() {
     ctx.hyperMiddleBosses   = (HyperMiddleBosses) ? 1 : 0;
     ctx.hyperEnemies        = (HyperEnemies) ? 1 : 0;
     ctx.freeCamera          = (FreeCamera) ? 1 : 0;
+    ctx.randomSongNotes     = (RandomSongNotes) ? 1 : 0;
 
     ctx.faroresWindAnywhere  = (FaroresWindAnywhere) ? 1 : 0;
     ctx.stickAsAdult         = (StickAsAdult) ? 1 : 0;
@@ -2388,7 +2397,7 @@ void ForceChange(u32 kDown, Option* currentSetting) {
     }
 
     // Manage toggle for misc hints options
-    ToggleSet(miscOptions, &MiscHints, &ToTAltarHints, &SkulltulaHints);
+    ToggleSet(miscOptions, &MiscHints, &ToTAltarHints, &FishingHints);
 
     if (ChestAppearance.IsNot(CHESTAPPEARANCE_VANILLA)) {
         ChestAgony.Unhide();
@@ -3139,6 +3148,8 @@ void UpdateSettings() {
     } else {
         LACSCondition = LACSCONDITION_VANILLA;
     }
+
+    GenerateSongList();
 
     UpdateCosmetics();
 

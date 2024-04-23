@@ -850,6 +850,8 @@ string_view dampeHintDesc            =  "Reading Dampe's diary will reveal the l
 string_view skulltulaHintDesc        =  "Talking to a cursed House of Skulltula resident\n"//
                                         "will tell you the reward they will give you for\n"//
                                         "removing their curse.";                           //
+string_view fishingHintsDesc         =  "The aquarium at the fishing pond will show what\n"//
+                                        "reward you can win as your current age.";         //
 /*------------------------------                                                           //
 |  MAP AND COMPASS GIVES INFO  |                                                           //
 ------------------------------*/                                                           //
@@ -1222,6 +1224,13 @@ string_view mirrorWorldEntranceDesc   = "Different entrances to the same region 
 string_view mirrorWorldRandomDesc     = "Whether the world is mirrored may change after\n" //
                                         "every loading zone inconsistently.";              //
 /*------------------------------                                                           //
+| SOLD OUT COSMETIC SHOP MODEL |                                                           //
+------------------------------*/                                                           //
+string_view betaSoldOutDesc           = "The game contains an unused model for sold out\n" //
+                                        "items in shops. It's a remade version of the N64\n"
+                                        "model, spelling \"Sold Out\" in English.\n\n"     //
+                                        "This setting enables its use in shops.";          //
+/*------------------------------                                                           //
 |        SHUFFLE MUSIC         |                                                           //
 ------------------------------*/                                                           //
 string_view musicRandoDesc            = "Randomize the music in the game.";                //
@@ -1326,6 +1335,12 @@ string_view gsLocGuaranteeNewDesc     = "Excludes the original location from the
                                         "If no new locations are available, the original\n"//
                                         "will be used regardless.";                        //
                                                                                            //
+/*------------------------------                                                           //
+|      RANDOM SONG NOTES       |                                                           //
+------------------------------*/                                                           //
+string_view randomSongNotesDesc       = "Randomize the notes for each ocarina song.\n"     //
+                                        "Regular songs will be 3 notes repeated twice.\n"  //
+                                        "Warp songs will be between 5 and 8 notes.";       //
                                                                                            //--------------//
 /*------------------------------                                                                           //
 |  DETAILED LOGIC EXPLANATIONS |                                                                           //

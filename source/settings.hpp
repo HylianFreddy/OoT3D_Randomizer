@@ -478,6 +478,7 @@ extern Option ToTAltarHints;
 extern Option GanonHints;
 extern Option DampeHint;
 extern Option SkulltulaHints;
+extern Option FishingHints;
 extern Option CompassesShowReward;
 extern Option CompassesShowWotH;
 extern Option MapsShowDungeonMode;
@@ -504,6 +505,7 @@ extern Option HyperEnemies;
 extern Option FreeCamera;
 extern Option RandomGsLocations;
 extern Option GsLocGuaranteeNew;
+extern Option RandomSongNotes;
 extern bool HasNightStart;
 
 extern Option FaroresWindAnywhere;
@@ -812,6 +814,7 @@ extern std::string finalChuTrailOuterColor;
 extern Option ColoredKeys;
 extern Option ColoredBossKeys;
 extern Option MirrorWorld;
+extern Option BetaSoldOut;
 
 extern Option ShuffleMusic;
 extern Option ShuffleBGM;

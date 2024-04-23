@@ -275,6 +275,7 @@ extern string_view totAltarHintsDesc;
 extern string_view ganonHintsDesc;
 extern string_view dampeHintDesc;
 extern string_view skulltulaHintDesc;
+extern string_view fishingHintsDesc;
 
 extern string_view compassesShowRewardsDesc;
 extern string_view compassesShowWotHDesc;
@@ -379,6 +380,8 @@ extern string_view mirrorWorldSceneDesc;
 extern string_view mirrorWorldEntranceDesc;
 extern string_view mirrorWorldRandomDesc;
 
+extern string_view betaSoldOutDesc;
+
 extern string_view musicRandoDesc;
 extern string_view shuffleBGMDesc;
 extern string_view shuffleMelodiesDesc;
@@ -406,6 +409,7 @@ extern string_view hyperEnemiesDesc;
 extern string_view freeCamDesc;
 extern string_view randomGsLocationsDesc;
 extern string_view gsLocGuaranteeNewDesc;
+extern string_view randomSongNotesDesc;
 
 extern string_view ToggleAllTricksDesc;
 
