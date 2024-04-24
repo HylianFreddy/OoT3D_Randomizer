@@ -96,61 +96,38 @@ noOverrideItemID:
     ldrb r1,[r6,#0x0]
     b 0x2BC1D4
 
-# Puts override graphic ID into r0, no other effects
-# If no active override, puts -0x1
-# Need to wrap around this for individual cases because of differing register usage
-.global hook_OverrideGraphicID
-.global rActiveItemGraphicId_addr
-.rActiveItemGraphicId_addr:
-    .word rActiveItemGraphicId
-hook_OverrideGraphicID:
-    ldr r0,.rActiveItemRow_addr
-    ldr r0,[r0]
-    cmp r0,#0x0
-    beq noOverrideGraphicID
-
-    ldr r0,.rActiveItemGraphicId_addr
-    ldr r0,[r0]
-    b returnGraphicID
-noOverrideGraphicID:
-    mov r0,#-0x1
-returnGraphicID:
+.global hook_OverrideDrawItemOne
+hook_OverrideDrawItemOne:
+    push {r1-r12, lr}
+    bl ItemOverride_GetDrawItem
+    pop {r1-r12, lr}
+    ldrh r0,[r0]
     bx lr
 
-.global hook_OverrideGraphicID_351B94
-hook_OverrideGraphicID_351B94:
-    push {r0,r1,lr}
-    bl hook_OverrideGraphicID
-    cpy r1,r0
-    cmp r1,#-0x1
-    pop {r0}
-    bne returnGraphicID_351B94
-    ldrsh r1,[r0,#-0x4]
-returnGraphicID_351B94:
-    cpy r0,r1
-    pop {r1,lr}
+.global hook_OverrideDrawItemTwo
+hook_OverrideDrawItemTwo:
+    add r0,r1,r0,lsl #0x1
+    push {r1-r12, lr}
+    bl ItemOverride_GetDrawItem
+    pop {r1-r12, lr}
     bx lr
 
-.global hook_OverrideGraphicID_35495C
-hook_OverrideGraphicID_35495C:
-    push {lr}
-    bl hook_OverrideGraphicID
-    cmp r0,#-0x1
-    bne returnGraphicID_35495C
-    ldrsh r0,[r6,#0x2]
-returnGraphicID_35495C:
-    pop {lr}
+.global hook_OverrideDrawItemThree
+hook_OverrideDrawItemThree:
+    add r5,r0,r1,lsl #0x1
+    push {r0-r4,r6-r12, lr}
+    cpy r0,r5
+    bl ItemOverride_GetDrawItem
+    cpy r5,r0
+    pop {r0-r4,r6-r12, lr}
     bx lr
 
-.global hook_OverrideGraphicID_354BB8
-hook_OverrideGraphicID_354BB8:
-    push {lr}
-    bl hook_OverrideGraphicID
-    cmp r0,#-0x1
-    bne returnGraphicID_354BB8
-    ldrsh r0,[r6,#0x2]
-returnGraphicID_354BB8:
-    pop {lr}
+.global hook_OverrideGiDrawIdPlusOne
+hook_OverrideGiDrawIdPlusOne:
+    push {r1-r12, lr}
+    bl ItemOverride_OverrideGiDrawIdPlusOne
+    pop {r1-r12, lr}
+    strh r0,[r6,#0x4e]
     bx lr
 
 .global hook_EditDrawGetItemBeforeModelSpawn
@@ -168,6 +145,14 @@ hook_EditDrawDetItemAfterModelSpawn:
     pop {r0-r12, lr}
     str r0,[r6,#0x78]
     bx lr
+
+.global hook_EditDrawGetItemAfterMatrixUpdate
+hook_EditDrawGetItemAfterMatrixUpdate:
+    push {r0-r12, lr}
+    cpy r0,r1 @ SkeletonAnimationModel
+    bl ItemOverride_EditDrawGetItemAfterMatrixUpdate
+    pop {r0-r12, lr}
+    b 0x330B98
 
 # TODO: Text ID in game gets messed up,
 # Gives the "What's that?" text instead of
@@ -333,10 +318,10 @@ hook_ApplyDamageMultiplier:
     pop {r0-r3, r5-r12, lr}
     bx lr
 
-.global hook_HyperActors
-hook_HyperActors:
+.global hook_ActorUpdate
+hook_ActorUpdate:
     push {r0-r12, lr}
-    bl HyperActors_Main
+    bl Actor_rUpdate
     pop {r0-r12, lr}
     bx lr
 
@@ -870,62 +855,6 @@ hook_GKSetDurability:
     pop {r0-r12, lr}
     b 0x376BE0
 
-.global hook_SkippableText
-hook_SkippableText:
-    push {r0-r12, lr}
-    bl Settings_GetQuickTextOption
-    cmp r0,#0x1
-    pop {r0-r12, lr}
-    beq 0x2E0ED4
-    ldr r0,[r5,#0x0]
-    b 0x2E09C0
-
-.global hook_InstantTextFirstLine
-hook_InstantTextFirstLine:
-    cmp r9,#0x0
-    bgt NoInstantText
-    push {r0-r12, lr}
-    bl Settings_GetQuickTextOption
-    cmp r0,#0x2
-    pop {r0-r12, lr}
-    blt NoInstantText
-    push {r0-r12, lr}
-    ldr r0,[r5,#0x0]
-    ldr r1,[r0,#0x20]
-    cpy r0,r5
-    blx r1
-    strb r11,[r4,#0x24]
-    pop {r0-r12, lr}
-NoInstantText:
-    cmp r10,#0xFF
-    bx lr
-
-.global hook_InstantTextBoxBreak
-hook_InstantTextBoxBreak:
-    push {r0-r12, lr}
-    bl Settings_GetQuickTextOption
-    cmp r0,#0x2
-    pop {r0-r12, lr}
-    blt 0x2E0EE0
-    push {r0-r12, lr}
-    ldr r0,[r5,#0x0]
-    ldr r1,[r0,#0x20]
-    cpy r0,r5
-    blx r1
-    strb r11,[r4,#0x24]
-    pop {r0-r12, lr}
-    b 0x2E0EE0
-
-.global hook_InstantTextRemoveOff
-hook_InstantTextRemoveOff:
-    push {r0-r12, lr}
-    bl Settings_GetQuickTextOption
-    cmp r0,#0x2
-    pop {r0-r12, lr}
-    bge 0x2E0ED4
-    ldr r0,[r5,#0x0]
-    b 0x2E06CC
-
 .global hook_TurboTextAdvance
 hook_TurboTextAdvance:
     push {r0-r12, lr}
@@ -1014,6 +943,10 @@ hook_TurboTextSignalNPC:
     push {r0-r12, lr}
     bl Settings_IsTurboText
     cmp r0,#0x0
+    @ If about to warp to credits, signal NPC so that
+    @ the collection flag is set before the game is saved
+    bleq Triforce_IsWaitingForText
+    cmp r0,#0x0
     pop {r0-r12, lr}
     movne r4,#0x1
     bx lr
@@ -1099,17 +1032,24 @@ hook_LostWoodsBridgeMusic:
     pop {r0-r12, lr}
     bx lr
 
-.global hook_LoadGame
-hook_LoadGame:
+.global hook_BeforeLoadGame
+hook_BeforeLoadGame:
     add r0, r4, r5
     push {r0-r12, lr}
-    bl SaveFile_LoadExtSaveData
+    bl SaveFile_BeforeLoadGame
     pop {r0-r12, lr}
 .if _EUR_==1
     b 0x4473A4
 .else
     b 0x447384
 .endif
+
+.global hook_AfterLoadGame
+hook_AfterLoadGame:
+    push {r0-r12, lr}
+    bl SaveFile_AfterLoadGame
+    pop {r0-r12, lr}
+    pop {r4-r6, pc}
 
 .global hook_SaveGame
 hook_SaveGame:
@@ -1746,9 +1686,11 @@ hook_CollisionATvsAC:
     push {r0-r12,lr}
     cpy r0,r1  @ AT collider
     cpy r1,r12 @ AC collider
-    bl RedIce_CheckIceArrow
+    bl Actor_CollisionATvsAC
+    cmp r0,#0x1
     pop {r0-r12,lr}
-    bx lr
+    bxeq lr
+    b 0x3192E4
 
 .global hook_CollisionCheck_SetAll_Once
 hook_CollisionCheck_SetAll_Once:
@@ -2088,6 +2030,105 @@ hook_RandomGsLoc_SkipSoilJingle:
     beq 0x15DC34
     # If false
     ldrsh r0,[r0,#0x1C]
+    bx lr
+
+.global hook_ActorDraw
+hook_ActorDraw:
+    push {r0-r12, lr}
+    bl Actor_rDraw
+    pop {r0-r12, lr}
+    bx lr
+
+.global hook_FlyingPotCollision
+hook_FlyingPotCollision:
+    strh r0,[r4,#0xBE]
+    push {r0-r12, lr}
+    cpy r0,r4 @ Actor
+    bl FlyingTraps_Pot_OnImpact
+    cmp r0,#0x1
+    pop {r0-r12, lr}
+    bne 0x11DEE4 @ Skip collision checks and return
+    bx lr
+
+.global hook_FlyingTileCollision
+hook_FlyingTileCollision:
+    cpy r0,r5
+    push {r0-r12, lr}
+    cpy r0,r4 @ Actor
+    bl FlyingTraps_Tile_OnImpact
+    cmp r0,#0x1
+    pop {r0-r12, lr}
+    addne lr,lr,#0x8 @ Skip setting actionFunc
+    bx lr
+
+.global hook_ShabomAfterDamagePlayer
+hook_ShabomAfterDamagePlayer:
+    push {r0-r12, lr}
+    bl Shabom_CheckEnemySoul
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    beq 0x3B511C @ Skip popping
+    strh r10,[r5,#0x80]
+
+.global hook_DodongoAfterSwallowBomb
+hook_DodongoAfterSwallowBomb:
+    mov r1,#0xA
+    push {r0-r12, lr}
+    cpy r0,r4 @ Actor
+    bl Dodongos_AfterSwallowBomb_Normal
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    bne 0x11E4F4
+    bx lr
+
+.global hook_BabyDodongoAfterSwallowBomb
+hook_BabyDodongoAfterSwallowBomb:
+    mov r3,#0x8
+    push {r0-r12, lr}
+    cpy r0,r4 @ Actor
+    bl Dodongos_AfterSwallowBomb_Baby
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    bne 0x1C4370
+    bx lr
+
+.global hook_OcarinaNoteButtonsDraw
+hook_OcarinaNoteButtonsDraw:
+    push {r0-r12, lr}
+    bl OcarinaNotes_MoveButtons
+    pop {r0-r12, lr}
+    mov r2,r2,lsl #0x1 @ original code
+    cmp r2,#0x0        @ original code
+    mov r3,r3,lsl #0x1 @ original code
+    bx lr
+
+.global hook_OcarinaNoteButtonsPress
+hook_OcarinaNoteButtonsPress:
+    cpy r0,r6
+    push {r1-r12, lr}
+    bl OcarinaNotes_HandleInputs
+    pop {r1-r12, lr}
+    bx lr
+
+.global hook_HandleTextControlCode
+hook_HandleTextControlCode:
+    ldrb r0,[r6,#0x4] @ Control Code identifier
+    push {r0-r12, lr}
+    cpy r1,r5 @ Text Object
+    cpy r2,r3 @ Unk pointer
+    bl Message_HandleTextControlCode
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    bxeq lr    @ Not a custom control char, resume base game code
+    b 0x2E0ED4 @ Handled custom control char, skip base game code
+
+.global hook_CheckForTextControlCode
+hook_CheckForTextControlCode:
+    push {r1-r12, lr}
+    cpy r2,r5 @ Text Object
+    cpy r3,r9 @ Char Index (loop counter)
+    bl Message_rCheckForControlCodes
+    pop {r1-r12, lr}
     bx lr
 
 @ ----------------------------------

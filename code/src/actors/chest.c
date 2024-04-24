@@ -53,7 +53,7 @@ void Chest_ChangeAppearance(Actor* thisx, GlobalContext* globalCtx) {
     ItemOverride thisOverride = ItemOverride_Lookup(thisx, globalCtx->sceneNum, 0);
     ItemRow* thisItemRow;
     if (thisOverride.key.all == 0) {
-        thisItemRow = ItemTable_GetItemRowFromIndex((thisx->params & 0x0FE0) >> 5); // get type from vanilla item table
+        thisItemRow = ItemTable_GetItemRow((thisx->params & 0x0FE0) >> 5); // get type from vanilla item table
     } else {
         thisItemRow = ItemTable_GetItemRow(ItemTable_ResolveUpgrades(thisOverride.value.itemId));
     }
@@ -174,7 +174,7 @@ void EnBox_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 u8 Chest_OverrideAnimation() {
 
     if ((gSettingsContext.chestAnimations == CHESTANIMATIONS_ALWAYSFAST) ||
-        (rActiveItemActionId == 0)) // The animation is always fast for unused chests that aren't randomized
+        (!isItemOverrideActive)) // The animation is always fast for unused chests that aren't randomized
         return FALSE;
 
     switch (rActiveItemChestType) {
@@ -247,16 +247,16 @@ u8 Chest_OverrideIceSmoke(Actor* thisx) {
             case ICETRAP_BOMB_SIMPLE:
             case ICETRAP_BOMB_KNOCKDOWN:
                 sBomb = (EnBom*)Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x10, thisx->world.pos.x,
-                                    thisx->world.pos.y, thisx->world.pos.z, 0, 0, 0, 0);
+                                    thisx->world.pos.y, thisx->world.pos.z, 0, 0, 0, 0, FALSE);
                 break;
             case ICETRAP_ANTIFAIRY:
                 sFairy = (EnElf*)Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x18, thisx->world.pos.x,
-                                             thisx->world.pos.y, thisx->world.pos.z, 0, 0, 0, 0x5);
+                                             thisx->world.pos.y, thisx->world.pos.z, 0, 0, 0, 0x5, FALSE);
                 PLAYER->actor.home.pos.y = -5000; // Make Link airborne for a frame to cancel the get item event
                 break;
             case ICETRAP_RUPPY:
                 Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x131, thisx->world.pos.x,
-                            thisx->world.pos.y + 30, thisx->world.pos.z, 0, 0, 0, 0x2);
+                            thisx->world.pos.y + 30, thisx->world.pos.z, 0, 0, 0, 0x2, FALSE);
                 PLAYER->actor.home.pos.y = -5000; // Make Link airborne for a frame to cancel the get item event
                 break;
             case ICETRAP_FIRE:

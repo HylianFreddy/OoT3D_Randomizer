@@ -231,6 +231,7 @@ typedef enum {
     GANONSBOSSKEY_ANY_DUNGEON,
     GANONSBOSSKEY_OVERWORLD,
     GANONSBOSSKEY_ANYWHERE,
+    GANONSBOSSKEY_TRIFORCE, // Unselectable option, set automatically for Triforce Hunt
     GANONSBOSSKEY_LACS_VANILLA,
     GANONSBOSSKEY_LACS_MEDALLIONS,
     GANONSBOSSKEY_LACS_STONES,
@@ -443,18 +444,12 @@ typedef enum {
 } MirrorWorld;
 
 typedef enum {
-    PLAY_ON_CONSOLE,
-    PLAY_ON_CITRA,
-} PlayOption;
-
-typedef enum {
     REGION_NA,
     REGION_EUR
 } REGION;
 
 typedef struct {
     u8 hashIndexes[5];
-    u8 playOption;
     u8 region;
 
     u8 logic;
@@ -496,6 +491,9 @@ typedef struct {
     u8 randomMQDungeons;
     u8 mqDungeonCount;
     u8 dungeonModesKnown[12]; // 12 dungeons which can be set Vanilla or MQ
+    u8 triforceHunt;
+    u8 triforcePiecesTotal;
+    u8 triforcePiecesRequired;
 
     u8 shuffleRewards;
     u8 linksPocketItem;
@@ -514,6 +512,8 @@ typedef struct {
     u8 shuffleFrogSongRupees;
     u8 shuffleAdultTradeQuest;
     u8 shuffleChestMinigame;
+    u8 shuffleEnemySouls;
+    u8 shuffleOcarinaButtons;
 
     u8 mapsAndCompasses;
     u8 keysanity;
@@ -627,6 +627,10 @@ typedef struct {
     u8 freeCamControl;
 
     u8 customTunicColors;
+    u8 rainbowChildTunic;
+    u8 rainbowKokiriTunic;
+    u8 rainbowGoronTunic;
+    u8 rainbowZoraTunic;
     u8 customNaviColors;
     u8 rainbowIdleNaviInnerColor;
     u8 rainbowNPCNaviInnerColor;
@@ -720,6 +724,9 @@ typedef struct {
     u32 startingDungeonReward;
     u32 startingEquipment;
     u32 startingUpgrades;
+
+    u8 startingEnemySouls[8];
+    u8 startingOcarinaButtons;
 
     u8 startingTokens;
 

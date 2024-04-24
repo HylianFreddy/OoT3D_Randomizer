@@ -43,13 +43,14 @@ int main() {
 
         // send inputs off to the menu
         if (kDown)
-            MenuUpdate(kDown, updatedByHeld);
+            MenuUpdate(kDown, updatedByHeld, kHeld);
 
         // launch oot3d directly by holding L and R (cartridge only)
         if (kHeld & KEY_L && kHeld & KEY_R) {
-            s64 output = 0;
-            svcGetSystemInfo(&output, 0x20000, 0); // This checks if the app is running on Citra
-            if (!output) {
+            s64 playingOnCitra = 0;
+            // Type 0x20000 only exists on Citra, where parameter 0 returns 1
+            svcGetSystemInfo(&playingOnCitra, 0x20000, 0);
+            if (!playingOnCitra) {
                 if (Settings::Region == REGION_NA) {
                     aptSetChainloader(0x0004000000033500, 2);
                 } else if (Settings::Region == REGION_EUR) {

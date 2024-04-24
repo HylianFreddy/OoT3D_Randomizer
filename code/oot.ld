@@ -60,6 +60,14 @@ SECTIONS
 		*(.patch_ItemEtceteraModelDraw)
 	}
 
+	.patch_FlyingPotCollision 0x11DB34 : {
+		*(.patch_FlyingPotCollision)
+	}
+
+	.patch_DodongoAfterSwallowBomb 0x11E4B8 : {
+		*(.patch_DodongoAfterSwallowBomb)
+	}
+
 	.patch_SariasSongItemGive 0x12C84C : {
 		*(.patch_SariasSongItemGive)
 	}
@@ -408,6 +416,10 @@ SECTIONS
 		*(.patch_FishingSizeIgnoreAdult)
 	}
 
+	.patch_BabyDodongoAfterSwallowBomb 0x1C42DC : {
+		*(.patch_BabyDodongoAfterSwallowBomb)
+	}
+
 	.patch_BiggoronAfterGiveItem 0x1C4E4C : {
 		*(.patch_BiggoronAfterGiveItem)
 	}
@@ -608,6 +620,10 @@ SECTIONS
 		*(.patch_BoleroLocation)
 	}
 
+	.patch_FlyingTileCollision 0x26E730 : {
+		*(.patch_FlyingTileCollision)
+	}
+
 	.patch_RedBoulderExplode 0x26FE7C : {
 		*(.patch_RedBoulderExplode)
 	}
@@ -712,6 +728,10 @@ SECTIONS
 		*(.patch_GetCustomMessageTextOne)
 	}
 
+	.patch_ActorDraw 0x2D6310 : {
+		*(.patch_ActorDraw)
+	}
+
 	.patch_CamUpdate 0x2D84C8 : {
 	    * (.patch_CamUpdate)
 	}
@@ -720,20 +740,12 @@ SECTIONS
 	    *(.patch_CamRoll)
 	}
 
-	.patch_InstantTextFirstLine 0x2E049C : {
-		*(.patch_InstantTextFirstLine)
+	.patch_CheckForTextControlCode 0x2E0490 : {
+	    * (.patch_CheckForTextControlCode)
 	}
 
-	.patch_InstantTextBoxBreak 0x2E0664 : {
-		*(.patch_InstantTextBoxBreak)
-	}
-
-	.patch_InstantTextRemoveOff 0x2E06C8 : {
-		*(.patch_InstantTextRemoveOff)
-	}
-
-	.patch_SkippableText 0x2E09BC : {
-		*(.patch_SkippableText)
+	.patch_HandleTextControlCode 0x2E057C : {
+	    * (.patch_HandleTextControlCode)
 	}
 
 	.patch_SceneInitAfterCopyScenes 0x2EAFDC : {
@@ -752,16 +764,28 @@ SECTIONS
 		*(.patch_CorrectCompassChestsTwo)
 	}
 
-	.patch_SaveFileSwordless 0x2FDCE4 : {
-		*(.patch_SaveFileSwordless)
+	.patch_OverrideDrawItemOne 0x2F7498 : {
+		*(.patch_OverrideDrawItemOne)
+	}
+
+	.patch_OcarinaNoteButtonsDraw 0x2F9430 : {
+	    * (.patch_OcarinaNoteButtonsDraw)
 	}
 
 	.patch_SaveGame 0x2FBFA8 : {
 		*(.patch_SaveGame)
 	}
 
+	.patch_SaveFileSwordless 0x2FDCE4 : {
+		*(.patch_SaveFileSwordless)
+	}
+
 	.patch_Gfx_Update 0x310254 : {
 		*(.patch_Gfx_Update)
+	}
+
+	.patch_OverrideDrawItemTwo 0x3148A8 : {
+		*(.patch_OverrideDrawItemTwo)
 	}
 
 	.patch_OoBBombchuOne 0x315120 : {
@@ -854,14 +878,6 @@ SECTIONS
 
 	.patch_ApplyDamageMultiplier 0x352DC0 : {
 		*(.patch_ApplyDamageMultiplier)
-	}
-
-	.patch_OverrideGraphicID_35495C 0x35495C : {
-		*(.patch_OverrideGraphicID_35495C)
-	}
-
-	.patch_OverrideGraphicID_354BB8 0x354BB8 : {
-		*(.patch_OverrideGraphicID_354BB8)
 	}
 
 	.patch_FastChests 0x354CD4 : {
@@ -996,6 +1012,10 @@ SECTIONS
 		*(.patch_LullabyLocation)
 	}
 
+	.patch_OverrideDrawItemThree 0x3A0EA8 : {
+		*(.patch_OverrideDrawItemThree)
+	}
+
 	.patch_KokiriCheckOpenForest 0x3ACCFC : {
 		*(.patch_KokiriCheckOpenForest)
 	}
@@ -1022,6 +1042,10 @@ SECTIONS
 
 	.patch_GerudoArcheryOne 0x3AFA34 : {
 		*(.patch_GerudoArcheryOne)
+	}
+
+	.patch_ShabomAfterDamagePlayer 0x3B5060 : {
+		*(.patch_ShabomAfterDamagePlayer)
 	}
 
 	.patch_RandomGsLoc_CustomTokenSpawnOffset 0x3B94C4 : {
@@ -1232,6 +1256,10 @@ SECTIONS
 		*(.patch_SleepQueryCallback)
 	}
 
+	.patch_OcarinaNoteButtonsPress 0x41AAAC : {
+	    * (.patch_OcarinaNoteButtonsPress)
+	}
+
 	.patch_CurseTrapDizzyStick 0x41AB24 : {
 		*(.patch_CurseTrapDizzyStick)
 	}
@@ -1256,8 +1284,12 @@ SECTIONS
 		*(.patch_GearMenuEmptySlot)
 	}
 
-	.patch_LoadGame 0x447380 : {
-		*(.patch_LoadGame)
+	.patch_BeforeLoadGame 0x447380 : {
+		*(.patch_BeforeLoadGame)
+	}
+
+	.patch_AfterLoadGame 0x449F00 : {
+		*(.patch_AfterLoadGame)
 	}
 
 	.patch_DontSetMotionSetting 0x447410 : {
@@ -1452,8 +1484,8 @@ SECTIONS
 		*(.patch_AfterActorSetup_RoomChange)
 	}
 
-	.patch_HyperActors 0x461790 : {
-		*(.patch_HyperActors)
+	.patch_ActorUpdate 0x461790 : {
+		*(.patch_ActorUpdate)
 	}
 
 	.patch_TitleCardUpdate 0x4618B8 : {
@@ -1568,12 +1600,8 @@ SECTIONS
 		*(.patch_CriticalHealthCheckThree)
 	}
 
-	.patch_OverrideGraphicID_4BC604 0x4BC604 : {
-		*(.patch_OverrideGraphicID_4BC604)
-	}
-
-	.patch_OverrideGraphicID_4BD5D0 0x4BD5D0 : {
-		*(.patch_OverrideGraphicID_4BD5D0)
+	.patch_OverrideGiDrawIdPlusOne 0x4BC610 : {
+		*(.patch_OverrideGiDrawIdPlusOne)
 	}
 
 	.patch_EditDrawGetItemBeforeModelSpawn 0x4C0FD0 : {
@@ -1582,6 +1610,10 @@ SECTIONS
 
 	.patch_HookshotRotation 0x4C2524 : {
 		*(.patch_HookshotRotation)
+	}
+
+	.patch_EditDrawGetItemAfterMatrixUpdate 0x4C4D14 : {
+		*(.patch_EditDrawGetItemAfterMatrixUpdate)
 	}
 
 	.patch_EditDrawGetItemAfterModelSpawn 0x4C61A4 : {

@@ -60,7 +60,8 @@ void SaveFile_Init(u32 fileBaseIndex) {
     gSaveContext.eventChkInf[0x4] |= 0x8020; // Entered MS chamber, Pulled MS from pedestal
     gSaveContext.eventChkInf[0xC] |= 0x0020; // Sheik Spawned at MS pedestal as Adult
 
-    gSaveContext.sceneFlags[5].swch |= 0x00010000; // remove Ruto cutscene in Water Temple
+    gSaveContext.sceneFlags[0x05].swch |= 0x00010000; // Met Ruto in Water Temple
+    gSaveContext.sceneFlags[0x5C].swch |= 0x80000000; // Spoke to owl in Desert Colossus (required for music to play)
 
     gSaveContext.otherNewEventFlags |= 0x01; // Club Moblin cutscene
 
@@ -160,8 +161,8 @@ void SaveFile_Init(u32 fileBaseIndex) {
         gSaveContext.eventChkInf[0x0] |= 0x0010;
     }
 
-    SaveFile_SetStartingInventory();
     SaveFile_InitExtSaveData(fileBaseIndex + gSaveContext.fileNum, 1);
+    SaveFile_SetStartingInventory();
 
     // Ingame Defaults
     gSaveContext.zTargetingSetting    = gSettingsContext.zTargeting;
@@ -532,6 +533,15 @@ void SaveFile_SetStartingInventory(void) {
     // Set Epona as freed if Skip Epona Race is enabled and Epona's Song is in the starting inventory
     if (gSettingsContext.skipEponaRace == SKIP && (gSaveContext.questItems >> 13) & 0x1) {
         EventSet(0x18);
+        gSaveContext.horseData.pos.y = 0xF000; // place Epona OoB, so you can't reach her without playing the song
+    }
+
+    // Set owned ocarina buttons. If the shuffle option is disabled, this value will be ignored.
+    gExtSaveData.extInf[EXTINF_OCARINA_BUTTONS] = gSettingsContext.startingOcarinaButtons;
+
+    // Set owned enemy souls. If the shuffle option is disabled, these values will be ignored.
+    for (u32 i = 0; i < sizeof(gSettingsContext.startingEnemySouls); i++) {
+        gExtSaveData.extInf[EXTINF_ENEMYSOULSFLAGS_START + i] = gSettingsContext.startingEnemySouls[i];
     }
 }
 
@@ -824,5 +834,18 @@ void SaveFile_LoadFileSwordless(void) {
 
         // Mark pedestal item collected
         gExtSaveData.extInf[EXTINF_MASTERSWORDFLAGS] |= 2;
+    }
+}
+
+void SaveFile_BeforeLoadGame(u32 saveNumber) {
+    SaveFile_LoadExtSaveData(saveNumber);
+}
+
+void SaveFile_AfterLoadGame(void) {
+    // Give Ganon BK if Triforce Hunt has been completed
+    if (gSettingsContext.triforceHunt == ON && gExtSaveData.triforcePieces >= gSettingsContext.triforcePiecesRequired &&
+        (gSaveContext.dungeonItems[DUNGEON_GANONS_TOWER] & 1) == 0) {
+
+        ItemOverride_PushHardcodedItem(GI_GANON_BOSS_KEY);
     }
 }

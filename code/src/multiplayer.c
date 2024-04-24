@@ -9,6 +9,7 @@
 #include "savefile.h"
 #include "settings.h"
 #include "giants_knife.h"
+#include "triforce.h"
 
 #include "web.h"
 #include "skulltula.h"
@@ -41,7 +42,7 @@ udsBindContext bindctx;
 
 static void Multiplayer_Sync_Init();
 static void Multiplayer_Sync_SharedProgress();
-static void Multiplayer_SendPacket(u8 packageSize, u16 targetID);
+static void Multiplayer_SendPacket(u16 packageSize, u16 targetID);
 static void Multiplayer_UnpackPacket(u16 senderID);
 
 typedef struct {
@@ -79,6 +80,7 @@ typedef struct {
     u8 extInf[EXTINF_SIZE];
     u32 scenesDiscovered[SAVEFILE_SCENES_DISCOVERED_IDX_COUNT];
     u32 entrancesDiscovered[SAVEFILE_ENTRANCES_DISCOVERED_IDX_COUNT];
+    u8 triforcePieces;
 } MultiplayerSaveContext;
 
 static MultiplayerSaveContext mSaveContext;
@@ -142,6 +144,7 @@ static void Multiplayer_Overwrite_mSaveContext(void) {
     for (size_t i = 0; i < SAVEFILE_ENTRANCES_DISCOVERED_IDX_COUNT; i++) {
         mSaveContext.entrancesDiscovered[i] = gExtSaveData.entrancesDiscovered[i];
     }
+    mSaveContext.triforcePieces = gExtSaveData.triforcePieces;
 }
 
 static void Multiplayer_Overwrite_gSaveContext(void) {
@@ -203,6 +206,7 @@ static void Multiplayer_Overwrite_gSaveContext(void) {
     for (size_t i = 0; i < SAVEFILE_ENTRANCES_DISCOVERED_IDX_COUNT; i++) {
         gExtSaveData.entrancesDiscovered[i] = mSaveContext.entrancesDiscovered[i];
     }
+    gExtSaveData.triforcePieces = mSaveContext.triforcePieces;
 }
 
 void Multiplayer_OnFileLoad(void) {
@@ -265,6 +269,7 @@ u8 prevFishingFlags;
 u32 prevWorldMapAreaData;
 u32 prevAdultTrade;
 u8 prevExtInf[EXTINF_SIZE];
+u8 prevTriforcePieces;
 s16 prevHealth;
 s16 prevRupees;
 
@@ -272,6 +277,7 @@ typedef enum {
     // Ghost Data
     PACKET_GHOSTPING,
     PACKET_GHOSTDATA,
+    PACKET_GHOSTDATA_JOINTTABLE,
     PACKET_LINKSFX,
     // Shared Progress
     PACKET_FULLSYNCREQUEST,
@@ -305,6 +311,7 @@ typedef enum {
     PACKET_EXTINF,
     PACKET_DISCOVEREDSCENE,
     PACKET_DISCOVEREDENTRANCE,
+    PACKET_TRIFORCEPIECES,
     PACKET_UNLOCKEDDOOR,
     PACKET_ACTORUPDATE,
     PACKET_ACTORSPAWN,
@@ -345,7 +352,7 @@ void Multiplayer_Run(void) {
             break;
         case 1:
             // Connect or host: Scan for a bit before creating a network
-            if (netScanChecks < (gSettingsContext.playOption == PLAY_ON_CONSOLE ? 3 : 30)) {
+            if (netScanChecks < (playingOnCitra ? 30 : 3)) {
                 netScanChecks++;
 
                 size_t total_networks        = 0;
@@ -380,7 +387,7 @@ void Multiplayer_Run(void) {
             } else {
                 u8 max_players = UDS_MAXNODES;
                 // Citra crashes when allowing too many nodes
-                if (gSettingsContext.playOption == PLAY_ON_CITRA) {
+                if (playingOnCitra) {
                     max_players /= 2;
                 }
                 udsNetworkStruct networkstruct;
@@ -411,7 +418,7 @@ void Multiplayer_Run(void) {
             // Ready to go! This update is only called in-game with the gfx menu closed
             if (IsInGameOrBossChallenge()) {
                 Multiplayer_Update(1);
-                Multiplayer_Ghosts_DrawAll();
+                Multiplayer_Ghosts_SpawnPuppets();
             }
             break;
     }
@@ -425,6 +432,9 @@ void Multiplayer_Update(u8 fromGlobalContextUpdate) {
     Multiplayer_Ghosts_Tick();
     if (fromGlobalContextUpdate) {
         Multiplayer_Send_GhostData();
+        if (playingOnCitra) {
+            Multiplayer_Send_GhostData_JointTable();
+        }
     } else {
         Multiplayer_Send_GhostPing();
     }
@@ -517,6 +527,9 @@ static void Multiplayer_Sync_Init(void) {
     for (size_t i = 0; i < EXTINF_SIZE; i++) {
         prevExtInf[i] = gExtSaveData.extInf[i];
     }
+
+    // Triforce Pieces
+    prevTriforcePieces = gExtSaveData.triforcePieces;
 
     // Health
     prevHealth = gSaveContext.health;
@@ -858,6 +871,12 @@ static void Multiplayer_Sync_SharedProgress(void) {
         }
         prevExtInf[index] = gExtSaveData.extInf[index];
     }
+
+    // Triforce Pieces
+    if (prevTriforcePieces != gExtSaveData.triforcePieces) {
+        Multiplayer_Send_TriforcePieces(gExtSaveData.triforcePieces - prevTriforcePieces);
+    }
+    prevTriforcePieces = gExtSaveData.triforcePieces;
 }
 
 void Multiplayer_Sync_UpdatePrevActorFlags(void) {
@@ -880,7 +899,7 @@ void Multiplayer_Send_GhostPing(void) {
 }
 
 void Multiplayer_Receive_GhostPing(u16 senderID) {
-    Multiplayer_Ghosts_UpdateGhost(senderID, NULL);
+    Multiplayer_Ghosts_UpdateGhostData(senderID, NULL);
 }
 
 void Multiplayer_Send_GhostData(void) {
@@ -888,25 +907,75 @@ void Multiplayer_Send_GhostData(void) {
         return;
     }
     memset(mBuffer, 0, mBufSize);
-    u8 memSpacer         = 0;
+    u16 memSpacer        = 0;
     mBuffer[memSpacer++] = PACKET_GHOSTDATA; // 0: Identifier
 
     GhostData ghostData;
     ghostData.currentScene = gGlobalContext->sceneNum;
     ghostData.age          = gSaveContext.linkAge;
     ghostData.position     = PLAYER->actor.world.pos;
+    ghostData.rotation     = PLAYER->actor.shape.rot;
 
-    memcpy(&mBuffer[memSpacer], &ghostData, sizeof(GhostData));
-    memSpacer += sizeof(GhostData) / 4;
+    ghostData.meshGroups1 = 0;
+    ghostData.meshGroups2 = 0;
+    s32 meshGroupCount    = Model_GetMeshGroupCount(PLAYER->skelAnime.unk_28);
+
+    for (size_t index = 0; index < BIT_COUNT(u32); index++) {
+        if (index > meshGroupCount) {
+            break;
+        }
+        if (Model_IsMeshGroupUsed(PLAYER->skelAnime.unk_28, index)) {
+            ghostData.meshGroups1 |= 1 << index;
+        }
+    }
+    for (size_t index = BIT_COUNT(u32); index < meshGroupCount; index++) {
+        if (Model_IsMeshGroupUsed(PLAYER->skelAnime.unk_28, index)) {
+            ghostData.meshGroups2 |= 1 << (index - BIT_COUNT(u32));
+        }
+    }
+
+    // Always have body enabled
+    if (gSaveContext.gameMode == 0) {
+        if (gSaveContext.linkAge == 0) {
+            ghostData.meshGroups2 |= 0x6000;
+        } else {
+            ghostData.meshGroups1 |= 0x7000000;
+        }
+    }
+
+    ghostData.currentTunic = PLAYER->currentTunic;
+
+    u32 totalSize = sizeof(GhostData) - sizeof(ghostData.jointTable);
+    memcpy(&mBuffer[memSpacer], &ghostData, totalSize);
+    memSpacer += totalSize / 4;
 
     Multiplayer_SendPacket(memSpacer, UDS_BROADCAST_NETWORKNODEID);
 }
 
 void Multiplayer_Receive_GhostData(u16 senderID) {
     GhostData ghostData;
-    memcpy(&ghostData, &mBuffer[1], sizeof(GhostData));
+    u32 packetSize = sizeof(GhostData) - sizeof(ghostData.jointTable);
+    memcpy(&ghostData, &mBuffer[1], packetSize);
 
-    Multiplayer_Ghosts_UpdateGhost(senderID, &ghostData);
+    Multiplayer_Ghosts_UpdateGhostData(senderID, &ghostData);
+}
+
+void Multiplayer_Send_GhostData_JointTable(void) {
+    if (!IsSendReceiveReady()) {
+        return;
+    }
+    memset(mBuffer, 0, mBufSize);
+    u16 memSpacer        = 0;
+    mBuffer[memSpacer++] = PACKET_GHOSTDATA_JOINTTABLE; // 0: Identifier
+
+    memcpy(&mBuffer[memSpacer], &PLAYER->jointTable, sizeof(PLAYER->jointTable));
+    memSpacer += sizeof(PLAYER->jointTable) / 4;
+
+    Multiplayer_SendPacket(memSpacer, UDS_BROADCAST_NETWORKNODEID);
+}
+
+void Multiplayer_Receive_GhostData_JointTable(u16 senderID) {
+    Multiplayer_Ghosts_UpdateGhostData_JointTable(senderID, (LimbData*)&mBuffer[1]);
 }
 
 void Multiplayer_Send_LinkSFX(u32 sfxID_) {
@@ -1100,6 +1169,7 @@ void Multiplayer_Send_BaseSync(u16 targetID) {
     for (size_t i = 0; i < ARRAY_SIZE(mSaveContext.extInf); i++) {
         mBuffer[memSpacer++] = mSaveContext.extInf[i];
     }
+    mBuffer[memSpacer++] = mSaveContext.triforcePieces;
     mBuffer[memSpacer++] = mSaveContext.health;
     mBuffer[memSpacer++] = mSaveContext.rupees;
     Multiplayer_SendPacket(memSpacer, targetID);
@@ -1157,6 +1227,7 @@ void Multiplayer_Receive_BaseSync(u16 senderID) {
     for (size_t i = 0; i < ARRAY_SIZE(mSaveContext.extInf); i++) {
         mSaveContext.extInf[i] = mBuffer[memSpacer++];
     }
+    mSaveContext.triforcePieces = mBuffer[memSpacer++];
     if (gSettingsContext.mp_SharedHealth) {
         mSaveContext.health = mBuffer[memSpacer++];
     } else {
@@ -2159,6 +2230,35 @@ void Multiplayer_Receive_DiscoveredEntrance(u16 senderID) {
     mSaveContext.entrancesDiscovered[index] |= bit;
 }
 
+void Multiplayer_Send_TriforcePieces(u32 piecesDiff) {
+    if (!IsSendReceiveReady() || gSettingsContext.mp_SharedProgress == OFF) {
+        return;
+    }
+    memset(mBuffer, 0, mBufSize);
+    u8 memSpacer = PrepareSharedProgressPacket(PACKET_TRIFORCEPIECES);
+
+    mBuffer[memSpacer++] = piecesDiff;
+    Multiplayer_SendPacket(memSpacer, UDS_BROADCAST_NETWORKNODEID);
+}
+
+void Multiplayer_Receive_TriforcePieces(u16 senderID) {
+    if (!IsInSameSyncGroup() || gSettingsContext.mp_SharedProgress == OFF) {
+        return;
+    }
+    u8 memSpacer = GetSharedProgressMemSpacerOffset();
+
+    u32 piecesDiff = mBuffer[memSpacer++];
+
+    mSaveContext.triforcePieces += piecesDiff;
+
+    if ((prevTriforcePieces < gSettingsContext.triforcePiecesRequired) &&
+        (mSaveContext.triforcePieces >= gSettingsContext.triforcePiecesRequired)) {
+        TriforceWarpStatus = TRIFORCEWARP_WHEN_PLAYER_READY;
+    }
+
+    prevTriforcePieces += piecesDiff;
+}
+
 void Multiplayer_Send_UnlockedDoor(u32 flag) {
     if (!IsSendReceiveReady() || gSettingsContext.mp_SharedProgress == OFF) {
         return;
@@ -2373,7 +2473,7 @@ void Multiplayer_Receive_ActorUpdate(u16 senderID) {
                 Flags_SetSwitch(gGlobalContext, lastBeanPlant_Params & 0x3F);
                 Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, actorId, lastBeanPlant_Home.pos.x,
                             lastBeanPlant_Home.pos.y, lastBeanPlant_Home.pos.z, lastBeanPlant_Home.rot.x,
-                            lastBeanPlant_Home.rot.y, lastBeanPlant_Home.rot.z, lastBeanPlant_Params);
+                            lastBeanPlant_Home.rot.y, lastBeanPlant_Home.rot.z, lastBeanPlant_Params, FALSE);
             }
             break;
     }
@@ -2415,7 +2515,7 @@ void Multiplayer_Receive_ActorSpawn(u16 senderID) {
     s16 params = mBuffer[memSpacer++];
 
     Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, actorId, rcvdPosRot.pos.x, rcvdPosRot.pos.y,
-                rcvdPosRot.pos.z, rcvdPosRot.rot.x, rcvdPosRot.rot.y, rcvdPosRot.rot.z, params);
+                rcvdPosRot.pos.z, rcvdPosRot.rot.x, rcvdPosRot.rot.y, rcvdPosRot.rot.z, params, FALSE);
 }
 
 // Etc
@@ -2568,7 +2668,7 @@ void Multiplayer_Receive_AmmoChange(u16 senderID) {
 
 // Send & Receive
 
-static void Multiplayer_SendPacket(u8 packageSize, u16 targetID) {
+static void Multiplayer_SendPacket(u16 packageSize, u16 targetID) {
     udsSendTo(targetID, data_channel, UDS_SENDFLAG_Default, mBuffer, packageSize * sizeof(mBuffer[0]));
 }
 
@@ -2610,6 +2710,7 @@ static void Multiplayer_UnpackPacket(u16 senderID) {
         // Ghost Data
         Multiplayer_Receive_GhostPing,
         Multiplayer_Receive_GhostData,
+        Multiplayer_Receive_GhostData_JointTable,
         Multiplayer_Receive_LinkSFX,
         // Shared Progress
         Multiplayer_Receive_FullSyncRequest,
@@ -2643,6 +2744,7 @@ static void Multiplayer_UnpackPacket(u16 senderID) {
         Multiplayer_Receive_ExtInfBit,
         Multiplayer_Receive_DiscoveredScene,
         Multiplayer_Receive_DiscoveredEntrance,
+        Multiplayer_Receive_TriforcePieces,
         Multiplayer_Receive_UnlockedDoor,
         Multiplayer_Receive_ActorUpdate,
         Multiplayer_Receive_ActorSpawn,

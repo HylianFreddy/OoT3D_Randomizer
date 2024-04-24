@@ -10,6 +10,7 @@
 #include "grotto.h"
 #include "item_override.h"
 #include "input.h"
+#include "colors.h"
 #include "common.h"
 
 #define PlayerActor_Init_addr 0x191844
@@ -29,12 +30,20 @@
 #define PlayerDListGroup_EmptySheathAdult ((void*)0x53C4D8)
 #define PlayerDListGroup_EmptySheathChildWithHylianShield ((void*)0x53C4DC)
 
+#define OBJECT_LINK_OPENING 0x19F
+
 u16 healthDecrement = 0;
 u8 storedMask       = 0;
 
 void** Player_EditAndRetrieveCMB(ZARInfo* zarInfo, u32 objModelIdx) {
     void** cmbMan = ZAR_GetCMBByIndex(zarInfo, objModelIdx);
     void* cmb     = *cmbMan;
+
+    if (gActorOverlayTable[0].initInfo->objectId == OBJECT_LINK_OPENING) {
+        // Title Screen Link uses a different object, so don't apply the custom tunic patches
+        // to avoid displaying a broken tunic.
+        return cmbMan;
+    }
 
     if (gSettingsContext.customTunicColors == ON) {
         if (gSaveContext.linkAge == AGE_ADULT) {
@@ -54,7 +63,7 @@ void** Player_EditAndRetrieveCMB(ZARInfo* zarInfo, u32 objModelIdx) {
 }
 
 void* Player_GetCustomTunicCMAB(ZARInfo* originalZarInfo, u32 originalIndex) {
-    if (gSettingsContext.customTunicColors == OFF) {
+    if (gSettingsContext.customTunicColors == OFF || gActorOverlayTable[0].initInfo->objectId == OBJECT_LINK_OPENING) {
         return ZAR_GetCMABByIndex(originalZarInfo, originalIndex);
     }
     s16 exObjectBankIdx = Object_GetIndex(&rExtendedObjectCtx, OBJECT_CUSTOM_GENERAL_ASSETS);
@@ -108,6 +117,11 @@ void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     Player* this = (Player*)thisx;
     PlayerActor_Update(thisx, globalCtx);
 
+    // Restore Randomizer draw function in case something (like Farore's Wind) overwrote it
+    if (thisx->draw == PlayerActor_Draw) {
+        thisx->draw = PlayerActor_rDraw;
+    }
+
     Arrow_HandleSwap(this, globalCtx);
 
     if (this->naviActor != 0) {
@@ -156,6 +170,9 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
             PLAYER->sheathDLists = PlayerDListGroup_EmptySheathChildWithHylianShield;
         }
     }
+
+    Player_UpdateRainbowTunic();
+
     PlayerActor_Draw(thisx, globalCtx);
 }
 
@@ -237,4 +254,41 @@ s32 Player_CanPickUpThisActor(Actor* interactedActor) {
         default:
             return 1;
     }
+}
+
+#define TUNIC_CYCLE_FRAMES 30
+void Player_UpdateRainbowTunic(void) {
+    u8 currentTunic     = (gSaveContext.equips.equipment >> 8) & 3;
+    s16 exObjectBankIdx = Object_GetIndex(&rExtendedObjectCtx, OBJECT_CUSTOM_GENERAL_ASSETS);
+    void* cmabManager;
+    char* cmabChunk;
+    u8 redOffset, greenOffset, blueOffset;
+
+    if (gSaveContext.linkAge == AGE_CHILD) {
+        if (gSettingsContext.rainbowChildTunic == OFF) {
+            return;
+        }
+        cmabManager = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo, TEXANIM_CHILD_LINK_BODY);
+        redOffset   = 0x70;
+        greenOffset = 0x88;
+        blueOffset  = 0xA0;
+    } else { // AGE_ADULT
+        if ((currentTunic == 1 && gSettingsContext.rainbowKokiriTunic == OFF) ||
+            (currentTunic == 2 && gSettingsContext.rainbowGoronTunic == OFF) ||
+            (currentTunic == 3 && gSettingsContext.rainbowZoraTunic == OFF)) {
+            return;
+        }
+        cmabManager = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo, TEXANIM_LINK_BODY);
+        redOffset   = 0x70 + 8 * (currentTunic - 1);
+        greenOffset = 0x98 + 8 * (currentTunic - 1);
+        blueOffset  = 0xC0 + 8 * (currentTunic - 1);
+    }
+
+    cmabChunk = *((char**)cmabManager);
+
+    Color_RGBA8 color = Colors_GetRainbowColor(rGameplayFrames, TUNIC_CYCLE_FRAMES);
+
+    *(f32*)(cmabChunk + redOffset)   = color.r / 255.0f;
+    *(f32*)(cmabChunk + greenOffset) = color.g / 255.0f;
+    *(f32*)(cmabChunk + blueOffset)  = color.b / 255.0f;
 }

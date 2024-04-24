@@ -37,6 +37,8 @@ s32 numShopItemsLoaded = 0; // Used to determine params. Reset this to 0 in ossa
 
 #define EnGirlA_InitializeItemAction ((EnGirlAActionFunc)0x14D5C8)
 
+void ShopsanityItem_Draw(Actor* itemx, GlobalContext* globalCtx);
+
 // Checks for if item is of a certain type
 
 u8 ShopsanityItem_IsBombs(u8 id) {
@@ -168,47 +170,15 @@ void ShopsanityItem_1C4Func(GlobalContext* globalCtx, EnGirlA* item) {
 void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalCtx, s16 objectId, s16 objModelIdx,
                                 s16 objModelIdx2, s16 cmabIdx, s16 cmabIdx2, s16 special) {
     EnGirlA* item = &shopItem->super;
-    void* ZARBuf;
-    void* cmb;
 
     DeleteModel_At(&item->model);
     DeleteModel_At(&item->model2);
 
     // edit the cmbs for custom models
-    switch (objectId) {
-        case OBJECT_CUSTOM_ADULT_SONGS:
-            ZARBuf = ExtendedObject_GetStatus(OBJECT_CUSTOM_ADULT_SONGS)->zarInfo.buf;
-            cmb    = (void*)(((char*)ZARBuf) + 0xE8);
-            CustomModel_SetOcarinaToRGBA565(cmb);
-            break;
-        case OBJECT_CUSTOM_CHILD_SONGS:
-            ZARBuf = ExtendedObject_GetStatus(OBJECT_CUSTOM_CHILD_SONGS)->zarInfo.buf;
-            cmb    = (void*)(((char*)ZARBuf) + 0x2E60);
-            CustomModel_SetOcarinaToRGBA565(cmb);
-            break;
-        case OBJECT_CUSTOM_SMALL_KEY_FOREST:
-        case OBJECT_CUSTOM_SMALL_KEY_FIRE:
-        case OBJECT_CUSTOM_SMALL_KEY_WATER:
-        case OBJECT_CUSTOM_SMALL_KEY_SHADOW:
-        case OBJECT_CUSTOM_SMALL_KEY_BOTW:
-        case OBJECT_CUSTOM_SMALL_KEY_SPIRIT:
-        case OBJECT_CUSTOM_SMALL_KEY_FORTRESS:
-        case OBJECT_CUSTOM_SMALL_KEY_GTG:
-        case OBJECT_CUSTOM_SMALL_KEY_GANON:
-            ZARBuf = ExtendedObject_GetStatus(objectId)->zarInfo.buf;
-            cmb    = (void*)(((char*)ZARBuf) + 0x74);
-            CustomModel_ApplyColorEditsToSmallKey(cmb, special);
-            break;
-        case OBJECT_CUSTOM_BOSS_KEYS:
-            ZARBuf = ExtendedObject_GetStatus(OBJECT_CUSTOM_BOSS_KEYS)->zarInfo.buf;
-            cmb    = (void*)(((char*)ZARBuf) + 0x78);
-            CustomModel_SetBossKeyToRGBA565(cmb);
-            break;
-        case OBJECT_CUSTOM_DOUBLE_DEFENSE:
-            ZARBuf = ExtendedObject_GetStatus(OBJECT_CUSTOM_DOUBLE_DEFENSE)->zarInfo.buf;
-            cmb    = (void*)(((char*)ZARBuf) + 0xA4);
-            CustomModel_EditHeartContainerToDoubleDefense(cmb);
-            break;
+    ObjectStatus* obj = ExtendedObject_GetStatus(objectId);
+    if (obj != NULL) {
+        void* ZARBuf = obj->zarInfo.buf;
+        CustomModels_EditItemCMB(ZARBuf, objectId, special);
     }
 
     item->model = SkeletonAnimationModel_Spawn(&item->actor, globalCtx, objectId, objModelIdx);
@@ -216,22 +186,9 @@ void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalC
         SkeletonAnimationModel_SetMesh(item->model, special);
     }
 
-    if (objectId == OBJECT_CUSTOM_CHILD_SONGS) {
-        Model_SetAnim(item->model, OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_CHILD_SONG);
-        item->model->unk_0C->animSpeed = 0.0f;
-        item->model->unk_0C->animMode  = 0;
-        item->model->unk_0C->curFrame  = special;
-    } else if (objectId == OBJECT_CUSTOM_ADULT_SONGS) {
-        Model_SetAnim(item->model, OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_ADULT_SONG);
-        item->model->unk_0C->animSpeed = 0.0f;
-        item->model->unk_0C->animMode  = 0;
-        item->model->unk_0C->curFrame  = special;
-    } else if (objectId == OBJECT_CUSTOM_BOSS_KEYS) {
-        Model_SetAnim(item->model, OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_BOSS_KEY);
-        item->model->unk_0C->animSpeed = 0.0f;
-        item->model->unk_0C->animMode  = 0;
-        item->model->unk_0C->curFrame  = special;
-    } else if (cmabIdx >= 0) {
+    CustomModels_ApplyItemCMAB(item->model, objectId, special);
+
+    if (cmabIdx >= 0) {
         void* cmabMan = ExtendedObject_GetCMABByIndex(objectId, cmabIdx);
         TexAnim_Spawn(item->model->unk_0C, cmabMan);
         item->model->unk_0C->animSpeed = 2.0f;
@@ -268,6 +225,7 @@ void ShopsanityItem_InitializeItem(EnGirlA* item, GlobalContext* globalCtx) {
         u16 index                 = ShopsanityItem_GetIndex(shopItem);
         item->actor.textId        = 0x9200 + index * 2;
         item->itemBuyPromptTextId = 0x9200 + index * 2 + 1;
+        item->actor.draw          = ShopsanityItem_Draw;
     }
 }
 
@@ -293,6 +251,13 @@ void ShopsanityItem_InitializeRegularShopItem(EnGirlA* item, GlobalContext* glob
         item->itemCount           = shopItemEntry->count;
         item->actor.textId        = shopItemEntry->itemDescTextId;
         item->itemBuyPromptTextId = shopItemEntry->itemBuyPromptTextId;
+
+        // EnGirlA_Draw checks the params to make the blue flame rotate
+        if (item->getItemId == GI_BLUE_FIRE) {
+            item->actor.params = SI_BLUE_FIRE;
+        } else if (item->actor.params == SI_BLUE_FIRE) {
+            item->actor.params = 0;
+        }
     }
 }
 
@@ -354,6 +319,16 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
         }
         item->rObjBankIndex = objBankIndex;
     }
+}
+
+void ShopsanityItem_Draw(Actor* itemx, GlobalContext* globalCtx) {
+    ShopsanityItem* item  = (ShopsanityItem*)itemx;
+    ItemOverride override = ItemOverride_Lookup(&item->super.actor, globalCtx->sceneNum, item->getItemId);
+
+    u16 itemId = override.value.looksLikeItemId ? override.value.looksLikeItemId : override.value.itemId;
+    CustomModels_UpdateMatrix(&item->super.actor.modelMtx, ItemTable_GetItemRow(itemId)->objectId);
+
+    EnGirlA_Draw(itemx, globalCtx);
 }
 
 void ShopsanityItem_SellOut(Actor* itemx, u16 index) {

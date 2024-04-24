@@ -12,6 +12,8 @@
 #define SEQ_AUDIO_BLANK 0x1000142
 
 extern s8 customSpeedBoost;
+extern u8 playingOnCitra;
+extern u32 rGameplayFrames; // globalCtx->gameplayFrames is not accurate, it doesn't increment on file 3
 
 /// Returns 1 if the bit is set in value1 but not in value2, -1 if vice versa, and 0 if they're the same
 s8 BitCompare(u32 value1, u32 value2, u8 bit);

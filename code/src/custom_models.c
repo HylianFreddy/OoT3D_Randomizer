@@ -78,7 +78,7 @@ void CustomModel_EditChildLinkToCustomTunic(void* linkCMB) {
     EDIT_BYTE(0x344C, 0x5B); // Set texture to ETC1a4
 }
 
-void CustomModel_EditHeartContainerToDoubleDefense(void* heartContainerCMB) {
+static void CustomModel_EditHeartContainerToDoubleDefense(void* heartContainerCMB) {
     char* BASE_ = (char*)heartContainerCMB;
 
     EDIT_BYTE(0xDB, 0x01);
@@ -100,7 +100,7 @@ void CustomModel_EditHeartContainerToDoubleDefense(void* heartContainerCMB) {
     EDIT_BYTE(0x358, 0x00);
 }
 
-void CustomModel_ApplyColorEditsToSmallKey(void* smallKeyCMB, s32 keyType) {
+static void CustomModel_ApplyColorEditsToSmallKey(void* smallKeyCMB, s32 keyType) {
     char* BASE_ = (char*)smallKeyCMB;
 
     for (s32 i = 0; i < 7; i++) {
@@ -210,14 +210,14 @@ void CustomModel_EditTitleScreenLogo(void* titleScreenZAR) {
 
 // The same offsets work for both fairy ocarina and ocarina of time,
 // so we will just reuse this function for both
-void CustomModel_SetOcarinaToRGBA565(void* ocarinaCMB) {
+static void CustomModel_SetOcarinaToRGBA565(void* ocarinaCMB) {
     char* BASE_ = (char*)ocarinaCMB;
 
     EDIT_BYTE(0x3F2, 0x01);
     EDIT_BYTE(0x3F8, 0x5A);
 }
 
-void CustomModel_SetBossKeyToRGBA565(void* bossKeyCMB) {
+static void CustomModel_SetBossKeyToRGBA565(void* bossKeyCMB) {
     char* BASE_ = (char*)bossKeyCMB;
 
     EDIT_BYTE(0x43D, 0x10);
@@ -227,9 +227,153 @@ void CustomModel_SetBossKeyToRGBA565(void* bossKeyCMB) {
     EDIT_BYTE(0x44B, 0x00);
 }
 
+static void CustomModel_EditShopFairyToEnemySoul(void* ZARBuf) {
+    char* caseCMB  = (((char*)ZARBuf) + 0x178);
+    char* fairyCMB = (((char*)ZARBuf) + 0x25F8);
+    char* BASE_;
+
+    BASE_ = caseCMB;
+    // Colors used for base and top
+    EDIT_BYTE(0x154, 0x00);
+    EDIT_BYTE(0x155, 0x00);
+    EDIT_BYTE(0x156, 0x00);
+    EDIT_BYTE(0x158, 0x10);
+    EDIT_BYTE(0x159, 0x00);
+    EDIT_BYTE(0x15A, 0xFF);
+
+    // Color used for glass part
+    EDIT_BYTE(0x2B4, 0x40);
+    EDIT_BYTE(0x2B5, 0x00);
+    EDIT_BYTE(0x2B6, 0xFF);
+
+    BASE_ = fairyCMB;
+    // Color used for fairy orb
+    EDIT_BYTE(0x13C, 0x00);
+    EDIT_BYTE(0x13D, 0x40);
+    EDIT_BYTE(0x13E, 0x00);
+}
+
+static void CustomModel_SetSoldOutToRGBA565(void* soldOutCMB) {
+    char* BASE_ = (char*)soldOutCMB;
+
+    EDIT_BYTE(0x274, 0x5B); // ImageFormat: 0x6758 -> 0x675B
+}
+
+static void CustomModel_EditTriforce(void* triforceCMB) {
+    char* BASE_ = (char*)triforceCMB;
+
+    // Set number of vertices from 0x120 to 0x60 so only one triangle will be drawn.
+    EDIT_BYTE(0x3FC, 0x60);
+    EDIT_BYTE(0x3FD, 0x00);
+}
+
 void CustomModel_Update(void) {
     // Make sure custom_assets is loaded
     if (ExtendedObject_GetIndex(&gGlobalContext->objectCtx, OBJECT_CUSTOM_GENERAL_ASSETS) < 0) {
         ExtendedObject_Spawn(&gGlobalContext->objectCtx, OBJECT_CUSTOM_GENERAL_ASSETS);
     }
+}
+
+void CustomModels_EditItemCMB(void* ZARBuf, u16 objectId, s8 special) {
+    void* cmb;
+
+    switch (objectId) {
+        case OBJECT_CUSTOM_DOUBLE_DEFENSE:
+            cmb = ((char*)ZARBuf) + 0xA4;
+            CustomModel_EditHeartContainerToDoubleDefense(cmb);
+            break;
+        case OBJECT_CUSTOM_CHILD_SONGS:
+            cmb = ((char*)ZARBuf) + 0x2E60;
+            CustomModel_SetOcarinaToRGBA565(cmb);
+            break;
+        case OBJECT_CUSTOM_ADULT_SONGS:
+            cmb = ((char*)ZARBuf) + 0xE8;
+            CustomModel_SetOcarinaToRGBA565(cmb);
+            break;
+        case OBJECT_CUSTOM_SMALL_KEY_FOREST:
+        case OBJECT_CUSTOM_SMALL_KEY_FIRE:
+        case OBJECT_CUSTOM_SMALL_KEY_WATER:
+        case OBJECT_CUSTOM_SMALL_KEY_SHADOW:
+        case OBJECT_CUSTOM_SMALL_KEY_BOTW:
+        case OBJECT_CUSTOM_SMALL_KEY_SPIRIT:
+        case OBJECT_CUSTOM_SMALL_KEY_FORTRESS:
+        case OBJECT_CUSTOM_SMALL_KEY_GTG:
+        case OBJECT_CUSTOM_SMALL_KEY_GANON:
+            cmb = ((char*)ZARBuf) + 0x74;
+            CustomModel_ApplyColorEditsToSmallKey(cmb, special);
+            break;
+        case OBJECT_CUSTOM_BOSS_KEYS:
+            cmb = ((char*)ZARBuf) + 0x78;
+            CustomModel_SetBossKeyToRGBA565(cmb);
+            break;
+        case OBJECT_CUSTOM_ENEMY_SOUL:
+            // This function takes the ZARBuf instead of the CMB
+            CustomModel_EditShopFairyToEnemySoul(ZARBuf);
+            break;
+        case OBJECT_CUSTOM_OCARINA_BUTTON:
+            cmb = ((char*)ZARBuf) + 0xA4;
+            CustomModel_SetSoldOutToRGBA565(cmb);
+            break;
+        case OBJECT_CUSTOM_TRIFORCE_PIECE:
+            cmb = ((char*)ZARBuf) + 0xF0;
+            CustomModel_EditTriforce(cmb);
+            break;
+    }
+}
+
+void CustomModels_ApplyItemCMAB(SkeletonAnimationModel* model, u16 objectId, s8 special) {
+    void* cmabMan;
+
+    switch (objectId) {
+        case OBJECT_CUSTOM_CHILD_SONGS:
+            cmabMan = ExtendedObject_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_CHILD_SONG);
+            TexAnim_Spawn(model->unk_0C, cmabMan);
+            model->unk_0C->animSpeed = 0.0f;
+            model->unk_0C->animMode  = 0;
+            model->unk_0C->curFrame  = special;
+            break;
+        case OBJECT_CUSTOM_ADULT_SONGS:
+            cmabMan = ExtendedObject_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_ADULT_SONG);
+            TexAnim_Spawn(model->unk_0C, cmabMan);
+            model->unk_0C->animSpeed = 0.0f;
+            model->unk_0C->animMode  = 0;
+            model->unk_0C->curFrame  = special;
+            break;
+        case OBJECT_CUSTOM_BOSS_KEYS:
+            cmabMan = ExtendedObject_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_BOSS_KEY);
+            TexAnim_Spawn(model->unk_0C, cmabMan);
+            model->unk_0C->animSpeed = 0.0f;
+            model->unk_0C->animMode  = 0;
+            model->unk_0C->curFrame  = special;
+            break;
+        case OBJECT_CUSTOM_OCARINA_BUTTON:
+            cmabMan = ExtendedObject_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_OCARINA_NOTE_BUTTON);
+            TexAnim_Spawn(model->unk_0C, cmabMan);
+            model->unk_0C->animSpeed = 0.0f;
+            model->unk_0C->animMode  = 0;
+            model->unk_0C->curFrame  = special;
+    }
+}
+
+void CustomModels_UpdateMatrix(nn_math_MTX34* modelMtx, u16 objectId) {
+    f32 scale;
+    Vec3f posOffset;
+
+    switch (objectId) {
+        case OBJECT_CUSTOM_TRIFORCE_PIECE:
+            scale     = 0.05f;
+            posOffset = (Vec3f){ 0.0f, -800.0f, 0.0f };
+            break;
+        default:
+            return;
+    }
+
+    nn_math_MTX44 scaleMtx = { 0 };
+    scaleMtx.data[0][0]    = scale;
+    scaleMtx.data[1][1]    = scale;
+    scaleMtx.data[2][2]    = scale;
+    scaleMtx.data[3][3]    = 1.0f;
+
+    Matrix_Multiply(modelMtx, modelMtx, &scaleMtx);
+    Matrix_UpdatePosition(modelMtx, modelMtx, &posOffset);
 }
