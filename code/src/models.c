@@ -9,27 +9,17 @@
 #include <stddef.h>
 
 typedef void (*SkeletonAnimationModel_MatrixCopy_proc)(SkeletonAnimationModel* glModel, nn_math_MTX34* mtx);
-#define SkeletonAnimationModel_MatrixCopy_addr 0x3721E0
-#define SkeletonAnimationModel_MatrixCopy \
-    ((SkeletonAnimationModel_MatrixCopy_proc)SkeletonAnimationModel_MatrixCopy_addr)
+#define SkeletonAnimationModel_MatrixCopy ((SkeletonAnimationModel_MatrixCopy_proc)GAME_ADDR(0x3721E0))
 
 typedef void (*SkeletonAnimationModel_Draw_proc)(SkeletonAnimationModel* glModel, s32 param_2);
-#define SkeletonAnimationModel_Draw_addr 0x372170
-#define SkeletonAnimationModel_Draw ((SkeletonAnimationModel_Draw_proc)SkeletonAnimationModel_Draw_addr)
+#define SkeletonAnimationModel_Draw ((SkeletonAnimationModel_Draw_proc)GAME_ADDR(0x372170))
 
 typedef void (*SkeletonAnimationModel_SpawnAt_proc)(Actor* actor, GlobalContext* globalCtx,
                                                     SkeletonAnimationModel** glModel, s32 objModelIdx);
-#define SkeletonAnimationModel_SpawnAt_addr 0x372F38
-#define SkeletonAnimationModel_SpawnAt ((SkeletonAnimationModel_SpawnAt_proc)SkeletonAnimationModel_SpawnAt_addr)
+#define SkeletonAnimationModel_SpawnAt ((SkeletonAnimationModel_SpawnAt_proc)GAME_ADDR(0x372F38))
 
 typedef void (*Actor_SetModelMatrix_proc)(f32 x, f32 y, f32 z, nn_math_MTX34* mtx, ActorShape* shape);
-#define Actor_SetModelMatrix_addr 0x3679D0
-#define Actor_SetModelMatrix ((Actor_SetModelMatrix_proc)Actor_SetModelMatrix_addr)
-
-typedef void (*Matrix_Multiply_proc)(nn_math_MTX34* dst, nn_math_MTX34* lhs, nn_math_MTX44* rhs)
-    __attribute__((pcs("aapcs-vfp")));
-#define Matrix_Multiply_addr 0x36C174
-#define Matrix_Multiply ((Matrix_Multiply_proc)Matrix_Multiply_addr)
+#define Actor_SetModelMatrix ((Actor_SetModelMatrix_proc)GAME_ADDR(0x3679D0))
 
 #define LOADEDMODELS_MAX 16
 Model ModelContext[LOADEDMODELS_MAX] = { 0 };
@@ -136,7 +126,7 @@ void Actor_SetModelMatrixWrapper(Actor* actor, nn_math_MTX34* mtx) {
 }
 
 void Model_UpdateMatrix(Model* model) {
-    nn_math_MTX44 scaleMtx;
+    nn_math_MTX44 scaleMtx = { 0 };
     Actor_SetModelMatrixWrapper(model->actor, &model->saModel->mtx);
     if (model->saModel2 != NULL) {
         f32 tempRotY = model->actor->shape.rot.y;
@@ -148,18 +138,16 @@ void Model_UpdateMatrix(Model* model) {
         model->actor->shape.rot.y = tempRotY;
     }
 
-    for (s32 i = 0; i < 4; ++i) {
-        for (s32 j = 0; j < 4; ++j) {
-            if (i == j) {
-                scaleMtx.data[i][j] = (i == 3) ? 1.0f : model->scale;
-            } else {
-                scaleMtx.data[i][j] = 0.0f;
-            }
-        }
-    }
+    scaleMtx.data[0][0] = model->scale;
+    scaleMtx.data[1][1] = model->scale;
+    scaleMtx.data[2][2] = model->scale;
+    scaleMtx.data[3][3] = 1.0f;
+
     Matrix_Multiply(&model->saModel->mtx, &model->saModel->mtx, &scaleMtx);
+    Matrix_UpdatePosition(&model->saModel->mtx, &model->saModel->mtx, &model->posOffset);
     if (model->saModel2 != NULL) {
         Matrix_Multiply(&model->saModel2->mtx, &model->saModel2->mtx, &scaleMtx);
+        Matrix_UpdatePosition(&model->saModel->mtx, &model->saModel->mtx, &model->posOffset);
     }
 }
 
@@ -247,10 +235,16 @@ void Model_Create(Model* model, GlobalContext* globalCtx) {
             case 0x019C: // Kokiri Emerald
             case 0x019D: // Goron Ruby
             case 0x019E: // Zora Sapphire
-                newModel->scale = 0.2f;
+                newModel->scale     = 0.2f;
+                newModel->posOffset = (Vec3f){ 0 };
+                break;
+            case OBJECT_CUSTOM_TRIFORCE_PIECE:
+                newModel->scale     = 0.025f;
+                newModel->posOffset = (Vec3f){ 0.0f, -800.0f, 0.0f };
                 break;
             default:
-                newModel->scale = 0.3f;
+                newModel->scale     = 0.3f;
+                newModel->posOffset = (Vec3f){ 0 };
                 break;
         }
     }

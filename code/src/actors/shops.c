@@ -32,10 +32,12 @@ s32 Shop_CheckCanBuyBombchus(void) {
 
 s32 numShopItemsLoaded = 0; // Used to determine params. Reset this to 0 in ossan_destroy or smth
 
-#define EnGirlA_Init ((ActorFunc)0x1D7F20)
-#define EnGirlA_Draw ((ActorFunc)0x210188)
+#define EnGirlA_Init ((ActorFunc)GAME_ADDR(0x1D7F20))
+#define EnGirlA_Draw ((ActorFunc)GAME_ADDR(0x210188))
 
-#define EnGirlA_InitializeItemAction ((EnGirlAActionFunc)0x14D5C8)
+#define EnGirlA_InitializeItemAction ((EnGirlAActionFunc)GAME_ADDR(0x14D5C8))
+
+void ShopsanityItem_Draw(Actor* itemx, GlobalContext* globalCtx);
 
 // Checks for if item is of a certain type
 
@@ -223,6 +225,7 @@ void ShopsanityItem_InitializeItem(EnGirlA* item, GlobalContext* globalCtx) {
         u16 index                 = ShopsanityItem_GetIndex(shopItem);
         item->actor.textId        = 0x9200 + index * 2;
         item->itemBuyPromptTextId = 0x9200 + index * 2 + 1;
+        item->actor.draw          = ShopsanityItem_Draw;
     }
 }
 
@@ -316,6 +319,16 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
         }
         item->rObjBankIndex = objBankIndex;
     }
+}
+
+void ShopsanityItem_Draw(Actor* itemx, GlobalContext* globalCtx) {
+    ShopsanityItem* item  = (ShopsanityItem*)itemx;
+    ItemOverride override = ItemOverride_Lookup(&item->super.actor, globalCtx->sceneNum, item->getItemId);
+
+    u16 itemId = override.value.looksLikeItemId ? override.value.looksLikeItemId : override.value.itemId;
+    CustomModels_UpdateMatrix(&item->super.actor.modelMtx, ItemTable_GetItemRow(itemId)->objectId);
+
+    EnGirlA_Draw(itemx, globalCtx);
 }
 
 void ShopsanityItem_SellOut(Actor* itemx, u16 index) {

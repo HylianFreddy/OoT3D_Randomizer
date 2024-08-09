@@ -39,6 +39,9 @@ typedef enum {
     EXTINF_HASTIMETRAVELED,
     EXTINF_MASTERSWORDFLAGS,
     EXTINF_TOTALTAR_FLAGS,
+    EXTINF_ENEMYSOULSFLAGS_START, // 64 bits (at least one for each EnemySoulId)
+    EXTINF_ENEMYSOULSFLAGS_END = EXTINF_ENEMYSOULSFLAGS_START + 7,
+    EXTINF_OCARINA_BUTTONS,
     EXTINF_SIZE,
 } ExtInf;
 
@@ -59,6 +62,7 @@ typedef struct {
     u32 scenesDiscovered[SAVEFILE_SCENES_DISCOVERED_IDX_COUNT];
     u32 entrancesDiscovered[SAVEFILE_ENTRANCES_DISCOVERED_IDX_COUNT];
     u8 permadeath;
+    u8 triforcePieces;
     // Ingame Options, all need to be s8
     s8 option_EnableBGM;
     s8 option_EnableSFX;

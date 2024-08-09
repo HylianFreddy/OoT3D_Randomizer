@@ -124,13 +124,11 @@ bool WriteAllPatches() {
     u32 bytesWritten = 0;
     u32 totalRW      = 0;
     char buf[512];
-    std::string titleId;
+    std::string titleId = Settings::TitleId();
     PatchSymbols patchSymbols;
     if (Settings::Region == REGION_EUR) {
-        titleId      = "0004000000033600";
         patchSymbols = EurSymbols;
     } else { // REGION_NA
-        titleId      = "0004000000033500";
         patchSymbols = UsaSymbols;
     }
 
@@ -643,6 +641,21 @@ bool WriteAllPatches() {
     patchSize   = sizeof(GsLocOverride) * Gs_GetOverrideData()->size();
 
     if (!WritePatch(patchOffset, patchSize, (char*)Gs_GetOverrideData()->data(), code, bytesWritten, totalRW, buf)) {
+        return false;
+    }
+
+    /*---------------------------------
+    |   Sold Out Cosmetic Shop Model  |
+    ---------------------------------*/
+
+    const u32 SHOPITEMENTRY_SOLDOUT_CMBINDEX_ADDR = 0x525672;
+    char soldOutCMBIndex                          = 0;
+
+    patchOffset = V_TO_P(SHOPITEMENTRY_SOLDOUT_CMBINDEX_ADDR);
+    patchSize   = 1;
+
+    if (Settings::BetaSoldOut &&
+        !WritePatch(patchOffset, patchSize, &soldOutCMBIndex, code, bytesWritten, totalRW, buf)) {
         return false;
     }
 

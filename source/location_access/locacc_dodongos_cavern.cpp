@@ -143,18 +143,19 @@ void AreaTable_Init_DodongosCavern() {
                  {
                      // Exits
                      Entrance(DODONGOS_CAVERN_LOBBY, { [] { return true; } }),
-                     Entrance(DODONGOS_CAVERN_SE_ROOM, { [] {
-                                                            return Here(DODONGOS_CAVERN_SE_CORRIDOR, [] {
-                                                                return CanBlastOrSmash || CanAdultAttack ||
-                                                                       CanChildAttack || (CanTakeDamage && CanShield);
-                                                            });
-                                                        },
-                                                         /*Glitched*/
-                                                         [] {
-                                                             return Here(DODONGOS_CAVERN_SE_CORRIDOR, [] {
-                                                                 return (GlitchBlueFireWall && BlueFire);
-                                                             });
-                                                         } }),
+                     Entrance(DODONGOS_CAVERN_SE_ROOM,
+                              { [] {
+                                   return Here(DODONGOS_CAVERN_SE_CORRIDOR, [] {
+                                       return CanBlastOrSmash ||
+                                              ((SoulDodongo || ShuffleEnemySouls.IsNot(SHUFFLEENEMYSOULS_ALL)) &&
+                                               (CanAdultAttack || CanChildAttack || (CanTakeDamage && CanShield)));
+                                   });
+                               },
+                                /*Glitched*/
+                                [] {
+                                    return Here(DODONGOS_CAVERN_SE_CORRIDOR,
+                                                [] { return (GlitchBlueFireWall && BlueFire); });
+                                } }),
                      Entrance(DODONGOS_CAVERN_NEAR_LOWER_LIZALFOS, { [] { return true; } }),
                  });
 
@@ -183,18 +184,18 @@ void AreaTable_Init_DodongosCavern() {
                  {
                      // Exits
                      Entrance(DODONGOS_CAVERN_NEAR_LOWER_LIZALFOS, { [] {
-                                  return Here(DODONGOS_CAVERN_LOWER_LIZALFOS, [] {
-                                      return CanUse(BOW) || CanUse(SLINGSHOT) || CanUse(STICKS) ||
-                                             CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                             CanUse(MEGATON_HAMMER) || HasExplosives;
-                                  });
+                                  return SoulLizalfosDinolfos && Here(DODONGOS_CAVERN_LOWER_LIZALFOS, [] {
+                                             return CanUse(BOW) || CanUse(SLINGSHOT) || CanUse(STICKS) ||
+                                                    CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
+                                                    CanUse(BIGGORON_SWORD) || CanUse(MEGATON_HAMMER) || HasExplosives;
+                                         });
                               } }),
                      Entrance(DODONGOS_CAVERN_DODONGO_ROOM, { [] {
-                                  return Here(DODONGOS_CAVERN_LOWER_LIZALFOS, [] {
-                                      return CanUse(BOW) || CanUse(SLINGSHOT) || CanUse(STICKS) ||
-                                             CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                             CanUse(MEGATON_HAMMER) || HasExplosives;
-                                  });
+                                  return SoulLizalfosDinolfos && Here(DODONGOS_CAVERN_LOWER_LIZALFOS, [] {
+                                             return CanUse(BOW) || CanUse(SLINGSHOT) || CanUse(STICKS) ||
+                                                    CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
+                                                    CanUse(BIGGORON_SWORD) || CanUse(MEGATON_HAMMER) || HasExplosives;
+                                         });
                               } }),
                  });
 
@@ -369,18 +370,18 @@ void AreaTable_Init_DodongosCavern() {
                      // Exits
                      Entrance(DODONGOS_CAVERN_LOWER_LIZALFOS, { [] { return true; } }),
                      Entrance(DODONGOS_CAVERN_FIRST_SLINGSHOT_ROOM, { [] {
-                                  return Here(DODONGOS_CAVERN_LOWER_LIZALFOS, [] {
-                                      return CanUse(BOW) || CanUse(SLINGSHOT) || CanUse(STICKS) ||
-                                             CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                             CanUse(MEGATON_HAMMER) || HasExplosives;
-                                  });
+                                  return SoulLizalfosDinolfos && Here(DODONGOS_CAVERN_LOWER_LIZALFOS, [] {
+                                             return CanUse(BOW) || CanUse(SLINGSHOT) || CanUse(STICKS) ||
+                                                    CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
+                                                    CanUse(BIGGORON_SWORD) || CanUse(MEGATON_HAMMER) || HasExplosives;
+                                         });
                               } }),
                      Entrance(DODONGOS_CAVERN_SECOND_SLINGSHOT_ROOM, { [] {
-                                  return Here(DODONGOS_CAVERN_LOWER_LIZALFOS, [] {
-                                      return CanUse(BOW) || CanUse(SLINGSHOT) || CanUse(STICKS) ||
-                                             CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
-                                             CanUse(MEGATON_HAMMER) || HasExplosives;
-                                  });
+                                  return SoulLizalfosDinolfos && Here(DODONGOS_CAVERN_LOWER_LIZALFOS, [] {
+                                             return CanUse(BOW) || CanUse(SLINGSHOT) || CanUse(STICKS) ||
+                                                    CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
+                                                    CanUse(BIGGORON_SWORD) || CanUse(MEGATON_HAMMER) || HasExplosives;
+                                         });
                               } }),
                  });
 
@@ -489,8 +490,8 @@ void AreaTable_Init_DodongosCavern() {
                  {
                      // Events
                      EventAccess(&DekuBabaSticks, { [] {
-                         return DekuBabaSticks || (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
-                                                   CanUse(BIGGORON_SWORD) || CanUse(BOOMERANG));
+                         return DekuBabaSticks || (SoulDekuBaba && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) ||
+                                                                    CanUse(BIGGORON_SWORD) || CanUse(BOOMERANG)));
                      } }),
                      EventAccess(&GossipStoneFairy, { [] { return GossipStoneFairy || CanSummonGossipFairy; } }),
                  },
@@ -605,7 +606,7 @@ void AreaTable_Init_DodongosCavern() {
                                   return DodongosCavernClear ||
                                          (Here(DODONGOS_CAVERN_BOSS_ROOM,
                                                [] { return HasExplosives || (CanUse(MEGATON_HAMMER) && CanShield); }) &&
-                                          (Bombs || GoronBracelet) && CanJumpslash);
+                                          SoulDodongo && (Bombs || GoronBracelet) && CanJumpslash);
                               },
                                /*Glitched*/
                                [] {
@@ -614,7 +615,7 @@ void AreaTable_Init_DodongosCavern() {
                                                    return HasExplosives || (CanUse(MEGATON_HAMMER) && CanShield) ||
                                                           (GlitchBlueFireWall && BlueFire);
                                                }) &&
-                                          (HasExplosives || GoronBracelet) && CanJumpslash;
+                                          SoulDodongo && (HasExplosives || GoronBracelet) && CanJumpslash;
                                } }),
              },
              {

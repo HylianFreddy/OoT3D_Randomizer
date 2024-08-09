@@ -15,6 +15,9 @@
 #include "keys.hpp"
 #include "gold_skulltulas.hpp"
 
+#define CREATE_SOULMENUNAMES
+#include "../code/src/enemy_souls.h"
+
 using namespace Cosmetics;
 using namespace Dungeon;
 using namespace Trial;
@@ -128,6 +131,9 @@ Option MQBotW                    = Option::U8  (2, "Bottom of the Well",  {"Vani
 Option MQIceCavern               = Option::U8  (2, "Ice Cavern",          {"Vanilla", "Master Quest", "Random"},                             {setDungeonTypesDesc});
 Option MQGTG                     = Option::U8  (2, "Training Grounds",    {"Vanilla", "Master Quest", "Random"},                             {setDungeonTypesDesc});
 Option MQCastle                  = Option::U8  (2, "Ganon's Castle",      {"Vanilla", "Master Quest", "Random"},                             {setDungeonTypesDesc});
+Option TriforceHunt              = Option::Bool("Triforce Hunt",          {"Off", "On"},                                                     {triforceHuntDesc});
+Option TriforcePiecesTotal       = Option::U8  (2, "Total pieces",        {NumOpts(1, 200)},                                                 {triforcePiecesTotalDesc},                                                                                       OptionCategory::Setting,    29);
+Option TriforcePiecesRequired    = Option::U8  (2, "Required pieces",     {NumOpts(1, 100)},                                                 {triforcePiecesRequiredDesc},                                                                                    OptionCategory::Setting,    19);
 std::vector<Option *> worldOptions = {
     &RandomizeWorld,
     &StartingAge,
@@ -163,6 +169,9 @@ std::vector<Option *> worldOptions = {
     &MQIceCavern,
     &MQGTG,
     &MQCastle,
+    &TriforceHunt,
+    &TriforcePiecesTotal,
+    &TriforcePiecesRequired,
 };
 std::vector<Option *> dungeonOptions = {
     &MQDeku,
@@ -199,6 +208,8 @@ Option ShuffleMerchants       = Option::U8  ("Shuffle Merchants",      {"Off", "
 Option ShuffleAdultTradeQuest = Option::Bool("Shuffle Adult Trade",    {"Off", "On"},                                                     {adultTradeDesc});
 Option ShuffleChestMinigame   = Option::U8  ("Shuffle Chest Minigame", {"Off", "On (Separate)", "On (Pack)"},                             {chestMinigameDesc});
 Option ShuffleFrogSongRupees  = Option::Bool("Shuffle Frog Rupees",    {"Off", "On"},                                                     {frogSongRupeesDesc});
+Option ShuffleEnemySouls      = Option::U8  ("Shuffle Enemy Souls",    {"Off", "All enemies", "Bosses only"},                             {enemySoulDesc});
+Option ShuffleOcarinaButtons  = Option::Bool("Shuffle Ocarina Buttons",{"Off", "On"},                                                     {ocarinaButtonsDesc});
 std::vector<Option *> shuffleOptions = {
     &RandomizeShuffle,
     &ShuffleRewards,
@@ -219,6 +230,8 @@ std::vector<Option *> shuffleOptions = {
     &ShuffleAdultTradeQuest,
     &ShuffleChestMinigame,
     &ShuffleFrogSongRupees,
+    &ShuffleEnemySouls,
+    &ShuffleOcarinaButtons,
 };
 
 // Shuffle Dungeon Items
@@ -231,9 +244,9 @@ Option GerudoKeys          = Option::U8  ("Gerudo Fortress Keys",      {"Vanilla
                                                                         {gerudoKeysVanilla, gerudoKeysAnyDungeon, gerudoKeysOverworld, gerudoKeysAnywhere});
 Option BossKeysanity       = Option::U8  ("Boss Keys",                 {"Start With", "Vanilla", "Own Dungeon", "Any Dungeon", "Overworld", "Anywhere"},
                                                                         {bossKeyStartWith, bossKeyVanilla, bossKeyOwnDungeon, bossKeyAnyDungeon, bossKeyOverworld, bossKeyAnywhere},                                                                             OptionCategory::Setting,    BOSSKEYSANITY_OWN_DUNGEON);
-Option GanonsBossKey       = Option::U8  ("Ganon's Boss Key",          {"Start With", "Vanilla", "Own Dungeon", "Any Dungeon", "Overworld", "Anywhere",
+Option GanonsBossKey       = Option::U8  ("Ganon's Boss Key",          {"Start With", "Vanilla", "Own Dungeon", "Any Dungeon", "Overworld", "Anywhere", "Triforce",
                                                                         "LACS-Vanilla", "LACS-Medallions", "LACS-Stones", "LACS-Rewards", "LACS-Dungeons", "LACS-Tokens", "LACS-Hearts"},
-                                                                        {ganonKeyStartWith, ganonKeyVanilla, ganonKeyOwnDungeon, ganonKeyAnyDungeon, ganonKeyOverworld, ganonKeyAnywhere, ganonKeyLACS},                                                         OptionCategory::Setting,    GANONSBOSSKEY_OWN_DUNGEON);
+                                                                        {ganonKeyStartWith, ganonKeyVanilla, ganonKeyOwnDungeon, ganonKeyAnyDungeon, ganonKeyOverworld, ganonKeyAnywhere, "", ganonKeyLACS},                                                         OptionCategory::Setting,    GANONSBOSSKEY_OWN_DUNGEON);
 u8 LACSCondition           = 0;
 Option LACSMedallionCount  = Option::U8  (2, "Medallion Count",        {NumOpts(0, 6)},                                                        {lacsMedallionCountDesc},                                                                                         OptionCategory::Setting,    1,                          true);
 Option LACSStoneCount      = Option::U8  (2, "Stone Count",            {NumOpts(0, 3)},                                                        {lacsStoneCountDesc},                                                                                             OptionCategory::Setting,    1,                          true);
@@ -326,6 +339,7 @@ Option ToTAltarHints       = Option::Bool(2, "Temple of Time Altar",{"Off", "On"
 Option GanonHints          = Option::Bool(2, "Ganondorf",           {"Off", "On"},                                                          {ganonHintsDesc});
 Option DampeHint           = Option::Bool(2, "Dampe's Diary",       {"Off", "On"},                                                          {dampeHintDesc});
 Option SkulltulaHints      = Option::Bool(2, "House of Skulltula",  {"Off", "On"},                                                          {skulltulaHintDesc});
+Option FishingHints        = Option::Bool(2, "Fishing Prizes",      {"Off", "On"},                                                          {fishingHintsDesc});
 Option ClearerHints        = Option::U8  ("Hint Clarity",           {"Obscure", "Ambiguous", "Clear"},                                      {obscureHintsDesc, ambiguousHintsDesc, clearHintsDesc});
 Option CompassesShowReward = Option::U8  ("Compasses Show Rewards", {"No", "Yes"},                                                          {compassesShowRewardsDesc});
 Option CompassesShowWotH   = Option::U8  ("Compasses Show WotH",    {"No", "Yes"},                                                          {compassesShowWotHDesc},                                                                                          OptionCategory::Setting,    ON);
@@ -347,6 +361,7 @@ std::vector<Option *> miscOptions = {
     &GanonHints,
     &DampeHint,
     &SkulltulaHints,
+    &FishingHints,
     &ClearerHints,
     &CompassesShowReward,
     &CompassesShowWotH,
@@ -659,6 +674,32 @@ std::vector<Option *> startingStonesMedallionsOptions = {
     &StartingShadowMedallion,
 };
 
+// Initialize startingEnemySoulsOptions with one Option for each element in SoulMenuNames
+std::vector<Option> startEnSoOptObjects;
+std::vector<Option *> startingEnemySoulsOptions = [](){
+    startEnSoOptObjects.reserve(SOUL_MAX);
+    std::vector<Option *> options = {};
+    for (SoulMenuInfo info : SoulMenuNames) {
+        Option opt = Option::U8 (info.name, {"Off", "On"}, {""});
+        startEnSoOptObjects.push_back(std::move(opt));
+        options.push_back(&startEnSoOptObjects.back());
+    }
+    return options;
+}();
+
+Option StartingOcarinaButtonL = Option::U8  ("Ocarina Button L", {"Off", "On"}, {""});
+Option StartingOcarinaButtonR = Option::U8  ("Ocarina Button R", {"Off", "On"}, {""});
+Option StartingOcarinaButtonX = Option::U8  ("Ocarina Button X", {"Off", "On"}, {""});
+Option StartingOcarinaButtonY = Option::U8  ("Ocarina Button Y", {"Off", "On"}, {""});
+Option StartingOcarinaButtonA = Option::U8  ("Ocarina Button A", {"Off", "On"}, {""});
+std::vector<Option *> startingOcarinaButtonsOptions = {
+    &StartingOcarinaButtonL,
+    &StartingOcarinaButtonR,
+    &StartingOcarinaButtonX,
+    &StartingOcarinaButtonY,
+    &StartingOcarinaButtonA,
+};
+
 Option StartingConsumables      = Option::Bool("Start with Consumables", {"No",               "Yes"},                                                     {startWithConsumablesDesc});
 Option StartingMaxRupees        = Option::Bool("Start with Max Rupees",  {"No",               "Yes"},                                                     {startWithMaxRupeesDesc});
 Option StartingSkulltulaToken   = Option::U8  ("Gold Skulltula Tokens",  {NumOpts(0, 100)},                                                               {""});
@@ -672,12 +713,16 @@ Menu startingItems            = Menu::SubMenu("Items",                &startingI
 Menu startingSongs            = Menu::SubMenu("Ocarina Songs",        &startingSongsOptions,            "", false);
 Menu startingEquipment        = Menu::SubMenu("Equipment & Upgrades", &startingEquipmentOptions,        "", false);
 Menu startingStonesMedallions = Menu::SubMenu("Stones & Medallions",  &startingStonesMedallionsOptions, "", false);
+Menu startingEnemySouls       = Menu::SubMenu("Enemy Souls",          &startingEnemySoulsOptions,       "", false);
+Menu startingOcarinaButtons   = Menu::SubMenu("Ocarina Buttons",      &startingOcarinaButtonsOptions,   "", false);
 Menu startingOthers           = Menu::SubMenu("Other",                &startingOthersOptions,           "", false);
 std::vector<Menu *> startingInventoryOptions = {
     &startingItems,
     &startingSongs,
     &startingEquipment,
     &startingStonesMedallions,
+    &startingEnemySouls,
+    &startingOcarinaButtons,
     &startingOthers,
 };
 Option Logic              = Option::U8  ("Logic",                   {"Glitchless", "Glitched", "No Logic", "Vanilla"}, {logicGlitchless, logicGlitched, logicNoLogic, logicVanilla});
@@ -1218,6 +1263,7 @@ std::string finalChuTrailOuterColor   = BombchuTrailOuterColor.GetSelectedOption
 Option ColoredKeys =     Option::Bool("Colored Small Keys", {"Off", "On"},                                {coloredKeysDesc},                                                                                                                                  OptionCategory::Cosmetic);
 Option ColoredBossKeys = Option::Bool("Colored Boss Keys",  {"Off", "On"},                                {coloredBossKeysDesc},                                                                                                                              OptionCategory::Cosmetic);
 Option MirrorWorld =     Option::U8  ("Mirror World",       {"Off", "On", "Scene", "Entrance", "Random"}, {mirrorWorldOffDesc, mirrorWorldOnDesc, mirrorWorldSceneDesc, mirrorWorldEntranceDesc, mirrorWorldRandomDesc},                                      OptionCategory::Cosmetic);
+Option BetaSoldOut =     Option::Bool("Beta Sold-Out Model",{"Off", "On"},                                {betaSoldOutDesc},                                                                                                                                  OptionCategory::Cosmetic);
 
 std::vector<Option *> cosmeticOptions = {
     &CustomTunicColors,
@@ -1249,6 +1295,7 @@ std::vector<Option *> cosmeticOptions = {
     &ColoredKeys,
     &ColoredBossKeys,
     &MirrorWorld,
+    &BetaSoldOut,
 };
 
 static std::vector<std::string> musicOptions = {"Off", "On (Mixed)", "On (Grouped)", "On (Own)"};
@@ -1367,7 +1414,6 @@ SettingsContext FillContext() {
     ctx.hashIndexes[2]  = hashIconIndexes[2];
     ctx.hashIndexes[3]  = hashIconIndexes[3];
     ctx.hashIndexes[4]  = hashIconIndexes[4];
-    ctx.playOption      = PlayOption;
     ctx.region          = Region;
 
     ctx.logic                = Logic.Value<u8>();
@@ -1409,6 +1455,10 @@ SettingsContext FillContext() {
     ctx.randomMQDungeons          = (MQDungeonCount.Value<u8>() == 13) ? 1 : 0;
     ctx.mqDungeonCount            = MQSet;
 
+    ctx.triforceHunt           = (TriforceHunt) ? 1 : 0;
+    ctx.triforcePiecesTotal    = TriforcePiecesTotal.Value<u8>() + 1;
+    ctx.triforcePiecesRequired = TriforcePiecesRequired.Value<u8>() + 1;
+
     ctx.shuffleRewards         = ShuffleRewards.Value<u8>();
     ctx.linksPocketItem        = LinksPocketItem.Value<u8>();
     ctx.shuffleSongs           = ShuffleSongs.Value<u8>();
@@ -1425,6 +1475,8 @@ SettingsContext FillContext() {
     ctx.shuffleFrogSongRupees  = (ShuffleFrogSongRupees) ? 1 : 0;
     ctx.shuffleAdultTradeQuest = (ShuffleAdultTradeQuest) ? 1 : 0;
     ctx.shuffleChestMinigame   = ShuffleChestMinigame.Value<u8>();
+    ctx.shuffleEnemySouls      = ShuffleEnemySouls.Value<u8>();
+    ctx.shuffleOcarinaButtons  = (ShuffleOcarinaButtons) ? 1 : 0;
 
     ctx.mapsAndCompasses   = MapsAndCompasses.Value<u8>();
     ctx.keysanity          = Keysanity.Value<u8>();
@@ -1473,6 +1525,7 @@ SettingsContext FillContext() {
                       (!StartingLightArrows || (ShuffleMasterSword && !StartingMasterSword)));
     ctx.dampeHint           = DampeHint ? 1 : 0;
     ctx.skulltulaHints      = SkulltulaHints ? 1 : 0;
+    ctx.fishingHints        = FishingHints ? 1 : 0;
     ctx.compassesShowReward = CompassesShowReward.Value<u8>();
     ctx.compassesShowWotH   = CompassesShowWotH.Value<u8>();
     ctx.mapsShowDungeonMode = MapsShowDungeonMode.Value<u8>();
@@ -1656,6 +1709,19 @@ SettingsContext FillContext() {
     ctx.startingDungeonReward |= StartingWaterMedallion.Value<u8>() << 2;
     ctx.startingDungeonReward |= StartingSpiritMedallion.Value<u8>() << 3;
     ctx.startingDungeonReward |= StartingShadowMedallion.Value<u8>() << 4;
+
+    // Starting enemy souls
+    for (u32 i = 0; i < SOUL_MAX; i++) {
+        u32 soulBitIdx = SoulMenuNames[i].soulId;
+        Option* opt    = startingEnemySoulsOptions.at(i);
+        ctx.startingEnemySouls[soulBitIdx >> 3] |= opt->Value<u8>() << (soulBitIdx & 0b111);
+    }
+
+    ctx.startingOcarinaButtons |= StartingOcarinaButtonL.Value<u8>() << 0;
+    ctx.startingOcarinaButtons |= StartingOcarinaButtonR.Value<u8>() << 1;
+    ctx.startingOcarinaButtons |= StartingOcarinaButtonX.Value<u8>() << 2;
+    ctx.startingOcarinaButtons |= StartingOcarinaButtonY.Value<u8>() << 3;
+    ctx.startingOcarinaButtons |= StartingOcarinaButtonA.Value<u8>() << 4;
 
     ctx.startingTokens = StartingSkulltulaToken.Value<u8>();
 
@@ -2151,6 +2217,45 @@ void ForceChange(u32 kDown, Option* currentSetting) {
             MixGrottos.Hide();
             MixGrottos.SetSelectedIndex(OFF);
         }
+
+        if (TriforceHunt) {
+            TriforcePiecesTotal.Unhide();
+            TriforcePiecesRequired.Unhide();
+        } else {
+            TriforcePiecesTotal.Hide();
+            TriforcePiecesRequired.Hide();
+        }
+    }
+
+    // If Triforce Hunt is enabled, lock Ganon BK setting to the "Triforce" option.
+    // Otherwise, make that option unselectable by switching to the next one over.
+    if (TriforceHunt) {
+        GanonsBossKey.SetSelectedIndex(GANONSBOSSKEY_TRIFORCE);
+        GanonsBossKey.Lock();
+    } else {
+        GanonsBossKey.Unlock();
+        if (GanonsBossKey.Is(GANONSBOSSKEY_TRIFORCE)) {
+            if (currentSetting == &GanonsBossKey) {
+                GanonsBossKey.ScrollOptionIndex(kDown);
+            } else {
+                GanonsBossKey.SetSelectedIndex(GANONSBOSSKEY_START_WITH);
+            }
+            GanonsBossKey.SetVariable();
+        }
+    }
+
+    // Make sure the required pieces are less than the total pieces
+    if (TriforcePiecesRequired.Value<u8>() > TriforcePiecesTotal.Value<u8>()) {
+        if (currentSetting == &TriforcePiecesTotal) {
+            TriforcePiecesRequired.SetSelectedIndex(currentSetting->GetSelectedOptionIndex());
+        } else if (currentSetting == &TriforcePiecesRequired) {
+            TriforcePiecesTotal.SetSelectedIndex(currentSetting->GetSelectedOptionIndex());
+        } else { // randomized settings
+            // invert amounts
+            u8 temp = TriforcePiecesRequired.GetSelectedOptionIndex();
+            TriforcePiecesRequired.SetSelectedIndex(TriforcePiecesTotal.GetSelectedOptionIndex());
+            TriforcePiecesTotal.SetSelectedIndex(temp);
+        }
     }
 
     if (SetDungeonTypes) {
@@ -2184,6 +2289,20 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         }
     } else {
         LinksPocketItem.Unlock();
+    }
+
+    if (ShuffleEnemySouls || RandomizeShuffle) {
+        startingEnemySouls.Unlock();
+    } else {
+        startingEnemySouls.Lock();
+        startingInventory.ResetMenuIndex();
+    }
+
+    if (ShuffleOcarinaButtons || RandomizeShuffle) {
+        startingOcarinaButtons.Unlock();
+    } else {
+        startingOcarinaButtons.Lock();
+        startingInventory.ResetMenuIndex();
     }
 
     if (!RandomizeDungeon) {
@@ -2274,7 +2393,7 @@ void ForceChange(u32 kDown, Option* currentSetting) {
     }
 
     // Manage toggle for misc hints options
-    ToggleSet(miscOptions, &MiscHints, &ToTAltarHints, &SkulltulaHints);
+    ToggleSet(miscOptions, &MiscHints, &ToTAltarHints, &FishingHints);
 
     if (ChestAppearance.IsNot(CHESTAPPEARANCE_VANILLA)) {
         ChestAgony.Unhide();
@@ -2626,6 +2745,7 @@ std::vector<std::pair<Option*, u8>> racingOverrides = {
 
 // Options that should be overridden and then restored after generating when vanilla logic is enabled
 std::vector<std::pair<Option*, u8>> vanillaLogicOverrides = {
+    { &TriforceHunt, OFF },
     { &LinksPocketItem, LINKSPOCKETITEM_DUNGEON_REWARD },
     { &ShuffleRewards, REWARDSHUFFLE_END_OF_DUNGEON },
     { &ShuffleSongs, SONGSHUFFLE_SONG_LOCATIONS },
@@ -2637,6 +2757,8 @@ std::vector<std::pair<Option*, u8>> vanillaLogicOverrides = {
     { &ShuffleAdultTradeQuest, SHUFFLEADULTTRADEQUEST_ON },
     { &ShuffleChestMinigame, SHUFFLECHESTMINIGAME_OFF },
     { &ShuffleFrogSongRupees, SHUFFLEFROGSONGRUPEES_OFF },
+    { &ShuffleEnemySouls, OFF },
+    { &ShuffleOcarinaButtons, OFF },
     { &Keysanity, KEYSANITY_ANY_DUNGEON }, // Set small keys to any dungeon so FiT basement door will be locked
     { &GossipStoneHints, HINTS_NO_HINTS },
 };
@@ -2754,6 +2876,7 @@ void RandomizeAllSettings(const bool selectOptions /*= false*/) {
 
     // resolve any settings that need to change
     if (selectOptions) {
+        ValidateSettings();
         ForceChange(0, nullptr);
     }
 }
@@ -3119,7 +3242,15 @@ bool GlitchEnabled(Option& glitchOption) {
     return Logic.Is(LOGIC_GLITCHED) && isMiscGlitch() && glitchOption;
 }
 
+// This function checks for conflicting settings similarly to ForceChange, but:
+// - it only gets called when generating a seed instead of after any input on settings menus, and
+// - it only changes the selected options if the setting is hidden (randomized), otherwise it prints an error message to
+//   let the player choose how to solve the conflict.
 bool ValidateSettings() {
+    bool valid = true;
+    u8 posY    = 5;
+
+    // Check Heart requirements
     s32 maxHearts = 20;
     switch (ItemPoolValue.Value<u8>()) {
         case ITEMPOOL_MINIMAL:
@@ -3129,15 +3260,63 @@ bool ValidateSettings() {
             maxHearts = 12;
             break;
     }
-    if ((Bridge.Is(RAINBOWBRIDGE_HEARTS) && BridgeHeartCount.Value<u8>() > maxHearts) ||
-        (GanonsBossKey.Is(GANONSBOSSKEY_LACS_HEARTS) && LACSHeartCount.Value<u8>() > maxHearts)) {
-        printf("\x1b[6;0HNot enough Hearts in pool!\n\n"
+    bool printHeartError = false;
+    if (Bridge.Is(RAINBOWBRIDGE_HEARTS) && BridgeHeartCount.Value<u8>() > maxHearts) {
+        if (BridgeHeartCount.IsHidden()) {
+            BridgeHeartCount.SetSelectedIndex(maxHearts);
+        } else {
+            printHeartError = true;
+        }
+    }
+    if (GanonsBossKey.Is(GANONSBOSSKEY_LACS_HEARTS) && LACSHeartCount.Value<u8>() > maxHearts) {
+        if (LACSHeartCount.IsHidden()) {
+            LACSHeartCount.SetSelectedIndex(maxHearts);
+        } else {
+            printHeartError = true;
+        }
+    }
+    if (printHeartError) {
+        printf("\x1b[%d;0H"
+               "----------------------------------------"
+               "Not enough Hearts in pool!\n\n"
                "Please choose a different Item Pool\n"
-               "setting or lower the Hearts requirement.");
-        return false;
+               "setting or lower the Hearts requirement."
+               "----------------------------------------",
+               posY);
+        valid = false;
+        posY += 7;
     }
 
-    return true;
+    // Check that there are no MQ dungeons with Enemy Souls
+    if (ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_ALL) && Logic.IsNot(LOGIC_NONE) && Logic.IsNot(LOGIC_VANILLA) &&
+        MQDungeonCount.IsNot(0)) {
+        if (ShuffleEnemySouls.IsHidden()) {
+            ShuffleEnemySouls.SetSelectedIndex(OFF);
+        } else {
+            printf("\x1b[%d;0H"
+                   "----------------------------------------"
+                   "Enemy Soul Shuffle currently does not\n"
+                   "have logic for Master Quest dungeons.\n\n"
+                   "Please disable one of the following:\n"
+                   " - MQ Dungeons (setting Count to 0)\n"
+                   " - Logic\n"
+                   " - Enemy Soul Shuffle\n"
+                   "----------------------------------------",
+                   posY);
+            valid = false;
+            posY += 10;
+        }
+    }
+
+    return valid;
+}
+
+std::string TitleId() {
+    if (Region == REGION_EUR) {
+        return "0004000000033600";
+    } else { // REGION_NA
+        return "0004000000033500";
+    }
 }
 
 } // namespace Settings

@@ -12,10 +12,12 @@
 #include "multiplayer.h"
 #include "grotto.h"
 #include "item_effect.h"
+#include "triforce.h"
 
 #include "z3D/z3D.h"
 #include "3ds/extdata.h"
 #include "3ds/services/irrst.h"
+#include "3ds/svc.h"
 
 GlobalContext* gGlobalContext = NULL;
 static u8 rRandomizerInit     = 0;
@@ -41,6 +43,10 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
         Randomizer_Init();
         set_GlobalContext(globalCtx);
         rRandomizerInit = 1;
+
+        s64 output = 0;
+        svcGetSystemInfo(&output, 0x20000, 0);
+        playingOnCitra = (output != 0);
     }
     rGameplayFrames++;
     ItemOverride_Update();
@@ -55,6 +61,8 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
     Multiplayer_Run();
 
     ItemEffect_RupeeAmmo(&gSaveContext);
+
+    Triforce_HandleCreditsWarp();
 }
 
 void autoLoadSaveFile() {
@@ -93,4 +101,8 @@ void after_GlobalContext_Update() {
     }
 
     Multiplayer_Sync_Update();
+
+    if (gGlobalContext->state.running == 0) {
+        Model_DestroyAll();
+    }
 }

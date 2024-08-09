@@ -74,6 +74,11 @@ EditDrawGetItemBeforeModelSpawn_patch:
 EditDrawGetItemAfterModelSpawn_patch:
     bl hook_EditDrawDetItemAfterModelSpawn
 
+.section .patch_EditDrawGetItemAfterMatrixUpdate
+.global EditDrawGetItemAfterMatrixUpdate_patch
+EditDrawGetItemAfterMatrixUpdate_patch:
+    bl hook_EditDrawGetItemAfterMatrixUpdate
+
 .section .patch_NoLensOfTruthNaviText
     nop
 
@@ -1242,10 +1247,10 @@ SariasSongHintsOne_patch:
 SariasSongHintsTwo_patch:
     bl Hints_GetNextSariasSongHint
 
-.section .patch_HyperActors
-.global HyperActors_patch
-HyperActors_patch:
-    bl hook_HyperActors
+.section .patch_ActorUpdate
+.global ActorUpdate_patch
+ActorUpdate_patch:
+    bl hook_ActorUpdate
 
 .section .patch_TitleCardUpdate
 .global TitleCardUpdate_patch
@@ -1337,26 +1342,6 @@ SongOfTimeJingle_patch:
 .global GKSetDurability_patch
 GKSetDurability_patch:
     b hook_GKSetDurability
-
-.section .patch_SkippableText
-.global SkippableText_patch
-SkippableText_patch:
-    b hook_SkippableText
-
-.section .patch_InstantTextFirstLine
-.global InstantTextFirstLine_patch
-InstantTextFirstLine_patch:
-    bl hook_InstantTextFirstLine
-
-.section .patch_InstantTextBoxBreak
-.global InstantTextBoxBreak_patch
-InstantTextBoxBreak_patch:
-    b hook_InstantTextBoxBreak
-
-.section .patch_InstantTextRemoveOff
-.global InstantTextRemoveOff_patch
-InstantTextRemoveOff_patch:
-    b hook_InstantTextRemoveOff
 
 .section .patch_TurboTextAdvance
 .global TurboTextAdvance_patch
@@ -1585,10 +1570,20 @@ EnteredLocation_patch:
 LostWoodsBridgeMusic_patch:
     bl hook_LostWoodsBridgeMusic
 
-.section .patch_LoadGame
-.global .LoadGame_patch
-LoadGame_patch:
-    b hook_LoadGame
+.section .patch_BeforeLoadGame
+.global BeforeLoadGame_patch
+BeforeLoadGame_patch:
+    b hook_BeforeLoadGame
+
+.section .patch_AfterLoadGame
+.global AfterLoadGame_patch
+AfterLoadGame_patch:
+    b hook_AfterLoadGame
+
+.section .patch_FileSelect_CopyFile
+.global FileSelect_CopyFile_patch
+FileSelect_CopyFile_patch:
+    bl hook_FileSelect_CopyFile
 
 .section .patch_SaveGame
 .global .SaveGame_patch
@@ -2202,6 +2197,58 @@ RandomGsLoc_BlockSpawn_Soil_patch:
 .global RandomGsLoc_SkipSoilJingle_patch
 RandomGsLoc_SkipSoilJingle_patch:
     bl hook_RandomGsLoc_SkipSoilJingle
+
+.section .patch_ActorDraw
+.global ActorDraw_patch
+ActorDraw_patch:
+    bl hook_ActorDraw
+
+.section .patch_FlyingPotCollision
+.global FlyingPotCollision_patch
+FlyingPotCollision_patch:
+    bl hook_FlyingPotCollision
+
+.section .patch_FlyingTileCollision
+.global FlyingTileCollision_patch
+FlyingTileCollision_patch:
+    bl hook_FlyingTileCollision
+
+.section .patch_ShabomAfterDamagePlayer
+.global ShabomAfterDamagePlayer_patch
+ShabomAfterDamagePlayer_patch:
+    bl hook_ShabomAfterDamagePlayer
+
+.section .patch_DodongoAfterSwallowBomb
+.global DodongoAfterSwallowBomb_patch
+DodongoAfterSwallowBomb_patch:
+    bl hook_DodongoAfterSwallowBomb
+
+.section .patch_BabyDodongoAfterSwallowBomb
+.global BabyDodongoAfterSwallowBomb_patch
+BabyDodongoAfterSwallowBomb_patch:
+    bl hook_BabyDodongoAfterSwallowBomb
+
+.section .patch_OcarinaNoteButtonsDraw
+.global OcarinaNoteButtonsDraw_patch
+OcarinaNoteButtonsDraw_patch:
+    push {lr}
+    bl hook_OcarinaNoteButtonsDraw
+    pop {lr}
+
+.section .patch_OcarinaNoteButtonsPress
+.global OcarinaNoteButtonsPress_patch
+OcarinaNoteButtonsPress_patch:
+    bl hook_OcarinaNoteButtonsPress
+
+.section .patch_HandleTextControlCode
+.global HandleTextControlCode_patch
+HandleTextControlCode_patch:
+    bl hook_HandleTextControlCode
+
+.section .patch_CheckForTextControlCode
+.global CheckForTextControlCode_patch
+CheckForTextControlCode_patch:
+    bl hook_CheckForTextControlCode
 
 @ ----------------------------------
 @ ----------------------------------

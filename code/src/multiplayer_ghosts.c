@@ -1,13 +1,9 @@
-#include "multiplayer_ghosts.h"
-#include "3ds/svc.h"
-#include "common.h"
+#include <string.h>
 
-typedef struct {
-    bool inUse;
-    u64 lastTick;
-    u16 networkID;
-    GhostData ghostData;
-} LinkGhost;
+#include "3ds/svc.h"
+#include "multiplayer_ghosts.h"
+#include "link_puppet.h"
+#include "common.h"
 
 static LinkGhost ghosts[16];
 
@@ -23,7 +19,7 @@ void Multiplayer_Ghosts_Tick(void) {
     }
 }
 
-void Multiplayer_Ghosts_UpdateGhost(u16 networkID, GhostData* ghostData) {
+void Multiplayer_Ghosts_UpdateGhostData(u16 networkID, GhostData* ghostData, u8 isInGame) {
     LinkGhost* ghostX = NULL;
     // Find existing ghost
     for (size_t i = 0; i < ARRAY_SIZE(ghosts); i++) {
@@ -51,12 +47,19 @@ void Multiplayer_Ghosts_UpdateGhost(u16 networkID, GhostData* ghostData) {
     }
     // Set vars
     ghostX->lastTick = svcGetSystemTick();
+    ghostX->isInGame = isInGame;
     if (ghostData != NULL) {
-        ghostX->ghostData.currentScene = ghostData->currentScene;
-        ghostX->ghostData.age          = ghostData->age;
-        ghostX->ghostData.position     = ghostData->position;
-        // Temporary offset for effect
-        ghostX->ghostData.position.y += (ghostData->age == 0 ? 50 : 35);
+        memcpy(&ghostX->ghostData, ghostData, sizeof(GhostData) - sizeof(ghostData->jointTable));
+    }
+}
+
+void Multiplayer_Ghosts_UpdateGhostData_JointTable(u16 networkID, LimbData* limbData) {
+    for (size_t i = 0; i < ARRAY_SIZE(ghosts); i++) {
+        LinkGhost* ghost = &ghosts[i];
+        if (ghost->inUse && ghost->networkID == networkID) {
+            memcpy(&ghost->ghostData.jointTable, limbData, sizeof(ghost->ghostData.jointTable));
+            return;
+        }
     }
 }
 
@@ -70,29 +73,37 @@ GhostData* Multiplayer_Ghosts_GetGhostData(u16 networkID) {
     return NULL;
 }
 
-typedef void (*EffectSsDeadDb_Spawn_proc)(GlobalContext* globalCtx, Vec3f* position, Vec3f* velocity,
-                                          Vec3f* acceleration, s16 scale, s16 scale_step, s16 prim_r, s16 prim_g,
-                                          s16 prim_b, s16 prim_a, s16 env_r, s16 env_g, s16 env_b, s16 unused,
-                                          s32 frame_duration, s16 play_sound);
-#define EffectSsDeadDb_Spawn_addr 0x3642F4
-#define EffectSsDeadDb_Spawn ((EffectSsDeadDb_Spawn_proc)EffectSsDeadDb_Spawn_addr)
+bool IsPuppetSpawned(LinkGhost* ghost) {
+    Actor* firstActor = gGlobalContext->actorCtx.actorList[EnLinkPuppet_InitVars.type].first;
+    for (Actor* actor = firstActor; actor != NULL; actor = actor->next) {
+        if (actor->id != EnLinkPuppet_InitVars.id) {
+            continue;
+        }
+        EnLinkPuppet* link_puppet = (EnLinkPuppet*)actor;
+        if (link_puppet->base.params == ghost->networkID) {
+            return true;
+        }
+    }
+    return false;
+}
 
-void Multiplayer_Ghosts_DrawAll(void) {
+void Multiplayer_Ghosts_SpawnPuppets(void) {
     for (size_t i = 0; i < ARRAY_SIZE(ghosts); i++) {
         LinkGhost* ghost = &ghosts[i];
-        if (ghost->inUse && ghost->ghostData.currentScene == gGlobalContext->sceneNum) {
-            // Temporary effect
-            static Vec3f vecEmpty;
-            static f32 colorR[] = { 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 1.0, 0.5 };
-            static f32 colorG[] = { 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.5, 0.0 };
-            static f32 colorB[] = { 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0 };
 
-            s16 envR = 100 * colorR[(ghost->networkID - 1) % ARRAY_SIZE(colorR)];
-            s16 envG = 100 * colorG[(ghost->networkID - 1) % ARRAY_SIZE(colorG)];
-            s16 envB = 100 * colorB[(ghost->networkID - 1) % ARRAY_SIZE(colorB)];
+        if (ghost->inUse && ghost->isInGame && ghost->ghostData.currentScene == gGlobalContext->sceneNum &&
+            !IsPuppetSpawned(ghost)) {
 
-            EffectSsDeadDb_Spawn(gGlobalContext, &ghost->ghostData.position, &vecEmpty, &vecEmpty,
-                                 ghost->ghostData.age == 0 ? 100 : 70, -1, 80, 80, 80, 0xFF, envR, envG, envB, 1, 8, 0);
+            EnLinkPuppet_InitVars.objectId = (gSaveContext.linkAge == 0) ? 20 : 21;
+            EnLinkPuppet* puppet           = (EnLinkPuppet*)Actor_Spawn(
+                          &gGlobalContext->actorCtx, gGlobalContext, EnLinkPuppet_InitVars.id,                   //
+                          ghost->ghostData.position.x, ghost->ghostData.position.y, ghost->ghostData.position.z, //
+                          0, 0, 0, ghost->networkID, FALSE);
+            if (puppet == NULL) {
+                continue;
+            }
+            // It's important to run the init after this is set
+            puppet->ghostPtr = ghost;
         }
     }
 }

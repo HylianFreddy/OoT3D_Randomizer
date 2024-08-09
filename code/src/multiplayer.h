@@ -21,6 +21,7 @@ void Multiplayer_OnFileLoad(void);
 // Ghost Data
 void Multiplayer_Send_GhostPing(void);
 void Multiplayer_Send_GhostData(void);
+void Multiplayer_Send_GhostData_JointTable(void);
 void Multiplayer_Send_LinkSFX(u32 sfxID);
 // Shared Progress
 u8 Multiplayer_GetNeededPacketsMask(void);
@@ -52,6 +53,7 @@ void Multiplayer_Send_BigPoePoints(u32 pointDiff);
 void Multiplayer_Send_FishingFlag(u8 bit, u8 setOrUnset);
 void Multiplayer_Send_WorldMapBit(u8 bit, u8 setOrUnset);
 void Multiplayer_Send_ExtInfBit(u8 index, u8 bit, u8 setOrUnset);
+void Multiplayer_Send_TriforcePieces(u32 piecesDiff);
 void Multiplayer_Send_FullEntranceSync(u16 targetID);
 void Multiplayer_Send_DiscoveredScene(u32 index, u32 bit);
 void Multiplayer_Send_DiscoveredEntrance(u32 index, u32 bit);

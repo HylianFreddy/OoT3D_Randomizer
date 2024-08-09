@@ -843,6 +843,7 @@ void CreateAlwaysIncludedMessages() {
     for (u32 shopitems = 0; shopitems < NonShopItems.size(); shopitems++) {
         Text name         = NonShopItems[shopitems].Name;
         std::string price = std::to_string(NonShopItems[shopitems].Price);
+        name.Replace("Link", PLAYER_NAME()); // for "Dark Link Soul" item
         // Prevent names from being too long and overflowing textbox
         Text priceSeparator = Text{
             name.NAenglish.length() <= 30 ? ": " : NEWLINE() + "                                        ",
@@ -1055,6 +1056,43 @@ void CreateAlwaysIncludedMessages() {
         rutoDialog.Replace("$", ""); // Plural marker
         CreateMessageFromTextObject(0x4050, 0, 2, 3, AddColorsAndFormat(rutoDialog, { itemColor }));
     }
+
+    for (ItemKey soulKey = SOUL_ITEM_POE; soulKey <= SOUL_ITEM_GANON; soulKey++) {
+        Text soulText = Text{ "You got #", "Vous obtenez #", "¡Has obtenido #", "Hai ottenuto #", "Du hast #" } +
+                        hintTable[soulKey].GetClear() + "#!";
+
+        CreateMessageFromTextObject(0x9450 + soulKey - SOUL_ITEM_POE, 0, 2, 3,
+                                    AddColorsAndFormat(soulText, { QM_RED }));
+    }
+
+    for (ItemKey key = OCA_BUTTON_ITEM_L; key <= OCA_BUTTON_ITEM_A; key++) {
+        Text text = Text{ "You got #", "Vous obtenez #", "¡Has obtenido #", "Hai ottenuto #", "Du hast #" } +
+                    hintTable[key].GetClear() + "#!";
+
+        CreateMessageFromTextObject(0x93F0 + key - OCA_BUTTON_ITEM_L, 0, 2, 3, AddColorsAndFormat(text, { QM_RED }));
+    }
+
+    // Triforce Piece
+    {
+        Text triforceMsg = Text{
+            /*english*/ "You found a piece of the #Triforce#!&You have #" + TRIFORCE_PIECE_COUNT() + "#!",
+            /*french */ "Vous obtenez un morceau de la #Triforce#!&Vous en avez #" + TRIFORCE_PIECE_COUNT() + "#!",
+            /*spanish*/ "¡Has encontrado un fragmento de la Trifuerza!&¡Tienes #" + TRIFORCE_PIECE_COUNT() + "#!",
+            /*italian*/ "Hai trovato un frammento della #Triforza#!&Ne hai #" + TRIFORCE_PIECE_COUNT() + "#!",
+            /*german */ "Du hast ein Teil des #Triforce# gefunden!&Du hast jetzt #" + TRIFORCE_PIECE_COUNT() + "#!"
+        };
+        CreateMessageFromTextObject(0x9003, 0, 2, 3, AddColorsAndFormat(triforceMsg, { QM_RED, QM_RED }));
+    }
+
+    if (Settings::FishingHints) {
+        Text aquariumText =
+            Text{ /*english*/ "You can have this if you catch a fish to put in the aquarium.",
+                  /*french */ "Tu peux avoir ce qu'il y a dans cet aquarium si tu pêches un poisson pour le remplacer.",
+                  /*spanish*/ "Puedes tener esto si pescas un pez para ponerlo en el acuario.",
+                  /*italian*/ "Puoi avere questo se catturi un pesce da mettere nell'acquario.",
+                  /*german */ "Das kannst du haben, wenn du einen Fisch für das Aquarium fängst." };
+        CreateMessageFromTextObject(0x40AE, 0, 2, 3, AddColorsAndFormat(aquariumText, {}));
+    }
 }
 
 std::vector<Text> CreateBaseCompassTexts() {
@@ -1118,7 +1156,14 @@ static std::map<std::string, int> pixelWidthTable = {
 // Calculates the maximum number of characters that could satisfy
 // next line in the string from the last calculated newline.
 static size_t NextLineLength(std::string* textStr, size_t lastNewline) {
-    constexpr size_t maxLinePixelWidth = 287;
+    size_t maxLinePixelWidth = 287;
+    size_t lastCaret         = textStr->rfind('^', lastNewline);
+    size_t lastItemIcon      = textStr->rfind("\x7F\x0F", lastNewline);
+
+    // For text boxes with an item icon, decrease max line pixel width to leave space for the icon
+    if (lastItemIcon != std::string::npos && (lastCaret == std::string::npos || lastItemIcon > lastCaret)) {
+        maxLinePixelWidth = 252;
+    }
 
     size_t totalPixelWidth = 0;
     size_t currentPos      = lastNewline;
@@ -1356,5 +1401,8 @@ std::string MQ_ELSE() {
 }
 std::string MQ_END() {
     return "\x7F\x2B"s;
+}
+std::string TRIFORCE_PIECE_COUNT() {
+    return "\x7F\x30"s;
 }
 } // namespace CustomMessages

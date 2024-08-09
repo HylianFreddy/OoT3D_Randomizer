@@ -5,9 +5,9 @@
 #include "common.h"
 #include "input.h"
 
-#define TimerFrameCounter *(s16*)0x539D8A // Used to decrease the timer every 30 frames
-#define ControlStick_X *(float*)0x5655C0
-#define ControlStick_Y *(float*)0x5655C4
+#define TimerFrameCounter *(s16*)GAME_ADDR(0x539D8A) // Used to decrease the timer every 30 frames
+#define ControlStick_X *(float*)GAME_ADDR(0x5655C0)
+#define ControlStick_Y *(float*)GAME_ADDR(0x5655C4)
 
 static u8 pendingFreezes = 0;
 static u8 cooldown       = 0;
@@ -138,13 +138,13 @@ void IceTrap_Give(void) {
         } else if (trapType == ICETRAP_RUPPY) {
             // Spawn 4 explosive rupees around the player
             Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x131, PLAYER->actor.world.pos.x + 30,
-                        PLAYER->actor.world.pos.y + 30, PLAYER->actor.world.pos.z + 30, 0, 0, 0, 0x2);
+                        PLAYER->actor.world.pos.y + 30, PLAYER->actor.world.pos.z + 30, 0, 0, 0, 0x2, FALSE);
             Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x131, PLAYER->actor.world.pos.x + 30,
-                        PLAYER->actor.world.pos.y + 30, PLAYER->actor.world.pos.z - 30, 0, 0, 0, 0x2);
+                        PLAYER->actor.world.pos.y + 30, PLAYER->actor.world.pos.z - 30, 0, 0, 0, 0x2, FALSE);
             Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x131, PLAYER->actor.world.pos.x - 30,
-                        PLAYER->actor.world.pos.y + 30, PLAYER->actor.world.pos.z + 30, 0, 0, 0, 0x2);
+                        PLAYER->actor.world.pos.y + 30, PLAYER->actor.world.pos.z + 30, 0, 0, 0, 0x2, FALSE);
             Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x131, PLAYER->actor.world.pos.x - 30,
-                        PLAYER->actor.world.pos.y + 30, PLAYER->actor.world.pos.z - 30, 0, 0, 0, 0x2);
+                        PLAYER->actor.world.pos.y + 30, PLAYER->actor.world.pos.z - 30, 0, 0, 0, 0x2, FALSE);
         } else {
             // From testing 0-4 are all the unique damage types and 0 is boring (lava/spikes damage), so it's used for
             // the Fire Trap

@@ -17,6 +17,7 @@
 #include "input.h"
 #include "multiplayer.h"
 #include "dungeon.h"
+#include "enemy_souls.h"
 
 u32 pressed;
 bool handledInput;
@@ -25,6 +26,7 @@ static u8 GfxInit        = 0;
 static u32 closingButton = 0;
 static u8 currentSphere  = 0;
 static s16 spoilerScroll = 0;
+static s16 soulsScroll   = 0;
 
 static s16 allItemsScroll   = 0;
 static s16 groupItemsScroll = 0;
@@ -154,6 +156,7 @@ static char* spoilerEntranceGroupNames[] = {
 typedef enum {
     PAGE_SEEDHASH,
     PAGE_DUNGEONITEMS,
+    PAGE_ENEMYSOULS,
     PAGE_SPHERES,
     PAGE_ITEMTRACKER_ALL,
     PAGE_ITEMTRACKER_GROUPS,
@@ -291,6 +294,11 @@ static void Gfx_DrawButtonPrompts(void) {
         Draw_DrawIcon(offsetX, promptY, COLOR_BUTTON_A, ICON_BUTTON_A);
         offsetX += buttonSpacing;
         Draw_DrawString(offsetX, textY, COLOR_TITLE, "Toggle Legend");
+    } else if (curMenuIdx == PAGE_ENEMYSOULS && gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_ALL) {
+        Draw_DrawIcon(offsetX, promptY, COLOR_WHITE, ICON_BUTTON_DPAD);
+        offsetX += buttonSpacing;
+        nextStr = "Scroll";
+        Draw_DrawString(offsetX, textY, COLOR_TITLE, nextStr);
     } else if (curMenuIdx == PAGE_SPHERES) {
         Draw_DrawIcon(offsetX, promptY, COLOR_WHITE, ICON_BUTTON_DPAD);
         offsetX += buttonSpacing;
@@ -368,6 +376,16 @@ static void Gfx_DrawSeedHash(void) {
     Draw_DrawFormattedString(10 + (SPACING_X * 4), 16 + (SPACING_Y * offsetY++), COLOR_WHITE, "%02u:%02u:%02u", hours,
                              minutes, seconds);
     offsetY++;
+
+    if (gSettingsContext.triforceHunt) {
+        Draw_DrawString(10, 16 + (SPACING_Y * offsetY++), COLOR_TITLE, "Triforce Pieces:");
+        u8 triforceDone = gExtSaveData.triforcePieces >= gSettingsContext.triforcePiecesRequired;
+        Draw_DrawFormattedString(10 + (SPACING_X * 4), 16 + (SPACING_Y * offsetY++),
+                                 triforceDone ? COLOR_YELLOW : COLOR_WHITE, "%d / %d", gExtSaveData.triforcePieces,
+                                 triforceDone ? gSettingsContext.triforcePiecesTotal
+                                              : gSettingsContext.triforcePiecesRequired);
+        offsetY++;
+    }
 
     if (gSettingsContext.mp_Enabled) {
         Draw_DrawFormattedString(10, 16 + (SPACING_Y * offsetY++), COLOR_TITLE, "Multiplayer:");
@@ -513,6 +531,35 @@ static void Gfx_DrawDungeonItems(void) {
         }
 
         yPos += spacingY;
+    }
+}
+
+static void Gfx_DrawEnemySouls(void) {
+    Draw_DrawString(10, 16, COLOR_TITLE, "Enemy Souls Obtained");
+
+    const s32 bossesOnly = gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_BOSSES;
+    u8 startIndex, endIndex;
+
+    if (bossesOnly) {
+        startIndex = ARRAY_SIZE(SoulMenuNames) - 9;
+        endIndex   = ARRAY_SIZE(SoulMenuNames);
+    } else if (soulsScroll == 0) {
+        startIndex = 0;
+        endIndex   = 32;
+    } else {
+        startIndex = 32;
+        endIndex   = ARRAY_SIZE(SoulMenuNames);
+    }
+
+    for (u8 i = startIndex; i < endIndex; i++) {
+        u16 posX          = 10 + (((i % 32) / 16) * (SPACING_X * 25));
+        u16 posY          = 30 + (SPACING_Y * ((i - (bossesOnly ? startIndex : 0)) % 16));
+        SoulMenuInfo info = SoulMenuNames[i];
+        const char* name  = (bossesOnly && info.altName != NULL) ? info.altName : info.name;
+
+        Draw_DrawRect(posX, posY, 9, 9, COLOR_WHITE);
+        Draw_DrawRect(posX + 1, posY + 1, 7, 7, EnemySouls_GetSoulFlag(info.soulId) ? COLOR_GREEN : COLOR_BLACK);
+        Draw_DrawString(posX + SPACING_X * 2, posY, COLOR_WHITE, name);
     }
 }
 
@@ -776,7 +823,10 @@ static void Gfx_DrawEntranceTracker(void) {
 
 static void (*menu_draw_funcs[])(void) = {
     // Make sure these line up with the GfxPage enum above
-    Gfx_DrawSeedHash,        Gfx_DrawDungeonItems, Gfx_DrawSpoilerData,
+    Gfx_DrawSeedHash,        //
+    Gfx_DrawDungeonItems,    //
+    Gfx_DrawEnemySouls,      //
+    Gfx_DrawSpoilerData,     //
     Gfx_DrawItemTracker,     // All
     Gfx_DrawItemTracker,     // Groups
     Gfx_DrawEntranceTracker, // All
@@ -824,7 +874,7 @@ static void Gfx_ShowMenu(void) {
     pressed = 0;
 
     Draw_ClearFramebuffer();
-    if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
+    if (!playingOnCitra) {
         Draw_FlushFramebuffer();
     }
 
@@ -841,6 +891,11 @@ static void Gfx_ShowMenu(void) {
             if (pressed & BUTTON_A) {
                 showingLegend = !showingLegend;
                 handledInput  = true;
+            }
+        } else if (curMenuIdx == PAGE_ENEMYSOULS) {
+            if (pressed & (PAD_UP | PAD_DOWN | PAD_RIGHT | PAD_LEFT)) {
+                soulsScroll  = (soulsScroll + 1) % 2;
+                handledInput = true;
             }
         } else if (curMenuIdx == PAGE_SPHERES && gSpoilerData.SphereCount > 0) {
             // Spoiler log
@@ -969,7 +1024,7 @@ static void Gfx_ShowMenu(void) {
                 showingLegend = false;
                 Draw_ClearBackbuffer();
                 Draw_CopyBackBuffer();
-                if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
+                if (!playingOnCitra) {
                     Draw_FlushFramebuffer();
                 }
                 break;
@@ -1006,7 +1061,7 @@ static void Gfx_ShowMenu(void) {
         Gfx_DrawButtonPrompts();
         Gfx_DrawHeader();
         Draw_CopyBackBuffer();
-        if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
+        if (!playingOnCitra) {
             Draw_FlushFramebuffer();
         }
 
@@ -1017,7 +1072,7 @@ static void Gfx_ShowMenu(void) {
 
 static void Gfx_ShowMultiplayerSyncMenu(void) {
     Draw_ClearFramebuffer();
-    if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
+    if (!playingOnCitra) {
         Draw_FlushFramebuffer();
     }
 
@@ -1060,7 +1115,7 @@ static void Gfx_ShowMultiplayerSyncMenu(void) {
 
                 Draw_ClearBackbuffer();
                 Draw_CopyBackBuffer();
-                if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
+                if (!playingOnCitra) {
                     Draw_FlushFramebuffer();
                 }
                 mp_isSyncing     = false;
@@ -1081,7 +1136,7 @@ static void Gfx_ShowMultiplayerSyncMenu(void) {
 
                 Draw_ClearBackbuffer();
                 Draw_CopyBackBuffer();
-                if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
+                if (!playingOnCitra) {
                     Draw_FlushFramebuffer();
                 }
                 mp_isSyncing = false;
@@ -1091,7 +1146,7 @@ static void Gfx_ShowMultiplayerSyncMenu(void) {
         }
 
         Draw_CopyBackBuffer();
-        if (gSettingsContext.playOption == PLAY_ON_CONSOLE) {
+        if (!playingOnCitra) {
             Draw_FlushFramebuffer();
         }
 
@@ -1120,6 +1175,9 @@ void Gfx_Init(void) {
     else if (gSettingsContext.menuOpeningButton == 5)
         closingButton = BUTTON_B | BUTTON_LEFT;
 
+    if (!gSettingsContext.shuffleEnemySouls) {
+        menu_draw_funcs[PAGE_ENEMYSOULS] = NULL;
+    }
     if (!gSettingsContext.ingameSpoilers) {
         menu_draw_funcs[PAGE_SPHERES] = NULL;
     }

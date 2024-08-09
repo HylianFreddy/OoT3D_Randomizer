@@ -130,19 +130,19 @@ class Option {
         return selectedOption;
     }
 
-    void NextOptionIndex() {
-        ++selectedOption;
-    }
+    void ScrollOptionIndex(u32 kDown, bool fastScrolling = false) {
+        u32 scrollSpeed = (fastScrolling && options.size() > 2) ? 10 : 1;
 
-    void PrevOptionIndex() {
-        --selectedOption;
-    }
-
-    void SanitizeSelectedOptionIndex() {
-        if (selectedOption == options.size()) {
-            selectedOption = 0;
-        } else if (selectedOption == 0xFF) {
-            selectedOption = static_cast<u8>(options.size() - 1);
+        if ((kDown & KEY_RIGHT) != 0) {
+            selectedOption += scrollSpeed;
+            if (selectedOption >= options.size()) {
+                selectedOption %= options.size();
+            }
+        } else if ((kDown & KEY_LEFT) != 0) {
+            selectedOption -= scrollSpeed;
+            if (selectedOption >= options.size()) {
+                selectedOption = (options.size() - 1) - ((UINT8_MAX - selectedOption) % options.size());
+            }
         }
     }
 
@@ -314,6 +314,18 @@ class Menu {
         settingBound = 0;
     }
 
+    void Lock() {
+        locked = true;
+    }
+
+    void Unlock() {
+        locked = false;
+    }
+
+    bool IsLocked() const {
+        return locked;
+    }
+
     std::string name;
     MenuType type;
     std::vector<Option*>* settingsList;
@@ -324,6 +336,7 @@ class Menu {
     int selectedSetting          = 0;
     std::string_view description = "";
     bool printInSpoiler          = true;
+    bool locked                  = false;
 };
 
 namespace Settings {
@@ -347,6 +360,8 @@ bool GlitchEnabled(Option& glitchOption);
 /// @brief Checks if incompatible settings are selected and prints error message.
 /// @return True if settings are valid.
 bool ValidateSettings();
+/// Returns the full title id of the selected region.
+std::string TitleId();
 
 extern std::string seed;
 extern std::string version;
@@ -390,6 +405,9 @@ extern Option AmmoDrops;
 extern Option HeartDropRefill;
 extern Option MQDungeonCount;
 extern Option SetDungeonTypes;
+extern Option TriforceHunt;
+extern Option TriforcePiecesTotal;
+extern Option TriforcePiecesRequired;
 
 extern Option ShuffleRewards;
 extern Option LinksPocketItem;
@@ -409,6 +427,8 @@ extern Option ShuffleMerchants;
 extern Option ShuffleFrogSongRupees;
 extern Option ShuffleAdultTradeQuest;
 extern Option ShuffleChestMinigame;
+extern Option ShuffleEnemySouls;
+extern Option ShuffleOcarinaButtons;
 
 extern Option MapsAndCompasses;
 extern Option Keysanity;
@@ -460,6 +480,7 @@ extern Option ToTAltarHints;
 extern Option GanonHints;
 extern Option DampeHint;
 extern Option SkulltulaHints;
+extern Option FishingHints;
 extern Option CompassesShowReward;
 extern Option CompassesShowWotH;
 extern Option MapsShowDungeonMode;
@@ -581,6 +602,12 @@ extern Option StartingSpiritMedallion;
 extern Option StartingShadowMedallion;
 extern Option StartingLightMedallion;
 extern Option StartingSkulltulaToken;
+
+extern Option StartingOcarinaButtonL;
+extern Option StartingOcarinaButtonR;
+extern Option StartingOcarinaButtonX;
+extern Option StartingOcarinaButtonY;
+extern Option StartingOcarinaButtonA;
 
 // Logic Settings
 extern Option Logic;
@@ -788,6 +815,7 @@ extern std::string finalChuTrailOuterColor;
 extern Option ColoredKeys;
 extern Option ColoredBossKeys;
 extern Option MirrorWorld;
+extern Option BetaSoldOut;
 
 extern Option ShuffleMusic;
 extern Option ShuffleBGM;
@@ -814,6 +842,8 @@ extern std::vector<Option*> startingItemsOptions;
 extern std::vector<Option*> startingSongsOptions;
 extern std::vector<Option*> startingEquipmentOptions;
 extern std::vector<Option*> startingStonesMedallionsOptions;
+extern std::vector<Option*> startingEnemySoulsOptions;
+extern std::vector<Option*> startingOcarinaButtonsOptions;
 extern std::vector<Option*> startingOtherOptions;
 extern std::vector<Option*> trickOptions;
 extern std::vector<Option*> glitchCategories;

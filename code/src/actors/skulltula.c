@@ -4,13 +4,11 @@
 #include "common.h"
 #include "objects.h"
 
-#define EnSw_Init_addr 0x1691C8
-#define EnSw_Init ((ActorFunc)EnSw_Init_addr)
+#define EnSw_Init ((ActorFunc)GAME_ADDR(0x1691C8))
 
-#define EnSw_Update_addr 0x1BB110
-#define EnSw_Update ((ActorFunc)EnSw_Update_addr)
+#define EnSw_Update ((ActorFunc)GAME_ADDR(0x1BB110))
 
-#define EnSw_GoldSkulltulaDeath (void*)0x3B91BC
+#define EnSw_GoldSkulltulaDeath (void*)GAME_ADDR(0x3B91BC)
 
 const GsLocOverride rGsLocOverrides[100] = { 0 };
 const GsLocOverride* gsSpawnQueue[10]    = { 0 };
@@ -62,7 +60,7 @@ void GsQueue_Update(void) {
 
             Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x95,      //
                         gs->posRot.pos.x, gs->posRot.pos.y, gs->posRot.pos.z, //
-                        gs->posRot.rot.x, gs->posRot.rot.y, gs->posRot.rot.z, params);
+                        gs->posRot.rot.x, gs->posRot.rot.y, gs->posRot.rot.z, params, FALSE);
 
             gsSpawnQueue[i] = NULL;
         }
@@ -253,8 +251,7 @@ void EnSw_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 typedef void (*FUN_00375B70_proc)(GlobalContext* globalCtx, Actor* actor);
-#define FUN_00375B70_addr 0x375B70
-#define FUN_00375B70 ((FUN_00375B70_proc)FUN_00375B70_addr)
+#define FUN_00375B70 ((FUN_00375B70_proc)GAME_ADDR(0x375B70))
 
 void EnSw_Kill(EnSw* thisx, GlobalContext* globalCtx) {
     if (thisx->action_fn == EnSw_GoldSkulltulaDeath || (thisx->base.params & 0x4000 && !gSaveContext.nightFlag)) {

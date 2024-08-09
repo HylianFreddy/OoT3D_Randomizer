@@ -10,6 +10,15 @@
 
 // #include "hid.h"
 
+#ifdef Version_EUR
+    #define GAME_ADDR(addr)                                       \
+        ((addr >= 0x41A144 && addr <= 0x43668B)   ? (addr + 0x24) \
+         : (addr >= 0x436690 && addr <= 0x4A5ADF) ? (addr + 0x20) \
+                                                  : addr)
+#else
+    #define GAME_ADDR(addr) (addr)
+#endif
+
 #define TRUE 1
 #define FALSE 0
 
@@ -189,7 +198,12 @@ typedef struct {
     /* 0x1594 */ char unk_1594[0x000C];
     /* 0x15A0 */ u16 nextCutsceneIndex;
     /* 0x15A2 */ u8 cutsceneTrigger;
-    /* 0x15A3 */ char unk_15A3[0x008];
+    /* 0x15A3 */ u8 chamberCutsceneNum;
+    /* 0x15A4 */ u16 nextDayTime; // "next_zelda_time"
+    /* 0x15A6 */ u8 transFadeDuration;
+    /* 0x15A7 */ u8 transWipeSpeed;
+    /* 0x15A8 */ u16 skyboxTime;
+    /* 0x15AA */ u8 dogIsLost;
     /* 0x15AB */ u8 nextTransition;
     /* 0x15AC */ char unk_15AC[0x006];
     /* 0x15B2 */ s16 healthAccumulator;
@@ -404,7 +418,7 @@ typedef struct {
 typedef struct {
     /* 0x0000 */ u8 unk_00;
     /* 0x0001 */ char unk_01[0x01];
-    /* 0x0002 */ u8 unk_02;
+    /* 0x0002 */ u8 hammerQuakeFlag;
     /* 0x0003 */ u8 unk_03;
     /* 0x0004 */ char unk_04[0x04];
     /* 0x0008 */ u8 total; // total number of actors loaded
@@ -449,7 +463,7 @@ typedef struct OcLine OcLine; // TODO
 #define COLLISION_CHECK_OC_MAX 50
 #define COLLISION_CHECK_OC_LINE_MAX 3
 
-typedef struct {
+typedef struct CollisionCheckContext {
     /* 0x000 */ s16 colAtCount;
     /* 0x002 */ u16 sacFlags;
     /* 0x004 */ Collider* colAt[COLLISION_CHECK_AT_MAX];
@@ -576,7 +590,8 @@ typedef struct GlobalContext {
     /* 0x3A58 */ ObjectContext objectCtx;
     /* 0x43DC */ char unk_43DC[0x0854];
     /* 0x4C30 */ s8 roomNum;
-    /* 0x4C31 */ char unk_4C31[0x0FCF];
+    /* 0x4C31 */ char unk_4C31[0x0FCB];
+    /* 0x5BFC */ u32 gameplayFrames;
     /* 0x5C00 */ u8 linkAgeOnLoad;
     /* 0x5C01 */ u8 unk_5C01;
     /* 0x5C02 */ u8 curSpawn;
@@ -658,23 +673,46 @@ typedef struct TargetContext {
     // ... size unknown
 } TargetContext;
 
+typedef struct SAModelListEntry {
+    SkeletonAnimationModel* saModel;
+    u32 unk;
+} SAModelListEntry;
+
+typedef struct SubMainClass_180 {
+    /* 0x000 */ char unk_00[0x8];
+    /* 0x008 */ s32 saModelsCount1;
+    /* 0x00C */ s32 saModelsCount2;
+    /* 0x010 */ char unk_10[0x10];
+    /* 0x020 */ SAModelListEntry* saModelsList1; // 3D models
+    /* 0x024 */ SAModelListEntry* saModelsList2; // 2D billboards
+    /* ... size unknown*/
+} SubMainClass_180;
+
+typedef struct MainClass {
+    /* 0x000 */ char unk_00[0x180];
+    /* 0x180 */ SubMainClass_180 sub180;
+    /* ... size unknown*/
+} MainClass;
+
 extern GlobalContext* gGlobalContext;
 extern const u32 ItemSlots[];
 extern const char DungeonNames[][25];
-#define gSaveContext (*(SaveContext*)0x00587958)
+#define gSaveContext (*(SaveContext*)GAME_ADDR(0x587958))
 #define gStaticContext (*(StaticContext*)0x08080010)
-#define gObjectTable ((ObjectFile*)0x53CCF4)
-#define gEntranceTable ((EntranceInfo*)0x543BB8)
-#define gItemUsabilityTable ((u8*)0x506C58)
-#define gGearUsabilityTable ((u32*)0x4D47C8)
-#define gDungeonSceneTable ((Scene*)0x4DC400)
-#define gMQDungeonSceneTable ((Scene*)0x4DCBA8)
-#define gSceneTable ((Scene*)0x545484)
-#define gRandInt (*(u32*)0x50C0C4)
-#define gRandFloat (*(f32*)0x50C0C8)
-#define gDrawItemTable ((DrawItemTableEntry*)0x4D88C8)
-#define gRestrictionFlags ((RestrictionFlags*)0x539DC4)
+#define gObjectTable ((ObjectFile*)GAME_ADDR(0x53CCF4))
+#define gEntranceTable ((EntranceInfo*)GAME_ADDR(0x543BB8))
+#define gItemUsabilityTable ((u8*)GAME_ADDR(0x506C58))
+#define gGearUsabilityTable ((u32*)GAME_ADDR(0x4D47C8))
+#define gDungeonSceneTable ((Scene*)GAME_ADDR(0x4DC400))
+#define gMQDungeonSceneTable ((Scene*)GAME_ADDR(0x4DCBA8))
+#define gSceneTable ((Scene*)GAME_ADDR(0x545484))
+#define gRandInt (*(u32*)GAME_ADDR(0x50C0C4))
+#define gRandFloat (*(f32*)GAME_ADDR(0x50C0C8))
+#define gDrawItemTable ((DrawItemTableEntry*)GAME_ADDR(0x4D88C8))
+#define gRestrictionFlags ((RestrictionFlags*)GAME_ADDR(0x539DC4))
 #define PLAYER ((Player*)gGlobalContext->actorCtx.actorList[ACTORTYPE_PLAYER].first)
+#define gMainClass ((MainClass*)GAME_ADDR(0x5BE5B8))
+#define gIsBottomScreenDimmed (*(s32*)GAME_ADDR(0x5043EC))
 
 #define GearSlot(X) (X - ITEM_SWORD_KOKIRI)
 
@@ -750,150 +788,132 @@ typedef void (*Play_Init_proc)(GameState*);
 #define Play_Init ((Play_Init_proc)Play_Init_addr)
 
 typedef void (*Item_Give_proc)(GlobalContext* globalCtx, u8 item);
-#define Item_Give_addr 0x376A78
-#define Item_Give ((Item_Give_proc)Item_Give_addr)
+#define Item_Give ((Item_Give_proc)GAME_ADDR(0x376A78))
 
 typedef void (*DisplayTextbox_proc)(GlobalContext* globalCtx, u16 textId, Actor* actor);
-#define DisplayTextbox_addr 0x367C7C
-#define DisplayTextbox ((DisplayTextbox_proc)DisplayTextbox_addr)
+#define DisplayTextbox ((DisplayTextbox_proc)GAME_ADDR(0x367C7C))
 
 typedef u32 (*EventCheck_proc)(u32 flag);
-#define EventCheck_addr 0x350CF4
-#define EventCheck ((EventCheck_proc)EventCheck_addr)
+#define EventCheck ((EventCheck_proc)GAME_ADDR(0x350CF4))
 
 typedef void (*EventSet_proc)(u32 flag);
-#define EventSet_addr 0x34CBF8
-#define EventSet ((EventSet_proc)EventSet_addr)
+#define EventSet ((EventSet_proc)GAME_ADDR(0x34CBF8))
 
 typedef void (*Rupees_ChangeBy_proc)(s16 rupeeChange);
-#define Rupees_ChangeBy_addr 0x376A60
-#define Rupees_ChangeBy ((Rupees_ChangeBy_proc)Rupees_ChangeBy_addr)
+#define Rupees_ChangeBy ((Rupees_ChangeBy_proc)GAME_ADDR(0x376A60))
 
 typedef void (*LinkDamage_proc)(GlobalContext* globalCtx, Player* player, s32 arg2, f32 arg3, f32 arg4, s16 arg5,
                                 s32 arg6);
-#define LinkDamage_addr 0x35D304
-#define LinkDamage ((LinkDamage_proc)LinkDamage_addr)
+#define LinkDamage ((LinkDamage_proc)GAME_ADDR(0x35D304))
 
 typedef u32 (*Inventory_HasEmptyBottle_proc)(void);
-#define Inventory_HasEmptyBottle_addr 0x377A04
-#define Inventory_HasEmptyBottle ((Inventory_HasEmptyBottle_proc)Inventory_HasEmptyBottle_addr)
+#define Inventory_HasEmptyBottle ((Inventory_HasEmptyBottle_proc)GAME_ADDR(0x377A04))
 
 typedef void (*PlaySound_proc)(u32);
-#define PlaySound_addr 0x35C528
 // This function plays sound effects and music tracks, overlaid on top of the current BGM
-#define PlaySound ((PlaySound_proc)PlaySound_addr)
+#define PlaySound ((PlaySound_proc)GAME_ADDR(0x35C528))
 
 typedef Actor* (*Actor_Spawn_proc)(ActorContext* actorCtx, GlobalContext* globalCtx, s16 actorId, float posX,
-                                   float posY, float posZ, s16 rotX, s16 rotY, s16 rotZ, s16 params)
-    __attribute__((pcs("aapcs-vfp")));
-#define Actor_Spawn_addr 0x3738D0
-#define Actor_Spawn ((Actor_Spawn_proc)Actor_Spawn_addr)
+                                   float posY, float posZ, s16 rotX, s16 rotY, s16 rotZ, s16 params,
+                                   s32 initImmediately) __attribute__((pcs("aapcs-vfp")));
+#define Actor_Spawn ((Actor_Spawn_proc)GAME_ADDR(0x3738D0))
 
 typedef Actor* (*Actor_Find_proc)(ActorContext* actorCtx, s16 actorId, u8 actorType);
-#define Actor_Find_addr 0x372D64
-#define Actor_Find ((Actor_Find_proc)Actor_Find_addr)
+#define Actor_Find ((Actor_Find_proc)GAME_ADDR(0x372D64))
 
 typedef void (*Actor_GetScreenPos_proc)(GlobalContext* globalCtx, Actor* actor, s16* outX, s16* outY);
-#define Actor_GetScreenPos_addr 0x363A20
-#define Actor_GetScreenPos ((Actor_GetScreenPos_proc)Actor_GetScreenPos_addr)
+#define Actor_GetScreenPos ((Actor_GetScreenPos_proc)GAME_ADDR(0x363A20))
 
 typedef void (*FireDamage_proc)(Actor* player, GlobalContext* globalCtx, int flamesColor);
-#define FireDamage_addr 0x35D8D8
-#define FireDamage ((FireDamage_proc)FireDamage_addr)
+#define FireDamage ((FireDamage_proc)GAME_ADDR(0x35D8D8))
 
 typedef void (*Flags_SetEnv_proc)(GlobalContext* globalCtx, s16 flag);
-#define Flags_SetEnv_addr 0x366704
-#define Flags_SetEnv ((Flags_SetEnv_proc)Flags_SetEnv_addr)
+#define Flags_SetEnv ((Flags_SetEnv_proc)GAME_ADDR(0x366704))
 
 typedef void (*GiveItem_proc)(Actor* actor, GlobalContext* globalCtx, s32 getItemId, f32 xzRange, f32 yRange)
     __attribute__((pcs("aapcs-vfp")));
-#define GiveItem_addr 0x3724DC
-#define GiveItem ((GiveItem_proc)GiveItem_addr)
+#define GiveItem ((GiveItem_proc)GAME_ADDR(0x3724DC))
 
 typedef void (*Message_CloseTextbox_proc)(GlobalContext* globalCtx);
-#define Message_CloseTextbox_addr 0x3725E0
-#define Message_CloseTextbox ((Message_CloseTextbox_proc)Message_CloseTextbox_addr)
+#define Message_CloseTextbox ((Message_CloseTextbox_proc)GAME_ADDR(0x3725E0))
 
 typedef void (*SetupItemInWater_proc)(Player* player, GlobalContext* globalCtx);
-#define SetupItemInWater_addr 0x354894
-#define SetupItemInWater ((SetupItemInWater_proc)SetupItemInWater_addr)
+#define SetupItemInWater ((SetupItemInWater_proc)GAME_ADDR(0x354894))
 
 typedef void (*Health_ChangeBy_proc)(GlobalContext* arg1, u32 arg2);
-#define Health_ChangeBy_addr 0x352DBC
-#define Health_ChangeBy ((Health_ChangeBy_proc)Health_ChangeBy_addr)
+#define Health_ChangeBy ((Health_ChangeBy_proc)GAME_ADDR(0x352DBC))
 
 typedef void (*PlaySFX_proc)(u32 sfxId, Vec3f* pos, u32 token, f32* freqScale, f32* a4, s8* reverbAdd);
-#define PlaySFX_addr 0x37547C
-#define PlaySFX ((PlaySFX_proc)PlaySFX_addr)
+#define PlaySFX ((PlaySFX_proc)GAME_ADDR(0x37547C))
 
 typedef void (*Flags_SetSwitch_proc)(GlobalContext* globalCtx, u32 flag);
-#define Flags_SetSwitch_addr 0x375C10
-#define Flags_SetSwitch ((Flags_SetSwitch_proc)Flags_SetSwitch_addr)
+#define Flags_SetSwitch ((Flags_SetSwitch_proc)GAME_ADDR(0x375C10))
 
 typedef u32 (*Flags_GetSwitch_proc)(GlobalContext* globalCtx, u32 flag);
-#define Flags_GetSwitch_addr 0x36E864
-#define Flags_GetSwitch ((Flags_GetSwitch_proc)Flags_GetSwitch_addr)
+#define Flags_GetSwitch ((Flags_GetSwitch_proc)GAME_ADDR(0x36E864))
 
 typedef u32 (*Flags_GetCollectible_proc)(GlobalContext* globalCtx, u32 flag);
-#define Flags_GetCollectible_addr 0x36405C
-#define Flags_GetCollectible ((Flags_GetCollectible_proc)Flags_GetCollectible_addr)
+#define Flags_GetCollectible ((Flags_GetCollectible_proc)GAME_ADDR(0x36405C))
 
 typedef void (*Player_SetEquipmentData_proc)(GlobalContext* globalCtx, Player* player);
-#define Player_SetEquipmentData_addr 0x34913C
-#define Player_SetEquipmentData ((Player_SetEquipmentData_proc)Player_SetEquipmentData_addr)
+#define Player_SetEquipmentData ((Player_SetEquipmentData_proc)GAME_ADDR(0x34913C))
 
 typedef s32 (*BossChallenge_IsActive_proc)(void);
-#define BossChallenge_IsActive_addr 0x35B164
-#define BossChallenge_IsActive ((BossChallenge_IsActive_proc)BossChallenge_IsActive_addr)
+#define BossChallenge_IsActive ((BossChallenge_IsActive_proc)GAME_ADDR(0x35B164))
 
 typedef s32 (*Audio_PlayActorSfx2_proc)(Actor* actor, s32 sfxID);
-#define Audio_PlayActorSfx2_addr 0x375BCC
-#define Audio_PlayActorSfx2 ((Audio_PlayActorSfx2_proc)Audio_PlayActorSfx2_addr)
+#define Audio_PlayActorSfx2 ((Audio_PlayActorSfx2_proc)GAME_ADDR(0x375BCC))
+
+typedef s32 (*Model_GetMeshGroupCount_proc)(SkeletonAnimationModel* skelAnimeModel);
+#define Model_GetMeshGroupCount ((Model_GetMeshGroupCount_proc)GAME_ADDR(0x2BB71C))
+
+typedef s32 (*Model_IsMeshGroupUsed_proc)(SkeletonAnimationModel* skelAnimeModel, s32 param);
+#define Model_IsMeshGroupUsed ((Model_IsMeshGroupUsed_proc)GAME_ADDR(0x4C6880))
 
 typedef void (*Model_EnableMeshGroupByIndex_proc)(SkeletonAnimationModel* skel, u32 index);
-#define Model_EnableMeshGroupByIndex ((Model_EnableMeshGroupByIndex_proc)0x37266C)
+#define Model_EnableMeshGroupByIndex ((Model_EnableMeshGroupByIndex_proc)GAME_ADDR(0x37266C))
 
 typedef void (*Model_DisableMeshGroupByIndex_proc)(SkeletonAnimationModel* skel, u32 index);
-#define Model_DisableMeshGroupByIndex ((Model_DisableMeshGroupByIndex_proc)0x36932C)
+#define Model_DisableMeshGroupByIndex ((Model_DisableMeshGroupByIndex_proc)GAME_ADDR(0x36932C))
 
 typedef s32 (*Player_InBlockingCsMode_proc)(GlobalContext* globalCtx, Player* player);
-#define Player_InBlockingCsMode ((Player_InBlockingCsMode_proc)0x35DB20)
+#define Player_InBlockingCsMode ((Player_InBlockingCsMode_proc)GAME_ADDR(0x35DB20))
 
 typedef u32 (*PauseContext_GetState_proc)(void);
-#define PauseContext_GetState ((PauseContext_GetState_proc)0x3695F8)
+#define PauseContext_GetState ((PauseContext_GetState_proc)GAME_ADDR(0x3695F8))
 
 typedef s32 (*Camera_CheckWater_proc)(Camera* camera);
-#define Camera_CheckWater ((Camera_CheckWater_proc)0x2D06A0)
+#define Camera_CheckWater ((Camera_CheckWater_proc)GAME_ADDR(0x2D06A0))
 
 typedef void (*Camera_UpdateInterface_proc)(u32 flags);
-#define Camera_UpdateInterface ((Camera_UpdateInterface_proc)0x330D84)
+#define Camera_UpdateInterface ((Camera_UpdateInterface_proc)GAME_ADDR(0x330D84))
 
 typedef f32 (*Camera_BGCheckInfo_proc)(Camera* camera, Vec3f* from, CamColChk* to);
-#define Camera_BGCheckInfo ((Camera_BGCheckInfo_proc)0x3553FC)
+#define Camera_BGCheckInfo ((Camera_BGCheckInfo_proc)GAME_ADDR(0x3553FC))
 
 typedef s32 (*Quake_Update_proc)(Camera* camera, ShakeInfo* camShake);
-#ifdef Version_EUR
-    #define Quake_Update_addr 0x4787E8
-#else
-    #define Quake_Update_addr 0x4787C8
-#endif
-#define Quake_Update ((Quake_Update_proc)Quake_Update_addr)
+#define Quake_Update ((Quake_Update_proc)GAME_ADDR(0x4787C8))
 
 typedef s16 (*Camera_GetCamDataId_proc)(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId);
-#ifdef Version_EUR
-    #define Camera_GetCamDataId_addr 0x47BFF8
-#else
-    #define Camera_GetCamDataId_addr 0x47BFD8
-#endif
-#define Camera_GetCamDataId ((Camera_GetCamDataId_proc)Camera_GetCamDataId_addr)
+#define Camera_GetCamDataId ((Camera_GetCamDataId_proc)GAME_ADDR(0x47BFD8))
 
 typedef s32 (*Animation_GetLastFrame_proc)(SkelAnime* anime, s32 animation_index);
-#define Animation_GetLastFrame_addr 0x36AE14
-#define Animation_GetLastFrame ((Animation_GetLastFrame_proc)Animation_GetLastFrame_addr)
+#define Animation_GetLastFrame ((Animation_GetLastFrame_proc)GAME_ADDR(0x36AE14))
 
 typedef void (*Animation_Change_proc)(SkelAnime* anime, s32 animation_index, f32 play_speed, f32 start_frame,
                                       f32 end_frame, f32 morph_frames, s32 mode) __attribute__((pcs("aapcs-vfp")));
-#define Animation_Change_addr 0x375C08
-#define Animation_Change ((Animation_Change_proc)Animation_Change_addr)
+#define Animation_Change ((Animation_Change_proc)GAME_ADDR(0x375C08))
+
+typedef void (*EffectSsDeadDb_Spawn_proc)(GlobalContext* globalCtx, Vec3f* position, Vec3f* velocity,
+                                          Vec3f* acceleration, s16 scale, s16 scale_step, s16 prim_r, s16 prim_g,
+                                          s16 prim_b, s16 prim_a, s16 env_r, s16 env_g, s16 env_b, s16 unused,
+                                          s32 frame_duration, s16 play_sound);
+#define EffectSsDeadDb_Spawn ((EffectSsDeadDb_Spawn_proc)GAME_ADDR(0x3642F4))
+
+typedef void (*SaveGame_proc)(GlobalContext* globalCtx, u8 isSaveFileCreation);
+#define SaveGame ((SaveGame_proc)GAME_ADDR(0x2FDAC8))
+
+typedef s32 (*Message_GetState_proc)(void);
+#define Message_GetState ((Message_GetState_proc)GAME_ADDR(0x3769d8))
 
 #endif //_Z3D_H_

@@ -112,6 +112,10 @@ extern string_view scarceHeartsDesc;
 extern string_view mqDungeonCountDesc;
 extern string_view setDungeonTypesDesc;
 
+extern string_view triforceHuntDesc;
+extern string_view triforcePiecesTotalDesc;
+extern string_view triforcePiecesRequiredDesc;
+
 extern string_view shuffleRewardsEndOfDungeon;
 extern string_view shuffleRewardsAnyDungeon;
 extern string_view shuffleRewardsOverworld;
@@ -167,6 +171,10 @@ extern string_view frogSongRupeesDesc;
 extern string_view adultTradeDesc;
 
 extern string_view chestMinigameDesc;
+
+extern string_view enemySoulDesc;
+
+extern string_view ocarinaButtonsDesc;
 
 extern string_view mapCompassStartWith;
 extern string_view mapCompassVanilla;
@@ -267,6 +275,7 @@ extern string_view totAltarHintsDesc;
 extern string_view ganonHintsDesc;
 extern string_view dampeHintDesc;
 extern string_view skulltulaHintDesc;
+extern string_view fishingHintsDesc;
 
 extern string_view compassesShowRewardsDesc;
 extern string_view compassesShowWotHDesc;
@@ -370,6 +379,8 @@ extern string_view mirrorWorldOnDesc;
 extern string_view mirrorWorldSceneDesc;
 extern string_view mirrorWorldEntranceDesc;
 extern string_view mirrorWorldRandomDesc;
+
+extern string_view betaSoldOutDesc;
 
 extern string_view musicRandoDesc;
 extern string_view shuffleBGMDesc;
