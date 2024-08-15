@@ -157,6 +157,7 @@ typedef enum {
     PAGE_DUNGEONITEMS,
     PAGE_ENEMYSOULS,
     PAGE_SPHERES,
+    PAGE_READGOSSIPSTONES,
     PAGE_ITEMTRACKER_ALL,
     PAGE_ITEMTRACKER_GROUPS,
     PAGE_ENTRANCETRACKER_ALL,
@@ -601,6 +602,90 @@ static void Gfx_DrawSpoilerData(void) {
     }
 }
 
+static void Gfx_DrawReadGossipStones(void) {
+    Draw_DrawString(10, 16, COLOR_TITLE, "Read Gossip Stones");
+
+    typedef struct {
+        u8 params;
+        char name[16];
+    } GossipStones;
+
+    static GossipStones gossipStones[] = {
+        // Kokiri Forest
+        { 0x1F, "Deku Tree L" },
+        { 0x20, "Deku Tree R" },
+        { 0x1E, "KF near LW" },
+        { 0x3C, "KF Storms" },
+        // Lost Woods
+        { 0x1D, "LW Bridge" },
+        { 0x34, "LW Grotto" },
+        // Sacred Forest Meadow
+        { 0x16, "SFM Maze 1" },
+        { 0x17, "SFM Maze 2" },
+        { 0x1C, "SFM Warp" },
+        // Hyrule Field
+        { 0x32, "HF Southeast" },
+        { 0x33, "HF Open" },
+        { 0x1B, "HF Cow" },
+        { 0x30, "HF Market" },
+        // Lake Hylia
+        { 0x03, "LH Lab" },
+        { 0x08, "LH Southwest" },
+        { 0x0F, "LH Southeast" },
+        // Kakariko
+        { 0x38, "Kak Grotto" },
+        // Graveyard
+        { 0x0A, "GY Warp" },
+        // Death Mountain Trail
+        { 0x04, "DMT Wall" },
+        { 0x37, "DMT Storms" },
+        // Death Mountain Crater
+        { 0x05, "DMC Wall" },
+        { 0x3A, "DMC Grotto" },
+        // Goron City
+        { 0x19, "GC Medigoron" },
+        { 0x15, "GC Maze" },
+        // Dodongo's Cavern
+        { 0x14, "DC Wall" },
+        // Zora's River
+        { 0x0D, "ZR Chicken" },
+        { 0x39, "ZR Grotto" },
+        { 0x0C, "ZR Waterfall" },
+        // Zora's Domain
+        { 0x09, "ZD King" },
+        // Zora's Fountain
+        { 0x01, "ZF Fairy" },
+        { 0x02, "ZF Jabu" },
+        // Temple of Time
+        { 0x06, "ToT Left" },
+        { 0x07, "ToT C-Left" },
+        { 0x0E, "ToT C-Right" },
+        { 0x10, "ToT Right" },
+        // Hyrule Castle
+        { 0x12, "HC Malon" },
+        { 0x0B, "HC Vines" },
+        { 0x13, "HC Storms" },
+        // Gerudo Valley
+        { 0x11, "GV River" },
+        // Desert Colossus
+        { 0x1A, "Colossus" },
+    };
+
+    for (u8 i = 0; i < ARRAY_SIZE(gossipStones); i++) {
+        u8 scene = (gossipStones[i].params & 0xF0) >> 4;
+        u8 index = gossipStones[i].params & 0xF;
+
+        u16 posX = 10 + ((i / 16) * (SPACING_X * 18));
+        u16 posY = 30 + (SPACING_Y * (i % 16));
+
+        bool isRead = gSaveContext.sceneFlags[17 + scene].unk & (1 << index);
+
+        Draw_DrawRect(posX, posY, 9, 9, COLOR_WHITE);
+        Draw_DrawRect(posX + 1, posY + 1, 7, 7, isRead ? COLOR_GREEN : COLOR_BLACK);
+        Draw_DrawString(posX + SPACING_X * 2, posY, COLOR_WHITE, gossipStones[i].name);
+    }
+}
+
 static u8 ViewingGroups() {
     return curMenuIdx == PAGE_ITEMTRACKER_GROUPS || curMenuIdx == PAGE_ENTRANCETRACKER_GROUPS;
 }
@@ -826,6 +911,7 @@ static void (*menu_draw_funcs[])(void) = {
     Gfx_DrawDungeonItems,    //
     Gfx_DrawEnemySouls,      //
     Gfx_DrawSpoilerData,     //
+    Gfx_DrawReadGossipStones,//
     Gfx_DrawItemTracker,     // All
     Gfx_DrawItemTracker,     // Groups
     Gfx_DrawEntranceTracker, // All
@@ -1213,11 +1299,14 @@ static u8 openingButton(void) {
             (gSettingsContext.menuOpeningButton == 5 && rInputCtx.cur.d_left));
 }
 
+void Menu_CheckAndTriggerSariaHint(void);
 void Gfx_Update(void) {
     if (!GfxInit) {
         Gfx_Init();
         lastTick = svcGetSystemTick();
     }
+
+    Menu_CheckAndTriggerSariaHint();
 
     if (mp_isSyncing) {
         Gfx_ShowMultiplayerSyncMenu();

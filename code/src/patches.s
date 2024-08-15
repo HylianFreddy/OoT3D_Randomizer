@@ -1,5 +1,14 @@
 .arm
 
+.section .patch_FireproofDekuShieldOne
+    b 0x13335C
+
+.section .patch_FireproofDekuShieldTwo
+    b 0x25157C
+
+.section .patch_LikeLikeNeverEatShield
+    b 0x355C0C
+
 .section .patch_before_GlobalContext_Update
 .global before_GlobalContext_Update_patch
 before_GlobalContext_Update_patch:
@@ -2072,6 +2081,11 @@ SetFWPlayerParams_patch:
 .global AboutToPickUpActor_patch
 AboutToPickUpActor_patch:
     bl hook_AboutToPickUpActor
+
+.section .patch_GoronPotGuaranteeReward
+.global GoronPotGuaranteeReward_patch
+GoronPotGuaranteeReward_patch:
+    bl hook_GoronPotGuaranteeReward
 
 .section .patch_TargetReticleColor
 .global TargetReticleColor_patch

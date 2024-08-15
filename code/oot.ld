@@ -8,6 +8,18 @@ SECTIONS
 		*(.patch_loader)
 	}
 
+	.patch_FireproofDekuShieldOne 0x1330C4 : {
+		*(.patch_FireproofDekuShieldOne)
+	}
+
+	.patch_FireproofDekuShieldTwo 0x251528 : {
+		*(.patch_FireproofDekuShieldTwo)
+	}
+
+	.patch_LikeLikeNeverEatShield 0x355BF0 : {
+		*(.patch_LikeLikeNeverEatShield)
+	}
+
 	.patch_GrogSetTradedCojiroFlag 0x104C50 : {
 		*(.patch_GrogSetTradedCojiroFlag)
 	}
@@ -1070,6 +1082,10 @@ SECTIONS
 
 	.patch_ForestTempleBasementPuzzleDelay 0x3BFA8C : {
 		*(.patch_ForestTempleBasementPuzzleDelay)
+	}
+
+	.patch_GoronPotGuaranteeReward 0x3C148C : {
+		*(.patch_GoronPotGuaranteeReward)
 	}
 
 	.patch_GerudoArcheryTwo 0x3C2D80 : {

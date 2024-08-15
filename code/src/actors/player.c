@@ -1,4 +1,5 @@
 #include "z3D/z3D.h"
+#include "savefile.h"
 #include "objects.h"
 #include "custom_models.h"
 #include "settings.h"
@@ -9,6 +10,7 @@
 #include "arrow.h"
 #include "grotto.h"
 #include "item_override.h"
+#include "input.h"
 #include "colors.h"
 #include "common.h"
 
@@ -168,8 +170,86 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
 
     Player_UpdateRainbowTunic();
 
+    static Vec3f vecAcc = { 0 };
+    static Vec3f vecVel = { 0 };
+    static Vec3f vecPos = { 0 };
+    Player* this        = (Player*)thisx;
+
+    s32 tempSaModelsCount1 = gMainClass->sub180.saModelsCount1;
+    s32 tempSaModelsCount2 = gMainClass->sub180.saModelsCount2;
+
     PlayerActor_Draw(thisx, globalCtx);
+
+    if (!gExtSaveData.option_FireballLink) {
+        return;
+    }
+
+    gMainClass->sub180.saModelsCount1 = tempSaModelsCount1; // 3D models
+    gMainClass->sub180.saModelsCount2 = tempSaModelsCount2; // 2D billboards
+
+    thisx->shape.shadowDrawFunc = NULL;
+
+    if ((this->stateFlags1 & (1 << 0x14)) || // first person ("return A")
+        PauseContext_GetState()) {
+        return;
+    }
+
+    s32 velFrameIdx = (rGameplayFrames % 16);
+    s32 accFrameIdx = (rGameplayFrames % 4);
+    vecAcc.y        = 0.12f * accFrameIdx;
+    vecVel.x        = 0.5f * Math_SinS(0x1000 * velFrameIdx);
+    vecVel.z        = 0.5f * Math_CosS(0x1000 * velFrameIdx);
+    s16 scale       = 150;
+
+    // clang-format off
+    static s16 colorVals[21][7] = {
+        {0xFF, 0xFF, 0xFF, 0x00,    0x00, 0x00, 0x00,},
+        {0xFF, 0xFF, 0xFF, 0x08,    0x00, 0x00, 0x00,},
+        {0xFF, 0xFF, 0xFF, 0x10,    0x00, 0x00, 0x00,},
+        {0xFF, 0xFF, 0xFF, 0x20,    0x00, 0x00, 0x00,},
+        {0xFF, 0x80, 0x00, 0x20,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x20,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x30,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x40,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x70,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xA0,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xD0,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x08, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x10, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x18, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x20, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x28, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x30, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x38, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x40, 0x00,},
+    };
+    // clang-format on
+
+    s32 index = gSaveContext.health / 16;
+    if (index > 20) {
+        index = 20;
+    }
+    s16* currentColors = colorVals[index];
+
+    void* rollingFunc = (void*)(gSettingsContext.region == REGION_NA ? 0x492A3C : 0x492A5C);
+    if (PLAYER->stateFuncPtr == rollingFunc) {
+        vecPos   = thisx->world.pos;
+        vecPos.y = thisx->focus.pos.y;
+    } else {
+        vecPos = thisx->focus.pos;
+    }
+
+    EffectSsDeadDb_Spawn(globalCtx, &vecPos, &vecVel, &vecAcc, scale, -1,                        //
+                         currentColors[0], currentColors[1], currentColors[2], currentColors[3], //
+                         currentColors[4], currentColors[5], currentColors[6],                   //
+                         1, 8, 0);
 }
+
+static u8 swimBoostTimer = 0;
+#define SWIM_BOOST_POWER (f32)3
+#define SWIM_BOOST_DURATION 40
 
 f32 Player_GetSpeedMultiplier(void) {
     f32 speedMultiplier = 1;
@@ -179,8 +259,41 @@ f32 Player_GetSpeedMultiplier(void) {
         speedMultiplier *= 1.5;
     }
 
+    if (customSpeedBoost) {
+        // Constant speed boost
+        if (PLAYER->stateFuncPtr == (void*)0x4BA378 && rInputCtx.touchHeld &&
+            (rInputCtx.touchX > 0x40 && rInputCtx.touchX < 0x100) &&
+            (rInputCtx.touchY > 0x25 && rInputCtx.touchY < 0xC8)) {
+            if (rInputCtx.touchY > 145) {
+                speedMultiplier *= 1.5;
+            } else if (rInputCtx.touchY > 91) {
+                speedMultiplier *= 3.0;
+            } else {
+                speedMultiplier *= 5.0;
+            }
+        }
+
+        // Swim boost
+        u32 swimFunc = gSettingsContext.region == REGION_EUR ? 0x4A3364 : 0x4A3344;
+        if (PLAYER->stateFuncPtr == (void*)swimFunc) {
+            if (rInputCtx.pressed.b) {
+                swimBoostTimer = SWIM_BOOST_DURATION;
+            }
+
+            speedMultiplier *= 1 + SWIM_BOOST_POWER * ((f32)swimBoostTimer / SWIM_BOOST_DURATION);
+
+            if (swimBoostTimer > 0) {
+                swimBoostTimer--;
+            }
+        } else {
+            swimBoostTimer = 0;
+        }
+    } else {
+        swimBoostTimer = 0;
+    }
+
     if (IceTrap_ActiveCurse == ICETRAP_CURSE_SLOW) {
-        speedMultiplier *= 0.75;
+        speedMultiplier *= 0.5;
     }
 
     return speedMultiplier;
