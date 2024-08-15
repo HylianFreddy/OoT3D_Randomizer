@@ -53,7 +53,10 @@ string_view logicGlitchless           = "No glitches are required, but may requi
 string_view logicGlitched             = "The glitches you enable at the set difficulty\n"  //
                                         "or below may be required.\n"                      //
                                         "\n"                                               //
-                                        "In development, but still usable.";               //
+                                        "WIP feature. Allows glitch logic for the entire\n"//
+                                        "overworld and the following vanilla dungeons:\n"  //
+                                        "Deku Tree, Dodongo's Cavern, Jabu Jabu, and\n"    //
+                                        "Forest, Water, and Fire Temple.";                 //
 string_view logicNoLogic              = "Maximize randomization, All locations are\n"      //
                                         "considered available. MAY BE IMPOSSIBLE TO BEAT.";//
 string_view logicVanilla              = "For those who want to play the game normally but\n"
@@ -850,6 +853,8 @@ string_view dampeHintDesc            =  "Reading Dampe's diary will reveal the l
 string_view skulltulaHintDesc        =  "Talking to a cursed House of Skulltula resident\n"//
                                         "will tell you the reward they will give you for\n"//
                                         "removing their curse.";                           //
+string_view fishingHintsDesc         =  "The aquarium at the fishing pond will show what\n"//
+                                        "reward you can win as your current age.";         //
 /*------------------------------                                                           //
 |  MAP AND COMPASS GIVES INFO  |                                                           //
 ------------------------------*/                                                           //
@@ -1222,6 +1227,13 @@ string_view mirrorWorldEntranceDesc   = "Different entrances to the same region 
 string_view mirrorWorldRandomDesc     = "Whether the world is mirrored may change after\n" //
                                         "every loading zone inconsistently.";              //
 /*------------------------------                                                           //
+| SOLD OUT COSMETIC SHOP MODEL |                                                           //
+------------------------------*/                                                           //
+string_view betaSoldOutDesc           = "The game contains an unused model for sold out\n" //
+                                        "items in shops. It's a remade version of the N64\n"
+                                        "model, spelling \"Sold Out\" in English.\n\n"     //
+                                        "This setting enables its use in shops.";          //
+/*------------------------------                                                           //
 |        SHUFFLE MUSIC         |                                                           //
 ------------------------------*/                                                           //
 string_view musicRandoDesc            = "Randomize the music in the game.";                //
@@ -1318,7 +1330,7 @@ string_view randomGsLocationsDesc     = "Moves Gold Skulltulas to different loca
                                         "Business Scrub grottos, Fairy Fountains, etc.\n"  //
                                         "Some new locations are only available with certain"
                                         "settings enabled, like tricks and glitches.\n"    //
-                                        "The logic is updated for any that are moved.";    //
+                                        "WIP feature. Most dungeon locations are the same.";
                                                                                            //
 string_view gsLocGuaranteeNewDesc     = "Excludes the original location from the Gold\n"   //
                                         "Skulltula's available locations pool.\n"          //

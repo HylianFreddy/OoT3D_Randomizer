@@ -191,6 +191,12 @@ typedef enum {
 } ShuffleChestMinigameSetting;
 
 typedef enum {
+    SHUFFLEENEMYSOULS_OFF,
+    SHUFFLEENEMYSOULS_ALL,
+    SHUFFLEENEMYSOULS_BOSSES,
+} ShuffleEnemySoulsSetting;
+
+typedef enum {
     MAPSANDCOMPASSES_START_WITH,
     MAPSANDCOMPASSES_VANILLA,
     MAPSANDCOMPASSES_OWN_DUNGEON,
@@ -564,6 +570,7 @@ typedef struct {
     u8 sheikHints;
     u8 dampeHint;
     u8 skulltulaHints;
+    u8 fishingHints;
     u8 compassesShowReward;
     u8 compassesShowWotH;
     u8 mapsShowDungeonMode;

@@ -1586,6 +1586,11 @@ BeforeLoadGame_patch:
 AfterLoadGame_patch:
     b hook_AfterLoadGame
 
+.section .patch_FileSelect_CopyFile
+.global FileSelect_CopyFile_patch
+FileSelect_CopyFile_patch:
+    bl hook_FileSelect_CopyFile
+
 .section .patch_SaveGame
 .global .SaveGame_patch
 SaveGame_patch:

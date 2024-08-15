@@ -62,6 +62,7 @@
 #include "shabom.h"
 #include "anubis.h"
 #include "link_puppet.h"
+#include "fishing.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -73,12 +74,7 @@
 #define OBJECT_TRIFORCE 149
 
 typedef void (*TitleCard_Update_proc)(GlobalContext* globalCtx, TitleCardContext* titleCtx);
-#ifdef Version_EUR
-    #define TitleCard_Update_addr 0x47955C
-#else
-    #define TitleCard_Update_addr 0x47953C
-#endif
-#define TitleCard_Update ((TitleCard_Update_proc)TitleCard_Update_addr)
+#define TitleCard_Update ((TitleCard_Update_proc)GAME_ADDR(0x47953C))
 
 void Actor_Init() {
     gActorOverlayTable[0x0].initInfo->init    = PlayerActor_rInit;
@@ -158,6 +154,10 @@ void Actor_Init() {
     gActorOverlayTable[0xF1].initInfo->init    = ItemOcarina_rInit;
     gActorOverlayTable[0xF1].initInfo->destroy = ItemOcarina_rDestroy;
     gActorOverlayTable[0xF1].initInfo->draw    = ItemOcarina_rDraw;
+
+    gActorOverlayTable[0xFE].initInfo->init   = Fishing_rInit;
+    gActorOverlayTable[0xFE].initInfo->update = Fishing_rUpdateFish;
+    gActorOverlayTable[0xFE].initInfo->draw   = Fishing_rDrawFish;
 
     gActorOverlayTable[0xFF].initInfo->update = ObjOshihiki_rUpdate;
 
@@ -324,23 +324,26 @@ void HyperActors_UpdateAgain(Actor* thisx) {
     hyperActors_ExtraUpdate = 0;
 }
 
+s32 Actor_IsBoss(Actor* actor) {
+    return (actor->id == 0x28) ||                                           // Gohma
+           (actor->id == 0x27 || actor->id == 0x30) ||                      // King Dodongo + Fire Breath
+           (actor->id == 0xBA && actor->params == -1) ||                    // Barinade
+           (actor->id == 0x52 || actor->id == 0x67 || actor->id == 0x6D) || // Phantom Ganon + Horse + Lightning
+           (actor->id == 0x96 || actor->id == 0xA2 || actor->id == 0xAD) || // Volvagia + Rock Attack
+           (actor->id == 0xC4) ||                                           // Morpha
+           (actor->id == 0xE9 && actor->params == -1) ||                    // Bongo Bongo
+           (actor->id == 0xDC) ||                                           // Twinrova
+           (actor->id == 0xE8) ||                                           // Ganondorf
+           (actor->id == 0x17A);                                            // Ganon
+}
+
 void HyperActors_Main(Actor* thisx, GlobalContext* globalCtx) {
     if (!IsInGame() || thisx->update == NULL || (PLAYER != NULL && Player_InBlockingCsMode(globalCtx, PLAYER))) {
         return;
     }
 
     if (gSettingsContext.hyperBosses == ON) {
-        if ((thisx->id == 0x28) ||                                           // Gohma
-            (thisx->id == 0x27 || thisx->id == 0x30) ||                      // King Dodongo + Fire Breath
-            (thisx->id == 0xBA && thisx->params == -1) ||                    // Barinade
-            (thisx->id == 0x52 || thisx->id == 0x67 || thisx->id == 0x6D) || // Phantom Ganon + Horse + Lightning
-            (thisx->id == 0x96 || thisx->id == 0xA2 || thisx->id == 0xAD) || // Volvagia + Rock Attack
-            (thisx->id == 0xC4) ||                                           // Morpha
-            (thisx->id == 0xE9 && thisx->params == -1) ||                    // Bongo Bongo
-            (thisx->id == 0xDC) ||                                           // Twinrova
-            (thisx->id == 0xE8) ||                                           // Ganondorf
-            (thisx->id == 0x17A)) {                                          // Ganon
-
+        if (Actor_IsBoss(thisx)) {
             // Special case to update in order for Barinade and Bongo Bongo
             if (thisx->id == 0xBA || thisx->id == 0xE9) {
                 for (Actor* actor = gGlobalContext->actorCtx.actorList[ACTORTYPE_BOSS].first; actor != NULL;

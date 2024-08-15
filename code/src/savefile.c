@@ -634,8 +634,7 @@ void SaveFile_BorrowMask(s16 SI_ItemId) {
 }
 
 typedef s32 (*Inventory_ReplaceItem_proc)(GlobalContext* globalCtx, u16 oldItem, u16 newItem);
-#define Inventory_ReplaceItem_addr 0x316CEC
-#define Inventory_ReplaceItem ((Inventory_ReplaceItem_proc)Inventory_ReplaceItem_addr)
+#define Inventory_ReplaceItem ((Inventory_ReplaceItem_proc)GAME_ADDR(0x316CEC))
 
 u32 SaveFile_CheckForWeirdEggHatch(void) {
     // Force the egg into the child trade slot so that it can hatch
@@ -786,6 +785,12 @@ void SaveFile_SaveExtSaveData(u32 saveNumber) {
     extDataWriteFileDirectly(fsa, path, &gExtSaveData, 0, sizeof(gExtSaveData));
 
     extDataUnmount(fsa);
+}
+
+void SaveFile_BeforeCopy(s32 srcFileNum) {
+    // When the game writes the copied savefile, it calls SaveFile_SaveExtSaveData,
+    // so in order to properly copy the ExtData they first need to be loaded from the source savefile.
+    SaveFile_LoadExtSaveData(srcFileNum);
 }
 
 void SaveFile_EnforceHealthLimit(void) {

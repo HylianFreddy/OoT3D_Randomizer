@@ -360,6 +360,8 @@ bool GlitchEnabled(Option& glitchOption);
 /// @brief Checks if incompatible settings are selected and prints error message.
 /// @return True if settings are valid.
 bool ValidateSettings();
+/// Returns the full title id of the selected region.
+std::string TitleId();
 
 extern std::string seed;
 extern std::string version;
@@ -478,6 +480,7 @@ extern Option ToTAltarHints;
 extern Option GanonHints;
 extern Option DampeHint;
 extern Option SkulltulaHints;
+extern Option FishingHints;
 extern Option CompassesShowReward;
 extern Option CompassesShowWotH;
 extern Option MapsShowDungeonMode;
@@ -812,6 +815,7 @@ extern std::string finalChuTrailOuterColor;
 extern Option ColoredKeys;
 extern Option ColoredBossKeys;
 extern Option MirrorWorld;
+extern Option BetaSoldOut;
 
 extern Option ShuffleMusic;
 extern Option ShuffleBGM;
