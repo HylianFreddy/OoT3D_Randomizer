@@ -2261,6 +2261,9 @@ HandleTextControlCode_patch:
 CheckForTextControlCode_patch:
     bl hook_CheckForTextControlCode
 
+.section .patch_TitleLinkObject
+    .word 0xFFFF0014
+
 @ ----------------------------------
 @ ----------------------------------
 

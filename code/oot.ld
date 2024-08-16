@@ -1691,6 +1691,10 @@ SECTIONS
 		*(.patch_TycoonWalletSize)
 	}
 
+	.patch_TitleLinkObject 0x53CCF0 : {
+		*(.patch_TitleLinkObject)
+	}
+
 	. = 0x005C7000;
 	.text : {
 		__text_start = . ;
