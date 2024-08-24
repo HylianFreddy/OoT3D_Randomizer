@@ -13,6 +13,14 @@ u8 SeqTypeIsMovement(SeqType type) {
 }
 
 u32 SetSFX(u32 original) {
+    if (IsInGameOrBossChallenge() && PLAYER->stateFuncPtr == (void*)GAME_ADDR(0x492A3C) && // rolling
+        ((gExtSaveData.option_SilentRolls > 0 &&
+          (original == 0x10004EB || original == 0x100050B)) || // adult voice and child voice
+         (gExtSaveData.option_SilentRolls == 2 &&
+          (original == 0x100003D || original == 0x10000E2))) // other sound effects
+    ) {
+        return SEQ_AUDIO_BLANK;
+    }
     // Hack for hookshot as child (adult voice -> child voice)
     if (original == 0x100050D && gSaveContext.linkAge == 1) {
         original = 0x100050B;

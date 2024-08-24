@@ -105,6 +105,15 @@ void InitOptions(void) {
     strcpy(options[opNum].alternatives[altNum++], "On");
     strcpy(options[opNum].description, "");
     options[opNum++].optionPointer = &gExtSaveData.option_HyperActors;
+
+    // Silent Rolls
+    altNum = 0;
+    strcpy(options[opNum].name, "Silent Rolls");
+    strcpy(options[opNum].alternatives[altNum++], "Off");
+    strcpy(options[opNum].alternatives[altNum++], "Mute voice");
+    strcpy(options[opNum].alternatives[altNum++], "Mute all");
+    strcpy(options[opNum].description, "");
+    options[opNum++].optionPointer = &gExtSaveData.option_SilentRolls;
 }
 
 void Gfx_DrawOptions(void) {
