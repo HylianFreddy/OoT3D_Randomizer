@@ -323,7 +323,16 @@ static void ReplaceMaxItem(const ItemKey itemToReplace, int max) {
 }
 
 void PlaceJunkInExcludedLocation(const LocationKey il) {
-    // place a non-advancement item in this location
+    // place a junk item in this location
+    for (size_t i = 0; i < ItemPool.size(); i++) {
+        if (ItemTable(ItemPool[i]).IsJunk()) {
+            PlaceItemInLocation(il, ItemPool[i]);
+            ItemPool.erase(ItemPool.begin() + i);
+            return;
+        }
+    }
+    printf("WARNING: No TRUE Junk to Place!!!\n");
+    // if no junk item was found, try placing a non-advancement item
     for (size_t i = 0; i < ItemPool.size(); i++) {
         if (!ItemTable(ItemPool[i]).IsAdvancement()) {
             PlaceItemInLocation(il, ItemPool[i]);
