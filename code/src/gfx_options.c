@@ -38,7 +38,8 @@ void InitOptions(void) {
     altNum = 0;
     strcpy(options[opNum].name, "Play Sound Effects");
     strcpy(options[opNum].alternatives[altNum++], "Off");
-    strcpy(options[opNum].alternatives[altNum++], "On");
+    strcpy(options[opNum].alternatives[altNum++], "On (Vanilla)");
+    strcpy(options[opNum].alternatives[altNum++], "On (Randomized)");
     strcpy(options[opNum].description, "Toggles the sound effects.");
     options[opNum++].optionPointer = &gExtSaveData.option_EnableSFX;
 
@@ -114,6 +115,14 @@ void InitOptions(void) {
     strcpy(options[opNum].alternatives[altNum++], "Mute all");
     strcpy(options[opNum].description, "");
     options[opNum++].optionPointer = &gExtSaveData.option_SilentRolls;
+
+    // Show Spoilers
+    altNum = 0;
+    strcpy(options[opNum].name, "Spoilers");
+    strcpy(options[opNum].alternatives[altNum++], "Hide");
+    strcpy(options[opNum].alternatives[altNum++], "Show");
+    strcpy(options[opNum].description, "");
+    options[opNum++].optionPointer = &gExtSaveData.option_Spoilers;
 }
 
 void Gfx_DrawOptions(void) {

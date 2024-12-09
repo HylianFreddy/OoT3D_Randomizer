@@ -969,6 +969,14 @@ static void Gfx_ShowMenu(void) {
             break;
         }
 
+        if (gExtSaveData.option_Spoilers) {
+            gSettingsContext.ingameSpoilers = 1;
+            menu_draw_funcs[PAGE_SPHERES]   = Gfx_DrawSpoilerData;
+        } else {
+            gSettingsContext.ingameSpoilers = 0;
+            menu_draw_funcs[PAGE_SPHERES]   = NULL;
+        }
+
         handledInput = false;
         // Controls for spoiler log and all-items pages come first, as the user may have chosen
         // one of the directional buttons as their menu open/close button and we need to use them
