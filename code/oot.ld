@@ -213,7 +213,7 @@ SECTIONS
 	}
 
 	.patch_MaskSalesmanBorrowMask 0x16D148 : {
-	    *(patch_MaskSalesmanBorrowMask)
+	    *(.patch_MaskSalesmanBorrowMask)
 	}
 
 	.patch_KingZoraIgnoreSapphire 0x1736B8 : {
@@ -941,7 +941,7 @@ SECTIONS
 	}
 
 	.patch_MaskSalesmanCheckNoMaskOne 0x372B64 : {
-	    *(.patch_MaskSalesmanCheckNoMask)
+	    *(.patch_MaskSalesmanCheckNoMaskOne)
 	}
 
 	.patch_MaskSalesmanCheckNoMaskTwo 0x372B70 : {
@@ -1698,11 +1698,15 @@ SECTIONS
 	. = 0x005C7000;
 	.text : {
 		__text_start = . ;
-		*(.text)
-		*(.text.*)
-		*(.rodata)
-		*(.data)
-		*(.bss)
+		*(.text*)
+		*(.rodata*)
+		*(.data*)
+		*(.bss*)
+		*(.init*)
+		*(.fini*)
+		*(.eh_frame*)
+		*(.init_array*)
+		*(.fini_array*)
 		*(COMMON)
 		rCustomMessages = . ;
 		__text_end  = . ;

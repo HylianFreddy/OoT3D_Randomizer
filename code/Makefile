@@ -166,9 +166,7 @@ all: $(BUILD)
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
-	@if ! python3 patch.py $(OUTPUT).elf $(REGION) $(debug); then \
-		python patch.py $(OUTPUT).elf $(REGION) $(debug); \
-	fi
+	@python patch.py $(OUTPUT).elf $(REGION) $(debug);
 
 #---------------------------------------------------------------------------------
 clean:
