@@ -169,10 +169,6 @@ $(BUILD):
 	@if ! python3 patch.py $(OUTPUT).elf $(REGION) $(debug); then \
 		python patch.py $(OUTPUT).elf $(REGION) $(debug); \
 	fi
-	@if [ $(USA) == $(REGION) ]; then \
-		cp -v basecode_USA.ips "C:/Users/feder/AppData/Roaming/Citra/load/mods/0004000000033500/code.ips"; \
-		echo; \
-	fi
 
 #---------------------------------------------------------------------------------
 clean:

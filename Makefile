@@ -172,18 +172,14 @@ ifneq ($(ROMFS),)
 	export _3DSXFLAGS += --romfs=$(CURDIR)/$(ROMFS)
 endif
 
-.PHONY: all clean delete3DSX create_basecode move_3DSX
+.PHONY: all clean delete3DSX create_basecode
 
 #---------------------------------------------------------------------------------
 all: delete3DSX create_basecode $(BUILD) $(GFXBUILD) $(DEPSDIR) $(ROMFS_T3XFILES) $(T3XHFILES)
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
-	@$(MAKE) --no-print-directory -f $(CURDIR)/Makefile move_3DSX
 
 delete3DSX:
 	@rm -fr $(TARGET).3dsx
-
-move_3DSX:
-	@cp -v $(TARGET).3dsx "C:/Users/feder/Desktop/Emulatori/3DS Roms/OoT3D_Randomizer.3dsx"
 
 create_basecode:
 ifeq ($(app_only), 0)
