@@ -19,6 +19,9 @@ before_GlobalContext_Update_patch:
 after_GlobalContext_Update_patch:
     b hook_after_GlobalContext_Update
 
+.section .patch_DrawScreen
+    bl hook_DrawScreen
+
 .section .patch_Gfx_Update
 .global GfX_Update_patch
 GfX_Update_patch:
