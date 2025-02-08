@@ -489,3 +489,22 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
 
     return 1; // continue as normal
 }
+
+#include "objects.h"
+void Actor_OverrideSpawn(u16* actorId, u16* params) {
+    // CitraPrint("%4X %4X", *actorId, *params);
+    if (*actorId == 0xE && *params == 0xFF00) {
+        // CitraPrint("%4X %4X", *actorId, *params);
+        // CitraPrint("%X", Object_GetIndex(&gGlobalContext->objectCtx, 3));
+        // CitraPrint("%X", Object_IsLoaded(&gGlobalContext->objectCtx, 3));
+        if (ExtendedObject_GetIndex(&gGlobalContext->objectCtx, 0x9E) < 0) {
+            ExtendedObject_Spawn(&gGlobalContext->objectCtx, 0x9E);
+        }
+        // svcSleepThread(1000 * 1000 * 3000LL);
+        // if (ExtendedObject_GetIndex(&gGlobalContext->objectCtx, 3) < 0) {
+        //     ExtendedObject_Spawn(&gGlobalContext->objectCtx, 3);
+        // }
+        *actorId = 0x99;
+        *params  = 0;
+    }
+}

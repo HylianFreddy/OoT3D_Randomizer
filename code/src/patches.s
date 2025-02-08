@@ -2267,6 +2267,30 @@ CheckForTextControlCode_patch:
 .section .patch_TitleLinkObject
     .word 0xFFFF0014
 
+.section .patch_Room_StartTransition
+    bl hook_Room_StartTransition
+
+.section .patch_Actor_Spawn
+    bl hook_Actor_Spawn
+
+.section .patch_ZarInfo_GetObjectStatus_One
+    bl hook_ZarInfo_GetObjectStatus
+
+.section .patch_ZarInfo_GetObjectStatus_Two
+    bl hook_ZarInfo_GetObjectStatus
+
+.section .patch_ZarInfo_GetObjectStatus_Three
+    bl hook_ZarInfo_GetObjectStatus
+
+.section .patch_ZarInfo_GetObjectStatus_Four
+    bl hook_ZarInfo_GetObjectStatus
+
+.section .patch_Object_GetSlot
+    b hook_Object_GetSlot
+
+.section .patch_Object_IsLoaded
+    b hook_Object_IsLoaded
+
 @ ----------------------------------
 @ ----------------------------------
 

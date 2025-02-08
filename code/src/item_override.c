@@ -192,9 +192,9 @@ ItemOverride ItemOverride_Lookup(Actor* actor, u8 scene, u8 itemId) {
             .type = OVR_COLLECTABLE, // random value for non-zero key
         },
         .value = {
-            .itemId = GI_ARROW_LIGHT,
+            .itemId = GI_ICE_TRAP,
             .player = 0,
-            .looksLikeItemId = 0,
+            .looksLikeItemId = GI_ARROW_LIGHT,
         },
     };
 
@@ -239,7 +239,7 @@ void ItemOverride_ActivateTest() {
             .type = OVR_COLLECTABLE, // random value for non-zero key
         },
         .value = {
-            .itemId = GI_ARROW_LIGHT,
+            .itemId = GI_ICE_TRAP,
         }
     };
 

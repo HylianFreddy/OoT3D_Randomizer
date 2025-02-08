@@ -844,6 +844,10 @@ SECTIONS
 		*(.patch_ChestGetIceTrapObjectStatus)
 	}
 
+	.patch_Room_StartTransition 0x33B6B0 : {
+		*(.patch_Room_StartTransition)
+	}
+
 	.patch_BiggoronDayCheck 0x33DCC0 : {
 		*(.patch_BiggoronDayCheck)
 	}
@@ -876,12 +880,24 @@ SECTIONS
 		*(.patch_FWLoadSet)
 	}
 
+	.patch_ZarInfo_GetObjectStatus_Three 0x34FE68 : {
+		*(.patch_ZarInfo_GetObjectStatus_Three)
+	}
+
 	.patch_FWGetSet 0x3519CC : {
 		*(.patch_FWGetSet)
 	}
 
 	.patch_ApplyDamageMultiplier 0x352DC0 : {
 		*(.patch_ApplyDamageMultiplier)
+	}
+
+	.patch_ZarInfo_GetObjectStatus_Two 0x352F28 : {
+		*(.patch_ZarInfo_GetObjectStatus_Two)
+	} /* example actor: Flare Dancer */
+
+	.patch_ZarInfo_GetObjectStatus_Four 0x353CE4 : {
+		*(.patch_ZarInfo_GetObjectStatus_Four)
 	}
 
 	.patch_FastChests 0x354CD4 : {
@@ -916,6 +932,10 @@ SECTIONS
 		*(.patch_ForceTrailEffectUpdate)
 	} /*EffectBlure_AddVertex*/
 
+	.patch_Object_GetSlot 0x363CB4 : {
+		*(.patch_Object_GetSlot)
+	}
+
 	.patch_ModelSpawnGetObjectStatus 0x36A96C : {
 		*(.patch_ModelSpawnGetObjectStatus)
 	}
@@ -946,6 +966,18 @@ SECTIONS
 
 	.patch_MaskSalesmanCheckNoMaskTwo 0x372B70 : {
 	    *(.patch_MaskSalesmanCheckNoMaskTwo)
+	}
+
+	.patch_ZarInfo_GetObjectStatus_One 0x372F7C : {
+	    *(.patch_ZarInfo_GetObjectStatus_One)
+	} /* example actor: Octorok */
+
+	.patch_Object_IsLoaded 0x373074 : {
+	    *(.patch_Object_IsLoaded)
+	}
+
+	.patch_Actor_Spawn 0x3738D4 : {
+	    *(.patch_Actor_Spawn)
 	}
 
 	.patch_ConvertBombDropTwo 0x3747A4 : {

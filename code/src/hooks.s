@@ -2148,6 +2148,46 @@ hook_CheckForTextControlCode:
     pop {r1-r12, lr}
     bx lr
 
+.global hook_Room_StartTransition
+hook_Room_StartTransition:
+    cpy r5,r0
+    push {r0-r12, lr}
+    pop {r0-r12, lr}
+    bx lr
+
+.global hook_Actor_Spawn
+hook_Actor_Spawn:
+    cpy r7,r0
+    push {r0-r12, lr}
+    add r0,sp,#0x8  @ actorId
+    add r1,sp,#0x74 @ params
+    bl Actor_OverrideSpawn
+    pop {r0-r12, lr}
+    bx lr
+
+.global hook_ZarInfo_GetObjectStatus
+hook_ZarInfo_GetObjectStatus:
+    push {r1-r12, lr}
+    @ objBankIndex already in r0
+    bl ExtendedObject_GetStatus_Patch
+    pop {r1-r12, lr}
+    bx lr
+
+.global hook_Object_GetSlot
+hook_Object_GetSlot:
+    push {r1-r12, lr}
+    cpy r0,r1 @ objectId
+    bl ExtendedObject_GetIndex_Patch
+    pop {r1-r12, lr}
+    bx lr
+
+.global hook_Object_IsLoaded
+hook_Object_IsLoaded:
+    push {r1-r12, lr}
+    bl ExtendedObject_IsLoaded_Patch
+    pop {r1-r12, lr}
+    bx lr
+
 @ ----------------------------------
 @ ----------------------------------
 
