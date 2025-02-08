@@ -2169,22 +2169,22 @@ hook_Actor_Spawn:
 hook_ZarInfo_GetObjectStatus:
     push {r1-r12, lr}
     @ objBankIndex already in r0
-    bl ExtendedObject_GetStatus_Patch
+    bl ExtendedObject_GetStatus_FromBankIndex
     pop {r1-r12, lr}
     bx lr
 
-.global hook_Object_GetSlot
-hook_Object_GetSlot:
+.global hook_Object_GetIndex
+hook_Object_GetIndex:
     push {r1-r12, lr}
     cpy r0,r1 @ objectId
-    bl ExtendedObject_GetIndex_Patch
+    bl ExtendedObject_GetIndex
     pop {r1-r12, lr}
     bx lr
 
 .global hook_Object_IsLoaded
 hook_Object_IsLoaded:
     push {r1-r12, lr}
-    bl ExtendedObject_IsLoaded_Patch
+    bl ExtendedObject_IsLoaded
     pop {r1-r12, lr}
     bx lr
 

@@ -67,8 +67,8 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
 
     Triforce_HandleCreditsWarp();
 
-    u32 idx = Object_GetIndex(&gGlobalContext->objectCtx, 0x3);
-    CitraPrint("Idx: %X; Ext: %s", idx, idx >= OBJECT_EXCHANGE_BANK_MAX ? "Yes" : "No");
+    // u32 idx = Object_GetIndex(&gGlobalContext->objectCtx, 0x3);
+    // CitraPrint("Idx: %X; Ext: %s", idx, idx >= OBJECT_EXCHANGE_BANK_MAX ? "Yes" : "No");
 }
 
 void autoLoadSaveFile() {

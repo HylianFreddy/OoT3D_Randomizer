@@ -932,8 +932,8 @@ SECTIONS
 		*(.patch_ForceTrailEffectUpdate)
 	} /*EffectBlure_AddVertex*/
 
-	.patch_Object_GetSlot 0x363CB4 : {
-		*(.patch_Object_GetSlot)
+	.patch_Object_GetIndex 0x363CB4 : {
+		*(.patch_Object_GetIndex)
 	}
 
 	.patch_ModelSpawnGetObjectStatus 0x36A96C : {
@@ -1390,7 +1390,7 @@ SECTIONS
 		*(.patch_GameplayDestroy)
 	}
 
-	.patch_ExtendedObjectClear 0x44E754 + region_offset : {
+	.patch_ExtendedObjectClear 0x44E758 + region_offset : {
 		*(.patch_ExtendedObjectClear)
 	}
 

@@ -287,8 +287,7 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
         item->super.actionFunc2 = ShopsanityItem_InitializeRegularShopItem;
         item->getItemId         = override.value.itemId;
 
-        objBankIndex =
-            ExtendedObject_GetIndex(&globalCtx->objectCtx, EnGirlA_ShopItemEntries[override.value.itemId].objId);
+        objBankIndex = Object_GetIndex(&globalCtx->objectCtx, EnGirlA_ShopItemEntries[override.value.itemId].objId);
         if (objBankIndex < 0) {
             objBankIndex =
                 ExtendedObject_Spawn(&globalCtx->objectCtx, EnGirlA_ShopItemEntries[override.value.itemId].objId);
@@ -313,7 +312,7 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
         }
         item->itemRow = ItemTable_GetItemRow(id);
 
-        objBankIndex = ExtendedObject_GetIndex(&globalCtx->objectCtx, item->itemRow->objectId);
+        objBankIndex = Object_GetIndex(&globalCtx->objectCtx, item->itemRow->objectId);
         if (objBankIndex < 0) {
             objBankIndex = ExtendedObject_Spawn(&globalCtx->objectCtx, item->itemRow->objectId);
         }

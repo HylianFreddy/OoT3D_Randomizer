@@ -175,7 +175,7 @@ void Model_LookupByOverride(Model* model, ItemOverride override) {
 }
 
 void Model_GetObjectBankIndex(Model* model, Actor* actor, GlobalContext* globalCtx) {
-    s32 objectBankIdx = ExtendedObject_GetIndex(&globalCtx->objectCtx, model->itemRow->objectId);
+    s32 objectBankIdx = Object_GetIndex(&globalCtx->objectCtx, model->itemRow->objectId);
     if (objectBankIdx < 0) {
         objectBankIdx = ExtendedObject_Spawn(&globalCtx->objectCtx, model->itemRow->objectId);
     }
