@@ -28,6 +28,17 @@ void EnBox_rInit(Actor* thisx, GlobalContext* globalCtx) {
     EnBox_Init(thisx, globalCtx);
     sLastTrapChest = 0;
 
+    ItemOverride thisOverride = ItemOverride_Lookup(thisx, globalCtx->sceneNum, 0);
+    if (thisOverride.value.itemId == GI_ICE_TRAP) {
+        // Make sure zelda_dangeon_keep and object_fz are loaded
+        if (Object_GetIndex(&gGlobalContext->objectCtx, 0x3) < 0) {
+            ExtendedObject_Spawn(0x3);
+        }
+        if (Object_GetIndex(&gGlobalContext->objectCtx, 0x114) < 0) {
+            ExtendedObject_Spawn(0x114);
+        }
+    }
+
     if ((gSettingsContext.chestAppearance != CHESTAPPEARANCE_VANILLA)) {
         // Set mipmap count to 1 for both chest models, to avoid issues with custom textures
         void** cmbMan             = ZAR_GetCMBByIndex(((EnBox*)thisx)->zarInfo, 1);
