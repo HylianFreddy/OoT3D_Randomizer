@@ -188,22 +188,6 @@ hook_GetToken:
     pop {r0-r12, lr}
     bx lr
 
-.global hook_ModelSpawnGetObjectStatus
-hook_ModelSpawnGetObjectStatus:
-    push {r1-r12, lr}
-    cpy r0,r1
-    bl ExtendedObject_FindStatus
-    pop {r1-r12, lr}
-    bx lr
-
-.global hook_ChestGetIceTrapObjectStatus
-hook_ChestGetIceTrapObjectStatus:
-    push {r1-r12, lr}
-    mov r0,#0x3
-    bl ExtendedObject_FindStatus
-    pop {r1-r12, lr}
-    bx lr
-
 .global hook_PoeCollectorCheckPoints
 hook_PoeCollectorCheckPoints:
     push {r0-r12, lr}
@@ -2165,11 +2149,20 @@ hook_Actor_Spawn:
     pop {r0-r12, lr}
     bx lr
 
-.global hook_ZarInfo_GetObjectStatus
-hook_ZarInfo_GetObjectStatus:
+.global hook_GetObjectStatus_Generic
+hook_GetObjectStatus_Generic:
     push {r1-r12, lr}
     @ r0 = bankIndex
     bl ExtendedObject_GetStatus
+    pop {r1-r12, lr}
+    bx lr
+
+.global hook_GetObjectStatus_33AB24
+hook_GetObjectStatus_33AB24:
+    push {r1-r12, lr}
+    ldr r0,[r4,#0x4]
+    ldr r0,[r0,r5,lsl #0x3] @ objectId
+    bl ExtendedObject_FindStatus
     pop {r1-r12, lr}
     bx lr
 

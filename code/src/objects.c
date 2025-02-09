@@ -25,7 +25,8 @@ s32 ExtendedObject_GetIndex(s16 objectId) {
 }
 
 ObjectStatus* ExtendedObject_GetStatus(s16 bankIndex) {
-    // CitraPrint("ExtendedObject_GetStatus: %X", bankIndex);
+    // CitraPrint("ExtendedObject_GetStatus: %X %X", bankIndex,
+    //            rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX].id);
     if (bankIndex >= OBJECT_EXCHANGE_BANK_MAX) {
         return &rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX];
     }

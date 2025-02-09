@@ -317,16 +317,6 @@ RainbowBridge_patch:
     beq 0x3E7D70
     b 0x3E7D34
 
-.section .patch_ModelSpawnGetObjectStatus
-.global ModelSpawnGetObjectStatus_patch
-ModelSpawnGetObjectStatus_patch:
-    bl hook_ModelSpawnGetObjectStatus
-
-.section .patch_ChestGetIceTrapObjectStatus
-.global ChestGetIceTrapObjectStatus_patch
-ChestGetIceTrapObjectStatus_patch:
-    bl hook_ChestGetIceTrapObjectStatus
-
 .section .patch_ExtendedObjectClear
 .global ExtendedObjectClear_patch
 ExtendedObjectClear_patch:
@@ -2273,17 +2263,23 @@ CheckForTextControlCode_patch:
 .section .patch_Actor_Spawn
     bl hook_Actor_Spawn
 
-.section .patch_ZarInfo_GetObjectStatus_One
-    bl hook_ZarInfo_GetObjectStatus
+.section .patch_GetObjectStatus_33AB24
+    bl hook_GetObjectStatus_33AB24
 
-.section .patch_ZarInfo_GetObjectStatus_Two
-    bl hook_ZarInfo_GetObjectStatus
+.section .patch_GetObjectStatus_34FE68
+    bl hook_GetObjectStatus_Generic
 
-.section .patch_ZarInfo_GetObjectStatus_Three
-    bl hook_ZarInfo_GetObjectStatus
+.section .patch_GetObjectStatus_352F28
+    bl hook_GetObjectStatus_Generic
 
-.section .patch_ZarInfo_GetObjectStatus_Four
-    bl hook_ZarInfo_GetObjectStatus
+.section .patch_GetObjectStatus_353CE4
+    bl hook_GetObjectStatus_Generic
+
+.section .patch_GetObjectStatus_36A96C
+    bl hook_GetObjectStatus_Generic
+
+.section .patch_GetObjectStatus_372F7C
+    bl hook_GetObjectStatus_Generic
 
 .section .patch_ExtendObjectGetIndex
     b hook_ExtendObjectGetIndex

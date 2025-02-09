@@ -840,9 +840,9 @@ SECTIONS
 		*(.patch_LostWoodsBridgeMusic)
 	}
 
-	.patch_ChestGetIceTrapObjectStatus 0x33AB24 : {
-		*(.patch_ChestGetIceTrapObjectStatus)
-	}
+	.patch_GetObjectStatus_33AB24 0x33AB24 : {
+		*(.patch_GetObjectStatus_33AB24)
+	} /* Used for: chest ice trap smoke effect */
 
 	.patch_Room_StartTransition 0x33B6B0 : {
 		*(.patch_Room_StartTransition)
@@ -880,8 +880,8 @@ SECTIONS
 		*(.patch_FWLoadSet)
 	}
 
-	.patch_ZarInfo_GetObjectStatus_Three 0x34FE68 : {
-		*(.patch_ZarInfo_GetObjectStatus_Three)
+	.patch_GetObjectStatus_34FE68 0x34FE68 : {
+		*(.patch_GetObjectStatus_34FE68)
 	}
 
 	.patch_FWGetSet 0x3519CC : {
@@ -892,12 +892,12 @@ SECTIONS
 		*(.patch_ApplyDamageMultiplier)
 	}
 
-	.patch_ZarInfo_GetObjectStatus_Two 0x352F28 : {
-		*(.patch_ZarInfo_GetObjectStatus_Two)
-	} /* example actor: Flare Dancer */
+	.patch_GetObjectStatus_352F28 0x352F28 : {
+		*(.patch_GetObjectStatus_352F28)
+	} /* Used for: Flare Dancer */
 
-	.patch_ZarInfo_GetObjectStatus_Four 0x353CE4 : {
-		*(.patch_ZarInfo_GetObjectStatus_Four)
+	.patch_GetObjectStatus_353CE4 0x353CE4 : {
+		*(.patch_GetObjectStatus_353CE4)
 	}
 
 	.patch_FastChests 0x354CD4 : {
@@ -936,9 +936,9 @@ SECTIONS
 		*(.patch_ExtendObjectGetIndex)
 	}
 
-	.patch_ModelSpawnGetObjectStatus 0x36A96C : {
-		*(.patch_ModelSpawnGetObjectStatus)
-	}
+	.patch_GetObjectStatus_36A96C 0x36A96C : {
+		*(.patch_GetObjectStatus_36A96C)
+	} /* Used for: freestanding item models */
 
 	.patch_IgnoreMaskReaction 0x36BBC4 : {
 		*(.patch_IgnoreMaskReaction)
@@ -968,9 +968,9 @@ SECTIONS
 	    *(.patch_MaskSalesmanCheckNoMaskTwo)
 	}
 
-	.patch_ZarInfo_GetObjectStatus_One 0x372F7C : {
-	    *(.patch_ZarInfo_GetObjectStatus_One)
-	} /* example actor: Octorok */
+	.patch_GetObjectStatus_372F7C 0x372F7C : {
+	    *(.patch_GetObjectStatus_372F7C)
+	} /* Used for: Octorok */
 
 	.patch_OverrideObjectIsLoaded 0x373074 : {
 	    *(.patch_OverrideObjectIsLoaded)
