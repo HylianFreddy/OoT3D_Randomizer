@@ -491,20 +491,16 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
 }
 
 #include "objects.h"
+EnemySoulId EnemySouls_GetSoulId(s16 actorId);
 void Actor_OverrideSpawn(u16* actorId, u16* params) {
-    // CitraPrint("%4X %4X", *actorId, *params);
-    if (*actorId == 0xE && *params == 0xFF00) {
-        // CitraPrint("%4X %4X", *actorId, *params);
-        // CitraPrint("%X", Object_GetIndex(&gGlobalContext->objectCtx, 3));
-        // CitraPrint("%X", Object_IsLoaded(&gGlobalContext->objectCtx, 3));
-        if (Object_GetIndex(&gGlobalContext->objectCtx, 0x9E) < 0) {
-            ExtendedObject_Spawn(0x9E);
+    CitraPrint("%4X %4X", *actorId, *params);
+    // octorok: *actorId == 0xE && *params == 0xFF00
+    // flare dancer: *actorId == 0x99 && *params == 0, obj 0x9E
+    if (EnemySouls_GetSoulId(*actorId) != SOUL_NONE) {
+        if (Object_GetIndex(&gGlobalContext->objectCtx, 0x16) < 0) {
+            ExtendedObject_Spawn(0x16);
         }
-        // svcSleepThread(1000 * 1000 * 3000LL);
-        // if (Object_GetIndex(&gGlobalContext->objectCtx, 0x3) < 0) {
-        //     ExtendedObject_Spawn(0x3);
-        // }
-        *actorId = 0x99;
-        *params  = 0;
+        *actorId = 0x1B;
+        *params  = 0xFFFE;
     }
 }
