@@ -2285,11 +2285,11 @@ CheckForTextControlCode_patch:
 .section .patch_ZarInfo_GetObjectStatus_Four
     bl hook_ZarInfo_GetObjectStatus
 
-.section .patch_Object_GetIndex
-    b hook_Object_GetIndex
+.section .patch_ExtendObjectGetIndex
+    b hook_ExtendObjectGetIndex
 
-.section .patch_Object_IsLoaded
-    b hook_Object_IsLoaded
+.section .patch_OverrideObjectIsLoaded
+    b hook_OverrideObjectIsLoaded
 
 @ ----------------------------------
 @ ----------------------------------

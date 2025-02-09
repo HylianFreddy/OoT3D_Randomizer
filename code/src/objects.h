@@ -9,8 +9,6 @@ typedef s32 (*Object_proc)(ObjectContext* objectCtx, s16 objectId);
 
 #define Object_GetIndex ((Object_proc)GAME_ADDR(0x363C10))
 
-#define Object_IsLoaded ((Object_proc)GAME_ADDR(0x373074)) // For Object_IsLoaded, second param is bankIndex
-
 typedef void (*Object_UpdateBank_proc)(ObjectContext* objectCtx);
 #define Object_UpdateBank ((Object_UpdateBank_proc)GAME_ADDR(0x2E4EA0))
 
@@ -29,10 +27,14 @@ typedef ObjectContext ExtendedObjectContext;
 
 extern ExtendedObjectContext rExtendedObjectCtx;
 
-s32 ExtendedObject_Spawn(ObjectContext* objectCtx, s16 objectId);
-ObjectStatus* ExtendedObject_GetStatus(s16 objectId);
-s32 ExtendedObject_IsLoaded(ObjectContext* objectCtx, s16 bankIndex);
-void ExtendedObject_Clear(GlobalContext* globalCtx, ObjectContext* objectCtx);
-void* ExtendedObject_GetCMABByIndex(s16 objectId, u32 objectAnimIdx);
+// Find an ObjectStatus given the objectId.
+ObjectStatus* Object_FindStatus(ObjectContext* objectCtx, s16 objectId);
+// Check if the object in the `bankIndex` slot is loaded.
+s32 Object_IsLoaded(ObjectContext* objectCtx, s16 bankIndex);
+// Get the CMAB manager from this object.
+void* Object_GetCMABByIndex(s16 objectId, u32 objectAnimIdx);
+
+// Spawn a new object in the randomizer's extended object context.
+s32 ExtendedObject_Spawn(s16 objectId);
 
 #endif //_OBJECTS_H_

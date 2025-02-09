@@ -498,11 +498,11 @@ void Actor_OverrideSpawn(u16* actorId, u16* params) {
         // CitraPrint("%X", Object_GetIndex(&gGlobalContext->objectCtx, 3));
         // CitraPrint("%X", Object_IsLoaded(&gGlobalContext->objectCtx, 3));
         if (Object_GetIndex(&gGlobalContext->objectCtx, 0x9E) < 0) {
-            ExtendedObject_Spawn(&gGlobalContext->objectCtx, 0x9E);
+            ExtendedObject_Spawn(0x9E);
         }
         // svcSleepThread(1000 * 1000 * 3000LL);
-        // if (Object_GetIndex(&gGlobalContext->objectCtx, 3) < 0) {
-        //     ExtendedObject_Spawn(&gGlobalContext->objectCtx, 3);
+        // if (Object_GetIndex(&gGlobalContext->objectCtx, 0x3) < 0) {
+        //     ExtendedObject_Spawn(0x3);
         // }
         *actorId = 0x99;
         *params  = 0;

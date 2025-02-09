@@ -175,7 +175,7 @@ void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalC
     DeleteModel_At(&item->model2);
 
     // edit the cmbs for custom models
-    ObjectStatus* obj = ExtendedObject_GetStatus(objectId);
+    ObjectStatus* obj = Object_FindStatus(&gGlobalContext->objectCtx, objectId);
     if (obj != NULL) {
         void* ZARBuf = obj->zarInfo.buf;
         CustomModels_EditItemCMB(ZARBuf, objectId, special);
@@ -189,7 +189,7 @@ void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalC
     CustomModels_ApplyItemCMAB(item->model, objectId, special);
 
     if (cmabIdx >= 0) {
-        void* cmabMan = ExtendedObject_GetCMABByIndex(objectId, cmabIdx);
+        void* cmabMan = Object_GetCMABByIndex(objectId, cmabIdx);
         TexAnim_Spawn(item->model->unk_0C, cmabMan);
         item->model->unk_0C->animSpeed = 2.0f;
         item->model->unk_0C->animMode  = 1;
@@ -198,7 +198,7 @@ void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalC
     if (objModelIdx2 >= 0) {
         item->model2 = SkeletonAnimationModel_Spawn(&item->actor, globalCtx, objectId, objModelIdx2);
         if (cmabIdx2 >= 0) {
-            void* cmabMan = ExtendedObject_GetCMABByIndex(objectId, cmabIdx2);
+            void* cmabMan = Object_GetCMABByIndex(objectId, cmabIdx2);
             TexAnim_Spawn(item->model2->unk_0C, cmabMan);
             item->model2->unk_0C->animSpeed = 2.0f;
             item->model2->unk_0C->animMode  = 1;
@@ -210,7 +210,7 @@ void ShopsanityItem_InitializeItem(EnGirlA* item, GlobalContext* globalCtx) {
     ShopsanityItem* shopItem = (ShopsanityItem*)item;
 
     if (Object_IsLoaded(&globalCtx->objectCtx, item->objBankIndex) &&
-        ExtendedObject_IsLoaded(&globalCtx->objectCtx, shopItem->rObjBankIndex)) {
+        Object_IsLoaded(&globalCtx->objectCtx, shopItem->rObjBankIndex)) {
         EnGirlA_InitializeItemAction(item, globalCtx);
         ShopsanityItem_ResetModels(shopItem, globalCtx, shopItem->itemRow->objectId, shopItem->itemRow->objectModelIdx,
                                    shopItem->itemRow->objectModelIdx2, shopItem->itemRow->cmabIndex,
@@ -234,7 +234,7 @@ void ShopsanityItem_InitializeRegularShopItem(EnGirlA* item, GlobalContext* glob
     ShopItemEntry* shopItemEntry = &EnGirlA_ShopItemEntries[shopItem->getItemId];
 
     if (Object_IsLoaded(&globalCtx->objectCtx, item->objBankIndex) &&
-        ExtendedObject_IsLoaded(&globalCtx->objectCtx, shopItem->rObjBankIndex)) {
+        Object_IsLoaded(&globalCtx->objectCtx, shopItem->rObjBankIndex)) {
         EnGirlA_InitializeItemAction(item, globalCtx);
         ShopsanityItem_ResetModels(shopItem, globalCtx, shopItemEntry->objId, shopItemEntry->objModelIdx,
                                    shopItemEntry->objModelIdx2, shopItemEntry->cmabIndex, shopItemEntry->cmabIndex2,
@@ -289,8 +289,7 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
 
         objBankIndex = Object_GetIndex(&globalCtx->objectCtx, EnGirlA_ShopItemEntries[override.value.itemId].objId);
         if (objBankIndex < 0) {
-            objBankIndex =
-                ExtendedObject_Spawn(&globalCtx->objectCtx, EnGirlA_ShopItemEntries[override.value.itemId].objId);
+            objBankIndex = ExtendedObject_Spawn(EnGirlA_ShopItemEntries[override.value.itemId].objId);
         }
         item->rObjBankIndex = objBankIndex;
     } else {
@@ -314,7 +313,7 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
 
         objBankIndex = Object_GetIndex(&globalCtx->objectCtx, item->itemRow->objectId);
         if (objBankIndex < 0) {
-            objBankIndex = ExtendedObject_Spawn(&globalCtx->objectCtx, item->itemRow->objectId);
+            objBankIndex = ExtendedObject_Spawn(item->itemRow->objectId);
         }
         item->rObjBankIndex = objBankIndex;
     }

@@ -96,7 +96,7 @@ void IceTrap_Give(void) {
         IceTrap_InitTypes();
 
     if (cooldown == 0 && pendingFreezes &&
-        ExtendedObject_IsLoaded(&gGlobalContext->objectCtx, Object_GetIndex(&gGlobalContext->objectCtx, 0x3))) {
+        Object_IsLoaded(&gGlobalContext->objectCtx, Object_GetIndex(&gGlobalContext->objectCtx, 0x3))) {
         u32 pRandInt = dizzyCurseSeed = Hash(source[0]);
 
         u8 trapType = ICETRAP_VANILLA; // Default to ice trap
@@ -279,7 +279,7 @@ void IceTrap_HandleCurses(void) {
 void IceTrap_Update(void) {
     // Make sure zelda_dangeon_keep is loaded
     if (Object_GetIndex(&gGlobalContext->objectCtx, 0x3) < 0) {
-        ExtendedObject_Spawn(&gGlobalContext->objectCtx, 0x3);
+        ExtendedObject_Spawn(0x3);
     }
 
     IceTrap_HandleCurses();

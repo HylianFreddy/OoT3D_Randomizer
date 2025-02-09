@@ -5,19 +5,18 @@
 
 ExtendedObjectContext rExtendedObjectCtx = { 0 };
 
-s32 ExtendedObject_Spawn(ObjectContext* objectCtx, s16 objectId) {
+s32 ExtendedObject_Spawn(s16 objectId) {
     return Object_Spawn(&rExtendedObjectCtx, objectId) + OBJECT_EXCHANGE_BANK_MAX;
 }
 
-void ExtendedObject_Clear(GlobalContext* globalCtx, ObjectContext* objectCtx) {
+void ExtendedObject_Clear(GlobalContext* globalCtx) {
     Object_Clear(globalCtx, &rExtendedObjectCtx);
 }
 
-s32 ExtendedObject_GetIndex(ObjectContext* objectCtx, s16 objectId) {
+s32 ExtendedObject_GetIndex(s16 objectId) {
     // CitraPrint("ExtendedObject_GetIndex: %X", objectId);
-    for (s32 i = 0; i < OBJECT_EXCHANGE_BANK_MAX; ++i) {
-        s32 id = rExtendedObjectCtx.status[i].id;
-        id     = (id < 0 ? -id : id);
+    for (s32 i = 0; i < rExtendedObjectCtx.num; ++i) {
+        s32 id = ABS(rExtendedObjectCtx.status[i].id);
         if (id == objectId) {
             return i + OBJECT_EXCHANGE_BANK_MAX;
         }
@@ -25,46 +24,51 @@ s32 ExtendedObject_GetIndex(ObjectContext* objectCtx, s16 objectId) {
     return -1;
 }
 
-s32 ExtendedObject_IsLoaded(ObjectContext* objectCtx, s16 bankIndex) {
-    if (bankIndex < OBJECT_EXCHANGE_BANK_MAX) {
-        return (objectCtx->status[bankIndex].id > 0);
-    }
-
-    // CitraPrint("ExtendedObject_IsLoaded");
-    return (rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX].id >= 0);
-}
-
-ObjectStatus* ExtendedObject_GetStatus(s16 objectId) {
-    // CitraPrint("ExtendedObject_GetStatus");
-    for (s32 i = 0; i < rExtendedObjectCtx.num; ++i) {
-        s32 id = rExtendedObjectCtx.status[i].id;
-        id     = (id < 0 ? -id : id);
-        if (id == objectId)
-            return &rExtendedObjectCtx.status[i];
+ObjectStatus* ExtendedObject_GetStatus(s16 bankIndex) {
+    // CitraPrint("ExtendedObject_GetStatus: %X", bankIndex);
+    if (bankIndex >= OBJECT_EXCHANGE_BANK_MAX) {
+        return &rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX];
     }
     // CitraPrint("ExtendedObject_GetStatus failed: %X", objectId);
     return NULL;
 }
 
-ObjectStatus* ExtendedObject_GetStatus_FromBankIndex(s16 bankIndex) {
-    // CitraPrint("ExtendedObject_GetStatus_FromBankIndex: %X", bankIndex);
-    if (bankIndex >= OBJECT_EXCHANGE_BANK_MAX) {
-        return &rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX];
+ObjectStatus* ExtendedObject_FindStatus(s16 objectId) {
+    // CitraPrint("ExtendedObject_FindStatus");
+    s32 bankIndex = ExtendedObject_GetIndex(objectId);
+    if (bankIndex >= 0) {
+        return ExtendedObject_GetStatus(bankIndex);
     }
-    // CitraPrint("ExtendedObject_GetStatus_FromBankIndex failed: %X", objectId);
+    // CitraPrint("ExtendedObject_FindStatus failed: %X", objectId);
     return NULL;
 }
 
-void* ExtendedObject_GetCMABByIndex(s16 objectId, u32 objectAnimIdx) {
-    s16 objectBankIdx = ExtendedObject_GetIndex(&gGlobalContext->objectCtx, objectId);
-    void* cmabMan;
+ObjectStatus* Object_FindStatus(ObjectContext* objectCtx, s16 objectId) {
+    // CitraPrint("Object_FindStatus");
+    s32 bankIndex = Object_GetIndex(objectCtx, objectId);
+    if (bankIndex >= OBJECT_EXCHANGE_BANK_MAX) {
+        return &rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX];
+    } else if (bankIndex >= 0) {
+        return &objectCtx->status[bankIndex];
+    }
+    // CitraPrint("Object_FindStatus failed: %X", objectId);
+    return NULL;
+}
 
-    if (objectBankIdx < OBJECT_EXCHANGE_BANK_MAX) {
-        cmabMan = ZAR_GetCMABByIndex(&gGlobalContext->objectCtx.status[objectBankIdx].zarInfo, objectAnimIdx);
-    } else {
-        cmabMan = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[objectBankIdx - OBJECT_EXCHANGE_BANK_MAX].zarInfo,
-                                     objectAnimIdx);
+s32 Object_IsLoaded(ObjectContext* objectCtx, s16 bankIndex) {
+    if (bankIndex < OBJECT_EXCHANGE_BANK_MAX) {
+        return (objectCtx->status[bankIndex].id > 0);
     }
 
-    return cmabMan;
+    // CitraPrint("Object_IsLoaded");
+    return (rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX].id >= 0);
+}
+
+void* Object_GetCMABByIndex(s16 objectId, u32 objectAnimIdx) {
+    ObjectStatus* obj = Object_FindStatus(&gGlobalContext->objectCtx, objectId);
+    if (obj != NULL) {
+        return ZAR_GetCMABByIndex(&obj->zarInfo, objectAnimIdx);
+    }
+
+    return NULL;
 }

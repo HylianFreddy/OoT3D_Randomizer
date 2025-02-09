@@ -25,7 +25,7 @@ typedef void (*Actor_SetModelMatrix_proc)(f32 x, f32 y, f32 z, nn_math_MTX34* mt
 Model ModelContext[LOADEDMODELS_MAX] = { 0 };
 
 void Model_SetAnim(SkeletonAnimationModel* model, s16 objectId, u32 objectAnimIdx) {
-    void* cmabMan = ExtendedObject_GetCMABByIndex(objectId, objectAnimIdx);
+    void* cmabMan = Object_GetCMABByIndex(objectId, objectAnimIdx);
     TexAnim_Spawn(model->unk_0C, cmabMan);
 }
 
@@ -101,7 +101,7 @@ void Model_UpdateAll(GlobalContext* globalCtx) {
 
         // Actor is alive, model has not been loaded yet
         if ((model->actor != NULL) && (!model->loaded)) {
-            if (ExtendedObject_IsLoaded(&globalCtx->objectCtx, model->objectBankIdx)) {
+            if (Object_IsLoaded(&globalCtx->objectCtx, model->objectBankIdx)) {
                 Model_Init(model, globalCtx);
             }
         }
@@ -177,7 +177,7 @@ void Model_LookupByOverride(Model* model, ItemOverride override) {
 void Model_GetObjectBankIndex(Model* model, Actor* actor, GlobalContext* globalCtx) {
     s32 objectBankIdx = Object_GetIndex(&globalCtx->objectCtx, model->itemRow->objectId);
     if (objectBankIdx < 0) {
-        objectBankIdx = ExtendedObject_Spawn(&globalCtx->objectCtx, model->itemRow->objectId);
+        objectBankIdx = ExtendedObject_Spawn(model->itemRow->objectId);
     }
     model->objectBankIdx = objectBankIdx;
 }

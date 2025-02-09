@@ -932,8 +932,8 @@ SECTIONS
 		*(.patch_ForceTrailEffectUpdate)
 	} /*EffectBlure_AddVertex*/
 
-	.patch_Object_GetIndex 0x363CB4 : {
-		*(.patch_Object_GetIndex)
+	.patch_ExtendObjectGetIndex 0x363CB4 : {
+		*(.patch_ExtendObjectGetIndex)
 	}
 
 	.patch_ModelSpawnGetObjectStatus 0x36A96C : {
@@ -972,8 +972,8 @@ SECTIONS
 	    *(.patch_ZarInfo_GetObjectStatus_One)
 	} /* example actor: Octorok */
 
-	.patch_Object_IsLoaded 0x373074 : {
-	    *(.patch_Object_IsLoaded)
+	.patch_OverrideObjectIsLoaded 0x373074 : {
+	    *(.patch_OverrideObjectIsLoaded)
 	}
 
 	.patch_Actor_Spawn 0x3738D4 : {

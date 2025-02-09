@@ -192,7 +192,7 @@ hook_GetToken:
 hook_ModelSpawnGetObjectStatus:
     push {r1-r12, lr}
     cpy r0,r1
-    bl ExtendedObject_GetStatus
+    bl ExtendedObject_FindStatus
     pop {r1-r12, lr}
     bx lr
 
@@ -200,7 +200,7 @@ hook_ModelSpawnGetObjectStatus:
 hook_ChestGetIceTrapObjectStatus:
     push {r1-r12, lr}
     mov r0,#0x3
-    bl ExtendedObject_GetStatus
+    bl ExtendedObject_FindStatus
     pop {r1-r12, lr}
     bx lr
 
@@ -2168,23 +2168,24 @@ hook_Actor_Spawn:
 .global hook_ZarInfo_GetObjectStatus
 hook_ZarInfo_GetObjectStatus:
     push {r1-r12, lr}
-    @ objBankIndex already in r0
-    bl ExtendedObject_GetStatus_FromBankIndex
+    @ r0 = bankIndex
+    bl ExtendedObject_GetStatus
     pop {r1-r12, lr}
     bx lr
 
-.global hook_Object_GetIndex
-hook_Object_GetIndex:
+.global hook_ExtendObjectGetIndex
+hook_ExtendObjectGetIndex:
     push {r1-r12, lr}
     cpy r0,r1 @ objectId
     bl ExtendedObject_GetIndex
     pop {r1-r12, lr}
     bx lr
 
-.global hook_Object_IsLoaded
-hook_Object_IsLoaded:
+.global hook_OverrideObjectIsLoaded
+hook_OverrideObjectIsLoaded:
     push {r1-r12, lr}
-    bl ExtendedObject_IsLoaded
+    @ r0,r1 = ObjectContext,bankIndex
+    bl Object_IsLoaded
     pop {r1-r12, lr}
     bx lr
 
