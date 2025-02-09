@@ -844,7 +844,7 @@ SECTIONS
 		*(.patch_GetObjectStatus_33AB24)
 	} /* Used for: chest ice trap smoke effect */
 
-	.patch_Room_StartTransition 0x33B6B0 : {
+	.patch_Room_StartTransition 0x33B6C0 : {
 		*(.patch_Room_StartTransition)
 	}
 
