@@ -9,8 +9,8 @@ s32 ExtendedObject_Spawn(s16 objectId) {
     return Object_Spawn(&rExtendedObjectCtx, objectId) + OBJECT_EXCHANGE_BANK_MAX;
 }
 
-void ExtendedObject_Clear(GlobalContext* globalCtx) {
-    Object_Clear(globalCtx, &rExtendedObjectCtx);
+void ExtendedObject_Clear(void) {
+    Object_Clear(gGlobalContext, &rExtendedObjectCtx);
 }
 
 s32 ExtendedObject_GetIndex(s16 objectId) {
@@ -62,7 +62,7 @@ s32 Object_IsLoaded(ObjectContext* objectCtx, s16 bankIndex) {
     }
 
     // CitraPrint("Object_IsLoaded");
-    return (rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX].id >= 0);
+    return (rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX].id > 0);
 }
 
 void* Object_GetCMABByIndex(s16 objectId, u32 objectAnimIdx) {

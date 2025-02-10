@@ -2287,6 +2287,9 @@ CheckForTextControlCode_patch:
 .section .patch_OverrideObjectIsLoaded
     b hook_OverrideObjectIsLoaded
 
+.section .patch_SceneCommandObjectList
+    bl hook_SceneCommandObjectList
+
 @ ----------------------------------
 @ ----------------------------------
 

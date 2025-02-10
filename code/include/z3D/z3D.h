@@ -824,6 +824,9 @@ typedef Actor* (*Actor_Find_proc)(ActorContext* actorCtx, s16 actorId, u8 actorT
 typedef void (*Actor_GetScreenPos_proc)(GlobalContext* globalCtx, Actor* actor, s16* outX, s16* outY);
 #define Actor_GetScreenPos ((Actor_GetScreenPos_proc)GAME_ADDR(0x363A20))
 
+typedef void (*Actor_KillAllWithMissingObject_proc)(GlobalContext* globalCtx, ActorContext* actorCtx);
+#define Actor_KillAllWithMissingObject ((Actor_KillAllWithMissingObject_proc)GAME_ADDR(0x379C3C))
+
 typedef void (*FireDamage_proc)(Actor* player, GlobalContext* globalCtx, int flamesColor);
 #define FireDamage ((FireDamage_proc)GAME_ADDR(0x35D8D8))
 

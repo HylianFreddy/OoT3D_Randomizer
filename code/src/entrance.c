@@ -412,7 +412,7 @@ void Entrance_SetGameOverEntrance(void) {
 // https://wiki.cloudmodding.com/oot/Entrance_Table_(Data)
 void Entrance_SetSavewarpEntrance(void) {
 
-    gSaveContext.entranceIndex = 0x05AC;
+    gSaveContext.entranceIndex = 0x011e;
     return;
 
     s16 scene = gSaveContext.sceneIndex;

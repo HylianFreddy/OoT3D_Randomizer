@@ -493,14 +493,43 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
 #include "objects.h"
 EnemySoulId EnemySouls_GetSoulId(s16 actorId);
 void Actor_OverrideSpawn(u16* actorId, u16* params) {
-    CitraPrint("%4X %4X", *actorId, *params);
+    // CitraPrint("%4X %4X", *actorId, *params);
     // octorok: *actorId == 0xE && *params == 0xFF00
     // flare dancer: *actorId == 0x99 && *params == 0, obj 0x9E
     if (EnemySouls_GetSoulId(*actorId) != SOUL_NONE) {
-        if (Object_GetIndex(&gGlobalContext->objectCtx, 0x16) < 0) {
-            ExtendedObject_Spawn(0x16);
-        }
-        *actorId = 0x1B;
-        *params  = 0xFFFE;
+        // *actorId = 0x1B;
+        // *params  = 0xFFFE;
+        *actorId = 0x2;
+        *params  = 0x3;
+    }
+}
+
+void RoomTest(void) {
+}
+
+void ObjectTest(void) {
+    if (!gGlobalContext)
+        return;
+    CitraPrint("ObjectTest");
+    ExtendedObject_Clear();
+    Actor_KillAllWithMissingObject(gGlobalContext, &gGlobalContext->actorCtx);
+
+    ExtendedObject_Spawn(OBJECT_CUSTOM_GENERAL_ASSETS);
+
+    if (Object_GetIndex(&gGlobalContext->objectCtx, 0x16) < 0) {
+        ExtendedObject_Spawn(0x16);
+        ExtendedObject_Spawn(0x114);
+        ExtendedObject_Spawn(0x3);
+        ExtendedObject_Spawn(0x32);
+        ExtendedObject_Spawn(0x1B);
+        ExtendedObject_Spawn(0x0D);
+        ExtendedObject_Spawn(0x32);
+        ExtendedObject_Spawn(0x32);
+        ExtendedObject_Spawn(0x32);
+        ExtendedObject_Spawn(0x32);
+        ExtendedObject_Spawn(0x32);
+        ExtendedObject_Spawn(0x32);
+        ExtendedObject_Spawn(0x32);
+        ExtendedObject_Spawn(0x32);
     }
 }

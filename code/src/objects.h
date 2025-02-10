@@ -36,5 +36,7 @@ void* Object_GetCMABByIndex(s16 objectId, u32 objectAnimIdx);
 
 // Spawn a new object in the randomizer's extended object context.
 s32 ExtendedObject_Spawn(s16 objectId);
+// Empty the extended object context.
+void ExtendedObject_Clear(void);
 
 #endif //_OBJECTS_H_

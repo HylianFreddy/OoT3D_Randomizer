@@ -2136,6 +2136,7 @@ hook_CheckForTextControlCode:
 hook_Room_StartTransition:
     cpy r5,r0
     push {r0-r12, lr}
+    bl RoomTest
     pop {r0-r12, lr}
     bx lr
 
@@ -2180,6 +2181,14 @@ hook_OverrideObjectIsLoaded:
     @ r0,r1 = ObjectContext,bankIndex
     bl Object_IsLoaded
     pop {r1-r12, lr}
+    bx lr
+
+.global hook_SceneCommandObjectList
+hook_SceneCommandObjectList:
+    push {r0-r12, lr}
+    bl ObjectTest
+    pop {r0-r12, lr}
+    mov r0,#0x1
     bx lr
 
 @ ----------------------------------

@@ -1052,6 +1052,10 @@ SECTIONS
 		*(.patch_OverrideDrawItemThree)
 	}
 
+	.patch_SceneCommandObjectList 0x3A7708 : {
+		*(.patch_SceneCommandObjectList)
+	}
+
 	.patch_KokiriCheckOpenForest 0x3ACCFC : {
 		*(.patch_KokiriCheckOpenForest)
 	}
