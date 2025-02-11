@@ -495,12 +495,22 @@ EnemySoulId EnemySouls_GetSoulId(s16 actorId);
 void Actor_OverrideSpawn(u16* actorId, u16* params) {
     // CitraPrint("%4X %4X", *actorId, *params);
     // octorok: *actorId == 0xE && *params == 0xFF00
-    // flare dancer: *actorId == 0x99 && *params == 0, obj 0x9E
-    if (EnemySouls_GetSoulId(*actorId) != SOUL_NONE) {
+    if (EnemySouls_GetSoulId(*actorId) != SOUL_NONE && *actorId != 0xAB) {
+        // flare dancer
+        // *actorId = 0x99;
+        // *params  = 0x0;
+        // tektite
         // *actorId = 0x1B;
         // *params  = 0xFFFE;
-        *actorId = 0x2;
-        *params  = 0x3;
+        // stalfos
+        // *actorId = 0x2;
+        // *params  = 0x3;
+        // octorok
+        // *actorId = 0x0E;
+        // *params  = 0xFF00;
+        // freezard
+        *actorId = 0x121;
+        *params  = 0x0;
     }
 }
 
@@ -511,20 +521,20 @@ void ObjectTest(void) {
     if (!gGlobalContext)
         return;
     CitraPrint("ObjectTest");
-    ExtendedObject_Clear();
+    ExtendedObject_Clear(); // need to take care of player tunic somehow...
     Actor_KillAllWithMissingObject(gGlobalContext, &gGlobalContext->actorCtx);
 
     ExtendedObject_Spawn(OBJECT_CUSTOM_GENERAL_ASSETS);
 
     if (Object_GetIndex(&gGlobalContext->objectCtx, 0x16) < 0) {
-        ExtendedObject_Spawn(0x16);
-        ExtendedObject_Spawn(0x114);
-        ExtendedObject_Spawn(0x3);
-        ExtendedObject_Spawn(0x32);
-        ExtendedObject_Spawn(0x1B);
-        ExtendedObject_Spawn(0x0D);
-        ExtendedObject_Spawn(0x32);
-        ExtendedObject_Spawn(0x32);
+        ExtendedObject_Spawn(0x16);  // tektite
+        ExtendedObject_Spawn(0x114); // freezard
+        ExtendedObject_Spawn(0x3);   // dungeon
+        ExtendedObject_Spawn(0x32);  // stalfos
+        ExtendedObject_Spawn(0x1B);  // lizalfos
+        ExtendedObject_Spawn(0x0D);  // keese
+        ExtendedObject_Spawn(0x9E);  // flare dancer
+        ExtendedObject_Spawn(0x07);  // octorok
         ExtendedObject_Spawn(0x32);
         ExtendedObject_Spawn(0x32);
         ExtendedObject_Spawn(0x32);
