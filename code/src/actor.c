@@ -499,9 +499,11 @@ void RoomTest(void) {
 }
 
 void ObjectTest(void) {
-    if (!gGlobalContext)
-        return;
-    // CitraPrint("ObjectTest");
+}
+
+void ActorEntriesTest(void) {
+    CitraPrint("ActorEntriesTest");
+
     ExtendedObject_Clear(); // need to take care of player tunic somehow...
     Actor_KillAllWithMissingObject(gGlobalContext, &gGlobalContext->actorCtx);
 
@@ -516,23 +518,14 @@ void ObjectTest(void) {
         ExtendedObject_Spawn(0x0D);  // keese
         ExtendedObject_Spawn(0x9E);  // flare dancer
         ExtendedObject_Spawn(0x07);  // octorok
-        ExtendedObject_Spawn(0x32);
+        ExtendedObject_Spawn(0x24);  // skulltula
         ExtendedObject_Spawn(0x32);
         ExtendedObject_Spawn(0x32);
         ExtendedObject_Spawn(0x32);
         ExtendedObject_Spawn(0x32);
         ExtendedObject_Spawn(0x32);
     }
-}
 
-// typedef struct SCmdActorEntryList {
-//     /* 0x00 */ u8  code;
-//     /* 0x01 */ u8  length;
-//     /* 0x04 */ ActorEntry* data;
-// } SCmdActorEntryList;
-
-void ActorEntriesTest(void) {
-    CitraPrint("ActorEntriesTest");
     for (u32 i = 0; i < gGlobalContext->numActorEntries; i++) {
         u16* actorId = (u16*)&gGlobalContext->actorEntryList[i].id;
         u16* params  = (u16*)&gGlobalContext->actorEntryList[i].params;
