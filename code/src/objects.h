@@ -25,18 +25,20 @@ typedef void (*TexAnim_Spawn_proc)(void*, void*);
 
 typedef ObjectContext ExtendedObjectContext;
 
-extern ExtendedObjectContext rExtendedObjectCtx;
-
-// Find an ObjectStatus given the objectId.
-ObjectStatus* Object_FindStatus(ObjectContext* objectCtx, s16 objectId);
+// Get an object slot given the index.
+ObjectStatus* Object_GetStatus(s16 bankIndex);
+// Get a loaded Object given the objectId.
+ObjectStatus* Object_FindOrSpawn(s16 objectId);
 // Check if the object in the `bankIndex` slot is loaded.
 s32 Object_IsLoaded(ObjectContext* objectCtx, s16 bankIndex);
-// Get the CMAB manager from this object.
+// Get the CMAB manager from this object, loading it if it's not present.
 void* Object_GetCMABByIndex(s16 objectId, u32 objectAnimIdx);
 
 // Spawn a new object in the randomizer's extended object context.
 s32 ExtendedObject_Spawn(s16 objectId);
 // Empty the extended object context.
 void ExtendedObject_Clear(void);
+// Update the extended object context.
+void ExtendedObject_UpdateBank(void);
 
 #endif //_OBJECTS_H_

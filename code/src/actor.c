@@ -520,7 +520,7 @@ void RoomTest(void) {
 void ObjectTest(void) {
     if (!gGlobalContext)
         return;
-    CitraPrint("ObjectTest");
+    // CitraPrint("ObjectTest");
     ExtendedObject_Clear(); // need to take care of player tunic somehow...
     Actor_KillAllWithMissingObject(gGlobalContext, &gGlobalContext->actorCtx);
 

@@ -32,7 +32,7 @@ void Model_SetAnim(SkeletonAnimationModel* model, s16 objectId, u32 objectAnimId
 void Model_Init(Model* model, GlobalContext* globalCtx) {
     // Should probably parse the ZAR to find the CMBs correctly,
     // but this is fine for now
-    void* ZARBuf = rExtendedObjectCtx.status[model->objectBankIdx - OBJECT_EXCHANGE_BANK_MAX].zarInfo.buf;
+    void* ZARBuf = &Object_GetStatus(model->objectBankIdx)->zarInfo.buf;
 
     // edit the cmbs for custom models
     CustomModels_EditItemCMB(ZARBuf, model->itemRow->objectId, model->itemRow->special);
@@ -83,7 +83,7 @@ void Model_Destroy(Model* model) {
 void Model_UpdateAll(GlobalContext* globalCtx) {
     Model* model;
 
-    Object_UpdateBank((ObjectContext*)&rExtendedObjectCtx);
+    ExtendedObject_UpdateBank();
 
     for (s32 i = 0; i < LOADEDMODELS_MAX; ++i) {
         model = &ModelContext[i];

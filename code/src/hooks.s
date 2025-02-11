@@ -2154,7 +2154,7 @@ hook_Actor_Spawn:
 hook_GetObjectStatus_Generic:
     push {r1-r12, lr}
     @ r0 = bankIndex
-    bl ExtendedObject_GetStatus
+    bl Object_GetStatus
     pop {r1-r12, lr}
     bx lr
 
@@ -2163,7 +2163,7 @@ hook_GetObjectStatus_33AB24:
     push {r1-r12, lr}
     ldr r0,[r4,#0x4]
     ldr r0,[r0,r5,lsl #0x3] @ objectId
-    bl ExtendedObject_FindStatus
+    bl Object_FindOrSpawn
     pop {r1-r12, lr}
     bx lr
 

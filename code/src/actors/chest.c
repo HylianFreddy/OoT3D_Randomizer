@@ -88,19 +88,13 @@ void Chest_ChangeAppearance(Actor* thisx, GlobalContext* globalCtx) {
     // Change Chest Texture
     if (gSettingsContext.chestAppearance == CHESTAPPEARANCE_TEXTURE ||
         gSettingsContext.chestAppearance == CHESTAPPEARANCE_SIZE_AND_TEXTURE) {
-        s16 exObjectBankIdx = Object_GetIndex(&rExtendedObjectCtx, OBJECT_CUSTOM_GENERAL_ASSETS);
-        void* cmabMan;
-        if (exObjectBankIdx < 0) {
-            exObjectBankIdx = Object_Spawn(&rExtendedObjectCtx, OBJECT_CUSTOM_GENERAL_ASSETS);
-        }
-
         static const u32 chestType_to_assetIndex[CHESTTYPE_MAX] = { TEXANIM_GOLD_CHEST, 0, 0,
                                                                     TEXANIM_KEY_CHEST,  0, TEXANIM_HEART_CHEST,
                                                                     TEXANIM_SKULL_CHEST };
 
         u32 assetIndex = chestType_to_assetIndex[type];
         if (assetIndex != 0) {
-            cmabMan = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo, assetIndex);
+            void* cmabMan = Object_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, assetIndex);
             TexAnim_Spawn(this->skelAnime.unk_28->unk_0C, cmabMan);
         }
     }
