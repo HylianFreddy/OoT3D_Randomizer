@@ -44,7 +44,6 @@ void autoLoadSaveFile();
 void before_GlobalContext_Update(GlobalContext* globalCtx) {
     if (!rRandomizerInit) {
         Randomizer_Init();
-        set_GlobalContext(globalCtx);
         rRandomizerInit = 1;
 
         s64 output = 0;

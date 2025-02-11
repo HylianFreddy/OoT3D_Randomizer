@@ -2191,6 +2191,21 @@ hook_SceneCommandObjectList:
     mov r0,#0x1
     bx lr
 
+.global hook_SceneCommandActorEntryList
+hook_SceneCommandActorEntryList:
+    push {r0-r12, lr}
+    bl ActorEntriesTest
+    pop {r0-r12, lr}
+    bx lr
+
+.global hook_PlayInit
+hook_PlayInit:
+    push {r0-r12, lr}
+    bl set_GlobalContext
+    pop {r0-r12, lr}
+    cpy r5,r0
+    bx lr
+
 @ ----------------------------------
 @ ----------------------------------
 

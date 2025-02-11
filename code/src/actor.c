@@ -493,25 +493,6 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
 #include "objects.h"
 EnemySoulId EnemySouls_GetSoulId(s16 actorId);
 void Actor_OverrideSpawn(u16* actorId, u16* params) {
-    // CitraPrint("%4X %4X", *actorId, *params);
-    // octorok: *actorId == 0xE && *params == 0xFF00
-    if (EnemySouls_GetSoulId(*actorId) != SOUL_NONE && *actorId != 0xAB) {
-        // flare dancer
-        // *actorId = 0x99;
-        // *params  = 0x0;
-        // tektite
-        // *actorId = 0x1B;
-        // *params  = 0xFFFE;
-        // stalfos
-        // *actorId = 0x2;
-        // *params  = 0x3;
-        // octorok
-        // *actorId = 0x0E;
-        // *params  = 0xFF00;
-        // freezard
-        *actorId = 0x121;
-        *params  = 0x0;
-    }
 }
 
 void RoomTest(void) {
@@ -541,5 +522,41 @@ void ObjectTest(void) {
         ExtendedObject_Spawn(0x32);
         ExtendedObject_Spawn(0x32);
         ExtendedObject_Spawn(0x32);
+    }
+}
+
+// typedef struct SCmdActorEntryList {
+//     /* 0x00 */ u8  code;
+//     /* 0x01 */ u8  length;
+//     /* 0x04 */ ActorEntry* data;
+// } SCmdActorEntryList;
+
+void ActorEntriesTest(void) {
+    CitraPrint("ActorEntriesTest");
+    for (u32 i = 0; i < gGlobalContext->numActorEntries; i++) {
+        u16* actorId = (u16*)&gGlobalContext->actorEntryList[i].id;
+        u16* params  = (u16*)&gGlobalContext->actorEntryList[i].params;
+
+        // CitraPrint("%4X %4X", *actorId, *params);
+        if (EnemySouls_GetSoulId(*actorId) != SOUL_NONE && *actorId != 0xAB) {
+            // flare dancer
+            // *actorId = 0x99;
+            // *params  = 0x0;
+            // tektite
+            // *actorId = 0x1B;
+            // *params  = 0xFFFE;
+            // stalfos
+            // *actorId = 0x2;
+            // *params  = 0x3;
+            // octorok
+            // *actorId = 0x0E;
+            // *params  = 0xFF00;
+            // freezard
+            // *actorId = 0x121;
+            // *params  = 0x0;
+            // lizalfos
+            *actorId = 0x25;
+            *params  = 0x80;
+        }
     }
 }

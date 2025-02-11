@@ -2290,6 +2290,12 @@ CheckForTextControlCode_patch:
 .section .patch_SceneCommandObjectList
     bl hook_SceneCommandObjectList
 
+.section .patch_SceneCommandActorEntryList
+    b hook_SceneCommandActorEntryList
+
+.section .patch_PlayInit
+    bl hook_PlayInit
+
 @ ----------------------------------
 @ ----------------------------------
 

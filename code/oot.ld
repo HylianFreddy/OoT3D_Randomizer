@@ -556,6 +556,10 @@ SECTIONS
 		*(.patch_BusinessScrubCheckFlags)
 	}
 
+	.patch_SceneCommandActorEntryList 0x234498 : {
+		*(.patch_SceneCommandActorEntryList)
+	}
+
 	.patch_GanonCSEquipMS 0x2359A4 : {
 		*(.patch_GanonCSEquipMS)
 	}
@@ -1325,6 +1329,10 @@ SECTIONS
 
 	.patch_ItemsMenuDraw 0x434C08 + region_offset : {
 		*(.patch_ItemsMenuDraw)
+	}
+
+	.patch_PlayInit 0x4352F4 + region_offset : {
+		*(.patch_PlayInit)
 	}
 
 	/* Variation of regional differences: 0x436690 */

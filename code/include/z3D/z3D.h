@@ -595,9 +595,11 @@ typedef struct GlobalContext {
     /* 0x5C00 */ u8 linkAgeOnLoad;
     /* 0x5C01 */ u8 unk_5C01;
     /* 0x5C02 */ u8 curSpawn;
-    /* 0x5C03 */ char unk_5C03[0x0006];
+    /* 0x5C03 */ u8 numActorEntries;
+    /* 0x5C04 */ char unk_5C04[0x0005];
     /* 0x5C09 */ ActorEntry* linkActorEntry;
-    /* 0x5C0D */ char unk_5C0D[0x0008];
+    /* 0x5C0D */ ActorEntry* actorEntryList;
+    /* 0x5C11 */ char unk_5C11[0x0004];
     /* 0x5C19 */ EntranceEntry* setupEntranceList;
     /* 0x5C1C */ s16* setupExitList;
     /* 0x5C20 */ char unk_5C20[0x000D];

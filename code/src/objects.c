@@ -51,8 +51,7 @@ ObjectStatus* Object_GetStatus(s16 bankIndex) {
 ObjectStatus* Object_FindOrSpawn(s16 objectId) {
     // CitraPrint("Object_FindOrSpawn %X", gGlobalContext);
     ObjectStatus* obj;
-    s32 bankIndex = gGlobalContext == NULL ? ExtendedObject_GetIndex(objectId)
-                                           : Object_GetIndex(&gGlobalContext->objectCtx, objectId);
+    s32 bankIndex = Object_GetIndex(&gGlobalContext->objectCtx, objectId);
     if (bankIndex >= 0) {
         if (bankIndex >= OBJECT_EXCHANGE_BANK_MAX) {
             obj = &rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX];
