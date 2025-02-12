@@ -78,6 +78,7 @@ void Player_SetChildCustomTunicCMAB(void) {
 #include "savefile.h"
 void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
     gSettingsContext.customTunicColors   = ON;
+    gSettingsContext.sheikHints          = ON;
     gSettingsContext.quickText = QUICKTEXT_TURBO;
     gSettingsContext.skipSongReplays = SONGREPLAYS_SKIP_NO_SFX;
     gExtSaveData.option_SkipSongReplays = SONGREPLAYS_SKIP_NO_SFX;

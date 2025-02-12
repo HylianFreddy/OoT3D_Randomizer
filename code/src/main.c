@@ -52,7 +52,6 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
     }
     rGameplayFrames++;
     ItemOverride_Update();
-    ActorSetup_Extra();
     Model_UpdateAll(globalCtx);
     Input_Update();
     autoLoadSaveFile();

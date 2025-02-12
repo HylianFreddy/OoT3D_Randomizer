@@ -263,9 +263,7 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
     ItemOverride override;
     s32 objBankIndex;
 
-    if (Object_GetIndex(&globalCtx->objectCtx, 0x148) < 0) {
-        Object_Spawn(&globalCtx->objectCtx, 0x148);
-    }
+    Object_FindOrSpawn(0x148);
     CustomModel_Update();
 
     item->shopItemPosition = numShopItemsLoaded;

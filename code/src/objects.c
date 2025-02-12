@@ -76,7 +76,7 @@ s32 Object_IsLoaded(ObjectContext* objectCtx, s16 bankIndex) {
         return (objectCtx->status[bankIndex].id > 0);
     }
 
-    // CitraPrint("Object_IsLoaded");
+    // CitraPrint("Object_IsLoaded %X", rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX].id);
     return (rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX].id > 0);
 }
 

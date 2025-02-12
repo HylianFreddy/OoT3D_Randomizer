@@ -28,15 +28,13 @@ void GsQueue_Add(const GsLocOverride* gsLocOverride) {
     }
 }
 
-void GsQueue_Update(void) {
+void GsQueue_SpawnAll(void) {
+    // TODO: maybe add setting to skip this if not needed?
     if (!IsInGame()) {
         return;
     }
 
     Object_FindOrSpawn(0x24);
-    if (!Object_IsLoaded(&gGlobalContext->objectCtx, Object_GetIndex(&gGlobalContext->objectCtx, 0x24))) {
-        return;
-    }
 
     for (size_t i = 0; i < ARRAY_SIZE(gsSpawnQueue); i++) {
         if (gsSpawnQueue[i] != NULL) {

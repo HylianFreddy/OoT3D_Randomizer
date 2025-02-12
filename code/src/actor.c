@@ -282,7 +282,7 @@ void Actor_Init() {
 
 void ActorSetup_Extra() {
     Sheik_Spawn();
-    GsQueue_Update();
+    GsQueue_SpawnAll();
 }
 
 void TitleCard_rUpdate(GlobalContext* globalCtx, TitleCardContext* titleCtx) {
@@ -306,6 +306,7 @@ u8 ActorSetup_ShouldSkipEntry(ActorEntry* actorEntry) {
 }
 
 void ActorSetup_After(void) {
+    ActorSetup_Extra();
     Gs_QueueAlternateLocated();
 }
 
@@ -516,17 +517,17 @@ void ActorEntriesTest(void) {
         ExtendedObject_Spawn(0x16);  // tektite
         ExtendedObject_Spawn(0x114); // freezard
         ExtendedObject_Spawn(0x3);   // dungeon
-        ExtendedObject_Spawn(0x32);  // stalfos
-        ExtendedObject_Spawn(0x1B);  // lizalfos
-        ExtendedObject_Spawn(0x0D);  // keese
-        ExtendedObject_Spawn(0x9E);  // flare dancer
-        ExtendedObject_Spawn(0x07);  // octorok
-        ExtendedObject_Spawn(0x24);  // skulltula
-        ExtendedObject_Spawn(0x32);
-        ExtendedObject_Spawn(0x32);
-        ExtendedObject_Spawn(0x32);
-        ExtendedObject_Spawn(0x32);
-        ExtendedObject_Spawn(0x32);
+        // ExtendedObject_Spawn(0x32);  // stalfos
+        // ExtendedObject_Spawn(0x1B);  // lizalfos
+        // ExtendedObject_Spawn(0x0D);  // keese
+        // ExtendedObject_Spawn(0x9E);  // flare dancer
+        // ExtendedObject_Spawn(0x07);  // octorok
+        // ExtendedObject_Spawn(0x24);  // skulltula
+        // ExtendedObject_Spawn(0x32);
+        // ExtendedObject_Spawn(0x32);
+        // ExtendedObject_Spawn(0x32);
+        // ExtendedObject_Spawn(0x32);
+        // ExtendedObject_Spawn(0x32);
     }
 
     for (u32 i = 0; i < gGlobalContext->numActorEntries; i++) {

@@ -293,6 +293,10 @@ SECTIONS
 		*(.patch_EponasSongCheckFlag)
 	}
 
+	.patch_GetObjectStatus_EnXcInit 0x18D7AC : {
+		*(.patch_GetObjectStatus_EnXcInit)
+	}
+
 	.patch_PreludeLocation 0x18D9FC : {
 		*(.patch_PreludeLocation)
 	}
@@ -535,6 +539,10 @@ SECTIONS
 
 	.patch_JabuBoxCheckRuto 0x215934 : {
 	  *(.patch_JabuBoxCheckRuto)
+	}
+
+	.patch_GetObjectStatus_ObjSwitchInit 0x215A60 : {
+		*(.patch_GetObjectStatus_ObjSwitchInit)
 	}
 
 	.patch_DekuTheaterMaskOfTruth 0x21CA30 : {
