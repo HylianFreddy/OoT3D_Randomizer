@@ -32,14 +32,8 @@ void GsQueue_Update(void) {
     if (!IsInGame()) {
         return;
     }
-    // Loading the skulltula object in the Market Day Child scene causes a crash
-    if (gGlobalContext->sceneNum == 0x20) {
-        return;
-    }
-    if (Object_GetIndex(&gGlobalContext->objectCtx, 0x24) < 0) {
-        Object_Spawn(&gGlobalContext->objectCtx, 0x24);
-        return;
-    }
+
+    Object_FindOrSpawn(0x24);
     if (!Object_IsLoaded(&gGlobalContext->objectCtx, Object_GetIndex(&gGlobalContext->objectCtx, 0x24))) {
         return;
     }

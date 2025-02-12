@@ -504,6 +504,9 @@ void ObjectTest(void) {
 void ActorEntriesTest(void) {
     CitraPrint("ActorEntriesTest");
 
+    // TODO: for each actor, check if it's randomized, call Hash to get random index,
+    // access some custom table to get object and params
+
     ExtendedObject_Clear(); // need to take care of player tunic somehow...
     Actor_KillAllWithMissingObject(gGlobalContext, &gGlobalContext->actorCtx);
 

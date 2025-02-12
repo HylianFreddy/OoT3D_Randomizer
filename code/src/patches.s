@@ -2281,6 +2281,9 @@ CheckForTextControlCode_patch:
 .section .patch_GetObjectStatus_372F7C
     bl hook_GetObjectStatus_Generic
 
+.section .patch_GetObjectStatus_EnSiInit
+    bl hook_GetObjectStatus_Generic
+
 .section .patch_ExtendObjectGetIndex
     b hook_ExtendObjectGetIndex
 

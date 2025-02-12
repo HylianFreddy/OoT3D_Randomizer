@@ -49,7 +49,7 @@ ObjectStatus* Object_GetStatus(s16 bankIndex) {
 }
 
 ObjectStatus* Object_FindOrSpawn(s16 objectId) {
-    // CitraPrint("Object_FindOrSpawn %X", gGlobalContext);
+    // CitraPrint("Object_FindOrSpawn %X", objectId);
     ObjectStatus* obj;
     s32 bankIndex = Object_GetIndex(&gGlobalContext->objectCtx, objectId);
     if (bankIndex >= 0) {
@@ -58,11 +58,11 @@ ObjectStatus* Object_FindOrSpawn(s16 objectId) {
         } else {
             obj = &gGlobalContext->objectCtx.status[bankIndex];
         }
-        // Wait for the object to be loaded. TODO: check if this makes sense or gets stuck infinitely
-        while (obj->id <= 0) {
-            // CitraPrint("Object_FindOrSpawn: waiting for object 0x%X...", objectId);
-            svcSleepThread(1000 * 1000LL); // Sleep 1 ms
-        }
+        // Wait for the object to be loaded. TODO: this gets stuck infinitely, find another way?
+        // while (obj->id <= 0) {
+        //     CitraPrint("Object_FindOrSpawn: waiting for object 0x%X...", objectId);
+        //     svcSleepThread(1000 * 1000LL); // Sleep 1 ms
+        // }
         return obj;
     } else {
         // CitraPrint("Object_FindOrSpawn failed, trying to spawn object 0x%X...", objectId);

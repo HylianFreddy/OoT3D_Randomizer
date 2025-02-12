@@ -65,6 +65,11 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
     ItemEffect_RupeeAmmo(&gSaveContext);
 
     Triforce_HandleCreditsWarp();
+
+    // if (rInputCtx.pressed.zr) {
+    //     Vec3f pos = PLAYER->actor.world.pos;
+    //     Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x95, pos.x, pos.y, pos.z, 0, 0, 0, 0x8201, FALSE);
+    // }
 }
 
 void autoLoadSaveFile() {

@@ -192,6 +192,11 @@ SECTIONS
 		*(.patch_SariasSongCheckFlag)
 	}
 
+	.patch_GetObjectStatus_EnSiInit 0x168B20 : {
+		*(.patch_GetObjectStatus_EnSiInit)
+	}
+
+/* todo fix order of these patches */
 	.patch_GrogCheckForShouldDespawn 0x16485C : {
 		*(.patch_GrogCheckForShouldDespawn)
 	}
