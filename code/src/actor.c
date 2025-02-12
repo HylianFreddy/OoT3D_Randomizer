@@ -4,6 +4,7 @@
 #include "objects.h"
 #include "savefile.h"
 #include "enemy_souls.h"
+#include "enemizer.h"
 #include "owl.h"
 #include "item00.h"
 #include "heart_container.h"
@@ -301,15 +302,15 @@ u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry, u8 entryIndex) {
         // if it's reloaded immediately so that it's always in the first slot.
         ExtendedObject_Spawn(OBJECT_CUSTOM_GENERAL_ASSETS);
 
-        ExtendedObject_Spawn(0x16);  // tektite
-        ExtendedObject_Spawn(0x114); // freezard
-        ExtendedObject_Spawn(0x3);   // dungeon
-        ExtendedObject_Spawn(0x32);  // stalfos
-        ExtendedObject_Spawn(0x1B);  // lizalfos
-        ExtendedObject_Spawn(0x0D);  // keese
-        ExtendedObject_Spawn(0x9E);  // flare dancer
-        ExtendedObject_Spawn(0x07);  // octorok
-        ExtendedObject_Spawn(0x24);  // skulltula
+        // ExtendedObject_Spawn(0x16);  // tektite
+        // ExtendedObject_Spawn(0x114); // freezard
+        // ExtendedObject_Spawn(0x3);   // dungeon
+        // ExtendedObject_Spawn(0x32);  // stalfos
+        // ExtendedObject_Spawn(0x1B);  // lizalfos
+        // ExtendedObject_Spawn(0x0D);  // keese
+        // ExtendedObject_Spawn(0x9E);  // flare dancer
+        // ExtendedObject_Spawn(0x07);  // octorok
+        // ExtendedObject_Spawn(0x24);  // skulltula
     }
 
     // Alternate Gold Skulltula Locations
@@ -327,27 +328,45 @@ u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry, u8 entryIndex) {
     u16* actorId = (u16*)&actorEntry->id;
     u16* params  = (u16*)&actorEntry->params;
 
-    // CitraPrint("%4X %4X", *actorId, *params);
-    if (EnemySouls_GetSoulId(*actorId) != SOUL_NONE && *actorId != 0xAB) {
-        // flare dancer
-        // *actorId = 0x99;
-        // *params  = 0x0;
-        // tektite
-        // *actorId = 0x1B;
-        // *params  = 0xFFFE;
-        // stalfos
-        // *actorId = 0x2;
-        // *params  = 0x3;
-        // octorok
-        // *actorId = 0x0E;
-        // *params  = 0xFF00;
-        // freezard
-        // *actorId = 0x121;
-        // *params  = 0x0;
-        // lizalfos
-        *actorId = 0x25;
-        *params  = 0x80;
+    u8 isRandomizedEnemy = FALSE;
+    for (u32 i = 0; i < ENEMY_DATA_SIZE; i++) {
+        if (*actorId == sEnemyData[i].actorId) {
+            isRandomizedEnemy = TRUE;
+            break;
+        }
     }
+
+    if (isRandomizedEnemy) {
+        u32 seed = *actorId + *params + actorEntry->pos.x + actorEntry->pos.y + actorEntry->pos.z + actorEntry->rot.x +
+                   actorEntry->rot.y + actorEntry->rot.z;
+        u32 index             = Hash(seed) % ENEMY_DATA_SIZE;
+        EnemyData randomEnemy = sEnemyData[index];
+        *actorId              = randomEnemy.actorId;
+        *params               = randomEnemy.params;
+        Object_FindOrSpawn(randomEnemy.objectId);
+    }
+
+    // CitraPrint("%4X %4X", *actorId, *params);
+    // if (EnemySouls_GetSoulId(*actorId) != SOUL_NONE && *actorId != 0xAB) {
+    //     // flare dancer
+    //     // *actorId = 0x99;
+    //     // *params  = 0x0;
+    //     // tektite
+    //     // *actorId = 0x1B;
+    //     // *params  = 0xFFFE;
+    //     // stalfos
+    //     // *actorId = 0x2;
+    //     // *params  = 0x3;
+    //     // octorok
+    //     // *actorId = 0x0E;
+    //     // *params  = 0xFF00;
+    //     // freezard
+    //     // *actorId = 0x121;
+    //     // *params  = 0x0;
+    //     // lizalfos
+    //     *actorId = 0x25;
+    //     *params  = 0x80;
+    // }
 
     return FALSE;
 }
