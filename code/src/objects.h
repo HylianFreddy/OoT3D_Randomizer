@@ -27,7 +27,10 @@ typedef ObjectContext ExtendedObjectContext;
 
 // Get an object slot given the index.
 ObjectStatus* Object_GetStatus(s16 bankIndex);
-// Get a loaded Object given the objectId.
+// Find an object slot containing the specified objectId, or spawn it if not found.
+// This function may return an object slot that is not yet loaded, but you can still
+// spawn actors depending on that object because the game will wait for the load
+// before initializing the actor.
 ObjectStatus* Object_FindOrSpawn(s16 objectId);
 // Check if the object in the `bankIndex` slot is loaded.
 s32 Object_IsLoaded(ObjectContext* objectCtx, s16 bankIndex);

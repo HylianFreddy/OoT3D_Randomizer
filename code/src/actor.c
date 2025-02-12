@@ -295,8 +295,10 @@ void TitleCard_rUpdate(GlobalContext* globalCtx, TitleCardContext* titleCtx) {
 // Return true to skip spawning this actor entry
 u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry, u8 entryIndex) {
     if (entryIndex == 0) {      // once per room/scene load
-        ExtendedObject_Clear(); // need to take care of player tunic somehow...
+        ExtendedObject_Clear();
         Actor_KillAllWithMissingObject(gGlobalContext, &gGlobalContext->actorCtx);
+        // Even though the custom tunics depend on this object, everything seems to still work
+        // if it's reloaded immediately so that it's always in the first slot.
         ExtendedObject_Spawn(OBJECT_CUSTOM_GENERAL_ASSETS);
 
         ExtendedObject_Spawn(0x16);  // tektite
