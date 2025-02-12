@@ -1,6 +1,7 @@
 #include "z3D/z3D.h"
 #include "common.h"
 #include "actor.h"
+#include "objects.h"
 #include "savefile.h"
 #include "enemy_souls.h"
 #include "owl.h"
@@ -296,10 +297,59 @@ void TitleCard_rUpdate(GlobalContext* globalCtx, TitleCardContext* titleCtx) {
     TitleCard_Update(globalCtx, titleCtx);
 }
 
-u8 ActorSetup_ShouldSkipEntry(ActorEntry* actorEntry) {
+// Return true to skip spawning this actor entry
+u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry, u8 entryIndex) {
+    if (entryIndex == 0) {      // once per room/scene load
+        ExtendedObject_Clear(); // need to take care of player tunic somehow...
+        Actor_KillAllWithMissingObject(gGlobalContext, &gGlobalContext->actorCtx);
+        ExtendedObject_Spawn(OBJECT_CUSTOM_GENERAL_ASSETS);
+
+        ExtendedObject_Spawn(0x16);  // tektite
+        ExtendedObject_Spawn(0x114); // freezard
+        ExtendedObject_Spawn(0x3);   // dungeon
+        ExtendedObject_Spawn(0x32);  // stalfos
+        ExtendedObject_Spawn(0x1B);  // lizalfos
+        ExtendedObject_Spawn(0x0D);  // keese
+        ExtendedObject_Spawn(0x9E);  // flare dancer
+        ExtendedObject_Spawn(0x07);  // octorok
+        ExtendedObject_Spawn(0x24);  // skulltula
+    }
+
     // Alternate Gold Skulltula Locations
     if (actorEntry->id == 0x95 && (actorEntry->params & 0xE000) && Gs_HasAltLoc(actorEntry, GS_PPT_ACTORENTRY, TRUE)) {
         return TRUE;
+    }
+
+    // TODO: for each actor, check if it's randomized, call Hash to get random index,
+    // access some custom table to get object and params
+
+    // if (Object_GetIndex(&gGlobalContext->objectCtx, objId) < 0) {
+    //     ExtendedObject_Spawn(objId);
+    // }
+
+    u16* actorId = (u16*)&actorEntry->id;
+    u16* params  = (u16*)&actorEntry->params;
+
+    // CitraPrint("%4X %4X", *actorId, *params);
+    if (EnemySouls_GetSoulId(*actorId) != SOUL_NONE && *actorId != 0xAB) {
+        // flare dancer
+        // *actorId = 0x99;
+        // *params  = 0x0;
+        // tektite
+        // *actorId = 0x1B;
+        // *params  = 0xFFFE;
+        // stalfos
+        // *actorId = 0x2;
+        // *params  = 0x3;
+        // octorok
+        // *actorId = 0x0E;
+        // *params  = 0xFF00;
+        // freezard
+        // *actorId = 0x121;
+        // *params  = 0x0;
+        // lizalfos
+        *actorId = 0x25;
+        *params  = 0x80;
     }
 
     return FALSE;
@@ -491,8 +541,6 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
     return 1; // continue as normal
 }
 
-#include "objects.h"
-EnemySoulId EnemySouls_GetSoulId(s16 actorId);
 void Actor_OverrideSpawn(u16* actorId, u16* params) {
 }
 
@@ -503,57 +551,4 @@ void ObjectTest(void) {
 }
 
 void ActorEntriesTest(void) {
-    CitraPrint("ActorEntriesTest");
-
-    // TODO: for each actor, check if it's randomized, call Hash to get random index,
-    // access some custom table to get object and params
-
-    ExtendedObject_Clear(); // need to take care of player tunic somehow...
-    Actor_KillAllWithMissingObject(gGlobalContext, &gGlobalContext->actorCtx);
-
-    ExtendedObject_Spawn(OBJECT_CUSTOM_GENERAL_ASSETS);
-
-    if (Object_GetIndex(&gGlobalContext->objectCtx, 0x16) < 0) {
-        ExtendedObject_Spawn(0x16);  // tektite
-        ExtendedObject_Spawn(0x114); // freezard
-        ExtendedObject_Spawn(0x3);   // dungeon
-        // ExtendedObject_Spawn(0x32);  // stalfos
-        // ExtendedObject_Spawn(0x1B);  // lizalfos
-        // ExtendedObject_Spawn(0x0D);  // keese
-        // ExtendedObject_Spawn(0x9E);  // flare dancer
-        // ExtendedObject_Spawn(0x07);  // octorok
-        // ExtendedObject_Spawn(0x24);  // skulltula
-        // ExtendedObject_Spawn(0x32);
-        // ExtendedObject_Spawn(0x32);
-        // ExtendedObject_Spawn(0x32);
-        // ExtendedObject_Spawn(0x32);
-        // ExtendedObject_Spawn(0x32);
-    }
-
-    for (u32 i = 0; i < gGlobalContext->numActorEntries; i++) {
-        u16* actorId = (u16*)&gGlobalContext->actorEntryList[i].id;
-        u16* params  = (u16*)&gGlobalContext->actorEntryList[i].params;
-
-        // CitraPrint("%4X %4X", *actorId, *params);
-        if (EnemySouls_GetSoulId(*actorId) != SOUL_NONE && *actorId != 0xAB) {
-            // flare dancer
-            // *actorId = 0x99;
-            // *params  = 0x0;
-            // tektite
-            // *actorId = 0x1B;
-            // *params  = 0xFFFE;
-            // stalfos
-            // *actorId = 0x2;
-            // *params  = 0x3;
-            // octorok
-            // *actorId = 0x0E;
-            // *params  = 0xFF00;
-            // freezard
-            // *actorId = 0x121;
-            // *params  = 0x0;
-            // lizalfos
-            *actorId = 0x25;
-            *params  = 0x80;
-        }
-    }
 }

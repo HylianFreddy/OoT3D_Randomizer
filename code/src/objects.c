@@ -1,6 +1,7 @@
 #include "z3D/z3D.h"
 #include "objects.h"
 #include "common.h"
+#include "custom_models.h"
 #include "3ds/svc.h"
 #include <stddef.h>
 
