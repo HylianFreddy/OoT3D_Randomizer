@@ -1897,7 +1897,7 @@ hook_OnActorSetup_SceneChange:
 hook_AfterActorSetup_SceneChange:
     strb r0,[r7,#0xC03]
     push {r0-r12, lr}
-    bl ActorSetup_After
+    bl ActorSetup_Extra
     pop {r0-r12, lr}
 .if _EUR_==1
     b 0x4522DC
@@ -1928,7 +1928,7 @@ hook_OnActorSetup_RoomChange:
 hook_AfterActorSetup_RoomChange:
     strb r10,[r8,#0xC03]
     push {r0-r12, lr}
-    bl ActorSetup_After
+    bl ActorSetup_Extra
     pop {r0-r12, lr}
 .if _EUR_==1
     b 0x461458

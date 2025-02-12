@@ -281,11 +281,6 @@ void Actor_Init() {
     strncpy(gObjectTable[OBJECT_CUSTOM_TRIFORCE_PIECE].filename, gObjectTable[OBJECT_TRIFORCE].filename, 0x40);
 }
 
-void ActorSetup_Extra() {
-    Sheik_Spawn();
-    GsQueue_SpawnAll();
-}
-
 void TitleCard_rUpdate(GlobalContext* globalCtx, TitleCardContext* titleCtx) {
     if (ItemOverride_IsAPendingOverride()) {
         titleCtx->delayTimer    = 0;
@@ -355,8 +350,10 @@ u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry, u8 entryIndex) {
     return FALSE;
 }
 
-void ActorSetup_After(void) {
-    ActorSetup_Extra();
+// Called after all actor entries have been handled
+void ActorSetup_Extra(void) {
+    Sheik_Spawn();
+    GsQueue_SpawnAll();
     Gs_QueueAlternateLocated();
 }
 
