@@ -2,8 +2,8 @@
 #include "objects.h"
 #include "common.h"
 
-EnemyData sEnemyData[ENEMY_DATA_SIZE] = {
-    { .actorId = 0x00D, .params = 0x0000, .objectId = 0x009 }, // Poe & Composer Brothers
+static EnemyData sEnemyData[] = {
+    { .actorId = 0x00D, .params = 0x0000, .objectId = 0x001 }, // Poe & Composer Brothers
     { .actorId = 0x00E, .params = 0x0000, .objectId = 0x007 }, // Octorok
     { .actorId = 0x011, .params = 0x0000, .objectId = 0x00B }, // Wallmaster
     { .actorId = 0x012, .params = 0x0000, .objectId = 0x00C }, // Dodongo
@@ -33,33 +33,38 @@ EnemyData sEnemyData[ENEMY_DATA_SIZE] = {
     { .actorId = 0x055, .params = 0x0001, .objectId = 0x039 }, //  Deku Baba (Big)
     { .actorId = 0x060, .params = 0x0300, .objectId = 0x04A }, // Mad Scrub
     { .actorId = 0x063, .params = 0xFFFF, .objectId = 0x056 }, // Bari
-
-    // { .actorId = 0x069, .params = 0x0000, .objectId = 0x000 }, // Bubble
-    // { .actorId = 0x06B, .params = 0x0000, .objectId = 0x000 }, // Flying Floor Tile
-    // { .actorId = 0x08A, .params = 0x0000, .objectId = 0x000 }, // Beamos
-    // { .actorId = 0x08E, .params = 0x0000, .objectId = 0x000 }, // Floormaster
-    // { .actorId = 0x090, .params = 0x0000, .objectId = 0x000 }, // Redead & Gibdo
-    // { .actorId = 0x095, .params = 0x0000, .objectId = 0x000 }, // Skullwalltula
-    // { .actorId = 0x0C5, .params = 0x0000, .objectId = 0x000 }, // Shell Blade
-    // { .actorId = 0x0C7, .params = 0x0000, .objectId = 0x000 }, // Wilted Deku Baba
-    // { .actorId = 0x0DD, .params = 0x0000, .objectId = 0x000 }, // Like Like
-    // { .actorId = 0x0DE, .params = 0x0000, .objectId = 0x000 }, // Parasitic Tentacle
-    // { .actorId = 0x0E0, .params = 0x0000, .objectId = 0x000 }, // Anubis
-    // { .actorId = 0x0E1, .params = 0x0000, .objectId = 0x000 }, // Anubis Fire
-    // { .actorId = 0x0EC, .params = 0x0000, .objectId = 0x000 }, // Spike Trap
-    // { .actorId = 0x115, .params = 0x0000, .objectId = 0x000 }, // Skull Kid (Hostile)
-    // { .actorId = 0x116, .params = 0x0000, .objectId = 0x000 }, // Skull Kid's Needle
-    // { .actorId = 0x11D, .params = 0x0000, .objectId = 0x000 }, // Flying Pot
-    // { .actorId = 0x121, .params = 0x0000, .objectId = 0x000 }, // Freezard
-    // { .actorId = 0x175, .params = 0x0000, .objectId = 0x000 }, // Big Poe
+    { .actorId = 0x069, .params = 0xFFFF, .objectId = 0x05d }, // Bubble (blue)
+    { .actorId = 0x069, .params = 0xFFFE, .objectId = 0x05d }, //  Bubble (fire)
+    { .actorId = 0x06B, .params = 0x0000, .objectId = 0x05f }, // Flying Floor Tile
+    { .actorId = 0x08A, .params = 0x0500, .objectId = 0x08b }, // Beamos
+    { .actorId = 0x08A, .params = 0x0501, .objectId = 0x08b }, // Beamos
+    { .actorId = 0x08E, .params = 0x0000, .objectId = 0x00b }, // Floormaster
+    { .actorId = 0x090, .params = 0x7F01, .objectId = 0x098 }, // Redead
+    { .actorId = 0x090, .params = 0x7FFE, .objectId = 0x098 }, //  Gibdo
+    { .actorId = 0x0C5, .params = 0x0000, .objectId = 0x0b5 }, // Shell Blade
+    { .actorId = 0x0C7, .params = 0x0000, .objectId = 0x039 }, // Withered Deku Baba
+    { .actorId = 0x0DD, .params = 0x0000, .objectId = 0x0d4 }, // Like Like
+    { .actorId = 0x0E0, .params = 0x0000, .objectId = 0x0d6 }, // Anubis
+    { .actorId = 0x0EC, .params = 0x0000, .objectId = 0x0E5 }, // Spike
+    { .actorId = 0x115, .params = 0x0000, .objectId = 0x10A }, // Skull Kid (Hostile)
+    { .actorId = 0x11D, .params = 0x0000, .objectId = 0x003 }, // Flying Pot
+    { .actorId = 0x121, .params = 0x0000, .objectId = 0x114 }, // Freezard
+    { .actorId = 0x121, .params = 0xFFFF, .objectId = 0x114 }, //  Freezard (mobile)
     { .actorId = 0x18C, .params = 0xFFFF, .objectId = 0x026 }, // Stinger (Water)
-    // { .actorId = 0x192, .params = 0x0000, .objectId = 0x000 }, // Deku Scrub (Deku Tree)
-    // { .actorId = 0x193, .params = 0x0000, .objectId = 0x000 }, // Deku Scrub Projectile
-    // { .actorId = 0x195, .params = 0x0000, .objectId = 0x000 }, // Business Scrub (Hostile)
-    // { .actorId = 0x1AF, .params = 0x0000, .objectId = 0x000 }, // Wolfos
-    // { .actorId = 0x1B0, .params = 0x0000, .objectId = 0x000 }, // Stalchild
-    // { .actorId = 0x1C0, .params = 0x0000, .objectId = 0x000 }, // Guay
-    // { .actorId = 0x1C1, .params = 0x0000, .objectId = 0x000 }, // Door Mimic
+    { .actorId = 0x1AF, .params = 0xFF00, .objectId = 0x183 }, // Wolfos
+    { .actorId = 0x1AF, .params = 0xFF01, .objectId = 0x183 }, //  White Wolfos
+    { .actorId = 0x1B0, .params = 0x0000, .objectId = 0x184 }, // Stalchild
+    { .actorId = 0x1B0, .params = 0x0005, .objectId = 0x184 }, //  Stalchild (20 kills)
+    { .actorId = 0x1C0, .params = 0x0000, .objectId = 0x008 }, // Guay
+
+    { .actorId = 0x095, .params = 0x0000, .objectId = 0x024 }, // Skullwalltula
+    { .actorId = 0x0DE, .params = 0x0000, .objectId = 0x0d5 }, // Parasitic Tentacle
+
+};
+
+static EnemyObjectDependency sEnemyObjectDeps[] = {
+    { .actorId = 0x00D, .objectId = 0x009 }, // Poe
+    { .actorId = 0x063, .objectId = 0x021 }, // Bari -> Biri
 };
 
 void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {
@@ -75,7 +80,7 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {
     u16* params  = (u16*)&actorEntry->params;
 
     u8 isRandomizedEnemy = FALSE;
-    for (u32 i = 0; i < ENEMY_DATA_SIZE; i++) {
+    for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
         if (*actorId == sEnemyData[i].actorId) {
             isRandomizedEnemy = TRUE;
             break;
@@ -85,11 +90,17 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {
     if (isRandomizedEnemy) {
         u32 seed = *actorId + *params + actorEntry->pos.x + actorEntry->pos.y + actorEntry->pos.z + actorEntry->rot.x +
                    actorEntry->rot.y + actorEntry->rot.z;
-        u32 index             = Hash(seed) % ENEMY_DATA_SIZE;
+        u32 index             = Hash(seed) % ARRAY_SIZE(sEnemyData);
         EnemyData randomEnemy = sEnemyData[index];
         *actorId              = randomEnemy.actorId;
         *params               = randomEnemy.params;
-        Object_FindOrSpawn(randomEnemy.objectId);
+        Object_FindOrSpawn(gActorOverlayTable[randomEnemy.actorId].initInfo->objectId);
+
+        for (u32 i = 0; i < ARRAY_SIZE(sEnemyObjectDeps); i++) {
+            if (*actorId == sEnemyObjectDeps[i].actorId) {
+                Object_FindOrSpawn(sEnemyObjectDeps[i].objectId);
+            }
+        }
     }
 
     // CitraPrint("%4X %4X", *actorId, *params);

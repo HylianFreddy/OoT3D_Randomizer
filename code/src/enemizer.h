@@ -9,8 +9,10 @@ typedef struct EnemyData {
     u16 objectId;
 } EnemyData;
 
-#define ENEMY_DATA_SIZE 31
-extern EnemyData sEnemyData[ENEMY_DATA_SIZE];
+typedef struct EnemyObjectDependency {
+    u16 actorId;
+    u16 objectId;
+} EnemyObjectDependency;
 
 void Enemizer_OverrideActorEntry(ActorEntry* entry);
 
