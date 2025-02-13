@@ -12,4 +12,6 @@ typedef struct EnemyData {
 #define ENEMY_DATA_SIZE 31
 extern EnemyData sEnemyData[ENEMY_DATA_SIZE];
 
+void Enemizer_OverrideActorEntry(ActorEntry* entry);
+
 #endif // _ENEMIZER_H_

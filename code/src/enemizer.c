@@ -1,4 +1,6 @@
 #include "enemizer.h"
+#include "objects.h"
+#include "common.h"
 
 EnemyData sEnemyData[ENEMY_DATA_SIZE] = {
     { .actorId = 0x00D, .params = 0x0000, .objectId = 0x009 }, // Poe & Composer Brothers
@@ -59,3 +61,56 @@ EnemyData sEnemyData[ENEMY_DATA_SIZE] = {
     // { .actorId = 0x1C0, .params = 0x0000, .objectId = 0x000 }, // Guay
     // { .actorId = 0x1C1, .params = 0x0000, .objectId = 0x000 }, // Door Mimic
 };
+
+void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {
+
+    // TODO: for each actor, check if it's randomized, call Hash to get random index,
+    // access some custom table to get object and params
+
+    // if (Object_GetIndex(&gGlobalContext->objectCtx, objId) < 0) {
+    //     ExtendedObject_Spawn(objId);
+    // }
+
+    u16* actorId = (u16*)&actorEntry->id;
+    u16* params  = (u16*)&actorEntry->params;
+
+    u8 isRandomizedEnemy = FALSE;
+    for (u32 i = 0; i < ENEMY_DATA_SIZE; i++) {
+        if (*actorId == sEnemyData[i].actorId) {
+            isRandomizedEnemy = TRUE;
+            break;
+        }
+    }
+
+    if (isRandomizedEnemy) {
+        u32 seed = *actorId + *params + actorEntry->pos.x + actorEntry->pos.y + actorEntry->pos.z + actorEntry->rot.x +
+                   actorEntry->rot.y + actorEntry->rot.z;
+        u32 index             = Hash(seed) % ENEMY_DATA_SIZE;
+        EnemyData randomEnemy = sEnemyData[index];
+        *actorId              = randomEnemy.actorId;
+        *params               = randomEnemy.params;
+        Object_FindOrSpawn(randomEnemy.objectId);
+    }
+
+    // CitraPrint("%4X %4X", *actorId, *params);
+    // if (EnemySouls_GetSoulId(*actorId) != SOUL_NONE && *actorId != 0xAB) {
+    //     // flare dancer
+    //     // *actorId = 0x99;
+    //     // *params  = 0x0;
+    //     // tektite
+    //     // *actorId = 0x1B;
+    //     // *params  = 0xFFFE;
+    //     // stalfos
+    //     // *actorId = 0x2;
+    //     // *params  = 0x3;
+    //     // octorok
+    //     // *actorId = 0x0E;
+    //     // *params  = 0xFF00;
+    //     // freezard
+    //     // *actorId = 0x121;
+    //     // *params  = 0x0;
+    //     // lizalfos
+    //     *actorId = 0x25;
+    //     *params  = 0x80;
+    // }
+}
