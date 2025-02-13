@@ -6,7 +6,6 @@
 typedef struct EnemyData {
     u16 actorId;
     u16 params;
-    u16 objectId;
 } EnemyData;
 
 typedef struct EnemyObjectDependency {
