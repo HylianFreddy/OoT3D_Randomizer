@@ -14,74 +14,74 @@ Always keep custom assets object loaded in slot 1: reimplement Object_Clear and 
 static ExtendedObjectContext rExtendedObjectCtx = { 0 };
 
 s32 ExtendedObject_Spawn(s16 objectId) {
-    return Object_Spawn(&rExtendedObjectCtx, objectId) + OBJECT_EXCHANGE_BANK_MAX;
+    return Object_Spawn(&rExtendedObjectCtx, objectId) + OBJECT_SLOT_MAX;
 }
 
 void ExtendedObject_Clear(void) {
     Object_Clear(gGlobalContext, &rExtendedObjectCtx);
 }
 
-void ExtendedObject_UpdateBank(void) {
-    Object_UpdateBank(&rExtendedObjectCtx);
+void ExtendedObject_UpdateEntries(void) {
+    Object_UpdateEntries(&rExtendedObjectCtx);
 }
 
-s32 ExtendedObject_GetIndex(s16 objectId) {
-    // CitraPrint("ExtendedObject_GetIndex: %X", objectId);
-    for (s32 i = 0; i < rExtendedObjectCtx.num; ++i) {
+s32 ExtendedObject_GetSlot(s16 objectId) {
+    // CitraPrint("ExtendedObject_GetSlot: %X", objectId);
+    for (s32 i = 0; i < rExtendedObjectCtx.numEntries; ++i) {
         s32 id = ABS(rExtendedObjectCtx.status[i].id);
         if (id == objectId) {
-            return i + OBJECT_EXCHANGE_BANK_MAX;
+            return i + OBJECT_SLOT_MAX;
         }
     }
     return -1;
 }
 
-ObjectStatus* Object_GetStatus(s16 bankIndex) {
-    // CitraPrint("Object_GetStatus: %X %X", bankIndex,
-    //            rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX].id);
-    if (bankIndex >= OBJECT_EXCHANGE_BANK_MAX) {
-        return &rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX];
+ObjectEntry* Object_GetEntry(s16 slot) {
+    // CitraPrint("Object_GetEntry: %X %X", slot,
+    //            rExtendedObjectCtx.status[slot - OBJECT_SLOT_MAX].id);
+    if (slot >= OBJECT_SLOT_MAX) {
+        return &rExtendedObjectCtx.status[slot - OBJECT_SLOT_MAX];
     }
-    if (bankIndex >= 0) {
-        return &gGlobalContext->objectCtx.status[bankIndex];
+    if (slot >= 0) {
+        return &gGlobalContext->objectCtx.status[slot];
     }
-    // CitraPrint("Object_GetStatus failed: %X", objectId);
+    // CitraPrint("Object_GetEntry failed: %X", objectId);
     return NULL;
 }
 
-ObjectStatus* Object_FindOrSpawn(s16 objectId) {
-    // CitraPrint("Object_FindOrSpawn %X", objectId);
-    ObjectStatus* obj;
-    s32 bankIndex = Object_GetIndex(&gGlobalContext->objectCtx, objectId);
-    if (bankIndex >= 0) {
-        if (bankIndex >= OBJECT_EXCHANGE_BANK_MAX) {
-            obj = &rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX];
+ObjectEntry* Object_FindOrSpawnEntry(s16 objectId) {
+    // CitraPrint("Object_FindOrSpawnEntry %X", objectId);
+    ObjectEntry* obj;
+    s32 slot = Object_GetSlot(&gGlobalContext->objectCtx, objectId);
+    if (slot >= 0) {
+        if (slot >= OBJECT_SLOT_MAX) {
+            obj = &rExtendedObjectCtx.status[slot - OBJECT_SLOT_MAX];
         } else {
-            obj = &gGlobalContext->objectCtx.status[bankIndex];
+            obj = &gGlobalContext->objectCtx.status[slot];
         }
         // Wait for the object to be loaded. TODO: this gets stuck infinitely, find another way?
         // while (obj->id <= 0) {
-        //     CitraPrint("Object_FindOrSpawn: waiting for object 0x%X...", objectId);
+        //     CitraPrint("Object_FindOrSpawnEntry: waiting for object 0x%X...", objectId);
         //     svcSleepThread(1000 * 1000LL); // Sleep 1 ms
         // }
         return obj;
     } else {
-        // CitraPrint("Object_FindOrSpawn failed, trying to spawn object 0x%X...", objectId);
-        bankIndex = Object_Spawn(&rExtendedObjectCtx, objectId);
-        return &rExtendedObjectCtx.status[bankIndex];
+        // CitraPrint("Object_FindOrSpawnEntry failed, trying to spawn object 0x%X...", objectId);
+        slot = Object_Spawn(&rExtendedObjectCtx, objectId);
+        return &rExtendedObjectCtx.status[slot];
     }
 }
 
-s32 Object_IsLoaded(ObjectContext* objectCtx, s16 bankIndex) {
-    if (bankIndex < OBJECT_EXCHANGE_BANK_MAX) {
-        return (objectCtx->status[bankIndex].id > 0);
+s32 Object_IsLoaded(ObjectContext* objectCtx, s16 slot) {
+    if (slot < OBJECT_SLOT_MAX) {
+        return (objectCtx->status[slot].id > 0);
     }
 
-    // CitraPrint("Object_IsLoaded %X", rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX].id);
-    return (rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX].id > 0);
+    // CitraPrint("Object_IsLoaded %X", rExtendedObjectCtx.status[slot - OBJECT_SLOT_MAX].id);
+    return (rExtendedObjectCtx.status[slot - OBJECT_SLOT_MAX].id > 0);
 }
 
 void* Object_GetCMABByIndex(s16 objectId, u32 objectAnimIdx) {
-    ObjectStatus* obj = Object_FindOrSpawn(objectId);
+    ObjectEntry* obj = Object_FindOrSpawnEntry(objectId);
     return ZAR_GetCMABByIndex(&obj->zarInfo, objectAnimIdx);
 }

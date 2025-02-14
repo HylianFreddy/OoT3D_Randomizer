@@ -52,7 +52,7 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
     }
     rGameplayFrames++;
     ItemOverride_Update();
-    ExtendedObject_UpdateBank();
+    ExtendedObject_UpdateEntries();
     Model_UpdateAll(globalCtx);
     Input_Update();
     autoLoadSaveFile();

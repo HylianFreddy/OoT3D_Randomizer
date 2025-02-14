@@ -269,7 +269,7 @@ static void CustomModel_EditTriforce(void* triforceCMB) {
 
 void CustomModel_Update(void) {
     // Make sure custom_assets is loaded
-    if (Object_GetIndex(&gGlobalContext->objectCtx, OBJECT_CUSTOM_GENERAL_ASSETS) < 0) {
+    if (Object_GetSlot(&gGlobalContext->objectCtx, OBJECT_CUSTOM_GENERAL_ASSETS) < 0) {
         ExtendedObject_Spawn(OBJECT_CUSTOM_GENERAL_ASSETS);
     }
 }

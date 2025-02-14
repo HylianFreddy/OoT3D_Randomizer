@@ -2263,35 +2263,35 @@ CheckForTextControlCode_patch:
 .section .patch_Actor_Spawn
     bl hook_Actor_Spawn
 
-.section .patch_GetObjectStatus_33AB24
-    bl hook_GetObjectStatus_33AB24
+.section .patch_GetObjectEntry_33AB24
+    bl hook_GetObjectEntry_33AB24
 
-.section .patch_GetObjectStatus_34FE68
-    bl hook_GetObjectStatus_Generic
+.section .patch_GetObjectEntry_34FE68
+    bl hook_GetObjectEntry_Generic
 
-.section .patch_GetObjectStatus_352F28
-    bl hook_GetObjectStatus_Generic
+.section .patch_GetObjectEntry_352F28
+    bl hook_GetObjectEntry_Generic
 
-.section .patch_GetObjectStatus_353CE4
-    bl hook_GetObjectStatus_Generic
+.section .patch_GetObjectEntry_353CE4
+    bl hook_GetObjectEntry_Generic
 
-.section .patch_GetObjectStatus_36A96C
-    bl hook_GetObjectStatus_Generic
+.section .patch_GetObjectEntry_36A96C
+    bl hook_GetObjectEntry_Generic
 
-.section .patch_GetObjectStatus_372F7C
-    bl hook_GetObjectStatus_Generic
+.section .patch_GetObjectEntry_372F7C
+    bl hook_GetObjectEntry_Generic
 
-.section .patch_GetObjectStatus_EnSiInit
-    bl hook_GetObjectStatus_Generic
+.section .patch_GetObjectEntry_EnSiInit
+    bl hook_GetObjectEntry_Generic
 
-.section .patch_GetObjectStatus_EnXcInit
-    bl hook_GetObjectStatus_Generic
+.section .patch_GetObjectEntry_EnXcInit
+    bl hook_GetObjectEntry_Generic
 
-.section .patch_GetObjectStatus_ObjSwitchInit
-    bl hook_GetObjectStatus_Generic
+.section .patch_GetObjectEntry_ObjSwitchInit
+    bl hook_GetObjectEntry_Generic
 
-.section .patch_ExtendObjectGetIndex
-    b hook_ExtendObjectGetIndex
+.section .patch_ExtendObjectGetSlot
+    b hook_ExtendObjectGetSlot
 
 .section .patch_OverrideObjectIsLoaded
     b hook_OverrideObjectIsLoaded

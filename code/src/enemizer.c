@@ -83,11 +83,11 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {
         EnemyData randomEnemy = sEnemyData[index];
         actorEntry->id        = randomEnemy.actorId;
         actorEntry->params    = randomEnemy.params;
-        Object_FindOrSpawn(gActorOverlayTable[randomEnemy.actorId].initInfo->objectId);
+        Object_FindOrSpawnEntry(gActorOverlayTable[randomEnemy.actorId].initInfo->objectId);
 
         for (u32 i = 0; i < ARRAY_SIZE(sEnemyObjectDeps); i++) {
             if (actorEntry->id == sEnemyObjectDeps[i].actorId) {
-                Object_FindOrSpawn(sEnemyObjectDeps[i].objectId);
+                Object_FindOrSpawnEntry(sEnemyObjectDeps[i].objectId);
             }
         }
     }

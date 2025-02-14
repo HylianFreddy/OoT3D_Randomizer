@@ -11,9 +11,9 @@ s16 romfsAlertFrames = 0;
 void EnMag_rInit(Actor* thisx, GlobalContext* globalCtx) {
     EnMag* this = (EnMag*)thisx;
 
-    s8 objBankIdx        = this->actor.objBankIndex;
-    void* titleScreenZAR = globalCtx->objectCtx.status[objBankIdx].zarInfo.buf;
-    ZARInfo* customAssetsZAR = &Object_FindOrSpawn(OBJECT_CUSTOM_GENERAL_ASSETS)->zarInfo;
+    s8 objSlot               = this->actor.objectSlot;
+    void* titleScreenZAR     = globalCtx->objectCtx.status[objSlot].zarInfo.buf;
+    ZARInfo* customAssetsZAR = &Object_FindOrSpawnEntry(OBJECT_CUSTOM_GENERAL_ASSETS)->zarInfo;
     void* cmabMan;
 
     CustomModel_EditTitleScreenLogo(titleScreenZAR);

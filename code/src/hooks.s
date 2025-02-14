@@ -2152,35 +2152,35 @@ hook_Actor_Spawn:
     pop {r0-r12, lr}
     bx lr
 
-.global hook_GetObjectStatus_Generic
-hook_GetObjectStatus_Generic:
+.global hook_GetObjectEntry_Generic
+hook_GetObjectEntry_Generic:
     push {r1-r12, lr}
-    @ r0 = bankIndex
-    bl Object_GetStatus
+    @ r0 = slot
+    bl Object_GetEntry
     pop {r1-r12, lr}
     bx lr
 
-.global hook_GetObjectStatus_33AB24
-hook_GetObjectStatus_33AB24:
+.global hook_GetObjectEntry_33AB24
+hook_GetObjectEntry_33AB24:
     push {r1-r12, lr}
     ldr r0,[r4,#0x4]
     ldr r0,[r0,r5,lsl #0x3] @ objectId
-    bl Object_FindOrSpawn
+    bl Object_FindOrSpawnEntry
     pop {r1-r12, lr}
     bx lr
 
-.global hook_ExtendObjectGetIndex
-hook_ExtendObjectGetIndex:
+.global hook_ExtendObjectGetSlot
+hook_ExtendObjectGetSlot:
     push {r1-r12, lr}
     cpy r0,r1 @ objectId
-    bl ExtendedObject_GetIndex
+    bl ExtendedObject_GetSlot
     pop {r1-r12, lr}
     bx lr
 
 .global hook_OverrideObjectIsLoaded
 hook_OverrideObjectIsLoaded:
     push {r1-r12, lr}
-    @ r0,r1 = ObjectContext,bankIndex
+    @ r0,r1 = ObjectContext,slot
     bl Object_IsLoaded
     pop {r1-r12, lr}
     bx lr

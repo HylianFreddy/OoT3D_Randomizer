@@ -175,7 +175,7 @@ void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalC
     DeleteModel_At(&item->model2);
 
     // edit the cmbs for custom models
-    ObjectStatus* obj = Object_FindOrSpawn(objectId);
+    ObjectEntry* obj = Object_FindOrSpawnEntry(objectId);
     CustomModels_EditItemCMB(obj->zarInfo.buf, objectId, special);
 
     item->model = SkeletonAnimationModel_Spawn(&item->actor, globalCtx, objectId, objModelIdx);
@@ -206,8 +206,8 @@ void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalC
 void ShopsanityItem_InitializeItem(EnGirlA* item, GlobalContext* globalCtx) {
     ShopsanityItem* shopItem = (ShopsanityItem*)item;
 
-    if (Object_IsLoaded(&globalCtx->objectCtx, item->objBankIndex) &&
-        Object_IsLoaded(&globalCtx->objectCtx, shopItem->rObjBankIndex)) {
+    if (Object_IsLoaded(&globalCtx->objectCtx, item->objectSlot) &&
+        Object_IsLoaded(&globalCtx->objectCtx, shopItem->rObjectSlot)) {
         EnGirlA_InitializeItemAction(item, globalCtx);
         ShopsanityItem_ResetModels(shopItem, globalCtx, shopItem->itemRow->objectId, shopItem->itemRow->objectModelIdx,
                                    shopItem->itemRow->objectModelIdx2, shopItem->itemRow->cmabIndex,
@@ -230,8 +230,8 @@ void ShopsanityItem_InitializeRegularShopItem(EnGirlA* item, GlobalContext* glob
     ShopsanityItem* shopItem     = (ShopsanityItem*)item;
     ShopItemEntry* shopItemEntry = &EnGirlA_ShopItemEntries[shopItem->getItemId];
 
-    if (Object_IsLoaded(&globalCtx->objectCtx, item->objBankIndex) &&
-        Object_IsLoaded(&globalCtx->objectCtx, shopItem->rObjBankIndex)) {
+    if (Object_IsLoaded(&globalCtx->objectCtx, item->objectSlot) &&
+        Object_IsLoaded(&globalCtx->objectCtx, shopItem->rObjectSlot)) {
         EnGirlA_InitializeItemAction(item, globalCtx);
         ShopsanityItem_ResetModels(shopItem, globalCtx, shopItemEntry->objId, shopItemEntry->objModelIdx,
                                    shopItemEntry->objModelIdx2, shopItemEntry->cmabIndex, shopItemEntry->cmabIndex2,
@@ -261,9 +261,9 @@ void ShopsanityItem_InitializeRegularShopItem(EnGirlA* item, GlobalContext* glob
 void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
     ShopsanityItem* item = (ShopsanityItem*)itemx;
     ItemOverride override;
-    s32 objBankIndex;
+    s32 objectSlot;
 
-    Object_FindOrSpawn(0x148);
+    Object_FindOrSpawnEntry(0x148);
     CustomModel_Update();
 
     item->shopItemPosition = numShopItemsLoaded;
@@ -282,14 +282,14 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
         item->super.actionFunc2 = ShopsanityItem_InitializeRegularShopItem;
         item->getItemId         = override.value.itemId;
 
-        objBankIndex = Object_GetIndex(&globalCtx->objectCtx, EnGirlA_ShopItemEntries[override.value.itemId].objId);
-        if (objBankIndex < 0) {
-            objBankIndex = ExtendedObject_Spawn(EnGirlA_ShopItemEntries[override.value.itemId].objId);
+        objectSlot = Object_GetSlot(&globalCtx->objectCtx, EnGirlA_ShopItemEntries[override.value.itemId].objId);
+        if (objectSlot < 0) {
+            objectSlot = ExtendedObject_Spawn(EnGirlA_ShopItemEntries[override.value.itemId].objId);
         }
-        item->rObjBankIndex = objBankIndex;
+        item->rObjectSlot = objectSlot;
     } else {
-        item->super.objBankIndex =
-            Object_GetIndex(&globalCtx->objectCtx, EnGirlA_ShopItemEntries[item->super.actor.params].objId);
+        item->super.objectSlot =
+            Object_GetSlot(&globalCtx->objectCtx, EnGirlA_ShopItemEntries[item->super.actor.params].objId);
         item->super.unk_1FC = 1.0f;
 
         item->super.actionFunc2 = ShopsanityItem_InitializeItem;
@@ -306,11 +306,11 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
         }
         item->itemRow = ItemTable_GetItemRow(id);
 
-        objBankIndex = Object_GetIndex(&globalCtx->objectCtx, item->itemRow->objectId);
-        if (objBankIndex < 0) {
-            objBankIndex = ExtendedObject_Spawn(item->itemRow->objectId);
+        objectSlot = Object_GetSlot(&globalCtx->objectCtx, item->itemRow->objectId);
+        if (objectSlot < 0) {
+            objectSlot = ExtendedObject_Spawn(item->itemRow->objectId);
         }
-        item->rObjBankIndex = objBankIndex;
+        item->rObjectSlot = objectSlot;
     }
 }
 

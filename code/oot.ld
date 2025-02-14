@@ -192,8 +192,8 @@ SECTIONS
 		*(.patch_SariasSongCheckFlag)
 	}
 
-	.patch_GetObjectStatus_EnSiInit 0x168B20 : {
-		*(.patch_GetObjectStatus_EnSiInit)
+	.patch_GetObjectEntry_EnSiInit 0x168B20 : {
+		*(.patch_GetObjectEntry_EnSiInit)
 	}
 
 /* todo fix order of these patches */
@@ -293,8 +293,8 @@ SECTIONS
 		*(.patch_EponasSongCheckFlag)
 	}
 
-	.patch_GetObjectStatus_EnXcInit 0x18D7AC : {
-		*(.patch_GetObjectStatus_EnXcInit)
+	.patch_GetObjectEntry_EnXcInit 0x18D7AC : {
+		*(.patch_GetObjectEntry_EnXcInit)
 	}
 
 	.patch_PreludeLocation 0x18D9FC : {
@@ -541,8 +541,8 @@ SECTIONS
 	  *(.patch_JabuBoxCheckRuto)
 	}
 
-	.patch_GetObjectStatus_ObjSwitchInit 0x215A60 : {
-		*(.patch_GetObjectStatus_ObjSwitchInit)
+	.patch_GetObjectEntry_ObjSwitchInit 0x215A60 : {
+		*(.patch_GetObjectEntry_ObjSwitchInit)
 	}
 
 	.patch_DekuTheaterMaskOfTruth 0x21CA30 : {
@@ -857,8 +857,8 @@ SECTIONS
 		*(.patch_LostWoodsBridgeMusic)
 	}
 
-	.patch_GetObjectStatus_33AB24 0x33AB24 : {
-		*(.patch_GetObjectStatus_33AB24)
+	.patch_GetObjectEntry_33AB24 0x33AB24 : {
+		*(.patch_GetObjectEntry_33AB24)
 	} /* Used for: chest ice trap smoke effect */
 
 	.patch_Room_StartTransition 0x33B6C0 : {
@@ -897,8 +897,8 @@ SECTIONS
 		*(.patch_FWLoadSet)
 	}
 
-	.patch_GetObjectStatus_34FE68 0x34FE68 : {
-		*(.patch_GetObjectStatus_34FE68)
+	.patch_GetObjectEntry_34FE68 0x34FE68 : {
+		*(.patch_GetObjectEntry_34FE68)
 	}
 
 	.patch_FWGetSet 0x3519CC : {
@@ -909,12 +909,12 @@ SECTIONS
 		*(.patch_ApplyDamageMultiplier)
 	}
 
-	.patch_GetObjectStatus_352F28 0x352F28 : {
-		*(.patch_GetObjectStatus_352F28)
+	.patch_GetObjectEntry_352F28 0x352F28 : {
+		*(.patch_GetObjectEntry_352F28)
 	} /* Used for: Flare Dancer */
 
-	.patch_GetObjectStatus_353CE4 0x353CE4 : {
-		*(.patch_GetObjectStatus_353CE4)
+	.patch_GetObjectEntry_353CE4 0x353CE4 : {
+		*(.patch_GetObjectEntry_353CE4)
 	}
 
 	.patch_FastChests 0x354CD4 : {
@@ -949,12 +949,12 @@ SECTIONS
 		*(.patch_ForceTrailEffectUpdate)
 	} /*EffectBlure_AddVertex*/
 
-	.patch_ExtendObjectGetIndex 0x363CB4 : {
-		*(.patch_ExtendObjectGetIndex)
+	.patch_ExtendObjectGetSlot 0x363CB4 : {
+		*(.patch_ExtendObjectGetSlot)
 	}
 
-	.patch_GetObjectStatus_36A96C 0x36A96C : {
-		*(.patch_GetObjectStatus_36A96C)
+	.patch_GetObjectEntry_36A96C 0x36A96C : {
+		*(.patch_GetObjectEntry_36A96C)
 	} /* Used for: freestanding item models */
 
 	.patch_IgnoreMaskReaction 0x36BBC4 : {
@@ -985,8 +985,8 @@ SECTIONS
 	    *(.patch_MaskSalesmanCheckNoMaskTwo)
 	}
 
-	.patch_GetObjectStatus_372F7C 0x372F7C : {
-	    *(.patch_GetObjectStatus_372F7C)
+	.patch_GetObjectEntry_372F7C 0x372F7C : {
+	    *(.patch_GetObjectEntry_372F7C)
 	} /* Used for: Octorok */
 
 	.patch_OverrideObjectIsLoaded 0x373074 : {

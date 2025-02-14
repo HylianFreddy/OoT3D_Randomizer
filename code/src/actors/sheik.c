@@ -35,7 +35,7 @@ void Sheik_Spawn(void) {
     }
 
     if ((Sheik_IsAt_TempleOfTime() && !HasGanonsBK()) || (Sheik_IsAt_GanonsCastle() && HasGanonsBK())) {
-        Object_FindOrSpawn(0x8A);
+        Object_FindOrSpawnEntry(0x8A);
 
         Vec3f pos;
         Vec3s rot;

@@ -489,7 +489,7 @@ typedef struct {
     /* 0x24 */ s32 bgId;
 } CamColChk; // size = 0x28
 
-#define OBJECT_EXCHANGE_BANK_MAX 19
+#define OBJECT_SLOT_MAX 19
 #define OBJECT_ID_MAX 417
 
 typedef struct ZARInfo {
@@ -503,16 +503,18 @@ typedef struct ZARInfo {
     /* 0x5C */ char unk_5C[0x14];
 } ZARInfo; // size = 0x70
 
-typedef struct {
+typedef struct ObjectEntry {
     /* 0x00 */ s16 id;
     /* 0x02 */ char unk_02[0x0E];
     /* 0x10 */ ZARInfo zarInfo;
-} ObjectStatus; // size = 0x80
+} ObjectEntry; // size = 0x80
 
-typedef struct {
-    /* 0x000 */ u8 num;
-    /* 0x001 */ char unk_01[0x3];
-    /* 0x004 */ ObjectStatus status[OBJECT_EXCHANGE_BANK_MAX];
+typedef struct ObjectContext {
+    /* 0x000 */ u8 numEntries;           // total amount of used entries
+    /* 0x001 */ u8 numPersistentEntries; // amount of entries that won't be reused when loading a new room
+    /* 0x002 */ u8 mainKeepSlot;         // "gameplay_keep" slot
+    /* 0x003 */ u8 subKeepSlot;          // "gameplay_field_keep" or "gameplay_dangeon_keep" slot
+    /* 0x004 */ ObjectEntry status[OBJECT_SLOT_MAX];
 } ObjectContext; // size = 0x984
 
 typedef struct {

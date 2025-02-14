@@ -34,7 +34,7 @@ void GsQueue_SpawnAll(void) {
         return;
     }
 
-    Object_FindOrSpawn(0x24);
+    Object_FindOrSpawnEntry(0x24);
 
     for (size_t i = 0; i < ARRAY_SIZE(gsSpawnQueue); i++) {
         if (gsSpawnQueue[i] != NULL) {

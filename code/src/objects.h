@@ -7,10 +7,10 @@ typedef s32 (*Object_proc)(ObjectContext* objectCtx, s16 objectId);
 
 #define Object_Spawn ((Object_proc)GAME_ADDR(0x32E21C))
 
-#define Object_GetIndex ((Object_proc)GAME_ADDR(0x363C10))
+#define Object_GetSlot ((Object_proc)GAME_ADDR(0x363C10))
 
-typedef void (*Object_UpdateBank_proc)(ObjectContext* objectCtx);
-#define Object_UpdateBank ((Object_UpdateBank_proc)GAME_ADDR(0x2E4EA0))
+typedef void (*Object_UpdateEntries_proc)(ObjectContext* objectCtx);
+#define Object_UpdateEntries ((Object_UpdateEntries_proc)GAME_ADDR(0x2E4EA0))
 
 typedef void (*Object_Clear_proc)(GlobalContext* globalCtx, ObjectContext* objectCtx);
 #define Object_Clear ((Object_Clear_proc)GAME_ADDR(0x45FDA0))
@@ -25,15 +25,15 @@ typedef void (*TexAnim_Spawn_proc)(void*, void*);
 
 typedef ObjectContext ExtendedObjectContext;
 
-// Get an object slot given the index.
-ObjectStatus* Object_GetStatus(s16 bankIndex);
-// Find an object slot containing the specified objectId, or spawn it if not found.
-// This function may return an object slot that is not yet loaded, but you can still
+// Get an object entry given the slot.
+ObjectEntry* Object_GetEntry(s16 slot);
+// Find an object entry for the specified objectId, or spawn it if it's not found.
+// This function may return an entry that is not yet loaded, but you can still
 // spawn actors depending on that object because the game will wait for the load
 // before initializing the actor.
-ObjectStatus* Object_FindOrSpawn(s16 objectId);
-// Check if the object in the `bankIndex` slot is loaded.
-s32 Object_IsLoaded(ObjectContext* objectCtx, s16 bankIndex);
+ObjectEntry* Object_FindOrSpawnEntry(s16 objectId);
+// Check if the object in the given slot is loaded.
+s32 Object_IsLoaded(ObjectContext* objectCtx, s16 slot);
 // Get the CMAB manager from this object, loading it if it's not present.
 void* Object_GetCMABByIndex(s16 objectId, u32 objectAnimIdx);
 
@@ -42,6 +42,6 @@ s32 ExtendedObject_Spawn(s16 objectId);
 // Empty the extended object context.
 void ExtendedObject_Clear(void);
 // Update the extended object context.
-void ExtendedObject_UpdateBank(void);
+void ExtendedObject_UpdateEntries(void);
 
 #endif //_OBJECTS_H_
