@@ -23,7 +23,7 @@ void ExtendedObject_UpdateEntries(void) {
 }
 
 s32 ExtendedObject_GetSlot(s16 objectId) {
-    // CitraPrint("ExtendedObject_GetSlot: %X", objectId);
+    CitraPrint("ExtendedObject_GetSlot: %X", objectId);
     for (s32 i = 0; i < rExtendedObjectCtx.numEntries; ++i) {
         s32 id = ABS(rExtendedObjectCtx.status[i].id);
         if (id == objectId) {

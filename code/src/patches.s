@@ -2285,6 +2285,18 @@ CheckForTextControlCode_patch:
 .section .patch_GetObjectEntry_ObjSwitchInit
     bl hook_GetObjectEntry_Generic
 
+.section .patch_GetObjectEntry_33A950
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_EnRdInit
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_EnTiteInit
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_339DFC
+    bl hook_GetObjectEntry_Generic
+
 .section .patch_ExtendObjectGetSlot
     b hook_ExtendObjectGetSlot
 

@@ -3,15 +3,16 @@
 #include "common.h"
 
 static EnemyData sEnemyData[] = {
-    { .actorId = 0x00D, .params = 0x0000 }, // Poe & Composer Brothers
-    { .actorId = 0x00E, .params = 0x0000 }, // Octorok
+    { .actorId = 0x00D, .params = 0x0000 }, // Poe
+    { .actorId = 0x00E, .params = 0x0000 }, // Octorok [requires water]
     { .actorId = 0x011, .params = 0x0000 }, // Wallmaster
-    { .actorId = 0x012, .params = 0x0000 }, // Dodongo
+    { .actorId = 0x012, .params = 0x0000 }, // Dodongo [gets stuck in mid-air]
     { .actorId = 0x013, .params = 0x0002 }, // Keese
     { .actorId = 0x013, .params = 0x0001 }, //  Fire Keese
     { .actorId = 0x013, .params = 0x0004 }, //  Ice Keese
-    { .actorId = 0x01B, .params = 0xFFFF }, // Tektite (Red)
-    { .actorId = 0x01B, .params = 0xFFFE }, //  Tektite (Blue)
+    { .actorId = 0x01B, .params = 0xFFFF }, // Tektite (Red)   [doesn't float in water sometimes?]
+    { .actorId = 0x01B, .params = 0xFFFE }, //  Tektite (Blue) [doesn't float in water sometimes?]
+
     { .actorId = 0x01C, .params = 0x0000 }, // Leever
     { .actorId = 0x01D, .params = 0xFFFF }, // Peahat
     { .actorId = 0x01D, .params = 0x0001 }, //  Peahat Larva
@@ -57,14 +58,15 @@ static EnemyData sEnemyData[] = {
     { .actorId = 0x1B0, .params = 0x0005 }, //  Stalchild (20 kills)
     { .actorId = 0x1C0, .params = 0x0000 }, // Guay
 
-    { .actorId = 0x095, .params = 0x0000 }, // Skullwalltula
-    { .actorId = 0x0DE, .params = 0x0000 }, // Parasitic Tentacle
+    // { .actorId = 0x095, .params = 0x0000 }, // Skullwalltula
+    // { .actorId = 0x0DE, .params = 0x0000 }, // Parasitic Tentacle
 
 };
 
 static EnemyObjectDependency sEnemyObjectDeps[] = {
-    { .actorId = 0x00D, .objectId = 0x009 }, // Poe
+    { .actorId = 0x00D, .objectId = 0x009 }, // Poe (actor profile only points to object 1)
     { .actorId = 0x063, .objectId = 0x021 }, // Bari -> Biri
+    { .actorId = 0x012, .objectId = 0x003 }, // Dodongo -> dungeon object for fire breath
 };
 
 void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {
@@ -77,10 +79,14 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {
     }
 
     if (isRandomizedEnemy) {
-        u32 seed = (u16)actorEntry->id + (u16)actorEntry->params + actorEntry->pos.x + actorEntry->pos.y +
-                   actorEntry->pos.z + actorEntry->rot.x + actorEntry->rot.y + actorEntry->rot.z;
-        u32 index             = Hash(seed) % ARRAY_SIZE(sEnemyData);
-        EnemyData randomEnemy = sEnemyData[index];
+        // u32 seed = (u16)actorEntry->id + (u16)actorEntry->params + actorEntry->pos.x + actorEntry->pos.y +
+        //            actorEntry->pos.z + actorEntry->rot.x + actorEntry->rot.y + actorEntry->rot.z;
+        // u32 index             = Hash(seed) % ARRAY_SIZE(sEnemyData);
+        extern s32 mockIndex;
+        EnemyData randomEnemy = sEnemyData[mockIndex];
+        // if (actorEntry->id == 0x37) {
+        //     CitraPrint("%X", randomEnemy.actorId);
+        // }
         actorEntry->id        = randomEnemy.actorId;
         actorEntry->params    = randomEnemy.params;
         Object_FindOrSpawnEntry(gActorOverlayTable[randomEnemy.actorId].initInfo->objectId);

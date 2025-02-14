@@ -25,9 +25,11 @@ GlobalContext* gGlobalContext = NULL;
 static u8 rRandomizerInit     = 0;
 u32 rGameplayFrames           = 0;
 
+s32 mockIndex = 7 - 2;
 void before_Play_Init(GlobalContext* globalCtx) {
     gGlobalContext = globalCtx;
     ExtendedObject_Reset();
+    mockIndex++;
 }
 
 void Randomizer_Init() {

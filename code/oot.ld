@@ -188,6 +188,10 @@ SECTIONS
 		*(.patch_MidoCheckDekuTreeClearOne)
 	}
 
+	.patch_GetObjectEntry_EnRdInit 0x167E38 : {
+		*(.patch_GetObjectEntry_EnRdInit)
+	}
+
 	.patch_SariasSongCheckFlag 0x1686A0 : {
 		*(.patch_SariasSongCheckFlag)
 	}
@@ -411,6 +415,10 @@ SECTIONS
 
 	.patch_MidoCheckDekuTreeClearThree 0x1B7414 : {
 		*(.patch_MidoCheckDekuTreeClearThree)
+	}
+
+	.patch_GetObjectEntry_EnTiteInit 0x1BBC9C : {
+		*(.patch_GetObjectEntry_EnTiteInit)
 	}
 
 	.patch_FishingNewRecord 0x1C3AA4 : {
@@ -855,6 +863,14 @@ SECTIONS
 
 	.patch_LostWoodsBridgeMusic 0x338DD8 : {
 		*(.patch_LostWoodsBridgeMusic)
+	}
+
+	.patch_GetObjectEntry_33A950 0x33A950 : {
+		*(.patch_GetObjectEntry_33A950)
+	}
+
+	.patch_GetObjectEntry_339DFC 0x339DFC : {
+		*(.patch_GetObjectEntry_339DFC)
 	}
 
 	.patch_GetObjectEntry_33AB24 0x33AB24 : {
