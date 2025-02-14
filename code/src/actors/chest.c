@@ -31,12 +31,8 @@ void EnBox_rInit(Actor* thisx, GlobalContext* globalCtx) {
     ItemOverride thisOverride = ItemOverride_Lookup(thisx, globalCtx->sceneNum, 0);
     if (thisOverride.value.itemId == GI_ICE_TRAP) {
         // Make sure zelda_dangeon_keep and object_fz are loaded
-        if (Object_GetSlot(&gGlobalContext->objectCtx, 0x3) < 0) {
-            ExtendedObject_Spawn(0x3);
-        }
-        if (Object_GetSlot(&gGlobalContext->objectCtx, 0x114) < 0) {
-            ExtendedObject_Spawn(0x114);
-        }
+        Object_FindOrSpawnEntry(0x3);
+        Object_FindOrSpawnEntry(0x114);
     }
 
     if ((gSettingsContext.chestAppearance != CHESTAPPEARANCE_VANILLA)) {

@@ -261,7 +261,6 @@ void ShopsanityItem_InitializeRegularShopItem(EnGirlA* item, GlobalContext* glob
 void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
     ShopsanityItem* item = (ShopsanityItem*)itemx;
     ItemOverride override;
-    s32 objectSlot;
 
     Object_FindOrSpawnEntry(0x148);
     CustomModel_Update();
@@ -281,12 +280,7 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
 
         item->super.actionFunc2 = ShopsanityItem_InitializeRegularShopItem;
         item->getItemId         = override.value.itemId;
-
-        objectSlot = Object_GetSlot(&globalCtx->objectCtx, EnGirlA_ShopItemEntries[override.value.itemId].objId);
-        if (objectSlot < 0) {
-            objectSlot = ExtendedObject_Spawn(EnGirlA_ShopItemEntries[override.value.itemId].objId);
-        }
-        item->rObjectSlot = objectSlot;
+        item->rObjectSlot       = Object_FindOrSpawnSlot(EnGirlA_ShopItemEntries[override.value.itemId].objId);
     } else {
         item->super.objectSlot =
             Object_GetSlot(&globalCtx->objectCtx, EnGirlA_ShopItemEntries[item->super.actor.params].objId);
@@ -305,12 +299,7 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
             id = ItemTable_ResolveUpgrades(id);
         }
         item->itemRow = ItemTable_GetItemRow(id);
-
-        objectSlot = Object_GetSlot(&globalCtx->objectCtx, item->itemRow->objectId);
-        if (objectSlot < 0) {
-            objectSlot = ExtendedObject_Spawn(item->itemRow->objectId);
-        }
-        item->rObjectSlot = objectSlot;
+        item->rObjectSlot = Object_FindOrSpawnSlot(item->itemRow->objectId);
     }
 }
 

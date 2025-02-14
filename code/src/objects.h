@@ -32,16 +32,18 @@ ObjectEntry* Object_GetEntry(s16 slot);
 // spawn actors depending on that object because the game will wait for the load
 // before initializing the actor.
 ObjectEntry* Object_FindOrSpawnEntry(s16 objectId);
+// Same as Object_FindOrSpawnEntry but return the object slot
+s32 Object_FindOrSpawnSlot(s16 objectId);
 // Check if the object in the given slot is loaded.
 s32 Object_IsLoaded(ObjectContext* objectCtx, s16 slot);
 // Get the CMAB manager from this object, loading it if it's not present.
 void* Object_GetCMABByIndex(s16 objectId, u32 objectAnimIdx);
 
-// Spawn a new object in the randomizer's extended object context.
-s32 ExtendedObject_Spawn(s16 objectId);
 // Empty the extended object context.
 void ExtendedObject_Clear(void);
 // Update the extended object context.
 void ExtendedObject_UpdateEntries(void);
+// Clear and reset the extended object context.
+void ExtendedObject_Reset(void);
 
 #endif //_OBJECTS_H_

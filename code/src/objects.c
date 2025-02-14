@@ -1,6 +1,7 @@
 #include "z3D/z3D.h"
 #include "objects.h"
 #include "common.h"
+#include "models.h"
 #include "custom_models.h"
 #include "3ds/svc.h"
 #include <stddef.h>
@@ -13,7 +14,7 @@ Always keep custom assets object loaded in slot 1: reimplement Object_Clear and 
 
 static ExtendedObjectContext rExtendedObjectCtx = { 0 };
 
-s32 ExtendedObject_Spawn(s16 objectId) {
+static s32 ExtendedObject_Spawn(s16 objectId) {
     return Object_Spawn(&rExtendedObjectCtx, objectId) + OBJECT_SLOT_MAX;
 }
 
@@ -34,6 +35,15 @@ s32 ExtendedObject_GetSlot(s16 objectId) {
         }
     }
     return -1;
+}
+
+void ExtendedObject_Reset(void) {
+    Object_Clear(gGlobalContext, &rExtendedObjectCtx);
+    Actor_KillAllWithMissingObject(gGlobalContext, &gGlobalContext->actorCtx);
+    Model_DestroyAll();
+    // Even though the custom tunics depend on this object, everything seems to still work
+    // if it's reloaded immediately so that it's always in the first slot.
+    ExtendedObject_Spawn(OBJECT_CUSTOM_GENERAL_ASSETS);
 }
 
 ObjectEntry* Object_GetEntry(s16 slot) {
@@ -70,6 +80,14 @@ ObjectEntry* Object_FindOrSpawnEntry(s16 objectId) {
         slot = Object_Spawn(&rExtendedObjectCtx, objectId);
         return &rExtendedObjectCtx.status[slot];
     }
+}
+
+s32 Object_FindOrSpawnSlot(s16 objectId) {
+    s32 objectSlot = Object_GetSlot(&gGlobalContext->objectCtx, objectId);
+    if (objectSlot < 0) {
+        objectSlot = ExtendedObject_Spawn(objectId);
+    }
+    return objectSlot;
 }
 
 s32 Object_IsLoaded(ObjectContext* objectCtx, s16 slot) {

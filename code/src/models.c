@@ -172,21 +172,13 @@ void Model_LookupByOverride(Model* model, ItemOverride override) {
     }
 }
 
-void Model_GetObjectSlot(Model* model, Actor* actor, GlobalContext* globalCtx) {
-    s32 objectSlot = Object_GetSlot(&globalCtx->objectCtx, model->itemRow->objectId);
-    if (objectSlot < 0) {
-        objectSlot = ExtendedObject_Spawn(model->itemRow->objectId);
-    }
-    model->objectSlot = objectSlot;
-}
-
 void Model_InfoLookup(Model* model, Actor* actor, GlobalContext* globalCtx, u16 baseItemId) {
     ItemOverride override;
 
     // Special case for bombchu drops
     if ((actor->id == 0x15) && (actor->params == 5)) {
         model->itemRow = ItemTable_GetItemRow(GI_BOMBCHUS_5);
-        Model_GetObjectSlot(model, actor, globalCtx);
+        model->objectSlot = Object_FindOrSpawnSlot(model->itemRow->objectId);
         return;
     }
 
@@ -207,7 +199,7 @@ void Model_InfoLookup(Model* model, Actor* actor, GlobalContext* globalCtx, u16 
 
     if (override.key.all != 0) {
         Model_LookupByOverride(model, override);
-        Model_GetObjectSlot(model, actor, globalCtx);
+        model->objectSlot = Object_FindOrSpawnSlot(model->itemRow->objectId);
     }
 }
 
