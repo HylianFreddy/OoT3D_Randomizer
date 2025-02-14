@@ -73,7 +73,10 @@ endif
 # Enable this to skip building the basecode patches
 app_only ?= 0
 
-CXXFLAGS += -g -DCOMMIT_NUMBER=\"$(shell git show --no-patch --format=format:"%h")\"
+# Define COMMIT_NUMBER unless it's already been defined by the build script `linux_build_rando.sh`.
+# If git throws an error, pass "develop".
+COMMIT_NUMBER ?= $(shell git show --no-patch --format=format:"%h" || echo develop)
+CXXFLAGS += -g -DCOMMIT_NUMBER=\"$(COMMIT_NUMBER)\"
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
