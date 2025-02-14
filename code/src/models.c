@@ -83,8 +83,6 @@ void Model_Destroy(Model* model) {
 void Model_UpdateAll(GlobalContext* globalCtx) {
     Model* model;
 
-    ExtendedObject_UpdateBank();
-
     for (s32 i = 0; i < LOADEDMODELS_MAX; ++i) {
         model = &ModelContext[i];
 

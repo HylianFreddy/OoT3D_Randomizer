@@ -52,17 +52,14 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
     }
     rGameplayFrames++;
     ItemOverride_Update();
+    ExtendedObject_UpdateBank();
     Model_UpdateAll(globalCtx);
     Input_Update();
     autoLoadSaveFile();
     SaveFile_EnforceHealthLimit();
-
     Settings_SkipSongReplays();
-
     Multiplayer_Run();
-
     ItemEffect_RupeeAmmo(&gSaveContext);
-
     Triforce_HandleCreditsWarp();
 
     // if (rInputCtx.pressed.zr) {
