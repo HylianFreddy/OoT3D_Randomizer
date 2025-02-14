@@ -1,7 +1,6 @@
 #!/bin/bash
 
 compile() {
-  export COMMIT_NUMBER=$(echo ${GITHUB_SHA::6})
   make -j
   bannertoolexec makebanner -i ./banner.png -a ./audio.wav -o ./banner.bnr
   bannertoolexec makesmdh -s "Ocarina of Time 3D Randomizer" -l "A different Ocarina of Time experience" -p "Gamestabled & Gymnast86" -i icon.png -o ./icon.icn

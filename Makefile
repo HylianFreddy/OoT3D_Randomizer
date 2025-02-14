@@ -73,11 +73,6 @@ endif
 # Enable this to skip building the basecode patches
 app_only ?= 0
 
-# Define COMMIT_NUMBER unless it's already been defined by the build script `linux_build_rando.sh`.
-# If git throws an error, pass "develop".
-COMMIT_NUMBER ?= $(shell git show --no-patch --format=format:"%h" || echo develop)
-CXXFLAGS += -g -DCOMMIT_NUMBER=\"$(COMMIT_NUMBER)\"
-
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
@@ -181,6 +176,7 @@ endif
 
 #---------------------------------------------------------------------------------
 all: delete3DSX create_basecode $(BUILD) $(GFXBUILD) $(DEPSDIR) $(ROMFS_T3XFILES) $(T3XHFILES)
+	@$(TOPDIR)/write_commit_string.sh
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 delete3DSX:
