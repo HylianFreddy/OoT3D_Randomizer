@@ -303,16 +303,6 @@ u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry, u8 entryIndex) {
         // Even though the custom tunics depend on this object, everything seems to still work
         // if it's reloaded immediately so that it's always in the first slot.
         ExtendedObject_Spawn(OBJECT_CUSTOM_GENERAL_ASSETS);
-
-        // ExtendedObject_Spawn(0x16);  // tektite
-        // ExtendedObject_Spawn(0x114); // freezard
-        // ExtendedObject_Spawn(0x3);   // dungeon
-        // ExtendedObject_Spawn(0x32);  // stalfos
-        // ExtendedObject_Spawn(0x1B);  // lizalfos
-        // ExtendedObject_Spawn(0x0D);  // keese
-        // ExtendedObject_Spawn(0x9E);  // flare dancer
-        // ExtendedObject_Spawn(0x07);  // octorok
-        // ExtendedObject_Spawn(0x24);  // skulltula
     }
 
     // Alternate Gold Skulltula Locations

@@ -68,60 +68,27 @@ static EnemyObjectDependency sEnemyObjectDeps[] = {
 };
 
 void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {
-
-    // TODO: for each actor, check if it's randomized, call Hash to get random index,
-    // access some custom table to get object and params
-
-    // if (Object_GetIndex(&gGlobalContext->objectCtx, objId) < 0) {
-    //     ExtendedObject_Spawn(objId);
-    // }
-
-    u16* actorId = (u16*)&actorEntry->id;
-    u16* params  = (u16*)&actorEntry->params;
-
     u8 isRandomizedEnemy = FALSE;
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
-        if (*actorId == sEnemyData[i].actorId) {
+        if (actorEntry->id == sEnemyData[i].actorId) {
             isRandomizedEnemy = TRUE;
             break;
         }
     }
 
     if (isRandomizedEnemy) {
-        u32 seed = *actorId + *params + actorEntry->pos.x + actorEntry->pos.y + actorEntry->pos.z + actorEntry->rot.x +
-                   actorEntry->rot.y + actorEntry->rot.z;
+        u32 seed = (u16)actorEntry->id + (u16)actorEntry->params + actorEntry->pos.x + actorEntry->pos.y +
+                   actorEntry->pos.z + actorEntry->rot.x + actorEntry->rot.y + actorEntry->rot.z;
         u32 index             = Hash(seed) % ARRAY_SIZE(sEnemyData);
         EnemyData randomEnemy = sEnemyData[index];
-        *actorId              = randomEnemy.actorId;
-        *params               = randomEnemy.params;
+        actorEntry->id        = randomEnemy.actorId;
+        actorEntry->params    = randomEnemy.params;
         Object_FindOrSpawn(gActorOverlayTable[randomEnemy.actorId].initInfo->objectId);
 
         for (u32 i = 0; i < ARRAY_SIZE(sEnemyObjectDeps); i++) {
-            if (*actorId == sEnemyObjectDeps[i].actorId) {
+            if (actorEntry->id == sEnemyObjectDeps[i].actorId) {
                 Object_FindOrSpawn(sEnemyObjectDeps[i].objectId);
             }
         }
     }
-
-    // CitraPrint("%4X %4X", *actorId, *params);
-    // if (EnemySouls_GetSoulId(*actorId) != SOUL_NONE && *actorId != 0xAB) {
-    //     // flare dancer
-    //     // *actorId = 0x99;
-    //     // *params  = 0x0;
-    //     // tektite
-    //     // *actorId = 0x1B;
-    //     // *params  = 0xFFFE;
-    //     // stalfos
-    //     // *actorId = 0x2;
-    //     // *params  = 0x3;
-    //     // octorok
-    //     // *actorId = 0x0E;
-    //     // *params  = 0xFF00;
-    //     // freezard
-    //     // *actorId = 0x121;
-    //     // *params  = 0x0;
-    //     // lizalfos
-    //     *actorId = 0x25;
-    //     *params  = 0x80;
-    // }
 }
