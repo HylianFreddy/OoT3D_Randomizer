@@ -2203,7 +2203,7 @@ hook_SceneCommandActorEntryList:
 .global hook_PlayInit
 hook_PlayInit:
     push {r0-r12, lr}
-    bl set_GlobalContext
+    bl before_Play_Init
     pop {r0-r12, lr}
     cpy r5,r0
     bx lr

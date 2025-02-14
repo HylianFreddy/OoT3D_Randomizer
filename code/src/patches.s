@@ -317,11 +317,6 @@ RainbowBridge_patch:
     beq 0x3E7D70
     b 0x3E7D34
 
-.section .patch_ExtendedObjectClear
-.global ExtendedObjectClear_patch
-ExtendedObjectClear_patch:
-    bl ExtendedObject_Clear
-
 .section .patch_SariasGift
 .global SariasGift_patch
 SariasGift_patch:

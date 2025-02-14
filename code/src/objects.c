@@ -18,10 +18,6 @@ static s32 ExtendedObject_Spawn(s16 objectId) {
     return Object_Spawn(&rExtendedObjectCtx, objectId) + OBJECT_SLOT_MAX;
 }
 
-void ExtendedObject_Clear(void) {
-    Object_Clear(gGlobalContext, &rExtendedObjectCtx);
-}
-
 void ExtendedObject_UpdateEntries(void) {
     Object_UpdateEntries(&rExtendedObjectCtx);
 }

@@ -1415,10 +1415,6 @@ SECTIONS
 		*(.patch_GameplayDestroy)
 	}
 
-	.patch_ExtendedObjectClear 0x44E758 + region_offset : {
-		*(.patch_ExtendedObjectClear)
-	}
-
 	.patch_Multiplayer_UpdatePrevActorFlags 0x44E878 + region_offset : {
 		*(.patch_Multiplayer_UpdatePrevActorFlags)
 	}

@@ -25,8 +25,9 @@ GlobalContext* gGlobalContext = NULL;
 static u8 rRandomizerInit     = 0;
 u32 rGameplayFrames           = 0;
 
-void set_GlobalContext(GlobalContext* globalCtx) {
+void before_Play_Init(GlobalContext* globalCtx) {
     gGlobalContext = globalCtx;
+    ExtendedObject_Reset();
 }
 
 void Randomizer_Init() {

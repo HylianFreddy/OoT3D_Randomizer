@@ -39,8 +39,6 @@ s32 Object_IsLoaded(ObjectContext* objectCtx, s16 slot);
 // Get the CMAB manager from this object, loading it if it's not present.
 void* Object_GetCMABByIndex(s16 objectId, u32 objectAnimIdx);
 
-// Empty the extended object context.
-void ExtendedObject_Clear(void);
 // Update the extended object context.
 void ExtendedObject_UpdateEntries(void);
 // Clear and reset the extended object context.
