@@ -514,7 +514,7 @@ typedef struct ObjectContext {
     /* 0x001 */ u8 numPersistentEntries; // amount of entries that won't be reused when loading a new room
     /* 0x002 */ u8 mainKeepSlot;         // "gameplay_keep" slot
     /* 0x003 */ u8 subKeepSlot;          // "gameplay_field_keep" or "gameplay_dangeon_keep" slot
-    /* 0x004 */ ObjectEntry status[OBJECT_SLOT_MAX];
+    /* 0x004 */ ObjectEntry slots[OBJECT_SLOT_MAX];
 } ObjectContext; // size = 0x984
 
 typedef struct {
