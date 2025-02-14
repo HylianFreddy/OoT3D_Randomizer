@@ -3,6 +3,7 @@
 #include "actor.h"
 #include "objects.h"
 #include "savefile.h"
+#include "models.h"
 #include "enemy_souls.h"
 #include "enemizer.h"
 #include "owl.h"
@@ -298,6 +299,7 @@ u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry, u8 entryIndex) {
     if (entryIndex == 0) {      // once per room/scene load
         ExtendedObject_Clear();
         Actor_KillAllWithMissingObject(gGlobalContext, &gGlobalContext->actorCtx);
+        Model_DestroyAll();
         // Even though the custom tunics depend on this object, everything seems to still work
         // if it's reloaded immediately so that it's always in the first slot.
         ExtendedObject_Spawn(OBJECT_CUSTOM_GENERAL_ASSETS);
