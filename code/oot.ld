@@ -8,18 +8,6 @@ SECTIONS
 		*(.patch_loader)
 	}
 
-	.patch_FireproofDekuShieldOne 0x1330C4 : {
-		*(.patch_FireproofDekuShieldOne)
-	}
-
-	.patch_FireproofDekuShieldTwo 0x251528 : {
-		*(.patch_FireproofDekuShieldTwo)
-	}
-
-	.patch_LikeLikeNeverEatShield 0x355BF0 : {
-		*(.patch_LikeLikeNeverEatShield)
-	}
-
 	.patch_GrogSetTradedCojiroFlag 0x104C50 : {
 		*(.patch_GrogSetTradedCojiroFlag)
 	}
@@ -98,6 +86,10 @@ SECTIONS
 
 	.patch_BeanDaddyModifyBeansBought 0x130CEC : {
 		*(.patch_BeanDaddyModifyBeansBought)
+	}
+
+	.patch_FireproofDekuShieldOne 0x1330C4 : {
+		*(.patch_FireproofDekuShieldOne)
 	}
 
 	.patch_BiggoronDontSetBGSFlag 0x133F7C : {
@@ -576,6 +568,10 @@ SECTIONS
 		*(.patch_SwordTrailDurationGrezzoFix)
 	} /*duration is set to 6 due to framerate increase. NOP to allow custom duration*/
 
+	.patch_FireproofDekuShieldTwo 0x251528 : {
+		*(.patch_FireproofDekuShieldTwo)
+	}
+
 	.patch_MultiplyPlayerSpeed 0x251D34 : {
 		*(.patch_MultiplyPlayerSpeed)
 	}
@@ -894,6 +890,10 @@ SECTIONS
 
 	.patch_MasterSwordTimerCheck 0x354DFC : {
 		*(.patch_MasterSwordTimerCheck)
+	}
+
+	.patch_LikeLikeNeverEatShield 0x355BF0 : {
+		*(.patch_LikeLikeNeverEatShield)
 	}
 
 	.patch_LikeLikeNeverEatTunic 0x355C2C : {
