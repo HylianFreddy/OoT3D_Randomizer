@@ -860,12 +860,12 @@ SECTIONS
 		*(.patch_LostWoodsBridgeMusic)
 	}
 
-	.patch_GetObjectEntry_33A950 0x33A950 : {
-		*(.patch_GetObjectEntry_33A950)
-	}
-
 	.patch_GetObjectEntry_339DFC 0x339DFC : {
 		*(.patch_GetObjectEntry_339DFC)
+	}
+
+	.patch_GetObjectEntry_33A950 0x33A950 : {
+		*(.patch_GetObjectEntry_33A950)
 	}
 
 	.patch_GetObjectEntry_33AB24 0x33AB24 : {
