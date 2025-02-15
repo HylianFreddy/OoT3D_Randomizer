@@ -156,6 +156,10 @@ SECTIONS
 		*(.patch_GrogCheckForShouldDespawn)
 	}
 
+	.patch_GetObjectEntry_164BC8 0x164BC8 : {
+		*(.patch_GetObjectEntry_164BC8)
+	}
+
 	.patch_CheckFadoCanSpawnInLostWoods 0x1657EC : {
 		*(.patch_CheckFadoCanSpawnInLostWoods)
 	}
@@ -492,6 +496,10 @@ SECTIONS
 		*(.patch_ItemGiveBombchuDropOne)
 	}
 
+	.patch_GetObjectEntry_1F85B0 0x1F85B0 : {
+		*(.patch_GetObjectEntry_1F85B0)
+	}
+
 	.patch_BombchuBowlingStaticReward 0x206150 : {
 		*(.patch_BombchuBowlingStaticReward)
 	}
@@ -572,8 +580,16 @@ SECTIONS
 		*(.patch_HookshotDrawChain)
 	}
 
+	.patch_GetObjectEntry_EnDekunutsInit 0x2293AC : {
+		*(.patch_GetObjectEntry_EnDekunutsInit)
+	}
+
 	.patch_patch_ItemGiveBombchuDropTwo 0x22BAE4 : {
 		*(.patch_ItemGiveBombchuDropTwo)
+	}
+
+	.patch_GetObjectEntry_EnNutsballInit 0x22DEC4 : {
+		*(.patch_GetObjectEntry_EnNutsballInit)
 	}
 
 	.patch_BusinessScrubCheckFlags 0x22EE64 : {

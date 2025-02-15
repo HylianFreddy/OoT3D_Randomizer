@@ -2,8 +2,6 @@
 #include "objects.h"
 #include "common.h"
 
-s32 mockIndex = 44;
-
 static EnemyData sEnemyData[] = {
     { .actorId = 0x00D, .params = 0x0000 }, // Poe
     { .actorId = 0x00E, .params = 0x0000 }, // Octorok [requires water]
@@ -30,7 +28,7 @@ static EnemyData sEnemyData[] = {
     { .actorId = 0x038, .params = 0xFFFF }, // Torch Slug [works, but doesn't look good in water]
     { .actorId = 0x03A, .params = 0x000A }, // Stinger (Land) [works, but doesn't look good in water]
     { .actorId = 0x04B, .params = 0x0000 }, // Moblin (club) [doesn't turn]
-    { .actorId = 0x04B, .params = 0x00FF }, //  Moblin (spear) [follows broken path]
+    // { .actorId = 0x04B, .params = 0x00FF }, //  Moblin (spear) [follows broken path, can crash]
     { .actorId = 0x054, .params = 0xFFFF }, // Armos (Enemy)
     { .actorId = 0x055, .params = 0x0000 }, // Deku Baba [doesn't fall]
     { .actorId = 0x055, .params = 0x0001 }, //  Deku Baba (Big)
@@ -58,18 +56,32 @@ static EnemyData sEnemyData[] = {
     { .actorId = 0x1AF, .params = 0xFF01 }, //  White Wolfos
     { .actorId = 0x1B0, .params = 0x0000 }, // Stalchild [burrows immediately]
     { .actorId = 0x1B0, .params = 0x0005 }, //  Stalchild (20 kills)
-    { .actorId = 0x1C0, .params = 0x0000 }, // Guay
+    { .actorId = 0x1C0, .params = 0x0000 }, // Guay [doesn't actually die so can't clear rooms]
+
+    { .actorId = 0x002, .params = 0x0002 }, // Stalfos [doesn't fall]
+    { .actorId = 0x002, .params = 0x0003 }, //  Stalfos (falls from above)
+    // { .actorId = 0x033, .params = 0xFFFF }, // Dark Link
+    // { .actorId = 0x091, .params = 0x0300 }, // Poe Sisters [meg and amy work, the others move to default Forest Temple pos]
+    // { .actorId = 0x099, .params = 0x0000 }, // Flare Dancer [should limit count, too many will crash]
+    // { .actorId = 0x0A4, .params = 0x0000 }, // Dead Hand
+    { .actorId = 0x0A5, .params = 0x0000 }, // Dead Hand's Hands [doesn't actually die so can't clear rooms]
+    // { .actorId = 0x0C6, .params = 0x0001 }, // Big Octo
+    { .actorId = 0x113, .params = 0xFF02 }, // Iron Knuckle [killing one seems to set clear flag or something]
+    { .actorId = 0x113, .params = 0xFF03 }, //  Iron Knuckle (white)
+    // { .actorId = 0x197, .params = 0x0000 }, // Gerudo Fighter [weird flag isues, only one spawns]
 
     // { .actorId = 0x095, .params = 0x0000 }, // Skullwalltula
     // { .actorId = 0x0DE, .params = 0x0000 }, // Parasitic Tentacle
-
 };
+
+s32 mockIndex = ARRAY_SIZE(sEnemyData) - 6;
 
 static EnemyObjectDependency sEnemyObjectDeps[] = {
     { .actorId = 0x00D, .objectId = 0x009 }, // Poe (actor profile only points to object 1)
     { .actorId = 0x063, .objectId = 0x021 }, // Bari -> Biri
     { .actorId = 0x012, .objectId = 0x003 }, // Dodongo -> dungeon object for fire breath
     { .actorId = 0x02B, .objectId = 0x003 }, // Gohma Egg -> dungeon object for egg fragments
+    { .actorId = 0x099, .objectId = 0x003 }, // Flare Dancer -> dungeon object for flames
 };
 
 void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {

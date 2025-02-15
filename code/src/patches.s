@@ -2374,3 +2374,23 @@ GetObjectEntry_EnRdInit_Two_patch:
 .global GetObjectEntry_34F270_patch
 GetObjectEntry_34F270_patch:
     b hook_GetObjectEntry_34F270
+
+.section .patch_GetObjectEntry_1F85B0
+.global GetObjectEntry_1F85B0_patch
+GetObjectEntry_1F85B0_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_164BC8
+.global GetObjectEntry_164BC8_patch
+GetObjectEntry_164BC8_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_EnDekunutsInit
+.global GetObjectEntry_EnDekunutsInit_patch
+GetObjectEntry_EnDekunutsInit_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_EnNutsballInit
+.global GetObjectEntry_EnNutsballInit_patch
+GetObjectEntry_EnNutsballInit_patch:
+    bl hook_GetObjectEntry_Generic
