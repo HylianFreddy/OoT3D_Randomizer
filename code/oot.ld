@@ -1287,6 +1287,10 @@ SECTIONS
 		*(.patch_ItemsMenuDraw)
 	}
 
+	.patch_PlayInit 0x4352F4 + region_offset : {
+		*(.patch_PlayInit)
+	}
+
 	/* Variation of regional differences: 0x436690 */
 	region_offset = DEFINED(_EUR_) ? 0x20 : 0;
 
