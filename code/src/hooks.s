@@ -2171,6 +2171,14 @@ hook_GetObjectEntry_Generic:
     pop {r1-r12, lr}
     bx lr
 
+.global hook_GetObjectEntry_34F270
+hook_GetObjectEntry_34F270:
+    push {r1-r12, lr}
+    @ r0 = slot
+    bl Object_GetEntry
+    pop {r1-r12, lr}
+    b 0x34f274
+
 .global hook_GetObjectEntry_33AB24
 hook_GetObjectEntry_33AB24:
     push {r1-r12, lr}

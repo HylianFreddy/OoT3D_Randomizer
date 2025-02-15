@@ -188,8 +188,12 @@ SECTIONS
 		*(.patch_MidoCheckDekuTreeClearOne)
 	}
 
-	.patch_GetObjectEntry_EnRdInit 0x167E38 : {
-		*(.patch_GetObjectEntry_EnRdInit)
+	.patch_GetObjectEntry_EnRdInit_One 0x167DA4 : {
+		*(.patch_GetObjectEntry_EnRdInit_One)
+	}
+
+	.patch_GetObjectEntry_EnRdInit_Two 0x167E38 : {
+		*(.patch_GetObjectEntry_EnRdInit_Two)
 	}
 
 	.patch_SariasSongCheckFlag 0x1686A0 : {
@@ -382,6 +386,14 @@ SECTIONS
 
 	.patch_KotakeDontPlayBattleMusic 0x1A8218 : {
 		*(.patch_KotakeDontPlayBattleMusic)
+	}
+
+	.patch_GetObjectEntry_EnGomaInit_One 0x1B3130 : {
+		*(.patch_GetObjectEntry_EnGomaInit_One)
+	}
+
+	.patch_GetObjectEntry_EnGomaInit_Two 0x1B3208 : {
+		*(.patch_GetObjectEntry_EnGomaInit_Two)
 	}
 
 	.patch_GossipStoneAddSariaHint 0x1B3968 : {
@@ -906,6 +918,10 @@ SECTIONS
 
 	.patch_FWLoadSet 0x34D9E8 : {
 		*(.patch_FWLoadSet)
+	}
+
+	.patch_GetObjectEntry_34F270 0x34F270 : {
+		*(.patch_GetObjectEntry_34F270)
 	}
 
 	.patch_GetObjectEntry_34FE68 0x34FE68 : {

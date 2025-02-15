@@ -1000,7 +1000,7 @@ EntrancesByScene Entrances_KnowItAllBrothersHouse = {
 EntrancesByScene Entrances_KokiriForest = {
     "Kokiri Forest",
     .nbItems = 13,
-    .initialCursorPos = 3,
+    .initialCursorPos = 10,
     {
         {0x00EE, "Main Cutscene Entrance"},
         {0x0209, "From Inside the Deku Tree"},

@@ -30,6 +30,7 @@ s32 ExtendedObject_GetSlot(s16 objectId) {
             return i + OBJECT_SLOT_MAX;
         }
     }
+    CitraPrint("Missing object slot! objectId=%X", objectId);
     return -1;
 }
 

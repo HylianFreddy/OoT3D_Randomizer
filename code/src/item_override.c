@@ -447,7 +447,7 @@ void ItemOverride_Update(void) {
         if (IceTrap_IsPending()) {
             IceTrap_Give();
         } else {
-            if (rInputCtx.cur.l && rInputCtx.cur.a) {
+            if (rInputCtx.cur.zr && rInputCtx.cur.a) {
                 ItemOverride_ActivateTest();
             }
             ItemOverride_TryPendingItem();

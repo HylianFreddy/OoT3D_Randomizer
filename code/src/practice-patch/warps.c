@@ -81,7 +81,7 @@ WarpsSceneMenu WarpsPlacesBossesMenu = {
 WarpsSceneMenu WarpsPlacesTownsMenu = {
     "Towns",
     .nbItems = 9,
-    .initialCursorPos = 0,
+    .initialCursorPos = 1,
     {
         {"82: Kakariko Village", &Entrances_KakarikoVillage},
         {"85: Kokiri Forest", &Entrances_KokiriForest},
@@ -198,7 +198,7 @@ const WarpsPlacesMenuEntry placesMenuEntries[] = {
 const s32 WarpsPlacesMenuSize = 7;
 
 void WarpsPlacesMenuShow(void){
-    static s32 selected = 0;
+    static s32 selected = 2;
 
     Draw_ClearBackbuffer();
     Draw_ClearFramebuffer();
