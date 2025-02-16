@@ -2300,6 +2300,11 @@ GetObjectEntry_33AB24_patch:
 GetObjectEntry_36A96C_patch:
     bl hook_GetObjectEntry_Generic
 
+.section .patch_GetObjectEntry_372F7C
+.global GetObjectEntry_372F7C_patch
+GetObjectEntry_372F7C_patch:
+    bl hook_GetObjectEntry_Generic
+
 .section .patch_GetObjectEntry_EnSiInit
 .global GetObjectEntry_EnSiInit_patch
 GetObjectEntry_EnSiInit_patch:

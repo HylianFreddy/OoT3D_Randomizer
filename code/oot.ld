@@ -972,6 +972,10 @@ SECTIONS
 	    *(.patch_MaskSalesmanCheckNoMaskTwo)
 	}
 
+	.patch_GetObjectEntry_372F7C 0x372F7C : {
+	    *(.patch_GetObjectEntry_372F7C)
+	}
+
 	.patch_OverrideObjectIsLoaded 0x373074 : {
 	    *(.patch_OverrideObjectIsLoaded)
 	}
