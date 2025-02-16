@@ -310,8 +310,7 @@ u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry, u8 entryIndex) {
 // Called after all actor entries have been handled
 void ActorSetup_Extra(void) {
     Sheik_Spawn();
-    GsQueue_SpawnAll();
-    Gs_QueueAlternateLocated();
+    Gs_SpawnAltLocs();
 }
 
 static s32 hyperActors_ExtraUpdate = 0;
