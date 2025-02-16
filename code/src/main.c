@@ -39,6 +39,7 @@ void Randomizer_Init() {
     playingOnCitra = (output != 0);
 }
 
+extern s32 mockIndex;
 void before_Play_Init(GlobalContext* globalCtx) {
     if (!rRandomizerInit) {
         Randomizer_Init();
@@ -46,6 +47,9 @@ void before_Play_Init(GlobalContext* globalCtx) {
     }
     gGlobalContext = globalCtx;
     ExtendedObject_Reset();
+    if (rInputCtx.cur.zr) {
+        mockIndex++;
+    }
 }
 
 void autoLoadSaveFile();

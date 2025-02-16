@@ -5,6 +5,7 @@
 #include "savefile.h"
 #include "models.h"
 #include "enemy_souls.h"
+#include "enemizer.h"
 #include "owl.h"
 #include "item00.h"
 #include "heart_container.h"
@@ -303,6 +304,8 @@ u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry, u8 entryIndex) {
     if (actorEntry->id == 0x95 && (actorEntry->params & 0xE000) && Gs_HasAltLoc(actorEntry, GS_PPT_ACTORENTRY, TRUE)) {
         return TRUE;
     }
+
+    Enemizer_OverrideActorEntry(actorEntry);
 
     return FALSE;
 }

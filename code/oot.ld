@@ -156,6 +156,10 @@ SECTIONS
 		*(.patch_GrogCheckForShouldDespawn)
 	}
 
+	.patch_GetObjectEntry_164BC8 0x164BC8 : {
+		*(.patch_GetObjectEntry_164BC8)
+	}
+
 	.patch_CheckFadoCanSpawnInLostWoods 0x1657EC : {
 		*(.patch_CheckFadoCanSpawnInLostWoods)
 	}
@@ -186,6 +190,14 @@ SECTIONS
 
 	.patch_MidoCheckDekuTreeClearOne 0x16623C : {
 		*(.patch_MidoCheckDekuTreeClearOne)
+	}
+
+	.patch_GetObjectEntry_EnRdInit_One 0x167DA4 : {
+		*(.patch_GetObjectEntry_EnRdInit_One)
+	}
+
+	.patch_GetObjectEntry_EnRdInit_Two 0x167E38 : {
+		*(.patch_GetObjectEntry_EnRdInit_Two)
 	}
 
 	.patch_SariasSongCheckFlag 0x1686A0 : {
@@ -380,6 +392,14 @@ SECTIONS
 		*(.patch_KotakeDontPlayBattleMusic)
 	}
 
+	.patch_GetObjectEntry_EnGomaInit_One 0x1B3130 : {
+		*(.patch_GetObjectEntry_EnGomaInit_One)
+	}
+
+	.patch_GetObjectEntry_EnGomaInit_Two 0x1B3208 : {
+		*(.patch_GetObjectEntry_EnGomaInit_Two)
+	}
+
 	.patch_GossipStoneAddSariaHint 0x1B3968 : {
 		*(.patch_GossipStoneAddSariaHint)
 	}
@@ -402,6 +422,10 @@ SECTIONS
 
 	.patch_MidoCheckDekuTreeClearThree 0x1B7414 : {
 		*(.patch_MidoCheckDekuTreeClearThree)
+	}
+
+	.patch_GetObjectEntry_EnTiteInit 0x1BBC9C : {
+		*(.patch_GetObjectEntry_EnTiteInit)
 	}
 
 	.patch_FishingNewRecord 0x1C3AA4 : {
@@ -470,6 +494,10 @@ SECTIONS
 
 	.patch_ItemGiveBombchuDropOne 0x1F6F70 : {
 		*(.patch_ItemGiveBombchuDropOne)
+	}
+
+	.patch_GetObjectEntry_1F85B0 0x1F85B0 : {
+		*(.patch_GetObjectEntry_1F85B0)
 	}
 
 	.patch_BombchuBowlingStaticReward 0x206150 : {
@@ -552,8 +580,16 @@ SECTIONS
 		*(.patch_HookshotDrawChain)
 	}
 
+	.patch_GetObjectEntry_EnDekunutsInit 0x2293AC : {
+		*(.patch_GetObjectEntry_EnDekunutsInit)
+	}
+
 	.patch_patch_ItemGiveBombchuDropTwo 0x22BAE4 : {
 		*(.patch_ItemGiveBombchuDropTwo)
+	}
+
+	.patch_GetObjectEntry_EnNutsballInit 0x22DEC4 : {
+		*(.patch_GetObjectEntry_EnNutsballInit)
 	}
 
 	.patch_BusinessScrubCheckFlags 0x22EE64 : {
@@ -852,6 +888,14 @@ SECTIONS
 		*(.patch_LostWoodsBridgeMusic)
 	}
 
+	.patch_GetObjectEntry_339DFC 0x339DFC : {
+		*(.patch_GetObjectEntry_339DFC)
+	}
+
+	.patch_GetObjectEntry_33A950 0x33A950 : {
+		*(.patch_GetObjectEntry_33A950)
+	}
+
 	.patch_GetObjectEntry_33AB24 0x33AB24 : {
 		*(.patch_GetObjectEntry_33AB24)
 	} /* Used for: chest ice trap smoke effect */
@@ -892,12 +936,28 @@ SECTIONS
 		*(.patch_FWLoadSet)
 	}
 
+	.patch_GetObjectEntry_34F270 0x34F270 : {
+		*(.patch_GetObjectEntry_34F270)
+	}
+
+	.patch_GetObjectEntry_34FE68 0x34FE68 : {
+		*(.patch_GetObjectEntry_34FE68)
+	}
+
 	.patch_FWGetSet 0x3519CC : {
 		*(.patch_FWGetSet)
 	}
 
 	.patch_ApplyDamageMultiplier 0x352DC0 : {
 		*(.patch_ApplyDamageMultiplier)
+	}
+
+	.patch_GetObjectEntry_352F28 0x352F28 : {
+		*(.patch_GetObjectEntry_352F28)
+	} /* Used for: Flare Dancer */
+
+	.patch_GetObjectEntry_353CE4 0x353CE4 : {
+		*(.patch_GetObjectEntry_353CE4)
 	}
 
 	.patch_FastChests 0x354CD4 : {
@@ -971,6 +1031,10 @@ SECTIONS
 	.patch_MaskSalesmanCheckNoMaskTwo 0x372B70 : {
 	    *(.patch_MaskSalesmanCheckNoMaskTwo)
 	}
+
+	.patch_GetObjectEntry_372F7C 0x372F7C : {
+	    *(.patch_GetObjectEntry_372F7C)
+	} /* Used for: Octorok */
 
 	.patch_OverrideObjectIsLoaded 0x373074 : {
 	    *(.patch_OverrideObjectIsLoaded)

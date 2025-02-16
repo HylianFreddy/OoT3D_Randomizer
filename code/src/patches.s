@@ -2295,9 +2295,29 @@ SceneCommandActorEntryList_patch:
 GetObjectEntry_33AB24_patch:
     bl hook_GetObjectEntry_33AB24
 
+.section .patch_GetObjectEntry_34FE68
+.global GetObjectEntry_34FE68_patch
+GetObjectEntry_34FE68_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_352F28
+.global GetObjectEntry_352F28_patch
+GetObjectEntry_352F28_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_353CE4
+.global GetObjectEntry_353CE4_patch
+GetObjectEntry_353CE4_patch:
+    bl hook_GetObjectEntry_Generic
+
 .section .patch_GetObjectEntry_36A96C
 .global GetObjectEntry_36A96C_patch
 GetObjectEntry_36A96C_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_372F7C
+.global GetObjectEntry_372F7C_patch
+GetObjectEntry_372F7C_patch:
     bl hook_GetObjectEntry_Generic
 
 .section .patch_GetObjectEntry_EnSiInit
@@ -2313,4 +2333,64 @@ GetObjectEntry_EnXcInit_patch:
 .section .patch_GetObjectEntry_ObjSwitchInit
 .global GetObjectEntry_ObjSwitchInit_patch
 GetObjectEntry_ObjSwitchInit_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_33A950
+.global GetObjectEntry_33A950_patch
+GetObjectEntry_33A950_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_EnTiteInit
+.global GetObjectEntry_EnTiteInit_patch
+GetObjectEntry_EnTiteInit_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_339DFC
+.global GetObjectEntry_339DFC_patch
+GetObjectEntry_339DFC_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_EnGomaInit_One
+.global GetObjectEntry_EnGomaInit_One_patch
+GetObjectEntry_EnGomaInit_One_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_EnGomaInit_Two
+.global GetObjectEntry_EnGomaInit_Two_patch
+GetObjectEntry_EnGomaInit_Two_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_EnRdInit_One
+.global GetObjectEntry_EnRdInit_One_patch
+GetObjectEntry_EnRdInit_One_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_EnRdInit_Two
+.global GetObjectEntry_EnRdInit_Two_patch
+GetObjectEntry_EnRdInit_Two_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_34F270
+.global GetObjectEntry_34F270_patch
+GetObjectEntry_34F270_patch:
+    b hook_GetObjectEntry_34F270
+
+.section .patch_GetObjectEntry_1F85B0
+.global GetObjectEntry_1F85B0_patch
+GetObjectEntry_1F85B0_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_164BC8
+.global GetObjectEntry_164BC8_patch
+GetObjectEntry_164BC8_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_EnDekunutsInit
+.global GetObjectEntry_EnDekunutsInit_patch
+GetObjectEntry_EnDekunutsInit_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_EnNutsballInit
+.global GetObjectEntry_EnNutsballInit_patch
+GetObjectEntry_EnNutsballInit_patch:
     bl hook_GetObjectEntry_Generic
