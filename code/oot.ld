@@ -1034,7 +1034,7 @@ SECTIONS
 
 	.patch_GetObjectEntry_372F7C 0x372F7C : {
 	    *(.patch_GetObjectEntry_372F7C)
-	} /* Used for: Octorok */
+	}
 
 	.patch_OverrideObjectIsLoaded 0x373074 : {
 	    *(.patch_OverrideObjectIsLoaded)
