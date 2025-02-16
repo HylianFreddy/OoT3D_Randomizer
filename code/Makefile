@@ -166,7 +166,8 @@ all: $(BUILD)
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
-	@python patch.py $(OUTPUT).elf $(REGION) $(debug);
+	@python3 --version &> /dev/null && _python_="python3" || _python_="python"; \
+		eval $$_python_ patch.py $(OUTPUT).elf $(REGION) $(debug);
 
 #---------------------------------------------------------------------------------
 clean:

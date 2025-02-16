@@ -24,10 +24,6 @@ GlobalContext* gGlobalContext = NULL;
 static u8 rRandomizerInit     = 0;
 u32 rGameplayFrames           = 0;
 
-void set_GlobalContext(GlobalContext* globalCtx) {
-    gGlobalContext = globalCtx;
-}
-
 void Randomizer_Init() {
     rHeap_Init();
     Actor_Init();
@@ -36,18 +32,21 @@ void Randomizer_Init() {
     OcarinaNotes_UpdateSongs();
     extDataInit();
     irrstInit();
+
+    s64 output = 0;
+    svcGetSystemInfo(&output, 0x20000, 0);
+    playingOnCitra = (output != 0);
+}
+
+void before_Play_Init(GlobalContext* globalCtx) {
+    if (!rRandomizerInit) {
+        Randomizer_Init();
+        rRandomizerInit = 1;
+    }
+    gGlobalContext = globalCtx;
 }
 
 void before_GlobalContext_Update(GlobalContext* globalCtx) {
-    if (!rRandomizerInit) {
-        Randomizer_Init();
-        set_GlobalContext(globalCtx);
-        rRandomizerInit = 1;
-
-        s64 output = 0;
-        svcGetSystemInfo(&output, 0x20000, 0);
-        playingOnCitra = (output != 0);
-    }
     rGameplayFrames++;
     ItemOverride_Update();
     ActorSetup_Extra();

@@ -8,18 +8,6 @@ SECTIONS
 		*(.patch_loader)
 	}
 
-	.patch_FireproofDekuShieldOne 0x1330C4 : {
-		*(.patch_FireproofDekuShieldOne)
-	}
-
-	.patch_FireproofDekuShieldTwo 0x251528 : {
-		*(.patch_FireproofDekuShieldTwo)
-	}
-
-	.patch_LikeLikeNeverEatShield 0x355BF0 : {
-		*(.patch_LikeLikeNeverEatShield)
-	}
-
 	.patch_GrogSetTradedCojiroFlag 0x104C50 : {
 		*(.patch_GrogSetTradedCojiroFlag)
 	}
@@ -100,6 +88,10 @@ SECTIONS
 		*(.patch_BeanDaddyModifyBeansBought)
 	}
 
+	.patch_FireproofDekuShieldOne 0x1330C4 : {
+		*(.patch_FireproofDekuShieldOne)
+	}
+
 	.patch_BiggoronDontSetBGSFlag 0x133F7C : {
 		*(.patch_BiggoronDontSetBGSFlag)
 	}
@@ -160,6 +152,14 @@ SECTIONS
 		*(.patch_ScrubNutUpgradeOne)
 	}
 
+	.patch_GrogCheckForShouldDespawn 0x16485C : {
+		*(.patch_GrogCheckForShouldDespawn)
+	}
+
+	.patch_CheckFadoCanSpawnInLostWoods 0x1657EC : {
+		*(.patch_CheckFadoCanSpawnInLostWoods)
+	}
+
 	.patch_EnKoInitCheckForest_165834 0x165834 : {
 		*(.patch_EnKoInitCheckForest_165834)
 	}
@@ -190,14 +190,6 @@ SECTIONS
 
 	.patch_SariasSongCheckFlag 0x1686A0 : {
 		*(.patch_SariasSongCheckFlag)
-	}
-
-	.patch_GrogCheckForShouldDespawn 0x16485C : {
-		*(.patch_GrogCheckForShouldDespawn)
-	}
-
-	.patch_CheckFadoCanSpawnInLostWoods 0x1657EC : {
-		*(.patch_CheckFadoCanSpawnInLostWoods)
 	}
 
 	.patch_RandomGsLoc_BlockSpawn_Tree 0x16C43C : {
@@ -576,6 +568,10 @@ SECTIONS
 		*(.patch_SwordTrailDurationGrezzoFix)
 	} /*duration is set to 6 due to framerate increase. NOP to allow custom duration*/
 
+	.patch_FireproofDekuShieldTwo 0x251528 : {
+		*(.patch_FireproofDekuShieldTwo)
+	}
+
 	.patch_MultiplyPlayerSpeed 0x251D34 : {
 		*(.patch_MultiplyPlayerSpeed)
 	}
@@ -896,6 +892,10 @@ SECTIONS
 		*(.patch_MasterSwordTimerCheck)
 	}
 
+	.patch_LikeLikeNeverEatShield 0x355BF0 : {
+		*(.patch_LikeLikeNeverEatShield)
+	}
+
 	.patch_LikeLikeNeverEatTunic 0x355C2C : {
 		*(.patch_LikeLikeNeverEatTunic)
 	}
@@ -1120,6 +1120,18 @@ SECTIONS
 		*(.patch_MalonNextAction)
 	}
 
+	.patch_BombPurchaseableCheck 0x3CE800 : {
+		*(.patch_BombPurchaseableCheck)
+	}
+
+	.patch_ScrubStickUpgradeTwo 0x3CE990 : {
+		*(.patch_ScrubStickUpgradeTwo)
+	}
+
+	.patch_ScrubNutUpgradeTwo 0x3CE9DC : {
+		*(.patch_ScrubNutUpgradeTwo)
+	}
+
 	.patch_GrannySetRewardFlag 0x3D0E34 : {
 		*(.patch_GrannySetRewardFlag)
 	}
@@ -1134,18 +1146,6 @@ SECTIONS
 
 	.patch_ShadowShip_Speed 0x3DFB30 : {
 		*(.patch_ShadowShip_Speed)
-	}
-
-	.patch_BombPurchaseableCheck 0x3CE800 : {
-		*(.patch_BombPurchaseableCheck)
-	}
-
-	.patch_ScrubStickUpgradeTwo 0x3CE990 : {
-		*(.patch_ScrubStickUpgradeTwo)
-	}
-
-	.patch_ScrubNutUpgradeTwo 0x3CE9DC : {
-		*(.patch_ScrubNutUpgradeTwo)
 	}
 
 	.patch_FireBlockSpeed 0x3E0BB4 : {
@@ -1287,6 +1287,10 @@ SECTIONS
 		*(.patch_ItemsMenuDraw)
 	}
 
+	.patch_PlayInit 0x4352F4 + region_offset : {
+		*(.patch_PlayInit)
+	}
+
 	/* Variation of regional differences: 0x436690 */
 	region_offset = DEFINED(_EUR_) ? 0x20 : 0;
 
@@ -1296,10 +1300,6 @@ SECTIONS
 
 	.patch_BeforeLoadGame 0x447380 + region_offset : {
 		*(.patch_BeforeLoadGame)
-	}
-
-	.patch_AfterLoadGame 0x449F00 + region_offset : {
-		*(.patch_AfterLoadGame)
 	}
 
 	.patch_DontSetMotionSetting 0x447410 + region_offset : {
@@ -1340,6 +1340,10 @@ SECTIONS
 
 	.patch_Multiplayer_OnLoadFile 0x449EFC + region_offset : {
 		*(.patch_Multiplayer_OnLoadFile)
+	}
+
+	.patch_AfterLoadGame 0x449F00 + region_offset : {
+		*(.patch_AfterLoadGame)
 	}
 
 	.patch_GetCustomMessageEntryTwo 0x44D564 + region_offset : {
@@ -1566,12 +1570,12 @@ SECTIONS
 		*(.patch_SwapFaroresWind)
 	}
 
-	.patch_SkipTimeTravelCutsceneTwo 0x4918C8 + region_offset : {
-		*(.patch_SkipTimeTravelCutsceneTwo)
-	}
-
 	.patch_SwapAgeIgnoreSceneSetup 0x4918B0 + region_offset : {
 		*(.patch_SwapAgeIgnoreSceneSetup)
+	}
+
+	.patch_SkipTimeTravelCutsceneTwo 0x4918C8 + region_offset : {
+		*(.patch_SkipTimeTravelCutsceneTwo)
 	}
 
 	.patch_DMTOwlEntranceOverride 0x492064 + region_offset : {
@@ -1659,14 +1663,6 @@ SECTIONS
 		*(.patch_PhantomGanonLightningID)
 	}
 
-	.patch_GohmaLarvaID 0x525F24 : {
-		*(.patch_GohmaLarvaID)
-	}
-
-	.patch_VolvagiaRockID 0x52FDB4 : {
-		*(.patch_VolvagiaRockID)
-	}
-
 	.patch_BombchuCheapestPriceOne 0x525348 : {
 		*(.patch_BombchuCheapestPriceOne)
 	}
@@ -1683,8 +1679,16 @@ SECTIONS
 		*(.patch_BombchuCheapestPriceFour)
 	}
 
+	.patch_GohmaLarvaID 0x525F24 : {
+		*(.patch_GohmaLarvaID)
+	}
+
 	.patch_OcarinaMinigameRewardsOrder 0x52ED10 : {
 		*(.patch_OcarinaMinigameRewardsOrder)
+	}
+
+	.patch_VolvagiaRockID 0x52FDB4 : {
+		*(.patch_VolvagiaRockID)
 	}
 
 	.patch_TycoonWalletSize 0x53CC08 : {

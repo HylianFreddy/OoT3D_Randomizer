@@ -73,8 +73,6 @@ endif
 # Enable this to skip building the basecode patches
 app_only ?= 0
 
-CXXFLAGS += -g -DCOMMIT_NUMBER=\"$(shell git show --no-patch --format=format:"%h")\"
-
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
@@ -178,6 +176,7 @@ endif
 
 #---------------------------------------------------------------------------------
 all: delete3DSX create_basecode $(BUILD) $(GFXBUILD) $(DEPSDIR) $(ROMFS_T3XFILES) $(T3XHFILES)
+	@$(TOPDIR)/write_commit_string.sh
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 delete3DSX:

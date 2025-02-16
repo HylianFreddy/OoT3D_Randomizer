@@ -9,6 +9,11 @@
 .section .patch_LikeLikeNeverEatShield
     b 0x355C0C
 
+.section .patch_loader
+.global loader_patch
+loader_patch:
+    b hook_into_loader
+
 .section .patch_before_GlobalContext_Update
 .global before_GlobalContext_Update_patch
 before_GlobalContext_Update_patch:
@@ -2261,13 +2266,12 @@ HandleTextControlCode_patch:
 CheckForTextControlCode_patch:
     bl hook_CheckForTextControlCode
 
+.section .patch_PlayInit
+.global PlayInit_patch
+PlayInit_patch:
+    bl hook_PlayInit
+
 .section .patch_TitleLinkObject
+.global TitleLinkObject_patch
+TitleLinkObject_patch:
     .word 0xFFFF0014
-
-@ ----------------------------------
-@ ----------------------------------
-
-.section .patch_loader
-.global loader_patch
-loader_patch:
-    b hook_into_loader
