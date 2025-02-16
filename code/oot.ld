@@ -1260,6 +1260,10 @@ SECTIONS
 		*(.patch_SleepQueryCallback)
 	}
 
+	.patch_DrawScreen 0x416398 : {
+		*(.patch_DrawScreen)
+	}
+
 	/* Start of regional differences: 0x41A144 */
 	region_offset = DEFINED(_EUR_) ? 0x24 : 0;
 

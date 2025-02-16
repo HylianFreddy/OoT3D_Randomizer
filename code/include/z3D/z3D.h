@@ -176,7 +176,8 @@ typedef struct {
     /* 0x14F0 */ RespawnData respawn[3]; // "restart_data"
     /* 0x1544 */ char unk_1544[0x000E];
     /* 0x1552 */ s16 nayrusLoveTimer;
-    /* 0x1554 */ char unk_1554[0x0008];
+    /* 0x1554 */ char unk_1554[0x0004];
+    /* 0x1558 */ u32 seqIndex;
     /* 0x155C */ s16 rupeeAccumulator;
     /* 0x155E */ s16 timer1State;
     /* 0x1560 */ s16 timer1Value;
@@ -755,6 +756,36 @@ typedef enum {
 #define Z3D_TOP_SCREEN_RIGHT_2 0x14456FE0
 #define Z3D_BOTTOM_SCREEN_1 0x143A02B0
 #define Z3D_BOTTOM_SCREEN_2 0x143D86C0
+
+typedef void (*FileSelect_LoadGame_proc)(GameState* gameState, s32 fileNum);
+#ifdef Version_EUR
+    #define FileSelect_LoadGame_addr 0x44737C
+#elif Version_JP
+    #define FileSelect_LoadGame_addr 0x447334
+#else // Version_USA
+    #define FileSelect_LoadGame_addr 0x44735C
+#endif
+#define FileSelect_LoadGame ((FileSelect_LoadGame_proc)FileSelect_LoadGame_addr)
+
+typedef void (*Load_Savefiles_Buffer_proc)();
+#ifdef Version_EUR
+    #define Load_Savefiles_Buffer_addr 0x447170
+#elif Version_JP
+    #define Load_Savefiles_Buffer_addr 0x447128
+#else // Version_USA
+    #define Load_Savefiles_Buffer_addr 0x447150
+#endif
+#define Load_Savefiles_Buffer ((Load_Savefiles_Buffer_proc)Load_Savefiles_Buffer_addr)
+
+typedef void (*Play_Init_proc)(GameState*);
+#ifdef Version_EUR
+    #define Play_Init_addr 0x435314
+#elif Version_JP
+    #define Play_Init_addr 0x4352C8
+#else // Version_USA
+    #define Play_Init_addr 0x4352F0
+#endif
+#define Play_Init ((Play_Init_proc)Play_Init_addr)
 
 typedef void (*Item_Give_proc)(GlobalContext* globalCtx, u8 item);
 #define Item_Give ((Item_Give_proc)GAME_ADDR(0x376A78))
