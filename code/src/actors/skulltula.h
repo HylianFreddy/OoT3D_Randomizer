@@ -42,7 +42,7 @@ typedef enum {
 
 u8 Gs_HasAltLoc(void* ptr, GsParamPointerType ppt, u8 adjustArrayIndex);
 void Gs_QueueAlternateLocated(void);
-void GsQueue_Update(void);
+void GsQueue_SpawnAll(void);
 
 typedef enum {
     GS_AGE_ADULT,

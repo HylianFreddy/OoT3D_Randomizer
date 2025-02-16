@@ -28,21 +28,13 @@ void GsQueue_Add(const GsLocOverride* gsLocOverride) {
     }
 }
 
-void GsQueue_Update(void) {
+void GsQueue_SpawnAll(void) {
+    // TODO: maybe add setting to skip this if not needed?
     if (!IsInGame()) {
         return;
     }
-    // Loading the skulltula object in the Market Day Child scene causes a crash
-    if (gGlobalContext->sceneNum == 0x20) {
-        return;
-    }
-    if (Object_GetIndex(&gGlobalContext->objectCtx, 0x24) < 0) {
-        Object_Spawn(&gGlobalContext->objectCtx, 0x24);
-        return;
-    }
-    if (!Object_IsLoaded(&gGlobalContext->objectCtx, Object_GetIndex(&gGlobalContext->objectCtx, 0x24))) {
-        return;
-    }
+
+    Object_FindOrSpawnEntry(0x24);
 
     for (size_t i = 0; i < ARRAY_SIZE(gsSpawnQueue); i++) {
         if (gsSpawnQueue[i] != NULL) {

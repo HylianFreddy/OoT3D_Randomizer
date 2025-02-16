@@ -322,21 +322,6 @@ RainbowBridge_patch:
     beq 0x3E7D70
     b 0x3E7D34
 
-.section .patch_ModelSpawnGetObjectStatus
-.global ModelSpawnGetObjectStatus_patch
-ModelSpawnGetObjectStatus_patch:
-    bl hook_ModelSpawnGetObjectStatus
-
-.section .patch_ChestGetIceTrapObjectStatus
-.global ChestGetIceTrapObjectStatus_patch
-ChestGetIceTrapObjectStatus_patch:
-    bl hook_ChestGetIceTrapObjectStatus
-
-.section .patch_ExtendedObjectClear
-.global ExtendedObjectClear_patch
-ExtendedObjectClear_patch:
-    bl ExtendedObject_Clear
-
 .section .patch_SariasGift
 .global SariasGift_patch
 SariasGift_patch:
@@ -2278,3 +2263,54 @@ PlayInit_patch:
 .global TitleLinkObject_patch
 TitleLinkObject_patch:
     .word 0xFFFF0014
+
+.section .patch_Room_StartTransition
+    bl hook_Room_StartTransition
+
+.section .patch_Actor_Spawn
+    bl hook_Actor_Spawn
+
+.section .patch_ExtendObjectGetSlot
+.global ExtendObjectGetSlot_patch
+ExtendObjectGetSlot_patch:
+    b hook_ExtendObjectGetSlot
+
+.section .patch_OverrideObjectIsLoaded
+.global OverrideObjectIsLoaded_patch
+OverrideObjectIsLoaded_patch:
+    b hook_OverrideObjectIsLoaded
+
+.section .patch_SceneCommandObjectList
+.global SceneCommandObjectList_patch
+SceneCommandObjectList_patch:
+    bl hook_SceneCommandObjectList
+
+.section .patch_SceneCommandActorEntryList
+.global SceneCommandActorEntryList_patch
+SceneCommandActorEntryList_patch:
+    b hook_SceneCommandActorEntryList
+
+.section .patch_GetObjectEntry_33AB24
+.global GetObjectEntry_33AB24_patch
+GetObjectEntry_33AB24_patch:
+    bl hook_GetObjectEntry_33AB24
+
+.section .patch_GetObjectEntry_36A96C
+.global GetObjectEntry_36A96C_patch
+GetObjectEntry_36A96C_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_EnSiInit
+.global GetObjectEntry_EnSiInit_patch
+GetObjectEntry_EnSiInit_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_EnXcInit
+.global GetObjectEntry_EnXcInit_patch
+GetObjectEntry_EnXcInit_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_ObjSwitchInit
+.global GetObjectEntry_ObjSwitchInit_patch
+GetObjectEntry_ObjSwitchInit_patch:
+    bl hook_GetObjectEntry_Generic

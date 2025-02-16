@@ -1,7 +1,9 @@
 #include "z3D/z3D.h"
 #include "common.h"
 #include "actor.h"
+#include "objects.h"
 #include "savefile.h"
+#include "models.h"
 #include "enemy_souls.h"
 #include "owl.h"
 #include "item00.h"
@@ -280,11 +282,6 @@ void Actor_Init() {
     strncpy(gObjectTable[OBJECT_CUSTOM_TRIFORCE_PIECE].filename, gObjectTable[OBJECT_TRIFORCE].filename, 0x40);
 }
 
-void ActorSetup_Extra() {
-    Sheik_Spawn();
-    GsQueue_Update();
-}
-
 void TitleCard_rUpdate(GlobalContext* globalCtx, TitleCardContext* titleCtx) {
     if (ItemOverride_IsAPendingOverride()) {
         titleCtx->delayTimer    = 0;
@@ -296,7 +293,12 @@ void TitleCard_rUpdate(GlobalContext* globalCtx, TitleCardContext* titleCtx) {
     TitleCard_Update(globalCtx, titleCtx);
 }
 
-u8 ActorSetup_ShouldSkipEntry(ActorEntry* actorEntry) {
+// Return true to skip spawning this actor entry
+u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry, u8 entryIndex) {
+    if (entryIndex == 0) { // once per room/scene load
+        ExtendedObject_Reset();
+    }
+
     // Alternate Gold Skulltula Locations
     if (actorEntry->id == 0x95 && (actorEntry->params & 0xE000) && Gs_HasAltLoc(actorEntry, GS_PPT_ACTORENTRY, TRUE)) {
         return TRUE;
@@ -305,7 +307,10 @@ u8 ActorSetup_ShouldSkipEntry(ActorEntry* actorEntry) {
     return FALSE;
 }
 
-void ActorSetup_After(void) {
+// Called after all actor entries have been handled
+void ActorSetup_Extra(void) {
+    Sheik_Spawn();
+    GsQueue_SpawnAll();
     Gs_QueueAlternateLocated();
 }
 
@@ -488,4 +493,16 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
     }
 
     return 1; // continue as normal
+}
+
+void Actor_OverrideSpawn(u16* actorId, u16* params) {
+}
+
+void RoomTest(void) {
+}
+
+void ObjectTest(void) {
+}
+
+void ActorEntriesTest(void) {
 }
