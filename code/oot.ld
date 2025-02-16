@@ -900,6 +900,10 @@ SECTIONS
 		*(.patch_ApplyDamageMultiplier)
 	}
 
+	.patch_GetObjectEntry_353CE4 0x353CE4 : {
+		*(.patch_GetObjectEntry_353CE4)
+	}
+
 	.patch_FastChests 0x354CD4 : {
 		*(.patch_FastChests)
 	}

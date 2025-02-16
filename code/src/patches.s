@@ -2295,6 +2295,11 @@ SceneCommandActorEntryList_patch:
 GetObjectEntry_33AB24_patch:
     bl hook_GetObjectEntry_33AB24
 
+.section .patch_GetObjectEntry_353CE4
+.global GetObjectEntry_353CE4_patch
+GetObjectEntry_353CE4_patch:
+    bl hook_GetObjectEntry_Generic
+
 .section .patch_GetObjectEntry_36A96C
 .global GetObjectEntry_36A96C_patch
 GetObjectEntry_36A96C_patch:
