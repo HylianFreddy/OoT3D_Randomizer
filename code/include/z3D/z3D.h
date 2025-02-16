@@ -488,7 +488,7 @@ typedef struct {
     /* 0x24 */ s32 bgId;
 } CamColChk; // size = 0x28
 
-#define OBJECT_EXCHANGE_BANK_MAX 19
+#define OBJECT_SLOT_MAX 19
 #define OBJECT_ID_MAX 417
 
 typedef struct ZARInfo {
@@ -502,16 +502,18 @@ typedef struct ZARInfo {
     /* 0x5C */ char unk_5C[0x14];
 } ZARInfo; // size = 0x70
 
-typedef struct {
+typedef struct ObjectEntry {
     /* 0x00 */ s16 id;
     /* 0x02 */ char unk_02[0x0E];
     /* 0x10 */ ZARInfo zarInfo;
-} ObjectStatus; // size = 0x80
+} ObjectEntry; // size = 0x80
 
-typedef struct {
-    /* 0x000 */ u8 num;
-    /* 0x001 */ char unk_01[0x3];
-    /* 0x004 */ ObjectStatus status[OBJECT_EXCHANGE_BANK_MAX];
+typedef struct ObjectContext {
+    /* 0x000 */ u8 numEntries;           // total amount of used entries
+    /* 0x001 */ u8 numPersistentEntries; // amount of entries that won't be reused when loading a new room
+    /* 0x002 */ u8 mainKeepSlot;         // "gameplay_keep" slot
+    /* 0x003 */ u8 subKeepSlot;          // "gameplay_field_keep" or "gameplay_dangeon_keep" slot
+    /* 0x004 */ ObjectEntry slots[OBJECT_SLOT_MAX];
 } ObjectContext; // size = 0x984
 
 typedef struct {
@@ -594,9 +596,11 @@ typedef struct GlobalContext {
     /* 0x5C00 */ u8 linkAgeOnLoad;
     /* 0x5C01 */ u8 unk_5C01;
     /* 0x5C02 */ u8 curSpawn;
-    /* 0x5C03 */ char unk_5C03[0x0006];
+    /* 0x5C03 */ u8 numActorEntries;
+    /* 0x5C04 */ char unk_5C04[0x0005];
     /* 0x5C09 */ ActorEntry* linkActorEntry;
-    /* 0x5C0D */ char unk_5C0D[0x0008];
+    /* 0x5C0D */ ActorEntry* actorEntryList;
+    /* 0x5C11 */ char unk_5C11[0x0004];
     /* 0x5C19 */ EntranceEntry* setupEntranceList;
     /* 0x5C1C */ s16* setupExitList;
     /* 0x5C20 */ char unk_5C20[0x000D];
@@ -792,6 +796,9 @@ typedef Actor* (*Actor_Find_proc)(ActorContext* actorCtx, s16 actorId, u8 actorT
 
 typedef void (*Actor_GetScreenPos_proc)(GlobalContext* globalCtx, Actor* actor, s16* outX, s16* outY);
 #define Actor_GetScreenPos ((Actor_GetScreenPos_proc)GAME_ADDR(0x363A20))
+
+typedef void (*Actor_KillAllWithMissingObject_proc)(GlobalContext* globalCtx, ActorContext* actorCtx);
+#define Actor_KillAllWithMissingObject ((Actor_KillAllWithMissingObject_proc)GAME_ADDR(0x379C3C))
 
 typedef void (*FireDamage_proc)(Actor* player, GlobalContext* globalCtx, int flamesColor);
 #define FireDamage ((FireDamage_proc)GAME_ADDR(0x35D8D8))
