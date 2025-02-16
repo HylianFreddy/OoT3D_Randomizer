@@ -1,60 +1,102 @@
 #include "z3D/z3D.h"
 #include "objects.h"
+#include "common.h"
+#include "models.h"
+#include "custom_models.h"
+#include "3ds/svc.h"
 #include <stddef.h>
 
-ExtendedObjectContext rExtendedObjectCtx = { 0 };
+/* TODO:
+Object_Spawn is already synchronous, it waits for the object to load before returning.
+Find equivalent of func_800982FC from oot and use that to load asynchronously on room change (enemies / ice traps / ...)
+Always keep custom assets object loaded in slot 1: reimplement Object_Clear and only delete other objects
+*/
 
-s32 ExtendedObject_Spawn(ObjectContext* objectCtx, s16 objectId) {
-    return Object_Spawn(&rExtendedObjectCtx, objectId) + OBJECT_EXCHANGE_BANK_MAX;
+static ExtendedObjectContext rExtendedObjectCtx = { 0 };
+
+static s32 ExtendedObject_Spawn(s16 objectId) {
+    return Object_Spawn(&rExtendedObjectCtx, objectId) + OBJECT_SLOT_MAX;
 }
 
-void ExtendedObject_Clear(GlobalContext* globalCtx, ObjectContext* objectCtx) {
-    Object_Clear(globalCtx, objectCtx);
-    Object_Clear(globalCtx, &rExtendedObjectCtx);
+void ExtendedObject_UpdateEntries(void) {
+    Object_UpdateEntries(&rExtendedObjectCtx);
 }
 
-s32 ExtendedObject_GetIndex(ObjectContext* objectCtx, s16 objectId) {
-    s32 index = Object_GetIndex(objectCtx, objectId);
-    if (index < 0) {
-        s32 i;
-        for (i = 0; i < OBJECT_EXCHANGE_BANK_MAX; ++i) {
-            s32 id = rExtendedObjectCtx.status[i].id;
-            id     = (id < 0 ? -id : id);
-            if (id == objectId)
-                return i + OBJECT_EXCHANGE_BANK_MAX;
+s32 ExtendedObject_GetSlot(s16 objectId) {
+    CitraPrint("ExtendedObject_GetSlot: %X", objectId);
+    for (s32 i = 0; i < rExtendedObjectCtx.numEntries; ++i) {
+        s32 id = ABS(rExtendedObjectCtx.slots[i].id);
+        if (id == objectId) {
+            return i + OBJECT_SLOT_MAX;
         }
     }
-    return index;
+    CitraPrint("Missing object slot! objectId=%X", objectId);
+    return -1;
 }
 
-s32 ExtendedObject_IsLoaded(ObjectContext* objectCtx, s16 bankIndex) {
-    if (bankIndex < OBJECT_EXCHANGE_BANK_MAX) {
-        return Object_IsLoaded(objectCtx, bankIndex);
-    } else
-        return (rExtendedObjectCtx.status[bankIndex - OBJECT_EXCHANGE_BANK_MAX].id >= 0);
+void ExtendedObject_Reset(void) {
+    Object_Clear(gGlobalContext, &rExtendedObjectCtx);
+    Actor_KillAllWithMissingObject(gGlobalContext, &gGlobalContext->actorCtx);
+    Model_DestroyAll();
+    // Even though the custom tunics depend on this object, everything seems to still work
+    // if it's reloaded immediately so that it's always in the first slot.
+    ExtendedObject_Spawn(OBJECT_CUSTOM_GENERAL_ASSETS);
 }
 
-ObjectStatus* ExtendedObject_GetStatus(s16 objectId) {
-    s32 i;
-    for (i = 0; i < rExtendedObjectCtx.num; ++i) {
-        s32 id = rExtendedObjectCtx.status[i].id;
-        id     = (id < 0 ? -id : id);
-        if (id == objectId)
-            return &rExtendedObjectCtx.status[i];
+ObjectEntry* Object_GetEntry(s16 slot) {
+    // CitraPrint("Object_GetEntry: %X %X", slot,
+    //            rExtendedObjectCtx.slots[slot - OBJECT_SLOT_MAX].id);
+    if (slot >= OBJECT_SLOT_MAX) {
+        return &rExtendedObjectCtx.slots[slot - OBJECT_SLOT_MAX];
     }
+    if (slot >= 0) {
+        return &gGlobalContext->objectCtx.slots[slot];
+    }
+    // CitraPrint("Object_GetEntry failed: %X", objectId);
     return NULL;
 }
 
-void* ExtendedObject_GetCMABByIndex(s16 objectId, u32 objectAnimIdx) {
-    s16 objectBankIdx = ExtendedObject_GetIndex(&gGlobalContext->objectCtx, objectId);
-    void* cmabMan;
-
-    if (objectBankIdx < OBJECT_EXCHANGE_BANK_MAX) {
-        cmabMan = ZAR_GetCMABByIndex(&gGlobalContext->objectCtx.status[objectBankIdx].zarInfo, objectAnimIdx);
+ObjectEntry* Object_FindOrSpawnEntry(s16 objectId) {
+    // CitraPrint("Object_FindOrSpawnEntry %X", objectId);
+    ObjectEntry* obj;
+    s32 slot = Object_GetSlot(&gGlobalContext->objectCtx, objectId);
+    if (slot >= 0) {
+        if (slot >= OBJECT_SLOT_MAX) {
+            obj = &rExtendedObjectCtx.slots[slot - OBJECT_SLOT_MAX];
+        } else {
+            obj = &gGlobalContext->objectCtx.slots[slot];
+        }
+        // Wait for the object to be loaded. TODO: this gets stuck infinitely, find another way?
+        // while (obj->id <= 0) {
+        //     CitraPrint("Object_FindOrSpawnEntry: waiting for object 0x%X...", objectId);
+        //     svcSleepThread(1000 * 1000LL); // Sleep 1 ms
+        // }
+        return obj;
     } else {
-        cmabMan = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[objectBankIdx - OBJECT_EXCHANGE_BANK_MAX].zarInfo,
-                                     objectAnimIdx);
+        // CitraPrint("Object_FindOrSpawnEntry failed, trying to spawn object 0x%X...", objectId);
+        slot = Object_Spawn(&rExtendedObjectCtx, objectId);
+        return &rExtendedObjectCtx.slots[slot];
+    }
+}
+
+s32 Object_FindOrSpawnSlot(s16 objectId) {
+    s32 objectSlot = Object_GetSlot(&gGlobalContext->objectCtx, objectId);
+    if (objectSlot < 0) {
+        objectSlot = ExtendedObject_Spawn(objectId);
+    }
+    return objectSlot;
+}
+
+s32 Object_IsLoaded(ObjectContext* objectCtx, s16 slot) {
+    if (slot < OBJECT_SLOT_MAX) {
+        return (objectCtx->slots[slot].id > 0);
     }
 
-    return cmabMan;
+    // CitraPrint("Object_IsLoaded %X", rExtendedObjectCtx.slots[slot - OBJECT_SLOT_MAX].id);
+    return (rExtendedObjectCtx.slots[slot - OBJECT_SLOT_MAX].id > 0);
+}
+
+void* Object_GetCMABByIndex(s16 objectId, u32 objectAnimIdx) {
+    ObjectEntry* obj = Object_FindOrSpawnEntry(objectId);
+    return ZAR_GetCMABByIndex(&obj->zarInfo, objectAnimIdx);
 }
