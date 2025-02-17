@@ -321,8 +321,7 @@ typedef enum {
     /* 0x08 */ ACTORTYPE_MISC,
     /* 0x09 */ ACTORTYPE_BOSS,
     /* 0x0A */ ACTORTYPE_DOOR,
-    /* 0x0B */ ACTORTYPE_CHEST,
-    /* 0x0C */ ACTORTYPE_MAX,
+    /* 0x0B */ ACTORTYPE_CHEST
 } ActorType;
 
 typedef struct ActorHeapNode {

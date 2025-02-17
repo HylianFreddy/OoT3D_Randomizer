@@ -31,9 +31,6 @@ typedef ObjectContext ExtendedObjectContext;
 // Get an object entry given the slot.
 ObjectEntry* Object_GetEntry(s16 slot);
 // Find an object entry for the specified objectId, or spawn it if it's not found.
-// This function may return an entry that is not yet loaded, but you can still
-// spawn actors depending on that object because the game will wait for the load
-// before initializing the actor.
 ObjectEntry* Object_FindOrSpawnEntry(s16 objectId);
 // Same as Object_FindOrSpawnEntry but return the object slot
 s32 Object_FindOrSpawnSlot(s16 objectId);
@@ -42,14 +39,7 @@ s32 Object_IsLoaded(ObjectContext* objectCtx, s16 slot);
 // Get the CMAB manager from this object, loading it if it's not present.
 void* Object_GetCMABByIndex(s16 objectId, u32 objectAnimIdx);
 
-void ExtendedObject_OnSceneInit(void);
-// Update the extended object context.
 void ExtendedObject_UpdateEntries(void);
 // Clear and reset the extended object context.
-void ExtendedObject_OnRoomChange(void);
-
-s32 ExtendedObject_SpawnPersistent(s16 objectId);
-// s32 ExtendedObject_SpawnSynchronous(s16 objectId);
-// s32 ExtendedObject_RequestSpawn(s16 objectId);
 
 #endif //_OBJECTS_H_
