@@ -294,11 +294,7 @@ void TitleCard_rUpdate(GlobalContext* globalCtx, TitleCardContext* titleCtx) {
 }
 
 // Return true to skip spawning this actor entry
-u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry, u8 entryIndex) {
-    if (entryIndex == 0) { // once per room/scene load
-        ExtendedObject_Reset();
-    }
-
+u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry) {
     // Alternate Gold Skulltula Locations
     if (actorEntry->id == 0x95 && (actorEntry->params & 0xE000) && Gs_HasAltLoc(actorEntry, GS_PPT_ACTORENTRY, TRUE)) {
         return TRUE;
@@ -498,9 +494,6 @@ void Actor_OverrideSpawn(u16* actorId, u16* params) {
 }
 
 void RoomTest(void) {
-}
-
-void ObjectTest(void) {
 }
 
 void ActorEntriesTest(void) {

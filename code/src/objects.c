@@ -4,12 +4,17 @@
 #include "models.h"
 #include "custom_models.h"
 #include "3ds/svc.h"
+#include "oot_malloc.h"
 #include <stddef.h>
 
 /* TODO:
 Object_Spawn is already synchronous, it waits for the object to load before returning.
 Find equivalent of func_800982FC from oot and use that to load asynchronously on room change (enemies / ice traps / ...)
 Always keep custom assets object loaded in slot 1: reimplement Object_Clear and only delete other objects
+
+keep track of persistent objects. on room change clear others like in Object_Clear.
+when spawning persistent, shift all non-persistent ones.
+add function to spawn new non-persistent object (adding slot with negative objId).
 */
 
 static ExtendedObjectContext rExtendedObjectCtx = { 0 };
@@ -22,25 +27,53 @@ void ExtendedObject_UpdateEntries(void) {
     Object_UpdateEntries(&rExtendedObjectCtx);
 }
 
+void ExtendedObject_Clear(void) {
+    CitraPrint("ExtendedObject_Clear");
+    Object_Clear(gGlobalContext, &rExtendedObjectCtx);
+}
+
+// Copy of Object_Clear but only for non-persistent objects.
+void ExtendedObject_ClearNonPersistent(void) {
+    // CitraPrint("ExtendedObject_ClearNonPersistent enter %d", rExtendedObjectCtx.numPersistentEntries);
+    for (s32 i = rExtendedObjectCtx.numPersistentEntries; i < OBJECT_SLOT_MAX; i++) {
+        ObjectEntry* entry = &rExtendedObjectCtx.slots[i];
+        if (entry->id > 0) {
+            // CitraPrint("deleting object %X", entry->id);
+            if (entry->size != 0) {
+                ZAR_Destroy(&entry->zarInfo);
+                entry->size = 0;
+            }
+            SystemArena_Free(entry->buf);
+            entry->buf = NULL;
+            entry->id  = 0;
+        }
+    }
+    rExtendedObjectCtx.numEntries = rExtendedObjectCtx.numPersistentEntries;
+}
+
+void ExtendedObject_AfterObjectListCommand(void) {
+    if (gGlobalContext->state.running == 1) { // Loading scene
+        // Spawn objects that will not unload on room transitions.
+        ExtendedObject_Spawn(OBJECT_CUSTOM_GENERAL_ASSETS);
+        Object_FindOrSpawnSlot(3); // zelda_dangeon_keep (main dungeon object)
+        rExtendedObjectCtx.numPersistentEntries = rExtendedObjectCtx.numEntries;
+    } else { // (state.running == 2) Loading room
+        ExtendedObject_ClearNonPersistent();
+        Actor_KillAllWithMissingObject(gGlobalContext, &gGlobalContext->actorCtx);
+        Model_DestroyAll();
+    }
+}
+
 s32 ExtendedObject_GetSlot(s16 objectId) {
-    CitraPrint("ExtendedObject_GetSlot: %X", objectId);
+    // CitraPrint("ExtendedObject_GetSlot: %X", objectId);
     for (s32 i = 0; i < rExtendedObjectCtx.numEntries; ++i) {
         s32 id = ABS(rExtendedObjectCtx.slots[i].id);
         if (id == objectId) {
             return i + OBJECT_SLOT_MAX;
         }
     }
-    CitraPrint("Missing object slot! objectId=%X", objectId);
+    // CitraPrint("Missing object slot! objectId=%X", objectId);
     return -1;
-}
-
-void ExtendedObject_Reset(void) {
-    Object_Clear(gGlobalContext, &rExtendedObjectCtx);
-    Actor_KillAllWithMissingObject(gGlobalContext, &gGlobalContext->actorCtx);
-    Model_DestroyAll();
-    // Even though the custom tunics depend on this object, everything seems to still work
-    // if it's reloaded immediately so that it's always in the first slot.
-    ExtendedObject_Spawn(OBJECT_CUSTOM_GENERAL_ASSETS);
 }
 
 ObjectEntry* Object_GetEntry(s16 slot) {

@@ -20,6 +20,9 @@ typedef void* (*ZAR_Get_proc)(ZARInfo* zarInfo, u32 index);
 
 #define ZAR_GetCMABByIndex ((ZAR_Get_proc)GAME_ADDR(0x372F0C))
 
+typedef void (*ZAR_Destroy_proc)(ZARInfo*);
+#define ZAR_Destroy ((ZAR_Destroy_proc)GAME_ADDR(0x2F70C4))
+
 typedef void (*TexAnim_Spawn_proc)(void*, void*);
 #define TexAnim_Spawn ((TexAnim_Spawn_proc)GAME_ADDR(0x372D94))
 
@@ -39,9 +42,14 @@ s32 Object_IsLoaded(ObjectContext* objectCtx, s16 slot);
 // Get the CMAB manager from this object, loading it if it's not present.
 void* Object_GetCMABByIndex(s16 objectId, u32 objectAnimIdx);
 
+void ExtendedObject_OnSceneInit(void);
 // Update the extended object context.
 void ExtendedObject_UpdateEntries(void);
 // Clear and reset the extended object context.
-void ExtendedObject_Reset(void);
+void ExtendedObject_OnRoomChange(void);
+
+s32 ExtendedObject_SpawnPersistent(s16 objectId);
+// s32 ExtendedObject_SpawnSynchronous(s16 objectId);
+// s32 ExtendedObject_RequestSpawn(s16 objectId);
 
 #endif //_OBJECTS_H_
