@@ -41,20 +41,21 @@ void Randomizer_Init() {
 
 extern s32 mockIndex;
 void before_Play_Init(GlobalContext* globalCtx) {
+    CitraPrint("before_Play_Init");
     if (!rRandomizerInit) {
         Randomizer_Init();
         rRandomizerInit = 1;
     }
-    gGlobalContext = globalCtx;
-    ExtendedObject_Reset();
     if (rInputCtx.cur.zr) {
         mockIndex++;
     }
+    gGlobalContext = globalCtx;
 }
 
 void autoLoadSaveFile();
 
 void before_GlobalContext_Update(GlobalContext* globalCtx) {
+    // CitraPrint("before_GlobalContext_Update");
     rGameplayFrames++;
     ItemOverride_Update();
     ExtendedObject_UpdateEntries();
@@ -98,6 +99,7 @@ s32 checkFastForward(void) {
 }
 
 void after_GlobalContext_Update() {
+    // CitraPrint("after_GlobalContext_Update");
     // The alert is always displayed on the Title Screen, and for 10 seconds after opening a save file.
     if (missingRomfsAlert && romfsAlertFrames > 0) {
         Draw_DrawFormattedStringTop(75, 180, COLOR_WHITE,
@@ -111,6 +113,7 @@ void after_GlobalContext_Update() {
     Multiplayer_Sync_Update();
 
     if (gGlobalContext->state.running == 0) {
+        CitraPrint("state.running == 0");
         Model_DestroyAll();
     }
 }
