@@ -310,6 +310,11 @@ RainbowBridge_patch:
     beq 0x3E7D70
     b 0x3E7D34
 
+.section .patch_ExtendedObjectClear
+.global ExtendedObjectClear_patch
+ExtendedObjectClear_patch:
+    bl ExtendedObject_Clear
+
 .section .patch_SariasGift
 .global SariasGift_patch
 SariasGift_patch:
@@ -2256,6 +2261,11 @@ ExtendObjectGetSlot_patch:
 .global OverrideObjectIsLoaded_patch
 OverrideObjectIsLoaded_patch:
     b hook_OverrideObjectIsLoaded
+
+.section .patch_AfterObjectListCommand
+.global AfterObjectListCommand_patch
+AfterObjectListCommand_patch:
+    bl hook_AfterObjectListCommand
 
 .section .patch_GetObjectEntry_33AB24
 .global GetObjectEntry_33AB24_patch

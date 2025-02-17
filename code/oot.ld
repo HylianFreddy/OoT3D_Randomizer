@@ -1036,6 +1036,10 @@ SECTIONS
 		*(.patch_OverrideDrawItemThree)
 	}
 
+	.patch_AfterObjectListCommand 0x3A7708 : {
+		*(.patch_AfterObjectListCommand)
+	}
+
 	.patch_KokiriCheckOpenForest 0x3ACCFC : {
 		*(.patch_KokiriCheckOpenForest)
 	}
@@ -1368,6 +1372,10 @@ SECTIONS
 
 	.patch_GameplayDestroy 0x44E294 + region_offset : {
 		*(.patch_GameplayDestroy)
+	}
+
+	.patch_ExtendedObjectClear 0x44E758 + region_offset : {
+			*(.patch_ExtendedObjectClear)
 	}
 
 	.patch_Multiplayer_UpdatePrevActorFlags 0x44E878 + region_offset : {

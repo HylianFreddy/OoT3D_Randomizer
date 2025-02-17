@@ -43,7 +43,6 @@ void before_Play_Init(GlobalContext* globalCtx) {
         rRandomizerInit = 1;
     }
     gGlobalContext = globalCtx;
-    ExtendedObject_Reset();
 }
 
 void before_GlobalContext_Update(GlobalContext* globalCtx) {

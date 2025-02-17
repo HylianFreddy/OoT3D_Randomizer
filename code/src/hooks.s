@@ -1872,7 +1872,6 @@ hook_OnActorSetup_SceneChange:
     cpy r4,r5
     push {r0-r12, lr}
     cpy r0,r5
-    cpy r1,r6
     bl ActorSetup_OverrideEntry
     cmp r0,#0x1
     pop {r0-r12, lr}
@@ -1903,7 +1902,6 @@ hook_OnActorSetup_RoomChange:
     cpy r4,r6
     push {r0-r12, lr}
     cpy r0,r6
-    cpy r1,r7
     bl ActorSetup_OverrideEntry
     cmp r0,#0x1
     pop {r0-r12, lr}
@@ -2158,6 +2156,14 @@ hook_OverrideObjectIsLoaded:
     @ r0,r1 = ObjectContext,slot
     bl Object_IsLoaded
     pop {r1-r12, lr}
+    bx lr
+
+.global hook_AfterObjectListCommand
+hook_AfterObjectListCommand:
+    push {r0-r12, lr}
+    bl ExtendedObject_AfterObjectListCommand
+    pop {r0-r12, lr}
+    mov r0,#0x1
     bx lr
 
 .global hook_PlayInit

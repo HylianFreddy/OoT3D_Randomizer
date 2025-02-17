@@ -20,6 +20,9 @@ typedef void* (*ZAR_Get_proc)(ZARInfo* zarInfo, u32 index);
 
 #define ZAR_GetCMABByIndex ((ZAR_Get_proc)GAME_ADDR(0x372F0C))
 
+typedef void (*ZAR_Destroy_proc)(ZARInfo*);
+#define ZAR_Destroy ((ZAR_Destroy_proc)GAME_ADDR(0x2F70C4))
+
 typedef void (*TexAnim_Spawn_proc)(void*, void*);
 #define TexAnim_Spawn ((TexAnim_Spawn_proc)GAME_ADDR(0x372D94))
 
@@ -28,9 +31,6 @@ typedef ObjectContext ExtendedObjectContext;
 // Get an object entry given the slot.
 ObjectEntry* Object_GetEntry(s16 slot);
 // Find an object entry for the specified objectId, or spawn it if it's not found.
-// This function may return an entry that is not yet loaded, but you can still
-// spawn actors depending on that object because the game will wait for the load
-// before initializing the actor.
 ObjectEntry* Object_FindOrSpawnEntry(s16 objectId);
 // Same as Object_FindOrSpawnEntry but return the object slot
 s32 Object_FindOrSpawnSlot(s16 objectId);
@@ -41,7 +41,5 @@ void* Object_GetCMABByIndex(s16 objectId, u32 objectAnimIdx);
 
 // Update the extended object context.
 void ExtendedObject_UpdateEntries(void);
-// Clear and reset the extended object context.
-void ExtendedObject_Reset(void);
 
 #endif //_OBJECTS_H_

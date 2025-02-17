@@ -504,7 +504,10 @@ typedef struct ZARInfo {
 
 typedef struct ObjectEntry {
     /* 0x00 */ s16 id;
-    /* 0x02 */ char unk_02[0x0E];
+    /* 0x02 */ char unk_02[0x02];
+    /* 0x04 */ void* buf;
+    /* 0x08 */ u32 size;
+    /* 0x0C */ void* unk_0C;
     /* 0x10 */ ZARInfo zarInfo;
 } ObjectEntry; // size = 0x80
 
