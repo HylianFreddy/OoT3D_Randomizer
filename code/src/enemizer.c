@@ -76,7 +76,7 @@ static EnemyData sEnemyData[] = {
     // { .actorId = 0x0DE, .params = 0x0000, .requirements = 0 }, // Parasitic Tentacle
 };
 
-s32 mockIndex = ARRAY_SIZE(sEnemyData) - 1;
+s32 mockIndex = 2;
 
 static EnemyObjectDependency sEnemyObjectDeps[] = {
     { .actorId = 0x00D, .objectId = 0x009 }, // Poe (actor profile only points to object 1)
@@ -99,19 +99,19 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {
         return;
     }
 
-    f32 yGroundIntersect;
-    f32 yWaterSurface;
-    void* throwawayPointer;
-    Vec3f actorPos = (Vec3f){
-        .x = actorEntry->pos.x,
-        .y = actorEntry->pos.y,
-        .z = actorEntry->pos.z,
-    };
+    // f32 yGroundIntersect;
+    // f32 yWaterSurface;
+    // void* throwawayPointer;
+    // Vec3f actorPos = (Vec3f){
+    //     .x = actorEntry->pos.x,
+    //     .y = actorEntry->pos.y,
+    //     .z = actorEntry->pos.z,
+    // };
 
-    yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, (CollisionPoly**)&throwawayPointer, &actorPos);
-    WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z, &yWaterSurface, &throwawayPointer);
+    // yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, (CollisionPoly**)&throwawayPointer, &actorPos);
+    // WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z, &yWaterSurface, &throwawayPointer);
 
-    CitraPrint("yGroundIntersect=%f; yWaterSurface=%f", yGroundIntersect, yWaterSurface);
+    // CitraPrint("yGroundIntersect=%f; yWaterSurface=%f", yGroundIntersect, yWaterSurface);
 
     // u32 seed = (u16)actorEntry->id + (u16)actorEntry->params + actorEntry->pos.x + actorEntry->pos.y +
     //            actorEntry->pos.z + actorEntry->rot.x + actorEntry->rot.y + actorEntry->rot.z;
