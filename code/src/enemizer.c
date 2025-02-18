@@ -1,6 +1,7 @@
 #include "enemizer.h"
 #include "objects.h"
 #include "common.h"
+#include "savefile.h"
 
 // todo armos
 
@@ -136,7 +137,7 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {
 
     // Select random enemy
     u32 seed = (u16)actorEntry->id + (u16)actorEntry->params + actorEntry->pos.x + actorEntry->pos.y +
-               actorEntry->pos.z + actorEntry->rot.x + actorEntry->rot.y + actorEntry->rot.z;
+               actorEntry->pos.z + actorEntry->rot.x + actorEntry->rot.y + actorEntry->rot.z + gExtSaveData.option_EnemizerSalt;
     u32 index             = Hash(seed) % optionsCount;
 
     // EnemyData randomEnemy = sEnemyData[9];

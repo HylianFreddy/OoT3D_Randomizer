@@ -10,7 +10,7 @@
 #define BORDER_WIDTH 2
 #define CHOICE_COLUMN 220
 #define DESCRIPTION_ROW 184
-#define OPTIONS_COUNT 11
+#define OPTIONS_COUNT 12
 
 typedef struct {
     char name[30];
@@ -123,6 +123,20 @@ void InitOptions(void) {
     strcpy(options[opNum].alternatives[altNum++], "Show");
     strcpy(options[opNum].description, "");
     options[opNum++].optionPointer = &gExtSaveData.option_Spoilers;
+
+    // Enemizer Seed Salt
+    altNum = 0;
+    strcpy(options[opNum].name, "Enemizer Seed Salt");
+    strcpy(options[opNum].alternatives[altNum++], "1");
+    strcpy(options[opNum].alternatives[altNum++], "2");
+    strcpy(options[opNum].alternatives[altNum++], "3");
+    strcpy(options[opNum].alternatives[altNum++], "4");
+    strcpy(options[opNum].alternatives[altNum++], "5");
+    strcpy(options[opNum].alternatives[altNum++], "6");
+    strcpy(options[opNum].alternatives[altNum++], "7");
+    strcpy(options[opNum].alternatives[altNum++], "8");
+    strcpy(options[opNum].description, "");
+    options[opNum++].optionPointer = &gExtSaveData.option_EnemizerSalt;
 }
 
 void Gfx_DrawOptions(void) {

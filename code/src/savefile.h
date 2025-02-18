@@ -74,6 +74,7 @@ typedef struct {
     s8 option_HyperActors;
     s8 option_SilentRolls;
     s8 option_Spoilers;
+    s8 option_EnemizerSalt;
 } ExtSaveData;
 
 #ifdef DECLARE_EXTSAVEDATA
