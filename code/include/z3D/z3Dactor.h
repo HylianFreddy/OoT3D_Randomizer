@@ -3,6 +3,7 @@
 
 #include "z3Dvec.h"
 #include "z3Dcollision_check.h"
+#include "z3Dbgcheck.h"
 
 struct Actor;
 struct GlobalContext;
@@ -14,12 +15,6 @@ typedef struct {
     Vec3f pos;
     Vec3s rot;
 } PosRot; // size = 0x14
-
-typedef struct {
-    /* 0x00 */ char unk_00[0x8];
-    /* 0x08 */ Vec3s norm; // Normal vector
-    /* 0x0E */ s16 dist;   // Plane distance from origin
-} CollisionPoly;           // size = 0x10
 
 struct SkeletonAnimationModel;
 typedef void (*SkeletonAnimationModelFunc)(struct SkeletonAnimationModel*);
