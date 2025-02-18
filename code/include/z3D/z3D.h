@@ -7,6 +7,7 @@
 #include "z3Dcutscene.h"
 #include "z3Ditem.h"
 #include "z3Dmath.h"
+#include "z3DbgCheck.h"
 
 // #include "hid.h"
 
@@ -326,12 +327,6 @@ typedef struct {
 } Camera; // size = 0x1BC
 
 typedef struct {
-    /* 0x0 */ u16 setting;
-    /* 0x2 */ s16 count;
-    /* 0x4 */ Vec3s* camFuncData;
-} CamData; // size = 0x8
-
-typedef struct {
     /* 0x00 */ Vec3f atOffset;
     /* 0x0C */ Vec3f eyeOffset;
     /* 0x18 */ s16 upPitchOffset;
@@ -339,50 +334,6 @@ typedef struct {
     /* 0x1C */ s16 fovOffset;
     /* 0x20 */ f32 maxOffset;
 } ShakeInfo; // size = 0x24
-
-typedef struct {
-    /* 0x00 */ char unk_00[0x04];
-    /* 0x04 */ Vec3s minBounds;
-    /* 0x0A */ Vec3s maxBounds;
-    /* 0x10 */ u16 numVertices;
-    /* 0x12 */ u16 numPolygons;
-    /* 0x14 */ u16 numWaterboxes;
-    /* 0x18 */ Vec3s* vtxList;
-    /* 0x1C */ CollisionPoly* polyList;
-    /* 0x20 */ void* surfaceTypeList;
-    /* 0x24 */ CamData* camDataList;
-    /* 0x28 */ void* waterboxes;
-} CollisionHeader; // size = 0x2C
-
-typedef struct {
-    /* 0x00 */ CollisionHeader* colHeader;
-    /* 0x04 */ char unk_04[0x4C];
-} StaticCollisionContext; // size = 0x50
-
-typedef struct {
-    /* 0x00 */ Actor* actor;
-    /* 0x04 */ CollisionHeader* colHeader;
-    /* 0x08 */ char unk_04[0x0C];
-    /* 0x14 */ Vec3f scale1;
-    /* 0x20 */ Vec3s rot1;
-    /* 0x28 */ Vec3f pos1;
-    /* 0x34 */ Vec3f scale2;
-    /* 0x40 */ Vec3s rot2;
-    /* 0x48 */ Vec3f pos2;
-    /* 0x54 */ char unk_54[0x18];
-} ActorMesh; // size = 0x6C
-
-typedef struct {
-    /* 0x0000 */ char unk_00[0x04];
-    /* 0x0004 */ ActorMesh actorMeshArr[50];
-    /* 0x151C */ u16 flags[50];
-    /* 0x1580 */ char unk_13F0[0x24];
-} DynaCollisionContext; // size = 0x15A4
-
-typedef struct {
-    /* 0x0000 */ StaticCollisionContext stat;
-    /* 0x0050 */ DynaCollisionContext dyna;
-} CollisionContext; // size = 0x15F4
 
 typedef struct {
     /* 0x00 */ u8* texture;
