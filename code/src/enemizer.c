@@ -5,18 +5,18 @@
 // todo armos
 
 static EnemyData sEnemyData[] = {
-    { .actorId = 0x00D, .params = 0x0000, .requirements = REQ_ABOVE_GROUND }, // Poe
-    // { .actorId = 0x00E, .params = 0x0000, .requirements = REQ_WATER }, // Octorok [requires water and snaps to surface]
-    { .actorId = 0x011, .params = 0x0000, .requirements = 0 }, // Wallmaster
+    { .actorId = 0x00D, .params = 0x0000, .requirements = REQ_ABOVE_GROUND | REQ_FLYING }, // Poe
+    { .actorId = 0x00E, .params = 0x0000, .requirements = REQ_WATER_SURFACE }, // Octorok [requires water and snaps to surface]
+    { .actorId = 0x011, .params = 0x0000, .requirements = REQ_FLYING }, // Wallmaster
     { .actorId = 0x012, .params = 0x0000, .requirements = REQ_ON_GROUND | REQ_NO_WATER }, // Dodongo [gets stuck in mid-air]
-    { .actorId = 0x013, .params = 0x0002, .requirements = REQ_NO_WATER }, // Keese
-    { .actorId = 0x013, .params = 0x0001, .requirements = REQ_NO_WATER }, //  Fire Keese
-    { .actorId = 0x013, .params = 0x0004, .requirements = REQ_NO_WATER }, //  Ice Keese
+    { .actorId = 0x013, .params = 0x0002, .requirements = REQ_NO_WATER | REQ_FLYING }, // Keese
+    { .actorId = 0x013, .params = 0x0001, .requirements = REQ_NO_WATER | REQ_FLYING }, //  Fire Keese
+    { .actorId = 0x013, .params = 0x0004, .requirements = REQ_NO_WATER | REQ_FLYING }, //  Ice Keese
     { .actorId = 0x01B, .params = 0xFFFF, .requirements = REQ_ABOVE_GROUND | REQ_NO_WATER }, // Tektite (Red) [doesn't float in water]
     { .actorId = 0x01B, .params = 0xFFFE, .requirements = REQ_ABOVE_GROUND }, //  Tektite (Blue)
     // { .actorId = 0x01C, .params = 0x0000, .requirements = 0 }, // Leever [doesn't spawn]
     { .actorId = 0x01D, .params = 0xFFFF, .requirements = REQ_ON_GROUND | REQ_NO_WATER }, // Peahat [doesn't fall]
-    { .actorId = 0x01D, .params = 0x0001, .requirements = REQ_ABOVE_GROUND_IN_AIR | REQ_NO_WATER }, //  Peahat Larva [insta die if on floor]
+    { .actorId = 0x01D, .params = 0x0001, .requirements = REQ_ABOVE_GROUND_IN_AIR | REQ_NO_WATER | REQ_FLYING }, //  Peahat Larva [insta die if on floor]
     { .actorId = 0x025, .params = 0xFF80, .requirements = REQ_ABOVE_GROUND | REQ_NO_WATER}, // Lizalfos
     { .actorId = 0x025, .params = 0xFFFF, .requirements = REQ_ABOVE_GROUND | REQ_NO_WATER}, //  Lizalfos (drops)
     { .actorId = 0x025, .params = 0xFFFE, .requirements = REQ_ABOVE_GROUND | REQ_NO_WATER }, //  Dinolfos
@@ -25,8 +25,8 @@ static EnemyData sEnemyData[] = {
     { .actorId = 0x02F, .params = 0x0000, .requirements = REQ_ON_GROUND | REQ_NO_WATER }, // Baby Dodongo [burrows immediately in water, doesn't spawn in mid-air]
     { .actorId = 0x034, .params = 0xFFFF, .requirements = 0 }, // Biri
     { .actorId = 0x035, .params = 0xFFFF, .requirements = REQ_ON_GROUND | REQ_NO_WATER }, // Tailpasaran [weird in mid-air]
-    { .actorId = 0x037, .params = 0x0000, .requirements = REQ_ABOVE_GROUND_IN_AIR | REQ_NO_WATER }, // Skulltula [works, but maybe should move up a bit?]
-    { .actorId = 0x037, .params = 0x0001, .requirements = REQ_ABOVE_GROUND_IN_AIR | REQ_NO_WATER }, //  Skulltula (Big)
+    { .actorId = 0x037, .params = 0x0000, .requirements = REQ_ABOVE_GROUND_IN_AIR | REQ_NO_WATER | REQ_FLYING }, // Skulltula [works, but maybe should move up a bit?]
+    { .actorId = 0x037, .params = 0x0001, .requirements = REQ_ABOVE_GROUND_IN_AIR | REQ_NO_WATER | REQ_FLYING }, //  Skulltula (Big)
     { .actorId = 0x038, .params = 0xFFFF, .requirements = REQ_ABOVE_GROUND | REQ_NO_WATER }, // Torch Slug [works, but doesn't look good in water]
     { .actorId = 0x03A, .params = 0x000A, .requirements = REQ_ON_GROUND | REQ_NO_WATER }, // Stinger (Land) [works, but doesn't look good in water]
     { .actorId = 0x04B, .params = 0x0000, .requirements = REQ_ABOVE_GROUND | REQ_NO_WATER }, // Moblin (club) [doesn't turn]
@@ -36,7 +36,7 @@ static EnemyData sEnemyData[] = {
     { .actorId = 0x055, .params = 0x0001, .requirements = REQ_ON_GROUND | REQ_NO_WATER }, //  Deku Baba (Big)
     { .actorId = 0x060, .params = 0x0300, .requirements = REQ_ON_GROUND | REQ_NO_WATER }, // Mad Scrub [flower doesn't fall]
     { .actorId = 0x063, .params = 0xFFFF, .requirements = REQ_ABOVE_GROUND_IN_AIR }, // Bari [doesn't spawn if underground]
-    { .actorId = 0x069, .params = 0xFFFF, .requirements = REQ_NO_WATER }, // Bubble (blue)
+    { .actorId = 0x069, .params = 0xFFFF, .requirements = REQ_NO_WATER | REQ_FLYING }, // Bubble (blue)
     { .actorId = 0x069, .params = 0xFFFE, .requirements = REQ_ON_GROUND | REQ_NO_WATER }, //  Bubble (fire)
     { .actorId = 0x06B, .params = 0x0000, .requirements = REQ_ON_GROUND }, // Flying Floor Tile [spawns a ton of particles, causing soft-crashes]
     { .actorId = 0x08A, .params = 0x0501, .requirements = REQ_ON_GROUND | REQ_NO_WATER }, // Beamos [doesn't fall]
@@ -58,7 +58,7 @@ static EnemyData sEnemyData[] = {
     { .actorId = 0x1AF, .params = 0xFF01, .requirements = REQ_ABOVE_GROUND | REQ_NO_WATER }, //  White Wolfos
     { .actorId = 0x1B0, .params = 0x0000, .requirements = REQ_ABOVE_GROUND }, // Stalchild [burrows immediately]
     { .actorId = 0x1B0, .params = 0x0005, .requirements = REQ_ABOVE_GROUND }, //  Stalchild (20 kills)
-    { .actorId = 0x1C0, .params = 0x0000, .requirements = REQ_NO_WATER }, // Guay [doesn't actually die so can't clear rooms]
+    { .actorId = 0x1C0, .params = 0x0000, .requirements = REQ_NO_WATER | REQ_FLYING }, // Guay [doesn't actually die so can't clear rooms]
 
     { .actorId = 0x002, .params = 0x0002, .requirements = REQ_ON_GROUND | REQ_NO_WATER }, // Stalfos [doesn't fall]
     { .actorId = 0x002, .params = 0x0003, .requirements = REQ_ABOVE_GROUND | REQ_NO_WATER }, //  Stalfos (falls from above)
@@ -76,8 +76,6 @@ static EnemyData sEnemyData[] = {
     // { .actorId = 0x0DE, .params = 0x0000, .requirements = 0 }, // Parasitic Tentacle
 };
 
-s32 mockIndex = 2;
-
 static EnemyObjectDependency sEnemyObjectDeps[] = {
     { .actorId = 0x00D, .objectId = 0x009 }, // Poe (actor profile only points to object 1)
     { .actorId = 0x063, .objectId = 0x021 }, // Bari -> Biri
@@ -87,6 +85,7 @@ static EnemyObjectDependency sEnemyObjectDeps[] = {
 };
 
 void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {
+    // Choose if actor should be randomized
     u8 isRandomizedEnemy = FALSE;
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
         if (actorEntry->id == sEnemyData[i].actorId) {
@@ -95,35 +94,77 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {
         }
     }
 
-    if (!isRandomizedEnemy) {
+    if (!isRandomizedEnemy || (/*armos statue*/actorEntry->id == 0x054 && actorEntry->params == 0)) {
         return;
     }
 
-    // f32 yGroundIntersect;
-    // f32 yWaterSurface;
-    // void* throwawayPointer;
-    // Vec3f actorPos = (Vec3f){
-    //     .x = actorEntry->pos.x,
-    //     .y = actorEntry->pos.y,
-    //     .z = actorEntry->pos.z,
-    // };
+    // Get information about spawn point
+    f32 yGroundIntersect = 0.0;
+    u8 isVoidPlane = FALSE;
+    CollisionPoly floorPoly;
+    s32 isWater = FALSE;
+    f32 yWaterSurface = 0.0;
+    void* waterBox;
+    Vec3f actorPos = (Vec3f){
+        .x = actorEntry->pos.x,
+        .y = actorEntry->pos.y + 10,
+        .z = actorEntry->pos.z,
+    };
 
-    // yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, (CollisionPoly**)&throwawayPointer, &actorPos);
-    // WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z, &yWaterSurface, &throwawayPointer);
+    yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
+    SurfaceType surfaceType = gGlobalContext->colCtx.stat.colHeader->surfaceTypeList[floorPoly.type];
+    isVoidPlane = (SurfaceType_GetFloorProperty(surfaceType) == 0xC);
+    isWater = WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z, &yWaterSurface, &waterBox);
 
-    // CitraPrint("yGroundIntersect=%f; yWaterSurface=%f", yGroundIntersect, yWaterSurface);
+    // Populate possible enemies list based on requirements and spawn point data
+    EnemyData* enemyOptions[ARRAY_SIZE(sEnemyData)];
+    u16 optionsCount = 0;
 
-    // u32 seed = (u16)actorEntry->id + (u16)actorEntry->params + actorEntry->pos.x + actorEntry->pos.y +
-    //            actorEntry->pos.z + actorEntry->rot.x + actorEntry->rot.y + actorEntry->rot.z;
-    // u32 index             = Hash(seed) % ARRAY_SIZE(sEnemyData);
-    extern s32 mockIndex;
-    EnemyData randomEnemy = sEnemyData[mockIndex];
-    // if (actorEntry->id == 0x37) {
-    //     CitraPrint("%X", randomEnemy.actorId);
-    // }
+    for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
+        u8 req = sEnemyData[i].requirements;
+        if (((yGroundIntersect < -30000.0 || isVoidPlane) && !(req & REQ_FLYING)) ||
+            ((actorEntry->pos.y - yGroundIntersect > 10.0) && (req & REQ_ON_GROUND)) ||
+            (isWater && (actorEntry->pos.y <= yWaterSurface) && (req & REQ_NO_WATER)) ||
+            (isWater && (actorEntry->pos.y > yWaterSurface) && (req & REQ_NO_WATER) && !(req & REQ_FLYING)) ||
+            ((!isWater || (actorEntry->pos.y > yWaterSurface)) && (req & REQ_WATER)) ||
+            ((!isWater || (ABS(actorEntry->pos.y - yWaterSurface) > 10)) && (req & REQ_WATER_SURFACE))
+        ) {
+            continue;
+        }
+        enemyOptions[optionsCount++] = &sEnemyData[i];
+    }
+
+    // Select random enemy
+    u32 seed = (u16)actorEntry->id + (u16)actorEntry->params + actorEntry->pos.x + actorEntry->pos.y +
+               actorEntry->pos.z + actorEntry->rot.x + actorEntry->rot.y + actorEntry->rot.z;
+    u32 index             = Hash(seed) % optionsCount;
+
+    // EnemyData randomEnemy = sEnemyData[9];
+    EnemyData randomEnemy = *enemyOptions[index];
+
     actorEntry->id        = randomEnemy.actorId;
     actorEntry->params    = randomEnemy.params;
-    // actorEntry->pos.y += 150;
+    // CitraPrint("enemy %X", actorEntry->id);
+
+    // Adjust position if necessary
+    if (randomEnemy.requirements & REQ_ON_GROUND) {
+        actorEntry->pos.y = yGroundIntersect;
+    }
+    if (randomEnemy.requirements & REQ_ABOVE_GROUND_IN_AIR) {
+        Vec3f upperPos = (Vec3f){
+            .x = actorEntry->pos.x,
+            .y = actorEntry->pos.y + 200,
+            .z = actorEntry->pos.z,
+        };
+        f32 yUpperGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &upperPos);
+        if (ABS(yUpperGroundIntersect - yGroundIntersect) < 50) {
+            actorEntry->pos.y = upperPos.y;
+        } else {
+            actorEntry->pos.y = yUpperGroundIntersect - 50;
+        }
+    }
+
+    // Spawn necessary objects
     Object_FindOrSpawnEntry(gActorOverlayTable[randomEnemy.actorId].initInfo->objectId);
 
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyObjectDeps); i++) {

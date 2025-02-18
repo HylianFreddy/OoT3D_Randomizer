@@ -39,15 +39,11 @@ void Randomizer_Init() {
     playingOnCitra = (output != 0);
 }
 
-extern s32 mockIndex;
 void before_Play_Init(GlobalContext* globalCtx) {
     CitraPrint("before_Play_Init");
     if (!rRandomizerInit) {
         Randomizer_Init();
         rRandomizerInit = 1;
-    }
-    if (rInputCtx.cur.zr) {
-        mockIndex++;
     }
     gGlobalContext = globalCtx;
 }
