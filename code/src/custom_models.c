@@ -269,7 +269,7 @@ static void CustomModel_EditTriforce(void* triforceCMB) {
 
 void CustomModel_Update(void) {
     // Make sure custom_assets is loaded
-    Object_FindOrSpawnEntry(OBJECT_CUSTOM_GENERAL_ASSETS);
+    Object_FindEntryOrSpawn(OBJECT_CUSTOM_GENERAL_ASSETS);
 }
 
 void CustomModels_EditItemCMB(void* ZARBuf, u16 objectId, s8 special) {

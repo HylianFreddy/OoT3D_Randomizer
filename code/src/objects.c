@@ -43,7 +43,7 @@ void ExtendedObject_AfterObjectListCommand(void) {
     if (gGlobalContext->state.running == 1) { // Loading scene
         // Spawn objects that will not unload on room transitions.
         ExtendedObject_Spawn(OBJECT_CUSTOM_GENERAL_ASSETS);
-        Object_FindOrSpawnSlot(3); // zelda_dangeon_keep (main dungeon object)
+        Object_FindSlotOrSpawn(3); // zelda_dangeon_keep (main dungeon object)
         rExtendedObjectCtx.numPersistentEntries = rExtendedObjectCtx.numEntries;
     } else { // (state.running == 2) Loading room
         ExtendedObject_ClearNonPersistent();
@@ -72,7 +72,7 @@ ObjectEntry* Object_GetEntry(s16 slot) {
     return NULL;
 }
 
-ObjectEntry* Object_FindOrSpawnEntry(s16 objectId) {
+ObjectEntry* Object_FindEntryOrSpawn(s16 objectId) {
     ObjectEntry* obj;
     s32 slot = Object_GetSlot(&gGlobalContext->objectCtx, objectId);
     if (slot >= 0) {
@@ -88,7 +88,7 @@ ObjectEntry* Object_FindOrSpawnEntry(s16 objectId) {
     }
 }
 
-s32 Object_FindOrSpawnSlot(s16 objectId) {
+s32 Object_FindSlotOrSpawn(s16 objectId) {
     s32 objectSlot = Object_GetSlot(&gGlobalContext->objectCtx, objectId);
     if (objectSlot < 0) {
         objectSlot = ExtendedObject_Spawn(objectId);
@@ -105,6 +105,6 @@ s32 Object_IsLoaded(ObjectContext* objectCtx, s16 slot) {
 }
 
 void* Object_GetCMABByIndex(s16 objectId, u32 objectAnimIdx) {
-    ObjectEntry* obj = Object_FindOrSpawnEntry(objectId);
+    ObjectEntry* obj = Object_FindEntryOrSpawn(objectId);
     return ZAR_GetCMABByIndex(&obj->zarInfo, objectAnimIdx);
 }

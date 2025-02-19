@@ -12,7 +12,7 @@ void EnMag_rInit(Actor* thisx, GlobalContext* globalCtx) {
     EnMag* this = (EnMag*)thisx;
 
     void* titleScreenZAR     = Object_GetEntry(this->actor.objectSlot)->zarInfo.buf;
-    ZARInfo* customAssetsZAR = &Object_FindOrSpawnEntry(OBJECT_CUSTOM_GENERAL_ASSETS)->zarInfo;
+    ZARInfo* customAssetsZAR = &Object_FindEntryOrSpawn(OBJECT_CUSTOM_GENERAL_ASSETS)->zarInfo;
     void* cmabMan;
 
     CustomModel_EditTitleScreenLogo(titleScreenZAR);

@@ -175,7 +175,7 @@ void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalC
     DeleteModel_At(&item->model2);
 
     // edit the cmbs for custom models
-    ObjectEntry* obj = Object_FindOrSpawnEntry(objectId);
+    ObjectEntry* obj = Object_FindEntryOrSpawn(objectId);
     CustomModels_EditItemCMB(obj->zarInfo.buf, objectId, special);
 
     item->model = SkeletonAnimationModel_Spawn(&item->actor, globalCtx, objectId, objModelIdx);
@@ -262,7 +262,7 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
     ShopsanityItem* item = (ShopsanityItem*)itemx;
     ItemOverride override;
 
-    Object_FindOrSpawnEntry(0x148);
+    Object_FindEntryOrSpawn(0x148);
     CustomModel_Update();
 
     item->shopItemPosition = numShopItemsLoaded;
@@ -280,7 +280,7 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
 
         item->super.actionFunc2 = ShopsanityItem_InitializeRegularShopItem;
         item->getItemId         = override.value.itemId;
-        item->rObjectSlot       = Object_FindOrSpawnSlot(EnGirlA_ShopItemEntries[override.value.itemId].objId);
+        item->rObjectSlot       = Object_FindSlotOrSpawn(EnGirlA_ShopItemEntries[override.value.itemId].objId);
     } else {
         item->super.objectSlot =
             Object_GetSlot(&globalCtx->objectCtx, EnGirlA_ShopItemEntries[item->super.actor.params].objId);
@@ -299,7 +299,7 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
             id = ItemTable_ResolveUpgrades(id);
         }
         item->itemRow = ItemTable_GetItemRow(id);
-        item->rObjectSlot = Object_FindOrSpawnSlot(item->itemRow->objectId);
+        item->rObjectSlot = Object_FindSlotOrSpawn(item->itemRow->objectId);
     }
 }
 
