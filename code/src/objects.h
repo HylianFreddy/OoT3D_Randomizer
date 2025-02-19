@@ -31,9 +31,9 @@ typedef ObjectContext ExtendedObjectContext;
 // Get an object entry given the slot.
 ObjectEntry* Object_GetEntry(s16 slot);
 // Find an object entry for the specified objectId, or spawn it if it's not found.
-ObjectEntry* Object_FindOrSpawnEntry(s16 objectId);
-// Same as Object_FindOrSpawnEntry but return the object slot
-s32 Object_FindOrSpawnSlot(s16 objectId);
+ObjectEntry* Object_FindEntryOrSpawn(s16 objectId);
+// Same as Object_FindEntryOrSpawn but return the object slot
+s32 Object_FindSlotOrSpawn(s16 objectId);
 // Check if the object in the given slot is loaded.
 s32 Object_IsLoaded(ObjectContext* objectCtx, s16 slot);
 // Get the CMAB manager from this object, loading it if it's not present.

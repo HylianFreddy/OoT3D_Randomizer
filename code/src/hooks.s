@@ -2182,7 +2182,7 @@ hook_GetObjectEntry_33AB24:
     push {r1-r12, lr}
     ldr r0,[r4,#0x4]
     ldr r0,[r0,r5,lsl #0x3] @ objectId
-    bl Object_FindOrSpawnEntry
+    bl Object_FindEntryOrSpawn
     pop {r1-r12, lr}
     bx lr
 

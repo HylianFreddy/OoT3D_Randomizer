@@ -18,7 +18,7 @@ void Gs_SpawnAltLocs(void) {
         return;
     }
 
-    Object_FindOrSpawnEntry(0x24);
+    Object_FindEntryOrSpawn(0x24);
 
     for (u32 i = 0; i < ARRAY_SIZE(rGsLocOverrides); i++) {
         const GsLocOverride* gs = &rGsLocOverrides[i];
