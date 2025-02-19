@@ -95,7 +95,13 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {
         }
     }
 
-    if (!isRandomizedEnemy || (/*armos statue*/actorEntry->id == 0x054 && actorEntry->params == 0)) {
+    if ((actorEntry->id == 0x054 && actorEntry->params == 0) // armos statue
+        || (actorEntry->id == 0x115 && gSaveContext.linkAge == 1) // skull kid, Link is child
+    ) {
+        isRandomizedEnemy = FALSE;
+    }
+
+    if (!isRandomizedEnemy) {
         return;
     }
 
