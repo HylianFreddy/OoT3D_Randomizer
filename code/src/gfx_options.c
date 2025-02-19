@@ -134,7 +134,7 @@ void InitOptions(void) {
     strcpy(options[opNum].alternatives[altNum++], "5");
     strcpy(options[opNum].alternatives[altNum++], "6");
     strcpy(options[opNum].alternatives[altNum++], "7");
-    strcpy(options[opNum].alternatives[altNum++], "8");
+    strcpy(options[opNum].alternatives[altNum++], "Disable Enemizer");
     strcpy(options[opNum].description, "");
     options[opNum++].optionPointer = &gExtSaveData.option_EnemizerSalt;
 }

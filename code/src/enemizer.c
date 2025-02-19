@@ -86,6 +86,10 @@ static EnemyObjectDependency sEnemyObjectDeps[] = {
 };
 
 void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {
+    if (gExtSaveData.option_EnemizerSalt == 7) {
+        return;
+    }
+
     // Choose if actor should be randomized
     u8 isRandomizedEnemy = FALSE;
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
