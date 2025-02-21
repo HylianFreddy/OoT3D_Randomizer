@@ -31,6 +31,6 @@ typedef struct EnemyObjectDependency {
     u16 objectId;
 } EnemyObjectDependency;
 
-void Enemizer_OverrideActorEntry(ActorEntry* entry);
+void Enemizer_OverrideActorEntry(ActorEntry* entry, s32 actorEntryIndex);
 
 #endif // _ENEMIZER_H_

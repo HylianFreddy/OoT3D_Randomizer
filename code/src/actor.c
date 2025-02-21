@@ -295,13 +295,13 @@ void TitleCard_rUpdate(GlobalContext* globalCtx, TitleCardContext* titleCtx) {
 }
 
 // Return true to skip spawning this actor entry
-u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry) {
+u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     // Alternate Gold Skulltula Locations
     if (actorEntry->id == 0x95 && (actorEntry->params & 0xE000) && Gs_HasAltLoc(actorEntry, GS_PPT_ACTORENTRY, TRUE)) {
         return TRUE;
     }
 
-    Enemizer_OverrideActorEntry(actorEntry);
+    Enemizer_OverrideActorEntry(actorEntry, actorEntryIndex);
 
     return FALSE;
 }

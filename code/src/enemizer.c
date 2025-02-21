@@ -85,7 +85,7 @@ static EnemyObjectDependency sEnemyObjectDeps[] = {
     { .actorId = 0x099, .objectId = 0x003 }, // Flare Dancer -> dungeon object for flames
 };
 
-void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {
+void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     if (gExtSaveData.option_EnemizerSalt == 7) {
         return;
     }
@@ -108,6 +108,8 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry) {
     if (!isRandomizedEnemy) {
         return;
     }
+
+    CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, gGlobalContext->roomNum, gSaveContext.sceneSetupIndex, actorEntryIndex);
 
     // Get information about spawn point
     f32 yGroundIntersect = 0.0;

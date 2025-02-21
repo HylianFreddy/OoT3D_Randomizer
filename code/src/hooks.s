@@ -1890,6 +1890,7 @@ hook_OnActorSetup_SceneChange:
     cpy r4,r5
     push {r0-r12, lr}
     cpy r0,r5
+    cpy r1,r6
     bl ActorSetup_OverrideEntry
     cmp r0,#0x1
     pop {r0-r12, lr}
@@ -1920,6 +1921,7 @@ hook_OnActorSetup_RoomChange:
     cpy r4,r6
     push {r0-r12, lr}
     cpy r0,r6
+    cpy r1,r7
     bl ActorSetup_OverrideEntry
     cmp r0,#0x1
     pop {r0-r12, lr}
