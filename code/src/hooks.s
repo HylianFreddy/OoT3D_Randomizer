@@ -2163,6 +2163,14 @@ hook_Actor_Spawn:
     pop {r0-r12, lr}
     bx lr
 
+.global hook_PlayInit
+hook_PlayInit:
+    push {r0-r12, lr}
+    bl before_Play_Init
+    pop {r0-r12, lr}
+    cpy r5,r0
+    bx lr
+
 .global hook_GetObjectEntry_Generic
 hook_GetObjectEntry_Generic:
     push {r1-r12, lr}
@@ -2217,12 +2225,4 @@ hook_SceneCommandActorEntryList:
     push {r0-r12, lr}
     bl ActorEntriesTest
     pop {r0-r12, lr}
-    bx lr
-
-.global hook_PlayInit
-hook_PlayInit:
-    push {r0-r12, lr}
-    bl before_Play_Init
-    pop {r0-r12, lr}
-    cpy r5,r0
     bx lr

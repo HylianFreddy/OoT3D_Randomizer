@@ -331,7 +331,6 @@ void PlaceJunkInExcludedLocation(const LocationKey il) {
             return;
         }
     }
-    printf("WARNING: No TRUE Junk to Place!!!\n");
     // if no junk item was found, try placing a non-advancement item
     for (size_t i = 0; i < ItemPool.size(); i++) {
         if (!ItemTable(ItemPool[i]).IsAdvancement()) {
