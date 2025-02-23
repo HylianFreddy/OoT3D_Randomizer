@@ -48,7 +48,7 @@ static EnemyData sEnemyData[] = {
     { .actorId = 0x0C5, .params = 0x0000, .requirements = REQ_ABOVE_GROUND }, // Shell Blade
     { .actorId = 0x0C7, .params = 0x0000, .requirements = REQ_ON_GROUND | REQ_NO_WATER }, // Withered Deku Baba [doesn't fall]
     { .actorId = 0x0DD, .params = 0x0000, .requirements = REQ_ABOVE_GROUND | REQ_NO_WATER }, // Like Like
-    // { .actorId = 0x0E0, .params = 0x0000, .requirements = 0 }, // Anubis [stuck waiting for flame circle?]
+    { .actorId = 0x0F6, .params = 0x0003, .requirements = 0 }, // Anubis Spawner [need to add patch for flame circles where timer=0 means they're active ]
     { .actorId = 0x0EC, .params = 0x0000, .requirements = REQ_ABOVE_GROUND }, // Spike
     { .actorId = 0x115, .params = 0xFFFF, .requirements = REQ_ABOVE_GROUND | REQ_NO_WATER }, // Skull Kid (Hostile) [despawns before poacher saw, is hostile as child too]
     { .actorId = 0x11D, .params = 0x0000, .requirements = REQ_ON_GROUND }, // Flying Pot [doesn't fall]
@@ -83,6 +83,7 @@ static EnemyObjectDependency sEnemyObjectDeps[] = {
     { .actorId = 0x012, .objectId = 0x003 }, // Dodongo -> dungeon object for fire breath
     { .actorId = 0x02B, .objectId = 0x003 }, // Gohma Egg -> dungeon object for egg fragments
     { .actorId = 0x099, .objectId = 0x003 }, // Flare Dancer -> dungeon object for flames
+    { .actorId = 0x0F6, .objectId = 0x0D6 }, // Anubis Spawner -> Anubis object (actor profile only points to object 1)
 };
 
 void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
@@ -152,7 +153,7 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
                actorEntry->pos.z + actorEntry->rot.x + actorEntry->rot.y + actorEntry->rot.z + gExtSaveData.option_EnemizerSalt;
     u32 index             = Hash(seed) % optionsCount;
 
-    // EnemyData randomEnemy = sEnemyData[9];
+    // EnemyData randomEnemy = sEnemyData[40];
     EnemyData randomEnemy = *enemyOptions[index];
 
     actorEntry->id        = randomEnemy.actorId;
