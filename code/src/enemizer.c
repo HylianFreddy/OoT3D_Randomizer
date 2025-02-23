@@ -110,7 +110,7 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
         return;
     }
 
-    CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, gGlobalContext->roomNum, gSaveContext.sceneSetupIndex, actorEntryIndex);
+    CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, gGlobalContext->roomNum, gSaveContext.sceneLayer, actorEntryIndex);
 
     // Get information about spawn point
     f32 yGroundIntersect = 0.0;

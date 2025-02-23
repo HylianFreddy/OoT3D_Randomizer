@@ -270,7 +270,7 @@ void ClearCutscenePointer(void){
 
 void Warps_OverridesMenuInit(void){
     WarpsOverridesMenu.items[WARPS_GAME_MODE].amount = gSaveContext.gameMode;
-    WarpsOverridesMenu.items[WARPS_SCENE_SETUP_INDEX].amount = gSaveContext.sceneSetupIndex;
+    WarpsOverridesMenu.items[WARPS_SCENE_SETUP_INDEX].amount = gSaveContext.sceneLayer;
     WarpsOverridesMenu.items[WARPS_RESPAWN_FLAG].amount = gSaveContext.respawnFlag;
 }
 
@@ -284,7 +284,7 @@ void Warps_OverrideGameMode(s32 selected){
 }
 
 void Warps_OverrideSceneSetupIndex(s32 selected) {
-    gSaveContext.sceneSetupIndex = WarpsOverridesMenu.items[WARPS_SCENE_SETUP_INDEX].amount;
+    gSaveContext.sceneLayer = WarpsOverridesMenu.items[WARPS_SCENE_SETUP_INDEX].amount;
     if (rInputCtx.cur.r) {
         sceneSetupOverrideActive = 1;
         WarpsOverridesMenu.items[WARPS_SCENE_SETUP_INDEX].title = "Scene Setup Index - Override ON ";
@@ -296,7 +296,7 @@ void Warps_OverrideSceneSetupIndex(s32 selected) {
 
 void Warps_OverrideSceneSetup(void){
     if(sceneSetupOverrideActive) {
-        gSaveContext.sceneSetupIndex = WarpsOverridesMenu.items[WARPS_SCENE_SETUP_INDEX].amount;
+        gSaveContext.sceneLayer = WarpsOverridesMenu.items[WARPS_SCENE_SETUP_INDEX].amount;
     }
 }
 

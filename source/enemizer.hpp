@@ -21,6 +21,7 @@ enum class EnemyRequirement {
 
 class Enemy {
     public:
+    Enemy() = default;
     Enemy(std::string _name, u16 _actorId, u16 _params, ConditionFn _killLogic,
           std::vector<LocationType> _validLocationTypes)
         : name(std::move(_name)), actorId(_actorId), params(_params),
@@ -47,14 +48,15 @@ class EnemyLocation {
 
     u16 vanillaActorId;
     LocationType type;
+    Enemy randomizedEnemy;
 };
 
-using LocationsMap = std::unordered_map<s32, EnemyLocation>;
-using LayersMap = std::unordered_map<s32, LocationsMap>;
-using RoomsMap = std::unordered_map<s32, LayersMap>;
-using ScenesMap = std::unordered_map<s32, RoomsMap>;
+using EnemyLocationsMap_Room = std::unordered_map<s32, EnemyLocation>;
+using EnemyLocationsMap_Layer = std::unordered_map<s32, EnemyLocationsMap_Room>;
+using EnemyLocationsMap_Scene = std::unordered_map<s32, EnemyLocationsMap_Layer>;
+using EnemyLocationsMap = std::unordered_map<s32, EnemyLocationsMap_Scene>;
 
-extern ScenesMap enemyLocations;
+extern EnemyLocationsMap enemyLocations;
 
 void EnemyLocations_Init();
 
