@@ -1,7 +1,7 @@
 #include "../../code/include/actor_id.h"
 #include "enemizer.hpp"
 
-using namespace Enemizer;
+namespace Enemizer {
 
 bool canKillPlaceholder() {
     return true;
@@ -117,3 +117,31 @@ std::vector<Enemy> enemyTypes = {
     // Enemy("Dead Hand",            ACTOR_DEAD_HAND,          0x0000, canKillDeadHand,      {LocationType::ABOVE_GROUND}),
 };
 // clang-format on
+
+ScenesMap enemyLocations = {};
+
+void EnemyLocations_Init() {
+    CitraPrint("EnemyLocations_Init start");
+    // Add overworld locations
+    enemyLocations[10][0][0][1] = EnemyLocation(ACTOR_LIZALFOS, LocationType::ABOVE_GROUND);
+    enemyLocations[10][0][0][1] = EnemyLocation(ACTOR_LIZALFOS, LocationType::ABOVE_GROUND);
+    enemyLocations[10][0][0][2] = EnemyLocation(ACTOR_LIZALFOS, LocationType::ABOVE_GROUND);
+    enemyLocations[10][2][0][5] = EnemyLocation(ACTOR_STALFOS, LocationType::ABOVE_GROUND);
+    enemyLocations[10][2][0][6] = EnemyLocation(ACTOR_STALFOS, LocationType::ABOVE_GROUND);
+    enemyLocations[10][4][0][1] = EnemyLocation(ACTOR_IRON_KNUCKLE, LocationType::ABOVE_GROUND);
+    enemyLocations[10][4][0][2] = EnemyLocation(ACTOR_IRON_KNUCKLE, LocationType::ABOVE_GROUND);
+    enemyLocations[10][7][0][1] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
+    enemyLocations[10][7][0][2] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
+    enemyLocations[10][7][0][3] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
+    enemyLocations[10][7][0][4] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
+    enemyLocations[10][7][0][5] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
+    enemyLocations[10][7][0][6] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
+    enemyLocations[10][7][0][7] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
+
+
+    CitraPrint("EnemyLocations_Init end");
+    CitraPrint("enemyLocations[10][7][0][7] is " + std::to_string(enemyLocations[10][7][0][7].vanillaActorId));
+    CitraPrint("enemyLocations[11][7][0][7] is " + std::to_string(enemyLocations[11][7][0][7].vanillaActorId));
+}
+
+} // namespace Enemizer

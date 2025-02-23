@@ -42,10 +42,20 @@ class Enemy {
 
 class EnemyLocation {
     public:
+    EnemyLocation() = default;
     EnemyLocation(u16 _vanillaActorId, LocationType _type) : vanillaActorId(_vanillaActorId), type(std::move(_type)) {}
 
     u16 vanillaActorId;
     LocationType type;
 };
+
+using LocationsMap = std::unordered_map<s32, EnemyLocation>;
+using LayersMap = std::unordered_map<s32, LocationsMap>;
+using RoomsMap = std::unordered_map<s32, LayersMap>;
+using ScenesMap = std::unordered_map<s32, RoomsMap>;
+
+extern ScenesMap enemyLocations;
+
+void EnemyLocations_Init();
 
 } // namespace Enemizer
