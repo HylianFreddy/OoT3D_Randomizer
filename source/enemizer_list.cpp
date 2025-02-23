@@ -1,6 +1,4 @@
-#pragma once
-
-#include "../include/actor_id.h"
+#include "../../code/include/actor_id.h"
 #include "enemizer.hpp"
 
 using namespace Enemizer;
@@ -15,31 +13,23 @@ ConditionFn canKillOctorok       = canKillPlaceholder;
 ConditionFn canKillWallmaster    = canKillPlaceholder;
 ConditionFn canKillDodongo       = canKillPlaceholder;
 ConditionFn canKillKeese         = canKillPlaceholder;
-ConditionFn canKillKeese         = canKillPlaceholder;
-ConditionFn canKillKeese         = canKillPlaceholder;
-ConditionFn canKillTektite       = canKillPlaceholder;
 ConditionFn canKillTektite       = canKillPlaceholder;
 ConditionFn canKillPeahat        = canKillPlaceholder;
 ConditionFn canKillPeahatLarva   = canKillPlaceholder;
-ConditionFn canKillLizalfos      = canKillPlaceholder;
 ConditionFn canKillLizalfos      = canKillPlaceholder;
 ConditionFn canKillGohmaLarva    = canKillPlaceholder;
 ConditionFn canKillShabom        = canKillPlaceholder;
 ConditionFn canKillBabyDodongo   = canKillPlaceholder;
 ConditionFn canKillBiri          = canKillPlaceholder;
-ConditionFn canKillBiri          = canKillPlaceholder;
 ConditionFn canKillTailsparan    = canKillPlaceholder;
 ConditionFn canKillSkulltula     = canKillPlaceholder;
 ConditionFn canKillTorchSlug     = canKillPlaceholder;
 ConditionFn canKillMoblin        = canKillPlaceholder;
-ConditionFn canKillMoblin        = canKillPlaceholder;
 ConditionFn canKillArmos         = canKillPlaceholder;
-ConditionFn canKillDekuBaba      = canKillPlaceholder;
 ConditionFn canKillDekuBaba      = canKillPlaceholder;
 ConditionFn canKillScrub         = canKillPlaceholder;
 ConditionFn canKillBlueBubble    = canKillPlaceholder;
 ConditionFn canKillFlyingTrap    = canKillPlaceholder;
-ConditionFn canKillBeamos        = canKillPlaceholder;
 ConditionFn canKillBeamos        = canKillPlaceholder;
 ConditionFn canKillFloormaster   = canKillPlaceholder;
 ConditionFn canKillRedead        = canKillPlaceholder;
@@ -51,10 +41,8 @@ ConditionFn canKillLikeLike      = canKillPlaceholder;
 ConditionFn canKillSpikeEnemy    = canKillPlaceholder;
 ConditionFn canKillAnubis        = canKillPlaceholder;
 ConditionFn canKillIronKnuckle   = canKillPlaceholder;
-ConditionFn canKillIronKnuckle   = canKillPlaceholder;
 ConditionFn canKillSkullKid      = canKillPlaceholder;
 ConditionFn canKillFreezard      = canKillPlaceholder;
-ConditionFn canKillStinger       = canKillPlaceholder;
 ConditionFn canKillStinger       = canKillPlaceholder;
 ConditionFn canKillWolfos        = canKillPlaceholder;
 ConditionFn canKillStalchild     = canKillPlaceholder;
