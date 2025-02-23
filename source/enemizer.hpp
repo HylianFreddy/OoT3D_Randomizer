@@ -23,7 +23,7 @@ class Enemy {
     public:
     Enemy(std::string _name, u16 _actorId, u16 _params, ConditionFn _killLogic,
           std::vector<LocationType> _validLocationTypes)
-        : name(std::move(_name)), actorId(std::move(_actorId)), params(std::move(_params)),
+        : name(std::move(_name)), actorId(_actorId), params(_params),
           killLogic(std::move(_killLogic)), validLocationTypes(std::move(_validLocationTypes)) {
     }
 
@@ -38,6 +38,14 @@ class Enemy {
     // std::string weight;
     // std::string drop_logic;
     // std::string soulName;
+};
+
+class EnemyLocation {
+    public:
+    EnemyLocation(u16 _vanillaActorId, LocationType _type) : vanillaActorId(_vanillaActorId), type(std::move(_type)) {}
+
+    u16 vanillaActorId;
+    LocationType type;
 };
 
 } // namespace Enemizer
