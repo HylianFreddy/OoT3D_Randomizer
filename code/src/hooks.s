@@ -2125,6 +2125,14 @@ hook_CheckForTextControlCode:
     pop {r1-r12, lr}
     bx lr
 
+.global hook_PlayInit
+hook_PlayInit:
+    push {r0-r12, lr}
+    bl before_Play_Init
+    pop {r0-r12, lr}
+    cpy r5,r0
+    bx lr
+
 .global hook_GetObjectEntry_Generic
 hook_GetObjectEntry_Generic:
     push {r1-r12, lr}
@@ -2164,12 +2172,4 @@ hook_AfterObjectListCommand:
     bl ExtendedObject_AfterObjectListCommand
     pop {r0-r12, lr}
     mov r0,#0x1
-    bx lr
-
-.global hook_PlayInit
-hook_PlayInit:
-    push {r0-r12, lr}
-    bl before_Play_Init
-    pop {r0-r12, lr}
-    cpy r5,r0
     bx lr
