@@ -4,10 +4,12 @@
 #include "savefile.h"
 #include <stddef.h>
 
-EnemyOverride rEnemyOverrides[700];
+static EnemyOverride rEnemyOverrides[700];
+static s32 rEnemyOverrides_Count = 0;
 
 // todo armos
 
+// clang-format off
 static EnemyData sEnemyData[] = {
     { .actorId = 0x00D, .params = 0x0000, .requirements = REQ_ABOVE_GROUND | REQ_FLYING }, // Poe
     { .actorId = 0x00E, .params = 0x0000, .requirements = REQ_WATER_SURFACE }, // Octorok [requires water and snaps to surface]
@@ -188,6 +190,32 @@ void Enemizer_OverrideActorEntry_FromHash(ActorEntry* actorEntry, s32 actorEntry
         }
     }
 }
+// clang-format on
+
+void Enemizer_Init(void) {
+    while (rEnemyOverrides[rEnemyOverrides_Count].actorId != 0) {
+        rEnemyOverrides_Count++;
+    }
+}
+
+EnemyOverride* Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actorEntry) {
+    s32 key = (scene << 24) | (layer << 16) | (room << 8) | actorEntry;
+
+    s32 start = 0;
+    s32 end   = rEnemyOverrides_Count - 1;
+    while (start <= end) {
+        s32 midIdx            = (start + end) / 2;
+        EnemyOverride* midOvr = &rEnemyOverrides[midIdx];
+        if (key < midOvr->key) {
+            end = midIdx - 1;
+        } else if (key > midOvr->key) {
+            start = midIdx + 1;
+        } else {
+            return midOvr;
+        }
+    }
+    return NULL;
+}
 
 void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     if (gExtSaveData.option_EnemizerSalt == 7) {
@@ -197,55 +225,23 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
         return Enemizer_OverrideActorEntry_FromHash(actorEntry, actorEntryIndex);
     }
 
-    CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, gSaveContext.sceneLayer, gGlobalContext->roomNum, actorEntryIndex);
+    CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, gSaveContext.sceneLayer, gGlobalContext->roomNum,
+               actorEntryIndex);
 
-    EnemyOverride* randomEnemy = NULL;
-    for (s32 i = 0; i < ARRAY_SIZE(rEnemyOverrides); i++) {
-        if (rEnemyOverrides[i].actorId == 0) { // No more overrides
-            return;
-        }
+    EnemyOverride* enemyOverride = Enemizer_FindOverride(gGlobalContext->sceneNum, gSaveContext.sceneLayer,
+                                                         gGlobalContext->roomNum, actorEntryIndex);
 
-        if (rEnemyOverrides[i].scene < gGlobalContext->sceneNum) {
-            continue;
-        }
-        if (rEnemyOverrides[i].scene > gGlobalContext->sceneNum) {
-            return;
-        }
-        // Found scene
-        if (rEnemyOverrides[i].layer < gSaveContext.sceneLayer) {
-            continue;
-        }
-        if (rEnemyOverrides[i].layer > gSaveContext.sceneLayer) {
-            return;
-        }
-        // Found layer
-        if (rEnemyOverrides[i].room < gGlobalContext->roomNum) {
-            continue;
-        }
-        if (rEnemyOverrides[i].room > gGlobalContext->roomNum) {
-            return;
-        }
-        // Found room
-        if (rEnemyOverrides[i].actorEntry < actorEntryIndex) {
-            continue;
-        }
-        if (rEnemyOverrides[i].actorEntry > actorEntryIndex) {
-            return;
-        }
-        // Found override
-        randomEnemy = &rEnemyOverrides[i];
-        break;
-    }
-
-    if (randomEnemy == NULL) {
+    // Do nothing if the override doesn't exist or is the same as the vanilla location.
+    if (enemyOverride == NULL ||
+        (enemyOverride->actorId == actorEntry->id && enemyOverride->params == actorEntry->params)) {
         return;
     }
 
-    actorEntry->id     = randomEnemy->actorId;
-    actorEntry->params = randomEnemy->params;
+    actorEntry->id     = enemyOverride->actorId;
+    actorEntry->params = enemyOverride->params;
 
     // Spawn necessary objects
-    Object_FindEntryOrSpawn(gActorOverlayTable[randomEnemy->actorId].initInfo->objectId);
+    Object_FindEntryOrSpawn(gActorOverlayTable[enemyOverride->actorId].initInfo->objectId);
 
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyObjectDeps); i++) {
         if (actorEntry->id == sEnemyObjectDeps[i].actorId) {

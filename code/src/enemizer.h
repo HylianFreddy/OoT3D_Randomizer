@@ -32,14 +32,20 @@ typedef struct EnemyObjectDependency {
 } EnemyObjectDependency;
 
 typedef struct EnemyOverride {
-    u8 scene;
-    u8 layer;
-    u8 room;
-    u8 actorEntry;
+    union {
+        s32 key;
+        struct {
+            u8 actorEntry;
+            u8 room;
+            u8 layer;
+            u8 scene;
+        };
+    };
     u16 actorId;
     u16 params;
 } EnemyOverride;
 
+void Enemizer_Init(void);
 void Enemizer_OverrideActorEntry(ActorEntry* entry, s32 actorEntryIndex);
 
 #endif // _ENEMIZER_H_

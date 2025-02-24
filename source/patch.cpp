@@ -677,15 +677,14 @@ bool WriteAllPatches() {
             for (auto& layer : scene.second) {
                 for (auto& room : layer.second) {
                     for (auto& entry : room.second) {
-                        EnemyOverride ovr = {
-                            .scene      = scene.first,
-                            .layer      = layer.first,
-                            .room       = room.first,
-                            .actorEntry = entry.first,
-                            .actorId    = entry.second.randomizedEnemy.actorId,
-                            .params     = entry.second.randomizedEnemy.params,
-                        };
                         if (entry.second.randomizedEnemy.actorId != 0) {
+                            EnemyOverride ovr;
+                            ovr.scene      = scene.first;
+                            ovr.layer      = layer.first;
+                            ovr.room       = room.first;
+                            ovr.actorEntry = entry.first;
+                            ovr.actorId    = entry.second.randomizedEnemy.actorId;
+                            ovr.params     = entry.second.randomizedEnemy.params;
                             enemyOverrides.push_back(ovr);
                         }
                     }
@@ -695,13 +694,13 @@ bool WriteAllPatches() {
 
         CitraPrint("Sorting enemy overrides");
         std::sort(enemyOverrides.begin(), enemyOverrides.end(), [](const EnemyOverride& a, const EnemyOverride& b) {
-            return a.scene != b.scene   ? (a.scene < b.scene)
-                   : a.layer != b.layer ? (a.layer < b.layer)
-                   : a.room != b.room   ? (a.room < b.room)
-                                        : (a.actorEntry < b.actorEntry);
+            return a.key < b.key;
         });
 
         CitraPrint("Sorted enemy overrides");
+        // CitraPrint("enemyOverrides[0]" + std::to_string(enemyOverrides[0].key));
+        // CitraPrint("enemyOverrides[1]" + std::to_string(enemyOverrides[1].key));
+        CitraPrint("enemyLocations[15][0][0][4] is " + (Enemizer::enemyLocations[15][0][0][4].randomizedEnemy.name));
         // CitraPrint("OVR 0 " + std::to_string(enemyOverrides[0].scene) + " " + std::to_string(enemyOverrides[0].layer) +
         //            " " + std::to_string(enemyOverrides[0].room) + " " + std::to_string(enemyOverrides[0].actorEntry) +
         //            " " + std::to_string(enemyOverrides[0].actorId) + " " + std::to_string(enemyOverrides[0].params));
