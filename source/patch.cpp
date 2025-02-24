@@ -710,9 +710,9 @@ bool WriteAllPatches() {
         //            " " + std::to_string(enemyOverrides[1].actorId) + " " + std::to_string(enemyOverrides[1].params));
 
         patchOffset = V_TO_P(patchSymbols.RENEMYOVERRIDES_ADDR);
-        patchSize   = enemyOverrides.size();
+        patchSize   = sizeof(EnemyOverride) * enemyOverrides.size();
 
-        if (!WritePatch(patchOffset, patchSize, (char*)&enemyOverrides, code, bytesWritten, totalRW, buf)) {
+        if (!WritePatch(patchOffset, patchSize, (char*)enemyOverrides.data(), code, bytesWritten, totalRW, buf)) {
             return false;
         }
     }

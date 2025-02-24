@@ -234,6 +234,7 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
         }
         // Found override
         randomEnemy = &rEnemyOverrides[i];
+        break;
     }
 
     if (randomEnemy == NULL) {

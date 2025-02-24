@@ -57,8 +57,10 @@ using EnemyLocationsMap_Layer = std::unordered_map<u8, EnemyLocationsMap_Room>;
 using EnemyLocationsMap_Scene = std::unordered_map<u8, EnemyLocationsMap_Layer>;
 using EnemyLocationsMap       = std::unordered_map<u8, EnemyLocationsMap_Scene>;
 
+extern std::vector<EnemyType> enemyTypes;
 extern EnemyLocationsMap enemyLocations;
 
 void EnemyLocations_Init();
+void RandomizeEnemies();
 
 } // namespace Enemizer
