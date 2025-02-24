@@ -2,12 +2,33 @@
 #include "objects.h"
 #include "common.h"
 #include "savefile.h"
+#include "actor_id.h"
 #include <stddef.h>
 
 static EnemyOverride rEnemyOverrides[700];
 static s32 rEnemyOverrides_Count = 0;
 
-// todo armos
+EnemyParams groundedEnemies[] = {
+    { .actorId = ACTOR_DODONGO, .params = 0x0000 },
+    { .actorId = ACTOR_PEAHAT, .params = 0xFFFF },
+    { .actorId = ACTOR_GOHMA_LARVA, .params = 0x0007 },
+    { .actorId = ACTOR_BABY_DODONGO, .params = 0x0000 },
+    { .actorId = ACTOR_TAILPASARAN, .params = 0xFFFF },
+    { .actorId = ACTOR_STINGER_LAND, .params = 0x000A },
+    { .actorId = ACTOR_DEKU_BABA, .params = 0x0000 },
+    { .actorId = ACTOR_DEKU_BABA, .params = 0x0001 },
+    { .actorId = ACTOR_MAD_SCRUB, .params = 0x0300 },
+    { .actorId = ACTOR_BUBBLE, .params = 0xFFFE },
+    { .actorId = ACTOR_FLYING_FLOOR_TILE, .params = 0x0000 },
+    { .actorId = ACTOR_BEAMOS, .params = 0x0501 },
+    { .actorId = ACTOR_BEAMOS, .params = 0x0500 },
+    { .actorId = ACTOR_REDEAD, .params = 0x7F01 },
+    { .actorId = ACTOR_REDEAD, .params = 0x7FFE },
+    { .actorId = ACTOR_WITHERED_DEKU_BABA, .params = 0x0000 },
+    { .actorId = ACTOR_FLYING_POT, .params = 0x000 },
+    { .actorId = ACTOR_STALFOS, .params = 0x0002 },
+    { .actorId = ACTOR_DEAD_HAND_HAND, .params = 0x0000 },
+};
 
 // clang-format off
 static EnemyData sEnemyData[] = {
@@ -240,8 +261,50 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     actorEntry->id     = enemyOverride->actorId;
     actorEntry->params = enemyOverride->params;
 
+    // Get information about spawn point
+    f32 yGroundIntersect = 0.0;
+    u8 isVoidPlane       = FALSE;
+    CollisionPoly floorPoly;
+    s32 isWater       = FALSE;
+    f32 yWaterSurface = 0.0;
+    void* waterBox;
+    Vec3f actorPos = (Vec3f){
+        .x = actorEntry->pos.x,
+        .y = actorEntry->pos.y + 10,
+        .z = actorEntry->pos.z,
+    };
+
+    yGroundIntersect        = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
+    SurfaceType surfaceType = gGlobalContext->colCtx.stat.colHeader->surfaceTypeList[floorPoly.type];
+    isVoidPlane             = (SurfaceType_GetFloorProperty(surfaceType) == 0xC);
+    isWater = WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z, &yWaterSurface,
+                                      &waterBox);
+
+    if (actorEntry->id == ACTOR_OCTOROK && isWater) {
+        actorEntry->pos.y = yWaterSurface;
+    } else if (actorEntry->id == ACTOR_SKULLTULA || actorEntry->id == ACTOR_BARI ||
+               (actorEntry->id == ACTOR_PEAHAT && actorEntry->params == 0x0001)) {
+        Vec3f upperPos = (Vec3f){
+            .x = actorEntry->pos.x,
+            .y = actorEntry->pos.y + 200,
+            .z = actorEntry->pos.z,
+        };
+        f32 yUpperGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &upperPos);
+        if (ABS(yUpperGroundIntersect - yGroundIntersect) < 50) {
+            actorEntry->pos.y = upperPos.y;
+        } else {
+            actorEntry->pos.y = yUpperGroundIntersect - 50;
+        }
+    } else {
+        for (u32 i = 0; i < ARRAY_SIZE(groundedEnemies); i++) {
+            if (actorEntry->id == groundedEnemies[i].actorId && actorEntry->params == groundedEnemies[i].params) {
+                actorEntry->pos.y = yGroundIntersect;
+            }
+        }
+    }
+
     // Spawn necessary objects
-    Object_FindEntryOrSpawn(gActorOverlayTable[enemyOverride->actorId].initInfo->objectId);
+    Object_FindEntryOrSpawn(gActorOverlayTable[actorEntry->id].initInfo->objectId);
 
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyObjectDeps); i++) {
         if (actorEntry->id == sEnemyObjectDeps[i].actorId) {

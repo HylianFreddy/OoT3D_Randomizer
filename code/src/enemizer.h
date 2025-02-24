@@ -45,6 +45,11 @@ typedef struct EnemyOverride {
     u16 params;
 } EnemyOverride;
 
+typedef struct EnemyParams {
+    u16 actorId;
+    u16 params;
+} EnemyParams;
+
 void Enemizer_Init(void);
 void Enemizer_OverrideActorEntry(ActorEntry* entry, s32 actorEntryIndex);
 
