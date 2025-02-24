@@ -11,6 +11,7 @@
 #include "gold_skulltulas.hpp"
 #include "ocarina_notes.hpp"
 #include "utils.hpp"
+#include "enemizer.hpp"
 
 #include <array>
 #include <cstring>
@@ -20,23 +21,40 @@
 #include <vector>
 
 #include "../code/src/custom_models.h"
+#include "../code/src/enemizer.h"
 
-const PatchSymbols UsaSymbols = { GSETTINGSCONTEXT_USA_ADDR,        GSPOILERDATA_USA_ADDR,
-                                  GSPOILERDATALOCS_USA_ADDR,        NUMCUSTOMMESSAGEENTRIES_USA_ADDR,
-                                  PTRCUSTOMMESSAGEENTRIES_USA_ADDR, RBGMOVERRIDES_USA_ADDR,
-                                  RCUSTOMMESSAGES_USA_ADDR,         RDUNGEONINFODATA_USA_ADDR,
-                                  RDUNGEONREWARDOVERRIDES_USA_ADDR, RENTRANCEOVERRIDES_USA_ADDR,
-                                  RGSLOCOVERRIDES_USA_ADDR,         RITEMOVERRIDES_USA_ADDR,
-                                  RSCRUBRANDOMITEMPRICES_USA_ADDR,  RSFXDATA_USA_ADDR,
+const PatchSymbols UsaSymbols = { GSETTINGSCONTEXT_USA_ADDR,
+                                  GSPOILERDATA_USA_ADDR,
+                                  GSPOILERDATALOCS_USA_ADDR,
+                                  NUMCUSTOMMESSAGEENTRIES_USA_ADDR,
+                                  PTRCUSTOMMESSAGEENTRIES_USA_ADDR,
+                                  RBGMOVERRIDES_USA_ADDR,
+                                  RCUSTOMMESSAGES_USA_ADDR,
+                                  RDUNGEONINFODATA_USA_ADDR,
+                                  RDUNGEONREWARDOVERRIDES_USA_ADDR,
+                                  RENEMYOVERRIDES_USA_ADDR,
+                                  RENTRANCEOVERRIDES_USA_ADDR,
+                                  RGSLOCOVERRIDES_USA_ADDR,
+                                  RITEMOVERRIDES_USA_ADDR,
+                                  RSCRUBRANDOMITEMPRICES_USA_ADDR,
+                                  RSFXDATA_USA_ADDR,
                                   RSHOPSANITYPRICES_USA_ADDR };
 
-const PatchSymbols EurSymbols = { GSETTINGSCONTEXT_EUR_ADDR,        GSPOILERDATA_EUR_ADDR,
-                                  GSPOILERDATALOCS_EUR_ADDR,        NUMCUSTOMMESSAGEENTRIES_EUR_ADDR,
-                                  PTRCUSTOMMESSAGEENTRIES_EUR_ADDR, RBGMOVERRIDES_EUR_ADDR,
-                                  RCUSTOMMESSAGES_EUR_ADDR,         RDUNGEONINFODATA_EUR_ADDR,
-                                  RDUNGEONREWARDOVERRIDES_EUR_ADDR, RENTRANCEOVERRIDES_EUR_ADDR,
-                                  RGSLOCOVERRIDES_EUR_ADDR,         RITEMOVERRIDES_EUR_ADDR,
-                                  RSCRUBRANDOMITEMPRICES_EUR_ADDR,  RSFXDATA_EUR_ADDR,
+const PatchSymbols EurSymbols = { GSETTINGSCONTEXT_EUR_ADDR,
+                                  GSPOILERDATA_EUR_ADDR,
+                                  GSPOILERDATALOCS_EUR_ADDR,
+                                  NUMCUSTOMMESSAGEENTRIES_EUR_ADDR,
+                                  PTRCUSTOMMESSAGEENTRIES_EUR_ADDR,
+                                  RBGMOVERRIDES_EUR_ADDR,
+                                  RCUSTOMMESSAGES_EUR_ADDR,
+                                  RDUNGEONINFODATA_EUR_ADDR,
+                                  RDUNGEONREWARDOVERRIDES_EUR_ADDR,
+                                  RENEMYOVERRIDES_EUR_ADDR,
+                                  RENTRANCEOVERRIDES_EUR_ADDR,
+                                  RGSLOCOVERRIDES_EUR_ADDR,
+                                  RITEMOVERRIDES_EUR_ADDR,
+                                  RSCRUBRANDOMITEMPRICES_EUR_ADDR,
+                                  RSFXDATA_EUR_ADDR,
                                   RSHOPSANITYPRICES_EUR_ADDR };
 
 // For specification on the IPS file format, visit: https://zerosoft.zophar.net/ips.php
@@ -51,7 +69,7 @@ bool WritePatch(u32 patchOffset, s32 patchSize, char* patchDataPtr, Handle& code
         // Write patch offset address to code
         buf[0] = (patchOffset >> 16) & 0xFF;
         buf[1] = (patchOffset >> 8) & 0xFF;
-        buf[2] = (patchOffset)&0xFF;
+        buf[2] = (patchOffset) & 0xFF;
         if (!R_SUCCEEDED(FSFILE_Write(code, &bytesWritten, totalRW, buf, 3, FS_WRITE_FLUSH))) {
             return false;
         }
@@ -60,7 +78,7 @@ bool WritePatch(u32 patchOffset, s32 patchSize, char* patchDataPtr, Handle& code
         // Write patch size to code
         u32 newPatchSize = (patchSize > PATCH_SIZE_MAX) ? PATCH_SIZE_MAX : patchSize;
         buf[0]           = (newPatchSize >> 8) & 0xFF;
-        buf[1]           = (newPatchSize)&0xFF;
+        buf[1]           = (newPatchSize) & 0xFF;
         if (!R_SUCCEEDED(FSFILE_Write(code, &bytesWritten, totalRW, buf, 2, FS_WRITE_FLUSH))) {
             return false;
         }
@@ -643,6 +661,58 @@ bool WriteAllPatches() {
         patchSize   = sizeof(rSongData);
 
         if (!WritePatch(patchOffset, patchSize, (char*)&rSongData, code, bytesWritten, totalRW, buf)) {
+            return false;
+        }
+    }
+
+    /*---------------------------------
+    |         Enemy Overrides         |
+    ---------------------------------*/
+
+    if (true) {
+        std::vector<EnemyOverride> enemyOverrides;
+        CitraPrint("Adding enemy overrides");
+
+        for (auto& scene : Enemizer::enemyLocations) {
+            for (auto& layer : scene.second) {
+                for (auto& room : layer.second) {
+                    for (auto& entry : room.second) {
+                        EnemyOverride ovr = {
+                            .scene      = scene.first,
+                            .layer      = layer.first,
+                            .room       = room.first,
+                            .actorEntry = entry.first,
+                            .actorId    = entry.second.randomizedEnemy.actorId,
+                            .params     = entry.second.randomizedEnemy.params,
+                        };
+                        if (entry.second.randomizedEnemy.actorId != 0) {
+                            enemyOverrides.push_back(ovr);
+                        }
+                    }
+                }
+            }
+        }
+
+        CitraPrint("Sorting enemy overrides");
+        std::sort(enemyOverrides.begin(), enemyOverrides.end(), [](const EnemyOverride& a, const EnemyOverride& b) {
+            return a.scene != b.scene   ? (a.scene < b.scene)
+                   : a.layer != b.layer ? (a.layer < b.layer)
+                   : a.room != b.room   ? (a.room < b.room)
+                                        : (a.actorEntry < b.actorEntry);
+        });
+
+        CitraPrint("Sorted enemy overrides");
+        // CitraPrint("OVR 0 " + std::to_string(enemyOverrides[0].scene) + " " + std::to_string(enemyOverrides[0].layer) +
+        //            " " + std::to_string(enemyOverrides[0].room) + " " + std::to_string(enemyOverrides[0].actorEntry) +
+        //            " " + std::to_string(enemyOverrides[0].actorId) + " " + std::to_string(enemyOverrides[0].params));
+        // CitraPrint("OVR 1 " + std::to_string(enemyOverrides[1].scene) + " " + std::to_string(enemyOverrides[1].layer) +
+        //            " " + std::to_string(enemyOverrides[1].room) + " " + std::to_string(enemyOverrides[1].actorEntry) +
+        //            " " + std::to_string(enemyOverrides[1].actorId) + " " + std::to_string(enemyOverrides[1].params));
+
+        patchOffset = V_TO_P(patchSymbols.RENEMYOVERRIDES_ADDR);
+        patchSize   = enemyOverrides.size();
+
+        if (!WritePatch(patchOffset, patchSize, (char*)&enemyOverrides, code, bytesWritten, totalRW, buf)) {
             return false;
         }
     }

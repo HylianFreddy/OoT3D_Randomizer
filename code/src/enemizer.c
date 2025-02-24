@@ -2,6 +2,9 @@
 #include "objects.h"
 #include "common.h"
 #include "savefile.h"
+#include <stddef.h>
+
+EnemyOverride rEnemyOverrides[700];
 
 // todo armos
 
@@ -86,7 +89,7 @@ static EnemyObjectDependency sEnemyObjectDeps[] = {
     { .actorId = 0x0F6, .objectId = 0x0D6 }, // Anubis Spawner -> Anubis object (actor profile only points to object 1)
 };
 
-void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
+void Enemizer_OverrideActorEntry_FromHash(ActorEntry* actorEntry, s32 actorEntryIndex) {
     if (gExtSaveData.option_EnemizerSalt == 7) {
         return;
     }
@@ -109,8 +112,6 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     if (!isRandomizedEnemy) {
         return;
     }
-
-    CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, gGlobalContext->roomNum, gSaveContext.sceneLayer, actorEntryIndex);
 
     // Get information about spawn point
     f32 yGroundIntersect = 0.0;
@@ -180,6 +181,70 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
 
     // Spawn necessary objects
     Object_FindEntryOrSpawn(gActorOverlayTable[randomEnemy.actorId].initInfo->objectId);
+
+    for (u32 i = 0; i < ARRAY_SIZE(sEnemyObjectDeps); i++) {
+        if (actorEntry->id == sEnemyObjectDeps[i].actorId) {
+            Object_FindEntryOrSpawn(sEnemyObjectDeps[i].objectId);
+        }
+    }
+}
+
+void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
+    if (gExtSaveData.option_EnemizerSalt == 7) {
+        return;
+    }
+    if (gExtSaveData.option_EnemizerSalt != 0) {
+        return Enemizer_OverrideActorEntry_FromHash(actorEntry, actorEntryIndex);
+    }
+
+    CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, gSaveContext.sceneLayer, gGlobalContext->roomNum, actorEntryIndex);
+
+    EnemyOverride* randomEnemy = NULL;
+    for (s32 i = 0; i < ARRAY_SIZE(rEnemyOverrides); i++) {
+        if (rEnemyOverrides[i].actorId == 0) { // No more overrides
+            return;
+        }
+
+        if (rEnemyOverrides[i].scene < gGlobalContext->sceneNum) {
+            continue;
+        }
+        if (rEnemyOverrides[i].scene > gGlobalContext->sceneNum) {
+            return;
+        }
+        // Found scene
+        if (rEnemyOverrides[i].layer < gSaveContext.sceneLayer) {
+            continue;
+        }
+        if (rEnemyOverrides[i].layer > gSaveContext.sceneLayer) {
+            return;
+        }
+        // Found layer
+        if (rEnemyOverrides[i].room < gGlobalContext->roomNum) {
+            continue;
+        }
+        if (rEnemyOverrides[i].room > gGlobalContext->roomNum) {
+            return;
+        }
+        // Found room
+        if (rEnemyOverrides[i].actorEntry < actorEntryIndex) {
+            continue;
+        }
+        if (rEnemyOverrides[i].actorEntry > actorEntryIndex) {
+            return;
+        }
+        // Found override
+        randomEnemy = &rEnemyOverrides[i];
+    }
+
+    if (randomEnemy == NULL) {
+        return;
+    }
+
+    actorEntry->id     = randomEnemy->actorId;
+    actorEntry->params = randomEnemy->params;
+
+    // Spawn necessary objects
+    Object_FindEntryOrSpawn(gActorOverlayTable[randomEnemy->actorId].initInfo->objectId);
 
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyObjectDeps); i++) {
         if (actorEntry->id == sEnemyObjectDeps[i].actorId) {

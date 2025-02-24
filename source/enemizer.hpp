@@ -19,13 +19,13 @@ enum class EnemyRequirement {
     IN_MID_AIR,       // Flying enemy that doesn't work at ground level, it should be spawned up in the air.
 };
 
-class Enemy {
-    public:
-    Enemy() = default;
-    Enemy(std::string _name, u16 _actorId, u16 _params, ConditionFn _killLogic,
-          std::vector<LocationType> _validLocationTypes)
-        : name(std::move(_name)), actorId(_actorId), params(_params),
-          killLogic(std::move(_killLogic)), validLocationTypes(std::move(_validLocationTypes)) {
+class EnemyType {
+  public:
+    EnemyType() = default;
+    EnemyType(std::string _name, u16 _actorId, u16 _params, ConditionFn _killLogic,
+              std::vector<LocationType> _validLocationTypes)
+        : name(std::move(_name)), actorId(_actorId), params(_params), killLogic(std::move(_killLogic)),
+          validLocationTypes(std::move(_validLocationTypes)) {
     }
 
     std::string name;
@@ -42,19 +42,20 @@ class Enemy {
 };
 
 class EnemyLocation {
-    public:
+  public:
     EnemyLocation() = default;
-    EnemyLocation(u16 _vanillaActorId, LocationType _type) : vanillaActorId(_vanillaActorId), type(std::move(_type)) {}
+    EnemyLocation(u16 _vanillaActorId, LocationType _type) : vanillaActorId(_vanillaActorId), type(std::move(_type)) {
+    }
 
     u16 vanillaActorId;
     LocationType type;
-    Enemy randomizedEnemy;
+    EnemyType randomizedEnemy;
 };
 
-using EnemyLocationsMap_Room = std::unordered_map<s32, EnemyLocation>;
-using EnemyLocationsMap_Layer = std::unordered_map<s32, EnemyLocationsMap_Room>;
-using EnemyLocationsMap_Scene = std::unordered_map<s32, EnemyLocationsMap_Layer>;
-using EnemyLocationsMap = std::unordered_map<s32, EnemyLocationsMap_Scene>;
+using EnemyLocationsMap_Room  = std::unordered_map<u8, EnemyLocation>;
+using EnemyLocationsMap_Layer = std::unordered_map<u8, EnemyLocationsMap_Room>;
+using EnemyLocationsMap_Scene = std::unordered_map<u8, EnemyLocationsMap_Layer>;
+using EnemyLocationsMap       = std::unordered_map<u8, EnemyLocationsMap_Scene>;
 
 extern EnemyLocationsMap enemyLocations;
 
