@@ -684,7 +684,7 @@ bool WriteAllPatches() {
                             ovr.room       = room.first;
                             ovr.actorEntry = entry.first;
                             ovr.actorId    = entry.second.randomizedEnemy.actorId;
-                            ovr.params     = entry.second.randomizedEnemy.params;
+                            ovr.params     = entry.second.randomizedParams;
                             enemyOverrides.push_back(ovr);
                         }
                     }

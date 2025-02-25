@@ -22,15 +22,17 @@ enum class EnemyRequirement {
 class EnemyType {
   public:
     EnemyType() = default;
-    EnemyType(std::string _name, u16 _actorId, u16 _params, ConditionFn _killLogic,
+    EnemyType(std::string _name, u16 _actorId, std::vector<u16> _possibleParams, ConditionFn _killLogic,
               std::vector<LocationType> _validLocationTypes)
-        : name(std::move(_name)), actorId(_actorId), params(_params), killLogic(std::move(_killLogic)),
+        : name(std::move(_name)), actorId(_actorId), possibleParams(_possibleParams), killLogic(std::move(_killLogic)),
           validLocationTypes(std::move(_validLocationTypes)) {
     }
 
     std::string name;
     u16 actorId;
-    u16 params;
+    std::vector<u16> possibleParams; // Only place multiple values here if they're small differences
+                                     // that don't change the gameplay or the logic (e.g. stalfos falling
+                                     // from above or popping out of the ground).
     // std::string filter_func;
     ConditionFn killLogic;
     std::vector<LocationType> validLocationTypes;
@@ -50,6 +52,7 @@ class EnemyLocation {
     u16 vanillaActorId;
     LocationType type;
     EnemyType randomizedEnemy;
+    u16 randomizedParams;
 };
 
 using EnemyLocationsMap_Room  = std::unordered_map<u8, EnemyLocation>;
