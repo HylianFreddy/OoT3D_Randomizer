@@ -54,8 +54,8 @@ std::vector<EnemyType> enemyTypes = {
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
     EnemyType("Torch Slug", ACTOR_TORCH_SLUG, { 0xFFFF },
         { LocationType::ABOVE_GROUND }),
-    EnemyType("Stinger (Land)", ACTOR_STINGER_LAND, { 0x000A },
-        { LocationType::ABOVE_GROUND }),
+    EnemyType("Stinger (Floor)", ACTOR_STINGER_FLOOR, { 0x000A },
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
     EnemyType("Moblin (Club)", ACTOR_MOBLIN, { 0x0000 },
         { LocationType::ABOVE_GROUND }),
     EnemyType("Moblin (Spear)", ACTOR_MOBLIN, { 0xFFFF },
@@ -566,10 +566,10 @@ void EnemyLocations_Init(void) {
         enemyLocations[5][0][3][0]  = EnemyLocation(ACTOR_SHELL_BLADE, LocationType::UNDERWATER);
         enemyLocations[5][0][3][2]  = EnemyLocation(ACTOR_TEKTITE, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][3][3]  = EnemyLocation(ACTOR_TEKTITE, LocationType::ABOVE_GROUND);
-        enemyLocations[5][0][4][1]  = EnemyLocation(ACTOR_STINGER_LAND, LocationType::UNDERWATER);
-        enemyLocations[5][0][4][2]  = EnemyLocation(ACTOR_STINGER_LAND, LocationType::UNDERWATER);
-        enemyLocations[5][0][4][3]  = EnemyLocation(ACTOR_STINGER_LAND, LocationType::UNDERWATER);
-        enemyLocations[5][0][4][4]  = EnemyLocation(ACTOR_STINGER_LAND, LocationType::UNDERWATER);
+        enemyLocations[5][0][4][1]  = EnemyLocation(ACTOR_STINGER_FLOOR, LocationType::UNDERWATER);
+        enemyLocations[5][0][4][2]  = EnemyLocation(ACTOR_STINGER_FLOOR, LocationType::UNDERWATER);
+        enemyLocations[5][0][4][3]  = EnemyLocation(ACTOR_STINGER_FLOOR, LocationType::UNDERWATER);
+        enemyLocations[5][0][4][4]  = EnemyLocation(ACTOR_STINGER_FLOOR, LocationType::UNDERWATER);
         enemyLocations[5][0][5][3]  = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][5][4]  = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][6][0]  = EnemyLocation(ACTOR_LIKE_LIKE, LocationType::ABOVE_GROUND);
@@ -589,11 +589,11 @@ void EnemyLocations_Init(void) {
         enemyLocations[5][0][12][6] = EnemyLocation(ACTOR_TEKTITE, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][12][7] = EnemyLocation(ACTOR_TEKTITE, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][12][8] = EnemyLocation(ACTOR_TEKTITE, LocationType::ABOVE_GROUND);
-        enemyLocations[5][0][14][0] = EnemyLocation(ACTOR_STINGER_LAND, LocationType::ABOVE_GROUND);
-        enemyLocations[5][0][14][1] = EnemyLocation(ACTOR_STINGER_LAND, LocationType::ABOVE_GROUND);
-        enemyLocations[5][0][14][2] = EnemyLocation(ACTOR_STINGER_LAND, LocationType::ABOVE_GROUND);
-        enemyLocations[5][0][14][3] = EnemyLocation(ACTOR_STINGER_LAND, LocationType::ABOVE_GROUND);
-        enemyLocations[5][0][14][4] = EnemyLocation(ACTOR_STINGER_LAND, LocationType::ABOVE_GROUND);
+        enemyLocations[5][0][14][0] = EnemyLocation(ACTOR_STINGER_FLOOR, LocationType::ABOVE_GROUND);
+        enemyLocations[5][0][14][1] = EnemyLocation(ACTOR_STINGER_FLOOR, LocationType::ABOVE_GROUND);
+        enemyLocations[5][0][14][2] = EnemyLocation(ACTOR_STINGER_FLOOR, LocationType::ABOVE_GROUND);
+        enemyLocations[5][0][14][3] = EnemyLocation(ACTOR_STINGER_FLOOR, LocationType::ABOVE_GROUND);
+        enemyLocations[5][0][14][4] = EnemyLocation(ACTOR_STINGER_FLOOR, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][15][0] = EnemyLocation(ACTOR_TEKTITE, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][15][1] = EnemyLocation(ACTOR_TEKTITE, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][18][0] = EnemyLocation(ACTOR_SHELL_BLADE, LocationType::ABOVE_GROUND);
@@ -921,7 +921,7 @@ void EnemyLocations_Init(void) {
         enemyLocations[2][0][0][9]   = EnemyLocation(ACTOR_SHABOM, LocationType::ABOVE_GROUND);
         enemyLocations[2][0][1][3]   = EnemyLocation(ACTOR_BIRI, LocationType::ABOVE_GROUND);
         enemyLocations[2][0][1][4]   = EnemyLocation(ACTOR_BIRI, LocationType::ABOVE_GROUND);
-        enemyLocations[2][0][1][16]  = EnemyLocation(ACTOR_STINGER_LAND, LocationType::ABOVE_GROUND);
+        enemyLocations[2][0][1][16]  = EnemyLocation(ACTOR_STINGER_FLOOR, LocationType::ABOVE_GROUND);
         enemyLocations[2][0][2][2]   = EnemyLocation(ACTOR_BIRI, LocationType::ABOVE_GROUND);
         enemyLocations[2][0][2][3]   = EnemyLocation(ACTOR_BIRI, LocationType::ABOVE_GROUND);
         enemyLocations[2][0][3][3]   = EnemyLocation(ACTOR_BIRI, LocationType::ABOVE_GROUND);
@@ -942,8 +942,8 @@ void EnemyLocations_Init(void) {
         enemyLocations[2][0][13][1]  = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
         enemyLocations[2][0][13][2]  = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
         enemyLocations[2][0][13][3]  = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
-        enemyLocations[2][0][13][5]  = EnemyLocation(ACTOR_STINGER_LAND, LocationType::ABOVE_GROUND);
-        enemyLocations[2][0][13][6]  = EnemyLocation(ACTOR_STINGER_LAND, LocationType::ABOVE_GROUND);
+        enemyLocations[2][0][13][5]  = EnemyLocation(ACTOR_STINGER_FLOOR, LocationType::ABOVE_GROUND);
+        enemyLocations[2][0][13][6]  = EnemyLocation(ACTOR_STINGER_FLOOR, LocationType::ABOVE_GROUND);
         enemyLocations[2][0][14][0]  = EnemyLocation(ACTOR_STINGER_WATER, LocationType::ABOVE_GROUND);
         enemyLocations[2][0][14][1]  = EnemyLocation(ACTOR_STINGER_WATER, LocationType::ABOVE_GROUND);
         enemyLocations[2][0][14][3]  = EnemyLocation(ACTOR_LIKE_LIKE, LocationType::ABOVE_GROUND);
@@ -1224,8 +1224,8 @@ void EnemyLocations_Init(void) {
         enemyLocations[11][0][7][3]  = EnemyLocation(ACTOR_DODONGO, LocationType::ABOVE_GROUND);
         enemyLocations[11][0][7][4]  = EnemyLocation(ACTOR_DODONGO, LocationType::ABOVE_GROUND);
         enemyLocations[11][0][7][5]  = EnemyLocation(ACTOR_ARMOS, LocationType::ABOVE_GROUND);
-        enemyLocations[11][0][9][0]  = EnemyLocation(ACTOR_STINGER_LAND, LocationType::ABOVE_GROUND);
-        enemyLocations[11][0][9][1]  = EnemyLocation(ACTOR_STINGER_LAND, LocationType::ABOVE_GROUND);
+        enemyLocations[11][0][9][0]  = EnemyLocation(ACTOR_STINGER_FLOOR, LocationType::ABOVE_GROUND);
+        enemyLocations[11][0][9][1]  = EnemyLocation(ACTOR_STINGER_FLOOR, LocationType::ABOVE_GROUND);
         enemyLocations[11][0][9][3]  = EnemyLocation(ACTOR_BARI, LocationType::ABOVE_GROUND);
         enemyLocations[11][0][9][4]  = EnemyLocation(ACTOR_SHELL_BLADE, LocationType::ABOVE_GROUND);
         enemyLocations[11][0][10][0] = EnemyLocation(ACTOR_FREEZARD, LocationType::ABOVE_GROUND);
