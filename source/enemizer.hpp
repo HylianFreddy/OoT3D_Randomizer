@@ -69,8 +69,9 @@ using EnemyLocationsMap       = std::unordered_map<u8, EnemyLocationsMap_Scene>;
 extern std::vector<EnemyType> enemyTypes;
 extern EnemyLocationsMap enemyLocations;
 
-void EnemyLocations_Init();
-void RandomizeEnemies();
+void EnemyLocations_Init(void);
+void AddDuplicateLocations(void);
+void RandomizeEnemies(void);
 void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides);
 
 } // namespace Enemizer

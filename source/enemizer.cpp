@@ -18,7 +18,8 @@ void AssignRandomEnemy(EnemyLocation& loc) {
 void RandomizeEnemies() {
     EnemyLocations_Init();
 
-    CitraPrint("Randomizing Enemies");
+    CitraPrint("___________________");
+    CitraPrint("Randomizing Enemies...");
     for (auto& scene : enemyLocations) {
         for (auto& layer : scene.second) {
             for (auto& room : layer.second) {
@@ -28,7 +29,8 @@ void RandomizeEnemies() {
             }
         }
     }
-    CitraPrint("Randomized Enemies");
+    AddDuplicateLocations();
+    CitraPrint("Enemies randomization complete!");
 }
 
 void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {

@@ -127,9 +127,20 @@ std::vector<EnemyType> enemyTypes = {
 };
 // clang-format on
 
-void EnemyLocations_Init() {
-    CitraPrint("EnemyLocations_Init start");
+void AddDuplicateLocations(void) {
+    // Peahats in Hyrule Field should stay the same enemies in OoT layer
+    enemyLocations[81][1][0][4]  = enemyLocations[81][0][0][8];
+    enemyLocations[81][1][0][5]  = enemyLocations[81][0][0][9];
+    enemyLocations[81][1][0][6]  = enemyLocations[81][0][0][10];
+    enemyLocations[81][1][0][7]  = enemyLocations[81][0][0][11];
+    enemyLocations[81][1][0][8]  = enemyLocations[81][0][0][12];
+    enemyLocations[81][1][0][9]  = enemyLocations[81][0][0][13];
+    enemyLocations[81][1][0][10] = enemyLocations[81][0][0][14];
+}
+
+void EnemyLocations_Init(void) {
     enemyLocations.clear();
+
     // Overworld locations
     enemyLocations[10][0][0][1]  = EnemyLocation(ACTOR_LIZALFOS, LocationType::ABOVE_GROUND);
     enemyLocations[10][0][0][1]  = EnemyLocation(ACTOR_LIZALFOS, LocationType::ABOVE_GROUND);
@@ -323,15 +334,6 @@ void EnemyLocations_Init() {
     enemyLocations[99][1][0][22] = EnemyLocation(ACTOR_GUAY, LocationType::ABOVE_GROUND);
     enemyLocations[99][1][0][23] = EnemyLocation(ACTOR_GUAY, LocationType::ABOVE_GROUND);
     enemyLocations[99][1][0][24] = EnemyLocation(ACTOR_GUAY, LocationType::ABOVE_GROUND);
-
-    // Peahats in Hyrule Field should stay the same enemies in OoT layer
-    enemyLocations[81][0][0][8]  = enemyLocations[81][1][0][4];
-    enemyLocations[81][0][0][9]  = enemyLocations[81][1][0][5];
-    enemyLocations[81][0][0][10] = enemyLocations[81][1][0][6];
-    enemyLocations[81][0][0][11] = enemyLocations[81][1][0][7];
-    enemyLocations[81][0][0][12] = enemyLocations[81][1][0][8];
-    enemyLocations[81][0][0][13] = enemyLocations[81][1][0][9];
-    enemyLocations[81][0][0][14] = enemyLocations[81][1][0][10];
 
     // Vanilla dungeons
     if (Dungeon::DekuTree.IsVanilla()) {
@@ -1280,10 +1282,6 @@ void EnemyLocations_Init() {
         enemyLocations[13][0][18][10] = EnemyLocation(ACTOR_BUBBLE, LocationType::ABOVE_GROUND);
         enemyLocations[13][0][18][24] = EnemyLocation(ACTOR_WALLMASTER, LocationType::ABOVE_GROUND);
     }
-
-    CitraPrint("EnemyLocations_Init end");
-    CitraPrint("enemyLocations[10][0][7][7] is " + std::to_string(enemyLocations[10][0][7][7].vanillaActorId));
-    CitraPrint("enemyLocations[11][0][7][7] is " + std::to_string(enemyLocations[11][0][7][7].vanillaActorId));
 }
 
 } // namespace Enemizer
