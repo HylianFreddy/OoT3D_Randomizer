@@ -264,7 +264,6 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
 
     // Get information about spawn point
     f32 yGroundIntersect = 0.0;
-    u8 isVoidPlane       = FALSE;
     CollisionPoly floorPoly;
     s32 isWater       = FALSE;
     f32 yWaterSurface = 0.0;
@@ -276,8 +275,6 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     };
 
     yGroundIntersect        = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
-    SurfaceType surfaceType = gGlobalContext->colCtx.stat.colHeader->surfaceTypeList[floorPoly.type];
-    isVoidPlane             = (SurfaceType_GetFloorProperty(surfaceType) == 0xC);
     isWater = WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z, &yWaterSurface,
                                       &waterBox);
 
