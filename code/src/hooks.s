@@ -2235,3 +2235,12 @@ hook_AltHeadersCommand:
     bl Scene_GetLoadedLayer
     pop {r0-r12, lr}
     bx lr
+
+.global hook_GohmaLarvaDeath
+hook_GohmaLarvaDeath:
+    ldr r1,[r4,#0x124]
+    @ if parent pointer is null, skip
+    @ setting childrenGohmaState
+    cmp r1,#0x0
+    addeq lr,lr,#0x10
+    bx lr

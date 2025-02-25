@@ -368,6 +368,10 @@ SECTIONS
 		*(.patch_EponasSongCheckFlagTwo)
 	}
 
+	.patch_GohmaLarvaDeath 0x1968DC : {
+		*(.patch_GohmaLarvaDeath)
+	}
+
 	.patch_AmyBlockCooldownTimer 0x196ECC : {
 		*(.patch_AmyBlockCooldownTimer)
 	}

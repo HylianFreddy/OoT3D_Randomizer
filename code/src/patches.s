@@ -2404,3 +2404,8 @@ GetObjectEntry_EnNutsballInit_patch:
 .global AltHeadersCommand_patch
 AltHeadersCommand_patch:
     bl hook_AltHeadersCommand
+
+.section .patch_GohmaLarvaDeath
+.global GohmaLarvaDeath_patch
+GohmaLarvaDeath_patch:
+    bl hook_GohmaLarvaDeath
