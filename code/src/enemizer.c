@@ -22,7 +22,9 @@ static EnemyParams sGroundedEnemies[] = {
     { .actorId = ACTOR_STINGER_LAND, .params = 0x000A },
     { .actorId = ACTOR_DEKU_BABA, .params = 0x0000 },
     { .actorId = ACTOR_DEKU_BABA, .params = 0x0001 },
+    { .actorId = ACTOR_MAD_SCRUB, .params = 0x0100 },
     { .actorId = ACTOR_MAD_SCRUB, .params = 0x0300 },
+    { .actorId = ACTOR_MAD_SCRUB, .params = 0x0500 },
     { .actorId = ACTOR_BUBBLE, .params = 0xFFFE },
     { .actorId = ACTOR_FLYING_FLOOR_TILE, .params = 0x0000 },
     { .actorId = ACTOR_BEAMOS, .params = 0x0501 },
@@ -181,6 +183,7 @@ static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
     s32 waterBoxFound;
     f32 yWaterSurface;
     CollisionPoly floorPoly;
+    u8 isAboveVoid;
     void* waterBox;
     Vec3f actorPos = (Vec3f){
         .x = actorEntry->pos.x,
@@ -190,6 +193,8 @@ static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
 
     // Ground height below actor.
     yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
+    SurfaceType surfaceType = gGlobalContext->colCtx.stat.colHeader->surfaceTypeList[floorPoly.type];
+    isAboveVoid             = (SurfaceType_GetFloorProperty(surfaceType) == 0xC);
     // If there is a water box, set yWaterSurface.
     waterBoxFound = WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z,
                                             &yWaterSurface, &waterBox);
@@ -213,9 +218,9 @@ static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
         actorEntry->pos.y = yWaterSurface;
     } else if (actorEntry->id == ACTOR_SKULLTULA) {
         // Off the ground or at water surface
-        if (!waterBoxFound) {
+        if (!waterBoxFound && !isAboveVoid) {
             actorEntry->pos.y = yOffGroundPos;
-        } else if (actorEntry->pos.y > yWaterSurface) {
+        } else if (waterBoxFound && (actorEntry->pos.y > yWaterSurface)) {
             actorEntry->pos.y = yWaterSurface + 50;
         }
     } else if (actorEntry->id == ACTOR_BARI || (actorEntry->id == ACTOR_PEAHAT && actorEntry->params == 0x0001)) {
