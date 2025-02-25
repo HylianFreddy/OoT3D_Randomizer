@@ -66,6 +66,7 @@
 #include "anubis.h"
 #include "link_puppet.h"
 #include "fishing.h"
+#include "sacred_forest_meadow_objects.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -225,6 +226,10 @@ void Actor_Init() {
 
     gActorOverlayTable[0x18A].initInfo->update = OceffWipe_rUpdate;
     gActorOverlayTable[0x18B].initInfo->update = OceffStorm_rUpdate;
+
+    gActorOverlayTable[0x18D].initInfo->init = BgSpot05Soko_rInit;
+    gActorOverlayTable[0x18D].initInfo->update = BgSpot05Soko_rUpdate;
+    gActorOverlayTable[0x18D].initInfo->destroy = BgSpot05Soko_rDestroy;
 
     gActorOverlayTable[0x191].initInfo->init   = BgSpot12Saku_rInit;
     gActorOverlayTable[0x191].initInfo->update = BgSpot12Saku_rUpdate;
