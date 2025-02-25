@@ -1,6 +1,12 @@
 #pragma once
 
-#include "location_access.hpp"
+#include "../../code/include/actor_id.h"
+#include "../code/src/enemizer.h"
+
+#include <string>
+#include <functional>
+
+#include "debug.hpp"
 
 namespace Enemizer {
 
@@ -65,5 +71,6 @@ extern EnemyLocationsMap enemyLocations;
 
 void EnemyLocations_Init();
 void RandomizeEnemies();
+void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides);
 
 } // namespace Enemizer
