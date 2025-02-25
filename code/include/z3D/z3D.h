@@ -1,6 +1,7 @@
 #ifndef _Z3D_H_
 #define _Z3D_H_
 
+#include <sys/cdefs.h>
 #include "z3Dactor.h"
 #include "z3Dvec.h"
 // #include "z3Dequipment.h"
