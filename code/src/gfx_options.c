@@ -126,17 +126,11 @@ void InitOptions(void) {
 
     // Enemizer Seed Salt
     altNum = 0;
-    strcpy(options[opNum].name, "Enemizer Seed Salt");
-    strcpy(options[opNum].alternatives[altNum++], "1");
-    strcpy(options[opNum].alternatives[altNum++], "2");
-    strcpy(options[opNum].alternatives[altNum++], "3");
-    strcpy(options[opNum].alternatives[altNum++], "4");
-    strcpy(options[opNum].alternatives[altNum++], "5");
-    strcpy(options[opNum].alternatives[altNum++], "6");
-    strcpy(options[opNum].alternatives[altNum++], "7");
-    strcpy(options[opNum].alternatives[altNum++], "Disable Enemizer");
+    strcpy(options[opNum].name, "Enemizer");
+    strcpy(options[opNum].alternatives[altNum++], "Off");
+    strcpy(options[opNum].alternatives[altNum++], "On");
     strcpy(options[opNum].description, "");
-    options[opNum++].optionPointer = &gExtSaveData.option_EnemizerSalt;
+    options[opNum++].optionPointer = &gExtSaveData.option_Enemizer;
 }
 
 void Gfx_DrawOptions(void) {

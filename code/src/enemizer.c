@@ -3,6 +3,7 @@
 #include "common.h"
 #include "savefile.h"
 #include "actor_id.h"
+#include "settings.h"
 #include <stddef.h>
 
 static EnemyOverride rEnemyOverrides[700];
@@ -112,106 +113,6 @@ static EnemyObjectDependency sEnemyObjectDeps[] = {
     { .actorId = 0x099, .objectId = 0x003 }, // Flare Dancer -> dungeon object for flames
     { .actorId = 0x0F6, .objectId = 0x0D6 }, // Anubis Spawner -> Anubis object (actor profile only points to object 1)
 };
-
-void Enemizer_OverrideActorEntry_FromHash(ActorEntry* actorEntry, s32 actorEntryIndex) {
-    if (gExtSaveData.option_EnemizerSalt == 7) {
-        return;
-    }
-
-    // Choose if actor should be randomized
-    u8 isRandomizedEnemy = FALSE;
-    for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
-        if (actorEntry->id == sEnemyData[i].actorId) {
-            isRandomizedEnemy = TRUE;
-            break;
-        }
-    }
-
-    if ((actorEntry->id == 0x054 && actorEntry->params == 0) // armos statue
-        || (actorEntry->id == 0x115 && gSaveContext.linkAge == 1) // skull kid, Link is child
-    ) {
-        isRandomizedEnemy = FALSE;
-    }
-
-    if (!isRandomizedEnemy) {
-        return;
-    }
-
-    // Get information about spawn point
-    f32 yGroundIntersect = 0.0;
-    u8 isVoidPlane = FALSE;
-    CollisionPoly floorPoly;
-    s32 isWater = FALSE;
-    f32 yWaterSurface = 0.0;
-    void* waterBox;
-    Vec3f actorPos = (Vec3f){
-        .x = actorEntry->pos.x,
-        .y = actorEntry->pos.y + 10,
-        .z = actorEntry->pos.z,
-    };
-
-    yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
-    SurfaceType surfaceType = gGlobalContext->colCtx.stat.colHeader->surfaceTypeList[floorPoly.type];
-    isVoidPlane = (SurfaceType_GetFloorProperty(surfaceType) == 0xC);
-    isWater = WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z, &yWaterSurface, &waterBox);
-
-    // Populate possible enemies list based on requirements and spawn point data
-    EnemyData* enemyOptions[ARRAY_SIZE(sEnemyData)];
-    u16 optionsCount = 0;
-
-    for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
-        u8 req = sEnemyData[i].requirements;
-        if (((yGroundIntersect < -30000.0 || isVoidPlane) && !(req & REQ_FLYING)) ||
-            ((actorEntry->pos.y - yGroundIntersect > 10.0) && (req & REQ_ON_GROUND)) ||
-            (isWater && (actorEntry->pos.y <= yWaterSurface) && (req & REQ_NO_WATER)) ||
-            (isWater && (actorEntry->pos.y > yWaterSurface) && (req & REQ_NO_WATER) && !(req & REQ_FLYING)) ||
-            ((!isWater || (actorEntry->pos.y > yWaterSurface)) && (req & REQ_WATER)) ||
-            ((!isWater || (ABS(actorEntry->pos.y - yWaterSurface) > 10)) && (req & REQ_WATER_SURFACE))
-        ) {
-            continue;
-        }
-        enemyOptions[optionsCount++] = &sEnemyData[i];
-    }
-
-    // Select random enemy
-    u32 seed = (u16)actorEntry->id + (u16)actorEntry->params + actorEntry->pos.x + actorEntry->pos.y +
-               actorEntry->pos.z + actorEntry->rot.x + actorEntry->rot.y + actorEntry->rot.z + gExtSaveData.option_EnemizerSalt;
-    u32 index             = Hash(seed) % optionsCount;
-
-    // EnemyData randomEnemy = sEnemyData[40];
-    EnemyData randomEnemy = *enemyOptions[index];
-
-    actorEntry->id        = randomEnemy.actorId;
-    actorEntry->params    = randomEnemy.params;
-    // CitraPrint("enemy %X", actorEntry->id);
-
-    // Adjust position if necessary
-    if (randomEnemy.requirements & REQ_ON_GROUND) {
-        actorEntry->pos.y = yGroundIntersect;
-    }
-    if (randomEnemy.requirements & REQ_ABOVE_GROUND_IN_AIR) {
-        Vec3f upperPos = (Vec3f){
-            .x = actorEntry->pos.x,
-            .y = actorEntry->pos.y + 200,
-            .z = actorEntry->pos.z,
-        };
-        f32 yUpperGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &upperPos);
-        if (ABS(yUpperGroundIntersect - yGroundIntersect) < 50) {
-            actorEntry->pos.y = upperPos.y;
-        } else {
-            actorEntry->pos.y = yUpperGroundIntersect - 50;
-        }
-    }
-
-    // Spawn necessary objects
-    Object_FindEntryOrSpawn(gActorOverlayTable[randomEnemy.actorId].initInfo->objectId);
-
-    for (u32 i = 0; i < ARRAY_SIZE(sEnemyObjectDeps); i++) {
-        if (actorEntry->id == sEnemyObjectDeps[i].actorId) {
-            Object_FindEntryOrSpawn(sEnemyObjectDeps[i].objectId);
-        }
-    }
-}
 // clang-format on
 
 void Enemizer_Init(void) {
@@ -240,11 +141,8 @@ EnemyOverride* Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actorEntry)
 }
 
 void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
-    if (gExtSaveData.option_EnemizerSalt == 7) {
+    if (gExtSaveData.option_Enemizer == OFF) {
         return;
-    }
-    if (gExtSaveData.option_EnemizerSalt != 0) {
-        return Enemizer_OverrideActorEntry_FromHash(actorEntry, actorEntryIndex);
     }
 
     CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, gSaveContext.sceneLayer, gGlobalContext->roomNum,
