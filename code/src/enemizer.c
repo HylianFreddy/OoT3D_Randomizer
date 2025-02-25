@@ -8,6 +8,7 @@
 static EnemyOverride rEnemyOverrides[700];
 static s32 rEnemyOverrides_Count = 0;
 
+// Enemies that need to spawn at ground level to work properly.
 EnemyParams groundedEnemies[] = {
     { .actorId = ACTOR_DODONGO, .params = 0x0000 },
     { .actorId = ACTOR_PEAHAT, .params = 0xFFFF },
@@ -280,6 +281,7 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     isWater = WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z, &yWaterSurface,
                                       &waterBox);
 
+    // Adjust position for certain enemies.
     if (actorEntry->id == ACTOR_OCTOROK && isWater) {
         actorEntry->pos.y = yWaterSurface;
     } else if (actorEntry->id == ACTOR_SKULLTULA || actorEntry->id == ACTOR_BARI ||
