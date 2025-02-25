@@ -13,7 +13,7 @@ void AssignRandomEnemy(EnemyLocation& loc) {
             enemyOptions.push_back(candidate);
         }
     }
-    loc.randomizedEnemy = RandomElement(enemyOptions);
+    loc.randomizedEnemy  = RandomElement(enemyOptions);
     loc.randomizedParams = RandomElement(loc.randomizedEnemy.possibleParams);
 }
 
@@ -33,113 +33,124 @@ void RandomizeEnemies() {
     CitraPrint("Randomized Enemies");
 }
 
-bool canKillPlaceholder() {
-    return true;
-}
-
-ConditionFn canKillPoe           = canKillPlaceholder;
-ConditionFn canKillStalfos       = canKillPlaceholder;
-ConditionFn canKillOctorok       = canKillPlaceholder;
-ConditionFn canKillWallmaster    = canKillPlaceholder;
-ConditionFn canKillDodongo       = canKillPlaceholder;
-ConditionFn canKillKeese         = canKillPlaceholder;
-ConditionFn canKillTektite       = canKillPlaceholder;
-ConditionFn canKillPeahat        = canKillPlaceholder;
-ConditionFn canKillPeahatLarva   = canKillPlaceholder;
-ConditionFn canKillLizalfos      = canKillPlaceholder;
-ConditionFn canKillGohmaLarva    = canKillPlaceholder;
-ConditionFn canKillShabom        = canKillPlaceholder;
-ConditionFn canKillBabyDodongo   = canKillPlaceholder;
-ConditionFn canKillBiri          = canKillPlaceholder;
-ConditionFn canKillTailsparan    = canKillPlaceholder;
-ConditionFn canKillSkulltula     = canKillPlaceholder;
-ConditionFn canKillTorchSlug     = canKillPlaceholder;
-ConditionFn canKillMoblin        = canKillPlaceholder;
-ConditionFn canKillArmos         = canKillPlaceholder;
-ConditionFn canKillDekuBaba      = canKillPlaceholder;
-ConditionFn canKillScrub         = canKillPlaceholder;
-ConditionFn canKillBlueBubble    = canKillPlaceholder;
-ConditionFn canKillFlyingTrap    = canKillPlaceholder;
-ConditionFn canKillBeamos        = canKillPlaceholder;
-ConditionFn canKillFloormaster   = canKillPlaceholder;
-ConditionFn canKillRedead        = canKillPlaceholder;
-ConditionFn canKillDeadHandHand  = canKillPlaceholder;
-ConditionFn canKillSkullwalltula = canKillPlaceholder;
-ConditionFn canKillFlareDancer   = canKillPlaceholder;
-ConditionFn canKillShellBlade    = canKillPlaceholder;
-ConditionFn canKillLikeLike      = canKillPlaceholder;
-ConditionFn canKillSpikeEnemy    = canKillPlaceholder;
-ConditionFn canKillAnubis        = canKillPlaceholder;
-ConditionFn canKillIronKnuckle   = canKillPlaceholder;
-ConditionFn canKillSkullKid      = canKillPlaceholder;
-ConditionFn canKillFreezard      = canKillPlaceholder;
-ConditionFn canKillStinger       = canKillPlaceholder;
-ConditionFn canKillWolfos        = canKillPlaceholder;
-ConditionFn canKillStalchild     = canKillPlaceholder;
-ConditionFn canKillGuay          = canKillPlaceholder;
-ConditionFn canKillDarkLink      = canKillPlaceholder;
-ConditionFn canKillDeadHand      = canKillPlaceholder;
-
 // clang-format off
 std::vector<EnemyType> enemyTypes = {
-    EnemyType("Poe",                  ACTOR_POE,                {0x0000}, canKillPoe,           {LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID}),
-    EnemyType("Stalfos",              ACTOR_STALFOS,            {0x0002, 0x0003}, canKillStalfos,       {LocationType::ABOVE_GROUND}),
-    EnemyType("Octorok",              ACTOR_OCTOROK,            {0x0000}, canKillOctorok,       {LocationType::ABOVE_WATER}),
-    EnemyType("Wallmaster",           ACTOR_WALLMASTER,         {0x0000}, canKillWallmaster,    {LocationType::ABOVE_GROUND}),
-    EnemyType("Dodongo",              ACTOR_DODONGO,            {0x0000}, canKillDodongo,       {LocationType::ABOVE_GROUND}),
-    EnemyType("Keese",                ACTOR_KEESE,              {0x0002}, canKillKeese,         {LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER}),
-    EnemyType("Fire Keese",           ACTOR_KEESE,              {0x0001}, canKillKeese,         {LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER}),
-    EnemyType("Ice Keese",            ACTOR_KEESE,              {0x0004}, canKillKeese,         {LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER}),
-    EnemyType("Tektite (Red)",        ACTOR_TEKTITE,            {0xFFFF}, canKillTektite,       {LocationType::ABOVE_GROUND}),
-    EnemyType("Tektite (Blue)",       ACTOR_TEKTITE,            {0xFFFE}, canKillTektite,       {LocationType::ABOVE_GROUND, LocationType::ABOVE_WATER}),
-    // EnemyType("Leever",               ACTOR_LEEVER,             {0x0000}, canKillLeever,        {LocationType::ABOVE_GROUND}),
-    EnemyType("Peahat",               ACTOR_PEAHAT,             {0xFFFF}, canKillPeahat,        {LocationType::ABOVE_GROUND, LocationType::ABOVE_WATER}),
-    EnemyType("Peahat Larva",         ACTOR_PEAHAT,             {0x0001}, canKillPeahatLarva,   {LocationType::ABOVE_GROUND, LocationType::ABOVE_WATER}),
-    EnemyType("Lizalfos",             ACTOR_LIZALFOS,           {0xFF80, 0xFFFF}, canKillLizalfos,      {LocationType::ABOVE_GROUND}),
-    EnemyType("Dinolfos",             ACTOR_LIZALFOS,           {0xFFFE}, canKillLizalfos,      {LocationType::ABOVE_GROUND}),
-    EnemyType("Gohma Larva",          ACTOR_GOHMA_LARVA,        {0x0007}, canKillGohmaLarva,    {LocationType::ABOVE_GROUND, LocationType::UNDERWATER}),
-    EnemyType("Shabom",               ACTOR_SHABOM,             {0x0000}, canKillShabom,        {LocationType::ABOVE_GROUND, LocationType::UNDERWATER, LocationType::ABOVE_WATER}),
-    EnemyType("Baby Dodongo",         ACTOR_BABY_DODONGO,       {0x0000}, canKillBabyDodongo,   {LocationType::ABOVE_GROUND}),
-    EnemyType("Biri",                 ACTOR_BIRI,               {0xFFFF}, canKillBiri,          {LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER}),
-    EnemyType("Tailpasaran",          ACTOR_TAILPASARAN,        {0xFFFF}, canKillTailsparan,    {LocationType::ABOVE_GROUND}),
-    EnemyType("Skulltula",            ACTOR_SKULLTULA,          {0x0000}, canKillSkulltula,     {LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER}),
-    EnemyType("Big Skulltula",        ACTOR_SKULLTULA,          {0x0001}, canKillSkulltula,     {LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER}),
-    EnemyType("Torch Slug",           ACTOR_TORCH_SLUG,         {0xFFFF}, canKillTorchSlug,     {LocationType::ABOVE_GROUND}),
-    EnemyType("Stinger (Land)",       ACTOR_STINGER_LAND,       {0x000A}, canKillStinger,       {LocationType::UNDERWATER}),
-    EnemyType("Moblin (Club)",        ACTOR_MOBLIN,             {0x0000}, canKillMoblin,        {LocationType::ABOVE_GROUND}),
-    EnemyType("Moblin (Spear)",       ACTOR_MOBLIN,             {0xFFFF}, canKillMoblin,        {LocationType::ABOVE_GROUND}),
-    EnemyType("Armos",                ACTOR_ARMOS,              {0xFFFF}, canKillArmos,         {LocationType::ABOVE_GROUND}),
-    EnemyType("Deku Baba",            ACTOR_DEKU_BABA,          {0x0000}, canKillDekuBaba,      {LocationType::ABOVE_GROUND}),
-    EnemyType("Big Deku Baba",        ACTOR_DEKU_BABA,          {0x0001}, canKillDekuBaba,      {LocationType::ABOVE_GROUND}),
-    EnemyType("Mad Scrub",            ACTOR_MAD_SCRUB,          {0x0100, 0x0300, 0x0500}, canKillScrub,         {LocationType::ABOVE_GROUND, LocationType::UNDERWATER}),
-    EnemyType("Bari",                 ACTOR_BARI,               {0xFFFF}, canKillBiri,          {LocationType::ABOVE_GROUND, LocationType::UNDERWATER}),
-    EnemyType("Blue Bubble",          ACTOR_BUBBLE,             {0xFFFF}, canKillBlueBubble,    {LocationType::ABOVE_GROUND}),
-    EnemyType("Fire Bubble",          ACTOR_BUBBLE,             {0xFFFE}, canKillBlueBubble,    {LocationType::ABOVE_GROUND}),
-    EnemyType("Flying Floor Tile",    ACTOR_FLYING_FLOOR_TILE,  {0x0000}, canKillFlyingTrap,    {LocationType::ABOVE_GROUND}),
-    EnemyType("Beamos (Big)",         ACTOR_BEAMOS,             {0x0500}, canKillBeamos,        {LocationType::ABOVE_GROUND}),
-    EnemyType("Beamos (Small)",       ACTOR_BEAMOS,             {0x0501}, canKillBeamos,        {LocationType::ABOVE_GROUND}),
-    EnemyType("Floormaster",          ACTOR_FLOORMASTER,        {0x0000}, canKillFloormaster,   {LocationType::ABOVE_GROUND}),
-    EnemyType("Redead",               ACTOR_REDEAD,             {0x7F01, 0x7F02}, canKillRedead,        {LocationType::ABOVE_GROUND}),
-    EnemyType("Gibdo",                ACTOR_REDEAD,             {0x7FFE}, canKillRedead,        {LocationType::ABOVE_GROUND}),
-    EnemyType("Dead Hand's Hand",     ACTOR_DEAD_HAND_HAND,     {0x0000}, canKillDeadHandHand,  {LocationType::ABOVE_GROUND}),
-    // EnemyType("Skullwalltula",        ACTOR_SKULLWALLTULA,      {0x0000}, canKillSkullwalltula, {LocationType::ABOVE_GROUND, LocationType::UNDERWATER}),
-    EnemyType("Flare Dancer",         ACTOR_FLARE_DANCER,       {0x0000}, canKillFlareDancer,   {LocationType::ABOVE_GROUND}),
-    EnemyType("Shell Blade",          ACTOR_SHELL_BLADE,        {0x0000}, canKillShellBlade,    {LocationType::ABOVE_GROUND, LocationType::UNDERWATER}),
-    EnemyType("Whithered Deku Baba",  ACTOR_WITHERED_DEKU_BABA, {0x0000}, canKillDekuBaba,      {LocationType::ABOVE_GROUND}),
-    EnemyType("Like Like",            ACTOR_LIKE_LIKE,          {0x0000}, canKillLikeLike,      {LocationType::ABOVE_GROUND}),
-    EnemyType("Spike",                ACTOR_SPIKE,              {0x0000}, canKillSpikeEnemy,    {LocationType::ABOVE_GROUND}),
-    EnemyType("Anubis Spawner",       ACTOR_ANUBIS_SPAWNER,     {0x0003}, canKillAnubis,        {LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID}),
-    EnemyType("Iron Knuckle (Black)", ACTOR_IRON_KNUCKLE,       {0xFF02, 0xFF03}, canKillIronKnuckle,   {LocationType::ABOVE_GROUND}),
-    EnemyType("Skull Kid",            ACTOR_SKULL_KID,          {0xFFFF}, canKillSkullKid,      {LocationType::ABOVE_GROUND}),
-    EnemyType("Flying Pot",           ACTOR_FLYING_POT,         {0x0000}, canKillFlyingTrap,    {LocationType::ABOVE_GROUND}),
-    EnemyType("Freezard",             ACTOR_FREEZARD,           {0x0000, 0xFFFF}, canKillFreezard,      {LocationType::ABOVE_GROUND}),
-    EnemyType("Stinger (Water)",      ACTOR_STINGER_WATER,      {0x0000}, canKillStinger,       {LocationType::UNDERWATER}),
-    EnemyType("Wolfos",               ACTOR_WOLFOS,             {0xFF00}, canKillWolfos,        {LocationType::ABOVE_GROUND}),
-    EnemyType("White Wolfos",         ACTOR_WOLFOS,             {0xFF01}, canKillWolfos,        {LocationType::ABOVE_GROUND}),
-    EnemyType("Stalchild",            ACTOR_STALCHILD,          {0x0000, 0x0005}, canKillStalchild,     {LocationType::ABOVE_GROUND}),
-    EnemyType("Guay",                 ACTOR_GUAY,               {0x0000}, canKillGuay,          {LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER}),
-    // EnemyType("Dark Link",            ACTOR_DARK_LINK,          {0x0000}, canKillDarkLink,      {LocationType::ABOVE_GROUND}),
-    // EnemyType("Dead Hand",            ACTOR_DEAD_HAND,          {0x0000}, canKillDeadHand,      {LocationType::ABOVE_GROUND}),
+    EnemyType("Poe", ACTOR_POE, { 0x0000 },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID }),
+    EnemyType("Stalfos", ACTOR_STALFOS, { 0x0002, 0x0003 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Octorok", ACTOR_OCTOROK, { 0x0000 },
+        { LocationType::ABOVE_WATER }),
+    EnemyType("Wallmaster", ACTOR_WALLMASTER, { 0x0000 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Dodongo", ACTOR_DODONGO, { 0x0000 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType( "Keese", ACTOR_KEESE, { 0x0002 },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
+    EnemyType( "Fire Keese", ACTOR_KEESE, { 0x0001 },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
+    EnemyType( "Ice Keese", ACTOR_KEESE, { 0x0004 },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
+    EnemyType("Tektite (Red)", ACTOR_TEKTITE, { 0xFFFF },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Tektite (Blue)", ACTOR_TEKTITE, { 0xFFFE },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_WATER }),
+    // EnemyType("Leever", ACTOR_LEEVER, {0x0000},
+    //  {LocationType::ABOVE_GROUND}),
+    EnemyType("Peahat", ACTOR_PEAHAT, { 0xFFFF },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_WATER }),
+    EnemyType("Peahat Larva", ACTOR_PEAHAT, { 0x0001 },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_WATER }),
+    EnemyType("Lizalfos", ACTOR_LIZALFOS, { 0xFF80, 0xFFFF },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Dinolfos", ACTOR_LIZALFOS, { 0xFFFE },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Gohma Larva", ACTOR_GOHMA_LARVA, { 0x0007 },
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
+    EnemyType("Shabom", ACTOR_SHABOM, { 0x0000 },
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
+    EnemyType("Baby Dodongo", ACTOR_BABY_DODONGO, { 0x0000 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType( "Biri", ACTOR_BIRI, { 0xFFFF },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
+    EnemyType("Tailpasaran", ACTOR_TAILPASARAN, { 0xFFFF },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Skulltula", ACTOR_SKULLTULA, { 0x0000 },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER }),
+    EnemyType("Big Skulltula", ACTOR_SKULLTULA, { 0x0001 },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER }),
+    EnemyType("Torch Slug", ACTOR_TORCH_SLUG, { 0xFFFF },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Stinger (Land)", ACTOR_STINGER_LAND, { 0x000A },
+        { LocationType::UNDERWATER }),
+    EnemyType("Moblin (Club)", ACTOR_MOBLIN, { 0x0000 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Moblin (Spear)", ACTOR_MOBLIN, { 0xFFFF },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Armos", ACTOR_ARMOS, { 0xFFFF },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Deku Baba", ACTOR_DEKU_BABA, { 0x0000 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Big Deku Baba", ACTOR_DEKU_BABA, { 0x0001 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Mad Scrub", ACTOR_MAD_SCRUB, { 0x0100, 0x0300, 0x0500 },
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
+    EnemyType("Bari", ACTOR_BARI, { 0xFFFF },
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
+    EnemyType("Blue Bubble", ACTOR_BUBBLE, { 0xFFFF },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Fire Bubble", ACTOR_BUBBLE, { 0xFFFE },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Flying Floor Tile", ACTOR_FLYING_FLOOR_TILE, { 0x0000 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Beamos (Big)", ACTOR_BEAMOS, { 0x0500 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Beamos (Small)", ACTOR_BEAMOS, { 0x0501 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Floormaster", ACTOR_FLOORMASTER, { 0x0000 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Redead", ACTOR_REDEAD, { 0x7F01, 0x7F02 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Gibdo", ACTOR_REDEAD, { 0x7FFE },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Dead Hand's Hand", ACTOR_DEAD_HAND_HAND, { 0x0000 },
+        { LocationType::ABOVE_GROUND }),
+    // EnemyType("Skullwalltula", ACTOR_SKULLWALLTULA, {0x0000},
+    //  {LocationType::ABOVE_GROUND, LocationType::UNDERWATER}),
+    EnemyType("Flare Dancer", ACTOR_FLARE_DANCER, { 0x0000 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Shell Blade", ACTOR_SHELL_BLADE, { 0x0000 },
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
+    EnemyType("Whithered Deku Baba", ACTOR_WITHERED_DEKU_BABA, { 0x0000 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Like Like", ACTOR_LIKE_LIKE, { 0x0000 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Spike", ACTOR_SPIKE, { 0x0000 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Anubis Spawner", ACTOR_ANUBIS_SPAWNER, { 0x0003 },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID }),
+    EnemyType("Iron Knuckle (Black)", ACTOR_IRON_KNUCKLE, { 0xFF02, 0xFF03 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Skull Kid", ACTOR_SKULL_KID, { 0xFFFF },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Flying Pot", ACTOR_FLYING_POT, { 0x0000 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Freezard", ACTOR_FREEZARD, { 0x0000, 0xFFFF },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Stinger (Water)", ACTOR_STINGER_WATER, { 0x0000 },
+        { LocationType::UNDERWATER }),
+    EnemyType("Wolfos", ACTOR_WOLFOS, { 0xFF00 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("White Wolfos", ACTOR_WOLFOS, { 0xFF01 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Stalchild", ACTOR_STALCHILD, { 0x0000, 0x0005 },
+        { LocationType::ABOVE_GROUND }),
+    EnemyType("Guay", ACTOR_GUAY, { 0x0000 },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
+    // EnemyType("Dark Link", ACTOR_DARK_LINK, {0x0000},
+    //  {LocationType::ABOVE_GROUND}),
+    // EnemyType("Dead Hand", ACTOR_DEAD_HAND, {0x0000},
+    //  {LocationType::ABOVE_GROUND}),
 };
 // clang-format on
 

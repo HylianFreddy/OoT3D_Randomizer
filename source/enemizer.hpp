@@ -22,9 +22,9 @@ enum class EnemyRequirement {
 class EnemyType {
   public:
     EnemyType() = default;
-    EnemyType(std::string _name, u16 _actorId, std::vector<u16> _possibleParams, ConditionFn _killLogic,
+    EnemyType(std::string _name, u16 _actorId, std::vector<u16> _possibleParams,
               std::vector<LocationType> _validLocationTypes)
-        : name(std::move(_name)), actorId(_actorId), possibleParams(_possibleParams), killLogic(std::move(_killLogic)),
+        : name(std::move(_name)), actorId(_actorId), possibleParams(_possibleParams),
           validLocationTypes(std::move(_validLocationTypes)) {
     }
 
@@ -34,7 +34,7 @@ class EnemyType {
                                      // that don't change the gameplay or the logic (e.g. stalfos falling
                                      // from above or popping out of the ground).
     // std::string filter_func;
-    ConditionFn killLogic;
+    // ConditionFn killLogic;
     std::vector<LocationType> validLocationTypes;
     // std::vector<LocationType> acceptableLocationConditions;
     // std::vector<LocationType> requiredLocationConditions;
