@@ -2399,3 +2399,8 @@ GetObjectEntry_EnDekunutsInit_patch:
 .global GetObjectEntry_EnNutsballInit_patch
 GetObjectEntry_EnNutsballInit_patch:
     bl hook_GetObjectEntry_Generic
+
+.section .patch_AltHeadersCommand
+.global AltHeadersCommand_patch
+AltHeadersCommand_patch:
+    bl hook_AltHeadersCommand

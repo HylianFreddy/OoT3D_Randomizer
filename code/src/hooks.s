@@ -2226,3 +2226,12 @@ hook_SceneCommandActorEntryList:
     bl ActorEntriesTest
     pop {r0-r12, lr}
     bx lr
+
+.global hook_AltHeadersCommand
+hook_AltHeadersCommand:
+    add r2,r7,r1
+    push {r0-r12, lr}
+    cpy r0,r2 @ alt headers pointers list
+    bl Scene_GetLoadedLayer
+    pop {r0-r12, lr}
+    bx lr

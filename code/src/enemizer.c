@@ -4,6 +4,7 @@
 #include "savefile.h"
 #include "actor_id.h"
 #include "settings.h"
+#include "scene.h"
 #include <stddef.h>
 
 static EnemyOverride rEnemyOverrides[700];
@@ -131,11 +132,10 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
         return;
     }
 
-    CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, gSaveContext.sceneLayer, gGlobalContext->roomNum,
-               actorEntryIndex);
+    CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
 
-    EnemyOverride enemyOverride = Enemizer_FindOverride(gGlobalContext->sceneNum, gSaveContext.sceneLayer,
-                                                        gGlobalContext->roomNum, actorEntryIndex);
+    EnemyOverride enemyOverride =
+        Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
 
     // Do nothing if the override doesn't exist or is the same as the vanilla location.
     if (enemyOverride.actorId == 0 ||
@@ -192,7 +192,7 @@ static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
     };
 
     // Ground height below actor.
-    yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
+    yGroundIntersect        = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
     SurfaceType surfaceType = gGlobalContext->colCtx.stat.colHeader->surfaceTypeList[floorPoly.type];
     isAboveVoid             = (SurfaceType_GetFloorProperty(surfaceType) == 0xC);
     // If there is a water box, set yWaterSurface.

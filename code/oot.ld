@@ -1080,6 +1080,10 @@ SECTIONS
 		*(.patch_NoLensOfTruthNaviText)
 	}
 
+	.patch_AltHeadersCommand 0x379020 : {
+		*(.patch_AltHeadersCommand)
+	}
+
 	.patch_FrogRewardPurple 0x3898F0 : {
 		*(.patch_FrogRewardPurple)
 	}

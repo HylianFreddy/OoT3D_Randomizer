@@ -16,6 +16,7 @@
 #include "ocarina_notes.h"
 #include "objects.h"
 #include "enemizer.h"
+#include "scene.h"
 
 #include "z3D/z3D.h"
 #include "3ds/extdata.h"
@@ -48,6 +49,7 @@ void before_Play_Init(GlobalContext* globalCtx) {
         rRandomizerInit = 1;
     }
     gGlobalContext = globalCtx;
+    rSceneLayer = 0;
 }
 
 void autoLoadSaveFile();
