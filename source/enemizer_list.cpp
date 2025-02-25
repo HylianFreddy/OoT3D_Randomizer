@@ -314,11 +314,11 @@ void EnemyLocations_Init(void) {
     enemyLocations[96][0][0][10] = EnemyLocation(ACTOR_TEKTITE, LocationType::ABOVE_GROUND);
     enemyLocations[96][0][0][11] = EnemyLocation(ACTOR_TEKTITE, LocationType::ABOVE_GROUND);
     enemyLocations[96][0][0][12] = EnemyLocation(ACTOR_TEKTITE, LocationType::ABOVE_GROUND);
-    enemyLocations[97][2][1][8]  = EnemyLocation(ACTOR_BUBBLE, LocationType::ABOVE_GROUND);
-    enemyLocations[97][2][1][9]  = EnemyLocation(ACTOR_BUBBLE, LocationType::ABOVE_GROUND);
-    enemyLocations[97][2][1][10] = EnemyLocation(ACTOR_BUBBLE, LocationType::ABOVE_GROUND);
-    enemyLocations[97][2][1][11] = EnemyLocation(ACTOR_BUBBLE, LocationType::ABOVE_GROUND);
-    enemyLocations[97][2][1][12] = EnemyLocation(ACTOR_BUBBLE, LocationType::ABOVE_GROUND);
+    enemyLocations[97][2][1][8]  = EnemyLocation(ACTOR_BUBBLE, LocationType::ABOVE_VOID);
+    enemyLocations[97][2][1][9]  = EnemyLocation(ACTOR_BUBBLE, LocationType::ABOVE_VOID);
+    enemyLocations[97][2][1][10] = EnemyLocation(ACTOR_BUBBLE, LocationType::ABOVE_VOID);
+    enemyLocations[97][2][1][11] = EnemyLocation(ACTOR_BUBBLE, LocationType::ABOVE_VOID);
+    enemyLocations[97][2][1][12] = EnemyLocation(ACTOR_BUBBLE, LocationType::ABOVE_VOID);
     enemyLocations[99][1][0][10] = EnemyLocation(ACTOR_GUAY, LocationType::ABOVE_GROUND);
     enemyLocations[99][1][0][11] = EnemyLocation(ACTOR_GUAY, LocationType::ABOVE_GROUND);
     enemyLocations[99][1][0][12] = EnemyLocation(ACTOR_GUAY, LocationType::ABOVE_GROUND);
