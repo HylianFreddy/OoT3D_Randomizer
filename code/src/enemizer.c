@@ -9,8 +9,11 @@
 static EnemyOverride rEnemyOverrides[700];
 static s32 rEnemyOverrides_Count = 0;
 
+static EnemyOverride Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actorEntry);
+static void Enemizer_AdjustPosition(ActorEntry* actorEntry);
+
 // Enemies that need to spawn at ground level to work properly.
-EnemyParams groundedEnemies[] = {
+static EnemyParams sGroundedEnemies[] = {
     { .actorId = ACTOR_DODONGO, .params = 0x0000 },
     { .actorId = ACTOR_PEAHAT, .params = 0xFFFF },
     { .actorId = ACTOR_GOHMA_LARVA, .params = 0x0007 },
@@ -33,7 +36,7 @@ EnemyParams groundedEnemies[] = {
 };
 
 // clang-format off
-static EnemyData sEnemyData[] = {
+EnemyData sEnemyData[] = {
     { .actorId = 0x00D, .params = 0x0000, .requirements = REQ_ABOVE_GROUND | REQ_FLYING }, // Poe
     { .actorId = 0x00E, .params = 0x0000, .requirements = REQ_WATER_SURFACE }, // Octorok [requires water and snaps to surface]
     { .actorId = 0x011, .params = 0x0000, .requirements = REQ_FLYING }, // Wallmaster
@@ -121,25 +124,6 @@ void Enemizer_Init(void) {
     }
 }
 
-EnemyOverride Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actorEntry) {
-    s32 key = (scene << 24) | (layer << 16) | (room << 8) | actorEntry;
-
-    s32 start = 0;
-    s32 end   = rEnemyOverrides_Count - 1;
-    while (start <= end) {
-        s32 midIdx           = (start + end) / 2;
-        EnemyOverride midOvr = rEnemyOverrides[midIdx];
-        if (key < midOvr.key) {
-            end = midIdx - 1;
-        } else if (key > midOvr.key) {
-            start = midIdx + 1;
-        } else {
-            return midOvr;
-        }
-    }
-    return (EnemyOverride){ 0 };
-}
-
 void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     if (gExtSaveData.option_Enemizer == OFF) {
         return;
@@ -160,45 +144,7 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     actorEntry->id     = enemyOverride.actorId;
     actorEntry->params = enemyOverride.params;
 
-    // Get information about spawn point
-    f32 yGroundIntersect = 0.0;
-    CollisionPoly floorPoly;
-    s32 isWater       = FALSE;
-    f32 yWaterSurface = 0.0;
-    void* waterBox;
-    Vec3f actorPos = (Vec3f){
-        .x = actorEntry->pos.x,
-        .y = actorEntry->pos.y + 10,
-        .z = actorEntry->pos.z,
-    };
-
-    yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
-    isWater = WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z, &yWaterSurface,
-                                      &waterBox);
-
-    // Adjust position for certain enemies.
-    if (actorEntry->id == ACTOR_OCTOROK && isWater) {
-        actorEntry->pos.y = yWaterSurface;
-    } else if (actorEntry->id == ACTOR_SKULLTULA || actorEntry->id == ACTOR_BARI ||
-               (actorEntry->id == ACTOR_PEAHAT && actorEntry->params == 0x0001)) {
-        Vec3f upperPos = (Vec3f){
-            .x = actorEntry->pos.x,
-            .y = actorEntry->pos.y + 200,
-            .z = actorEntry->pos.z,
-        };
-        f32 yUpperGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &upperPos);
-        if (ABS(yUpperGroundIntersect - yGroundIntersect) < 50) {
-            actorEntry->pos.y = upperPos.y;
-        } else {
-            actorEntry->pos.y = yUpperGroundIntersect - 50;
-        }
-    } else {
-        for (u32 i = 0; i < ARRAY_SIZE(groundedEnemies); i++) {
-            if (actorEntry->id == groundedEnemies[i].actorId && actorEntry->params == groundedEnemies[i].params) {
-                actorEntry->pos.y = yGroundIntersect;
-            }
-        }
-    }
+    Enemizer_AdjustPosition(actorEntry);
 
     // Spawn necessary objects
     Object_FindEntryOrSpawn(gActorOverlayTable[actorEntry->id].initInfo->objectId);
@@ -206,6 +152,83 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyObjectDeps); i++) {
         if (actorEntry->id == sEnemyObjectDeps[i].actorId) {
             Object_FindEntryOrSpawn(sEnemyObjectDeps[i].objectId);
+        }
+    }
+}
+
+static EnemyOverride Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actorEntry) {
+    s32 key   = (scene << 24) | (layer << 16) | (room << 8) | actorEntry;
+    s32 start = 0;
+    s32 end   = rEnemyOverrides_Count - 1;
+    while (start <= end) {
+        s32 midIdx           = (start + end) / 2;
+        EnemyOverride midOvr = rEnemyOverrides[midIdx];
+        if (key < midOvr.key) {
+            end = midIdx - 1;
+        } else if (key > midOvr.key) {
+            start = midIdx + 1;
+        } else {
+            return midOvr;
+        }
+    }
+    return (EnemyOverride){ 0 };
+}
+
+static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
+    f32 yGroundIntersect;
+    f32 yUpperGroundIntersect;
+    f32 yOffGroundPos;
+    s32 waterBoxFound;
+    f32 yWaterSurface;
+    CollisionPoly floorPoly;
+    void* waterBox;
+    Vec3f actorPos = (Vec3f){
+        .x = actorEntry->pos.x,
+        .y = actorEntry->pos.y + 10,
+        .z = actorEntry->pos.z,
+    };
+
+    // Ground height below actor.
+    yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
+    // If there is a water box, set yWaterSurface.
+    waterBoxFound = WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z,
+                                            &yWaterSurface, &waterBox);
+    // Ignore water boxes below the ground.
+    if (waterBoxFound && yWaterSurface < yGroundIntersect) {
+        waterBoxFound = FALSE;
+    }
+
+    Vec3f upperPos = (Vec3f){
+        .x = actorEntry->pos.x,
+        .y = yGroundIntersect + 200,
+        .z = actorEntry->pos.z,
+    };
+    yUpperGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &upperPos);
+    // Potential mid-air position to spawn the actor off the ground if needed.
+    yOffGroundPos = ABS(yUpperGroundIntersect - yGroundIntersect) < 50 ? upperPos.y : yUpperGroundIntersect - 50;
+
+    // Adjust position for certain enemies.
+    if (actorEntry->id == ACTOR_OCTOROK && waterBoxFound) {
+        // Always at water surface
+        actorEntry->pos.y = yWaterSurface;
+    } else if (actorEntry->id == ACTOR_SKULLTULA) {
+        // Off the ground or at water surface
+        if (!waterBoxFound) {
+            actorEntry->pos.y = yOffGroundPos;
+        } else if (actorEntry->pos.y > yWaterSurface) {
+            actorEntry->pos.y = yWaterSurface + 50;
+        }
+    } else if (actorEntry->id == ACTOR_BARI || (actorEntry->id == ACTOR_PEAHAT && actorEntry->params == 0x0001)) {
+        // Off the ground or even higher
+        if (yOffGroundPos > actorEntry->pos.y) {
+            actorEntry->pos.y = yOffGroundPos;
+        }
+    } else {
+        // Snap enemy to the ground if needed
+        for (u32 i = 0; i < ARRAY_SIZE(sGroundedEnemies); i++) {
+            if (actorEntry->id == sGroundedEnemies[i].actorId && actorEntry->params == sGroundedEnemies[i].params) {
+                actorEntry->pos.y = yGroundIntersect;
+            }
         }
     }
 }
