@@ -121,23 +121,23 @@ void Enemizer_Init(void) {
     }
 }
 
-EnemyOverride* Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actorEntry) {
+EnemyOverride Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actorEntry) {
     s32 key = (scene << 24) | (layer << 16) | (room << 8) | actorEntry;
 
     s32 start = 0;
     s32 end   = rEnemyOverrides_Count - 1;
     while (start <= end) {
-        s32 midIdx            = (start + end) / 2;
-        EnemyOverride* midOvr = &rEnemyOverrides[midIdx];
-        if (key < midOvr->key) {
+        s32 midIdx           = (start + end) / 2;
+        EnemyOverride midOvr = rEnemyOverrides[midIdx];
+        if (key < midOvr.key) {
             end = midIdx - 1;
-        } else if (key > midOvr->key) {
+        } else if (key > midOvr.key) {
             start = midIdx + 1;
         } else {
             return midOvr;
         }
     }
-    return NULL;
+    return (EnemyOverride){ 0 };
 }
 
 void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
@@ -148,17 +148,17 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, gSaveContext.sceneLayer, gGlobalContext->roomNum,
                actorEntryIndex);
 
-    EnemyOverride* enemyOverride = Enemizer_FindOverride(gGlobalContext->sceneNum, gSaveContext.sceneLayer,
-                                                         gGlobalContext->roomNum, actorEntryIndex);
+    EnemyOverride enemyOverride = Enemizer_FindOverride(gGlobalContext->sceneNum, gSaveContext.sceneLayer,
+                                                        gGlobalContext->roomNum, actorEntryIndex);
 
     // Do nothing if the override doesn't exist or is the same as the vanilla location.
-    if (enemyOverride == NULL ||
-        (enemyOverride->actorId == actorEntry->id && enemyOverride->params == actorEntry->params)) {
+    if (enemyOverride.actorId == 0 ||
+        (enemyOverride.actorId == actorEntry->id && enemyOverride.params == actorEntry->params)) {
         return;
     }
 
-    actorEntry->id     = enemyOverride->actorId;
-    actorEntry->params = enemyOverride->params;
+    actorEntry->id     = enemyOverride.actorId;
+    actorEntry->params = enemyOverride.params;
 
     // Get information about spawn point
     f32 yGroundIntersect = 0.0;
@@ -172,7 +172,7 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
         .z = actorEntry->pos.z,
     };
 
-    yGroundIntersect        = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
+    yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
     isWater = WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z, &yWaterSurface,
                                       &waterBox);
 
