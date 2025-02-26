@@ -224,7 +224,7 @@ static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
             actorEntry->pos.y = yWaterSurface + 50;
         }
     } else if (actorEntry->id == ACTOR_BARI || (actorEntry->id == ACTOR_PEAHAT && actorEntry->params == 0x0001)) {
-        // Off the ground or even higher
+        // Off the ground (or original position if higher)
         if (yOffGroundPos > actorEntry->pos.y) {
             actorEntry->pos.y = yOffGroundPos;
         }
@@ -236,4 +236,8 @@ static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
             }
         }
     }
+
+    // Clear X and Z rotation to spawn all enemies upright
+    actorEntry->rot.x = 0;
+    actorEntry->rot.z = 0;
 }
