@@ -2244,3 +2244,26 @@ hook_GohmaLarvaDeath:
     cmp r1,#0x0
     addeq lr,lr,#0x10
     bx lr
+
+.global hook_StalchildDespawn_13DB68
+hook_StalchildDespawn_13DB68:
+    push {r0-r12, lr}
+    cpy r0,r4 @ actor
+    bl Enemizer_CanStalchildDespawn
+    cmp r0,#0x1
+    pop {r0-r12, lr}
+    addne lr,lr,#0x10 @ skip other checks, don't despawn
+    bxne lr
+    cmp r0,r1 @ base game code
+    bx lr
+
+.global hook_StalchildDespawn_366338
+hook_StalchildDespawn_366338:
+    cmp r0,#0x0
+    bxne lr @ doesn't despawn
+    push {r0-r12, lr}
+    cpy r0,r4 @ actor
+    bl Enemizer_CanStalchildDespawn
+    cmp r0,#0x1
+    pop {r0-r12, lr}
+    bx lr

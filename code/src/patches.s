@@ -2409,3 +2409,13 @@ AltHeadersCommand_patch:
 .global GohmaLarvaDeath_patch
 GohmaLarvaDeath_patch:
     bl hook_GohmaLarvaDeath
+
+.section .patch_StalchildDespawn_13DB68
+.global StalchildDespawn_13DB68_patch
+StalchildDespawn_13DB68_patch:
+    bl hook_StalchildDespawn_13DB68
+
+.section .patch_StalchildDespawn_366338
+.global StalchildDespawn_366338_patch
+StalchildDespawn_366338_patch:
+    bl hook_StalchildDespawn_366338

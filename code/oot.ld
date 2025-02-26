@@ -100,6 +100,10 @@ SECTIONS
 		*(.patch_KingZoraDontStartTimer)
 	}
 
+	.patch_StalchildDespawn_13DB68 0x13DB68 : {
+		*(.patch_StalchildDespawn_13DB68)
+	}
+
 	.patch_SongOfStormsLocation 0x1427E0 : {
 		*(.patch_SongOfStormsLocation)
 	}
@@ -1002,6 +1006,10 @@ SECTIONS
 
 	.patch_ExtendObjectGetSlot 0x363CB4 : {
 		*(.patch_ExtendObjectGetSlot)
+	}
+
+	.patch_StalchildDespawn_366338 0x366338 : {
+		*(.patch_StalchildDespawn_366338)
 	}
 
 	.patch_GetObjectEntry_36A96C 0x36A96C : {

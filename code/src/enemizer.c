@@ -17,6 +17,7 @@ static void Enemizer_AdjustPosition(ActorEntry* actorEntry);
 
 // Enemies that need to spawn at ground level to work properly.
 static EnemyParams sGroundedEnemies[] = {
+    { .actorId = ACTOR_STALFOS, .params = 0x0002 },
     { .actorId = ACTOR_DODONGO, .params = 0x0000 },
     { .actorId = ACTOR_PEAHAT, .params = 0xFFFF },
     { .actorId = ACTOR_GOHMA_LARVA, .params = 0x0007 },
@@ -34,10 +35,11 @@ static EnemyParams sGroundedEnemies[] = {
     { .actorId = ACTOR_BEAMOS, .params = 0x0500 },
     { .actorId = ACTOR_REDEAD, .params = 0x7F01 },
     { .actorId = ACTOR_REDEAD, .params = 0x7FFE },
+    { .actorId = ACTOR_DEAD_HAND_HAND, .params = 0x0000 },
     { .actorId = ACTOR_WITHERED_DEKU_BABA, .params = 0x0000 },
     { .actorId = ACTOR_FLYING_POT, .params = 0x000 },
-    { .actorId = ACTOR_STALFOS, .params = 0x0002 },
-    { .actorId = ACTOR_DEAD_HAND_HAND, .params = 0x0000 },
+    { .actorId = ACTOR_STALCHILD, .params = 0x0000 },
+    { .actorId = ACTOR_STALCHILD, .params = 0x0005 },
 };
 
 // clang-format off
@@ -134,10 +136,17 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
         return;
     }
 
-    CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
+    // CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
 
     EnemyOverride enemyOverride =
         Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
+
+    if (actorEntry->id == ACTOR_DEKU_BABA || actorEntry->id == ACTOR_MAD_SCRUB || actorEntry->id == ACTOR_OCTOROK ||
+        actorEntry->id == ACTOR_SKULLTULA || actorEntry->id == ACTOR_WOLFOS || actorEntry->id == ACTOR_KEESE ||
+        actorEntry->id == ACTOR_LIZALFOS) {
+        enemyOverride.actorId = ACTOR_STALCHILD;
+        enemyOverride.params  = 0x0005;
+    }
 
     // Do nothing if the override doesn't exist or is the same as the vanilla location.
     if (enemyOverride.actorId == 0 ||
@@ -325,4 +334,8 @@ void Enemizer_Update(void) {
     }
 
     Enemizer_RoomLoadSignal = FALSE;
+}
+
+s32 Enemizer_CanStalchildDespawn(Actor* stalchild) {
+    return gSettingsContext.enemizer == OFF || stalchild->parent != NULL;
 }
