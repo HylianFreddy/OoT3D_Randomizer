@@ -5,6 +5,8 @@
 #include "custom_models.h"
 #include "3ds/svc.h"
 #include "oot_malloc.h"
+#include "enemizer.h"
+
 #include <stddef.h>
 
 /* TODO:
@@ -62,6 +64,7 @@ void ExtendedObject_AfterObjectListCommand(void) {
         Actor_KillAllWithMissingObject(gGlobalContext, &gGlobalContext->actorCtx);
         Model_DestroyAll();
     }
+    Enemizer_RoomLoadSignal = TRUE;
 }
 
 s32 ExtendedObject_GetSlot(s16 objectId) {

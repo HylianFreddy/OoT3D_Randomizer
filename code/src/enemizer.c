@@ -10,6 +10,8 @@
 static EnemyOverride rEnemyOverrides[700];
 static s32 rEnemyOverrides_Count = 0;
 
+u8 Enemizer_RoomLoadSignal = FALSE;
+
 static EnemyOverride Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actorEntry);
 static void Enemizer_AdjustPosition(ActorEntry* actorEntry);
 
@@ -240,4 +242,87 @@ static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
     // Clear X and Z rotation to spawn all enemies upright
     actorEntry->rot.x = 0;
     actorEntry->rot.z = 0;
+}
+
+// Run special checks for certain enemies
+void Enemizer_Update(void) {
+    static Actor *sSFMWolfos, *sLizalfos1, *sLizalfos2;
+    static u8 sDefeated1, sDefeated2;
+
+    if (gSettingsContext.enemizer == OFF) {
+        return;
+    }
+
+    if (Enemizer_RoomLoadSignal) {
+        sSFMWolfos = sLizalfos1 = sLizalfos2 = NULL;
+        sDefeated1 = sDefeated2 = FALSE;
+    }
+
+    if (gGlobalContext->sceneNum == 86) {
+        // Sacred Forest Meadow: open the gate when the enemy is defeated.
+        if (Enemizer_RoomLoadSignal) {
+            Actor* enemy = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
+            while (enemy != NULL) {
+                if (enemy->world.pos.z > 1600.0) {
+                    sSFMWolfos = enemy;
+                    break;
+                }
+                enemy = enemy->next;
+            }
+            if (Flags_GetSwitch(gGlobalContext, 0x1F) && sSFMWolfos != NULL) {
+                Actor_Kill(sSFMWolfos);
+                sSFMWolfos = NULL;
+            }
+        }
+        if (sSFMWolfos != NULL && sSFMWolfos->update == NULL && sSFMWolfos->draw == NULL) {
+            Flags_SetSwitch(gGlobalContext, 0x1F);
+            sSFMWolfos = NULL;
+        }
+    } else if (gGlobalContext->sceneNum == 1 && gGlobalContext->roomNum == 3) {
+        // Dodongo's Cavern miniboss room: open the correct doors when the enemies are defeated.
+        if (Enemizer_RoomLoadSignal) {
+            Actor* enemy = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
+            while (enemy != NULL) {
+                if (enemy->room == 0x3) {
+                    if (enemy->world.pos.y < 200.0) {
+                        if (Flags_GetSwitch(gGlobalContext, 5)) {
+                            Actor_Kill(enemy);
+                        } else if (sLizalfos1 == NULL) {
+                            sLizalfos1 = enemy;
+                        } else {
+                            sLizalfos2 = enemy;
+                        }
+                    } else {
+                        if (Flags_GetSwitch(gGlobalContext, 6) || !Flags_GetSwitch(gGlobalContext, 5) ||
+                            PLAYER->actor.world.pos.y < 200.0) {
+                            Actor_Kill(enemy);
+                        } else if (sLizalfos1 == NULL) {
+                            sLizalfos1 = enemy;
+                        } else {
+                            sLizalfos2 = enemy;
+                        }
+                    }
+                }
+                enemy = enemy->next;
+            }
+        }
+
+        if (sLizalfos1 != NULL && sLizalfos1->update == NULL && sLizalfos1->draw == NULL) {
+            sDefeated1 = TRUE;
+            sLizalfos1 = NULL;
+        }
+
+        if (sLizalfos2 != NULL && sLizalfos2->update == NULL && sLizalfos2->draw == NULL) {
+            sDefeated2 = TRUE;
+            sLizalfos2 = NULL;
+        }
+
+        if (sDefeated1 && sDefeated2) {
+            u32 flag = Flags_GetSwitch(gGlobalContext, 5) ? 6 : 5;
+            Flags_SetSwitch(gGlobalContext, flag);
+            sDefeated1 = sDefeated2 = FALSE;
+        }
+    }
+
+    Enemizer_RoomLoadSignal = FALSE;
 }

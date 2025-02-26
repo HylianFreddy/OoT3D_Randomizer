@@ -50,7 +50,10 @@ typedef struct EnemyParams {
     u16 params;
 } EnemyParams;
 
+extern u8 Enemizer_RoomLoadSignal;
+
 void Enemizer_Init(void);
 void Enemizer_OverrideActorEntry(ActorEntry* entry, s32 actorEntryIndex);
+void Enemizer_Update(void);
 
 #endif // _ENEMIZER_H_

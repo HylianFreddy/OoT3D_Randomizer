@@ -43,6 +43,7 @@ void Randomizer_Init() {
 }
 
 void before_Play_Init(GlobalContext* globalCtx) {
+    CitraPrint("________________");
     CitraPrint("before_Play_Init");
     if (!rRandomizerInit) {
         Randomizer_Init();
@@ -67,6 +68,7 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
     Multiplayer_Run();
     ItemEffect_RupeeAmmo(&gSaveContext);
     Triforce_HandleCreditsWarp();
+    Enemizer_Update();
 
     // if (rInputCtx.pressed.zr) {
     //     Vec3f pos = PLAYER->actor.world.pos;
