@@ -337,7 +337,3 @@ void Enemizer_Update(void) {
 
     Enemizer_RoomLoadSignal = FALSE;
 }
-
-s32 Enemizer_CanStalchildDespawn(Actor* stalchild) {
-    return gSettingsContext.enemizer == OFF || stalchild->parent != NULL;
-}

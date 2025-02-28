@@ -2249,7 +2249,7 @@ hook_GohmaLarvaDeath:
 hook_StalchildDespawn_13DB68:
     push {r0-r12, lr}
     cpy r0,r4 @ actor
-    bl Enemizer_CanStalchildDespawn
+    bl Stalchild_CanDespawn
     cmp r0,#0x1
     pop {r0-r12, lr}
     addne lr,lr,#0x10 @ skip other checks, don't despawn
@@ -2263,7 +2263,7 @@ hook_StalchildDespawn_366338:
     bxne lr @ doesn't despawn
     push {r0-r12, lr}
     cpy r0,r4 @ actor
-    bl Enemizer_CanStalchildDespawn
+    bl Stalchild_CanDespawn
     cmp r0,#0x1
     pop {r0-r12, lr}
     bx lr
