@@ -182,6 +182,11 @@ void EnSw_rInit(Actor* thisx, GlobalContext* globalCtx) {
             }
         }
     }
+
+    if (gSettingsContext.enemizer == ON && thisx->params == 0) {
+        // Randomized Skullwalltulas will appear flat on the ground.
+        thisx->shape.rot.x = 0xC000;
+    }
 }
 
 void EnSw_rUpdate(Actor* thisx, GlobalContext* globalCtx) {

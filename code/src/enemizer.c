@@ -36,6 +36,7 @@ static EnemyParams sGroundedEnemies[] = {
     { .actorId = ACTOR_REDEAD, .params = 0x7F01 },
     { .actorId = ACTOR_REDEAD, .params = 0x7FFE },
     { .actorId = ACTOR_DEAD_HAND_HAND, .params = 0x0000 },
+    { .actorId = ACTOR_SKULLWALLTULA, .params = 0x0000 },
     { .actorId = ACTOR_WITHERED_DEKU_BABA, .params = 0x0000 },
     { .actorId = ACTOR_FLYING_POT, .params = 0x000 },
     { .actorId = ACTOR_STALCHILD, .params = 0x0000 },
@@ -111,7 +112,7 @@ EnemyData sEnemyData[] = {
     { .actorId = 0x113, .params = 0xFF03, .requirements = REQ_ABOVE_GROUND | REQ_NO_WATER }, //  Iron Knuckle (white)
     // { .actorId = 0x197, .params = 0x0000, .requirements = 0 }, // Gerudo Fighter [weird flag isues, only one spawns]
 
-    // { .actorId = 0x095, .params = 0x0000, .requirements = 0 }, // Skullwalltula
+    { .actorId = 0x095, .params = 0x0000, .requirements = 0 }, // Skullwalltula
     // { .actorId = 0x0DE, .params = 0x0000, .requirements = 0 }, // Parasitic Tentacle
 };
 
@@ -141,16 +142,17 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     EnemyOverride enemyOverride =
         Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
 
-    if (actorEntry->id == ACTOR_DEKU_BABA || actorEntry->id == ACTOR_MAD_SCRUB || actorEntry->id == ACTOR_OCTOROK ||
-        actorEntry->id == ACTOR_SKULLTULA || actorEntry->id == ACTOR_WOLFOS || actorEntry->id == ACTOR_KEESE ||
-        actorEntry->id == ACTOR_LIZALFOS) {
-        enemyOverride.actorId = ACTOR_STALCHILD;
-        enemyOverride.params  = 0x0005;
+    // Mock
+    for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
+        if (actorEntry->id == sEnemyData[i].actorId) {
+            enemyOverride.actorId = ACTOR_SKULLWALLTULA;
+            enemyOverride.params  = 0x0000;
+            break;
+        }
     }
 
-    // Do nothing if the override doesn't exist or is the same as the vanilla location.
-    if (enemyOverride.actorId == 0 ||
-        (enemyOverride.actorId == actorEntry->id && enemyOverride.params == actorEntry->params)) {
+    // Do nothing if the override doesn't exist
+    if (enemyOverride.actorId == 0) {
         return;
     }
 
@@ -198,7 +200,7 @@ static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
     void* waterBox;
     Vec3f actorPos = (Vec3f){
         .x = actorEntry->pos.x,
-        .y = actorEntry->pos.y + 10,
+        .y = actorEntry->pos.y + 50,
         .z = actorEntry->pos.z,
     };
 
