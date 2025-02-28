@@ -341,3 +341,24 @@ void Enemizer_Update(void) {
 s32 Enemizer_CanStalchildDespawn(Actor* stalchild) {
     return gSettingsContext.enemizer == OFF || stalchild->parent != NULL;
 }
+
+#include "actors/skulltula.h"
+s32 Enemizer_SkullwalltulaShouldAttack(EnSw* walltula) {
+    // CitraPrint("wallYaw %X", walltula->wallYaw);
+    // walltula->wallYaw = 0;
+    // walltula->targetRot = walltula->base.yawTowardsPlayer;
+    // CitraPrint("walltula yawTowardsPlayer %X", walltula->base.yawTowardsPlayer);
+    // CitraPrint("walltula rot z %X", walltula->base.shape.rot.z);
+    return gSettingsContext.enemizer == ON &&
+        ABS(walltula->base.yawTowardsPlayer - walltula->base.shape.rot.z) < 0x4000 &&
+        walltula->base.xzDistToPlayer < 100.0
+        ;
+}
+
+s16 SkullwalltulaAttack_35F828(s16 orig, EnSw* walltula) {
+    if (gSettingsContext.enemizer == OFF) {
+        return orig;
+    }
+    walltula->targetPos.y = PLAYER->actor.world.pos.y;
+    return walltula->base.yawTowardsPlayer;
+}

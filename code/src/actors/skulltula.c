@@ -208,6 +208,9 @@ void EnSw_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         thisx->world.rot.z = 0;
     }
 
+    if (gSettingsContext.enemizer == ON) {
+        thisx->shape.rot.y = 0;
+    }
     EnSw_Update(thisx, globalCtx);
 
     if (prev_action_fn != this->action_fn && this->action_fn == EnSw_GoldSkulltulaDeath) {

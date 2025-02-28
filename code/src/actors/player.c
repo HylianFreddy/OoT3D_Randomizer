@@ -105,6 +105,8 @@ void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     Player* this = (Player*)thisx;
     PlayerActor_Update(thisx, globalCtx);
 
+    gSaveContext.health = 0x30;
+
     // Restore Randomizer draw function in case something (like Farore's Wind) overwrote it
     if (thisx->draw == PlayerActor_Draw) {
         thisx->draw = PlayerActor_rDraw;
