@@ -1000,8 +1000,8 @@ SECTIONS
 		*(.patch_SkullwalltulaAttack_35F328)
 	}
 
-	.patch_SkullwalltulaAttack_35F828 0x35F828 : {
-		*(.patch_SkullwalltulaAttack_35F828)
+	.patch_SkullwalltulaTargetRotation 0x35F828 : {
+		*(.patch_SkullwalltulaTargetRotation)
 	}
 
 	.patch_SkullwalltulaAttack_35F834 0x35F834 : {

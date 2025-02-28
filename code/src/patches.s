@@ -2430,7 +2430,7 @@ SkullwalltulaAttack_35F834_patch:
 SkullwalltulaAttack_35F328_patch:
     bl hook_SkullwalltulaAttack_35F328
 
-.section .patch_SkullwalltulaAttack_35F828
-.global SkullwalltulaAttack_35F828_patch
-SkullwalltulaAttack_35F828_patch:
-    bl hook_SkullwalltulaAttack_35F828
+.section .patch_SkullwalltulaTargetRotation
+.global SkullwalltulaTargetRotation_patch
+SkullwalltulaTargetRotation_patch:
+    bl hook_SkullwalltulaTargetRotation

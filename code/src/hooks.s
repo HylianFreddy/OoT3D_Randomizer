@@ -2271,23 +2271,15 @@ hook_StalchildDespawn_366338:
 .global hook_SkullwalltulaAttack_35F834
 hook_SkullwalltulaAttack_35F834:
     cpy r5,r0
-    push {r0-r12, lr}
-    @ r0 = actor
-    bl Enemizer_SkullwalltulaShouldAttack
-    cmp r0,#0x0
-    pop {r0-r12, lr}
-    bxlt lr @ proceed with vanilla checks
-    movne r0,#0x1 @ attack
-    moveq r0,#0x0 @ don't attack
-    pop {r4-r7,pc} @ return and skip vanilla checks
-
+    b SkullwalltulaAttack
 
 .global hook_SkullwalltulaAttack_35F328
 hook_SkullwalltulaAttack_35F328:
     cpy r4,r0
+SkullwalltulaAttack:
     push {r0-r12, lr}
     @ r0 = actor
-    bl Enemizer_SkullwalltulaShouldAttack
+    bl Skullwalltula_ShouldAttack
     cmp r0,#0x0
     pop {r0-r12, lr}
     bxlt lr @ proceed with vanilla checks
@@ -2295,8 +2287,8 @@ hook_SkullwalltulaAttack_35F328:
     moveq r0,#0x0 @ don't attack
     pop {r4-r7,pc} @ return and skip vanilla checks
 
-.global hook_SkullwalltulaAttack_35F828
-hook_SkullwalltulaAttack_35F828:
+.global hook_SkullwalltulaTargetRotation
+hook_SkullwalltulaTargetRotation:
     sxth r0,r0
     push {r1-r12, lr}
     cpy r1,r4 @ actor

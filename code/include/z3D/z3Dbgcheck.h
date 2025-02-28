@@ -145,4 +145,9 @@ typedef struct CollisionContext {
     /* 0x0050 */ DynaCollisionContext   dyna;
 } CollisionContext; // size = 0x15F4
 
+typedef s32 (*BgCheck_EntityLineTest1_proc)(CollisionContext* colCtx, Vec3f* posA, Vec3f* posB, Vec3f* posResult,
+    CollisionPoly** outPoly, s32 chkWall, s32 chkFloor, s32 chkCeil,
+    s32 chkOneFace, s32* bgId);
+#define BgCheck_EntityLineTest1 ((BgCheck_EntityLineTest1_proc)0x369F9C)
+
 #endif //_Z3DBGCHECK_H
