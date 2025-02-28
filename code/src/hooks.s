@@ -2275,7 +2275,8 @@ hook_SkullwalltulaAttack_35F854:
     bl Enemizer_SkullwalltulaShouldAttack
     cmp r0,#0x0
     pop {r0-r12, lr}
-    bne 0x35f8C4 @ skip to distance/collision checks 0x35f954
+    @ bne 0x35F8C4 @ skip to distance/collision checks
+    bne 0x35F954 @ skip every check
     tst r0,#0x200000 @ proceed with normal checks (player climbing)
     bx lr
 
@@ -2287,6 +2288,7 @@ hook_SkullwalltulaAttack_35F5D0:
     bl Enemizer_SkullwalltulaShouldAttack
     cmp r0,#0x0
     pop {r0-r12, lr}
+    @ mov r0,#0x1 @ attack
     movne r0,#0x1 @ attack
     cpyeq r0,r5 @ vanilla condition
     bx lr
@@ -2296,6 +2298,6 @@ hook_SkullwalltulaAttack_35F828:
     sxth r0,r0
     push {r1-r12, lr}
     cpy r1,r4 @ actor
-    bl SkullwalltulaAttack_35F828
+    bl Skullwalltula_GetTargetRotation
     pop {r1-r12, lr}
     bx lr
