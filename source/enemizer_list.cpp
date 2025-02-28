@@ -101,7 +101,7 @@ std::vector<EnemyType> enemyTypes = {
     EnemyType("Spike", ACTOR_SPIKE, { 0x0000 },
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
     EnemyType("Anubis Spawner", ACTOR_ANUBIS_SPAWNER, { 0x0003 },
-        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID }),
+        { LocationType::ABOVE_GROUND }),
     EnemyType("Iron Knuckle", ACTOR_IRON_KNUCKLE, { 0xFF01, 0xFF02, 0xFF03 },
         { LocationType::ABOVE_GROUND }),
     EnemyType("Skull Kid", ACTOR_SKULL_KID, { 0xFFFF },

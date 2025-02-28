@@ -612,6 +612,10 @@ SECTIONS
 		*(.patch_GanonCSEquipMS)
 	}
 
+	.patch_AnubisFlameCircleCheck 0x246F64 : {
+		*(.patch_AnubisFlameCircleCheck)
+	}
+
 	.patch_RainbowChuTrailOne 0x247FC0 : {
 		*(.patch_RainbowChuTrailOne)
 	} /*Bombchus use 2 EffectBlure instances*/

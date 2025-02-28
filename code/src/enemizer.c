@@ -35,9 +35,10 @@ static EnemyParams sGroundedEnemies[] = {
     { .actorId = ACTOR_BEAMOS, .params = 0x0500 },
     { .actorId = ACTOR_REDEAD, .params = 0x7F01 },
     { .actorId = ACTOR_REDEAD, .params = 0x7FFE },
-    { .actorId = ACTOR_DEAD_HAND_HAND, .params = 0x0000 },
     { .actorId = ACTOR_SKULLWALLTULA, .params = 0x0000 },
+    { .actorId = ACTOR_DEAD_HAND_HAND, .params = 0x0000 },
     { .actorId = ACTOR_WITHERED_DEKU_BABA, .params = 0x0000 },
+    { .actorId = ACTOR_ANUBIS_SPAWNER, .params = 0x0003 },
     { .actorId = ACTOR_FLYING_POT, .params = 0x000 },
     { .actorId = ACTOR_STALCHILD, .params = 0x0000 },
     { .actorId = ACTOR_STALCHILD, .params = 0x0005 },
@@ -145,8 +146,8 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     // Mock
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
         if (actorEntry->id == sEnemyData[i].actorId) {
-            enemyOverride.actorId = ACTOR_MOBLIN;
-            enemyOverride.params  = 0x0000;
+            enemyOverride.actorId = ACTOR_ANUBIS_SPAWNER;
+            enemyOverride.params  = 0x0003;
             break;
         }
     }

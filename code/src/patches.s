@@ -2434,3 +2434,9 @@ SkullwalltulaAttack_35F328_patch:
 .global SkullwalltulaTargetRotation_patch
 SkullwalltulaTargetRotation_patch:
     bl hook_SkullwalltulaTargetRotation
+
+.section .patch_AnubisFlameCircleCheck
+.global AnubisFlameCircleCheck_patch
+AnubisFlameCircleCheck_patch:
+    @ check alpha instead of timer
+    ldrb r1,[r1,#0xAB]
