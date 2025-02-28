@@ -2268,30 +2268,32 @@ hook_StalchildDespawn_366338:
     pop {r0-r12, lr}
     bx lr
 
-.global hook_SkullwalltulaAttack_35F854
-hook_SkullwalltulaAttack_35F854:
+.global hook_SkullwalltulaAttack_35F834
+hook_SkullwalltulaAttack_35F834:
+    cpy r5,r0
     push {r0-r12, lr}
-    cpy r0,r5 @ actor
+    @ r0 = actor
     bl Enemizer_SkullwalltulaShouldAttack
     cmp r0,#0x0
     pop {r0-r12, lr}
-    @ bne 0x35F8C4 @ skip to distance/collision checks
-    bne 0x35F954 @ skip every check
-    tst r0,#0x200000 @ proceed with normal checks (player climbing)
-    bx lr
-
-
-.global hook_SkullwalltulaAttack_35F5D0
-hook_SkullwalltulaAttack_35F5D0:
-    push {r0-r12, lr}
-    cpy r0,r4 @ actor
-    bl Enemizer_SkullwalltulaShouldAttack
-    cmp r0,#0x0
-    pop {r0-r12, lr}
-    @ mov r0,#0x1 @ attack
+    bxlt lr @ proceed with vanilla checks
     movne r0,#0x1 @ attack
-    cpyeq r0,r5 @ vanilla condition
-    bx lr
+    moveq r0,#0x0 @ don't attack
+    pop {r4-r7,pc} @ return and skip vanilla checks
+
+
+.global hook_SkullwalltulaAttack_35F328
+hook_SkullwalltulaAttack_35F328:
+    cpy r4,r0
+    push {r0-r12, lr}
+    @ r0 = actor
+    bl Enemizer_SkullwalltulaShouldAttack
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    bxlt lr @ proceed with vanilla checks
+    movne r0,#0x1 @ attack
+    moveq r0,#0x0 @ don't attack
+    pop {r4-r7,pc} @ return and skip vanilla checks
 
 .global hook_SkullwalltulaAttack_35F828
 hook_SkullwalltulaAttack_35F828:

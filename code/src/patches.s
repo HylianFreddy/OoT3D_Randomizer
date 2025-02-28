@@ -2420,15 +2420,15 @@ StalchildDespawn_13DB68_patch:
 StalchildDespawn_366338_patch:
     bl hook_StalchildDespawn_366338
 
-.section .patch_SkullwalltulaAttack_35F854
-.global SkullwalltulaAttack_35F854_patch
-SkullwalltulaAttack_35F854_patch:
-    bl hook_SkullwalltulaAttack_35F854
+.section .patch_SkullwalltulaAttack_35F834
+.global SkullwalltulaAttack_35F834_patch
+SkullwalltulaAttack_35F834_patch:
+    bl hook_SkullwalltulaAttack_35F834
 
-.section .patch_SkullwalltulaAttack_35F5D0
-.global SkullwalltulaAttack_35F5D0_patch
-SkullwalltulaAttack_35F5D0_patch:
-    bl hook_SkullwalltulaAttack_35F5D0
+.section .patch_SkullwalltulaAttack_35F328
+.global SkullwalltulaAttack_35F328_patch
+SkullwalltulaAttack_35F328_patch:
+    bl hook_SkullwalltulaAttack_35F328
 
 .section .patch_SkullwalltulaAttack_35F828
 .global SkullwalltulaAttack_35F828_patch

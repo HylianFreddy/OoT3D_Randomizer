@@ -347,6 +347,7 @@ s32 Enemizer_CanStalchildDespawn(Actor* stalchild) {
     s32* bgId))0x369F9C)
 
 #include "actors/skulltula.h"
+// return -1 to use vanilla check
 s32 Enemizer_SkullwalltulaShouldAttack(EnSw* walltula) {
     // CitraPrint("wallYaw %X", walltula->wallYaw);
     // walltula->wallYaw = 0;
@@ -356,10 +357,13 @@ s32 Enemizer_SkullwalltulaShouldAttack(EnSw* walltula) {
     // if (walltula->base.speedXZ > 0) {
     //     walltula->base.shape.rot.z = walltula->targetRot;
     // }
+    if (gSettingsContext.enemizer == OFF) {
+        return -1;
+    }
     Vec3f posResult;
     CollisionPoly* outPoly;
     s32 bgId;
-    return gSettingsContext.enemizer == ON
+    return 1
         && ABS(walltula->base.yawTowardsPlayer - walltula->base.shape.rot.z) < 0x4000
         && walltula->base.xzDistToPlayer < 250.0
         && !BgCheck_EntityLineTest1(&gGlobalContext->colCtx, &walltula->base.world.pos, &PLAYER->actor.world.pos, &posResult, &outPoly,

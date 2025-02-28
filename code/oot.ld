@@ -996,16 +996,16 @@ SECTIONS
 		*(.patch_ConvertBombDropOne)
 	}
 
-	.patch_SkullwalltulaAttack_35F5D0 0x35F5D0 : {
-		*(.patch_SkullwalltulaAttack_35F5D0)
+	.patch_SkullwalltulaAttack_35F328 0x35F328 : {
+		*(.patch_SkullwalltulaAttack_35F328)
 	}
 
 	.patch_SkullwalltulaAttack_35F828 0x35F828 : {
 		*(.patch_SkullwalltulaAttack_35F828)
 	}
 
-	.patch_SkullwalltulaAttack_35F854 0x35F854 : {
-		*(.patch_SkullwalltulaAttack_35F854)
+	.patch_SkullwalltulaAttack_35F834 0x35F834 : {
+		*(.patch_SkullwalltulaAttack_35F834)
 	}
 
 	.patch_ISGCrouchStab 0x360690 : {
