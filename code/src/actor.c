@@ -66,6 +66,7 @@
 #include "anubis.h"
 #include "link_puppet.h"
 #include "fishing.h"
+#include "moblin.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -112,6 +113,8 @@ void Actor_Init() {
     gActorOverlayTable[0x3E].initInfo->init = BgTreemouth_rInit;
 
     gActorOverlayTable[0x4A].initInfo->update = BgSpot00Hanebasi_rUpdate;
+
+    gActorOverlayTable[0x4B].initInfo->update = EnMb_rUpdate;
 
     gActorOverlayTable[0x57].initInfo->init = EnMThunder_rInit;
 

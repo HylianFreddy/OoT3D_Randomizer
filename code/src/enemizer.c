@@ -145,7 +145,7 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     // Mock
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
         if (actorEntry->id == sEnemyData[i].actorId) {
-            enemyOverride.actorId = ACTOR_SKULLWALLTULA;
+            enemyOverride.actorId = ACTOR_MOBLIN;
             enemyOverride.params  = 0x0000;
             break;
         }

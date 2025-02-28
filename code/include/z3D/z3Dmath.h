@@ -15,4 +15,7 @@ typedef void (*Matrix_UpdatePosition_proc)(nn_math_MTX34* dst, nn_math_MTX34* sr
     __attribute__((pcs("aapcs-vfp")));
 #define Matrix_UpdatePosition ((Matrix_UpdatePosition_proc)GAME_ADDR(0x372070))
 
+typedef s16 (*Math_SmoothStepToS_proc)(s16* pValue, s16 target, s16 scale, s16 step, s16 minStep);
+#define Math_SmoothStepToS ((Math_SmoothStepToS_proc)GAME_ADDR(0x375A18))
+
 #endif
