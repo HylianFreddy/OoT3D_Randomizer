@@ -2295,3 +2295,14 @@ hook_SkullwalltulaTargetRotation:
     bl Skullwalltula_GetTargetRotation
     pop {r1-r12, lr}
     bx lr
+
+.global hook_SkullKidPoacherSawCheck
+hook_SkullKidPoacherSawCheck:
+    cmp r1,#0x32
+    bxge lr @ higher than poacher's saw, resume vanilla code
+    push {r0-r12, lr}
+    @ less than poacher's saw, only kill actor if enemizer is off
+    bl Enemizer_IsActive
+    cmp r0,#0x1
+    pop {r0-r12, lr}
+    bx lr

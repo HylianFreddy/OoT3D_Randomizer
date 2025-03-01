@@ -15,6 +15,10 @@ u8 Enemizer_RoomLoadSignal = FALSE;
 static EnemyOverride Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actorEntry);
 static void Enemizer_AdjustPosition(ActorEntry* actorEntry);
 
+s32 Enemizer_IsActive(void) {
+    return gSettingsContext.enemizer == ON;
+}
+
 // Enemies that need to spawn at ground level to work properly.
 static EnemyParams sGroundedEnemies[] = {
     { .actorId = ACTOR_STALFOS, .params = 0x0002 },
@@ -147,8 +151,8 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     // Mock
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
         if (actorEntry->id == sEnemyData[i].actorId) {
-            enemyOverride.actorId = ACTOR_IRON_KNUCKLE;
-            enemyOverride.params  = 0xFF02;
+            enemyOverride.actorId = ACTOR_SKULL_KID;
+            enemyOverride.params  = 0xFFFF;
             break;
         }
     }

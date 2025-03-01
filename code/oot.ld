@@ -308,6 +308,10 @@ SECTIONS
 		*(.patch_PreludeLocation)
 	}
 
+	.patch_SkullKidPoacherSawCheck 0x18ED80 : {
+		*(.patch_SkullKidPoacherSawCheck)
+	}
+
 	.patch_PoeCollectorCheckPoints 0x19091C : {
 		*(.patch_PoeCollectorCheckPoints)
 	}

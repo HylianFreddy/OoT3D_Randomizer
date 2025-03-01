@@ -2440,3 +2440,8 @@ SkullwalltulaTargetRotation_patch:
 AnubisFlameCircleCheck_patch:
     @ check alpha instead of timer
     ldrb r1,[r1,#0xAB]
+
+.section .patch_SkullKidPoacherSawCheck
+.global SkullKidPoacherSawCheck_patch
+SkullKidPoacherSawCheck_patch:
+    bl hook_SkullKidPoacherSawCheck
