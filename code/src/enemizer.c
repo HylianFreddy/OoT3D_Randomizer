@@ -111,6 +111,7 @@ EnemyData sEnemyData[] = {
     // { .actorId = 0x0C6, .params = 0x0001, .requirements = 0 }, // Big Octo
     { .actorId = 0x113, .params = 0xFF02, .requirements = REQ_ABOVE_GROUND | REQ_NO_WATER }, // Iron Knuckle [killing one seems to set clear flag or something]
     { .actorId = 0x113, .params = 0xFF03, .requirements = REQ_ABOVE_GROUND | REQ_NO_WATER }, //  Iron Knuckle (white)
+    { .actorId = 0x113, .params = 0xFF01, .requirements = REQ_ABOVE_GROUND | REQ_NO_WATER }, // Iron Knuckle (silver, sitting)
     // { .actorId = 0x197, .params = 0x0000, .requirements = 0 }, // Gerudo Fighter [weird flag isues, only one spawns]
 
     { .actorId = 0x095, .params = 0x0000, .requirements = 0 }, // Skullwalltula
@@ -146,8 +147,8 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     // Mock
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
         if (actorEntry->id == sEnemyData[i].actorId) {
-            enemyOverride.actorId = ACTOR_ANUBIS_SPAWNER;
-            enemyOverride.params  = 0x0003;
+            enemyOverride.actorId = ACTOR_IRON_KNUCKLE;
+            enemyOverride.params  = 0xFF02;
             break;
         }
     }

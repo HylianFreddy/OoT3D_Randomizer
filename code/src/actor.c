@@ -67,6 +67,7 @@
 #include "link_puppet.h"
 #include "fishing.h"
 #include "moblin.h"
+#include "iron_knuckle.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -174,6 +175,8 @@ void Actor_Init() {
     gActorOverlayTable[0x10F].initInfo->init    = ItemEtcetera_rInit;
     gActorOverlayTable[0x10F].initInfo->destroy = ItemEtcetera_rDestroy;
     gActorOverlayTable[0x10F].initInfo->update  = ItemEtcetera_rUpdate;
+
+    gActorOverlayTable[0x113].initInfo->init = EnIk_rInit;
 
     gActorOverlayTable[0x11A].initInfo->update = EnDns_rUpdate;
 
