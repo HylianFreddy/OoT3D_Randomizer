@@ -18,4 +18,8 @@ typedef void (*Matrix_UpdatePosition_proc)(nn_math_MTX34* dst, nn_math_MTX34* sr
 typedef s16 (*Math_SmoothStepToS_proc)(s16* pValue, s16 target, s16 scale, s16 step, s16 minStep);
 #define Math_SmoothStepToS ((Math_SmoothStepToS_proc)GAME_ADDR(0x375A18))
 
+typedef f32 (*Math_SmoothStepToF_proc)(f32* pValue, f32 target, f32 fraction, f32 step, f32 minStep)
+    __attribute__((pcs("aapcs-vfp")));
+#define Math_SmoothStepToF ((Math_SmoothStepToF_proc)GAME_ADDR(0x36E168))
+
 #endif
