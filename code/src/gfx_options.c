@@ -199,4 +199,5 @@ void Gfx_OptionsUpdate(void) {
         PrevOption(&options[selectedOption]);
         handledInput = true;
     }
+    gSettingsContext.enemizer = gExtSaveData.option_Enemizer;
 }
