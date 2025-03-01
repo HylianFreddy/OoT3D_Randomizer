@@ -68,6 +68,8 @@
 #include "fishing.h"
 #include "moblin.h"
 #include "iron_knuckle.h"
+#include "guay.h"
+#include "dead_hand_hand.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -138,6 +140,8 @@ void Actor_Init() {
     gActorOverlayTable[0x95].initInfo->update = EnSw_rUpdate;
 
     gActorOverlayTable[0x9C].initInfo->update = BgSpot02Objects_rUpdate;
+
+    gActorOverlayTable[0xA5].initInfo->update = EnDha_rUpdate;
 
     gActorOverlayTable[0xC1].initInfo->init   = EnSyatekiMan_rInit;
     gActorOverlayTable[0xC1].initInfo->update = EnSyatekiMan_rUpdate;
@@ -248,6 +252,8 @@ void Actor_Init() {
     gActorOverlayTable[0x1A3].initInfo->update = EnDntNomal_rUpdate;
 
     gActorOverlayTable[0x1B9].initInfo->init = EnGs_rInit;
+
+    gActorOverlayTable[0x1C0].initInfo->update = EnCrow_rUpdate;
 
     gActorOverlayTable[0x1CB].initInfo->update = OceffWipe4_rUpdate;
 

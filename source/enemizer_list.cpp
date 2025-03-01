@@ -116,7 +116,7 @@ std::vector<EnemyType> enemyTypes = {
         { LocationType::ABOVE_GROUND }),
     EnemyType("Stalchild", ACTOR_STALCHILD, { 0x0000, 0x0005 },
         { LocationType::ABOVE_GROUND }),
-    EnemyType("Guay", ACTOR_GUAY, { 0x0000 },
+    EnemyType("Guay", ACTOR_GUAY, { 0x0000, 0x0001 },
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
     // EnemyType("Dark Link", ACTOR_DARK_LINK, {0x0000},
     //  {LocationType::ABOVE_GROUND}),

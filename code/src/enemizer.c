@@ -104,6 +104,7 @@ EnemyData sEnemyData[] = {
     { .actorId = 0x1B0, .params = 0x0000, .requirements = REQ_ABOVE_GROUND }, // Stalchild [burrows immediately]
     { .actorId = 0x1B0, .params = 0x0005, .requirements = REQ_ABOVE_GROUND }, //  Stalchild (20 kills)
     { .actorId = 0x1C0, .params = 0x0000, .requirements = REQ_NO_WATER | REQ_FLYING }, // Guay [doesn't actually die so can't clear rooms]
+    { .actorId = 0x1C0, .params = 0x0001, .requirements = REQ_NO_WATER | REQ_FLYING }, // Guay
 
     { .actorId = 0x002, .params = 0x0002, .requirements = REQ_ON_GROUND | REQ_NO_WATER }, // Stalfos [doesn't fall]
     { .actorId = 0x002, .params = 0x0003, .requirements = REQ_ABOVE_GROUND | REQ_NO_WATER }, //  Stalfos (falls from above)
@@ -151,8 +152,8 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     // Mock
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
         if (actorEntry->id == sEnemyData[i].actorId) {
-            enemyOverride.actorId = ACTOR_SKULL_KID;
-            enemyOverride.params  = 0xFFFF;
+            enemyOverride.actorId = ACTOR_DEAD_HAND_HAND;
+            enemyOverride.params  = 0x0000;
             break;
         }
     }
