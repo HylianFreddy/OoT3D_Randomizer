@@ -154,10 +154,89 @@ static EnemyOverride Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actor
     return (EnemyOverride){ 0 };
 }
 
-static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
+static f32 Enemizer_MoveSpecificLocations(ActorEntry* actorEntry, s32 actorEntryIndex) {
+#define isEntry(scene, layer, room, entry)                                                           \
+    (gGlobalContext->sceneNum == scene && rSceneLayer == layer && gGlobalContext->roomNum == room && \
+     actorEntryIndex == entry)
+
+    f32 specialGroundCheck = BGCHECK_Y_MIN;
+
+    if (isEntry(86, 0, 0, 1)) {
+        // Move the SFM wolfos more towards the center, some enemies might jump over the fence
+        actorEntry->pos.x = -195;
+        actorEntry->pos.y = 0;
+        actorEntry->pos.z = 1900;
+    } else if (isEntry(6, 0, 27, 7) && gSettingsContext.spiritTempleDungeonMode == DUNGEONMODE_MQ) {
+        // Move the stalfos in MQ Child spirit down onto the platform
+        actorEntry->pos.y = 50;
+    } else if (isEntry(2, 0, 11, 5) && gSettingsContext.jabuJabusBellyDungeonMode == DUNGEONMODE_MQ) {
+        // Move the left like like in the room in MQ jabu to just spawn on the ground
+        actorEntry->pos.x = 827;
+        actorEntry->pos.y = -300;
+    } else if (isEntry(2, 0, 11, 6) && gSettingsContext.jabuJabusBellyDungeonMode == DUNGEONMODE_MQ) {
+        // Move the right like like in the room in MQ jabu to just spawn on the ground
+        actorEntry->pos.x = 488;
+        actorEntry->pos.y = -300;
+    } else if ((isEntry(7, 0, 21, 13) && gSettingsContext.shadowTempleDungeonMode == DUNGEONMODE_VANILLA) ||
+               (isEntry(7, 0, 21, 16) && gSettingsContext.shadowTempleDungeonMode == DUNGEONMODE_MQ)) {
+        // Move one shadow temple boat stalfos over to the end platform
+        actorEntry->pos.x = -2300;
+        actorEntry->pos.y = -1360;
+        actorEntry->pos.z = -1570;
+    } else if ((isEntry(7, 0, 21, 14) && gSettingsContext.shadowTempleDungeonMode == DUNGEONMODE_VANILLA) ||
+               (isEntry(7, 0, 21, 17) && gSettingsContext.shadowTempleDungeonMode == DUNGEONMODE_MQ)) {
+        // Move the other shadow temple boat stalfos over to the end platform
+        actorEntry->pos.x = -2700;
+        actorEntry->pos.y = -1360;
+        actorEntry->pos.z = -1570;
+    } else if (isEntry(3, 0, 19, 0) && gSettingsContext.forestTempleDungeonMode == DUNGEONMODE_VANILLA) { // looks ugly when room rotates
+        // Move the wallmaster in the first rotating hallway onto the ground
+        if (Flags_GetSwitch(gGlobalContext, 0x20)) {
+            actorEntry->pos.x = -1672;
+            actorEntry->pos.y = 1250;
+            actorEntry->pos.z = -3466;
+            specialGroundCheck = 1033.0;
+        } else {
+            actorEntry->pos.x = -1761;
+            actorEntry->pos.y = 1250;
+            actorEntry->pos.z = -3320;
+            specialGroundCheck = 1228.0;
+        }
+    } else if (isEntry(3, 0, 20, 2) && gSettingsContext.forestTempleDungeonMode == DUNGEONMODE_VANILLA) { // looks ugly when room rotates
+        // Move the wallmaster in the second rotating hallway onto the ground
+        if (Flags_GetSwitch(gGlobalContext, 0x21)) {
+            actorEntry->pos.x = 1997;
+            actorEntry->pos.y = 1250;
+            actorEntry->pos.z = -3320;
+        } else {
+            actorEntry->pos.x = 1900;
+            actorEntry->pos.y = 1250;
+            actorEntry->pos.z = -3320;
+        }
+        specialGroundCheck = 1033.0;
+    } else if (isEntry(5, 0, 6, 0) && gSettingsContext.waterTempleDungeonMode == DUNGEONMODE_VANILLA) { // todo useless
+        // Move the like like in water temple before dark link. It normally spawns under the floor
+        actorEntry->pos.y = 1060;
+    } else if (isEntry(8, 0, 3, 2) && gSettingsContext.bottomOfTheWellDungeonMode == DUNGEONMODE_VANILLA) {
+        // Move the fire keese in the side room in BOTW before the gate so it doesn't raycast down into the basement
+        actorEntry->pos.z = -1075;
+    } else if (isEntry(8, 0, 0, 4) && gSettingsContext.bottomOfTheWellDungeonMode == DUNGEONMODE_VANILLA) {
+        // Move the wallmaster in the central room of BOTW so it doesn't raycast down into the basement
+        actorEntry->pos.z = -950;
+    } else if ((isEntry(2, 0, 2, 1) || isEntry(2, 0, 2, 2)) &&
+               gSettingsContext.jabuJabusBellyDungeonMode == DUNGEONMODE_VANILLA) { // todo useless
+        // Move the baris in the pit room in jabu down a bit. Sometimes they like to spawn in the ceiling?
+        actorEntry->pos.y = -100;
+    }
+
+    return specialGroundCheck;
+#undef isEntry
+}
+
+static void Enemizer_MoveSpecificEnemies(ActorEntry* actorEntry, f32 specialGroundCheck) {
     f32 yGroundIntersect;
     f32 yUpperGroundIntersect;
-    f32 yOffGroundPos;
+    f32 yMidAirPos;
     s32 waterBoxFound;
     f32 yWaterSurface;
     CollisionPoly floorPoly;
@@ -165,30 +244,40 @@ static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
     void* waterBox;
     Vec3f actorPos = (Vec3f){
         .x = actorEntry->pos.x,
-        .y = actorEntry->pos.y + 50,
+        .y = actorEntry->pos.y,
         .z = actorEntry->pos.z,
     };
 
-    // Ground height below actor.
-    yGroundIntersect        = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
-    SurfaceType surfaceType = gGlobalContext->colCtx.stat.colHeader->surfaceTypeList[floorPoly.type];
-    isInvalidGround         = SurfaceType_IsLoadingZoneOrVoidPlane(surfaceType) || yGroundIntersect < -30000.0;
     // If there is a water box, set yWaterSurface.
     waterBoxFound = WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z,
                                             &yWaterSurface, &waterBox);
+
+    if (specialGroundCheck > BGCHECK_Y_MIN) {
+        // The manual location patches above have already handled the ground issue accounting for dynamic collision
+        // that the ray cast can't see right now.
+        yGroundIntersect = specialGroundCheck;
+        yMidAirPos       = specialGroundCheck + 200;
+    } else {
+        actorPos.y += 50; // Check for ground even slightly above the actor entry's real position;
+        // Ground height below actor.
+        yGroundIntersect        = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
+        SurfaceType surfaceType = gGlobalContext->colCtx.stat.colHeader->surfaceTypeList[floorPoly.type];
+        isInvalidGround         = yGroundIntersect <= BGCHECK_Y_MIN || SurfaceType_IsLoadingZoneOrVoidPlane(surfaceType);
+
+        Vec3f upperPos = (Vec3f){
+            .x = actorEntry->pos.x,
+            .y = yGroundIntersect + 200,
+            .z = actorEntry->pos.z,
+        };
+        yUpperGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &upperPos);
+        // Potential mid-air position to spawn the actor off the ground if needed.
+        yMidAirPos = ABS(yUpperGroundIntersect - yGroundIntersect) < 50 ? upperPos.y : yUpperGroundIntersect - 50;
+    }
+
     // Ignore water boxes below the ground.
     if (waterBoxFound && yWaterSurface < yGroundIntersect) {
         waterBoxFound = FALSE;
     }
-
-    Vec3f upperPos = (Vec3f){
-        .x = actorEntry->pos.x,
-        .y = yGroundIntersect + 200,
-        .z = actorEntry->pos.z,
-    };
-    yUpperGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &upperPos);
-    // Potential mid-air position to spawn the actor off the ground if needed.
-    yOffGroundPos = ABS(yUpperGroundIntersect - yGroundIntersect) < 50 ? upperPos.y : yUpperGroundIntersect - 50;
 
     // Adjust position for certain enemies.
     if (actorEntry->id == ACTOR_OCTOROK && waterBoxFound) {
@@ -197,16 +286,16 @@ static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
     } else if (actorEntry->id == ACTOR_SKULLTULA) {
         // Off the ground or at water surface
         if (!waterBoxFound && !isInvalidGround) {
-            actorEntry->pos.y = yOffGroundPos;
+            actorEntry->pos.y = yMidAirPos;
         } else if (waterBoxFound && (actorEntry->pos.y > yWaterSurface)) {
             actorEntry->pos.y = yWaterSurface + 50;
         }
     } else if (actorEntry->id == ACTOR_BARI || (actorEntry->id == ACTOR_PEAHAT && actorEntry->params == 0x0001)) {
         // Off the ground (or original position if higher)
-        if (yOffGroundPos > actorEntry->pos.y) {
-            actorEntry->pos.y = yOffGroundPos;
+        if (yMidAirPos > actorEntry->pos.y) {
+            actorEntry->pos.y = yMidAirPos;
         }
-    } else {
+    } else if (!isInvalidGround) {
         // Snap enemy to the ground if needed
         for (u32 i = 0; i < ARRAY_SIZE(sGroundedEnemies); i++) {
             if (actorEntry->id == sGroundedEnemies[i].actorId && actorEntry->params == sGroundedEnemies[i].params) {
@@ -214,10 +303,6 @@ static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
             }
         }
     }
-
-    // Clear X and Z rotation to spawn all enemies upright
-    actorEntry->rot.x = 0;
-    actorEntry->rot.z = 0;
 }
 
 void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
@@ -238,7 +323,7 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
             //     enemyOverride.params  = 0x0000;
             //     break;
             // }
-            enemyOverride.actorId = ACTOR_FLARE_DANCER;
+            enemyOverride.actorId = ACTOR_FREEZARD;
             enemyOverride.params  = 0x0000;
             break;
         }
@@ -252,7 +337,12 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     actorEntry->id     = enemyOverride.actorId;
     actorEntry->params = enemyOverride.params;
 
-    Enemizer_AdjustPosition(actorEntry);
+    f32 specialGroundCheck = Enemizer_MoveSpecificLocations(actorEntry, actorEntryIndex);
+    Enemizer_MoveSpecificEnemies(actorEntry, specialGroundCheck);
+
+    // Clear X and Z rotation to spawn all enemies upright
+    actorEntry->rot.x = 0;
+    actorEntry->rot.z = 0;
 
     // Spawn necessary objects
     Object_FindEntryOrSpawn(gActorOverlayTable[actorEntry->id].initInfo->objectId);

@@ -8,6 +8,8 @@ struct Actor;
 
 #define BG_ACTOR_MAX 50
 
+#define BGCHECK_Y_MIN -32000.0f
+
 typedef struct ScaleRotPos {
     /* 0x00 */ Vec3f scale;
     /* 0x0C */ Vec3f rot;

@@ -28,7 +28,7 @@ void EnFd_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         };
         f32 yGroundIntersect    = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
         SurfaceType surfaceType = gGlobalContext->colCtx.stat.colHeader->surfaceTypeList[floorPoly.type];
-        u8 isInvalidGround      = yGroundIntersect < -30000.0 || SurfaceType_IsLoadingZoneOrVoidPlane(surfaceType);
+        u8 isInvalidGround      = yGroundIntersect <= BGCHECK_Y_MIN || SurfaceType_IsLoadingZoneOrVoidPlane(surfaceType);
 
         if (isInvalidGround && thisx->world.pos.y < thisx->home.pos.y - 200.0) {
             // If Flare Dancer falls out of bounds, make it respawn at its home.
