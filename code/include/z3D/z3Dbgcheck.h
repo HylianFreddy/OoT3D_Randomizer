@@ -14,18 +14,18 @@ typedef struct ScaleRotPos {
 } ScaleRotPos; // size = 0x20
 
 typedef struct CollisionPoly {
-    /* 0x00 */ u16    type;
-    /* 0x02 */ u16    vtxData[3]; // id for each vertex in the vtxList
-    /* 0x08 */ char   unk_08[0x2];
-    /* 0x0A */ Vec3s  norm;  // Normal vector
-    /* 0x10 */ f32    dist;  // Plane distance from origin
-} CollisionPoly; // size = 0x14
+    /* 0x00 */ u16 type;
+    /* 0x02 */ u16 vtxData[3]; // id for each vertex in the vtxList
+    /* 0x08 */ char unk_08[0x2];
+    /* 0x0A */ Vec3s norm; // Normal vector
+    /* 0x10 */ f32 dist;   // Plane distance from origin
+} CollisionPoly;           // size = 0x14
 _Static_assert(sizeof(CollisionPoly) == 0x14, "CollisionPoly size");
 
 typedef struct DynaCollisionPoly {
     /* 0x00 */ CollisionPoly colPoly;
-    /* 0x14 */ Vec3f  normF32; // Normal vector with floats
-} DynaCollisionPoly; // size = 0x20
+    /* 0x14 */ Vec3f normF32; // Normal vector with floats
+} DynaCollisionPoly;          // size = 0x20
 _Static_assert(sizeof(DynaCollisionPoly) == 0x20, "DynaCollisionPoly size");
 
 typedef struct SurfaceType {
@@ -59,8 +59,8 @@ typedef struct CollisionHeader {
     /* 0x1C */ CollisionPoly* polyList;
     /* 0x20 */ SurfaceType* surfaceTypeList;
     /* 0x24 */ BgCamInfo* bgCamList; // BgCamInfo*
-    /* 0x28 */ void* waterBoxes; // WaterBox*
-} CollisionHeader; // original name: BGDataInfo
+    /* 0x28 */ void* waterBoxes;     // WaterBox*
+} CollisionHeader;                   // original name: BGDataInfo
 _Static_assert(sizeof(CollisionHeader) == 0x2C, "CollisionHeader size");
 
 typedef struct SSNode {
@@ -142,12 +142,12 @@ _Static_assert(sizeof(DynaCollisionContext) == 0x15A4, "DynaCollisionContext siz
 
 typedef struct CollisionContext {
     /* 0x0000 */ StaticCollisionContext stat;
-    /* 0x0050 */ DynaCollisionContext   dyna;
+    /* 0x0050 */ DynaCollisionContext dyna;
 } CollisionContext; // size = 0x15F4
 
 typedef s32 (*BgCheck_EntityLineTest1_proc)(CollisionContext* colCtx, Vec3f* posA, Vec3f* posB, Vec3f* posResult,
-    CollisionPoly** outPoly, s32 chkWall, s32 chkFloor, s32 chkCeil,
-    s32 chkOneFace, s32* bgId);
+                                            CollisionPoly** outPoly, s32 chkWall, s32 chkFloor, s32 chkCeil,
+                                            s32 chkOneFace, s32* bgId);
 #define BgCheck_EntityLineTest1 ((BgCheck_EntityLineTest1_proc)0x369F9C)
 
 #endif //_Z3DBGCHECK_H
