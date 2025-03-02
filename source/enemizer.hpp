@@ -13,9 +13,9 @@ namespace Enemizer {
 // Conditions used for the logic to place enemies.
 enum class LocationType {
     ABOVE_GROUND, // Location is on or above walkable ground.
-    ABOVE_VOID,   // Location is over a pit.
-    UNDERWATER,   // Location is underwater - generally an enemy that requires hookshot + iron boots.
-    ABOVE_WATER,  // Location is in the air above a water surface.
+    ABOVE_VOID,   // Location is over a void plane. Enemy must be able to fly.
+    UNDERWATER,   // Location is underwater. Enemy must be defeatable with hookshot and iron boots.
+    ABOVE_WATER,  // Location is in the air above a water surface. Enemy must be able to float or fly.
 };
 
 // Enemy requirements to pass to the patch to edit the ActorEntry at runtime.

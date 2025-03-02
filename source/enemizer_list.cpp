@@ -33,7 +33,7 @@ std::vector<EnemyType> enemyTypes = {
     EnemyType("Peahat", ACTOR_PEAHAT, { 0xFFFF },
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_WATER }),
     EnemyType("Peahat Larva", ACTOR_PEAHAT, { 0x0001 },
-        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
     EnemyType("Lizalfos", ACTOR_LIZALFOS, { 0xFF80, 0xFFFF },
         { LocationType::ABOVE_GROUND }),
     EnemyType("Dinolfos", ACTOR_LIZALFOS, { 0xFFFE },
