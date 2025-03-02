@@ -70,6 +70,7 @@
 #include "iron_knuckle.h"
 #include "guay.h"
 #include "dead_hand_hand.h"
+#include "flare_dancer.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -138,6 +139,8 @@ void Actor_Init() {
 
     gActorOverlayTable[0x95].initInfo->init   = EnSw_rInit;
     gActorOverlayTable[0x95].initInfo->update = EnSw_rUpdate;
+
+    gActorOverlayTable[0x99].initInfo->update = EnFd_rUpdate;
 
     gActorOverlayTable[0x9C].initInfo->update = BgSpot02Objects_rUpdate;
 

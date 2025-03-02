@@ -152,7 +152,12 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     // Mock
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
         if (actorEntry->id == sEnemyData[i].actorId) {
-            enemyOverride.actorId = ACTOR_DEAD_HAND_HAND;
+            // if (actorEntryIndex != 2) {
+            //     enemyOverride.actorId = 0x10;
+            //     enemyOverride.params  = 0x0000;
+            //     break;
+            // }
+            enemyOverride.actorId = ACTOR_FLARE_DANCER;
             enemyOverride.params  = 0x0000;
             break;
         }
@@ -203,7 +208,7 @@ static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
     s32 waterBoxFound;
     f32 yWaterSurface;
     CollisionPoly floorPoly;
-    u8 isAboveVoid;
+    u8 isInvalidGround;
     void* waterBox;
     Vec3f actorPos = (Vec3f){
         .x = actorEntry->pos.x,
@@ -214,7 +219,7 @@ static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
     // Ground height below actor.
     yGroundIntersect        = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
     SurfaceType surfaceType = gGlobalContext->colCtx.stat.colHeader->surfaceTypeList[floorPoly.type];
-    isAboveVoid             = (SurfaceType_GetFloorProperty(surfaceType) == 0xC);
+    isInvalidGround         = SurfaceType_IsLoadingZoneOrVoidPlane(surfaceType) || yGroundIntersect < -30000.0;
     // If there is a water box, set yWaterSurface.
     waterBoxFound = WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z,
                                             &yWaterSurface, &waterBox);
@@ -238,7 +243,7 @@ static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
         actorEntry->pos.y = yWaterSurface;
     } else if (actorEntry->id == ACTOR_SKULLTULA) {
         // Off the ground or at water surface
-        if (!waterBoxFound && !isAboveVoid) {
+        if (!waterBoxFound && !isInvalidGround) {
             actorEntry->pos.y = yOffGroundPos;
         } else if (waterBoxFound && (actorEntry->pos.y > yWaterSurface)) {
             actorEntry->pos.y = yWaterSurface + 50;
