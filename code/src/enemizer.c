@@ -12,13 +12,6 @@ static s32 rEnemyOverrides_Count = 0;
 
 u8 Enemizer_RoomLoadSignal = FALSE;
 
-static EnemyOverride Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actorEntry);
-static void Enemizer_AdjustPosition(ActorEntry* actorEntry);
-
-s32 Enemizer_IsActive(void) {
-    return gSettingsContext.enemizer == ON;
-}
-
 // Enemies that need to spawn at ground level to work properly.
 static EnemyParams sGroundedEnemies[] = {
     { .actorId = ACTOR_STALFOS, .params = 0x0002 },
@@ -133,53 +126,13 @@ static EnemyObjectDependency sEnemyObjectDeps[] = {
 };
 // clang-format on
 
+s32 Enemizer_IsActive(void) {
+    return gSettingsContext.enemizer == ON;
+}
+
 void Enemizer_Init(void) {
     while (rEnemyOverrides[rEnemyOverrides_Count].actorId != 0) {
         rEnemyOverrides_Count++;
-    }
-}
-
-void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
-    if (gExtSaveData.option_Enemizer == OFF) {
-        return;
-    }
-
-    // CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
-
-    EnemyOverride enemyOverride =
-        Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
-
-    // Mock
-    for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
-        if (actorEntry->id == sEnemyData[i].actorId) {
-            // if (actorEntryIndex != 2) {
-            //     enemyOverride.actorId = 0x10;
-            //     enemyOverride.params  = 0x0000;
-            //     break;
-            // }
-            enemyOverride.actorId = ACTOR_FLARE_DANCER;
-            enemyOverride.params  = 0x0000;
-            break;
-        }
-    }
-
-    // Do nothing if the override doesn't exist
-    if (enemyOverride.actorId == 0) {
-        return;
-    }
-
-    actorEntry->id     = enemyOverride.actorId;
-    actorEntry->params = enemyOverride.params;
-
-    Enemizer_AdjustPosition(actorEntry);
-
-    // Spawn necessary objects
-    Object_FindEntryOrSpawn(gActorOverlayTable[actorEntry->id].initInfo->objectId);
-
-    for (u32 i = 0; i < ARRAY_SIZE(sEnemyObjectDeps); i++) {
-        if (actorEntry->id == sEnemyObjectDeps[i].actorId) {
-            Object_FindEntryOrSpawn(sEnemyObjectDeps[i].objectId);
-        }
     }
 }
 
@@ -265,6 +218,50 @@ static void Enemizer_AdjustPosition(ActorEntry* actorEntry) {
     // Clear X and Z rotation to spawn all enemies upright
     actorEntry->rot.x = 0;
     actorEntry->rot.z = 0;
+}
+
+void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
+    if (gExtSaveData.option_Enemizer == OFF) {
+        return;
+    }
+
+    // CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
+
+    EnemyOverride enemyOverride =
+        Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
+
+    // Mock
+    for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
+        if (actorEntry->id == sEnemyData[i].actorId) {
+            // if (actorEntryIndex != 2) {
+            //     enemyOverride.actorId = 0x10;
+            //     enemyOverride.params  = 0x0000;
+            //     break;
+            // }
+            enemyOverride.actorId = ACTOR_FLARE_DANCER;
+            enemyOverride.params  = 0x0000;
+            break;
+        }
+    }
+
+    // Do nothing if the override doesn't exist
+    if (enemyOverride.actorId == 0) {
+        return;
+    }
+
+    actorEntry->id     = enemyOverride.actorId;
+    actorEntry->params = enemyOverride.params;
+
+    Enemizer_AdjustPosition(actorEntry);
+
+    // Spawn necessary objects
+    Object_FindEntryOrSpawn(gActorOverlayTable[actorEntry->id].initInfo->objectId);
+
+    for (u32 i = 0; i < ARRAY_SIZE(sEnemyObjectDeps); i++) {
+        if (actorEntry->id == sEnemyObjectDeps[i].actorId) {
+            Object_FindEntryOrSpawn(sEnemyObjectDeps[i].objectId);
+        }
+    }
 }
 
 // Run special checks for certain enemies
