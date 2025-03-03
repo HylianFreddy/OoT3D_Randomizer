@@ -3,6 +3,8 @@
 
 #include "../include/z3D/z3D.h"
 
+#define ENEMY_OVERRIDES_MAX 700
+
 #define REQ_ON_GROUND (1 << 0)
 #define REQ_ABOVE_GROUND (1 << 1)
 #define REQ_ABOVE_GROUND_IN_AIR (1 << 2)

@@ -59,6 +59,10 @@ void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {
         return a.key < b.key;
     });
 
+    if (enemyOverrides.size() > ENEMY_OVERRIDES_MAX) {
+        CitraPrint("Too many Enemy Overrides!");
+    }
+
     CitraPrint("Enemy overrides done!");
     // CitraPrint("enemyOverrides[0]" + std::to_string(enemyOverrides[0].key));
     // CitraPrint("enemyOverrides[1]" + std::to_string(enemyOverrides[1].key));

@@ -7,7 +7,7 @@
 #include "scene.h"
 #include <stddef.h>
 
-static EnemyOverride rEnemyOverrides[700];
+static EnemyOverride rEnemyOverrides[ENEMY_OVERRIDES_MAX];
 static s32 rEnemyOverrides_Count = 0;
 
 u8 Enemizer_RoomLoadSignal = FALSE;
