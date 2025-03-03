@@ -36,9 +36,7 @@ class EnemyType {
 
     std::string name;
     u16 actorId;
-    std::vector<u16> possibleParams; // Only place multiple values here if they're small differences
-                                     // that don't change the gameplay or the logic (e.g. stalfos falling
-                                     // from above or popping out of the ground).
+    std::vector<u16> possibleParams; // Values to randomly select as actor params, without affecting the logic.
     // std::string filter_func;
     // ConditionFn killLogic;
     std::vector<LocationType> validLocationTypes;

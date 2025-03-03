@@ -10,7 +10,7 @@ EnemyLocationsMap enemyLocations = {};
 std::vector<EnemyType> enemyTypes = {
     EnemyType("Poe", ACTOR_POE, { 0x0000 },
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
-    EnemyType("Stalfos", ACTOR_STALFOS, { 0x0002, 0x0003 },
+    EnemyType("Stalfos", ACTOR_STALFOS, { 0x0002, 0x0003 }, // rises from ground / drops from above when approached
         { LocationType::ABOVE_GROUND }),
     EnemyType("Octorok", ACTOR_OCTOROK, { 0x0000 },
         { LocationType::ABOVE_WATER }),
@@ -34,11 +34,11 @@ std::vector<EnemyType> enemyTypes = {
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_WATER }),
     EnemyType("Peahat Larva", ACTOR_PEAHAT, { 0x0001 },
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
-    EnemyType("Lizalfos", ACTOR_LIZALFOS, { 0xFF80, 0xFFFF },
+    EnemyType("Lizalfos", ACTOR_LIZALFOS, { 0xFF80, 0xFFFF }, // normal / drops from above when approached
         { LocationType::ABOVE_GROUND }),
     EnemyType("Dinolfos", ACTOR_LIZALFOS, { 0xFFFE },
         { LocationType::ABOVE_GROUND }),
-    EnemyType("Gohma Larva", ACTOR_GOHMA_LARVA, { 0x0000, 0x0007 },
+    EnemyType("Gohma Larva", ACTOR_GOHMA_LARVA, { 0x0000, 0x0007 }, // egg that drops and hatches / normal egg
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
     EnemyType("Shabom", ACTOR_SHABOM, { 0x0000 },
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
@@ -66,7 +66,7 @@ std::vector<EnemyType> enemyTypes = {
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
     EnemyType("Big Deku Baba", ACTOR_DEKU_BABA, { 0x0001 },
         { LocationType::ABOVE_GROUND }),
-    EnemyType("Mad Scrub", ACTOR_MAD_SCRUB, { 0x0100, 0x0300, 0x0500 },
+    EnemyType("Mad Scrub", ACTOR_MAD_SCRUB, { 0x0100, 0x0300, 0x0500 }, // shoots 1, 3 or 5 nuts in a row
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
     EnemyType("Bari", ACTOR_BARI, { 0xFFFF },
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
@@ -78,13 +78,11 @@ std::vector<EnemyType> enemyTypes = {
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::ABOVE_WATER }),
     EnemyType("Flying Floor Tile", ACTOR_FLYING_FLOOR_TILE, { 0x0000 },
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
-    EnemyType("Beamos (Big)", ACTOR_BEAMOS, { 0x0500 },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Beamos (Small)", ACTOR_BEAMOS, { 0x0501 },
+    EnemyType("Beamos", ACTOR_BEAMOS, { 0x0500, 0x0501 }, // big / small
         { LocationType::ABOVE_GROUND }),
     EnemyType("Floormaster", ACTOR_FLOORMASTER, { 0x0000 },
         { LocationType::ABOVE_GROUND }),
-    EnemyType("Redead", ACTOR_REDEAD, { 0x7F01, 0x7F02 },
+    EnemyType("Redead", ACTOR_REDEAD, { 0x7F01, 0x7F02 }, // standing / crouching
         { LocationType::ABOVE_GROUND }),
     EnemyType("Gibdo", ACTOR_REDEAD, { 0x7FFE },
         { LocationType::ABOVE_GROUND }),
@@ -104,21 +102,21 @@ std::vector<EnemyType> enemyTypes = {
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
     EnemyType("Anubis Spawner", ACTOR_ANUBIS_SPAWNER, { 0x0003 },
         { LocationType::ABOVE_GROUND }),
-    EnemyType("Iron Knuckle", ACTOR_IRON_KNUCKLE, { 0xFF01, 0xFF02, 0xFF03 },
+    EnemyType("Iron Knuckle", ACTOR_IRON_KNUCKLE, { 0xFF01, 0xFF02, 0xFF03 }, // silver / black / white
         { LocationType::ABOVE_GROUND }),
     EnemyType("Skull Kid", ACTOR_SKULL_KID, { 0xFFFF },
         { LocationType::ABOVE_GROUND }),
     EnemyType("Flying Pot", ACTOR_FLYING_POT, { 0x0000 },
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
-    EnemyType("Freezard", ACTOR_FREEZARD, { 0x0000, 0xFFFF },
+    EnemyType("Freezard", ACTOR_FREEZARD, { 0x0000, 0xFFFF }, // normal / appears and moves when approached
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
     EnemyType("Stinger (Water)", ACTOR_STINGER_WATER, { 0x0000 },
         { LocationType::UNDERWATER }),
-    EnemyType("Wolfos", ACTOR_WOLFOS, { 0xFF00, 0xFF01 },
+    EnemyType("Wolfos", ACTOR_WOLFOS, { 0xFF00, 0xFF01 }, // normal / white
         { LocationType::ABOVE_GROUND }),
-    EnemyType("Stalchild", ACTOR_STALCHILD, { 0x0000, 0x0005 },
+    EnemyType("Stalchild", ACTOR_STALCHILD, { 0x0000, 0x0005 }, // normal / big (20 kills)
         { LocationType::ABOVE_GROUND }),
-    EnemyType("Guay", ACTOR_GUAY, { 0x0000, 0x0001 },
+    EnemyType("Guay", ACTOR_GUAY, { 0x0000, 0x0001 }, // normal / big
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
     // EnemyType("Dark Link", ACTOR_DARK_LINK, {0x0000},
     //  {LocationType::ABOVE_GROUND}),
