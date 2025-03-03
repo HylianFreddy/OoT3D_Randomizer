@@ -74,6 +74,8 @@ std::vector<EnemyType> enemyTypes = {
         { LocationType::ABOVE_GROUND }),
     EnemyType("Fire Bubble", ACTOR_BUBBLE, { 0xFFFE },
         { LocationType::ABOVE_GROUND }),
+    EnemyType("Green Bubble", ACTOR_BUBBLE, { 0x02FC },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::ABOVE_WATER }),
     EnemyType("Flying Floor Tile", ACTOR_FLYING_FLOOR_TILE, { 0x0000 },
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
     EnemyType("Beamos (Big)", ACTOR_BEAMOS, { 0x0500 },

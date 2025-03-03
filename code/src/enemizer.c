@@ -76,6 +76,7 @@ EnemyData sEnemyData[] = {
     { .actorId = 0x063, .params = 0xFFFF, .requirements = REQ_ABOVE_GROUND_IN_AIR }, // Bari [doesn't spawn if underground]
     { .actorId = 0x069, .params = 0xFFFF, .requirements = REQ_NO_WATER | REQ_FLYING }, // Bubble (blue)
     { .actorId = 0x069, .params = 0xFFFE, .requirements = REQ_ON_GROUND | REQ_NO_WATER }, //  Bubble (fire)
+    { .actorId = 0x069, .params = 0x02FC, .requirements = 0 }, //  Bubble (green)
     { .actorId = 0x06B, .params = 0x0000, .requirements = REQ_ON_GROUND }, // Flying Floor Tile [spawns a ton of particles, causing soft-crashes]
     { .actorId = 0x08A, .params = 0x0501, .requirements = REQ_ON_GROUND | REQ_NO_WATER }, // Beamos [doesn't fall]
     { .actorId = 0x08A, .params = 0x0500, .requirements = REQ_ON_GROUND | REQ_NO_WATER }, //  Beamos (big)
@@ -240,16 +241,22 @@ static void Enemizer_MoveSpecificEnemies(ActorEntry* actorEntry) {
         // Always at water surface
         actorEntry->pos.y = yWaterSurface;
     } else if (actorEntry->id == ACTOR_SKULLTULA) {
-        // Off the ground or at water surface
+        // In mid-air or near water surface
         if (!waterBoxFound && !isInvalidGround) {
             actorEntry->pos.y = yMidAirPos;
         } else if (waterBoxFound && (actorEntry->pos.y > yWaterSurface)) {
             actorEntry->pos.y = yWaterSurface + 50;
         }
-    } else if (actorEntry->id == ACTOR_BARI || (actorEntry->id == ACTOR_PEAHAT && actorEntry->params == 0x0001)) {
-        // Off the ground (or original position if higher)
+    } else if (actorEntry->id == ACTOR_BARI ||
+               (actorEntry->id == ACTOR_PEAHAT && actorEntry->params == 0x0001)) { // Peahat Larva
+        // In mid-air
         if (yMidAirPos > actorEntry->pos.y) {
             actorEntry->pos.y = yMidAirPos;
+        }
+    } else if (actorEntry->id == ACTOR_BUBBLE && (actorEntry->params & 0x00FF) == 0xFC) { // Green Bubble
+        // Slightly above the ground so it doesn't go through it while bobbing up and down.
+        if (!waterBoxFound && !isInvalidGround && (actorEntry->pos.y - yGroundIntersect < 60)) {
+            actorEntry->pos.y = yGroundIntersect + 60;
         }
     } else if (!isInvalidGround) {
         // Snap enemy to the ground if needed
@@ -279,8 +286,8 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
             //     enemyOverride.params  = 0x0000;
             //     break;
             // }
-            enemyOverride.actorId = ACTOR_BIRI;
-            enemyOverride.params  = 0xFFFF;
+            enemyOverride.actorId = ACTOR_BUBBLE;
+            enemyOverride.params  = 0x02FC;
             break;
         }
     }
