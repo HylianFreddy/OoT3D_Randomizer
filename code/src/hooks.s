@@ -2334,3 +2334,11 @@ hook_LeeverAfterDie:
     pop {r0-r12, lr}
     cmp r0,#0x0
     bx lr
+
+.global hook_PlayerCheckVoidOut
+hook_PlayerCheckVoidOut:
+    ldrb r0,[r4,#0x2]  @ actor->type
+    cmp r0,#0x2        @ ACTORTYPE_PLAYER
+    addne lr,lr,#0x17C @ Dark Link, skip void out (USA: 0x132CE4)
+    cmpeq r8,#0x0      @ Normal Player, continue as normal
+    bx lr

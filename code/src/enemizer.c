@@ -288,8 +288,8 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
             //     enemyOverride.params  = 0x0000;
             //     break;
             // }
-            enemyOverride.actorId = ACTOR_POE;
-            enemyOverride.params  = 0x0002;
+            enemyOverride.actorId = ACTOR_DARK_LINK;
+            enemyOverride.params  = 0x0000;
             break;
         }
     }

@@ -88,6 +88,10 @@ SECTIONS
 		*(.patch_BeanDaddyModifyBeansBought)
 	}
 
+	.patch_PlayerCheckVoidOut 0x132B64 : {
+		*(.patch_PlayerCheckVoidOut)
+	}
+
 	.patch_FireproofDekuShieldOne 0x1330C4 : {
 		*(.patch_FireproofDekuShieldOne)
 	}

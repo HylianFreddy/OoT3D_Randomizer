@@ -2470,3 +2470,8 @@ LeeverAfterSink_patch:
 .global LeeverAfterDie_patch
 LeeverAfterDie_patch:
     bl hook_LeeverAfterDie
+
+.section .patch_PlayerCheckVoidOut
+.global PlayerCheckVoidOut_patch
+PlayerCheckVoidOut_patch:
+    bl hook_PlayerCheckVoidOut
