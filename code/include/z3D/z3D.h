@@ -811,6 +811,9 @@ typedef void (*PlaySFX_proc)(u32 sfxId, Vec3f* pos, u32 token, f32* freqScale, f
 typedef void (*Flags_SetSwitch_proc)(GlobalContext* globalCtx, u32 flag);
 #define Flags_SetSwitch ((Flags_SetSwitch_proc)GAME_ADDR(0x375C10))
 
+typedef void (*Flags_UnsetSwitch_proc)(GlobalContext* globalCtx, u32 flag);
+#define Flags_UnsetSwitch ((Flags_UnsetSwitch_proc)GAME_ADDR(0x36BEAC))
+
 typedef u32 (*Flags_GetSwitch_proc)(GlobalContext* globalCtx, u32 flag);
 #define Flags_GetSwitch ((Flags_GetSwitch_proc)GAME_ADDR(0x36E864))
 

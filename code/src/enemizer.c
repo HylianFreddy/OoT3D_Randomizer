@@ -118,7 +118,9 @@ EnemyData sEnemyData[] = {
 };
 
 static EnemyObjectDependency sEnemyObjectDeps[] = {
-    { .actorId = 0x00D, .objectId = 0x009 }, // Poe (actor profile only points to object 1)
+    { .actorId = 0x00D, .objectId = 0x009, .actorParams = 0x0000, .requiresParams = TRUE, }, // Poe (actor profile only points to object 1)
+    { .actorId = 0x00D, .objectId = 0x06E, .actorParams = 0x0002, .requiresParams = TRUE, }, // Sharp
+    { .actorId = 0x00D, .objectId = 0x06E, .actorParams = 0x0003, .requiresParams = TRUE, }, // Flat
     { .actorId = 0x063, .objectId = 0x021 }, // Bari -> Biri
     { .actorId = 0x012, .objectId = 0x003 }, // Dodongo -> dungeon object for fire breath
     { .actorId = 0x02B, .objectId = 0x003 }, // Gohma Egg -> dungeon object for egg fragments
@@ -286,8 +288,8 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
             //     enemyOverride.params  = 0x0000;
             //     break;
             // }
-            enemyOverride.actorId = ACTOR_LEEVER;
-            enemyOverride.params  = 0x0000;
+            enemyOverride.actorId = ACTOR_POE;
+            enemyOverride.params  = 0x0002;
             break;
         }
     }
@@ -311,7 +313,8 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     Object_FindEntryOrSpawn(gActorOverlayTable[actorEntry->id].initInfo->objectId);
 
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyObjectDeps); i++) {
-        if (actorEntry->id == sEnemyObjectDeps[i].actorId) {
+        if (actorEntry->id == sEnemyObjectDeps[i].actorId &&
+            (!sEnemyObjectDeps[i].requiresParams || actorEntry->params == sEnemyObjectDeps[i].actorParams)) {
             Object_FindEntryOrSpawn(sEnemyObjectDeps[i].objectId);
         }
     }

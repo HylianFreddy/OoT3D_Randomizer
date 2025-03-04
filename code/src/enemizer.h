@@ -22,6 +22,8 @@ typedef struct EnemyData {
 typedef struct EnemyObjectDependency {
     u16 actorId;
     u16 objectId;
+    u16 actorParams;
+    u8 requiresParams;
 } EnemyObjectDependency;
 
 typedef struct EnemyOverride {
