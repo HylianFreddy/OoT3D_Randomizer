@@ -44,9 +44,9 @@ _Static_assert(sizeof(SurfaceType) == 0x8, "SurfaceType size");
 #define SurfaceType_GetWallDamage(surfaceType) ((surfaceType.data[1] >> 27) & 0x1)
 #define SurfaceType_GetFloorEffect(surfaceType) ((surfaceType.data[1] >> 4) & 0x3)
 
-#define SurfaceType_IsLoadingZoneOrVoidPlane(surfaceType)                                                \
-    (SurfaceType_GetFloorProperty(surfaceType) == 0x5 || SurfaceType_GetExitIndex(surfaceType) != 0x0 || \
-     SurfaceType_GetFloorProperty(surfaceType) == 0xC)
+#define SurfaceType_IsLoadingZoneOrVoidPlane(surfaceType)                                                    \
+    (SurfaceType_GetFloorProperty(surfaceType) == 0x5 || SurfaceType_GetFloorProperty(surfaceType) == 0xC || \
+     SurfaceType_GetExitIndex(surfaceType) != 0x0 || SurfaceType_GetFloorType(surfaceType) == 0x9)
 
 typedef struct BgCamInfo {
     /* 0x0 */ u16 setting;
@@ -157,7 +157,8 @@ typedef s32 (*WaterBox_GetSurfaceImpl_proc)(struct GlobalContext* globalCtx, Col
 // Returns true if point is within the xz boundaries of an active water box, else false
 #define WaterBox_GetSurfaceImpl ((WaterBox_GetSurfaceImpl_proc)GAME_ADDR(0x35E8A0))
 
-typedef f32 (*BgCheck_RaycastDown1_proc)(CollisionContext* colCtx, CollisionPoly* outGroundPoly, Vec3f* pos) __attribute__((pcs("aapcs-vfp")));
+typedef f32 (*BgCheck_RaycastDown1_proc)(CollisionContext* colCtx, CollisionPoly* outGroundPoly, Vec3f* pos)
+    __attribute__((pcs("aapcs-vfp")));
 // Returns the yIntersect of the nearest poly found directly below `pos`, or BGCHECK_Y_MIN if no floor detected
 #define BgCheck_RaycastDown1 ((BgCheck_RaycastDown1_proc)GAME_ADDR(0x257054))
 

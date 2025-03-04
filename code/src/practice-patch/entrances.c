@@ -882,7 +882,7 @@ EntrancesByScene Entrances_HyruleField = {
 EntrancesByScene Entrances_IceCavern = {
     "Ice Cavern",
     .nbItems = 2,
-    .initialCursorPos = 3,
+    .initialCursorPos = 4,
     {
         {0x0088, "From Zora's Fountain"},
         {0x05D8, "[Unused] Near Block Puzzle Room"},

@@ -25,5 +25,6 @@ u8 Bias(u32);
 u8 IsInGame(void);
 u8 IsInGameOrBossChallenge(void);
 void CitraPrint(const char*, ...);
+f32 distXZ(Vec3f a, Vec3f b);
 
 #endif //_COMMON_H_

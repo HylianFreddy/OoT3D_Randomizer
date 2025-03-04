@@ -38,7 +38,7 @@ AmountMenu WarpsOverridesMenu = {
 WarpsSceneMenu WarpsPlacesDungeonsMenu = {
     "Dungeons",
     .nbItems = 17,
-    .initialCursorPos = 0,
+    .initialCursorPos = 9,
     {
         {"0: Inside the Deku Tree", &Entrances_InsideTheDekuTree},
         {"1: Dodongo's Cavern", &Entrances_DodongosCavern},
@@ -164,7 +164,7 @@ WarpsSceneMenu WarpsPlacesMiscMenu = {
 WarpsSceneMenu WarpsPlacesOverworldMenu = {
     "Overworld",
     .nbItems = 15,
-    .initialCursorPos = 0,
+    .initialCursorPos = 4,
     {
         {"81: Hyrule Field", &Entrances_HyruleField},
         {"91: Lost Woods", &Entrances_LostWoods},
@@ -198,7 +198,7 @@ const WarpsPlacesMenuEntry placesMenuEntries[] = {
 const s32 WarpsPlacesMenuSize = 7;
 
 void WarpsPlacesMenuShow(void){
-    static s32 selected = 2;
+    static s32 selected = 0;
 
     Draw_ClearBackbuffer();
     Draw_ClearFramebuffer();

@@ -72,6 +72,7 @@
 #include "dead_hand_hand.h"
 #include "flare_dancer.h"
 #include "poe.h"
+#include "dark_link.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -115,6 +116,9 @@ void Actor_Init() {
 
     gActorOverlayTable[0x2E].initInfo->init   = DoorShutter_rInit;
     gActorOverlayTable[0x2E].initInfo->update = (ActorFunc)DoorShutter_rUpdate;
+
+    gActorOverlayTable[0x33].initInfo->type = ACTORTYPE_ENEMY;
+    gActorOverlayTable[0x33].initInfo->update = EnTorch2_rUpdate;
 
     gActorOverlayTable[0x3D].initInfo->destroy = EnOssan_rDestroy;
 
