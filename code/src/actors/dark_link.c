@@ -24,16 +24,6 @@ void EnTorch2_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         u8 isOnGround       = (thisx->bgCheckFlags & BGCHECKFLAG_GROUND) != 0;
         u8 isBelowLink      = PLAYER->actor.world.pos.y - this->darkPlayer.actor.world.pos.y > 500.0;
 
-        // Take damage when falling into a pit.
-        if ((isAboveVoidPlane && isOnGround)) {
-            if (thisx->colChkInfo.health <= 2) {
-                thisx->colChkInfo.health = 0;
-                this->actionState        = ENTORCH2_DEATH;
-            } else {
-                thisx->colChkInfo.health -= 2;
-            }
-        }
-
         // Teleport behind player when falling out of bounds or touching a void plane.
         if ((!isAboveVoidPlane && isBelowLink) || (isAboveVoidPlane && isOnGround)) {
             this->darkPlayer.actor.world.pos.y = PLAYER->actor.world.pos.y + 40.0f;
