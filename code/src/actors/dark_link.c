@@ -20,22 +20,22 @@ void EnTorch2_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         f32 yGroundIntersect    = BgCheck_RaycastDown1(&globalCtx->colCtx, &floorPoly, &actorPos);
         SurfaceType surfaceType = globalCtx->colCtx.stat.colHeader->surfaceTypeList[floorPoly.type];
         Actor_UpdateBgCheckInfo(globalCtx, thisx, 0.0f, 0.0f, 0.0f, UPDBGCHECKINFO_FLOOR_WATER);
-        u8 isOutOfBounds    = yGroundIntersect <= BGCHECK_Y_MIN;
         u8 isAboveVoidPlane = yGroundIntersect > BGCHECK_Y_MIN && SurfaceType_IsLoadingZoneOrVoidPlane(surfaceType);
         u8 isOnGround       = (thisx->bgCheckFlags & BGCHECKFLAG_GROUND) != 0;
-        u8 isBelowLink      = PLAYER->actor.world.pos.y - this->darkPlayer.actor.world.pos.y > 200.0;
+        u8 isBelowLink      = PLAYER->actor.world.pos.y - this->darkPlayer.actor.world.pos.y > 500.0;
 
+        // Take damage when falling into a pit.
         if ((isAboveVoidPlane && isOnGround)) {
-            // Take damage when falling into a pit
             if (thisx->colChkInfo.health <= 2) {
                 thisx->colChkInfo.health = 0;
+                this->actionState        = ENTORCH2_DEATH;
             } else {
                 thisx->colChkInfo.health -= 2;
             }
         }
 
-        if (isBelowLink && (isOutOfBounds || (isAboveVoidPlane && isOnGround))) {
-            // Teleport behind player
+        // Teleport behind player when falling out of bounds or touching a void plane.
+        if ((!isAboveVoidPlane && isBelowLink) || (isAboveVoidPlane && isOnGround)) {
             this->darkPlayer.actor.world.pos.y = PLAYER->actor.world.pos.y + 40.0f;
             this->darkPlayer.actor.world.pos.x =
                 (Math_SinS(PLAYER->actor.shape.rot.y) * -120.0f) + PLAYER->actor.world.pos.x;
