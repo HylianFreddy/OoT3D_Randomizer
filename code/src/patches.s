@@ -2445,3 +2445,28 @@ AnubisFlameCircleCheck_patch:
 .global SkullKidPoacherSawCheck_patch
 SkullKidPoacherSawCheck_patch:
     bl hook_SkullKidPoacherSawCheck
+
+.section .patch_LeeverSandCheck_Init
+.global LeeverSandCheck_Init_patch
+LeeverSandCheck_Init_patch:
+    bl hook_LeeverSandCheck
+
+.section .patch_LeeverSandCheck_Small
+.global LeeverSandCheck_Small_patch
+LeeverSandCheck_Small_patch:
+    bl hook_LeeverSandCheck
+
+.section .patch_LeeverSandCheck_Big
+.global LeeverSandCheck_Big_patch
+LeeverSandCheck_Big_patch:
+    bl hook_LeeverSandCheck
+
+.section .patch_LeeverAfterSink
+.global LeeverAfterSink_patch
+LeeverAfterSink_patch:
+    blt hook_LeeverAfterSink
+
+.section .patch_LeeverAfterDie
+.global LeeverAfterDie_patch
+LeeverAfterDie_patch:
+    bl hook_LeeverAfterDie

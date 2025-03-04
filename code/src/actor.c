@@ -71,6 +71,7 @@
 #include "guay.h"
 #include "dead_hand_hand.h"
 #include "flare_dancer.h"
+#include "leever.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -106,6 +107,9 @@ void Actor_Init() {
     gActorOverlayTable[0x15].initInfo->destroy = EnItem00_rDestroy;
     gActorOverlayTable[0x15].initInfo->update  = EnItem00_rUpdate;
     gActorOverlayTable[0x15].initInfo->draw    = EnItem00_rDraw;
+
+    gActorOverlayTable[0x1C].initInfo->init    = EnReeba_rInit;
+    gActorOverlayTable[0x1C].initInfo->update  = EnReeba_rUpdate;
 
     // gActorOverlayTable[0x2D].initInfo->update = EnBubble_rUpdate;
 

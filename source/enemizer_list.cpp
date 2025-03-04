@@ -28,8 +28,8 @@ std::vector<EnemyType> enemyTypes = {
         { LocationType::ABOVE_GROUND }),
     EnemyType("Tektite (Blue)", ACTOR_TEKTITE, { 0xFFFE },
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_WATER }),
-    // EnemyType("Leever", ACTOR_LEEVER, {0x0000},
-    //  {LocationType::ABOVE_GROUND}),
+    EnemyType("Leever", ACTOR_LEEVER, { 0x0000, 0x0001 }, // normal / big
+        { LocationType::ABOVE_GROUND }),
     EnemyType("Peahat", ACTOR_PEAHAT, { 0xFFFF },
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_WATER }),
     EnemyType("Peahat Larva", ACTOR_PEAHAT, { 0x0001 },

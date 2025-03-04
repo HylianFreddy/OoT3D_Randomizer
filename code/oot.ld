@@ -236,6 +236,10 @@ SECTIONS
 		*(.patch_MidoForestDialog)
 	}
 
+	.patch_LeeverSandCheck_Big 0x1743D0 : {
+		*(.patch_LeeverSandCheck_Big)
+	}
+
 	.patch_SkipTimeTravelCutsceneOne 0x174DEC : {
 		*(.patch_SkipTimeTravelCutsceneOne)
 	}
@@ -486,6 +490,10 @@ SECTIONS
 
 	.patch_BombchuShopAlwaysOpen 0x1DC6B0 : {
 		*(.patch_BombchuShopAlwaysOpen)
+	}
+
+	.patch_LeeverSandCheck_Init 0x1DE078 : {
+		*(.patch_LeeverSandCheck_Init)
 	}
 
 	.patch_AdultBlueWarpOverride 0x1E3F50 : {
@@ -1278,6 +1286,18 @@ SECTIONS
 
 	.patch_MidoCheckDekuTreeClearFour 0x3D2C18 : {
 		*(.patch_MidoCheckDekuTreeClearFour)
+	}
+
+	.patch_LeeverAfterDie 0x3D4E10 : {
+		*(.patch_LeeverAfterDie)
+	}
+
+	.patch_LeeverAfterSink 0x3D6188 : {
+		*(.patch_LeeverAfterSink)
+	}
+
+	.patch_LeeverSandCheck_Small 0x3DE2A0 : {
+		*(.patch_LeeverSandCheck_Small)
 	}
 
 	.patch_ShadowShip_Speed 0x3DFB30 : {

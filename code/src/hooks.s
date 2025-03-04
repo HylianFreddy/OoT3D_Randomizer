@@ -2306,3 +2306,31 @@ hook_SkullKidPoacherSawCheck:
     cmp r0,#0x1
     pop {r0-r12, lr}
     bx lr
+
+.global hook_LeeverSandCheck
+hook_LeeverSandCheck:
+    cmpne r0,#0x7
+    bxeq lr
+    push {r0-r12, lr}
+    cpy r0,r4 @ actor
+    bl Leever_ShouldSurviveOutsideSand
+    cmp r0,#0x1
+    pop {r0-r12, lr}
+    bx lr
+
+.global hook_LeeverAfterSink
+hook_LeeverAfterSink:
+    push {r0-r12, lr}
+    @ r0 = actor
+    bl Leever_AfterSink
+    pop {r0-r12, lr}
+    bx lr
+
+.global hook_LeeverAfterDie
+hook_LeeverAfterDie:
+    push {r0-r12, lr}
+    cpy r0,r4 @ actor
+    bl Leever_AfterDie
+    pop {r0-r12, lr}
+    cmp r0,#0x0
+    bx lr
