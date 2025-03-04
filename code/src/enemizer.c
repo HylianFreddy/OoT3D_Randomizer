@@ -287,7 +287,7 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
             //     break;
             // }
             enemyOverride.actorId = ACTOR_LEEVER;
-            enemyOverride.params  = 0x0001;
+            enemyOverride.params  = 0x0000;
             break;
         }
     }

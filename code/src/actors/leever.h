@@ -15,7 +15,4 @@ typedef struct EnReeba {
 } EnReeba;
 _Static_assert(sizeof(EnReeba) == 0x51C, "EnReeba size");
 
-void EnReeba_rInit(Actor* thisx, GlobalContext* globalCtx);
-void EnReeba_rUpdate(Actor* thisx, GlobalContext* globalCtx);
-
 #endif //_LEEVER_H_
