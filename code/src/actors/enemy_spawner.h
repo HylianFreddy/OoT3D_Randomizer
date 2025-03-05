@@ -30,8 +30,6 @@ typedef struct EnEncount1 {
 } EnEncount1;
 _Static_assert(sizeof(EnEncount1) == 0x1E0, "EnEncount1 size");
 
-// void EnEncount1_rInit(Actor* thisx, GlobalContext* globalCtx);
-// void EnEncount1_rDestroy(Actor* thisx, GlobalContext* globalCtx);
 void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx);
 
 #endif //_ENEMY_SPAWNER_H_

@@ -522,21 +522,6 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
     return 1; // continue as normal
 }
 
-void Actor_BeforeDestroy(Actor* actor, GlobalContext* globalCtx) {
-    // If this actor has been spawned by an enemy spawner, decrease the curNumSpawn
-    // if the actor doesn't do it on its own (due to enemy randomizer).
-    // if (actor->parent != NULL && actor->parent->id == ACTOR_ENEMY_SPAWNER && actor->id != ACTOR_STALCHILD &&
-    //     actor->id != ACTOR_LEEVER && actor->id != ACTOR_TEKTITE && actor->id != ACTOR_WOLFOS) {
-    //     EnEncount1* spawner = (EnEncount1*)actor->parent;
-
-    //     if (spawner->actor.update != NULL) {
-    //         if (spawner->curNumSpawn > 0) {
-    //             spawner->curNumSpawn--;
-    //         }
-    //     }
-    // }
-}
-
 void Actor_OverrideSpawn(u16* actorId, u16* params) {
 }
 

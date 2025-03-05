@@ -2500,8 +2500,3 @@ EnEncount1_SpawnLeever_patch:
 .global EnEncount1_SetLeeverAimType_patch
 EnEncount1_SetLeeverAimType_patch:
     bl hook_EnEncount1_SetLeeverAimType
-
-.section .patch_ActorDestroy
-.global ActorDestroy_patch
-ActorDestroy_patch:
-    bl hook_ActorDestroy
