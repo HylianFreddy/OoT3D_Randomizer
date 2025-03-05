@@ -480,6 +480,14 @@ SECTIONS
 		*(.patch_KingZoraSetTradedPrescriptionFlag)
 	}
 
+	.patch_EnEncount1_SpawnLeever 0x1CC94C : {
+		*(.patch_EnEncount1_SpawnLeever)
+	}
+
+	.patch_EnEncount1_SetLeeverAimType 0x1CC984 : {
+		*(.patch_EnEncount1_SetLeeverAimType)
+	}
+
 	.patch_TruthSpinnerSpeed 0x1CD814 : {
 		*(.patch_TruthSpinnerSpeed)
 	}
@@ -594,6 +602,10 @@ SECTIONS
 
 	.patch_GetObjectEntry_ObjSwitchInit 0x215A60 : {
 		*(.patch_GetObjectEntry_ObjSwitchInit)
+	}
+
+	.patch_EnEncount1_SpawnStalchildWolfos 0x21C020 : {
+		*(.patch_EnEncount1_SpawnStalchildWolfos)
 	}
 
 	.patch_DekuTheaterMaskOfTruth 0x21CA30 : {

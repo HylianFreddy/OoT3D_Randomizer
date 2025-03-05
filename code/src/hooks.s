@@ -2347,8 +2347,8 @@ hook_PlayerCheckVoidOut:
 hook_EnBlkobj_SpawnDarkLink:
     add r0,r0,#0x8C
     push {r0-r12, lr}
-    add r0,sp,#0x8  @ actorId
-    add r1,sp,#0x40 @ params
+    add r0,sp,#0x8  @ actorId (r2)
+    add r1,sp,#0x40 @ params (Stack[0x8])
     vpush {s2}
     cpy r2,sp @ posZ
     bl DarkLink_OverrideSpawnedActor
@@ -2360,10 +2360,39 @@ hook_EnBlkobj_SpawnDarkLink:
 hook_EnBlkobj_FindDarkLink:
     add r0,r0,#0x8C
     push {r0-r12, lr}
-    add r0,sp,#0x4 @ actorId
+    add r0,sp,#0x4 @ actorId (r1)
     mov r1,#0x0 @ no params
     mov r2,#0x0 @ no posZ
     bl DarkLink_OverrideSpawnedActor
     pop {r0-r12, lr}
     mov r2,#0x5 @ ACTORTYPE_ENEMY
+    bx lr
+
+.global hook_EnEncount1_SpawnStalchildWolfos
+hook_EnEncount1_SpawnStalchildWolfos:
+    cpy r1,r9
+    push {r0-r12, lr}
+    add r0,sp,#0xC  @ actorId (r3)
+    add r1,sp,#0x44 @ params (Stack[0xc])
+    bl EnemySpawner_OverrideSpawnedActor
+    pop {r0-r12, lr}
+    bx lr
+
+.global hook_EnEncount1_SpawnLeever
+hook_EnEncount1_SpawnLeever:
+    push {r0-r12, lr}
+    add r0,sp,#0xC  @ actorId (r3)
+    add r1,sp,#0x20 @ params (r8)
+    bl EnemySpawner_OverrideSpawnedActor
+    pop {r0-r12, lr}
+    str r8,[sp,#0xC]
+    bx lr
+
+.global hook_EnEncount1_SetLeeverAimType
+hook_EnEncount1_SetLeeverAimType:
+    push {r0}
+    ldrh r0,[r7] @ actor->id
+    cmp r0,#0x1C @ Leever actor id
+    pop {r0}
+    strheq r0,[r1,r7] @ Set aimType only if actor is Leever
     bx lr

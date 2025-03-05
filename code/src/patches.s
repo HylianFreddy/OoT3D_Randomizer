@@ -2485,3 +2485,18 @@ EnBlkobj_SpawnDarkLink_patch:
 .global EnBlkobj_FindDarkLink_patch
 EnBlkobj_FindDarkLink_patch:
     bl hook_EnBlkobj_FindDarkLink
+
+.section .patch_EnEncount1_SpawnStalchildWolfos
+.global EnEncount1_SpawnStalchildWolfos_patch
+EnEncount1_SpawnStalchildWolfos_patch:
+    bl hook_EnEncount1_SpawnStalchildWolfos
+
+.section .patch_EnEncount1_SpawnLeever
+.global EnEncount1_SpawnLeever_patch
+EnEncount1_SpawnLeever_patch:
+    bl hook_EnEncount1_SpawnLeever
+
+.section .patch_EnEncount1_SetLeeverAimType
+.global EnEncount1_SetLeeverAimType_patch
+EnEncount1_SetLeeverAimType_patch:
+    bl hook_EnEncount1_SetLeeverAimType

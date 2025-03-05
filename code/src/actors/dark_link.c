@@ -41,8 +41,7 @@ void DarkLink_OverrideSpawnedActor(s16* actorId, s16* params, f32* posZ) {
         return;
     }
 
-    // Get "spawner" override for Water Temple's room 13
-    EnemyOverride enemyOverride = Enemizer_FindOverride(5, 0, 13, 0xFF);
+    EnemyOverride enemyOverride = Enemizer_GetSpawnerOverride();
 
     if (enemyOverride.actorId == 0) {
         return;

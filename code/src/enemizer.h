@@ -51,6 +51,6 @@ void Enemizer_Init(void);
 void Enemizer_Update(void);
 void Enemizer_OverrideActorEntry(ActorEntry* entry, s32 actorEntryIndex);
 void Enemizer_ActorSetupExtra(void);
-EnemyOverride Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actorEntry);
+EnemyOverride Enemizer_GetSpawnerOverride(void);
 
 #endif // _ENEMIZER_H_
