@@ -828,6 +828,10 @@ SECTIONS
 		*(.patch_ActorDraw)
 	}
 
+	.patch_ActorDestroy 0x2D6450 : {
+		*(.patch_ActorDestroy)
+	}
+
 	.patch_CamUpdate 0x2D84C8 : {
 		*(.patch_CamUpdate)
 	}

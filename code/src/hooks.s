@@ -2396,3 +2396,12 @@ hook_EnEncount1_SetLeeverAimType:
     pop {r0}
     strheq r0,[r1,r7] @ Set aimType only if actor is Leever
     bx lr
+
+.global hook_ActorDestroy
+hook_ActorDestroy:
+    push {r0-r12, lr}
+    @ r0=actor, r1=globalCtx
+    bl Actor_BeforeDestroy
+    pop {r0-r12, lr}
+    cpy r6,r0
+    bx lr

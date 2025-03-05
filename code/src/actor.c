@@ -6,6 +6,7 @@
 #include "models.h"
 #include "enemy_souls.h"
 #include "enemizer.h"
+#include "actor_id.h"
 #include "owl.h"
 #include "item00.h"
 #include "heart_container.h"
@@ -73,6 +74,7 @@
 #include "flare_dancer.h"
 #include "poe.h"
 #include "dark_link.h"
+#include "enemy_spawner.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -117,7 +119,7 @@ void Actor_Init() {
     gActorOverlayTable[0x2E].initInfo->init   = DoorShutter_rInit;
     gActorOverlayTable[0x2E].initInfo->update = (ActorFunc)DoorShutter_rUpdate;
 
-    gActorOverlayTable[0x33].initInfo->type = ACTORTYPE_ENEMY;
+    gActorOverlayTable[0x33].initInfo->type   = ACTORTYPE_ENEMY;
     gActorOverlayTable[0x33].initInfo->update = EnTorch2_rUpdate;
 
     gActorOverlayTable[0x3D].initInfo->destroy = EnOssan_rDestroy;
@@ -515,6 +517,21 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
     }
 
     return 1; // continue as normal
+}
+
+void Actor_BeforeDestroy(Actor* actor, GlobalContext* globalCtx) {
+    // If this actor has been spawned by an enemy spawner, decrease the curNumSpawn
+    // if the actor doesn't do it on its own (due to enemy randomizer).
+    if (actor->parent != NULL && actor->parent->id == 0xA7 && actor->id != ACTOR_STALCHILD &&
+        actor->id != ACTOR_LEEVER && actor->id != ACTOR_TEKTITE && actor->id != ACTOR_WOLFOS) {
+        EnEncount1* spawner = (EnEncount1*)actor->parent;
+
+        if (spawner->actor.update != NULL) {
+            if (spawner->curNumSpawn > 0) {
+                spawner->curNumSpawn--;
+            }
+        }
+    }
 }
 
 void Actor_OverrideSpawn(u16* actorId, u16* params) {
