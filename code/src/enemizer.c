@@ -135,8 +135,8 @@ s32 Enemizer_IsActive(void) {
 
 void Enemizer_Init(void) {
     //Mock for spawners
-    u16 actorId = ACTOR_WOLFOS;
-    u16 params = 0xFF00;
+    u16 actorId = ACTOR_SHABOM;
+    u16 params = 0x0000;
     rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
         .scene = 5,
         .layer = 0,

@@ -23,9 +23,15 @@ typedef struct EnEncount1 {
     /* 0x1BC */ s16 timer;
     /* 0x1BE */ u8 reduceLeevers;
     /* 0x1C0 */ f32 spawnRange;
-    /* 0x1C4 */ struct EnReeba* bigLeever;
-    /* 0x1C8 */ void* unk_1C8;
+    /* 0x1C4 */ Actor* bigLeever;
+    /* 0x1C8 */ struct EnEncount1* childEnEncount1;
+    // end of base game struct
+    /* 0x1CC */ Actor* spawnedEnemies[5];
 } EnEncount1;
-_Static_assert(sizeof(EnEncount1) == 0x1CC, "EnEncount1 size");
+_Static_assert(sizeof(EnEncount1) == 0x1E0, "EnEncount1 size");
+
+// void EnEncount1_rInit(Actor* thisx, GlobalContext* globalCtx);
+// void EnEncount1_rDestroy(Actor* thisx, GlobalContext* globalCtx);
+void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx);
 
 #endif //_ENEMY_SPAWNER_H_

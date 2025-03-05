@@ -36,6 +36,7 @@ enum ActorId {
     ACTOR_FLARE_DANCER       = 0x099,
     ACTOR_DEAD_HAND          = 0x0A4,
     ACTOR_DEAD_HAND_HAND     = 0x0A5,
+    ACTOR_ENEMY_SPAWNER      = 0x0A7,
     ACTOR_SHELL_BLADE        = 0x0C5,
     ACTOR_BIG_OCTO           = 0x0C6,
     ACTOR_WITHERED_DEKU_BABA = 0x0C7,

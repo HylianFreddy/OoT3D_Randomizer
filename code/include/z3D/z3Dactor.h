@@ -31,6 +31,8 @@ struct ZARInfo;
 #define UPDBGCHECKINFO_FLAG_6 (1 << 6) // disable water ripples
 #define UPDBGCHECKINFO_FLAG_7 (1 << 7) // alternate wall check?
 
+#define ACTOR_FLAG_INSIDE_CULLING_VOLUME (1 << 6)
+
 typedef struct {
     Vec3f pos;
     Vec3s rot;

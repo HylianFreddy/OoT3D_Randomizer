@@ -156,6 +156,9 @@ void Actor_Init() {
 
     gActorOverlayTable[0xA5].initInfo->update = EnDha_rUpdate;
 
+    gActorOverlayTable[0xA7].initInfo->update       = EnEncount1_rUpdate;
+    gActorOverlayTable[0xA7].initInfo->instanceSize = sizeof(EnEncount1);
+
     gActorOverlayTable[0xC1].initInfo->init   = EnSyatekiMan_rInit;
     gActorOverlayTable[0xC1].initInfo->update = EnSyatekiMan_rUpdate;
 
@@ -522,16 +525,16 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
 void Actor_BeforeDestroy(Actor* actor, GlobalContext* globalCtx) {
     // If this actor has been spawned by an enemy spawner, decrease the curNumSpawn
     // if the actor doesn't do it on its own (due to enemy randomizer).
-    if (actor->parent != NULL && actor->parent->id == 0xA7 && actor->id != ACTOR_STALCHILD &&
-        actor->id != ACTOR_LEEVER && actor->id != ACTOR_TEKTITE && actor->id != ACTOR_WOLFOS) {
-        EnEncount1* spawner = (EnEncount1*)actor->parent;
+    // if (actor->parent != NULL && actor->parent->id == ACTOR_ENEMY_SPAWNER && actor->id != ACTOR_STALCHILD &&
+    //     actor->id != ACTOR_LEEVER && actor->id != ACTOR_TEKTITE && actor->id != ACTOR_WOLFOS) {
+    //     EnEncount1* spawner = (EnEncount1*)actor->parent;
 
-        if (spawner->actor.update != NULL) {
-            if (spawner->curNumSpawn > 0) {
-                spawner->curNumSpawn--;
-            }
-        }
-    }
+    //     if (spawner->actor.update != NULL) {
+    //         if (spawner->curNumSpawn > 0) {
+    //             spawner->curNumSpawn--;
+    //         }
+    //     }
+    // }
 }
 
 void Actor_OverrideSpawn(u16* actorId, u16* params) {
