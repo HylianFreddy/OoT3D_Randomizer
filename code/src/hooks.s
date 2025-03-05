@@ -2342,3 +2342,28 @@ hook_PlayerCheckVoidOut:
     addne lr,lr,#0x17C @ Dark Link, skip void out (USA: 0x132CE4)
     cmpeq r8,#0x0      @ Normal Player, continue as normal
     bx lr
+
+.global hook_EnBlkobj_SpawnDarkLink
+hook_EnBlkobj_SpawnDarkLink:
+    add r0,r0,#0x8C
+    push {r0-r12, lr}
+    add r0,sp,#0x8  @ actorId
+    add r1,sp,#0x40 @ params
+    vpush {s2}
+    cpy r2,sp @ posZ
+    bl DarkLink_OverrideSpawnedActor
+    vpop {s2}
+    pop {r0-r12, lr}
+    bx lr
+
+.global hook_EnBlkobj_FindDarkLink
+hook_EnBlkobj_FindDarkLink:
+    add r0,r0,#0x8C
+    push {r0-r12, lr}
+    add r0,sp,#0x4 @ actorId
+    mov r1,#0x0 @ no params
+    mov r2,#0x0 @ no posZ
+    bl DarkLink_OverrideSpawnedActor
+    pop {r0-r12, lr}
+    mov r2,#0x5 @ ACTORTYPE_ENEMY
+    bx lr

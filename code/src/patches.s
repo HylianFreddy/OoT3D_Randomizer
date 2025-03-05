@@ -2475,3 +2475,13 @@ LeeverAfterDie_patch:
 .global PlayerCheckVoidOut_patch
 PlayerCheckVoidOut_patch:
     bl hook_PlayerCheckVoidOut
+
+.section .patch_EnBlkobj_SpawnDarkLink
+.global EnBlkobj_SpawnDarkLink_patch
+EnBlkobj_SpawnDarkLink_patch:
+    bl hook_EnBlkobj_SpawnDarkLink
+
+.section .patch_EnBlkobj_FindDarkLink
+.global EnBlkobj_FindDarkLink_patch
+EnBlkobj_FindDarkLink_patch:
+    bl hook_EnBlkobj_FindDarkLink

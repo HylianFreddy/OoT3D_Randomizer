@@ -64,7 +64,10 @@ using EnemyLocationsMap_Layer = std::unordered_map<u8, EnemyLocationsMap_Room>;
 using EnemyLocationsMap_Scene = std::unordered_map<u8, EnemyLocationsMap_Layer>;
 using EnemyLocationsMap       = std::unordered_map<u8, EnemyLocationsMap_Scene>;
 
+// Possible enemies to choose from for randomization.
 extern std::vector<EnemyType> enemyTypes;
+// Map of enemy locations that will be randomized. Indices are [scene][layer][room][actorEntry].
+// To override dynamic enemy spawners, actorEntry is set to 0xFF.
 extern EnemyLocationsMap enemyLocations;
 
 void EnemyLocations_Init(void);

@@ -610,6 +610,7 @@ void EnemyLocations_Init(void) {
         enemyLocations[5][0][12][6] = EnemyLocation(ACTOR_TEKTITE, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][12][7] = EnemyLocation(ACTOR_TEKTITE, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][12][8] = EnemyLocation(ACTOR_TEKTITE, LocationType::ABOVE_GROUND);
+        enemyLocations[5][0][13][0xFF] = EnemyLocation(ACTOR_DARK_LINK, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][14][0] = EnemyLocation(ACTOR_STINGER_WATER, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][14][1] = EnemyLocation(ACTOR_STINGER_WATER, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][14][2] = EnemyLocation(ACTOR_STINGER_WATER, LocationType::ABOVE_GROUND);

@@ -1,7 +1,6 @@
 #include "dark_link.h"
 #include "settings.h"
-#include "common.h"
-#include "input.h"
+#include "enemizer.h"
 
 #define EnTorch2_Update ((ActorFunc)GAME_ADDR(0x22F0C8))
 
@@ -34,5 +33,28 @@ void EnTorch2_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 
             this->darkPlayer.actor.home.pos = this->darkPlayer.actor.world.pos;
         }
+    }
+}
+
+void DarkLink_OverrideSpawnedActor(s16* actorId, s16* params, f32* posZ) {
+    if (gSettingsContext.enemizer == OFF) {
+        return;
+    }
+
+    // Get "spawner" override for Water Temple's room 13
+    EnemyOverride enemyOverride = Enemizer_FindOverride(5, 0, 13, 0xFF);
+
+    if (enemyOverride.actorId == 0) {
+        return;
+    }
+
+    if (actorId != NULL) {
+        *actorId = enemyOverride.actorId;
+    }
+    if (params != NULL) {
+        *params = enemyOverride.params;
+    }
+    if (posZ != NULL) {
+        *posZ -= 75.0; // Move enemy outside of the tree.
     }
 }

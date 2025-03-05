@@ -404,6 +404,14 @@ SECTIONS
 		*(.patch_PierreSoftlockFixOne)
 	}
 
+	.patch_EnBlkobj_FindDarkLink 0x1A0BC4 : {
+		*(.patch_EnBlkobj_FindDarkLink)
+	}
+
+	.patch_EnBlkobj_SpawnDarkLink 0x1A1378 : {
+		*(.patch_EnBlkobj_SpawnDarkLink)
+	}
+
 	.patch_RutoBlueWarpOverride 0x1A1900 : {
 		*(.patch_RutoBlueWarpOverride)
 	}
