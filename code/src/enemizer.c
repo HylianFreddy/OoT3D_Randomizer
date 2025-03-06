@@ -135,8 +135,8 @@ s32 Enemizer_IsActive(void) {
 
 void Enemizer_Init(void) {
     //Mock for spawners
-    u16 actorId = ACTOR_SHABOM;
-    u16 params = 0x0000;
+    u16 actorId = ACTOR_GOHMA_LARVA;
+    u16 params = 0x0007;
     rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
         .scene = 5,
         .layer = 0,
@@ -172,14 +172,6 @@ void Enemizer_Init(void) {
     rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
         .scene = 94,
         .layer = 0,
-        .room = 1,
-        .actorEntry = 0xFF,
-        .actorId = actorId,
-        .params = params,
-    };
-    rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
-        .scene = 94,
-        .layer = 2,
         .room = 1,
         .actorEntry = 0xFF,
         .actorId = actorId,
@@ -351,8 +343,8 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
             //     enemyOverride.params  = 0x0000;
             //     break;
             // }
-            enemyOverride.actorId = ACTOR_SHABOM;
-            enemyOverride.params  = 0x0000;
+            enemyOverride.actorId = ACTOR_GOHMA_LARVA;
+            enemyOverride.params  = 0x0007;
             break;
         }
     }

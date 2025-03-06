@@ -4,7 +4,9 @@
 #define EnReeba_SetupSurface ((EnReebaActionFunc)GAME_ADDR(0x181394))
 
 s32 Leever_ShouldSurviveOutsideSand(Actor* actor) {
-    return gSettingsContext.enemizer == ON && actor->parent == NULL;
+    // Single enemies, or children of spawners outside Desert Colossus and Haunted Wasteland
+    return gSettingsContext.enemizer == ON &&
+           (actor->parent == NULL || (gGlobalContext->sceneNum != 92 && gGlobalContext->sceneNum != 94));
 }
 
 void Leever_AfterSink(Actor* actor) {

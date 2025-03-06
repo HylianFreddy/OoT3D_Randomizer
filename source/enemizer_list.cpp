@@ -9,9 +9,9 @@ EnemyLocationsMap enemyLocations = {};
 // clang-format off
 std::vector<EnemyType> enemyTypes = {
     EnemyType("Poe", ACTOR_POE, { 0x0000 },
-        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER, LocationType::SPAWNER }),
     EnemyType("Stalfos", ACTOR_STALFOS, { 0x0002, 0x0003 }, // rises from ground / drops from above when approached
-        { LocationType::ABOVE_GROUND }),
+        { LocationType::ABOVE_GROUND, LocationType::SPAWNER }),
     EnemyType("Octorok", ACTOR_OCTOROK, { 0x0000 },
         { LocationType::ABOVE_WATER }),
     EnemyType("Wallmaster", ACTOR_WALLMASTER, { 0x0000 },
@@ -29,7 +29,7 @@ std::vector<EnemyType> enemyTypes = {
     EnemyType("Tektite (Blue)", ACTOR_TEKTITE, { 0xFFFE },
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_WATER }),
     EnemyType("Leever", ACTOR_LEEVER, { 0x0000, 0x0001 }, // normal / big
-        { LocationType::ABOVE_GROUND }),
+        { LocationType::ABOVE_GROUND, LocationType::SPAWNER }),
     EnemyType("Peahat", ACTOR_PEAHAT, { 0xFFFF },
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_WATER }),
     EnemyType("Peahat Larva", ACTOR_PEAHAT, { 0x0001 },
@@ -39,11 +39,11 @@ std::vector<EnemyType> enemyTypes = {
     EnemyType("Dinolfos", ACTOR_LIZALFOS, { 0xFFFE },
         { LocationType::ABOVE_GROUND }),
     EnemyType("Gohma Larva", ACTOR_GOHMA_LARVA, { 0x0000, 0x0007 }, // egg that drops and hatches / normal egg
-        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER, LocationType::SPAWNER }),
     EnemyType("Shabom", ACTOR_SHABOM, { 0x0000 },
-        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER, LocationType::ABOVE_WATER, LocationType::SPAWNER }),
     EnemyType("Baby Dodongo", ACTOR_BABY_DODONGO, { 0x0000 },
-        { LocationType::ABOVE_GROUND }),
+        { LocationType::ABOVE_GROUND, LocationType::SPAWNER }),
     EnemyType("Biri", ACTOR_BIRI, { 0xFFFF },
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
     EnemyType("Tailpasaran", ACTOR_TAILPASARAN, { 0xFFFF },
@@ -113,9 +113,9 @@ std::vector<EnemyType> enemyTypes = {
     EnemyType("Stinger (Water)", ACTOR_STINGER_WATER, { 0x0000 },
         { LocationType::UNDERWATER }),
     EnemyType("Wolfos", ACTOR_WOLFOS, { 0xFF00, 0xFF01 }, // normal / white
-        { LocationType::ABOVE_GROUND }),
+        { LocationType::ABOVE_GROUND, LocationType::SPAWNER }),
     EnemyType("Stalchild", ACTOR_STALCHILD, { 0x0000, 0x0005 }, // normal / big (20 kills)
-        { LocationType::ABOVE_GROUND }),
+        { LocationType::ABOVE_GROUND, LocationType::SPAWNER }),
     EnemyType("Guay", ACTOR_GUAY, { 0x0000, 0x0001 }, // normal / big
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
     // EnemyType("Dark Link", ACTOR_DARK_LINK, {0x0000},
@@ -126,7 +126,7 @@ std::vector<EnemyType> enemyTypes = {
 // clang-format on
 
 void AddDuplicateLocations(void) {
-    // Peahats in Hyrule Field should stay the same enemies in OoT layer
+    // Enemies in Hyrule Field as child should stay the same in OoT layer
     enemyLocations[81][1][0][4]  = enemyLocations[81][0][0][8];
     enemyLocations[81][1][0][5]  = enemyLocations[81][0][0][9];
     enemyLocations[81][1][0][6]  = enemyLocations[81][0][0][10];
@@ -134,6 +134,7 @@ void AddDuplicateLocations(void) {
     enemyLocations[81][1][0][8]  = enemyLocations[81][0][0][12];
     enemyLocations[81][1][0][9]  = enemyLocations[81][0][0][13];
     enemyLocations[81][1][0][10] = enemyLocations[81][0][0][14];
+    enemyLocations[81][1][0][0xFF] = enemyLocations[81][0][0][0xFF];
 
     // Enemies in Graveyard as adult should stay the same at night
     // enemyLocations[83][3][1][2]  = enemyLocations[83][2][1][2];
@@ -205,6 +206,7 @@ void EnemyLocations_Init(void) {
     enemyLocations[81][0][0][12] = EnemyLocation(ACTOR_PEAHAT, LocationType::ABOVE_GROUND);
     enemyLocations[81][0][0][13] = EnemyLocation(ACTOR_PEAHAT, LocationType::ABOVE_GROUND);
     enemyLocations[81][0][0][14] = EnemyLocation(ACTOR_PEAHAT, LocationType::ABOVE_GROUND);
+    enemyLocations[81][0][0][0xFF] = EnemyLocation(ACTOR_STALCHILD, LocationType::SPAWNER);
     // enemyLocations[83][2][1][2]  = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
     // enemyLocations[83][2][1][3]  = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
     // enemyLocations[83][2][1][4]  = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
@@ -302,11 +304,14 @@ void EnemyLocations_Init(void) {
     enemyLocations[92][0][0][7]  = EnemyLocation(ACTOR_GUAY, LocationType::ABOVE_GROUND);
     enemyLocations[92][0][0][8]  = EnemyLocation(ACTOR_GUAY, LocationType::ABOVE_GROUND);
     enemyLocations[92][0][0][9]  = EnemyLocation(ACTOR_GUAY, LocationType::ABOVE_GROUND);
+    enemyLocations[92][0][0][0xFF] = EnemyLocation(ACTOR_LEEVER, LocationType::SPAWNER);
     enemyLocations[92][2][0][7]  = EnemyLocation(ACTOR_GUAY, LocationType::ABOVE_GROUND);
     enemyLocations[92][2][0][8]  = EnemyLocation(ACTOR_GUAY, LocationType::ABOVE_GROUND);
     enemyLocations[92][2][0][9]  = EnemyLocation(ACTOR_GUAY, LocationType::ABOVE_GROUND);
     enemyLocations[92][2][0][10] = EnemyLocation(ACTOR_GUAY, LocationType::ABOVE_GROUND);
     enemyLocations[92][2][0][11] = EnemyLocation(ACTOR_GUAY, LocationType::ABOVE_GROUND);
+    enemyLocations[92][2][0][0xFF] = EnemyLocation(ACTOR_LEEVER, LocationType::SPAWNER);
+    enemyLocations[94][0][1][0xFF] = EnemyLocation(ACTOR_LEEVER, LocationType::SPAWNER);
     enemyLocations[96][0][0][6]  = EnemyLocation(ACTOR_SKULLWALLTULA, LocationType::ABOVE_GROUND);
     enemyLocations[96][0][0][7]  = EnemyLocation(ACTOR_SKULLWALLTULA, LocationType::ABOVE_GROUND);
     enemyLocations[96][0][0][8]  = EnemyLocation(ACTOR_SKULLWALLTULA, LocationType::ABOVE_GROUND);
@@ -1080,6 +1085,7 @@ void EnemyLocations_Init(void) {
         enemyLocations[5][0][6][3]  = EnemyLocation(ACTOR_STALFOS, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][6][4]  = EnemyLocation(ACTOR_STALFOS, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][10][0] = EnemyLocation(ACTOR_LIZALFOS, LocationType::ABOVE_GROUND);
+        enemyLocations[5][0][13][0xFF] = EnemyLocation(ACTOR_DARK_LINK, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][14][1] = EnemyLocation(ACTOR_DODONGO, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][14][2] = EnemyLocation(ACTOR_DODONGO, LocationType::ABOVE_GROUND);
         enemyLocations[5][0][14][3] = EnemyLocation(ACTOR_DODONGO, LocationType::ABOVE_GROUND);

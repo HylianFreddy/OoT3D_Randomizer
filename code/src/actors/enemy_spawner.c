@@ -3,6 +3,8 @@
 #include "enemizer.h"
 #include "common.h"
 #include "actor_id.h"
+#include "shabom.h"
+#include "gohma.h"
 
 #define EnEncount1_Update ((ActorFunc)GAME_ADDR(0x2682D0))
 
@@ -15,6 +17,11 @@ void EnemySpawner_OverrideSpawnedActor(s16* actorId, s16* params) {
 
     if (enemyOverride.actorId == 0) {
         return;
+    }
+
+    if (enemyOverride.actorId == ACTOR_STALFOS) {
+        // Only use "rising from ground" stalfos type, and not the "falling from above" type.
+        enemyOverride.params = 0x0002;
     }
 
     if (actorId != NULL) {
@@ -64,6 +71,15 @@ void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
                 continue;
             }
             this->spawnedEnemies[i] = enemy;
+            switch (enemy->id) {
+                case ACTOR_SHABOM:
+                    ((EnBubble*)enemy)->actionFunc = EnBubble_Disappear;
+                    break;
+                case ACTOR_GOHMA_LARVA:
+                    ((EnGoma*)enemy)->actionFunc = EnGoma_SetupHatch;
+                    enemy->gravity = -1.3;
+                    break;
+            }
 
             enemy = enemy->next;
             i++;
