@@ -114,10 +114,16 @@ void Actor_Init() {
     gActorOverlayTable[0x15].initInfo->update  = EnItem00_rUpdate;
     gActorOverlayTable[0x15].initInfo->draw    = EnItem00_rDraw;
 
+    gActorOverlayTable[0x27].initInfo->id = 0x27; // King Dodongo
+
+    gActorOverlayTable[0x2B].initInfo->id = 0x2B; // Gohma Larva
+
     // gActorOverlayTable[0x2D].initInfo->update = EnBubble_rUpdate;
 
     gActorOverlayTable[0x2E].initInfo->init   = DoorShutter_rInit;
     gActorOverlayTable[0x2E].initInfo->update = (ActorFunc)DoorShutter_rUpdate;
+
+    gActorOverlayTable[0x30].initInfo->id = 0x30; // King Dodongo Fire Breath
 
     gActorOverlayTable[0x33].initInfo->type   = ACTORTYPE_ENEMY;
     gActorOverlayTable[0x33].initInfo->update = EnTorch2_rUpdate;
@@ -139,6 +145,8 @@ void Actor_Init() {
 
     gActorOverlayTable[0x66].initInfo->init = ArmsHook_rInit;
 
+    gActorOverlayTable[0x6D].initInfo->id = 0x6D; // Phantom Ganon Lightning
+
     gActorOverlayTable[0x85].initInfo->update = EnTk_rUpdate;
 
     gActorOverlayTable[0x8B].initInfo->init    = DemoEffect_rInit;
@@ -158,6 +166,8 @@ void Actor_Init() {
 
     gActorOverlayTable[0xA7].initInfo->update       = EnEncount1_rUpdate;
     gActorOverlayTable[0xA7].initInfo->instanceSize = sizeof(EnEncount1);
+
+    gActorOverlayTable[0xAD].initInfo->id = 0xAD; // Volvagia Rock
 
     gActorOverlayTable[0xC1].initInfo->init   = EnSyatekiMan_rInit;
     gActorOverlayTable[0xC1].initInfo->update = EnSyatekiMan_rUpdate;

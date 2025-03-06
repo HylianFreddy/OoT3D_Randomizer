@@ -1835,18 +1835,6 @@ SECTIONS
 		*(.patch_DampeSetCollectibleFlag)
 	}
 
-	.patch_KingDodongoID 0x514594 : {
-		*(.patch_KingDodongoID)
-	}
-
-	.patch_KingDodongoFireBreathID 0x520D38 : {
-		*(.patch_KingDodongoFireBreathID)
-	}
-
-	.patch_PhantomGanonLightningID 0x523698 : {
-		*(.patch_PhantomGanonLightningID)
-	}
-
 	.patch_BombchuCheapestPriceOne 0x525348 : {
 		*(.patch_BombchuCheapestPriceOne)
 	}
@@ -1863,16 +1851,8 @@ SECTIONS
 		*(.patch_BombchuCheapestPriceFour)
 	}
 
-	.patch_GohmaLarvaID 0x525F24 : {
-		*(.patch_GohmaLarvaID)
-	}
-
 	.patch_OcarinaMinigameRewardsOrder 0x52ED10 : {
 		*(.patch_OcarinaMinigameRewardsOrder)
-	}
-
-	.patch_VolvagiaRockID 0x52FDB4 : {
-		*(.patch_VolvagiaRockID)
 	}
 
 	.patch_TycoonWalletSize 0x53CC08 : {
