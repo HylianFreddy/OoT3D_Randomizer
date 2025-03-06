@@ -31,7 +31,7 @@ enum ActorId {
     ACTOR_BEAMOS             = 0x08A,
     ACTOR_FLOORMASTER        = 0x08E,
     ACTOR_REDEAD             = 0x090,
-    ACTOR_POE_SISTERS        = 0x091,
+    ACTOR_POE_SISTER         = 0x091,
     ACTOR_SKULLWALLTULA      = 0x095,
     ACTOR_FLARE_DANCER       = 0x099,
     ACTOR_DEAD_HAND          = 0x0A4,

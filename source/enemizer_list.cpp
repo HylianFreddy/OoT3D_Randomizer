@@ -8,7 +8,7 @@ EnemyLocationsMap enemyLocations = {};
 
 // clang-format off
 std::vector<EnemyType> enemyTypes = {
-    EnemyType("Poe", ACTOR_POE, { 0x0000 },
+    EnemyType("Poe", ACTOR_POE, { 0x0000, 0x0002, 0x0003 }, // normal, Sharp, Flat
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER, LocationType::SPAWNER }),
     EnemyType("Stalfos", ACTOR_STALFOS, { 0x0002, 0x0003 }, // rises from ground / drops from above when approached
         { LocationType::ABOVE_GROUND, LocationType::SPAWNER }),
@@ -44,6 +44,8 @@ std::vector<EnemyType> enemyTypes = {
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER, LocationType::ABOVE_WATER, LocationType::SPAWNER }),
     EnemyType("Baby Dodongo", ACTOR_BABY_DODONGO, { 0x0000 },
         { LocationType::ABOVE_GROUND, LocationType::SPAWNER }),
+    EnemyType("Dark Link", ACTOR_DARK_LINK, { 0x0000 },
+        { LocationType::ABOVE_GROUND }),
     EnemyType("Biri", ACTOR_BIRI, { 0xFFFF },
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
     EnemyType("Tailpasaran", ACTOR_TAILPASARAN, { 0xFFFF },
@@ -86,18 +88,26 @@ std::vector<EnemyType> enemyTypes = {
         { LocationType::ABOVE_GROUND }),
     EnemyType("Gibdo", ACTOR_REDEAD, { 0x7FFE },
         { LocationType::ABOVE_GROUND }),
+    // EnemyType("Poe Sister", ACTOR_POE_SISTER, { 0x0000 },
+    //     { LocationType::ABOVE_GROUND }),
     EnemyType("Dead Hand's Hand", ACTOR_DEAD_HAND_HAND, { 0x0000 },
         { LocationType::ABOVE_GROUND }),
     EnemyType("Skullwalltula", ACTOR_SKULLWALLTULA, { 0x0000 },
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER}),
     EnemyType("Flare Dancer", ACTOR_FLARE_DANCER, { 0x0000 },
         { LocationType::ABOVE_GROUND }),
+    // EnemyType("Dead Hand", ACTOR_DEAD_HAND, { 0x0000 },
+    //     { LocationType::ABOVE_GROUND }),
     EnemyType("Shell Blade", ACTOR_SHELL_BLADE, { 0x0000 },
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
+    // EnemyType("Big Octo", ACTOR_BIG_OCTO, { 0x0000 },
+    //     { LocationType::ABOVE_GROUND }),
     EnemyType("Whithered Deku Baba", ACTOR_WITHERED_DEKU_BABA, { 0x0000 },
         { LocationType::ABOVE_GROUND }),
     EnemyType("Like Like", ACTOR_LIKE_LIKE, { 0x0000 },
         { LocationType::ABOVE_GROUND }),
+    // EnemyType("Parasitic Tentacle", ACTOR_PARASITIC_TENTACLE, { 0x0000 },
+    //     { LocationType::ABOVE_GROUND }),
     EnemyType("Spike", ACTOR_SPIKE, { 0x0000 },
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
     EnemyType("Anubis Spawner", ACTOR_ANUBIS_SPAWNER, { 0x0003 },
@@ -112,16 +122,14 @@ std::vector<EnemyType> enemyTypes = {
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
     EnemyType("Stinger (Water)", ACTOR_STINGER_WATER, { 0x0000 },
         { LocationType::UNDERWATER }),
+    // EnemyType("Gerudo Fighter", ACTOR_GERUDO_FIGHTER, { 0x0000 },
+    //     { LocationType::ABOVE_GROUND }),
     EnemyType("Wolfos", ACTOR_WOLFOS, { 0xFF00, 0xFF01 }, // normal / white
         { LocationType::ABOVE_GROUND, LocationType::SPAWNER }),
     EnemyType("Stalchild", ACTOR_STALCHILD, { 0x0000, 0x0005 }, // normal / big (20 kills)
         { LocationType::ABOVE_GROUND, LocationType::SPAWNER }),
     EnemyType("Guay", ACTOR_GUAY, { 0x0000, 0x0001 }, // normal / big
         { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
-    // EnemyType("Dark Link", ACTOR_DARK_LINK, {0x0000},
-    //  {LocationType::ABOVE_GROUND}),
-    // EnemyType("Dead Hand", ACTOR_DEAD_HAND, {0x0000},
-    //  {LocationType::ABOVE_GROUND}),
 };
 // clang-format on
 

@@ -19,6 +19,7 @@ static EnemyParams sGroundedEnemies[] = {
     { .actorId = ACTOR_PEAHAT, .params = 0xFFFF },
     { .actorId = ACTOR_GOHMA_LARVA, .params = 0x0007 },
     { .actorId = ACTOR_BABY_DODONGO, .params = 0x0000 },
+    { .actorId = ACTOR_DARK_LINK, .params = 0x0000 },
     { .actorId = ACTOR_TAILPASARAN, .params = 0xFFFF },
     { .actorId = ACTOR_STINGER_FLOOR, .params = 0x000A },
     { .actorId = ACTOR_DEKU_BABA, .params = 0x0000 },
