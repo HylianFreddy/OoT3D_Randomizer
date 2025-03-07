@@ -689,7 +689,7 @@ void EnemyLocations_Init(void) {
         enemyLocations[6][0][18][1]  = EnemyLocation(ACTOR_ARMOS, LocationType::ABOVE_GROUND);
         enemyLocations[6][0][18][2]  = EnemyLocation(ACTOR_ARMOS, LocationType::ABOVE_GROUND);
         // Leave one armos so we can press the switch
-        // enemyLocations[6][0][18][3] =  EnemyLocation(ACTOR_ARMOS, LocationType::ABOVE_GROUND );
+        // enemyLocations[6][0][18][3]  = EnemyLocation(ACTOR_ARMOS, LocationType::ABOVE_GROUND);
         enemyLocations[6][0][20][0]  = EnemyLocation(ACTOR_IRON_KNUCKLE, LocationType::ABOVE_GROUND);
         enemyLocations[6][0][22][10] = EnemyLocation(ACTOR_TORCH_SLUG, LocationType::ABOVE_GROUND);
         enemyLocations[6][0][22][11] = EnemyLocation(ACTOR_TORCH_SLUG, LocationType::ABOVE_GROUND);
@@ -714,11 +714,19 @@ void EnemyLocations_Init(void) {
         enemyLocations[6][0][27][0]  = EnemyLocation(ACTOR_ANUBIS_SPAWNER, LocationType::ABOVE_GROUND);
     }
     if (Dungeon::ShadowTemple.IsVanilla()) {
-        enemyLocations[7][0][0][5]   = EnemyLocation(ACTOR_FLYING_POT, LocationType::ABOVE_GROUND);
-        enemyLocations[7][0][1][0]   = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
-        enemyLocations[7][0][1][1]   = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
-        enemyLocations[7][0][1][2]   = EnemyLocation(ACTOR_REDEAD, LocationType::ABOVE_GROUND);
-        enemyLocations[7][0][2][0]   = EnemyLocation(ACTOR_BEAMOS, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][0][5] = EnemyLocation(ACTOR_FLYING_POT, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][1][0] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][1][1] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][1][2] = EnemyLocation(ACTOR_REDEAD, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][2][0] = EnemyLocation(ACTOR_BEAMOS, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][4][0] = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][4][1] = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][4][2] = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][4][3] = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][4][4] = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        // Leave Dead Hand and one of its hands to lure it out.
+        // enemyLocations[7][0][4][5]   = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        // enemyLocations[7][0][4][6]   = EnemyLocation(ACTOR_DEAD_HAND, LocationType::ABOVE_GROUND);
         enemyLocations[7][0][5][0]   = EnemyLocation(ACTOR_BEAMOS, LocationType::ABOVE_GROUND);
         enemyLocations[7][0][7][0]   = EnemyLocation(ACTOR_REDEAD, LocationType::ABOVE_GROUND);
         enemyLocations[7][0][7][1]   = EnemyLocation(ACTOR_REDEAD, LocationType::ABOVE_GROUND);
@@ -770,14 +778,20 @@ void EnemyLocations_Init(void) {
         enemyLocations[8][0][3][1]  = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
         enemyLocations[8][0][3][2]  = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
         enemyLocations[8][0][3][4]  = EnemyLocation(ACTOR_BEAMOS, LocationType::ABOVE_GROUND);
-        enemyLocations[8][0][5][0]  = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
-        enemyLocations[8][0][5][1]  = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_VOID);
-        enemyLocations[8][0][5][2]  = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_VOID);
-        enemyLocations[8][0][5][3]  = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_VOID);
-        enemyLocations[8][0][6][0]  = EnemyLocation(ACTOR_DEKU_BABA, LocationType::ABOVE_GROUND);
-        enemyLocations[8][0][6][2]  = EnemyLocation(ACTOR_FLYING_POT, LocationType::ABOVE_GROUND);
-        enemyLocations[8][0][6][3]  = EnemyLocation(ACTOR_FLYING_POT, LocationType::ABOVE_GROUND);
-        enemyLocations[8][0][6][4]  = EnemyLocation(ACTOR_FLYING_POT, LocationType::ABOVE_GROUND);
+        enemyLocations[8][0][4][0]  = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        enemyLocations[8][0][4][1]  = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        enemyLocations[8][0][4][2]  = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        // Leave Dead Hand and one of its hands to lure it out.
+        // enemyLocations[8][0][4][3] = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        // enemyLocations[8][0][4][4] = EnemyLocation(ACTOR_DEAD_HAND, LocationType::ABOVE_GROUND);
+        enemyLocations[8][0][5][0] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
+        enemyLocations[8][0][5][1] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_VOID);
+        enemyLocations[8][0][5][2] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_VOID);
+        enemyLocations[8][0][5][3] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_VOID);
+        enemyLocations[8][0][6][0] = EnemyLocation(ACTOR_DEKU_BABA, LocationType::ABOVE_GROUND);
+        enemyLocations[8][0][6][2] = EnemyLocation(ACTOR_FLYING_POT, LocationType::ABOVE_GROUND);
+        enemyLocations[8][0][6][3] = EnemyLocation(ACTOR_FLYING_POT, LocationType::ABOVE_GROUND);
+        enemyLocations[8][0][6][4] = EnemyLocation(ACTOR_FLYING_POT, LocationType::ABOVE_GROUND);
     }
     if (Dungeon::IceCavern.IsVanilla()) {
         enemyLocations[9][0][1][1]  = EnemyLocation(ACTOR_FREEZARD, LocationType::ABOVE_GROUND);
@@ -1183,14 +1197,22 @@ void EnemyLocations_Init(void) {
         enemyLocations[6][0][27][7]  = EnemyLocation(ACTOR_STALFOS, LocationType::ABOVE_GROUND);
     }
     if (Dungeon::ShadowTemple.IsMQ()) {
-        enemyLocations[7][0][0][6]   = EnemyLocation(ACTOR_FLYING_POT, LocationType::ABOVE_GROUND);
-        enemyLocations[7][0][0][7]   = EnemyLocation(ACTOR_FLYING_POT, LocationType::ABOVE_GROUND);
-        enemyLocations[7][0][0][8]   = EnemyLocation(ACTOR_FLYING_POT, LocationType::ABOVE_GROUND);
-        enemyLocations[7][0][0][9]   = EnemyLocation(ACTOR_FLYING_POT, LocationType::ABOVE_GROUND);
-        enemyLocations[7][0][1][0]   = EnemyLocation(ACTOR_REDEAD, LocationType::ABOVE_GROUND);
-        enemyLocations[7][0][1][1]   = EnemyLocation(ACTOR_REDEAD, LocationType::ABOVE_GROUND);
-        enemyLocations[7][0][1][2]   = EnemyLocation(ACTOR_REDEAD, LocationType::ABOVE_GROUND);
-        enemyLocations[7][0][1][3]   = EnemyLocation(ACTOR_REDEAD, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][0][6] = EnemyLocation(ACTOR_FLYING_POT, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][0][7] = EnemyLocation(ACTOR_FLYING_POT, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][0][8] = EnemyLocation(ACTOR_FLYING_POT, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][0][9] = EnemyLocation(ACTOR_FLYING_POT, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][1][0] = EnemyLocation(ACTOR_REDEAD, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][1][1] = EnemyLocation(ACTOR_REDEAD, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][1][2] = EnemyLocation(ACTOR_REDEAD, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][1][3] = EnemyLocation(ACTOR_REDEAD, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][4][0] = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][4][1] = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][4][2] = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][4][3] = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        enemyLocations[7][0][4][4] = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        // Leave Dead Hand and one of its hands to lure it out.
+        // enemyLocations[7][0][4][5]   = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        // enemyLocations[7][0][4][6]   = EnemyLocation(ACTOR_DEAD_HAND, LocationType::ABOVE_GROUND);
         enemyLocations[7][0][5][0]   = EnemyLocation(ACTOR_BEAMOS, LocationType::ABOVE_GROUND);
         enemyLocations[7][0][6][0]   = EnemyLocation(ACTOR_SKULLTULA, LocationType::ABOVE_GROUND);
         enemyLocations[7][0][6][1]   = EnemyLocation(ACTOR_SKULLTULA, LocationType::ABOVE_GROUND);
@@ -1257,6 +1279,12 @@ void EnemyLocations_Init(void) {
         enemyLocations[8][0][2][1] = EnemyLocation(ACTOR_POE, LocationType::ABOVE_GROUND);
         enemyLocations[8][0][3][0] = EnemyLocation(ACTOR_WALLMASTER, LocationType::ABOVE_GROUND);
         enemyLocations[8][0][3][1] = EnemyLocation(ACTOR_FLOORMASTER, LocationType::ABOVE_GROUND);
+        enemyLocations[8][0][4][4] = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        enemyLocations[8][0][4][5] = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        enemyLocations[8][0][4][6] = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        // Leave Dead Hand and one of its hands to lure it out.
+        // enemyLocations[8][0][4][7] = EnemyLocation(ACTOR_DEAD_HAND_HAND, LocationType::ABOVE_GROUND);
+        // enemyLocations[8][0][4][8] = EnemyLocation(ACTOR_DEAD_HAND, LocationType::ABOVE_GROUND);
         enemyLocations[8][0][6][0] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
         enemyLocations[8][0][6][1] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
         enemyLocations[8][0][6][2] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);

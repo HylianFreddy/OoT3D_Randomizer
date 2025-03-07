@@ -135,46 +135,111 @@ s32 Enemizer_IsActive(void) {
 }
 
 void Enemizer_Init(void) {
-    //Mock for spawners
-    u16 actorId = ACTOR_GOHMA_LARVA;
-    u16 params = 0x0007;
+    //Mocks (MUST BE SORTED!)
+    u16 actorId = ACTOR_ARMOS;
+    u16 params = 0xFFFF;
+    // rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
+    //     .scene = 5,
+    //     .layer = 0,
+    //     .room = 13,
+    //     .actorEntry = 0xFF,
+    //     .actorId = actorId,
+    //     .params = params,
+    // };
+    // rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
+    //     .scene = 81,
+    //     .layer = 0,
+    //     .room = 0,
+    //     .actorEntry = 0xFF,
+    //     .actorId = actorId,
+    //     .params = params,
+    // };
+    // rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
+    //     .scene = 92,
+    //     .layer = 0,
+    //     .room = 0,
+    //     .actorEntry = 0xFF,
+    //     .actorId = actorId,
+    //     .params = params,
+    // };
+    // rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
+    //     .scene = 92,
+    //     .layer = 2,
+    //     .room = 0,
+    //     .actorEntry = 0xFF,
+    //     .actorId = actorId,
+    //     .params = params,
+    // };
+    // rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
+    //     .scene = 94,
+    //     .layer = 0,
+    //     .room = 1,
+    //     .actorEntry = 0xFF,
+    //     .actorId = actorId,
+    //     .params = params,
+    // };
+
     rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
-        .scene = 5,
+        .scene = 7,
         .layer = 0,
-        .room = 13,
-        .actorEntry = 0xFF,
+        .room = 4,
+        .actorEntry = 0,
         .actorId = actorId,
         .params = params,
     };
     rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
-        .scene = 81,
+        .scene = 7,
         .layer = 0,
-        .room = 0,
-        .actorEntry = 0xFF,
+        .room = 4,
+        .actorEntry = 1,
         .actorId = actorId,
         .params = params,
     };
     rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
-        .scene = 92,
+        .scene = 7,
         .layer = 0,
-        .room = 0,
-        .actorEntry = 0xFF,
+        .room = 4,
+        .actorEntry = 2,
         .actorId = actorId,
         .params = params,
     };
     rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
-        .scene = 92,
-        .layer = 2,
-        .room = 0,
-        .actorEntry = 0xFF,
+        .scene = 7,
+        .layer = 0,
+        .room = 4,
+        .actorEntry = 3,
         .actorId = actorId,
         .params = params,
     };
     rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
-        .scene = 94,
+        .scene = 7,
         .layer = 0,
-        .room = 1,
-        .actorEntry = 0xFF,
+        .room = 4,
+        .actorEntry = 4,
+        .actorId = actorId,
+        .params = params,
+    };
+    rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
+        .scene = 8,
+        .layer = 0,
+        .room = 4,
+        .actorEntry = 0,
+        .actorId = actorId,
+        .params = params,
+    };
+    rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
+        .scene = 8,
+        .layer = 0,
+        .room = 4,
+        .actorEntry = 1,
+        .actorId = actorId,
+        .params = params,
+    };
+    rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
+        .scene = 8,
+        .layer = 0,
+        .room = 4,
+        .actorEntry = 2,
         .actorId = actorId,
         .params = params,
     };
@@ -343,18 +408,18 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
         Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
 
     // Mock
-    for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
-        if (actorEntry->id == sEnemyData[i].actorId) {
-            // if (actorEntryIndex != 3) {
-            //     enemyOverride.actorId = 0x10;
-            //     enemyOverride.params  = 0x0000;
-            //     break;
-            // }
-            enemyOverride.actorId = ACTOR_GOHMA_LARVA;
-            enemyOverride.params  = 0x0007;
-            break;
-        }
-    }
+    // for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
+    //     if (actorEntry->id == sEnemyData[i].actorId) {
+    //         // if (actorEntryIndex != 3) {
+    //         //     enemyOverride.actorId = 0x10;
+    //         //     enemyOverride.params  = 0x0000;
+    //         //     break;
+    //         // }
+    //         enemyOverride.actorId = ACTOR_GOHMA_LARVA;
+    //         enemyOverride.params  = 0x0007;
+    //         break;
+    //     }
+    // }
 
     // Do nothing if the override doesn't exist
     if (enemyOverride.actorId == 0) {
