@@ -744,11 +744,11 @@ bool CanDoGlitch(GlitchType glitch, GlitchDifficulty difficulty) {
 
 bool CanDefeatEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry, u16 vanillaActorId, u16 vanillaActorParams /*= 0x0000*/) {
     u16 actorId = vanillaActorId;
-    u16 actorParams = vanillaActorParams;
+    // u16 actorParams = vanillaActorParams;
     Enemizer::EnemyLocation loc = Enemizer::enemyLocations[scene][layer][room][actorEntry];
     if (loc.randomizedEnemy.actorId != 0) {
         actorId = loc.randomizedEnemy.actorId;
-        actorParams = loc.randomizedParams;
+        // actorParams = loc.randomizedParams;
     }
 
     switch (actorId) {
