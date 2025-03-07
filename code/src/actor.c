@@ -89,6 +89,16 @@ typedef void (*TitleCard_Update_proc)(GlobalContext* globalCtx, TitleCardContext
 #define TitleCard_Update ((TitleCard_Update_proc)GAME_ADDR(0x47953C))
 
 void Actor_Init() {
+    // Some actors have the wrong ID saved in their "initInfo".
+    // We fix them all here to allow determining the actor type correctly from
+    // any actor instance (for features like Hyper Actors and Enemy Randomizer).
+    for (s32 actorId = 0; actorId < ACTOR_MAX; actorId++) {
+        ActorInit* initInfo = gActorOverlayTable[actorId].initInfo;
+        if (initInfo != NULL && initInfo->id != actorId) {
+            initInfo->id = actorId;
+        }
+    }
+
     gActorOverlayTable[0x0].initInfo->init    = PlayerActor_rInit;
     gActorOverlayTable[0x0].initInfo->update  = PlayerActor_rUpdate;
     gActorOverlayTable[0x0].initInfo->destroy = PlayerActor_rDestroy;
@@ -114,16 +124,10 @@ void Actor_Init() {
     gActorOverlayTable[0x15].initInfo->update  = EnItem00_rUpdate;
     gActorOverlayTable[0x15].initInfo->draw    = EnItem00_rDraw;
 
-    gActorOverlayTable[0x27].initInfo->id = 0x27; // King Dodongo
-
-    gActorOverlayTable[0x2B].initInfo->id = 0x2B; // Gohma Larva
-
     // gActorOverlayTable[0x2D].initInfo->update = EnBubble_rUpdate;
 
     gActorOverlayTable[0x2E].initInfo->init   = DoorShutter_rInit;
     gActorOverlayTable[0x2E].initInfo->update = (ActorFunc)DoorShutter_rUpdate;
-
-    gActorOverlayTable[0x30].initInfo->id = 0x30; // King Dodongo Fire Breath
 
     gActorOverlayTable[0x33].initInfo->type   = ACTORTYPE_ENEMY;
     gActorOverlayTable[0x33].initInfo->update = EnTorch2_rUpdate;
@@ -145,8 +149,6 @@ void Actor_Init() {
 
     gActorOverlayTable[0x66].initInfo->init = ArmsHook_rInit;
 
-    gActorOverlayTable[0x6D].initInfo->id = 0x6D; // Phantom Ganon Lightning
-
     gActorOverlayTable[0x85].initInfo->update = EnTk_rUpdate;
 
     gActorOverlayTable[0x8B].initInfo->init    = DemoEffect_rInit;
@@ -166,8 +168,6 @@ void Actor_Init() {
 
     gActorOverlayTable[0xA7].initInfo->update       = EnEncount1_rUpdate;
     gActorOverlayTable[0xA7].initInfo->instanceSize = sizeof(EnEncount1);
-
-    gActorOverlayTable[0xAD].initInfo->id = 0xAD; // Volvagia Rock
 
     gActorOverlayTable[0xC1].initInfo->init   = EnSyatekiMan_rInit;
     gActorOverlayTable[0xC1].initInfo->update = EnSyatekiMan_rUpdate;

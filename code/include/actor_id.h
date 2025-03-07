@@ -54,6 +54,7 @@ enum ActorId {
     ACTOR_WOLFOS             = 0x1AF,
     ACTOR_STALCHILD          = 0x1B0,
     ACTOR_GUAY               = 0x1C0,
+    ACTOR_MAX                = 0x1DB,
 };
 
 #endif //_ACTOR_ID_H_
