@@ -331,6 +331,12 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
         return;
     }
 
+    // Jabu Jabu Shabom Room timer: set 2 minute time limit
+    if (gGlobalContext->sceneNum == SCENE_JABU_JABU && gGlobalContext->roomNum == 12 && actorEntry->id == 0x187) {
+        actorEntry->params = 0x7878;
+        return;
+    }
+
     // CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
 
     EnemyOverride enemyOverride =

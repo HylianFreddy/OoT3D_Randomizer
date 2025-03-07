@@ -9,6 +9,7 @@
 #include "z3Ditem.h"
 #include "z3Dmath.h"
 #include "z3DbgCheck.h"
+#include "z3Dscene.h"
 
 // #include "hid.h"
 
