@@ -13,6 +13,7 @@
 #include "grotto.h"
 #include "item_effect.h"
 #include "triforce.h"
+#include "objects.h"
 #include "ocarina_notes.h"
 
 #include "z3D/z3D.h"
@@ -51,18 +52,14 @@ void autoLoadSaveFile();
 void before_GlobalContext_Update(GlobalContext* globalCtx) {
     rGameplayFrames++;
     ItemOverride_Update();
-    ActorSetup_Extra();
+    ExtendedObject_UpdateEntries();
     Model_UpdateAll(globalCtx);
     Input_Update();
     autoLoadSaveFile();
     SaveFile_EnforceHealthLimit();
-
     Settings_SkipSongReplays();
-
     Multiplayer_Run();
-
     ItemEffect_RupeeAmmo(&gSaveContext);
-
     Triforce_HandleCreditsWarp();
 }
 
