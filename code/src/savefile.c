@@ -769,6 +769,8 @@ void SaveFile_LoadExtSaveData(u32 saveNumber) {
 
     extDataClose(fileHandle);
     extDataUnmount(fsa);
+
+    gSettingsContext.enemizer = gExtSaveData.option_Enemizer;
 }
 
 void SaveFile_SaveExtSaveData(u32 saveNumber) {

@@ -552,7 +552,7 @@ typedef struct GlobalContext {
     /* 0x4C31 */ char unk_4C31[0x0FCB];
     /* 0x5BFC */ u32 gameplayFrames;
     /* 0x5C00 */ u8 linkAgeOnLoad;
-    /* 0x5C01 */ u8 unk_5C01;
+    /* 0x5C01 */ u8 haltAllActors;
     /* 0x5C02 */ u8 curSpawn;
     /* 0x5C03 */ u8 numActorEntries;
     /* 0x5C04 */ char unk_5C04[0x0005];

@@ -71,7 +71,8 @@ void Player_SetChildCustomTunicCMAB(void) {
 
 #include "savefile.h"
 void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
-    // gSettingsContext.shuffleEnemySouls = ON;
+    gSettingsContext.customTunicColors   = ON;
+    gSettingsContext.sheikHints          = ON;
     gSettingsContext.quickText = QUICKTEXT_TURBO;
     gSettingsContext.skipSongReplays = SONGREPLAYS_SKIP_NO_SFX;
     gExtSaveData.option_SkipSongReplays = SONGREPLAYS_SKIP_NO_SFX;
@@ -102,6 +103,8 @@ void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
 void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     Player* this = (Player*)thisx;
     PlayerActor_Update(thisx, globalCtx);
+
+    gSaveContext.health = 0x30;
 
     // Restore Randomizer draw function in case something (like Farore's Wind) overwrote it
     if (thisx->draw == PlayerActor_Draw) {

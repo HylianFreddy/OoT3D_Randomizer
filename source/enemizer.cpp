@@ -18,6 +18,8 @@ void AssignRandomEnemy(EnemyLocation& loc) {
 void RandomizeEnemies() {
     EnemyLocations_Init();
 
+    CitraPrint("___________________");
+    CitraPrint("Randomizing Enemies...");
     for (auto& scene : enemyLocations) {
         for (auto& layer : scene.second) {
             for (auto& room : layer.second) {
@@ -28,9 +30,11 @@ void RandomizeEnemies() {
         }
     }
     AddDuplicateLocations();
+    CitraPrint("Enemies randomization complete!");
 }
 
 void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {
+    CitraPrint("Filling enemy overrides...");
     for (auto& scene : enemyLocations) {
         for (auto& layer : scene.second) {
             for (auto& room : layer.second) {
@@ -50,6 +54,7 @@ void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {
         }
     }
 
+    CitraPrint("Sorting enemy overrides...");
     std::sort(enemyOverrides.begin(), enemyOverrides.end(),
               [](const EnemyOverride& a, const EnemyOverride& b) { return a.key < b.key; });
 
@@ -58,6 +63,17 @@ void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {
         CitraPrint("ENEMIZER ERROR: Too many Enemy Overrides (" + std::to_string(enemyOverrides.size()) + ")");
         enemyOverrides.clear();
     }
+
+    CitraPrint("Enemy overrides done!");
+    // CitraPrint("enemyOverrides[0]" + std::to_string(enemyOverrides[0].key));
+    // CitraPrint("enemyOverrides[1]" + std::to_string(enemyOverrides[1].key));
+    CitraPrint("enemyLocations[15][0][0][4] is " + (enemyLocations[15][0][0][4].randomizedEnemy.name));
+    // CitraPrint("OVR 0 " + std::to_string(enemyOverrides[0].scene) + " " + std::to_string(enemyOverrides[0].layer) +
+    //            " " + std::to_string(enemyOverrides[0].room) + " " + std::to_string(enemyOverrides[0].actorEntry) +
+    //            " " + std::to_string(enemyOverrides[0].actorId) + " " + std::to_string(enemyOverrides[0].params));
+    // CitraPrint("OVR 1 " + std::to_string(enemyOverrides[1].scene) + " " + std::to_string(enemyOverrides[1].layer) +
+    //            " " + std::to_string(enemyOverrides[1].room) + " " + std::to_string(enemyOverrides[1].actorEntry) +
+    //            " " + std::to_string(enemyOverrides[1].actorId) + " " + std::to_string(enemyOverrides[1].params));
 }
 
 } // namespace Enemizer

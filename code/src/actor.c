@@ -530,3 +530,12 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
 
     return 1; // continue as normal
 }
+
+void Actor_OverrideSpawn(u16* actorId, u16* params) {
+}
+
+void RoomTest(void) {
+}
+
+void ActorEntriesTest(void) {
+}

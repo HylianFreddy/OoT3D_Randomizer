@@ -640,6 +640,10 @@ SECTIONS
 		*(.patch_BusinessScrubCheckFlags)
 	}
 
+	.patch_SceneCommandActorEntryList 0x234498 : {
+		*(.patch_SceneCommandActorEntryList)
+	}
+
 	.patch_GanonCSEquipMS 0x2359A4 : {
 		*(.patch_GanonCSEquipMS)
 	}
@@ -944,6 +948,10 @@ SECTIONS
 		*(.patch_GetObjectEntry_33AB24)
 	} /* Used for: chest ice trap smoke effect */
 
+	.patch_Room_StartTransition 0x33B6C0 : {
+		*(.patch_Room_StartTransition)
+	}
+
 	.patch_BiggoronDayCheck 0x33DCC0 : {
 		*(.patch_BiggoronDayCheck)
 	}
@@ -1094,6 +1102,10 @@ SECTIONS
 
 	.patch_OverrideObjectIsLoaded 0x373074 : {
 	    *(.patch_OverrideObjectIsLoaded)
+	}
+
+	.patch_Actor_Spawn 0x3738D4 : {
+	    *(.patch_Actor_Spawn)
 	}
 
 	.patch_ConvertBombDropTwo 0x3747A4 : {

@@ -38,7 +38,7 @@ AmountMenu WarpsOverridesMenu = {
 WarpsSceneMenu WarpsPlacesDungeonsMenu = {
     "Dungeons",
     .nbItems = 17,
-    .initialCursorPos = 0,
+    .initialCursorPos = 9,
     {
         {"0: Inside the Deku Tree", &Entrances_InsideTheDekuTree},
         {"1: Dodongo's Cavern", &Entrances_DodongosCavern},
@@ -81,7 +81,7 @@ WarpsSceneMenu WarpsPlacesBossesMenu = {
 WarpsSceneMenu WarpsPlacesTownsMenu = {
     "Towns",
     .nbItems = 9,
-    .initialCursorPos = 0,
+    .initialCursorPos = 1,
     {
         {"82: Kakariko Village", &Entrances_KakarikoVillage},
         {"85: Kokiri Forest", &Entrances_KokiriForest},
@@ -198,7 +198,7 @@ const WarpsPlacesMenuEntry placesMenuEntries[] = {
 const s32 WarpsPlacesMenuSize = 7;
 
 void WarpsPlacesMenuShow(void){
-    static s32 selected = 0;
+    static s32 selected = 6;
 
     Draw_ClearBackbuffer();
     Draw_ClearFramebuffer();
@@ -270,7 +270,7 @@ void ClearCutscenePointer(void){
 
 void Warps_OverridesMenuInit(void){
     WarpsOverridesMenu.items[WARPS_GAME_MODE].amount = gSaveContext.gameMode;
-    WarpsOverridesMenu.items[WARPS_SCENE_SETUP_INDEX].amount = gSaveContext.sceneSetupIndex;
+    WarpsOverridesMenu.items[WARPS_SCENE_SETUP_INDEX].amount = gSaveContext.sceneLayer;
     WarpsOverridesMenu.items[WARPS_RESPAWN_FLAG].amount = gSaveContext.respawnFlag;
 }
 
@@ -284,7 +284,7 @@ void Warps_OverrideGameMode(s32 selected){
 }
 
 void Warps_OverrideSceneSetupIndex(s32 selected) {
-    gSaveContext.sceneSetupIndex = WarpsOverridesMenu.items[WARPS_SCENE_SETUP_INDEX].amount;
+    gSaveContext.sceneLayer = WarpsOverridesMenu.items[WARPS_SCENE_SETUP_INDEX].amount;
     if (rInputCtx.cur.r) {
         sceneSetupOverrideActive = 1;
         WarpsOverridesMenu.items[WARPS_SCENE_SETUP_INDEX].title = "Scene Setup Index - Override ON ";
@@ -296,7 +296,7 @@ void Warps_OverrideSceneSetupIndex(s32 selected) {
 
 void Warps_OverrideSceneSetup(void){
     if(sceneSetupOverrideActive) {
-        gSaveContext.sceneSetupIndex = WarpsOverridesMenu.items[WARPS_SCENE_SETUP_INDEX].amount;
+        gSaveContext.sceneLayer = WarpsOverridesMenu.items[WARPS_SCENE_SETUP_INDEX].amount;
     }
 }
 

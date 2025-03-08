@@ -69,7 +69,7 @@ bool WritePatch(u32 patchOffset, s32 patchSize, char* patchDataPtr, Handle& code
         // Write patch offset address to code
         buf[0] = (patchOffset >> 16) & 0xFF;
         buf[1] = (patchOffset >> 8) & 0xFF;
-        buf[2] = (patchOffset)&0xFF;
+        buf[2] = (patchOffset) & 0xFF;
         if (!R_SUCCEEDED(FSFILE_Write(code, &bytesWritten, totalRW, buf, 3, FS_WRITE_FLUSH))) {
             return false;
         }
@@ -78,7 +78,7 @@ bool WritePatch(u32 patchOffset, s32 patchSize, char* patchDataPtr, Handle& code
         // Write patch size to code
         u32 newPatchSize = (patchSize > PATCH_SIZE_MAX) ? PATCH_SIZE_MAX : patchSize;
         buf[0]           = (newPatchSize >> 8) & 0xFF;
-        buf[1]           = (newPatchSize)&0xFF;
+        buf[1]           = (newPatchSize) & 0xFF;
         if (!R_SUCCEEDED(FSFILE_Write(code, &bytesWritten, totalRW, buf, 2, FS_WRITE_FLUSH))) {
             return false;
         }

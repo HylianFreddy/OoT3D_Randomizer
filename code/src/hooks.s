@@ -2145,6 +2145,24 @@ hook_CheckForTextControlCode:
     pop {r1-r12, lr}
     bx lr
 
+.global hook_Room_StartTransition
+hook_Room_StartTransition:
+    cpy r5,r0
+    push {r0-r12, lr}
+    bl RoomTest
+    pop {r0-r12, lr}
+    bx lr
+
+.global hook_Actor_Spawn
+hook_Actor_Spawn:
+    cpy r7,r0
+    push {r0-r12, lr}
+    add r0,sp,#0x8  @ actorId
+    add r1,sp,#0x74 @ params
+    bl Actor_OverrideSpawn
+    pop {r0-r12, lr}
+    bx lr
+
 .global hook_PlayInit
 hook_PlayInit:
     push {r0-r12, lr}
@@ -2160,6 +2178,14 @@ hook_GetObjectEntry_Generic:
     bl Object_GetEntry
     pop {r1-r12, lr}
     bx lr
+
+.global hook_GetObjectEntry_34F270
+hook_GetObjectEntry_34F270:
+    push {r1-r12, lr}
+    @ r0 = slot
+    bl Object_GetEntry
+    pop {r1-r12, lr}
+    b 0x34f274
 
 .global hook_GetObjectEntry_33AB24
 hook_GetObjectEntry_33AB24:
@@ -2194,13 +2220,12 @@ hook_AfterObjectListCommand:
     mov r0,#0x1
     bx lr
 
-.global hook_GetObjectEntry_34F270
-hook_GetObjectEntry_34F270:
-    push {r1-r12, lr}
-    @ r0 = slot
-    bl Object_GetEntry
-    pop {r1-r12, lr}
-    b 0x34F274
+.global hook_SceneCommandActorEntryList
+hook_SceneCommandActorEntryList:
+    push {r0-r12, lr}
+    bl ActorEntriesTest
+    pop {r0-r12, lr}
+    bx lr
 
 .global hook_AltHeadersCommand
 hook_AltHeadersCommand:
