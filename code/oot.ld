@@ -88,6 +88,10 @@ SECTIONS
 		*(.patch_BeanDaddyModifyBeansBought)
 	}
 
+	.patch_FireproofDekuShieldOne 0x1330C4 : {
+		*(.patch_FireproofDekuShieldOne)
+	}
+
 	.patch_BiggoronDontSetBGSFlag 0x133F7C : {
 		*(.patch_BiggoronDontSetBGSFlag)
 	}
@@ -564,6 +568,10 @@ SECTIONS
 		*(.patch_SwordTrailDurationGrezzoFix)
 	} /*duration is set to 6 due to framerate increase. NOP to allow custom duration*/
 
+	.patch_FireproofDekuShieldTwo 0x251528 : {
+		*(.patch_FireproofDekuShieldTwo)
+	}
+
 	.patch_MultiplyPlayerSpeed 0x251D34 : {
 		*(.patch_MultiplyPlayerSpeed)
 	}
@@ -884,6 +892,10 @@ SECTIONS
 		*(.patch_MasterSwordTimerCheck)
 	}
 
+	.patch_LikeLikeNeverEatShield 0x355BF0 : {
+		*(.patch_LikeLikeNeverEatShield)
+	}
+
 	.patch_LikeLikeNeverEatTunic 0x355C2C : {
 		*(.patch_LikeLikeNeverEatTunic)
 	}
@@ -1070,6 +1082,10 @@ SECTIONS
 
 	.patch_ForestTempleBasementPuzzleDelay 0x3BFA8C : {
 		*(.patch_ForestTempleBasementPuzzleDelay)
+	}
+
+	.patch_GoronPotGuaranteeReward 0x3C148C : {
+		*(.patch_GoronPotGuaranteeReward)
 	}
 
 	.patch_GerudoArcheryTwo 0x3C2D80 : {
