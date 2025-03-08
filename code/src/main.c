@@ -13,6 +13,7 @@
 #include "grotto.h"
 #include "item_effect.h"
 #include "triforce.h"
+#include "ocarina_notes.h"
 
 #include "z3D/z3D.h"
 #include "3ds/extdata.h"
@@ -28,6 +29,7 @@ void Randomizer_Init() {
     Actor_Init();
     Entrance_Init();
     ItemOverride_Init();
+    OcarinaNotes_UpdateSongs();
     extDataInit();
     irrstInit();
 
