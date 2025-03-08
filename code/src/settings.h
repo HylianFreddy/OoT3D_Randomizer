@@ -500,6 +500,7 @@ typedef struct {
     u8 triforceHunt;
     u8 triforcePiecesTotal;
     u8 triforcePiecesRequired;
+    u8 enemizer;
 
     u8 shuffleRewards;
     u8 linksPocketItem;
@@ -591,7 +592,6 @@ typedef struct {
     u8 hyperMiddleBosses;
     u8 hyperEnemies;
     u8 freeCamera;
-    u8 enemizer;
 
     u8 faroresWindAnywhere;
     u8 stickAsAdult;
