@@ -136,6 +136,7 @@ Option MQCastle                  = Option::U8  (2, "Ganon's Castle",      {"Vani
 Option TriforceHunt              = Option::Bool("Triforce Hunt",          {"Off", "On"},                                                     {triforceHuntDesc});
 Option TriforcePiecesTotal       = Option::U8  (2, "Total pieces",        {NumOpts(1, 200)},                                                 {triforcePiecesTotalDesc},                                                                                       OptionCategory::Setting,    29);
 Option TriforcePiecesRequired    = Option::U8  (2, "Required pieces",     {NumOpts(1, 100)},                                                 {triforcePiecesRequiredDesc},                                                                                    OptionCategory::Setting,    19);
+Option Enemizer                  = Option::Bool("Enemy Randomizer",       {"Off", "On"},                                                     {enemizerDesc});
 std::vector<Option *> worldOptions = {
     &RandomizeWorld,
     &StartingAge,
@@ -174,6 +175,7 @@ std::vector<Option *> worldOptions = {
     &TriforceHunt,
     &TriforcePiecesTotal,
     &TriforcePiecesRequired,
+    &Enemizer,
 };
 std::vector<Option *> dungeonOptions = {
     &MQDeku,
@@ -1462,6 +1464,8 @@ SettingsContext FillContext() {
     ctx.triforceHunt           = (TriforceHunt) ? 1 : 0;
     ctx.triforcePiecesTotal    = TriforcePiecesTotal.Value<u8>() + 1;
     ctx.triforcePiecesRequired = TriforcePiecesRequired.Value<u8>() + 1;
+
+    ctx.enemizer = (Enemizer) ? 1 : 0;
 
     ctx.shuffleRewards         = ShuffleRewards.Value<u8>();
     ctx.linksPocketItem        = LinksPocketItem.Value<u8>();

@@ -1,9 +1,10 @@
 #include "enemizer.hpp"
 #include "random.hpp"
+#include "settings.hpp"
 
 namespace Enemizer {
 
-void AssignRandomEnemy(EnemyLocation& loc) {
+static void AssignRandomEnemy(EnemyLocation& loc) {
     std::vector<EnemyType> enemyOptions;
     for (EnemyType& candidate : enemyTypes) {
         if (std::find(candidate.validLocationTypes.begin(), candidate.validLocationTypes.end(), loc.type) !=
@@ -16,6 +17,10 @@ void AssignRandomEnemy(EnemyLocation& loc) {
 }
 
 void RandomizeEnemies() {
+    if (!Settings::Enemizer) {
+        return;
+    }
+
     EnemyLocations_Init();
 
     CitraPrint("___________________");
