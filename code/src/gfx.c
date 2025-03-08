@@ -1,6 +1,7 @@
 #include "gfx.h"
 #include "3ds/svc.h"
 #include "z3D/z3D.h"
+#include "menu.h"
 #include "rHeap.h"
 #include "custom_models.h"
 #include "objects.h"
@@ -1308,6 +1309,8 @@ static u8 openingButton(void) {
 }
 
 void Menu_CheckAndTriggerSariaHint(void);
+
+#include "models.h"
 void Gfx_Update(void) {
     if (!GfxInit) {
         Gfx_Init();
@@ -1342,6 +1345,11 @@ void Gfx_Update(void) {
             svcSleepThread(1000 * 1000 * 300LL);
             // Update lastTick one more time so we don't count the added 0.3s sleep
             lastTick = svcGetSystemTick();
+        }
+
+        menuShow(); // practice patch menu
+        if (gGlobalContext->state.running == 0) {
+            Model_DestroyAll();
         }
     }
 }
