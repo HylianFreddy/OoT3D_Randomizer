@@ -2285,16 +2285,6 @@ SceneCommandActorEntryList_patch:
 GetObjectEntry_33AB24_patch:
     bl hook_GetObjectEntry_33AB24
 
-.section .patch_GetObjectEntry_34FE68
-.global GetObjectEntry_34FE68_patch
-GetObjectEntry_34FE68_patch:
-    bl hook_GetObjectEntry_Generic
-
-.section .patch_GetObjectEntry_352F28
-.global GetObjectEntry_352F28_patch
-GetObjectEntry_352F28_patch:
-    bl hook_GetObjectEntry_Generic
-
 .section .patch_GetObjectEntry_353CE4
 .global GetObjectEntry_353CE4_patch
 GetObjectEntry_353CE4_patch:
@@ -2323,6 +2313,16 @@ GetObjectEntry_EnXcInit_patch:
 .section .patch_GetObjectEntry_ObjSwitchInit
 .global GetObjectEntry_ObjSwitchInit_patch
 GetObjectEntry_ObjSwitchInit_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_34FE68
+.global GetObjectEntry_34FE68_patch
+GetObjectEntry_34FE68_patch:
+    bl hook_GetObjectEntry_Generic
+
+.section .patch_GetObjectEntry_352F28
+.global GetObjectEntry_352F28_patch
+GetObjectEntry_352F28_patch:
     bl hook_GetObjectEntry_Generic
 
 .section .patch_GetObjectEntry_33A950

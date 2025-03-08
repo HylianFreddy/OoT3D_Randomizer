@@ -2,7 +2,6 @@
 #include "objects.h"
 #include "common.h"
 #include "savefile.h"
-#include "actor_id.h"
 #include "settings.h"
 #include "scene.h"
 #include <stddef.h>
@@ -473,8 +472,8 @@ void Enemizer_Update(void) {
         sDefeated1 = sDefeated2 = FALSE;
     }
 
-    if (gGlobalContext->sceneNum == 86) {
-        // Sacred Forest Meadow: open the gate when the enemy is defeated.
+    if (gGlobalContext->sceneNum == SCENE_SACRED_FOREST_MEADOW) {
+        // Open the gate when the enemy is defeated.
         if (Enemizer_RoomLoadSignal) {
             Actor* enemy = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
             while (enemy != NULL) {
@@ -493,8 +492,8 @@ void Enemizer_Update(void) {
             Flags_SetSwitch(gGlobalContext, 0x1F);
             sSFMWolfos = NULL;
         }
-    } else if (gGlobalContext->sceneNum == 1 && gGlobalContext->roomNum == 3) {
-        // Dodongo's Cavern miniboss room: open the correct doors when the enemies are defeated.
+    } else if (gGlobalContext->sceneNum == SCENE_DODONGOS_CAVERN && gGlobalContext->roomNum == 3) {
+        // Miniboss room: open the correct doors when the enemies are defeated.
         if (Enemizer_RoomLoadSignal) {
             Actor* enemy = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
             while (enemy != NULL) {

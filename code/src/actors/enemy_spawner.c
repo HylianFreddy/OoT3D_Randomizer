@@ -2,7 +2,6 @@
 #include "settings.h"
 #include "enemizer.h"
 #include "common.h"
-#include "actor_id.h"
 #include "shabom.h"
 #include "gohma.h"
 

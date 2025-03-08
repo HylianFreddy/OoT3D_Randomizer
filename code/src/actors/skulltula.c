@@ -209,9 +209,11 @@ void EnSw_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         thisx->world.rot.z = 0;
     }
 
-    if (gSettingsContext.enemizer == ON) {
+    if (gSettingsContext.enemizer == ON && thisx->params == 0) {
+        // Randomized Skullwalltulas: fix facing direction when detecting and attacking the player.
         thisx->shape.rot.y = 0;
     }
+
     EnSw_Update(thisx, globalCtx);
 
     if (prev_action_fn != this->action_fn && this->action_fn == EnSw_GoldSkulltulaDeath) {
@@ -249,6 +251,7 @@ s32 Skullwalltula_ShouldAttack(EnSw* walltula) {
     // Facing player, being close enough and not having obstacles in the way
     return ABS(walltula->base.yawTowardsPlayer - walltula->base.shape.rot.z) < 0x4000 &&
            walltula->base.xzDistToPlayer < 250.0 &&
+           ABS(walltula->base.yDistToPlayer) < 50.0 &&
            !BgCheck_EntityLineTest1(&gGlobalContext->colCtx, &walltula->base.world.pos, &PLAYER->actor.world.pos,
                                     &posResult, &outPoly, TRUE, FALSE, FALSE, TRUE, &bgId);
 }

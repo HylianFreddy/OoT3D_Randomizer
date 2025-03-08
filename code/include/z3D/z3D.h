@@ -10,6 +10,7 @@
 #include "z3Dmath.h"
 #include "z3DbgCheck.h"
 #include "z3Dscene.h"
+#include "z3Dactor_id.h"
 
 // #include "hid.h"
 

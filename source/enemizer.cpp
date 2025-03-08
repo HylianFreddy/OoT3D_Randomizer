@@ -55,12 +55,13 @@ void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {
     }
 
     CitraPrint("Sorting enemy overrides...");
-    std::sort(enemyOverrides.begin(), enemyOverrides.end(), [](const EnemyOverride& a, const EnemyOverride& b) {
-        return a.key < b.key;
-    });
+    std::sort(enemyOverrides.begin(), enemyOverrides.end(),
+              [](const EnemyOverride& a, const EnemyOverride& b) { return a.key < b.key; });
 
     if (enemyOverrides.size() > ENEMY_OVERRIDES_MAX) {
-        CitraPrint("Too many Enemy Overrides!");
+        printf("ENEMIZER ERROR!");
+        CitraPrint("ENEMIZER ERROR: Too many Enemy Overrides (" + std::to_string(enemyOverrides.size()) + ")");
+        enemyOverrides.clear();
     }
 
     CitraPrint("Enemy overrides done!");

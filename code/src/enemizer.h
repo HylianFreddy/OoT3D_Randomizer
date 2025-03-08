@@ -19,6 +19,11 @@ typedef struct EnemyData {
     u8 requirements;
 } EnemyData;
 
+typedef struct EnemyParams {
+    u16 actorId;
+    u16 params;
+} EnemyParams;
+
 typedef struct EnemyObjectDependency {
     u16 actorId;
     u16 objectId;
@@ -39,11 +44,6 @@ typedef struct EnemyOverride {
     u16 actorId;
     u16 params;
 } EnemyOverride;
-
-typedef struct EnemyParams {
-    u16 actorId;
-    u16 params;
-} EnemyParams;
 
 extern u8 Enemizer_RoomLoadSignal;
 

@@ -6,7 +6,6 @@
 #include "models.h"
 #include "enemy_souls.h"
 #include "enemizer.h"
-#include "actor_id.h"
 #include "owl.h"
 #include "item00.h"
 #include "heart_container.h"

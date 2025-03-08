@@ -1,5 +1,5 @@
-#ifndef _ACTOR_ID_H_
-#define _ACTOR_ID_H_
+#ifndef _Z3DACTOR_ID_H_
+#define _Z3DACTOR_ID_H_
 
 enum ActorId {
     ACTOR_STALFOS            = 0x002,
@@ -57,4 +57,4 @@ enum ActorId {
     ACTOR_MAX                = 0x1DB,
 };
 
-#endif //_ACTOR_ID_H_
+#endif //_Z3DACTOR_ID_H_

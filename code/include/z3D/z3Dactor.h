@@ -4,6 +4,7 @@
 #include "z3Dvec.h"
 #include "z3Dcollision_check.h"
 #include "z3Dbgcheck.h"
+#include "z3Dactor_id.h"
 
 struct Actor;
 struct GlobalContext;

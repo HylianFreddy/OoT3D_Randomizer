@@ -12,7 +12,7 @@
 static void Poe_CallActorFunc(ActorFunc actorFunc, Actor* thisx, GlobalContext* globalCtx) {
     ActorFlags prevFlags;
     u8 isRandomizedComposerBrother =
-        gSettingsContext.enemizer == ON && (thisx->params & 0x0002) == 0x0002 && globalCtx->sceneNum != 83;
+        gSettingsContext.enemizer == ON && (thisx->params & 0x0002) == 0x0002 && globalCtx->sceneNum != SCENE_GRAVEYARD;
 
     if (isRandomizedComposerBrother) {
         prevFlags                          = globalCtx->actorCtx.flags;
