@@ -4,6 +4,8 @@
 #include "models.h"
 #include "custom_models.h"
 #include "oot_malloc.h"
+#include "enemizer.h"
+
 #include <stddef.h>
 
 static ExtendedObjectContext rExtendedObjectCtx = { 0 };
@@ -50,6 +52,7 @@ void ExtendedObject_AfterObjectListCommand(void) {
         Actor_KillAllWithMissingObject(gGlobalContext, &gGlobalContext->actorCtx);
         Model_DestroyAll();
     }
+    Enemizer_RoomLoadSignal = TRUE;
 }
 
 s32 ExtendedObject_GetSlot(s16 objectId) {
