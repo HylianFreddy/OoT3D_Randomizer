@@ -421,6 +421,7 @@ bool HasProjectile(HasProjectileAge age);
 bool SmallKeys(Key dungeon, u8 requiredAmount);
 bool SmallKeys(Key dungeon, u8 requiredAmountGlitchless, u8 requiredAmountGlitched);
 bool CanDoGlitch(GlitchType glitch, GlitchDifficulty difficulty);
+bool CanDefeatEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry, u16 vanillaActorId, u16 vanillaActorParams = 0x0000);
 bool EventsUpdated();
 void LogicReset();
 } // namespace Logic

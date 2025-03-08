@@ -1,6 +1,7 @@
 #ifndef _Z3D_H_
 #define _Z3D_H_
 
+#include <sys/cdefs.h>
 #include "z3Dactor.h"
 #include "z3Dvec.h"
 // #include "z3Dequipment.h"
@@ -8,6 +9,8 @@
 #include "z3Ditem.h"
 #include "z3Dmath.h"
 #include "z3DbgCheck.h"
+#include "z3Dscene.h"
+#include "z3Dactor_id.h"
 
 // #include "hid.h"
 
@@ -172,7 +175,7 @@ typedef struct {
     /* 0x14DC */ s32 fileNum;           // "file_no"
     /* 0x14E0 */ char unk_14E0[0x0004];
     /* 0x14E4 */ s32 gameMode;
-    /* 0x14E8 */ s32 sceneSetupIndex;
+    /* 0x14E8 */ s32 sceneLayer;
     /* 0x14EC */ s32 respawnFlag;        // "restart_flag"
     /* 0x14F0 */ RespawnData respawn[3]; // "restart_data"
     /* 0x1544 */ char unk_1544[0x000E];
@@ -809,6 +812,9 @@ typedef void (*PlaySFX_proc)(u32 sfxId, Vec3f* pos, u32 token, f32* freqScale, f
 
 typedef void (*Flags_SetSwitch_proc)(GlobalContext* globalCtx, u32 flag);
 #define Flags_SetSwitch ((Flags_SetSwitch_proc)GAME_ADDR(0x375C10))
+
+typedef void (*Flags_UnsetSwitch_proc)(GlobalContext* globalCtx, u32 flag);
+#define Flags_UnsetSwitch ((Flags_UnsetSwitch_proc)GAME_ADDR(0x36BEAC))
 
 typedef u32 (*Flags_GetSwitch_proc)(GlobalContext* globalCtx, u32 flag);
 #define Flags_GetSwitch ((Flags_GetSwitch_proc)GAME_ADDR(0x36E864))
