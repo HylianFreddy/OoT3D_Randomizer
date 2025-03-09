@@ -101,7 +101,7 @@ std::vector<EnemyType> enemyTypes = {
         { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
     // EnemyType("Big Octo", ACTOR_BIG_OCTO, { 0x0000 },
     //     { LocationType::ABOVE_GROUND }),
-    EnemyType("Whithered Deku Baba", ACTOR_WITHERED_DEKU_BABA, { 0x0000 },
+    EnemyType("Withered Deku Baba", ACTOR_WITHERED_DEKU_BABA, { 0x0000 },
         { LocationType::ABOVE_GROUND }),
     EnemyType("Like Like", ACTOR_LIKE_LIKE, { 0x0000 },
         { LocationType::ABOVE_GROUND }),

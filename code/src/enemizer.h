@@ -5,16 +5,15 @@
 
 #define ENEMY_OVERRIDES_MAX 700
 
-typedef struct EnemyParams {
+typedef struct EnemyActorData {
     u16 actorId;
-    u16 params;
-} EnemyParams;
+    u16 actorParams;
+    u8 anyParams;
+} EnemyActorData;
 
 typedef struct EnemyObjectDependency {
-    u16 actorId;
+    EnemyActorData key;
     u16 objectId;
-    u16 actorParams;
-    u8 requiresParams;
 } EnemyObjectDependency;
 
 typedef struct EnemyOverride {
