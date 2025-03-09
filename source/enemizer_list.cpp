@@ -304,7 +304,7 @@ void EnemyLocations_Init(void) {
     enemyLocations[90][2][0][5]  = EnemyLocation(ACTOR_OCTOROK, LocationType::ABOVE_WATER);
     enemyLocations[90][2][0][6]  = EnemyLocation(ACTOR_OCTOROK, LocationType::ABOVE_WATER);
     enemyLocations[90][2][0][7]  = EnemyLocation(ACTOR_OCTOROK, LocationType::ABOVE_WATER);
-    // Los Woods: don't randomize enemies that don't appear in the base game due to missing object.
+    // Lost Woods: don't randomize enemies that don't appear in the base game due to missing object.
     // enemyLocations[91][0][3][2]    = EnemyLocation(ACTOR_OCTOROK, LocationType::ABOVE_WATER);
     enemyLocations[91][2][1][1]    = EnemyLocation(ACTOR_SKULL_KID, LocationType::ABOVE_GROUND);
     enemyLocations[91][2][1][2]    = EnemyLocation(ACTOR_SKULL_KID, LocationType::ABOVE_GROUND);
