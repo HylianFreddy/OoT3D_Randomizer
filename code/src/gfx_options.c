@@ -10,7 +10,7 @@
 #define BORDER_WIDTH 2
 #define CHOICE_COLUMN 220
 #define DESCRIPTION_ROW 184
-#define OPTIONS_COUNT 11
+#define OPTIONS_COUNT 12
 
 typedef struct {
     char name[30];
@@ -123,6 +123,14 @@ void InitOptions(void) {
     strcpy(options[opNum].alternatives[altNum++], "Show");
     strcpy(options[opNum].description, "");
     options[opNum++].optionPointer = &gExtSaveData.option_Spoilers;
+
+    // Enemizer
+    altNum = 0;
+    strcpy(options[opNum].name, "Enemizer");
+    strcpy(options[opNum].alternatives[altNum++], "Off");
+    strcpy(options[opNum].alternatives[altNum++], "On");
+    strcpy(options[opNum].description, "");
+    options[opNum++].optionPointer = &gExtSaveData.option_Enemizer;
 }
 
 void Gfx_DrawOptions(void) {
@@ -191,4 +199,5 @@ void Gfx_OptionsUpdate(void) {
         PrevOption(&options[selectedOption]);
         handledInput = true;
     }
+    gSettingsContext.enemizer = gExtSaveData.option_Enemizer;
 }
