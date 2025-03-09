@@ -592,6 +592,7 @@ typedef struct {
     u8 hyperMiddleBosses;
     u8 hyperEnemies;
     u8 freeCamera;
+    u8 randomGsLocations;
     u8 randomSongNotes;
 
     u8 faroresWindAnywhere;
