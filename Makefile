@@ -31,7 +31,7 @@ include $(DEVKITARM)/3ds_rules
 #     - icon.png
 #     - <libctru folder>/default_icon.png
 #---------------------------------------------------------------------------------
-APP_TITLE       :=  Ocarina of Time 3D Randomizer
+APP_TITLE       :=  OoT3DR_custom
 APP_AUTHOR      :=  Gamestabled
 APP_DESCRIPTION :=  A different Ocarina of Time experience
 TARGET		    :=	$(notdir $(CURDIR))
@@ -176,6 +176,7 @@ endif
 
 #---------------------------------------------------------------------------------
 all: delete3DSX create_basecode $(BUILD) $(GFXBUILD) $(DEPSDIR) $(ROMFS_T3XFILES) $(T3XHFILES)
+	@$(TOPDIR)/write_commit_string.sh
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 delete3DSX:

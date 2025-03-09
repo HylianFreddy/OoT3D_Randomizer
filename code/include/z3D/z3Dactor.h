@@ -356,6 +356,9 @@ void Actor_Kill(Actor* actor);
 typedef u32 (*Actor_HasParent_proc)(Actor* actor, struct GlobalContext* globalCtx);
 #define Actor_HasParent ((Actor_HasParent_proc)GAME_ADDR(0x371E40))
 
+typedef void (*Collider_UpdateSpheres_proc)(s32 limb, void* collider, nn_math_MTX34* modelMtx);
+#define Collider_UpdateSpheres ((Collider_UpdateSpheres_proc)0x357750)
+
 typedef f32 (*Actor_WorldDistXYZToActor_proc)(Actor* a, Actor* b) __attribute__((pcs("aapcs-vfp")));
 #define Actor_WorldDistXYZToActor ((Actor_WorldDistXYZToActor_proc)GAME_ADDR(0x3306C4))
 
