@@ -508,6 +508,10 @@ SECTIONS
 		*(.patch_BombchuShopAlwaysOpen)
 	}
 
+	.patch_LeeverSkipChangeCategory 0x1DE010 : {
+		*(.patch_LeeverSkipChangeCategory)
+	}
+
 	.patch_LeeverSandCheck_Init 0x1DE078 : {
 		*(.patch_LeeverSandCheck_Init)
 	}
