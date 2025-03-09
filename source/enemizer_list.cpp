@@ -214,6 +214,7 @@ void EnemyLocations_Init(void) {
     enemyLocations[81][0][0][13]   = EnemyLocation(ACTOR_PEAHAT, LocationType::ABOVE_GROUND);
     enemyLocations[81][0][0][14]   = EnemyLocation(ACTOR_PEAHAT, LocationType::ABOVE_GROUND);
     enemyLocations[81][0][0][0xFF] = EnemyLocation(ACTOR_STALCHILD, LocationType::SPAWNER);
+    // Graveyard: don't randomize enemies that don't appear in the base game due to missing object.
     // enemyLocations[83][2][1][2]    = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
     // enemyLocations[83][2][1][3]    = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
     // enemyLocations[83][2][1][4]    = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
@@ -303,7 +304,8 @@ void EnemyLocations_Init(void) {
     enemyLocations[90][2][0][5]    = EnemyLocation(ACTOR_OCTOROK, LocationType::ABOVE_WATER);
     enemyLocations[90][2][0][6]    = EnemyLocation(ACTOR_OCTOROK, LocationType::ABOVE_WATER);
     enemyLocations[90][2][0][7]    = EnemyLocation(ACTOR_OCTOROK, LocationType::ABOVE_WATER);
-    enemyLocations[91][0][3][2]    = EnemyLocation(ACTOR_OCTOROK, LocationType::ABOVE_WATER);
+    // Los Woods: don't randomize enemies that don't appear in the base game due to missing object.
+    // enemyLocations[91][0][3][2]    = EnemyLocation(ACTOR_OCTOROK, LocationType::ABOVE_WATER);
     enemyLocations[91][2][1][1]    = EnemyLocation(ACTOR_SKULL_KID, LocationType::ABOVE_GROUND);
     enemyLocations[91][2][1][2]    = EnemyLocation(ACTOR_SKULL_KID, LocationType::ABOVE_GROUND);
     enemyLocations[91][2][3][2]    = EnemyLocation(ACTOR_OCTOROK, LocationType::ABOVE_WATER);
