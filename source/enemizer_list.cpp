@@ -820,7 +820,8 @@ void EnemyLocations_Init(void) {
     if (Dungeon::GerudoTrainingGrounds.IsVanilla()) {
         enemyLocations[11][0][1][0]  = EnemyLocation(ACTOR_STALFOS, LocationType::ABOVE_GROUND);
         enemyLocations[11][0][1][1]  = EnemyLocation(ACTOR_STALFOS, LocationType::ABOVE_GROUND);
-        enemyLocations[11][0][2][4]  = EnemyLocation(ACTOR_WALLMASTER, LocationType::ABOVE_GROUND);
+        // Don't randomize out of bounds wallmaster, it exists only to prevent setting the clear flag.
+        // enemyLocations[11][0][2][4]  = EnemyLocation(ACTOR_WALLMASTER, LocationType::ABOVE_GROUND);
         enemyLocations[11][0][2][5]  = EnemyLocation(ACTOR_WALLMASTER, LocationType::ABOVE_GROUND);
         enemyLocations[11][0][3][1]  = EnemyLocation(ACTOR_WOLFOS, LocationType::ABOVE_GROUND);
         enemyLocations[11][0][3][2]  = EnemyLocation(ACTOR_WOLFOS, LocationType::ABOVE_GROUND);
@@ -1184,7 +1185,8 @@ void EnemyLocations_Init(void) {
         enemyLocations[6][0][19][0]  = EnemyLocation(ACTOR_FLOORMASTER, LocationType::ABOVE_GROUND);
         enemyLocations[6][0][20][5]  = EnemyLocation(ACTOR_IRON_KNUCKLE, LocationType::ABOVE_GROUND);
         enemyLocations[6][0][21][0]  = EnemyLocation(ACTOR_REDEAD, LocationType::ABOVE_GROUND);
-        enemyLocations[6][0][22][0]  = EnemyLocation(ACTOR_IRON_KNUCKLE, LocationType::ABOVE_GROUND);
+        // Don't randomize Iron Knuckle needed to destroy thrones.
+        // enemyLocations[6][0][22][0]  = EnemyLocation(ACTOR_IRON_KNUCKLE, LocationType::ABOVE_GROUND);
         enemyLocations[6][0][23][0]  = EnemyLocation(ACTOR_SKULLWALLTULA, LocationType::ABOVE_GROUND);
         enemyLocations[6][0][23][1]  = EnemyLocation(ACTOR_TORCH_SLUG, LocationType::ABOVE_GROUND);
         enemyLocations[6][0][23][2]  = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
@@ -1386,7 +1388,8 @@ void EnemyLocations_Init(void) {
         enemyLocations[13][0][17][9]  = EnemyLocation(ACTOR_TORCH_SLUG, LocationType::ABOVE_GROUND);
         enemyLocations[13][0][17][10] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
         enemyLocations[13][0][17][11] = EnemyLocation(ACTOR_KEESE, LocationType::ABOVE_GROUND);
-        enemyLocations[13][0][17][12] = EnemyLocation(ACTOR_IRON_KNUCKLE, LocationType::ABOVE_GROUND);
+        // Don't randomize Iron Knuckle needed to destroy thrones.
+        // enemyLocations[13][0][17][12] = EnemyLocation(ACTOR_IRON_KNUCKLE, LocationType::ABOVE_GROUND);
         enemyLocations[13][0][18][6]  = EnemyLocation(ACTOR_REDEAD, LocationType::ABOVE_GROUND);
         enemyLocations[13][0][18][7]  = EnemyLocation(ACTOR_REDEAD, LocationType::ABOVE_GROUND);
         enemyLocations[13][0][18][8]  = EnemyLocation(ACTOR_REDEAD, LocationType::ABOVE_GROUND);
