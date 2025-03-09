@@ -2456,6 +2456,15 @@ LeeverAfterSink_patch:
 LeeverAfterDie_patch:
     bl hook_LeeverAfterDie
 
+.section .patch_LeeverSkipChangeCategory
+.global LeeverSkipChangeCategory_patch
+LeeverSkipChangeCategory_patch:
+    @ Big Leevers change category from Misc to Enemy in OoT.
+    @ But in OoT3D they're already in the Enemy category
+    @ from the start, so changing it is useless and can
+    @ trigger room clears during Enemy Randomizer.
+    nop
+
 .section .patch_PlayerCheckVoidOut
 .global PlayerCheckVoidOut_patch
 PlayerCheckVoidOut_patch:
