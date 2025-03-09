@@ -6,8 +6,8 @@
 #define ENEMY_OVERRIDES_MAX 700
 
 typedef struct EnemyActorData {
-    u16 actorId;
-    u16 actorParams;
+    s16 actorId;
+    s16 actorParams;
     u8 anyParams;
 } EnemyActorData;
 
@@ -26,8 +26,8 @@ typedef struct EnemyOverride {
             u8 scene;
         };
     };
-    u16 actorId;
-    u16 params;
+    s16 actorId;
+    s16 params;
 } EnemyOverride;
 
 extern u8 Enemizer_RoomLoadSignal;
