@@ -14,14 +14,14 @@
 #define REQ_FLYING (1 << 6)
 
 typedef struct EnemyData {
-    u16 actorId;
-    u16 params;
+    s16 actorId;
+    s16 params;
     u8 requirements;
 } EnemyData;
 
 typedef struct EnemyActorData {
-    u16 actorId;
-    u16 actorParams;
+    s16 actorId;
+    s16 actorParams;
     u8 anyParams;
 } EnemyActorData;
 
@@ -40,8 +40,8 @@ typedef struct EnemyOverride {
             u8 scene;
         };
     };
-    u16 actorId;
-    u16 params;
+    s16 actorId;
+    s16 params;
 } EnemyOverride;
 
 extern u8 Enemizer_RoomLoadSignal;
