@@ -13,8 +13,7 @@
 const GsLocOverride rGsLocOverrides[100] = { 0 };
 
 void Gs_SpawnAltLocs(void) {
-    // TODO: maybe add setting to skip this if not needed?
-    if (!IsInGame()) {
+    if (!IsInGame() || !gSettingsContext.randomGsLocations) {
         return;
     }
 
@@ -48,6 +47,10 @@ void Gs_SpawnAltLocs(void) {
 }
 
 u8 Gs_HasAltLoc(void* ptr, GsParamPointerType ppt, u8 adjustArrayIndex) {
+    if (!gSettingsContext.randomGsLocations) {
+        return FALSE;
+    }
+
     u8 arrayIndex = 0;
     u8 bitFlag    = 0;
 
@@ -166,7 +169,7 @@ Vec3f* Gs_GetCustomTokenSpawnPos(Actor* thisx) {
 void EnSw_rInit(Actor* thisx, GlobalContext* globalCtx) {
     EnSw_Init(thisx, globalCtx);
 
-    if (thisx->params & 0xE000) {
+    if (gSettingsContext.randomGsLocations && thisx->params & 0xE000) {
         // Post-init rotation fix
         for (u32 i = 0; i < ARRAY_SIZE(rGsLocOverrides); i++) {
             if (rGsLocOverrides[i].arrayIndex == 0 && rGsLocOverrides[i].bitFlag == 0) {
