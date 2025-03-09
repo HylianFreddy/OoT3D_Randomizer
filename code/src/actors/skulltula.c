@@ -9,6 +9,7 @@
 #define EnSw_Update ((ActorFunc)GAME_ADDR(0x1BB110))
 
 #define EnSw_GoldSkulltulaDeath (void*)GAME_ADDR(0x3B91BC)
+#define EnSw_Action_3C2A50 (void*)GAME_ADDR(0x3C2A50)
 
 const GsLocOverride rGsLocOverrides[100] = { 0 };
 
@@ -185,6 +186,11 @@ void EnSw_rInit(Actor* thisx, GlobalContext* globalCtx) {
             }
         }
     }
+
+    if (gSettingsContext.enemizer == ON && thisx->params == 0) {
+        // Randomized Skullwalltulas will appear flat on the ground.
+        thisx->shape.rot.x = 0xC000;
+    }
 }
 
 void EnSw_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
@@ -204,6 +210,11 @@ void EnSw_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     // if the MQ flag is not set and you enter the room from the door.
     if (globalCtx->sceneNum == 4 && gSettingsContext.fireTempleDungeonMode == DUNGEONMODE_MQ && thisx->room == 8) {
         thisx->world.rot.z = 0;
+    }
+
+    if (gSettingsContext.enemizer == ON && thisx->params == 0) {
+        // Randomized Skullwalltulas: fix facing direction when detecting and attacking the player.
+        thisx->shape.rot.y = 0;
     }
 
     EnSw_Update(thisx, globalCtx);
@@ -229,4 +240,34 @@ void EnSw_Kill(EnSw* thisx, GlobalContext* globalCtx) {
     thisx->deathTimer_maybe = 15;
     thisx->unk_word1        = 1;
     thisx->action_fn        = EnSw_GoldSkulltulaDeath;
+}
+
+// Return -1 to use vanilla check
+s32 Skullwalltula_ShouldAttack(EnSw* walltula) {
+    if (gSettingsContext.enemizer == OFF) {
+        return -1;
+    }
+
+    Vec3f posResult;
+    CollisionPoly* outPoly;
+    s32 bgId;
+    // Facing player, being close enough and not having obstacles in the way
+    return ABS(walltula->base.yawTowardsPlayer - walltula->base.shape.rot.z) < 0x4000 &&
+           walltula->base.xzDistToPlayer < 250.0 &&
+           ABS(walltula->base.yDistToPlayer) < 50.0 &&
+           !BgCheck_EntityLineTest1(&gGlobalContext->colCtx, &walltula->base.world.pos, &PLAYER->actor.world.pos,
+                                    &posResult, &outPoly, TRUE, FALSE, FALSE, TRUE, &bgId);
+}
+
+s16 Skullwalltula_GetTargetRotation(s16 orig, EnSw* walltula) {
+    if (gSettingsContext.enemizer == OFF) {
+        return orig;
+    }
+    if (walltula->action_fn == EnSw_Action_3C2A50) {
+        // Going back to home position, turn around
+        return walltula->targetRot + 0x8000;
+    }
+    // Attacking player, remove Y offset
+    walltula->targetPos.y = PLAYER->actor.world.pos.y;
+    return walltula->base.yawTowardsPlayer;
 }
