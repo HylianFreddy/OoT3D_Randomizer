@@ -12,34 +12,73 @@ static s32 rEnemyOverrides_Count = 0;
 u8 Enemizer_RoomLoadSignal = FALSE;
 
 // Enemies that need to spawn at ground level to work properly.
-static EnemyParams sGroundedEnemies[] = {
-    { .actorId = ACTOR_STALFOS, .params = 0x0002 },
-    { .actorId = ACTOR_DODONGO, .params = 0x0000 },
-    { .actorId = ACTOR_PEAHAT, .params = 0xFFFF },
-    { .actorId = ACTOR_GOHMA_LARVA, .params = 0x0007 },
-    { .actorId = ACTOR_BABY_DODONGO, .params = 0x0000 },
-    { .actorId = ACTOR_DARK_LINK, .params = 0x0000 },
-    { .actorId = ACTOR_TAILPASARAN, .params = 0xFFFF },
-    { .actorId = ACTOR_STINGER_FLOOR, .params = 0x000A },
-    { .actorId = ACTOR_DEKU_BABA, .params = 0x0000 },
-    { .actorId = ACTOR_DEKU_BABA, .params = 0x0001 },
-    { .actorId = ACTOR_MAD_SCRUB, .params = 0x0100 },
-    { .actorId = ACTOR_MAD_SCRUB, .params = 0x0300 },
-    { .actorId = ACTOR_MAD_SCRUB, .params = 0x0500 },
-    { .actorId = ACTOR_BUBBLE, .params = 0xFFFE },
-    { .actorId = ACTOR_FLYING_FLOOR_TILE, .params = 0x0000 },
-    { .actorId = ACTOR_BEAMOS, .params = 0x0501 },
-    { .actorId = ACTOR_BEAMOS, .params = 0x0500 },
-    { .actorId = ACTOR_REDEAD, .params = 0x7F01 },
-    { .actorId = ACTOR_REDEAD, .params = 0x7FFE },
-    { .actorId = ACTOR_SKULLWALLTULA, .params = 0x0000 },
-    { .actorId = ACTOR_DEAD_HAND_HAND, .params = 0x0000 },
-    { .actorId = ACTOR_WITHERED_DEKU_BABA, .params = 0x0000 },
-    { .actorId = ACTOR_ANUBIS_SPAWNER, .params = 0x0003 },
-    { .actorId = ACTOR_FLYING_POT, .params = 0x000 },
-    { .actorId = ACTOR_STALCHILD, .params = 0x0000 },
-    { .actorId = ACTOR_STALCHILD, .params = 0x0005 },
+static EnemyActorData sGroundedEnemies[] = {
+    { .actorId = ACTOR_STALFOS, .actorParams = 0x0002 },
+    { .actorId = ACTOR_DODONGO, .anyParams = TRUE },
+    { .actorId = ACTOR_PEAHAT, .actorParams = 0xFFFF },
+    { .actorId = ACTOR_GOHMA_LARVA, .actorParams = 0x0007 },
+    { .actorId = ACTOR_BABY_DODONGO, .anyParams = TRUE },
+    { .actorId = ACTOR_DARK_LINK, .anyParams = TRUE },
+    { .actorId = ACTOR_TAILPASARAN, .anyParams = TRUE },
+    { .actorId = ACTOR_STINGER_FLOOR, .anyParams = TRUE },
+    { .actorId = ACTOR_DEKU_BABA, .anyParams = TRUE },
+    { .actorId = ACTOR_MAD_SCRUB, .anyParams = TRUE },
+    { .actorId = ACTOR_BUBBLE, .actorParams = 0xFFFE },
+    { .actorId = ACTOR_FLYING_FLOOR_TILE, .anyParams = TRUE },
+    { .actorId = ACTOR_BEAMOS, .anyParams = TRUE },
+    { .actorId = ACTOR_REDEAD, .anyParams = TRUE },
+    { .actorId = ACTOR_SKULLWALLTULA, .anyParams = TRUE },
+    { .actorId = ACTOR_DEAD_HAND_HAND, .anyParams = TRUE },
+    { .actorId = ACTOR_WITHERED_DEKU_BABA, .anyParams = TRUE },
+    { .actorId = ACTOR_ANUBIS_SPAWNER, .anyParams = TRUE },
+    { .actorId = ACTOR_FLYING_POT, .anyParams = TRUE },
+    { .actorId = ACTOR_STALCHILD, .anyParams = TRUE },
 };
+
+// clang-format off
+static EnemyObjectDependency sEnemyObjectDeps[] = {
+    {
+        // Poe (actor profile only points to object 1)
+        .key      = { .actorId = ACTOR_POE, .actorParams = 0x0000 },
+        .objectId = 0x009,
+    },
+    {
+        // Sharp (Composer Brother)
+        .key      = { .actorId = ACTOR_POE, .actorParams = 0x0002 },
+        .objectId = 0x009,
+    },
+    {
+        // Flat (Composer Brother)
+        .key      = { .actorId = ACTOR_POE, .actorParams = 0x0003 },
+        .objectId = 0x009,
+    },
+    {
+        // Bari -> Biri
+        .key      = { .actorId = ACTOR_BARI, .anyParams = TRUE },
+        .objectId = 0x021,
+    },
+    {
+        // Dodongo -> dungeon object for fire breath
+        .key      = { .actorId = ACTOR_DODONGO, .anyParams = TRUE },
+        .objectId = 0x003,
+    },
+    {
+        // Gohma Egg -> dungeon object for egg fragments
+        .key      = { .actorId = ACTOR_GOHMA_LARVA, .anyParams = TRUE },
+        .objectId = 0x003,
+    },
+    {
+        // Flare Dancer -> dungeon object for flames
+        .key      = { .actorId = ACTOR_FLARE_DANCER, .anyParams = TRUE },
+        .objectId = 0x003,
+    },
+    {
+        // Anubis Spawner -> Anubis object (actor profile only points to object 1)
+        .key      = { .actorId = ACTOR_ANUBIS_SPAWNER, .anyParams = TRUE },
+        .objectId = 0x0D6,
+    },
+};
+// clang-format on
 
 // clang-format off
 EnemyData sEnemyData[] = {
@@ -115,17 +154,6 @@ EnemyData sEnemyData[] = {
 
     { .actorId = 0x095, .params = 0x0000, .requirements = 0 }, // Skullwalltula
     // { .actorId = 0x0DE, .params = 0x0000, .requirements = 0 }, // Parasitic Tentacle
-};
-
-static EnemyObjectDependency sEnemyObjectDeps[] = {
-    { .actorId = 0x00D, .objectId = 0x009, .actorParams = 0x0000, .requiresParams = TRUE, }, // Poe (actor profile only points to object 1)
-    { .actorId = 0x00D, .objectId = 0x06E, .actorParams = 0x0002, .requiresParams = TRUE, }, // Sharp
-    { .actorId = 0x00D, .objectId = 0x06E, .actorParams = 0x0003, .requiresParams = TRUE, }, // Flat
-    { .actorId = 0x063, .objectId = 0x021 }, // Bari -> Biri
-    { .actorId = 0x012, .objectId = 0x003 }, // Dodongo -> dungeon object for fire breath
-    { .actorId = 0x02B, .objectId = 0x003 }, // Gohma Egg -> dungeon object for egg fragments
-    { .actorId = 0x099, .objectId = 0x003 }, // Flare Dancer -> dungeon object for flames
-    { .actorId = 0x0F6, .objectId = 0x0D6 }, // Anubis Spawner -> Anubis object (actor profile only points to object 1)
 };
 // clang-format on
 
@@ -372,7 +400,8 @@ static void Enemizer_MoveSpecificEnemies(ActorEntry* actorEntry) {
     } else if (!isInvalidGround) {
         // Snap enemy to the ground if needed
         for (u32 i = 0; i < ARRAY_SIZE(sGroundedEnemies); i++) {
-            if (actorEntry->id == sGroundedEnemies[i].actorId && actorEntry->params == sGroundedEnemies[i].params) {
+            if (actorEntry->id == sGroundedEnemies[i].actorId &&
+                (sGroundedEnemies[i].anyParams || actorEntry->params == sGroundedEnemies[i].actorParams)) {
                 actorEntry->pos.y = yGroundIntersect;
             }
         }
@@ -383,8 +412,8 @@ static void Enemizer_SpawnObjectsForActor(s16 actorId, s16 params) {
     Object_FindEntryOrSpawn(gActorOverlayTable[actorId].initInfo->objectId);
 
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyObjectDeps); i++) {
-        if (actorId == sEnemyObjectDeps[i].actorId &&
-            (!sEnemyObjectDeps[i].requiresParams || params == sEnemyObjectDeps[i].actorParams)) {
+        if (actorId == sEnemyObjectDeps[i].key.actorId &&
+            (sEnemyObjectDeps[i].key.anyParams || params == sEnemyObjectDeps[i].key.actorParams)) {
             Object_FindEntryOrSpawn(sEnemyObjectDeps[i].objectId);
         }
     }
