@@ -60,6 +60,7 @@ typedef enum EnemyId {
     ENEMY_BARI,
     ENEMY_BUBBLE_BLUE,
     ENEMY_BUBBLE_FIRE,
+    ENEMY_BUBBLE_WHITE,
     ENEMY_BUBBLE_GREEN,
     ENEMY_FLYING_FLOOR_TILE,
     ENEMY_BEAMOS,
@@ -93,8 +94,7 @@ typedef enum EnemyId {
 class EnemyType {
   public:
     EnemyType() = default;
-    EnemyType(std::string _name, u16 _actorId, std::vector<u16> _possibleParams,
-              std::vector<LocType> _validLocTypes)
+    EnemyType(std::string _name, u16 _actorId, std::vector<u16> _possibleParams, std::vector<LocType> _validLocTypes)
         : name(std::move(_name)), actorId(_actorId), possibleParams(_possibleParams),
           validLocTypes(std::move(_validLocTypes)) {
     }
@@ -115,11 +115,11 @@ class EnemyType {
 class EnemyLocation {
   public:
     EnemyLocation() = default;
-    EnemyLocation(LocType _type, u16 _vanillaActorId) : type(std::move(_type)), vanillaActorId(_vanillaActorId) {
+    EnemyLocation(LocType _type, u16 _vanillaEnemyId) : type(std::move(_type)), vanillaEnemyId(_vanillaEnemyId) {
     }
 
     LocType type;
-    u16 vanillaActorId;
+    u16 vanillaEnemyId;
     EnemyType randomizedEnemy;
     u16 randomizedParams;
 };
@@ -136,7 +136,7 @@ extern std::array<EnemyType, ENEMY_MAX> enemyTypes;
 extern EnemyLocationsMap enemyLocations;
 
 void InitEnemyTypes(void);
-void EnemyLocations_Init(void);
+void InitEnemyLocations(void);
 void AddDuplicateLocations(void);
 void RandomizeEnemies(void);
 void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides);

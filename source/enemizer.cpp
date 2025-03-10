@@ -21,7 +21,7 @@ void RandomizeEnemies() {
         return;
     }
 
-    EnemyLocations_Init();
+    InitEnemyLocations();
 
     CitraPrint("___________________");
     CitraPrint("Randomizing Enemies...");
