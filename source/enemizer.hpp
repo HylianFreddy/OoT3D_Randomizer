@@ -10,7 +10,7 @@
 namespace Enemizer {
 
 // Conditions used for the logic to place enemies.
-enum class LocationType {
+enum class LocType {
     ABOVE_GROUND, // Location is on or above walkable ground.
     ABOVE_VOID,   // Location is over a void plane. Enemy must be able to fly.
     UNDERWATER,   // Location is underwater. Enemy must be defeatable with hookshot and iron boots.
@@ -94,9 +94,9 @@ class EnemyType {
   public:
     EnemyType() = default;
     EnemyType(std::string _name, u16 _actorId, std::vector<u16> _possibleParams,
-              std::vector<LocationType> _validLocationTypes)
+              std::vector<LocType> _validLocTypes)
         : name(std::move(_name)), actorId(_actorId), possibleParams(_possibleParams),
-          validLocationTypes(std::move(_validLocationTypes)) {
+          validLocTypes(std::move(_validLocTypes)) {
     }
 
     std::string name;
@@ -104,9 +104,9 @@ class EnemyType {
     std::vector<u16> possibleParams; // Values to randomly select as actor params, without affecting the logic.
     // std::string filter_func;
     // ConditionFn killLogic;
-    std::vector<LocationType> validLocationTypes;
-    // std::vector<LocationType> acceptableLocationConditions;
-    // std::vector<LocationType> requiredLocationConditions;
+    std::vector<LocType> validLocTypes;
+    // std::vector<LocType> acceptableLocationConditions;
+    // std::vector<LocType> requiredLocationConditions;
     // std::string weight;
     // std::string drop_logic;
     // std::string soulName;
@@ -115,11 +115,11 @@ class EnemyType {
 class EnemyLocation {
   public:
     EnemyLocation() = default;
-    EnemyLocation(u16 _vanillaActorId, LocationType _type) : vanillaActorId(_vanillaActorId), type(std::move(_type)) {
+    EnemyLocation(LocType _type, u16 _vanillaActorId) : type(std::move(_type)), vanillaActorId(_vanillaActorId) {
     }
 
+    LocType type;
     u16 vanillaActorId;
-    LocationType type;
     EnemyType randomizedEnemy;
     u16 randomizedParams;
 };
@@ -130,7 +130,7 @@ using EnemyLocationsMap_Scene = std::unordered_map<u8, EnemyLocationsMap_Layer>;
 using EnemyLocationsMap       = std::unordered_map<u8, EnemyLocationsMap_Scene>;
 
 // Possible enemies to choose from for randomization.
-extern std::vector<EnemyType> enemyTypes;
+extern std::array<EnemyType, ENEMY_MAX> enemyTypes;
 // Map of enemy locations that will be randomized. Indices are [scene][layer][room][actorEntry].
 // To override dynamic enemy spawners, actorEntry is set to 0xFF.
 extern EnemyLocationsMap enemyLocations;
