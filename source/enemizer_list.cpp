@@ -3,130 +3,131 @@
 
 namespace Enemizer {
 
+std::array<EnemyType, ENEMY_MAX> enemyTypes = {};
 EnemyLocationsMap enemyLocations = {};
 
 // clang-format off
-std::vector<EnemyType> enemyTypes = {
-    EnemyType("Poe", ACTOR_POE, { 0x0000, 0x0002, 0x0003 }, // normal, Sharp, Flat
-        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER, LocationType::SPAWNER }),
-    EnemyType("Stalfos", ACTOR_STALFOS, { 0x0002, 0x0003 }, // rises from ground / drops from above when approached
-        { LocationType::ABOVE_GROUND, LocationType::SPAWNER }),
-    EnemyType("Octorok", ACTOR_OCTOROK, { 0x0000 },
-        { LocationType::ABOVE_WATER }),
-    EnemyType("Wallmaster", ACTOR_WALLMASTER, { 0x0000 },
-        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::ABOVE_WATER }),
-    EnemyType("Dodongo", ACTOR_DODONGO, { 0x0000 },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Keese", ACTOR_KEESE, { 0x0002 },
-        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
-    EnemyType("Fire Keese", ACTOR_KEESE, { 0x0001 },
-        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::ABOVE_WATER }),
-    EnemyType("Ice Keese", ACTOR_KEESE, { 0x0004 },
-        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
-    EnemyType("Tektite (Red)", ACTOR_TEKTITE, { 0xFFFF },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Tektite (Blue)", ACTOR_TEKTITE, { 0xFFFE },
-        { LocationType::ABOVE_GROUND, LocationType::ABOVE_WATER }),
-    EnemyType("Leever", ACTOR_LEEVER, { 0x0000, 0x0001 }, // normal / big
-        { LocationType::ABOVE_GROUND, LocationType::SPAWNER }),
-    EnemyType("Peahat", ACTOR_PEAHAT, { 0xFFFF },
-        { LocationType::ABOVE_GROUND, LocationType::ABOVE_WATER }),
-    EnemyType("Peahat Larva", ACTOR_PEAHAT, { 0x0001 },
-        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
-    EnemyType("Lizalfos", ACTOR_LIZALFOS, { 0xFF80, 0xFFFF }, // normal / drops from above when approached
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Dinolfos", ACTOR_LIZALFOS, { 0xFFFE },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Gohma Larva", ACTOR_GOHMA_LARVA, { 0x0000, 0x0007 }, // egg that drops and hatches / normal egg
-        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER, LocationType::SPAWNER }),
-    EnemyType("Shabom", ACTOR_SHABOM, { 0x0000 },
-        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER, LocationType::ABOVE_WATER, LocationType::SPAWNER }),
-    EnemyType("Baby Dodongo", ACTOR_BABY_DODONGO, { 0x0000 },
-        { LocationType::ABOVE_GROUND, LocationType::SPAWNER }),
-    EnemyType("Dark Link", ACTOR_DARK_LINK, { 0x0000 },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Biri", ACTOR_BIRI, { 0xFFFF },
-        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
-    EnemyType("Tailpasaran", ACTOR_TAILPASARAN, { 0xFFFF },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Skulltula", ACTOR_SKULLTULA, { 0x0000, 0x0001 },
-        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
-    EnemyType("Torch Slug", ACTOR_TORCH_SLUG, { 0xFFFF },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Stinger (Floor)", ACTOR_STINGER_FLOOR, { 0x000A },
-        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
-    EnemyType("Moblin (Club)", ACTOR_MOBLIN, { 0x0000 },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Moblin (Spear)", ACTOR_MOBLIN, { 0xFFFF },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Armos", ACTOR_ARMOS, { 0xFFFF },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Deku Baba", ACTOR_DEKU_BABA, { 0x0000 },
-        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
-    EnemyType("Big Deku Baba", ACTOR_DEKU_BABA, { 0x0001 },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Mad Scrub", ACTOR_MAD_SCRUB, { 0x0100, 0x0300, 0x0500 }, // shoots 1, 3 or 5 nuts in a row
-        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
-    EnemyType("Bari", ACTOR_BARI, { 0xFFFF },
-        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
-    EnemyType("Blue Bubble", ACTOR_BUBBLE, { 0xFFFF },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Fire Bubble", ACTOR_BUBBLE, { 0xFFFE },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Green Bubble", ACTOR_BUBBLE, { 0x02FC },
-        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::ABOVE_WATER }),
-    EnemyType("Flying Floor Tile", ACTOR_FLYING_FLOOR_TILE, { 0x0000 },
-        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
-    EnemyType("Beamos", ACTOR_BEAMOS, { 0x0500, 0x0501 }, // big / small
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Floormaster", ACTOR_FLOORMASTER, { 0x0000 },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Redead", ACTOR_REDEAD, { 0x7F01, 0x7F02 }, // standing / crouching
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Gibdo", ACTOR_REDEAD, { 0x7FFE },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Poe Sister", ACTOR_POE_SISTER, { 0x0000 },
-        { LocationType::NEVER }),
-    EnemyType("Dead Hand's Hand", ACTOR_DEAD_HAND_HAND, { 0x0000 },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Skullwalltula", ACTOR_SKULLWALLTULA, { 0x0000 },
-        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER}),
-    EnemyType("Flare Dancer", ACTOR_FLARE_DANCER, { 0x0000 },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Dead Hand", ACTOR_DEAD_HAND, { 0x0000 },
-        { LocationType::NEVER }),
-    EnemyType("Shell Blade", ACTOR_SHELL_BLADE, { 0x0000 },
-        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
-    EnemyType("Big Octo", ACTOR_BIG_OCTO, { 0x0000 },
-        { LocationType::NEVER }),
-    EnemyType("Withered Deku Baba", ACTOR_WITHERED_DEKU_BABA, { 0x0000 },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Like Like", ACTOR_LIKE_LIKE, { 0x0000 },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Parasitic Tentacle", ACTOR_PARASITIC_TENTACLE, { 0x0000 },
-        { LocationType::NEVER }),
-    EnemyType("Spike", ACTOR_SPIKE, { 0x0000 },
-        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
-    EnemyType("Anubis Spawner", ACTOR_ANUBIS_SPAWNER, { 0x0003 },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Iron Knuckle", ACTOR_IRON_KNUCKLE, { 0xFF01, 0xFF02, 0xFF03 }, // silver / black / white
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Skull Kid", ACTOR_SKULL_KID, { 0xFFFF },
-        { LocationType::ABOVE_GROUND }),
-    EnemyType("Flying Pot", ACTOR_FLYING_POT, { 0x0000 },
-        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
-    EnemyType("Freezard", ACTOR_FREEZARD, { 0x0000, 0xFFFF }, // normal / appears and moves when approached
-        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER }),
-    EnemyType("Stinger (Water)", ACTOR_STINGER_WATER, { 0x0000 },
-        { LocationType::UNDERWATER }),
-    EnemyType("Gerudo Fighter", ACTOR_GERUDO_FIGHTER, { 0x0000 },
-        { LocationType::NEVER }),
-    EnemyType("Wolfos", ACTOR_WOLFOS, { 0xFF00, 0xFF01 }, // normal / white
-        { LocationType::ABOVE_GROUND, LocationType::SPAWNER }),
-    EnemyType("Stalchild", ACTOR_STALCHILD, { 0x0000, 0x0005 }, // normal / big (20 kills)
-        { LocationType::ABOVE_GROUND, LocationType::SPAWNER }),
-    EnemyType("Guay", ACTOR_GUAY, { 0x0000, 0x0001 }, // normal / big
-        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER }),
+void InitEnemyTypes(void) {
+    enemyTypes[ENEMY_POE] = EnemyType("Poe", ACTOR_POE, { 0x0000, 0x0002, 0x0003 }, // normal, Sharp, Flat
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER, LocationType::SPAWNER });
+    enemyTypes[ENEMY_STALFOS] = EnemyType("Stalfos", ACTOR_STALFOS, { 0x0002, 0x0003 }, // rises from ground / drops from above when approached
+        { LocationType::ABOVE_GROUND, LocationType::SPAWNER });
+    enemyTypes[ENEMY_OCTOROK] = EnemyType("Octorok", ACTOR_OCTOROK, { 0x0000 },
+        { LocationType::ABOVE_WATER });
+    enemyTypes[ENEMY_WALLMASTER] = EnemyType("Wallmaster", ACTOR_WALLMASTER, { 0x0000 },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::ABOVE_WATER });
+    enemyTypes[ENEMY_DODONGO] = EnemyType("Dodongo", ACTOR_DODONGO, { 0x0000 },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_KEESE_NORMAL] = EnemyType("Keese", ACTOR_KEESE, { 0x0002 },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER });
+    enemyTypes[ENEMY_KEESE_FIRE] = EnemyType("Fire Keese", ACTOR_KEESE, { 0x0001 },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::ABOVE_WATER });
+    enemyTypes[ENEMY_KEESE_ICE] = EnemyType("Ice Keese", ACTOR_KEESE, { 0x0004 },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER });
+    enemyTypes[ENEMY_TEKTITE_RED] = EnemyType("Tektite (Red)", ACTOR_TEKTITE, { 0xFFFF },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_TEKTITE_BLUE] = EnemyType("Tektite (Blue)", ACTOR_TEKTITE, { 0xFFFE },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_WATER });
+    enemyTypes[ENEMY_LEEVER] = EnemyType("Leever", ACTOR_LEEVER, { 0x0000, 0x0001 }, // normal / big
+        { LocationType::ABOVE_GROUND, LocationType::SPAWNER });
+    enemyTypes[ENEMY_PEAHAT] = EnemyType("Peahat", ACTOR_PEAHAT, { 0xFFFF },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_WATER });
+    enemyTypes[ENEMY_PEAHAT_LARVA] = EnemyType("Peahat Larva", ACTOR_PEAHAT, { 0x0001 },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER });
+    enemyTypes[ENEMY_LIZALFOS] = EnemyType("Lizalfos", ACTOR_LIZALFOS, { 0xFF80, 0xFFFF }, // normal / drops from above when approached
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_DINOLFOS] = EnemyType("Dinolfos", ACTOR_LIZALFOS, { 0xFFFE },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_GOHMA_LARVA] = EnemyType("Gohma Larva", ACTOR_GOHMA_LARVA, { 0x0000, 0x0007 }, // egg that drops and hatches / normal egg
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER, LocationType::SPAWNER });
+    enemyTypes[ENEMY_SHABOM] = EnemyType("Shabom", ACTOR_SHABOM, { 0x0000 },
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER, LocationType::ABOVE_WATER, LocationType::SPAWNER });
+    enemyTypes[ENEMY_DODONGO_BABY] = EnemyType("Baby Dodongo", ACTOR_BABY_DODONGO, { 0x0000 },
+        { LocationType::ABOVE_GROUND, LocationType::SPAWNER });
+    enemyTypes[ENEMY_DARK_LINK] = EnemyType("Dark Link", ACTOR_DARK_LINK, { 0x0000 },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_BIRI] = EnemyType("Biri", ACTOR_BIRI, { 0xFFFF },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER });
+    enemyTypes[ENEMY_TAILPASARAN] = EnemyType("Tailpasaran", ACTOR_TAILPASARAN, { 0xFFFF },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_SKULLTULA] = EnemyType("Skulltula", ACTOR_SKULLTULA, { 0x0000, 0x0001 },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER });
+    enemyTypes[ENEMY_TORCH_SLUG] = EnemyType("Torch Slug", ACTOR_TORCH_SLUG, { 0xFFFF },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_STINGER_FLOOR] = EnemyType("Stinger (Floor)", ACTOR_STINGER_FLOOR, { 0x000A },
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER });
+    enemyTypes[ENEMY_MOBLIN_CLUB] = EnemyType("Moblin (Club)", ACTOR_MOBLIN, { 0x0000 },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_MOBLIN_SPEAR] = EnemyType("Moblin (Spear)", ACTOR_MOBLIN, { 0xFFFF },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_ARMOS] = EnemyType("Armos", ACTOR_ARMOS, { 0xFFFF },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_DEKU_BABA_SMALL] = EnemyType("Deku Baba", ACTOR_DEKU_BABA, { 0x0000 },
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER });
+    enemyTypes[ENEMY_DEKU_BABA_BIG] = EnemyType("Big Deku Baba", ACTOR_DEKU_BABA, { 0x0001 },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_MAD_SCRUB] = EnemyType("Mad Scrub", ACTOR_MAD_SCRUB, { 0x0100, 0x0300, 0x0500 }, // shoots 1, 3 or 5 nuts in a row
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER });
+    enemyTypes[ENEMY_BARI] = EnemyType("Bari", ACTOR_BARI, { 0xFFFF },
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER });
+    enemyTypes[ENEMY_BUBBLE_BLUE] = EnemyType("Blue Bubble", ACTOR_BUBBLE, { 0xFFFF },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_BUBBLE_FIRE] = EnemyType("Fire Bubble", ACTOR_BUBBLE, { 0xFFFE },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_BUBBLE_GREEN] = EnemyType("Green Bubble", ACTOR_BUBBLE, { 0x02FC },
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::ABOVE_WATER });
+    enemyTypes[ENEMY_FLYING_FLOOR_TILE] = EnemyType("Flying Floor Tile", ACTOR_FLYING_FLOOR_TILE, { 0x0000 },
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER });
+    enemyTypes[ENEMY_BEAMOS] = EnemyType("Beamos", ACTOR_BEAMOS, { 0x0500, 0x0501 }, // big / small
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_FLOORMASTER] = EnemyType("Floormaster", ACTOR_FLOORMASTER, { 0x0000 },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_REDEAD] = EnemyType("Redead", ACTOR_REDEAD, { 0x7F01, 0x7F02 }, // standing / crouching
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_GIBDO] = EnemyType("Gibdo", ACTOR_REDEAD, { 0x7FFE },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_POE_SISTER] = EnemyType("Poe Sister", ACTOR_POE_SISTER, { 0x0000 },
+        { LocationType::NEVER });
+    enemyTypes[ENEMY_DEAD_HAND_HAND] = EnemyType("Dead Hand's Hand", ACTOR_DEAD_HAND_HAND, { 0x0000 },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_SKULLWALLTULA] = EnemyType("Skullwalltula", ACTOR_SKULLWALLTULA, { 0x0000 },
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER});
+    enemyTypes[ENEMY_FLARE_DANCER] = EnemyType("Flare Dancer", ACTOR_FLARE_DANCER, { 0x0000 },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_DEAD_HAND] = EnemyType("Dead Hand", ACTOR_DEAD_HAND, { 0x0000 },
+        { LocationType::NEVER });
+    enemyTypes[ENEMY_SHELL_BLADE] = EnemyType("Shell Blade", ACTOR_SHELL_BLADE, { 0x0000 },
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER });
+    enemyTypes[ENEMY_BIG_OCTO] = EnemyType("Big Octo", ACTOR_BIG_OCTO, { 0x0000 },
+        { LocationType::NEVER });
+    enemyTypes[ENEMY_DEKU_BABA_WITHERED] = EnemyType("Withered Deku Baba", ACTOR_WITHERED_DEKU_BABA, { 0x0000 },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_LIKE_LIKE] = EnemyType("Like Like", ACTOR_LIKE_LIKE, { 0x0000 },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_PARASITIC_TENTACLE] = EnemyType("Parasitic Tentacle", ACTOR_PARASITIC_TENTACLE, { 0x0000 },
+        { LocationType::NEVER });
+    enemyTypes[ENEMY_SPIKE] = EnemyType("Spike", ACTOR_SPIKE, { 0x0000 },
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER });
+    enemyTypes[ENEMY_ANUBIS] = EnemyType("Anubis Spawner", ACTOR_ANUBIS_SPAWNER, { 0x0003 },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_IRON_KNUCKLE] = EnemyType("Iron Knuckle", ACTOR_IRON_KNUCKLE, { 0xFF01, 0xFF02, 0xFF03 }, // silver / black / white
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_SKULL_KID] = EnemyType("Skull Kid", ACTOR_SKULL_KID, { 0xFFFF },
+        { LocationType::ABOVE_GROUND });
+    enemyTypes[ENEMY_FLYING_POT] = EnemyType("Flying Pot", ACTOR_FLYING_POT, { 0x0000 },
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER });
+    enemyTypes[ENEMY_FREEZARD] = EnemyType("Freezard", ACTOR_FREEZARD, { 0x0000, 0xFFFF }, // normal / appears and moves when approached
+        { LocationType::ABOVE_GROUND, LocationType::UNDERWATER });
+    enemyTypes[ENEMY_STINGER_WATER] = EnemyType("Stinger (Water)", ACTOR_STINGER_WATER, { 0x0000 },
+        { LocationType::UNDERWATER });
+    enemyTypes[ENEMY_GERUDO_FIGHTER] = EnemyType("Gerudo Fighter", ACTOR_GERUDO_FIGHTER, { 0x0000 },
+        { LocationType::NEVER });
+    enemyTypes[ENEMY_WOLFOS] = EnemyType("Wolfos", ACTOR_WOLFOS, { 0xFF00, 0xFF01 }, // normal / white
+        { LocationType::ABOVE_GROUND, LocationType::SPAWNER });
+    enemyTypes[ENEMY_STALCHILD] = EnemyType("Stalchild", ACTOR_STALCHILD, { 0x0000, 0x0005 }, // normal / big (20 kills)
+        { LocationType::ABOVE_GROUND, LocationType::SPAWNER });
+    enemyTypes[ENEMY_GUAY] = EnemyType("Guay", ACTOR_GUAY, { 0x0000, 0x0001 }, // normal / big
+        { LocationType::ABOVE_GROUND, LocationType::ABOVE_VOID, LocationType::UNDERWATER, LocationType::ABOVE_WATER });
 };
 // clang-format on
 
