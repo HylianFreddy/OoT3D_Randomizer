@@ -130,6 +130,13 @@ void InitEnemyTypes(void) {
         { LocType::ABOVE_GROUND, LocType::SPAWNER });
     enemyTypes[ENEMY_GUAY] = EnemyType("Guay", ACTOR_GUAY, { 0x0000, 0x0001 }, // normal / big
         { LocType::ABOVE_GROUND, LocType::ABOVE_VOID, LocType::UNDERWATER, LocType::ABOVE_WATER });
+
+    for (s32 i = 0; i < ENEMY_MAX; i++) {
+        if (enemyTypes[i].actorId == 0) {
+            CitraPrint("ERROR: enemyTypes not filled correctly!");
+            printf("ERROR ERROR ERROR!");
+        }
+    }
 };
 
 void InitEnemyLocations(void) {
