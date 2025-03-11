@@ -71,6 +71,7 @@ void Player_SetChildCustomTunicCMAB(void) {
 
 #include "savefile.h"
 void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
+    gSettingsContext.enemizer            = ON;
     gSettingsContext.customTunicColors   = ON;
     gSettingsContext.sheikHints          = ON;
     gSettingsContext.quickText = QUICKTEXT_TURBO;
