@@ -77,7 +77,7 @@ void InitEnemyTypes(void) {
     enemyTypes[ENEMY_BUBBLE_GREEN] = EnemyType("Green Bubble", ACTOR_BUBBLE, { 0x02FC },
         { LocType::ABOVE_GROUND, LocType::ABOVE_VOID, LocType::ABOVE_WATER });
     enemyTypes[ENEMY_BUBBLE_WHITE] = EnemyType("White Bubble", ACTOR_BUBBLE, { 0x000D },
-        { LocType::NEVER });
+        { /* Unimplemented */ });
     enemyTypes[ENEMY_FLYING_FLOOR_TILE] = EnemyType("Flying Floor Tile", ACTOR_FLYING_FLOOR_TILE, { 0x0000 },
         { LocType::ABOVE_GROUND, LocType::UNDERWATER });
     enemyTypes[ENEMY_BEAMOS] = EnemyType("Beamos", ACTOR_BEAMOS, { 0x0500, 0x0501 }, // big / small
@@ -89,7 +89,7 @@ void InitEnemyTypes(void) {
     enemyTypes[ENEMY_GIBDO] = EnemyType("Gibdo", ACTOR_REDEAD, { 0x7FFE },
         { LocType::ABOVE_GROUND });
     enemyTypes[ENEMY_POE_SISTER] = EnemyType("Poe Sister", ACTOR_POE_SISTER, { 0x0000 },
-        { LocType::NEVER });
+        { /* Unimplemented */ });
     enemyTypes[ENEMY_DEAD_HAND_HAND] = EnemyType("Dead Hand's Hand", ACTOR_DEAD_HAND_HAND, { 0x0000 },
         { LocType::ABOVE_GROUND });
     enemyTypes[ENEMY_SKULLWALLTULA] = EnemyType("Skullwalltula", ACTOR_SKULLWALLTULA, { 0x0000 },
@@ -97,17 +97,17 @@ void InitEnemyTypes(void) {
     enemyTypes[ENEMY_FLARE_DANCER] = EnemyType("Flare Dancer", ACTOR_FLARE_DANCER, { 0x0000 },
         { LocType::ABOVE_GROUND });
     enemyTypes[ENEMY_DEAD_HAND] = EnemyType("Dead Hand", ACTOR_DEAD_HAND, { 0x0000 },
-        { LocType::NEVER });
+        { /* Unimplemented */ });
     enemyTypes[ENEMY_SHELL_BLADE] = EnemyType("Shell Blade", ACTOR_SHELL_BLADE, { 0x0000 },
         { LocType::ABOVE_GROUND, LocType::UNDERWATER });
     enemyTypes[ENEMY_BIG_OCTO] = EnemyType("Big Octo", ACTOR_BIG_OCTO, { 0x0000 },
-        { LocType::NEVER });
+        { /* Unimplemented */ });
     enemyTypes[ENEMY_DEKU_BABA_WITHERED] = EnemyType("Withered Deku Baba", ACTOR_WITHERED_DEKU_BABA, { 0x0000 },
         { LocType::ABOVE_GROUND });
     enemyTypes[ENEMY_LIKE_LIKE] = EnemyType("Like Like", ACTOR_LIKE_LIKE, { 0x0000 },
         { LocType::ABOVE_GROUND });
     enemyTypes[ENEMY_PARASITIC_TENTACLE] = EnemyType("Parasitic Tentacle", ACTOR_PARASITIC_TENTACLE, { 0x0000 },
-        { LocType::NEVER });
+        { /* Unimplemented */ });
     enemyTypes[ENEMY_SPIKE] = EnemyType("Spike", ACTOR_SPIKE, { 0x0000 },
         { LocType::ABOVE_GROUND, LocType::UNDERWATER });
     enemyTypes[ENEMY_ANUBIS] = EnemyType("Anubis Spawner", ACTOR_ANUBIS_SPAWNER, { 0x0003 },
@@ -123,7 +123,7 @@ void InitEnemyTypes(void) {
     enemyTypes[ENEMY_STINGER_WATER] = EnemyType("Stinger (Water)", ACTOR_STINGER_WATER, { 0x0000 },
         { LocType::UNDERWATER });
     enemyTypes[ENEMY_GERUDO_FIGHTER] = EnemyType("Gerudo Fighter", ACTOR_GERUDO_FIGHTER, { 0x0000 },
-        { LocType::NEVER });
+        { /* Unimplemented */ });
     enemyTypes[ENEMY_WOLFOS] = EnemyType("Wolfos", ACTOR_WOLFOS, { 0xFF00, 0xFF01 }, // normal / white
         { LocType::ABOVE_GROUND, LocType::SPAWNER });
     enemyTypes[ENEMY_STALCHILD] = EnemyType("Stalchild", ACTOR_STALCHILD, { 0x0000, 0x0005 }, // normal / big (20 kills)

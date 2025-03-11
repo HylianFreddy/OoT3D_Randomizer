@@ -7,13 +7,15 @@ namespace Enemizer {
 static void AssignRandomEnemy(EnemyLocation& loc) {
     std::vector<EnemyType> enemyOptions;
     for (EnemyType& candidate : enemyTypes) {
-        if (std::find(candidate.validLocTypes.begin(), candidate.validLocTypes.end(), loc.type) !=
-            candidate.validLocTypes.end()) {
+        if (candidate.actorId != 0 && std::find(candidate.validLocTypes.begin(), candidate.validLocTypes.end(),
+                                                loc.type) != candidate.validLocTypes.end()) {
             enemyOptions.push_back(candidate);
         }
     }
-    loc.randomizedEnemy  = RandomElement(enemyOptions);
-    loc.randomizedParams = RandomElement(loc.randomizedEnemy.possibleParams);
+    if (enemyOptions.size() > 0) {
+        loc.randomizedEnemy  = RandomElement(enemyOptions);
+        loc.randomizedParams = RandomElement(loc.randomizedEnemy.possibleParams);
+    }
 }
 
 void RandomizeEnemies() {
