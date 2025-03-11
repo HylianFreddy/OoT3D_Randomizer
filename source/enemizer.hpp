@@ -16,7 +16,6 @@ enum class LocType {
     UNDERWATER,   // Location is underwater. Enemy must be defeatable with hookshot and iron boots.
     ABOVE_WATER,  // Location is in the air above a water surface. Enemy must be able to float or fly.
     SPAWNER,      // Location is a grounded enemy spawner (stalchildren, leevers).
-    NEVER,        // Do not assign to any location.
 };
 
 // Enemy requirements to pass to the patch to edit the ActorEntry at runtime.
