@@ -81,7 +81,7 @@ void autoLoadSaveFile() {
         rInputCtx.cur.l && rInputCtx.cur.r) {
 
         Load_Savefiles_Buffer();
-        FileSelect_LoadGame(&gGlobalContext->state, 0);
+        FileSelect_LoadGame(&gGlobalContext->state, 2);
         if (gSaveContext.saveCount > 0) {
             gGlobalContext->linkAgeOnLoad = gSaveContext.linkAge;
             if (gSaveContext.masterQuestFlag) {

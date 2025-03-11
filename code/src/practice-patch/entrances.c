@@ -1030,7 +1030,7 @@ EntrancesByScene Entrances_KokiriShop = {
 EntrancesByScene Entrances_LakeHylia = {
     "Lake Hylia",
     .nbItems = 10,
-    .initialCursorPos = 3,
+    .initialCursorPos = 11,
     {
         {0x0102, "From Hyrule Field"},
         {0x0219, "From Gerudo Valley"},

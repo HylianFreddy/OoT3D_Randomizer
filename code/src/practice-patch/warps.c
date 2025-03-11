@@ -164,7 +164,7 @@ WarpsSceneMenu WarpsPlacesMiscMenu = {
 WarpsSceneMenu WarpsPlacesOverworldMenu = {
     "Overworld",
     .nbItems = 15,
-    .initialCursorPos = 0,
+    .initialCursorPos = 7,
     {
         {"81: Hyrule Field", &Entrances_HyruleField},
         {"91: Lost Woods", &Entrances_LostWoods},
