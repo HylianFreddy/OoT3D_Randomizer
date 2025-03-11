@@ -110,6 +110,7 @@ typedef enum SceneId {
     /* 0x69 */ SCENE_69,
     /* 0x6A */ SCENE_6A,
     /* 0x6B */ SCENE_HYRULE_FIELD_TITLE_SCREEN,
+    /* 0x6C */ SCENE_MAX,
 } SceneId;
 
 #endif //_Z3DSCENE_H_

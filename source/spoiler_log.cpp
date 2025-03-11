@@ -12,6 +12,7 @@
 #include "shops.hpp"
 #include "gold_skulltulas.hpp"
 #include "ocarina_notes.hpp"
+#include "enemizer.hpp"
 
 #include <3ds.h>
 #include <cstdio>
@@ -721,6 +722,114 @@ static void WriteHints(tinyxml2::XMLDocument& spoilerLog) {
     spoilerLog.RootElement()->InsertEndChild(parentNode);
 }
 
+// Writes the randomized enemies to the spoiler log.
+static void WriteRandomizedEnemies(tinyxml2::XMLDocument& spoilerLog) {
+    using namespace Enemizer;
+    CitraPrint("Writing enemies to spoiler log...");
+
+    if (!Settings::Enemizer) {
+        return;
+    }
+
+    auto parentNode = spoilerLog.NewElement("enemies");
+
+    // Create sorted vector of scenes
+    std::vector<std::pair<u8, EnemyLocationsMap_Scene>> scenes;
+    for (auto& scene : enemyLocations) {
+        scenes.push_back(scene);
+    }
+    std::sort(scenes.begin(), scenes.end(), [](const auto& a, const auto& b) { return a.first < b.first; });
+
+    for (auto& scene : scenes) {
+        auto sceneNode        = parentNode->InsertNewChildElement("scene");
+        std::string sceneName = std::to_string(scene.first) + " - " + sceneNames[scene.first];
+        sceneNode->SetAttribute("name", sceneName.c_str());
+
+        u8 childNightExists = scene.second.find(1) != scene.second.end();
+        u8 adultDayExists   = scene.second.find(2) != scene.second.end();
+        u8 adultNightExists = scene.second.find(3) != scene.second.end();
+
+        // Create sorted vector of layers
+        std::vector<std::pair<u8, EnemyLocationsMap_Layer>> layers;
+        for (auto& layer : scene.second) {
+            layers.push_back(layer);
+        }
+        std::sort(layers.begin(), layers.end(), [](const auto& a, const auto& b) { return a.first < b.first; });
+
+        for (auto& layer : layers) {
+            // Skip duplicated layers
+            if ((layer.first == 1 && scene.first == SCENE_HYRULE_FIELD) ||
+                (layer.first == 3 && scene.first == SCENE_GRAVEYARD)) {
+                continue;
+            }
+
+            auto layerNode        = sceneNode->InsertNewChildElement("layer");
+            std::string layerName = std::to_string(layer.first) + " - ";
+            if (layer.first == 0) {
+                if (!childNightExists && !adultDayExists && !adultNightExists) {
+                    layerName.append("All");
+                } else if (!childNightExists) {
+                    layerName.append("Child");
+                } else {
+                    layerName.append("Child - Day");
+                }
+            } else if (layer.first == 1) {
+                layerName.append("Child - Night");
+            } else if (layer.first == 2) {
+                if (!adultNightExists) {
+                    layerName.append("Adult");
+                } else if (!childNightExists) {
+                    layerName.append("Adult - Day");
+                }
+            } else if (layer.first == 3) {
+                layerName.append("Adult - Night");
+            }
+            layerNode->SetAttribute("name", layerName.c_str());
+
+            // Create sorted vector of rooms
+            std::vector<std::pair<u8, EnemyLocationsMap_Room>> rooms;
+            for (auto& room : layer.second) {
+                rooms.push_back(room);
+            }
+            std::sort(rooms.begin(), rooms.end(), [](const auto& a, const auto& b) { return a.first < b.first; });
+
+            for (auto& room : rooms) {
+                auto roomNode = layerNode->InsertNewChildElement("room");
+                roomNode->SetAttribute("name", std::to_string(room.first).c_str());
+
+                // Create sorted vector of entries
+                std::vector<std::pair<u8, EnemyLocation>> entries;
+                for (auto& entry : room.second) {
+                    entries.push_back(entry);
+                }
+                std::sort(entries.begin(), entries.end(),
+                          [](const auto& a, const auto& b) { return a.first < b.first; });
+
+                for (auto& entry : entries) {
+                    auto enemyNode = roomNode->InsertNewChildElement("enemy");
+
+                    std::string entryName = enemyTypes[entry.second.vanillaEnemyId].name;
+
+                    enemyNode->SetAttribute("name", entryName.c_str());
+
+                    constexpr int16_t LONGEST_NAME = 18; // The longest name of an enemy.
+                    // Insert a padding so we get a kind of table in the XML document.
+                    int16_t requiredPadding = LONGEST_NAME - entryName.length();
+                    if (requiredPadding >= 0) {
+                        std::string padding(requiredPadding, ' ');
+                        enemyNode->SetAttribute("_", padding.c_str());
+                    }
+
+                    enemyNode->SetText(entry.second.randomizedEnemy.name.c_str());
+                }
+            }
+        }
+    }
+
+    spoilerLog.RootElement()->InsertEndChild(parentNode);
+    CitraPrint("Spoiler log done!");
+}
+
 static void WriteAllLocations(tinyxml2::XMLDocument& spoilerLog, const bool collapsible = false) {
     auto parentNode = spoilerLog.NewElement("all-locations");
 
@@ -776,6 +885,7 @@ bool SpoilerLog_Write() {
     WriteHints(spoilerLog);
     WriteShuffledEntrances(spoilerLog, true);
     WriteAllLocations(spoilerLog, true);
+    WriteRandomizedEnemies(spoilerLog);
 
     auto e = spoilerLog.SaveFile(GetSpoilerLogPath().c_str());
     return e == tinyxml2::XML_SUCCESS;
