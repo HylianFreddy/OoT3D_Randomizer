@@ -745,10 +745,6 @@ static void WriteRandomizedEnemies(tinyxml2::XMLDocument& spoilerLog) {
         std::string sceneName = std::to_string(scene.first) + " - " + sceneNames[scene.first];
         sceneNode->SetAttribute("name", sceneName.c_str());
 
-        u8 childNightExists = scene.second.find(1) != scene.second.end();
-        u8 adultDayExists   = scene.second.find(2) != scene.second.end();
-        u8 adultNightExists = scene.second.find(3) != scene.second.end();
-
         // Create sorted vector of layers
         std::vector<std::pair<u8, EnemyLocationsMap_Layer>> layers;
         for (auto& layer : scene.second) {
@@ -764,25 +760,17 @@ static void WriteRandomizedEnemies(tinyxml2::XMLDocument& spoilerLog) {
             }
 
             auto layerNode        = sceneNode->InsertNewChildElement("layer");
-            std::string layerName = std::to_string(layer.first) + " - ";
+            std::string layerName;
             if (layer.first == 0) {
-                if (!childNightExists && !adultDayExists && !adultNightExists) {
-                    layerName.append("All");
-                } else if (!childNightExists) {
-                    layerName.append("Child");
+                if (scene.second.size() == 1) {
+                    layerName = "All";
                 } else {
-                    layerName.append("Child - Day");
+                    layerName = "Child";
                 }
-            } else if (layer.first == 1) {
-                layerName.append("Child - Night");
-            } else if (layer.first == 2) {
-                if (!adultNightExists) {
-                    layerName.append("Adult");
-                } else if (!childNightExists) {
-                    layerName.append("Adult - Day");
-                }
-            } else if (layer.first == 3) {
-                layerName.append("Adult - Night");
+            } else if (layer.first == 1) { // Only used for Lon Lon Ranch
+                layerName = "Child - Night";
+            } else if (layer.first == 2 || layer.first == 3) {
+                layerName = "Adult";
             }
             layerNode->SetAttribute("name", layerName.c_str());
 
