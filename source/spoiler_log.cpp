@@ -735,9 +735,7 @@ static void WriteRandomizedEnemies(tinyxml2::XMLDocument& spoilerLog) {
 
     // Create sorted vector of scenes
     std::vector<std::pair<u8, EnemyLocationsMap_Scene>> scenes;
-    for (auto& scene : enemyLocations) {
-        scenes.push_back(scene);
-    }
+    std::copy(enemyLocations.begin(), enemyLocations.end(), std::back_inserter(scenes));
     std::sort(scenes.begin(), scenes.end(), [](const auto& a, const auto& b) { return a.first < b.first; });
 
     for (auto& scene : scenes) {
@@ -747,9 +745,7 @@ static void WriteRandomizedEnemies(tinyxml2::XMLDocument& spoilerLog) {
 
         // Create sorted vector of layers
         std::vector<std::pair<u8, EnemyLocationsMap_Layer>> layers;
-        for (auto& layer : scene.second) {
-            layers.push_back(layer);
-        }
+        std::copy(scene.second.begin(), scene.second.end(), std::back_inserter(layers));
         std::sort(layers.begin(), layers.end(), [](const auto& a, const auto& b) { return a.first < b.first; });
 
         for (auto& layer : layers) {
@@ -759,7 +755,7 @@ static void WriteRandomizedEnemies(tinyxml2::XMLDocument& spoilerLog) {
                 continue;
             }
 
-            auto layerNode        = sceneNode->InsertNewChildElement("layer");
+            auto layerNode = sceneNode->InsertNewChildElement("layer");
             std::string layerName;
             if (layer.first == 0) {
                 if (scene.second.size() == 1) {
@@ -776,9 +772,7 @@ static void WriteRandomizedEnemies(tinyxml2::XMLDocument& spoilerLog) {
 
             // Create sorted vector of rooms
             std::vector<std::pair<u8, EnemyLocationsMap_Room>> rooms;
-            for (auto& room : layer.second) {
-                rooms.push_back(room);
-            }
+            std::copy(layer.second.begin(), layer.second.end(), std::back_inserter(rooms));
             std::sort(rooms.begin(), rooms.end(), [](const auto& a, const auto& b) { return a.first < b.first; });
 
             for (auto& room : rooms) {
@@ -787,9 +781,7 @@ static void WriteRandomizedEnemies(tinyxml2::XMLDocument& spoilerLog) {
 
                 // Create sorted vector of entries
                 std::vector<std::pair<u8, EnemyLocation>> entries;
-                for (auto& entry : room.second) {
-                    entries.push_back(entry);
-                }
+                std::copy(room.second.begin(), room.second.end(), std::back_inserter(entries));
                 std::sort(entries.begin(), entries.end(),
                           [](const auto& a, const auto& b) { return a.first < b.first; });
 
