@@ -110,7 +110,7 @@ void InitEnemyTypes(void) {
         { /* Unimplemented */ });
     enemyTypes[ENEMY_SPIKE] = EnemyType("Spike", ACTOR_SPIKE, { 0x0000 },
         { LocType::ABOVE_GROUND, LocType::UNDERWATER });
-    enemyTypes[ENEMY_ANUBIS] = EnemyType("Anubis Spawner", ACTOR_ANUBIS_SPAWNER, { 0x0003 },
+    enemyTypes[ENEMY_ANUBIS] = EnemyType("Anubis", ACTOR_ANUBIS_SPAWNER, { 0x0003 },
         { LocType::ABOVE_GROUND });
     enemyTypes[ENEMY_IRON_KNUCKLE] = EnemyType("Iron Knuckle", ACTOR_IRON_KNUCKLE, { 0xFF01, 0xFF02, 0xFF03 }, // silver / black / white
         { LocType::ABOVE_GROUND });
