@@ -45,12 +45,12 @@ static EnemyObjectDependency sEnemyObjectDeps[] = {
     {
         // Sharp (Composer Brother)
         .key      = { .actorId = ACTOR_POE, .actorParams = 0x0002 },
-        .objectId = 0x009,
+        .objectId = 0x06E,
     },
     {
         // Flat (Composer Brother)
         .key      = { .actorId = ACTOR_POE, .actorParams = 0x0003 },
-        .objectId = 0x009,
+        .objectId = 0x06E,
     },
     {
         // Bari -> Biri
