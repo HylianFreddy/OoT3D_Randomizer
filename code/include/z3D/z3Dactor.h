@@ -315,7 +315,10 @@ typedef struct Player {
     /* 0x2248 */ s16 fishingState; // 1: casting line, 2: can reel, 3: holding catch
     /* 0x224A */ char unk_224A[0x0004];
     /* 0x224E */ s16 giDrawIdPlusOne; // used to change mesh for rupee models
-    /* 0x2250 */ char unk_2250[0x0238];
+    /* 0x2250 */ char unk_2250[0x0030];
+    /* 0x2280 */ s16 fallStartHeight;
+    /* 0x2282 */ s16 fallDistance;
+    /* 0x2284 */ char unk_2284[0x0204];
     /* 0x2488 */ s8 invincibilityTimer; // prevents damage when nonzero
                                         // (positive = visible, counts towards zero each frame)
     /* 0x2489 */ char unk_2489[0x0053];
@@ -326,6 +329,8 @@ typedef struct Player {
     /* 0x2708 */ char unk_2708[0x344];
 } Player; // total size (from init vars): 2A4C
 _Static_assert(sizeof(Player) == 0x2A4C, "Player size");
+
+#define sFloorType (*(s32*)GAME_ADDR(0x53A0A4))
 
 typedef enum {
     /* 0x00 */ ACTORTYPE_SWITCH,

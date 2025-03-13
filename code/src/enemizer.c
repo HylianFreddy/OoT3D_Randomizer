@@ -108,59 +108,77 @@ static EnemyOverride Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actor
     return (EnemyOverride){ 0 };
 }
 
+// Helper macro for the function below. Optionally specify dungeon mode as fifth argument
+#define LOC(scene, layer, room, entry, ...) \
+    (__VA_OPT__((((u64)__VA_ARGS__) << 32) |)(scene << 24) | (layer << 16) | (room << 8) | entry)
+
 static void Enemizer_MoveSpecificLocations(ActorEntry* actorEntry, s32 actorEntryIndex) {
-#define isEntry(scene, layer, room, entry)                                                           \
-    (gGlobalContext->sceneNum == scene && rSceneLayer == layer && gGlobalContext->roomNum == room && \
-     actorEntryIndex == entry)
+    u32 dungeonModeId = (gGlobalContext->sceneNum == SCENE_INSIDE_GANONS_CASTLE ? 10 : gGlobalContext->sceneNum);
 
-    if (isEntry(2, 0, 11, 5) && gSettingsContext.jabuJabusBellyDungeonMode == DUNGEONMODE_MQ) {
-        // Move the left like like in the room in MQ jabu to just spawn on the ground
-        actorEntry->pos.x = 827;
-        actorEntry->pos.y = -300;
-    } else if (isEntry(2, 0, 11, 6) && gSettingsContext.jabuJabusBellyDungeonMode == DUNGEONMODE_MQ) {
-        // Move the right like like in the room in MQ jabu to just spawn on the ground
-        actorEntry->pos.x = 488;
-        actorEntry->pos.y = -300;
-    } else if (isEntry(6, 0, 12, 0) && gSettingsContext.spiritTempleDungeonMode == DUNGEONMODE_VANILLA) {
-        // Move a like-like in adult spirit down within the room
-        actorEntry->pos.y = 80;
-    } else if (isEntry(6, 0, 15, 2) && gSettingsContext.spiritTempleDungeonMode == DUNGEONMODE_VANILLA) {
-        // Move a like-like in adult spirit down within the room
-        actorEntry->pos.y = 190;
-    } else if (isEntry(6, 0, 26, 2) && gSettingsContext.spiritTempleDungeonMode == DUNGEONMODE_VANILLA) {
-        // Move a white bubble in spirit inside the room
-        actorEntry->pos.x = -415;
-        actorEntry->pos.z = -440;
-    } else if (isEntry(6, 0, 27, 7) && gSettingsContext.spiritTempleDungeonMode == DUNGEONMODE_MQ) {
-        // Move the stalfos in MQ Child spirit down onto the platform
-        actorEntry->pos.y = 50;
-    } else if ((isEntry(7, 0, 21, 13) && gSettingsContext.shadowTempleDungeonMode == DUNGEONMODE_VANILLA) ||
-               (isEntry(7, 0, 21, 16) && gSettingsContext.shadowTempleDungeonMode == DUNGEONMODE_MQ)) {
-        // Move one shadow temple boat stalfos over to the end platform
-        actorEntry->pos.x = -2300;
-        actorEntry->pos.y = -1360;
-        actorEntry->pos.z = -1570;
-    } else if ((isEntry(7, 0, 21, 14) && gSettingsContext.shadowTempleDungeonMode == DUNGEONMODE_VANILLA) ||
-               (isEntry(7, 0, 21, 17) && gSettingsContext.shadowTempleDungeonMode == DUNGEONMODE_MQ)) {
-        // Move the other shadow temple boat stalfos over to the end platform
-        actorEntry->pos.x = -2700;
-        actorEntry->pos.y = -1360;
-        actorEntry->pos.z = -1570;
-    } else if (isEntry(8, 0, 0, 4) && gSettingsContext.bottomOfTheWellDungeonMode == DUNGEONMODE_VANILLA) {
-        // Move the wallmaster in the central room of BOTW so it doesn't raycast down into the basement
-        actorEntry->pos.z = -950;
-    } else if (isEntry(8, 0, 3, 2) && gSettingsContext.bottomOfTheWellDungeonMode == DUNGEONMODE_VANILLA) {
-        // Move the fire keese in the side room in BOTW before the gate so it doesn't raycast down into the basement
-        actorEntry->pos.z = -1075;
-    } else if (isEntry(86, 0, 0, 1)) {
-        // Move the SFM wolfos more towards the center, some enemies might jump over the fence
-        actorEntry->pos.x = -195;
-        actorEntry->pos.y = 0;
-        actorEntry->pos.z = 1900;
+    u64 isMQ = dungeonModeId < ARRAY_SIZE(gSettingsContext.dungeonModes) &&
+               gSettingsContext.dungeonModes[dungeonModeId] == DUNGEONMODE_MQ;
+
+    u64 thisLocation = LOC(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex, isMQ);
+
+    switch (thisLocation) {
+        case LOC(2, 0, 11, 5, DUNGEONMODE_MQ):
+            // Move the left like like in the room in MQ jabu to just spawn on the ground
+            actorEntry->pos.x = 827;
+            actorEntry->pos.y = -300;
+            break;
+        case LOC(2, 0, 11, 6, DUNGEONMODE_MQ):
+            // Move the right like like in the room in MQ jabu to just spawn on the ground
+            actorEntry->pos.x = 488;
+            actorEntry->pos.y = -300;
+            break;
+        case LOC(6, 0, 12, 0, DUNGEONMODE_VANILLA):
+            // Move a like-like in adult spirit down within the room
+            actorEntry->pos.y = 80;
+            break;
+        case LOC(6, 0, 15, 2, DUNGEONMODE_VANILLA):
+            // Move a like-like in adult spirit down within the room
+            actorEntry->pos.y = 190;
+            break;
+        case LOC(6, 0, 26, 2, DUNGEONMODE_VANILLA):
+            // Move a white bubble in spirit inside the room
+            actorEntry->pos.x = -415;
+            actorEntry->pos.z = -440;
+            break;
+        case LOC(6, 0, 27, 7, DUNGEONMODE_MQ):
+            // Move the stalfos in MQ Child spirit down onto the platform
+            actorEntry->pos.y = 50;
+            break;
+        case LOC(7, 0, 21, 13, DUNGEONMODE_VANILLA):
+        case LOC(7, 0, 21, 16, DUNGEONMODE_MQ):
+            // Move one shadow temple boat stalfos over to the end platform
+            actorEntry->pos.x = -2300;
+            actorEntry->pos.y = -1360;
+            actorEntry->pos.z = -1570;
+            break;
+        case LOC(7, 0, 21, 14, DUNGEONMODE_VANILLA):
+        case LOC(7, 0, 21, 17, DUNGEONMODE_MQ):
+            // Move the other shadow temple boat stalfos over to the end platform
+            actorEntry->pos.x = -2700;
+            actorEntry->pos.y = -1360;
+            actorEntry->pos.z = -1570;
+            break;
+        case LOC(8, 0, 0, 4, DUNGEONMODE_VANILLA):
+            // Move the wallmaster in the central room of BOTW so it doesn't raycast down into the basement
+            actorEntry->pos.z = -950;
+            break;
+        case LOC(8, 0, 3, 2, DUNGEONMODE_VANILLA):
+            // Move the fire keese in the side room in BOTW before the gate so it doesn't raycast down into the basement
+            actorEntry->pos.z = -1075;
+            break;
+        case LOC(86, 0, 0, 1):
+            // Move the SFM wolfos more towards the center, some enemies might jump over the fence
+            actorEntry->pos.x = -195;
+            actorEntry->pos.y = 0;
+            actorEntry->pos.z = 1900;
+            break;
     }
-
-#undef isEntry
 }
+#undef LOC
 
 static void Enemizer_MoveSpecificEnemies(ActorEntry* actorEntry) {
     f32 yGroundIntersect;
