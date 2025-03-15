@@ -74,6 +74,7 @@
 #include "poe.h"
 #include "dark_link.h"
 #include "enemy_spawner.h"
+#include "peahat.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -123,6 +124,8 @@ void Actor_Init() {
     gActorOverlayTable[0x15].initInfo->update  = EnItem00_rUpdate;
     gActorOverlayTable[0x15].initInfo->draw    = EnItem00_rDraw;
 
+    gActorOverlayTable[0x1D].initInfo->update = EnPeehat_rUpdate;
+
     // gActorOverlayTable[0x2D].initInfo->update = EnBubble_rUpdate;
 
     gActorOverlayTable[0x2E].initInfo->init   = DoorShutter_rInit;
@@ -137,6 +140,7 @@ void Actor_Init() {
 
     gActorOverlayTable[0x4A].initInfo->update = BgSpot00Hanebasi_rUpdate;
 
+    gActorOverlayTable[0x4B].initInfo->init   = EnMb_rInit;
     gActorOverlayTable[0x4B].initInfo->update = EnMb_rUpdate;
 
     gActorOverlayTable[0x57].initInfo->init = EnMThunder_rInit;
