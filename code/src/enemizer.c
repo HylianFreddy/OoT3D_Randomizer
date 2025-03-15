@@ -161,16 +161,16 @@ s32 Enemizer_IsActive(void) {
 }
 
 void Enemizer_Init(void) {
-    //Mocks (MUST BE SORTED!)
-    // u16 actorId = ACTOR_ARMOS;
-    // u16 params = 0xFFFF;
+    // Mocks (MUST BE SORTED!)
+    //  u16 actorId = ACTOR_ARMOS;
+    //  u16 params = 0xFFFF;
     rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
-        .scene = 6,
-        .layer = 0,
-        .room = 26,
-        .actorEntry = 2,
-        .actorId = ACTOR_ARMOS,
-        .params = 0xFFFF,
+        .scene      = 81,
+        .layer      = 0,
+        .room       = 0,
+        .actorEntry = 9,
+        .actorId    = ACTOR_MOBLIN,
+        .params     = 0x0000,
     };
 
     while (rEnemyOverrides[rEnemyOverrides_Count].actorId != 0) {
@@ -376,18 +376,18 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
         Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
 
     // Mock
-    // for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
-    //     if (actorEntry->id == sEnemyData[i].actorId) {
-    //         // if (actorEntryIndex != 3) {
-    //         //     enemyOverride.actorId = 0x10;
-    //         //     enemyOverride.params  = 0x0000;
-    //         //     break;
-    //         // }
-    //         enemyOverride.actorId = ACTOR_GOHMA_LARVA;
-    //         enemyOverride.params  = 0x0007;
-    //         break;
-    //     }
-    // }
+    for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
+        if (actorEntry->id == sEnemyData[i].actorId) {
+            // if (actorEntryIndex != 3) {
+            //     enemyOverride.actorId = 0x10;
+            //     enemyOverride.params  = 0x0000;
+            //     break;
+            // }
+            enemyOverride.actorId = ACTOR_PEAHAT;
+            enemyOverride.params  = 0xFFFF;
+            break;
+        }
+    }
 
     // Do nothing if the override doesn't exist
     if (enemyOverride.actorId == 0) {
@@ -411,7 +411,8 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
 EnemyOverride Enemizer_GetSpawnerOverride(void) {
     // Dynamic enemy spawners are represented by actorEntry=0xFF
     EnemyOverride o = Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, 0xFF);
-    CitraPrint("Enemizer_GetSpawnerOverride %X %X %X FF, %X %X", gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, o.actorId, o.params);
+    CitraPrint("Enemizer_GetSpawnerOverride %X %X %X FF, %X %X", gGlobalContext->sceneNum, rSceneLayer,
+               gGlobalContext->roomNum, o.actorId, o.params);
     return o;
 }
 
