@@ -31,7 +31,7 @@ void InitEnemyTypes(void) {
     enemyTypes[ENEMY_LEEVER] = EnemyType("Leever", ACTOR_LEEVER, { 0x0000, 0x0001 }, // normal / big
         { LocType::ABOVE_GROUND, LocType::SPAWNER });
     enemyTypes[ENEMY_PEAHAT] = EnemyType("Peahat", ACTOR_PEAHAT, { 0xFFFF },
-        { LocType::ABOVE_GROUND });
+        { LocType::ABOVE_GROUND, LocType::ABOVE_WATER });
     enemyTypes[ENEMY_PEAHAT_LARVA] = EnemyType("Peahat Larva", ACTOR_PEAHAT, { 0x0001 },
         { LocType::ABOVE_GROUND, LocType::ABOVE_VOID, LocType::UNDERWATER, LocType::ABOVE_WATER });
     enemyTypes[ENEMY_LIZALFOS] = EnemyType("Lizalfos", ACTOR_LIZALFOS, { 0xFF80, 0xFFFF }, // normal / drops from above when approached
