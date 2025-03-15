@@ -17,8 +17,8 @@ void EnPeehat_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
                                                     thisx->world.pos.z, &yWaterSurface, &waterBox);
 
         // Float on water to work as an aquatic plant.
-        if (waterBoxFound && thisx->world.pos.y < yWaterSurface) {
-            thisx->world.pos.y = yWaterSurface;
+        if (waterBoxFound && thisx->world.pos.y < yWaterSurface - 10.0) {
+            thisx->world.pos.y = yWaterSurface - 10.0;
         }
 
         // Fly at player's height.

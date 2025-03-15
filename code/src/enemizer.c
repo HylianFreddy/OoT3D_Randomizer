@@ -316,7 +316,7 @@ static void Enemizer_MoveSpecificEnemies(ActorEntry* actorEntry) {
         } else if (waterBoxFound && (actorEntry->pos.y > yWaterSurface)) {
             actorEntry->pos.y = yWaterSurface + 50;
         }
-    } else if (actorEntry->id == ACTOR_PEAHAT && actorEntry->params == 0xFFFF) { // Grounded Peahat
+    } else if (actorEntry->id == ACTOR_PEAHAT && actorEntry->params == (s16)0xFFFF) { // Grounded Peahat
         // At water surface or on ground.
         if (waterBoxFound) {
             actorEntry->pos.y = yWaterSurface;
