@@ -137,6 +137,7 @@ void Actor_Init() {
 
     gActorOverlayTable[0x4A].initInfo->update = BgSpot00Hanebasi_rUpdate;
 
+    gActorOverlayTable[0x4B].initInfo->init   = EnMb_rInit;
     gActorOverlayTable[0x4B].initInfo->update = EnMb_rUpdate;
 
     gActorOverlayTable[0x57].initInfo->init = EnMThunder_rInit;

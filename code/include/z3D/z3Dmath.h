@@ -22,4 +22,7 @@ typedef f32 (*Math_SmoothStepToF_proc)(f32* pValue, f32 target, f32 fraction, f3
     __attribute__((pcs("aapcs-vfp")));
 #define Math_SmoothStepToF ((Math_SmoothStepToF_proc)GAME_ADDR(0x36E168))
 
+typedef f32 (*Math_Vec3f_DistXZ_proc)(Vec3f* a, Vec3f* b) __attribute__((pcs("aapcs-vfp")));
+#define Math_Vec3f_DistXZ ((Math_Vec3f_DistXZ_proc)GAME_ADDR(0x36D260))
+
 #endif
