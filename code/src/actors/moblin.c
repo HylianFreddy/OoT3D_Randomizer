@@ -49,5 +49,26 @@ void EnMb_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
             Math_SmoothStepToS(&thisx->world.rot.y, thisx->yawTowardsPlayer, 3, step, 0);
             thisx->shape.rot.y = thisx->world.rot.y;
         }
+
+        Actor* shockwave = thisx->child;
+        if (shockwave != NULL && shockwave->update == NULL && shockwave->draw == NULL) {
+            // When the shockwave despawns, clear the child pointer.
+            thisx->child = shockwave = NULL;
+        }
+        if (shockwave != NULL) {
+            // Make shockwave actor follow sloped ground, and despawn at the edge.
+            CollisionPoly floorPoly;
+            Vec3f actorPos = (Vec3f){
+                .x = shockwave->world.pos.x,
+                .y = shockwave->world.pos.y + 30,
+                .z = shockwave->world.pos.z,
+            };
+            f32 yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
+            if (ABS(shockwave->world.pos.y - yGroundIntersect) < 30.0) {
+                shockwave->world.pos.y = yGroundIntersect;
+            } else {
+                Actor_Kill(shockwave);
+            }
+        }
     }
 }
