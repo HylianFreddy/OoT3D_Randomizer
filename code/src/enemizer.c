@@ -15,7 +15,6 @@ u8 Enemizer_RoomLoadSignal = FALSE;
 static EnemyActorData sGroundedEnemies[] = {
     { .actorId = ACTOR_STALFOS, .actorParams = 0x0002 },
     { .actorId = ACTOR_DODONGO, .anyParams = TRUE },
-    { .actorId = ACTOR_PEAHAT, .actorParams = 0xFFFF },
     { .actorId = ACTOR_GOHMA_LARVA, .actorParams = 0x0007 },
     { .actorId = ACTOR_BABY_DODONGO, .anyParams = TRUE },
     { .actorId = ACTOR_DARK_LINK, .anyParams = TRUE },
@@ -316,6 +315,13 @@ static void Enemizer_MoveSpecificEnemies(ActorEntry* actorEntry) {
             actorEntry->pos.y = yMidAirPos;
         } else if (waterBoxFound && (actorEntry->pos.y > yWaterSurface)) {
             actorEntry->pos.y = yWaterSurface + 50;
+        }
+    } else if (actorEntry->id == ACTOR_PEAHAT && actorEntry->params == 0xFFFF) { // Grounded Peahat
+        // At water surface or on ground.
+        if (waterBoxFound) {
+            actorEntry->pos.y = yWaterSurface;
+        } else if (!isInvalidGround) {
+            actorEntry->pos.y = yGroundIntersect;
         }
     } else if (actorEntry->id == ACTOR_BARI ||
                (actorEntry->id == ACTOR_PEAHAT && actorEntry->params == 0x0001)) { // Peahat Larva
