@@ -193,6 +193,10 @@ void EnSw_rInit(Actor* thisx, GlobalContext* globalCtx) {
     if (gSettingsContext.enemizer == ON && thisx->params == 0) {
         // Randomized Skullwalltulas will appear flat on the ground.
         thisx->shape.rot.x = 0xC000;
+        // Force despawn if room is already cleared (in the base game they ignore the flag for some reason)
+        if (Flags_GetClear(globalCtx, globalCtx->roomNum)) {
+            Actor_Kill(thisx);
+        }
     }
 }
 
