@@ -5,11 +5,14 @@
 #include "objects.h"
 
 #define EnSw_Init ((ActorFunc)GAME_ADDR(0x1691C8))
-
 #define EnSw_Update ((ActorFunc)GAME_ADDR(0x1BB110))
 
 #define EnSw_GoldSkulltulaDeath (void*)GAME_ADDR(0x3B91BC)
-#define EnSw_Action_3C2A50 (void*)GAME_ADDR(0x3C2A50)
+#define EnSw_WalltulaIdle ((void*)GAME_ADDR(0x3CDAAC))
+#define EnSw_SetupGoingHome ((void*)GAME_ADDR(0x3C2A50))
+
+#define Skullwalltula_IsCloseToPlayer(walltula) \
+    (walltula->base.xzDistToPlayer < 250.0 && ABS(walltula->base.yDistToPlayer) < 50.0)
 
 const GsLocOverride rGsLocOverrides[100] = { 0 };
 
@@ -215,6 +218,10 @@ void EnSw_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     if (gSettingsContext.enemizer == ON && thisx->params == 0) {
         // Randomized Skullwalltulas: fix facing direction when detecting and attacking the player.
         thisx->shape.rot.y = 0;
+        // Always rotate towards player when idle
+        if (this->action_fn == EnSw_WalltulaIdle && Skullwalltula_IsCloseToPlayer(this)) {
+            this->targetRot = thisx->yawTowardsPlayer;
+        }
     }
 
     EnSw_Update(thisx, globalCtx);
@@ -253,8 +260,7 @@ s32 Skullwalltula_ShouldAttack(EnSw* walltula) {
     s32 bgId;
     // Facing player, being close enough and not having obstacles in the way
     return ABS(walltula->base.yawTowardsPlayer - walltula->base.shape.rot.z) < 0x4000 &&
-           walltula->base.xzDistToPlayer < 250.0 &&
-           ABS(walltula->base.yDistToPlayer) < 50.0 &&
+           Skullwalltula_IsCloseToPlayer(walltula) &&
            !BgCheck_EntityLineTest1(&gGlobalContext->colCtx, &walltula->base.world.pos, &PLAYER->actor.world.pos,
                                     &posResult, &outPoly, TRUE, FALSE, FALSE, TRUE, &bgId);
 }
@@ -263,7 +269,7 @@ s16 Skullwalltula_GetTargetRotation(s16 orig, EnSw* walltula) {
     if (gSettingsContext.enemizer == OFF) {
         return orig;
     }
-    if (walltula->action_fn == EnSw_Action_3C2A50) {
+    if (walltula->action_fn == EnSw_SetupGoingHome) {
         // Going back to home position, turn around
         return walltula->targetRot + 0x8000;
     }
