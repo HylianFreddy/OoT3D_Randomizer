@@ -255,8 +255,13 @@ static void Enemizer_MoveSpecificLocations(ActorEntry* actorEntry, s32 actorEntr
             actorEntry->pos.z = -950;
             break;
         case LOC(8, 0, 3, 2, DUNGEONMODE_VANILLA):
-            // Move the fire keese in the side room in BOTW before the gate so it doesn't raycast down into the basement
+            // Move the fire keese in the beamos room in BOTW so it doesn't raycast down into the basement
             actorEntry->pos.z = -1075;
+            break;
+        case LOC(8, 0, 5, 0, DUNGEONMODE_VANILLA):
+            // Move a keese in the invisible floor room in BOTW to be over flat ground and not the sloped wall
+            actorEntry->pos.x = 250;
+            actorEntry->pos.z = -970;
             break;
         case LOC(86, 0, 0, 1):
             // Move the SFM wolfos more towards the center, some enemies might jump over the fence
