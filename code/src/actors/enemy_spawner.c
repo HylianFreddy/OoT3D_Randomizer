@@ -40,24 +40,23 @@ void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     if (gSettingsContext.enemizer == ON) {
         // Kill spawned enemies that are culled and far away from the player.
         for (s32 i = 0; i < ARRAY_SIZE(this->spawnedEnemies); i++) {
-            if (this->spawnedEnemies[i] != NULL &&
-                !(this->spawnedEnemies[i]->flags & ACTOR_FLAG_INSIDE_CULLING_VOLUME) &&
-                this->spawnedEnemies[i]->xzDistToPlayer > 1000.0) {
-                Actor_Kill(this->spawnedEnemies[i]);
+            Actor* spawnedEnemy = this->spawnedEnemies[i];
+            if (spawnedEnemy != NULL && !(spawnedEnemy->flags & ACTOR_FLAG_INSIDE_CULLING_VOLUME) &&
+                spawnedEnemy->xzDistToPlayer > 1000.0) {
+                Actor_Kill(spawnedEnemy);
             }
         }
 
         // Remove enemies from the array if they've been killed (either by the loop above or by something else).
         // Also decrease the spawner's counter, unless the enemy already handles it in its own destroy function.
         for (s32 i = 0; i < ARRAY_SIZE(this->spawnedEnemies); i++) {
-            if (this->spawnedEnemies[i] != NULL && this->spawnedEnemies[i]->update == NULL &&
-                this->spawnedEnemies[i]->draw == NULL) {
-                if (this->curNumSpawn > 0 && this->spawnedEnemies[i]->id != ACTOR_STALCHILD &&
-                    this->spawnedEnemies[i]->id != ACTOR_LEEVER && this->spawnedEnemies[i]->id != ACTOR_TEKTITE &&
-                    this->spawnedEnemies[i]->id != ACTOR_WOLFOS) {
+            Actor* spawnedEnemy = this->spawnedEnemies[i];
+            if (spawnedEnemy != NULL && spawnedEnemy->update == NULL && spawnedEnemy->draw == NULL) {
+                if (this->curNumSpawn > 0 && spawnedEnemy->id != ACTOR_STALCHILD && spawnedEnemy->id != ACTOR_LEEVER &&
+                    spawnedEnemy->id != ACTOR_TEKTITE && spawnedEnemy->id != ACTOR_WOLFOS) {
                     this->curNumSpawn--;
                 }
-                if (this->spawnedEnemies[i]->colChkInfo.health == 0) {
+                if (spawnedEnemy->colChkInfo.health == 0) {
                     this->rDefeatCount++;
                 }
                 this->spawnedEnemies[i] = NULL;
@@ -79,7 +78,7 @@ void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
                     break;
                 case ACTOR_GOHMA_LARVA:
                     ((EnGoma*)enemy)->actionFunc = EnGoma_SetupHatch;
-                    enemy->gravity = -1.3;
+                    enemy->gravity               = -1.3;
                     break;
             }
 
