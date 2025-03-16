@@ -15,6 +15,7 @@ u8 Enemizer_RoomLoadSignal = FALSE;
 static EnemyActorData sGroundedEnemies[] = {
     { .actorId = ACTOR_STALFOS, .actorParams = 0x0002 },
     { .actorId = ACTOR_DODONGO, .anyParams = TRUE },
+    { .actorId = ACTOR_LEEVER, .anyParams = TRUE },
     { .actorId = ACTOR_GOHMA_LARVA, .actorParams = 0x0007 },
     { .actorId = ACTOR_BABY_DODONGO, .anyParams = TRUE },
     { .actorId = ACTOR_DARK_LINK, .anyParams = TRUE },
@@ -255,7 +256,7 @@ static void Enemizer_MoveSpecificLocations(ActorEntry* actorEntry, s32 actorEntr
             actorEntry->pos.z = -950;
             break;
         case LOC(8, 0, 3, 2, DUNGEONMODE_VANILLA):
-            // Move the fire keese in the beamos room in BOTW so it doesn't raycast down into the basement
+            // Move a fire keese in the beamos room in BOTW so it doesn't raycast down into the basement
             actorEntry->pos.z = -1075;
             break;
         case LOC(8, 0, 5, 0, DUNGEONMODE_VANILLA):
