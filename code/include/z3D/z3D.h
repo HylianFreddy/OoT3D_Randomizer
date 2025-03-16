@@ -674,6 +674,7 @@ extern const char DungeonNames[][25];
 #define PLAYER ((Player*)gGlobalContext->actorCtx.actorList[ACTORTYPE_PLAYER].first)
 #define gMainClass ((MainClass*)GAME_ADDR(0x5BE5B8))
 #define gIsBottomScreenDimmed (*(s32*)GAME_ADDR(0x5043EC))
+#define sPrevMainBgmSeqId (*(s32*)GAME_ADDR(0x54ACB8))
 
 #define GearSlot(X) (X - ITEM_SWORD_KOKIRI)
 
@@ -773,6 +774,16 @@ typedef u32 (*Inventory_HasEmptyBottle_proc)(void);
 typedef void (*PlaySound_proc)(u32);
 // This function plays sound effects and music tracks, overlaid on top of the current BGM
 #define PlaySound ((PlaySound_proc)GAME_ADDR(0x35C528))
+
+typedef u32 (*Audio_GetActiveSeqId_proc)(u8 seqPlayerIndex);
+#define Audio_GetActiveSeqId ((Audio_GetActiveSeqId_proc)GAME_ADDR(0x366684))
+
+typedef void (*Audio_RestoreBGM_proc)(void);
+// Restores the original sequence to the main BGM player after a mini-boss battle or a minigame.
+#define Audio_RestoreBGM ((Audio_RestoreBGM_proc)GAME_ADDR(0x34EC14))
+
+// Unknown function. Passing these arguments stops the BGM.
+#define Audio_StopBGM() (((void (*)(u32, u32))0x3655D0)(0, 0))
 
 typedef Actor* (*Actor_Spawn_proc)(ActorContext* actorCtx, GlobalContext* globalCtx, s16 actorId, float posX,
                                    float posY, float posZ, s16 rotX, s16 rotY, s16 rotZ, s16 params,

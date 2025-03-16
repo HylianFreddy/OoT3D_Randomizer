@@ -4,6 +4,9 @@
 #include "savefile.h"
 #include "settings.h"
 #include "scene.h"
+#include "bgm.h"
+#include "dark_link.h"
+
 #include <stddef.h>
 
 static EnemyOverride rEnemyOverrides[ENEMY_OVERRIDES_MAX];
@@ -511,6 +514,43 @@ void Enemizer_Update(void) {
             u32 flag = Flags_GetSwitch(gGlobalContext, 5) ? 6 : 5;
             Flags_SetSwitch(gGlobalContext, flag);
             sDefeated1 = sDefeated2 = FALSE;
+        }
+    }
+
+    // Some randomized enemies like Flare Dancers start the Mini Boss battle theme and
+    // don't stop it when leaving the room.
+    // Here the battle theme will be stopped when there are no more mini bosses loaded.
+    if (Audio_GetActiveSeqId(0) == BGM_MINI_BOSS) {
+        u8 shouldKeepMiniBossBGM = FALSE;
+        Actor* enemy             = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
+        for (; enemy != NULL && !shouldKeepMiniBossBGM; enemy = enemy->next) {
+            if (enemy->update == NULL && enemy->draw == NULL) {
+                // Ignore killed actors
+                continue;
+            }
+            switch (enemy->id) {
+                case ACTOR_POE_SISTER:
+                case ACTOR_FLARE_DANCER:
+                case ACTOR_DEAD_HAND:
+                case ACTOR_BIG_OCTO:
+                case ACTOR_GERUDO_FIGHTER:
+                    shouldKeepMiniBossBGM = TRUE;
+                    break;
+                case ACTOR_STALFOS:
+                    shouldKeepMiniBossBGM = (enemy->params != 2 && enemy->params != 3);
+                    break;
+                case ACTOR_DARK_LINK:
+                    shouldKeepMiniBossBGM = ((EnTorch2*)enemy)->actionState != ENTORCH2_WAIT;
+                    break;
+            }
+        }
+
+        if (!shouldKeepMiniBossBGM) {
+            if (sPrevMainBgmSeqId != -1) {
+                Audio_RestoreBGM();
+            } else {
+                Audio_StopBGM();
+            }
         }
     }
 
