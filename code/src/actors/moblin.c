@@ -39,9 +39,6 @@ void EnMb_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 
         u8 isClose = Math_Vec3f_DistXZ(&this->actor.home.pos, &PLAYER->actor.world.pos) < this->playerDetectionRange;
 
-        // CitraPrint("EnMb %X %F", isRaisingClub, this->skelAnime.curFrame);
-        // CitraPrint("EnMb %X %X %X", isLookingAway, this->actor.world.rot.y, this->actor.yawTowardsPlayer);
-
         // Rotate towards player when alive and close to Link, and either facing away from Link or raising the club to
         // attack. Do not rotate the rest of the time to make it easier to approach the Moblin and dodge the shockwaves.
         if (thisx->colChkInfo.health != 0 && isClose && (!isFacingPlayer || isRaisingClub)) {
