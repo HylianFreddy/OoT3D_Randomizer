@@ -4,6 +4,7 @@
 #include "common.h"
 #include "shabom.h"
 #include "gohma.h"
+#include "dodongos.h"
 
 #define EnEncount1_Update ((ActorFunc)GAME_ADDR(0x2682D0))
 
@@ -56,7 +57,10 @@ void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
                     spawnedEnemy->id != ACTOR_TEKTITE && spawnedEnemy->id != ACTOR_WOLFOS) {
                     this->curNumSpawn--;
                 }
-                if (spawnedEnemy->colChkInfo.health == 0) {
+                if (spawnedEnemy->colChkInfo.health == 0 ||
+                    (spawnedEnemy->id == ACTOR_BABY_DODONGO &&
+                     ((EnDodojr*)spawnedEnemy)->actionFunc == EnDodojr_DropItem) ||
+                    (spawnedEnemy->id == ACTOR_SHABOM && ((EnBubble*)spawnedEnemy)->actionFunc == EnBubble_Pop)) {
                     this->rDefeatCount++;
                 }
                 this->spawnedEnemies[i] = NULL;
