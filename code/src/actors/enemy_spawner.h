@@ -27,8 +27,17 @@ typedef struct EnEncount1 {
     /* 0x1C8 */ struct EnEncount1* childEnEncount1;
     // end of base game struct
     /* 0x1CC */ Actor* spawnedEnemies[5];
+    /* 0x1E0 */ s16 rDefeatCount;
+    /* 0x1E2 */ s16 rTimer;
 } EnEncount1;
-_Static_assert(sizeof(EnEncount1) == 0x1E0, "EnEncount1 size");
+_Static_assert(sizeof(EnEncount1) == 0x1E4, "EnEncount1 size");
+
+typedef enum EnEncount1type {
+    /* 0 */ SPAWNER_LEEVER,
+    /* 1 */ SPAWNER_TEKTITE,
+    /* 2 */ SPAWNER_STALCHILDREN,
+    /* 3 */ SPAWNER_WOLFOS
+} EnEncount1type;
 
 void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx);
 

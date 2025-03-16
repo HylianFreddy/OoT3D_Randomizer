@@ -57,6 +57,9 @@ void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
                     this->spawnedEnemies[i]->id != ACTOR_WOLFOS) {
                     this->curNumSpawn--;
                 }
+                if (this->spawnedEnemies[i]->colChkInfo.health == 0) {
+                    this->rDefeatCount++;
+                }
                 this->spawnedEnemies[i] = NULL;
             }
         }
@@ -83,5 +86,20 @@ void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
             enemy = enemy->next;
             i++;
         }
+
+        // Handle delay between spawning swarms.
+        if (this->spawnType == SPAWNER_LEEVER) {
+            this->killCount = 0; // This will be handled with a custom field so base game actors can't mess with it.
+            if (this->rDefeatCount >= 10) {
+                // this->rTimer = 450; // Like base game when a big leever spawns
+                this->rTimer       = 900; // Like base game when a big leever is defeated
+                this->rDefeatCount = 0;
+            }
+            if (this->rTimer > 0) {
+                this->rTimer--;
+            }
+            this->timer = this->rTimer;
+        }
+        CitraPrint("this->timer=%d", this->timer);
     }
 }
