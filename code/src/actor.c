@@ -169,6 +169,7 @@ void Actor_Init() {
 
     gActorOverlayTable[0xA5].initInfo->update = EnDha_rUpdate;
 
+    gActorOverlayTable[0xA7].initInfo->init         = EnEncount1_rInit;
     gActorOverlayTable[0xA7].initInfo->update       = EnEncount1_rUpdate;
     gActorOverlayTable[0xA7].initInfo->instanceSize = sizeof(EnEncount1);
 

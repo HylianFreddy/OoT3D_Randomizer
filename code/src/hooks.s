@@ -2372,8 +2372,9 @@ hook_EnBlkobj_FindDarkLink:
 hook_EnEncount1_SpawnStalchildWolfos:
     cpy r1,r9
     push {r0-r12, lr}
-    add r0,sp,#0xC  @ actorId (r3)
-    add r1,sp,#0x44 @ params (Stack[0xc])
+    cpy r0,r9       @ this EnEncount1
+    add r1,sp,#0xC  @ actorId (r3)
+    add r2,sp,#0x44 @ params (Stack[0xc])
     bl EnemySpawner_OverrideSpawnedActor
     pop {r0-r12, lr}
     bx lr
@@ -2381,8 +2382,9 @@ hook_EnEncount1_SpawnStalchildWolfos:
 .global hook_EnEncount1_SpawnLeever
 hook_EnEncount1_SpawnLeever:
     push {r0-r12, lr}
-    add r0,sp,#0xC  @ actorId (r3)
-    add r1,sp,#0x20 @ params (r8)
+    cpy r0,r5       @ this EnEncount1
+    add r1,sp,#0xC  @ actorId (r3)
+    add r2,sp,#0x20 @ params (r8)
     bl EnemySpawner_OverrideSpawnedActor
     pop {r0-r12, lr}
     str r8,[sp,#0xC]

@@ -6,29 +6,34 @@
 #include "gohma.h"
 #include "dodongos.h"
 
+#define EnEncount1_Init ((ActorFunc)GAME_ADDR(0x229994))
 #define EnEncount1_Update ((ActorFunc)GAME_ADDR(0x2682D0))
 
-void EnemySpawner_OverrideSpawnedActor(s16* actorId, s16* params) {
-    if (gSettingsContext.enemizer == OFF) {
+void EnemySpawner_OverrideSpawnedActor(EnEncount1* this, s16* actorId, s16* params) {
+    if (gSettingsContext.enemizer == OFF || this->rSpawnedActorId == 0) {
         return;
-    }
-
-    EnemyOverride enemyOverride = Enemizer_GetSpawnerOverride();
-
-    if (enemyOverride.actorId == 0) {
-        return;
-    }
-
-    if (enemyOverride.actorId == ACTOR_STALFOS) {
-        // Only use "rising from ground" stalfos type, and not the "falling from above" type.
-        enemyOverride.params = 0x0002;
     }
 
     if (actorId != NULL) {
-        *actorId = enemyOverride.actorId;
+        *actorId = this->rSpawnedActorId;
     }
     if (params != NULL) {
-        *params = enemyOverride.params;
+        *params = this->rSpawnedActorParams;
+    }
+}
+
+void EnEncount1_rInit(Actor* thisx, GlobalContext* globalCtx) {
+    EnEncount1* this = (EnEncount1*)thisx;
+
+    EnEncount1_Init(thisx, globalCtx);
+
+    EnemyOverride enemyOverride = Enemizer_GetSpawnerOverride();
+    this->rSpawnedActorId       = enemyOverride.actorId;
+    this->rSpawnedActorParams   = enemyOverride.params;
+
+    if (this->rSpawnedActorId == ACTOR_STALFOS) {
+        // Only use "rising from ground" stalfos type, and not the "falling from above" type.
+        this->rSpawnedActorParams = 0x0002;
     }
 }
 
@@ -57,12 +62,12 @@ void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
                     spawnedEnemy->id != ACTOR_TEKTITE && spawnedEnemy->id != ACTOR_WOLFOS) {
                     this->curNumSpawn--;
                 }
-                // Increase defeat counter if enemy is dead.
+                // Increase kill counter if enemy is dead.
                 if (spawnedEnemy->colChkInfo.health == 0 ||
                     (spawnedEnemy->id == ACTOR_BABY_DODONGO &&
                      ((EnDodojr*)spawnedEnemy)->actionFunc == EnDodojr_DropItem) ||
                     (spawnedEnemy->id == ACTOR_SHABOM && ((EnBubble*)spawnedEnemy)->actionFunc == EnBubble_Pop)) {
-                    this->rDefeatCount++;
+                    this->rKillCount++;
                 }
                 this->rSpawnedEnemies[i] = NULL;
             }
@@ -93,17 +98,27 @@ void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 
         // Handle delay between spawning swarms.
         if (this->spawnType == SPAWNER_LEEVER) {
-            this->killCount = 0; // This will be handled with a custom field so base game actors can't mess with it.
-            if (this->rDefeatCount >= 10) {
-                // this->rTimer = 450; // Like base game when a big leever spawns
-                this->rTimer       = 900; // Like base game when a big leever is defeated
-                this->rDefeatCount = 0;
+            // The kill count is handled with a custom field so base game actors can't mess with it.
+            // Keep the base field at 0 so the spawner won't try to spawn a big leever.
+            this->killCount = 0;
+            // For simple enemies, delay spawner by 15 seconds after 10 kills.
+            s16 delayValue    = 450;
+            s16 requiredKills = 10;
+            if (this->rSpawnedActorId == ACTOR_STALFOS ||
+                (this->rSpawnedActorId == ACTOR_LEEVER && this->rSpawnedActorParams == 1)) {
+                // For harder enemies, delay spawner by 30 seconds after 5 kills.
+                delayValue    = 900;
+                requiredKills = 5;
             }
-            if (this->rTimer > 0) {
-                this->rTimer--;
+            if (this->rKillCount >= requiredKills) {
+                this->rDelayTimer = delayValue;
+                this->rKillCount  = 0;
             }
-            this->timer = this->rTimer;
+            // Wait for all spawned enemies to despawn before starting the countdown.
+            if (this->curNumSpawn == 0 && this->rDelayTimer > 0) {
+                this->rDelayTimer--;
+            }
+            this->timer = this->rDelayTimer;
         }
-        CitraPrint("this->timer=%d", this->timer);
     }
 }
