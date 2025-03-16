@@ -26,7 +26,7 @@ typedef struct EnEncount1 {
     /* 0x1C4 */ Actor* bigLeever;
     /* 0x1C8 */ struct EnEncount1* childEnEncount1;
     // end of base game struct
-    /* 0x1CC */ Actor* spawnedEnemies[5];
+    /* 0x1CC */ Actor* rSpawnedEnemies[5];
     /* 0x1E0 */ s16 rDefeatCount;
     /* 0x1E2 */ s16 rTimer;
 } EnEncount1;

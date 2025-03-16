@@ -40,8 +40,8 @@ void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 
     if (gSettingsContext.enemizer == ON) {
         // Kill spawned enemies that are culled and far away from the player.
-        for (s32 i = 0; i < ARRAY_SIZE(this->spawnedEnemies); i++) {
-            Actor* spawnedEnemy = this->spawnedEnemies[i];
+        for (s32 i = 0; i < ARRAY_SIZE(this->rSpawnedEnemies); i++) {
+            Actor* spawnedEnemy = this->rSpawnedEnemies[i];
             if (spawnedEnemy != NULL && !(spawnedEnemy->flags & ACTOR_FLAG_INSIDE_CULLING_VOLUME) &&
                 spawnedEnemy->xzDistToPlayer > 1000.0) {
                 Actor_Kill(spawnedEnemy);
@@ -49,33 +49,34 @@ void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         }
 
         // Remove enemies from the array if they've been killed (either by the loop above or by something else).
-        // Also decrease the spawner's counter, unless the enemy already handles it in its own destroy function.
-        for (s32 i = 0; i < ARRAY_SIZE(this->spawnedEnemies); i++) {
-            Actor* spawnedEnemy = this->spawnedEnemies[i];
+        for (s32 i = 0; i < ARRAY_SIZE(this->rSpawnedEnemies); i++) {
+            Actor* spawnedEnemy = this->rSpawnedEnemies[i];
             if (spawnedEnemy != NULL && spawnedEnemy->update == NULL && spawnedEnemy->draw == NULL) {
+                // Decrease the spawner's counter, unless the enemy already handles it in its own destroy function.
                 if (this->curNumSpawn > 0 && spawnedEnemy->id != ACTOR_STALCHILD && spawnedEnemy->id != ACTOR_LEEVER &&
                     spawnedEnemy->id != ACTOR_TEKTITE && spawnedEnemy->id != ACTOR_WOLFOS) {
                     this->curNumSpawn--;
                 }
+                // Increase defeat counter if enemy is dead.
                 if (spawnedEnemy->colChkInfo.health == 0 ||
                     (spawnedEnemy->id == ACTOR_BABY_DODONGO &&
                      ((EnDodojr*)spawnedEnemy)->actionFunc == EnDodojr_DropItem) ||
                     (spawnedEnemy->id == ACTOR_SHABOM && ((EnBubble*)spawnedEnemy)->actionFunc == EnBubble_Pop)) {
                     this->rDefeatCount++;
                 }
-                this->spawnedEnemies[i] = NULL;
+                this->rSpawnedEnemies[i] = NULL;
             }
         }
 
         // Add newly spawned enemies from this update cycle
         Actor* enemy = globalCtx->actorCtx.actorList[ACTORTYPE_ENEMY].first;
         s32 i        = 0;
-        while (enemy != prevEnemiesHead && i < ARRAY_SIZE(this->spawnedEnemies)) {
-            if (this->spawnedEnemies[i] != NULL) {
+        while (enemy != prevEnemiesHead && i < ARRAY_SIZE(this->rSpawnedEnemies)) {
+            if (this->rSpawnedEnemies[i] != NULL) {
                 i++;
                 continue;
             }
-            this->spawnedEnemies[i] = enemy;
+            this->rSpawnedEnemies[i] = enemy;
             switch (enemy->id) {
                 case ACTOR_SHABOM:
                     ((EnBubble*)enemy)->actionFunc = EnBubble_Disappear;
