@@ -75,6 +75,7 @@
 #include "dark_link.h"
 #include "enemy_spawner.h"
 #include "peahat.h"
+#include "stinger.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -134,6 +135,8 @@ void Actor_Init() {
     gActorOverlayTable[0x33].initInfo->type   = ACTORTYPE_ENEMY;
     gActorOverlayTable[0x33].initInfo->update = EnTorch2_rUpdate;
 
+    gActorOverlayTable[0x3A].initInfo->update = EnEiyer_rUpdate;
+
     gActorOverlayTable[0x3D].initInfo->destroy = EnOssan_rDestroy;
 
     gActorOverlayTable[0x3E].initInfo->init = BgTreemouth_rInit;
@@ -169,6 +172,7 @@ void Actor_Init() {
 
     gActorOverlayTable[0xA5].initInfo->update = EnDha_rUpdate;
 
+    gActorOverlayTable[0xA7].initInfo->init         = EnEncount1_rInit;
     gActorOverlayTable[0xA7].initInfo->update       = EnEncount1_rUpdate;
     gActorOverlayTable[0xA7].initInfo->instanceSize = sizeof(EnEncount1);
 

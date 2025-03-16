@@ -9,12 +9,12 @@ s32 Leever_ShouldSurviveOutsideSand(Actor* actor) {
             (gGlobalContext->sceneNum != SCENE_DESERT_COLOSSUS && gGlobalContext->sceneNum != SCENE_HAUNTED_WASTELAND));
 }
 
-void Leever_AfterSink(Actor* actor) {
-    if (gSettingsContext.enemizer == ON && actor->parent == NULL) {
-        actor->world.pos              = actor->home.pos;
-        ((EnReeba*)actor)->actionFunc = EnReeba_SetupSurface;
+void Leever_AfterSink(EnReeba* leever) {
+    if (gSettingsContext.enemizer == ON && leever->actor.parent == NULL) {
+        leever->actor.world.pos = leever->actor.home.pos;
+        leever->actionFunc      = EnReeba_SetupSurface;
     } else {
-        Actor_Kill(actor);
+        Actor_Kill(&leever->actor);
     }
 }
 

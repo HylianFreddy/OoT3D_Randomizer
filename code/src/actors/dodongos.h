@@ -9,6 +9,8 @@ struct EnDodojr;
 typedef void (*EnDodongoActionFunc)(struct EnDodongo*, GlobalContext*);
 typedef void (*EnDodojrActionFunc)(struct EnDodojr*, GlobalContext*);
 
+#define EnDodojr_DropItem ((EnDodojrActionFunc)GAME_ADDR(0x3B7C64))
+
 typedef struct EnDodongo {
     /* 0x0000 */ Actor base;
     /* 0x01A4 */ SkelAnime skelAnime;

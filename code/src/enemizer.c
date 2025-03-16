@@ -4,6 +4,9 @@
 #include "savefile.h"
 #include "settings.h"
 #include "scene.h"
+#include "bgm.h"
+#include "dark_link.h"
+
 #include <stddef.h>
 
 static EnemyOverride rEnemyOverrides[ENEMY_OVERRIDES_MAX];
@@ -15,6 +18,7 @@ u8 Enemizer_RoomLoadSignal = FALSE;
 static EnemyActorData sGroundedEnemies[] = {
     { .actorId = ACTOR_STALFOS, .actorParams = 0x0002 },
     { .actorId = ACTOR_DODONGO, .anyParams = TRUE },
+    { .actorId = ACTOR_LEEVER, .anyParams = TRUE },
     { .actorId = ACTOR_GOHMA_LARVA, .actorParams = 0x0007 },
     { .actorId = ACTOR_BABY_DODONGO, .anyParams = TRUE },
     { .actorId = ACTOR_DARK_LINK, .anyParams = TRUE },
@@ -166,8 +170,13 @@ static void Enemizer_MoveSpecificLocations(ActorEntry* actorEntry, s32 actorEntr
             actorEntry->pos.z = -950;
             break;
         case LOC(8, 0, 3, 2, DUNGEONMODE_VANILLA):
-            // Move the fire keese in the side room in BOTW before the gate so it doesn't raycast down into the basement
+            // Move a fire keese in the beamos room in BOTW so it doesn't raycast down into the basement
             actorEntry->pos.z = -1075;
+            break;
+        case LOC(8, 0, 5, 0, DUNGEONMODE_VANILLA):
+            // Move a keese in the invisible floor room in BOTW to be over flat ground and not the sloped wall
+            actorEntry->pos.x = 250;
+            actorEntry->pos.z = -970;
             break;
         case LOC(86, 0, 0, 1):
             // Move the SFM wolfos more towards the center, some enemies might jump over the fence
@@ -394,6 +403,43 @@ void Enemizer_Update(void) {
             u32 flag = Flags_GetSwitch(gGlobalContext, 5) ? 6 : 5;
             Flags_SetSwitch(gGlobalContext, flag);
             sDefeated1 = sDefeated2 = FALSE;
+        }
+    }
+
+    // Some randomized enemies like Flare Dancers start the Mini Boss battle theme and
+    // don't stop it when leaving the room.
+    // Here the battle theme will be stopped when there are no more mini bosses loaded.
+    if (Audio_GetActiveSeqId(0) == BGM_MINI_BOSS) {
+        u8 shouldKeepMiniBossBGM = FALSE;
+        Actor* enemy             = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
+        for (; enemy != NULL && !shouldKeepMiniBossBGM; enemy = enemy->next) {
+            if (enemy->update == NULL && enemy->draw == NULL) {
+                // Ignore killed actors
+                continue;
+            }
+            switch (enemy->id) {
+                case ACTOR_POE_SISTER:
+                case ACTOR_FLARE_DANCER:
+                case ACTOR_DEAD_HAND:
+                case ACTOR_BIG_OCTO:
+                case ACTOR_GERUDO_FIGHTER:
+                    shouldKeepMiniBossBGM = TRUE;
+                    break;
+                case ACTOR_STALFOS:
+                    shouldKeepMiniBossBGM = (enemy->params != 2 && enemy->params != 3);
+                    break;
+                case ACTOR_DARK_LINK:
+                    shouldKeepMiniBossBGM = ((EnTorch2*)enemy)->actionState != ENTORCH2_WAIT;
+                    break;
+            }
+        }
+
+        if (!shouldKeepMiniBossBGM) {
+            if (sPrevMainBgmSeqId != -1) {
+                Audio_RestoreBGM();
+            } else {
+                Audio_StopBGM();
+            }
         }
     }
 
