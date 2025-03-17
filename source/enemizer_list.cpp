@@ -1049,10 +1049,10 @@ void InitEnemyLocations(void) {
         enemyLocations[3][0][17][0]      = EnemyLocation(LocType::ABOVE_GROUND,   ENEMY_SKULLTULA);
         enemyLocations[3][0][17][1]      = EnemyLocation(LocType::ABOVE_GROUND,   ENEMY_SKULLTULA);
         enemyLocations[3][0][18][0]      = EnemyLocation(LocType::ABOVE_GROUND,   ENEMY_REDEAD);
-        enemyLocations[3][0][19][0]      = EnemyLocation(LocType::ABOVE_GROUND,   ENEMY_WALLMASTER);
+        enemyLocations[3][0][19][0]      = EnemyLocation(LocType::ABOVE_VOID,     ENEMY_WALLMASTER);
         enemyLocations[3][0][20][0]      = EnemyLocation(LocType::ABOVE_GROUND,   ENEMY_BUBBLE_GREEN);
         enemyLocations[3][0][20][1]      = EnemyLocation(LocType::ABOVE_GROUND,   ENEMY_BUBBLE_GREEN);
-        enemyLocations[3][0][20][2]      = EnemyLocation(LocType::ABOVE_GROUND,   ENEMY_WALLMASTER);
+        enemyLocations[3][0][20][2]      = EnemyLocation(LocType::ABOVE_VOID,     ENEMY_WALLMASTER);
         enemyLocations[3][0][21][0]      = EnemyLocation(LocType::ABOVE_GROUND,   ENEMY_FLOORMASTER);
     }
     if (Dungeon::FireTemple.IsMQ()) {
