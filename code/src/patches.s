@@ -2262,6 +2262,11 @@ ExtendObjectGetSlot_patch:
 OverrideObjectIsLoaded_patch:
     b hook_OverrideObjectIsLoaded
 
+.section .patch_Cutscene_CheckObjectLoaded
+.global Cutscene_CheckObjectLoaded_patch
+Cutscene_CheckObjectLoaded_patch:
+    bl hook_OverrideObjectIsLoaded
+
 .section .patch_AfterObjectListCommand
 .global AfterObjectListCommand_patch
 AfterObjectListCommand_patch:
