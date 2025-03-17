@@ -12,6 +12,7 @@ void EnEiyer_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     EnEiyer_Update(thisx, globalCtx);
 
     if (gSettingsContext.enemizer == ON && this->actionFunc == EnEiyer_WanderUnderground) {
+        // Make Stinger detect collision when wandering underground.
         Actor_UpdateBgCheckInfo(globalCtx, thisx, 5.0f, 27.0f, 30.0f,
                                 UPDBGCHECKINFO_WALL | UPDBGCHECKINFO_CEILING | UPDBGCHECKINFO_FLOOR_WATER);
 
@@ -23,7 +24,7 @@ void EnEiyer_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         };
         f32 yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
 
-        // Snap to ground level if close enough, otherwise undo movement to avoid hovering off platforms.
+        // Snap to ground level if close enough, otherwise undo movement to avoid hovering or falling off platforms.
         if (ABS(thisx->world.pos.y - yGroundIntersect) < 10) {
             thisx->world.pos.y = yGroundIntersect;
         } else {
