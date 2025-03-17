@@ -1742,6 +1742,10 @@ SECTIONS
 		*(.patch_SetBGMDayNight)
 	}
 
+	.patch_Cutscene_CheckObjectLoaded 0x4849D8 + region_offset : {
+		*(.patch_Cutscene_CheckObjectLoaded)
+	}
+
 	.patch_TurboTextClose 0x488214 + region_offset : {
 		*(.patch_TurboTextClose)
 	}
