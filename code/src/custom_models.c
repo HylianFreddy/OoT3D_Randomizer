@@ -350,6 +350,7 @@ void CustomModels_ApplyItemCMAB(SkeletonAnimationModel* model, u16 objectId, s8 
             model->unk_0C->animSpeed = 0.0f;
             model->unk_0C->animMode  = 0;
             model->unk_0C->curFrame  = special;
+            break;
     }
 }
 
