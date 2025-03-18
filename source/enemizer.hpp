@@ -11,11 +11,14 @@ namespace Enemizer {
 
 // Conditions used for the logic to place enemies.
 enum class LocType {
-    ABOVE_GROUND, // Location is on or above walkable ground.
-    ABOVE_VOID,   // Location is over a void plane. Enemy must be able to fly.
-    UNDERWATER,   // Location is underwater. Enemy must be defeatable with hookshot and iron boots.
-    ABOVE_WATER,  // Location is in the air above a water surface. Enemy must be able to float or fly.
-    SPAWNER,      // Location is a grounded enemy spawner (stalchildren, leevers).
+    ABOVE_GROUND = 1 << 0, // Location is on or above walkable ground.
+    ABOVE_VOID   = 2 << 0, // Location is over a void plane. Enemy must be able to fly.
+    UNDERWATER   = 3 << 0, // Location is underwater. Enemy must be defeatable with hookshot and iron boots.
+    ABOVE_WATER  = 4 << 0, // Location is in the air above a water surface. Enemy must be able to float or fly.
+    SPAWNER      = 5 << 0, // Location is a grounded enemy spawner (stalchildren, leevers).
+    // No need to mark enemies with the following values
+    // Location can be ABOVE_GROUND, ABOVE_WATER or UNDERWATER due to changing water level.
+    WATER_TIDE = ABOVE_GROUND | UNDERWATER | ABOVE_WATER,
 };
 
 // Enemy requirements to pass to the patch to edit the ActorEntry at runtime.
@@ -98,6 +101,12 @@ class EnemyType {
           validLocTypes(std::move(_validLocTypes)) {
     }
 
+    bool CanBeAtLocTypes(std::vector<LocType> locTypes) const {
+        return std::all_of(locTypes.begin(), locTypes.end(), [this](LocType locType) {
+            return std::find(validLocTypes.begin(), validLocTypes.end(), locType) != validLocTypes.end();
+        });
+    }
+
     std::string name;
     u16 actorId;
     std::vector<u16> possibleParams; // Values to randomly select as actor params, without affecting the logic.
@@ -114,11 +123,14 @@ class EnemyType {
 class EnemyLocation {
   public:
     EnemyLocation() = default;
-    EnemyLocation(LocType _type, u16 _vanillaEnemyId) : type(std::move(_type)), vanillaEnemyId(_vanillaEnemyId) {
+    EnemyLocation(u16 _vanillaEnemyId, LocType _type) : vanillaEnemyId(_vanillaEnemyId), types({ _type }) {
+    }
+    EnemyLocation(u16 _vanillaEnemyId, std::vector<LocType> _types)
+        : vanillaEnemyId(_vanillaEnemyId), types(std::move(_types)) {
     }
 
-    LocType type;
     u16 vanillaEnemyId;
+    std::vector<LocType> types;
     EnemyType randomizedEnemy;
     u16 randomizedParams;
 };

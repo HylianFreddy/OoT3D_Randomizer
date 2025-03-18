@@ -7,8 +7,7 @@ namespace Enemizer {
 static void AssignRandomEnemy(EnemyLocation& loc) {
     std::vector<EnemyType> enemyOptions;
     for (EnemyType& candidate : enemyTypes) {
-        if (candidate.actorId != 0 && std::find(candidate.validLocTypes.begin(), candidate.validLocTypes.end(),
-                                                loc.type) != candidate.validLocTypes.end()) {
+        if (candidate.actorId != 0 && candidate.CanBeAtLocTypes(loc.types)) {
             enemyOptions.push_back(candidate);
         }
     }
