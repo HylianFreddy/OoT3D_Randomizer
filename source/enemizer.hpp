@@ -11,14 +11,12 @@ namespace Enemizer {
 
 // Conditions used for the logic to place enemies.
 enum class LocType {
-    ABOVE_GROUND = 1 << 0, // Location is on or above walkable ground.
-    ABOVE_VOID   = 2 << 0, // Location is over a void plane. Enemy must be able to fly.
-    UNDERWATER   = 3 << 0, // Location is underwater. Enemy must be defeatable with hookshot and iron boots.
-    ABOVE_WATER  = 4 << 0, // Location is in the air above a water surface. Enemy must be able to float or fly.
-    SPAWNER      = 5 << 0, // Location is a grounded enemy spawner (stalchildren, leevers).
-    // No need to mark enemies with the following values
-    // Location can be ABOVE_GROUND, ABOVE_WATER or UNDERWATER due to changing water level.
-    WATER_TIDE = ABOVE_GROUND | UNDERWATER | ABOVE_WATER,
+    ABOVE_GROUND,  // Location is on or above walkable ground.
+    ABOVE_VOID,    // Location is over a void plane. Enemy must be able to fly.
+    UNDERWATER,    // Location is underwater. Enemy must be defeatable with hookshot and iron boots.
+    ABOVE_WATER,   // Location is in the air above a water surface. Enemy must be able to float or fly.
+    SHALLOW_WATER, // Location is on or above shallow water.
+    SPAWNER,       // Location is a grounded enemy spawner (stalchildren, leevers).
 };
 
 typedef enum EnemyId {

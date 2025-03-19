@@ -12,8 +12,17 @@
 void EnMb_rInit(Actor* thisx, GlobalContext* globalCtx) {
     EnMb_Init(thisx, globalCtx);
 
-    if (gSettingsContext.enemizer == ON && thisx->params == 0x0000) { // Club Moblin
-        thisx->world.pos = thisx->home.pos;
+    if (gSettingsContext.enemizer == ON) {
+        if (thisx->params == 0x0000) { // Club Moblin
+            thisx->world.pos = thisx->home.pos;
+        }
+
+        if (thisx->params == (s16)0xFFFF) { // Spear guard
+            // Set the size to be like the "spear patrol" type.
+            thisx->scale.x = 0.014;
+            thisx->scale.y = 0.014;
+            thisx->scale.z = 0.014;
+        }
     }
 }
 

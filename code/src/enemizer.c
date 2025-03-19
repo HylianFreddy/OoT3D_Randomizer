@@ -147,6 +147,11 @@ static void Enemizer_MoveSpecificLocations(ActorEntry* actorEntry, s32 actorEntr
             // Move the wallmaster in spirit child side out of the wall
             actorEntry->pos.z = -1400;
             break;
+        case LOC(6, 0, 3, 3, DUNGEONMODE_MQ):
+            // Move a keese in spirit child side out of the wall
+            actorEntry->pos.x = -1720;
+            actorEntry->pos.z = -570;
+            break;
         case LOC(6, 0, 12, 0, DUNGEONMODE_VANILLA):
             // Move a like-like in adult spirit down within the room
             actorEntry->pos.y = 80;
@@ -264,7 +269,7 @@ static void Enemizer_MoveSpecificEnemies(ActorEntry* actorEntry) {
         }
     } else if (actorEntry->id == ACTOR_BUBBLE && (actorEntry->params & 0x00FF) == 0xFC) { // Green Bubble
         // Slightly above the ground so it doesn't go through it while bobbing up and down.
-        if (!waterBoxFound && !isInvalidGround && (actorEntry->pos.y - yGroundIntersect < 60)) {
+        if (!isInvalidGround && (actorEntry->pos.y - yGroundIntersect < 60)) {
             actorEntry->pos.y = yGroundIntersect + 60;
         }
     } else if (!isInvalidGround) {
