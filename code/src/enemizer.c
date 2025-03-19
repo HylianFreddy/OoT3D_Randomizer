@@ -358,7 +358,7 @@ static void Enemizer_MoveSpecificEnemies(ActorEntry* actorEntry) {
         }
     } else if (actorEntry->id == ACTOR_BUBBLE && (actorEntry->params & 0x00FF) == 0xFC) { // Green Bubble
         // Slightly above the ground so it doesn't go through it while bobbing up and down.
-        if (!waterBoxFound && !isInvalidGround && (actorEntry->pos.y - yGroundIntersect < 60)) {
+        if (!isInvalidGround && (actorEntry->pos.y - yGroundIntersect < 60)) {
             actorEntry->pos.y = yGroundIntersect + 60;
         }
     } else if (!isInvalidGround) {
