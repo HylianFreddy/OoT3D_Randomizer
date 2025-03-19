@@ -892,7 +892,7 @@ void InitEnemyLocations(void) {
         enemyLocations[0][0][4][7]       = EnemyLocation(ENEMY_GOHMA_LARVA,        LocType::ABOVE_GROUND);
         enemyLocations[0][0][5][0]       = EnemyLocation(ENEMY_DEKU_BABA_WITHERED, LocType::ABOVE_GROUND);
         enemyLocations[0][0][5][1]       = EnemyLocation(ENEMY_SKULLTULA,          LocType::ABOVE_GROUND);
-        enemyLocations[0][0][5][7]       = EnemyLocation(ENEMY_GOHMA_LARVA,        LocType::ABOVE_GROUND);
+        enemyLocations[0][0][5][7]       = EnemyLocation(ENEMY_GOHMA_LARVA,        LocType::ABOVE_WATER);
         enemyLocations[0][0][6][0]       = EnemyLocation(ENEMY_KEESE_NORMAL,       LocType::ABOVE_GROUND);
         enemyLocations[0][0][6][3]       = EnemyLocation(ENEMY_MAD_SCRUB,          LocType::ABOVE_GROUND);
         enemyLocations[0][0][6][4]       = EnemyLocation(ENEMY_GOHMA_LARVA,        LocType::ABOVE_GROUND);
@@ -981,20 +981,20 @@ void InitEnemyLocations(void) {
         enemyLocations[1][0][15][3]      = EnemyLocation(ENEMY_SKULLTULA,          LocType::ABOVE_GROUND);
     }
     if (Dungeon::JabuJabusBelly.IsMQ()) {
-        enemyLocations[2][0][0][0]       = EnemyLocation(ENEMY_OCTOROK,            LocType::ABOVE_GROUND);
-        enemyLocations[2][0][0][7]       = EnemyLocation(ENEMY_SHABOM,             LocType::ABOVE_GROUND);
+        enemyLocations[2][0][0][0]       = EnemyLocation(ENEMY_OCTOROK,            LocType::ABOVE_GROUND); // SHALLOW_WATER
+        enemyLocations[2][0][0][7]       = EnemyLocation(ENEMY_SHABOM,             LocType::ABOVE_GROUND); // SHALLOW_WATER
         enemyLocations[2][0][0][8]       = EnemyLocation(ENEMY_SHABOM,             LocType::ABOVE_GROUND);
         enemyLocations[2][0][0][9]       = EnemyLocation(ENEMY_SHABOM,             LocType::ABOVE_GROUND);
-        enemyLocations[2][0][1][3]       = EnemyLocation(ENEMY_BIRI,               LocType::ABOVE_GROUND);
+        enemyLocations[2][0][1][3]       = EnemyLocation(ENEMY_BIRI,               LocType::ABOVE_WATER);
         enemyLocations[2][0][1][4]       = EnemyLocation(ENEMY_BIRI,               LocType::ABOVE_GROUND);
         enemyLocations[2][0][1][16]      = EnemyLocation(ENEMY_STINGER_WATER,      LocType::UNDERWATER);
         enemyLocations[2][0][2][2]       = EnemyLocation(ENEMY_BIRI,               LocType::ABOVE_GROUND);
         enemyLocations[2][0][2][3]       = EnemyLocation(ENEMY_BIRI,               LocType::ABOVE_GROUND);
         enemyLocations[2][0][3][3]       = EnemyLocation(ENEMY_BIRI,               LocType::ABOVE_GROUND);
         enemyLocations[2][0][3][10]      = EnemyLocation(ENEMY_SHABOM,             LocType::ABOVE_GROUND);
-        enemyLocations[2][0][4][7]       = EnemyLocation(ENEMY_LIZALFOS,           LocType::ABOVE_GROUND);
-        enemyLocations[2][0][5][4]       = EnemyLocation(ENEMY_LIKE_LIKE,          LocType::ABOVE_GROUND);
-        enemyLocations[2][0][5][3]       = EnemyLocation(ENEMY_LIKE_LIKE,          LocType::ABOVE_GROUND);
+        enemyLocations[2][0][4][7]       = EnemyLocation(ENEMY_LIZALFOS,           LocType::ABOVE_GROUND); // SHALLOW_WATER
+        enemyLocations[2][0][5][3]       = EnemyLocation(ENEMY_LIKE_LIKE,          LocType::ABOVE_GROUND); // SHALLOW_WATER
+        enemyLocations[2][0][5][4]       = EnemyLocation(ENEMY_LIKE_LIKE,          LocType::ABOVE_GROUND); // SHALLOW_WATER
         enemyLocations[2][0][6][0]       = EnemyLocation(ENEMY_BARI,               LocType::ABOVE_GROUND);
         enemyLocations[2][0][7][0]       = EnemyLocation(ENEMY_LIZALFOS,           LocType::ABOVE_GROUND);
         enemyLocations[2][0][11][5]      = EnemyLocation(ENEMY_LIKE_LIKE,          LocType::ABOVE_GROUND);
@@ -1007,12 +1007,12 @@ void InitEnemyLocations(void) {
         enemyLocations[2][0][12][10]     = EnemyLocation(ENEMY_SHABOM,             LocType::ABOVE_GROUND);
         enemyLocations[2][0][13][1]      = EnemyLocation(ENEMY_KEESE_NORMAL,       LocType::ABOVE_GROUND);
         enemyLocations[2][0][13][2]      = EnemyLocation(ENEMY_KEESE_NORMAL,       LocType::ABOVE_GROUND);
-        enemyLocations[2][0][13][3]      = EnemyLocation(ENEMY_KEESE_NORMAL,       LocType::ABOVE_GROUND);
+        enemyLocations[2][0][13][3]      = EnemyLocation(ENEMY_KEESE_NORMAL,       LocType::ABOVE_WATER);
         enemyLocations[2][0][13][5]      = EnemyLocation(ENEMY_STINGER_WATER,      LocType::UNDERWATER);
         enemyLocations[2][0][13][6]      = EnemyLocation(ENEMY_STINGER_WATER,      LocType::UNDERWATER);
-        enemyLocations[2][0][14][0]      = EnemyLocation(ENEMY_STINGER_FLOOR,      LocType::ABOVE_GROUND);
-        enemyLocations[2][0][14][1]      = EnemyLocation(ENEMY_STINGER_FLOOR,      LocType::ABOVE_GROUND);
-        enemyLocations[2][0][14][3]      = EnemyLocation(ENEMY_LIKE_LIKE,          LocType::ABOVE_GROUND);
+        enemyLocations[2][0][14][0]      = EnemyLocation(ENEMY_STINGER_FLOOR,      LocType::ABOVE_GROUND); // SHALLOW_WATER
+        enemyLocations[2][0][14][1]      = EnemyLocation(ENEMY_STINGER_FLOOR,      LocType::ABOVE_GROUND); // SHALLOW_WATER
+        enemyLocations[2][0][14][3]      = EnemyLocation(ENEMY_LIKE_LIKE,          LocType::ABOVE_GROUND); // SHALLOW_WATER
         enemyLocations[2][0][14][4]      = EnemyLocation(ENEMY_LIZALFOS,           LocType::ABOVE_GROUND);
     }
     if (Dungeon::ForestTemple.IsMQ()) {
@@ -1032,9 +1032,9 @@ void InitEnemyLocations(void) {
         enemyLocations[3][0][7][3]       = EnemyLocation(ENEMY_DEKU_BABA_SMALL,    LocType::ABOVE_GROUND);
         enemyLocations[3][0][7][4]       = EnemyLocation(ENEMY_DEKU_BABA_BIG,      LocType::ABOVE_GROUND);
         enemyLocations[3][0][7][5]       = EnemyLocation(ENEMY_DEKU_BABA_BIG,      LocType::ABOVE_GROUND);
-        enemyLocations[3][0][8][0]       = EnemyLocation(ENEMY_OCTOROK,            LocType::ABOVE_GROUND);
-        enemyLocations[3][0][8][1]       = EnemyLocation(ENEMY_OCTOROK,            LocType::ABOVE_GROUND);
-        enemyLocations[3][0][8][2]       = EnemyLocation(ENEMY_OCTOROK,            LocType::ABOVE_GROUND);
+        enemyLocations[3][0][8][0]       = EnemyLocation(ENEMY_OCTOROK,            LocType::ABOVE_WATER);
+        enemyLocations[3][0][8][1]       = EnemyLocation(ENEMY_OCTOROK,            LocType::ABOVE_WATER);
+        enemyLocations[3][0][8][2]       = EnemyLocation(ENEMY_OCTOROK,            LocType::ABOVE_WATER);
         enemyLocations[3][0][8][3]       = EnemyLocation(ENEMY_SKULLWALLTULA,      LocType::ABOVE_GROUND);
         enemyLocations[3][0][8][4]       = EnemyLocation(ENEMY_SKULLWALLTULA,      LocType::ABOVE_GROUND);
         enemyLocations[3][0][8][5]       = EnemyLocation(ENEMY_SKULLWALLTULA,      LocType::ABOVE_GROUND);
@@ -1092,21 +1092,21 @@ void InitEnemyLocations(void) {
         enemyLocations[4][0][25][0]      = EnemyLocation(ENEMY_LIZALFOS,           LocType::ABOVE_GROUND);
     }
     if (Dungeon::WaterTemple.IsMQ()) {
-        enemyLocations[5][0][2][1]       = EnemyLocation(ENEMY_SPIKE,              LocType::ABOVE_GROUND);
+        enemyLocations[5][0][2][1]       = EnemyLocation(ENEMY_SPIKE,              LocType::UNDERWATER);
         enemyLocations[5][0][3][5]       = EnemyLocation(ENEMY_STALFOS,            LocType::ABOVE_GROUND);
         enemyLocations[5][0][3][6]       = EnemyLocation(ENEMY_STALFOS,            LocType::ABOVE_GROUND);
-        enemyLocations[5][0][6][2]       = EnemyLocation(ENEMY_STALFOS,            LocType::ABOVE_GROUND);
-        enemyLocations[5][0][6][3]       = EnemyLocation(ENEMY_STALFOS,            LocType::ABOVE_GROUND);
-        enemyLocations[5][0][6][4]       = EnemyLocation(ENEMY_STALFOS,            LocType::ABOVE_GROUND);
+        enemyLocations[5][0][6][2]       = EnemyLocation(ENEMY_STALFOS,            LocType::ABOVE_GROUND); // SHALLOW_WATER
+        enemyLocations[5][0][6][3]       = EnemyLocation(ENEMY_STALFOS,            LocType::ABOVE_GROUND); // SHALLOW_WATER
+        enemyLocations[5][0][6][4]       = EnemyLocation(ENEMY_STALFOS,            LocType::ABOVE_GROUND); // SHALLOW_WATER
         enemyLocations[5][0][10][0]      = EnemyLocation(ENEMY_LIZALFOS,           LocType::ABOVE_GROUND);
         enemyLocations[5][0][13][0xFF]   = EnemyLocation(ENEMY_DARK_LINK,          LocType::ABOVE_GROUND);
         enemyLocations[5][0][14][1]      = EnemyLocation(ENEMY_DODONGO,            LocType::ABOVE_GROUND);
-        enemyLocations[5][0][14][2]      = EnemyLocation(ENEMY_DODONGO,            LocType::ABOVE_GROUND);
-        enemyLocations[5][0][14][3]      = EnemyLocation(ENEMY_DODONGO,            LocType::ABOVE_GROUND);
-        enemyLocations[5][0][14][4]      = EnemyLocation(ENEMY_DODONGO,            LocType::ABOVE_GROUND);
+        enemyLocations[5][0][14][2]      = EnemyLocation(ENEMY_DODONGO,            LocType::ABOVE_GROUND); // SHALLOW_WATER
+        enemyLocations[5][0][14][3]      = EnemyLocation(ENEMY_DODONGO,            LocType::ABOVE_GROUND); // SHALLOW_WATER
+        enemyLocations[5][0][14][4]      = EnemyLocation(ENEMY_DODONGO,            LocType::ABOVE_GROUND); // SHALLOW_WATER
         enemyLocations[5][0][14][5]      = EnemyLocation(ENEMY_DODONGO,            LocType::ABOVE_GROUND);
-        enemyLocations[5][0][14][6]      = EnemyLocation(ENEMY_DODONGO,            LocType::ABOVE_GROUND);
-        enemyLocations[5][0][14][7]      = EnemyLocation(ENEMY_DODONGO,            LocType::ABOVE_GROUND);
+        enemyLocations[5][0][14][6]      = EnemyLocation(ENEMY_DODONGO,            LocType::ABOVE_GROUND); // SHALLOW_WATER
+        enemyLocations[5][0][14][7]      = EnemyLocation(ENEMY_DODONGO,            LocType::ABOVE_GROUND); // SHALLOW_WATER
         enemyLocations[5][0][16][1]      = EnemyLocation(ENEMY_STALFOS,            LocType::ABOVE_GROUND);
         enemyLocations[5][0][18][0]      = EnemyLocation(ENEMY_SPIKE,              LocType::ABOVE_GROUND);
         enemyLocations[5][0][18][1]      = EnemyLocation(ENEMY_LIZALFOS,           LocType::ABOVE_GROUND);
@@ -1127,8 +1127,8 @@ void InitEnemyLocations(void) {
         enemyLocations[6][0][2][2]       = EnemyLocation(ENEMY_GIBDO,              LocType::ABOVE_GROUND);
         enemyLocations[6][0][3][0]       = EnemyLocation(ENEMY_KEESE_NORMAL,       LocType::ABOVE_VOID);
         enemyLocations[6][0][3][1]       = EnemyLocation(ENEMY_KEESE_NORMAL,       LocType::ABOVE_VOID);
-        enemyLocations[6][0][3][2]       = EnemyLocation(ENEMY_KEESE_NORMAL,       LocType::ABOVE_VOID);
-        enemyLocations[6][0][3][3]       = EnemyLocation(ENEMY_KEESE_NORMAL,       LocType::ABOVE_VOID);
+        enemyLocations[6][0][3][2]       = EnemyLocation(ENEMY_KEESE_NORMAL,       LocType::ABOVE_GROUND);
+        enemyLocations[6][0][3][3]       = EnemyLocation(ENEMY_KEESE_NORMAL,       LocType::ABOVE_GROUND);
         enemyLocations[6][0][3][4]       = EnemyLocation(ENEMY_KEESE_NORMAL,       LocType::ABOVE_VOID);
         enemyLocations[6][0][3][12]      = EnemyLocation(ENEMY_ANUBIS,             LocType::ABOVE_GROUND);
         enemyLocations[6][0][4][0]       = EnemyLocation(ENEMY_DODONGO_BABY,       LocType::ABOVE_GROUND);
@@ -1216,7 +1216,7 @@ void InitEnemyLocations(void) {
         enemyLocations[7][0][8][1]       = EnemyLocation(ENEMY_SKULLTULA,          LocType::ABOVE_GROUND);
         enemyLocations[7][0][8][2]       = EnemyLocation(ENEMY_BEAMOS,             LocType::ABOVE_GROUND);
         enemyLocations[7][0][8][3]       = EnemyLocation(ENEMY_BEAMOS,             LocType::ABOVE_GROUND);
-        enemyLocations[7][0][9][5]       = EnemyLocation(ENEMY_BUBBLE_FIRE,        LocType::ABOVE_GROUND);
+        enemyLocations[7][0][9][5]       = EnemyLocation(ENEMY_BUBBLE_FIRE,        LocType::ABOVE_VOID);
         enemyLocations[7][0][9][6]       = EnemyLocation(ENEMY_BEAMOS,             LocType::ABOVE_GROUND);
         enemyLocations[7][0][9][7]       = EnemyLocation(ENEMY_BEAMOS,             LocType::ABOVE_GROUND);
         enemyLocations[7][0][9][10]      = EnemyLocation(ENEMY_BEAMOS,             LocType::ABOVE_GROUND);
@@ -1320,9 +1320,9 @@ void InitEnemyLocations(void) {
         enemyLocations[11][0][5][0]      = EnemyLocation(ENEMY_IRON_KNUCKLE,       LocType::ABOVE_GROUND);
         enemyLocations[11][0][5][1]      = EnemyLocation(ENEMY_TORCH_SLUG,         LocType::ABOVE_GROUND);
         enemyLocations[11][0][5][2]      = EnemyLocation(ENEMY_TORCH_SLUG,         LocType::ABOVE_GROUND);
-        enemyLocations[11][0][6][1]      = EnemyLocation(ENEMY_BUBBLE_FIRE,        LocType::ABOVE_GROUND);
-        enemyLocations[11][0][6][2]      = EnemyLocation(ENEMY_BUBBLE_FIRE,        LocType::ABOVE_GROUND);
-        enemyLocations[11][0][6][3]      = EnemyLocation(ENEMY_BUBBLE_FIRE,        LocType::ABOVE_GROUND);
+        enemyLocations[11][0][6][1]      = EnemyLocation(ENEMY_BUBBLE_FIRE,        LocType::ABOVE_VOID);
+        enemyLocations[11][0][6][2]      = EnemyLocation(ENEMY_BUBBLE_FIRE,        LocType::ABOVE_VOID);
+        enemyLocations[11][0][6][3]      = EnemyLocation(ENEMY_BUBBLE_FIRE,        LocType::ABOVE_VOID);
         enemyLocations[11][0][7][0]      = EnemyLocation(ENEMY_DINOLFOS,           LocType::ABOVE_GROUND);
         enemyLocations[11][0][7][1]      = EnemyLocation(ENEMY_DINOLFOS,           LocType::ABOVE_GROUND);
         enemyLocations[11][0][7][2]      = EnemyLocation(ENEMY_LIZALFOS,           LocType::ABOVE_GROUND);
@@ -1332,7 +1332,7 @@ void InitEnemyLocations(void) {
         enemyLocations[11][0][9][0]      = EnemyLocation(ENEMY_STINGER_WATER,      LocType::UNDERWATER);
         enemyLocations[11][0][9][1]      = EnemyLocation(ENEMY_STINGER_WATER,      LocType::UNDERWATER);
         enemyLocations[11][0][9][3]      = EnemyLocation(ENEMY_BARI,               LocType::ABOVE_GROUND);
-        enemyLocations[11][0][9][4]      = EnemyLocation(ENEMY_SHELL_BLADE,        LocType::ABOVE_GROUND);
+        enemyLocations[11][0][9][4]      = EnemyLocation(ENEMY_SHELL_BLADE,        LocType::UNDERWATER);
         enemyLocations[11][0][10][0]     = EnemyLocation(ENEMY_FREEZARD,           LocType::ABOVE_GROUND);
         enemyLocations[11][0][10][1]     = EnemyLocation(ENEMY_FREEZARD,           LocType::ABOVE_GROUND);
         enemyLocations[11][0][10][2]     = EnemyLocation(ENEMY_SPIKE,              LocType::ABOVE_GROUND);
@@ -1367,7 +1367,7 @@ void InitEnemyLocations(void) {
         enemyLocations[13][0][9][7]      = EnemyLocation(ENEMY_TORCH_SLUG,         LocType::ABOVE_GROUND);
         enemyLocations[13][0][9][8]      = EnemyLocation(ENEMY_DINOLFOS,           LocType::ABOVE_GROUND);
         enemyLocations[13][0][10][3]     = EnemyLocation(ENEMY_SKULLWALLTULA,      LocType::ABOVE_GROUND);
-        enemyLocations[13][0][12][5]     = EnemyLocation(ENEMY_BUBBLE_GREEN,       LocType::ABOVE_GROUND);
+        enemyLocations[13][0][12][5]     = EnemyLocation(ENEMY_BUBBLE_GREEN,       LocType::ABOVE_VOID);
         enemyLocations[13][0][12][6]     = EnemyLocation(ENEMY_BEAMOS,             LocType::ABOVE_GROUND);
         enemyLocations[13][0][12][7]     = EnemyLocation(ENEMY_BEAMOS,             LocType::ABOVE_GROUND);
         enemyLocations[13][0][12][8]     = EnemyLocation(ENEMY_BEAMOS,             LocType::ABOVE_GROUND);

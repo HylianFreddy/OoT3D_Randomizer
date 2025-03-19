@@ -236,6 +236,11 @@ static void Enemizer_MoveSpecificLocations(ActorEntry* actorEntry, s32 actorEntr
             // Move the wallmaster in spirit child side out of the wall
             actorEntry->pos.z = -1400;
             break;
+        case LOC(6, 0, 3, 3, DUNGEONMODE_MQ):
+            // Move a keese in spirit child side out of the wall
+            actorEntry->pos.x = -1720;
+            actorEntry->pos.z = -570;
+            break;
         case LOC(6, 0, 12, 0, DUNGEONMODE_VANILLA):
             // Move a like-like in adult spirit down within the room
             actorEntry->pos.y = 80;
