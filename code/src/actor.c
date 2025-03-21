@@ -358,7 +358,7 @@ u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
 void ActorSetup_Extra(void) {
     Sheik_Spawn();
     Gs_SpawnAltLocs();
-    Enemizer_ActorSetupExtra();
+    Enemizer_AfterActorSetup();
 }
 
 static s32 hyperActors_ExtraUpdate = 0;

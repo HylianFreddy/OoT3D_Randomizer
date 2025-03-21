@@ -44,12 +44,10 @@ typedef struct EnemyOverride {
     s16 params;
 } EnemyOverride;
 
-extern u8 Enemizer_RoomLoadSignal;
-
 void Enemizer_Init(void);
 void Enemizer_Update(void);
 void Enemizer_OverrideActorEntry(ActorEntry* entry, s32 actorEntryIndex);
-void Enemizer_ActorSetupExtra(void);
+void Enemizer_AfterActorSetup(void);
 EnemyOverride Enemizer_GetSpawnerOverride(void);
 
 #endif // _ENEMIZER_H_

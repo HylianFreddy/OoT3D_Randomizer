@@ -12,8 +12,6 @@
 static EnemyOverride rEnemyOverrides[ENEMY_OVERRIDES_MAX];
 static s32 rEnemyOverrides_Count = 0;
 
-u8 Enemizer_RoomLoadSignal = FALSE;
-
 // Enemies that need to spawn at ground level to work properly.
 static EnemyActorData sGroundedEnemies[] = {
     { .actorId = ACTOR_STALFOS, .actorParams = 0x0002 },
@@ -482,37 +480,18 @@ static void Enemizer_HandleMiniBossBattleTheme(void) {
     }
 }
 
-void Enemizer_ActorSetupExtra(void) {
-    if (gSettingsContext.enemizer == OFF) {
-        return;
-    }
-
-    EnemyOverride enemySpawnerOvr = Enemizer_GetSpawnerOverride();
-    if (enemySpawnerOvr.actorId != 0) {
-        Enemizer_SpawnObjectsForActor(enemySpawnerOvr.actorId, enemySpawnerOvr.params);
-    }
-
-    // Check if music should stop when loading another room.
-    Enemizer_HandleMiniBossBattleTheme();
-}
-
-// Run special checks for certain enemies
-void Enemizer_Update(void) {
+static void Enemizer_HandleClearConditions(u8 isAfterRoomLoad) {
     static Actor *sSFMWolfos, *sLizalfos1, *sLizalfos2;
     static u8 sDefeated1, sDefeated2;
 
-    if (gSettingsContext.enemizer == OFF) {
-        return;
-    }
-
-    if (Enemizer_RoomLoadSignal) {
+    if (isAfterRoomLoad) {
         sSFMWolfos = sLizalfos1 = sLizalfos2 = NULL;
         sDefeated1 = sDefeated2 = FALSE;
     }
 
     if (gGlobalContext->sceneNum == SCENE_SACRED_FOREST_MEADOW) {
         // Open the gate when the enemy is defeated.
-        if (Enemizer_RoomLoadSignal) {
+        if (isAfterRoomLoad) {
             Actor* enemy = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
             while (enemy != NULL) {
                 if (enemy->world.pos.z > 1600.0) {
@@ -532,7 +511,7 @@ void Enemizer_Update(void) {
         }
     } else if (gGlobalContext->sceneNum == SCENE_DODONGOS_CAVERN && gGlobalContext->roomNum == 3) {
         // Miniboss room: open the correct doors when the enemies are defeated.
-        if (Enemizer_RoomLoadSignal) {
+        if (isAfterRoomLoad) {
             Actor* enemy = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
             while (enemy != NULL) {
                 if (enemy->room == 0x3) {
@@ -575,11 +554,35 @@ void Enemizer_Update(void) {
             sDefeated1 = sDefeated2 = FALSE;
         }
     }
+}
+
+// Called once per room load, after all actor entries have been spawned.
+void Enemizer_AfterActorSetup(void) {
+    if (gSettingsContext.enemizer == OFF) {
+        return;
+    }
+
+    EnemyOverride enemySpawnerOvr = Enemizer_GetSpawnerOverride();
+    if (enemySpawnerOvr.actorId != 0) {
+        Enemizer_SpawnObjectsForActor(enemySpawnerOvr.actorId, enemySpawnerOvr.params);
+    }
+
+    Enemizer_HandleClearConditions(TRUE);
+
+    // Check if music should stop when loading another room.
+    Enemizer_HandleMiniBossBattleTheme();
+}
+
+// Run special checks on every frame
+void Enemizer_Update(void) {
+    if (gSettingsContext.enemizer == OFF) {
+        return;
+    }
+
+    Enemizer_HandleClearConditions(FALSE);
 
     // CsMode check is for Big Octo, which turns into a prop temporarily on spawn.
     if (!Player_InCsMode(gGlobalContext)) {
         Enemizer_HandleMiniBossBattleTheme();
     }
-
-    Enemizer_RoomLoadSignal = FALSE;
 }
