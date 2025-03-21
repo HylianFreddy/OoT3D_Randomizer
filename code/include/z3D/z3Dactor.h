@@ -382,4 +382,7 @@ typedef void (*Actor_UpdateBgCheckInfo_proc)(struct GlobalContext* globalCtx, Ac
     __attribute__((pcs("aapcs-vfp")));
 #define Actor_UpdateBgCheckInfo ((Actor_UpdateBgCheckInfo_proc)GAME_ADDR(0x376340))
 
+typedef s32 (*Player_InCsMode_proc)(struct GlobalContext* globalCtx);
+#define Player_InCsMode ((Player_InCsMode_proc)GAME_ADDR(0x36A7A0))
+
 #endif

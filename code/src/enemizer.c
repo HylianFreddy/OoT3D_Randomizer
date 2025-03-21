@@ -443,16 +443,57 @@ EnemyOverride Enemizer_GetSpawnerOverride(void) {
     return o;
 }
 
+// Some randomized enemies like Flare Dancers start the Mini Boss battle theme and
+// don't stop it when leaving the room.
+// This function will stop the battle theme if there are no more mini bosses loaded.
+static void Enemizer_HandleMiniBossBattleTheme(void) {
+    if (Audio_GetActiveSeqId(0) == BGM_MINI_BOSS) {
+        u8 shouldKeepMiniBossBGM = FALSE;
+        Actor* enemy             = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
+        for (; enemy != NULL && !shouldKeepMiniBossBGM; enemy = enemy->next) {
+            if (enemy->update == NULL && enemy->draw == NULL) {
+                // Ignore killed actors so the music will stop when opening a door rather than after closing it.
+                continue;
+            }
+            switch (enemy->id) {
+                case ACTOR_POE_SISTER:
+                case ACTOR_FLARE_DANCER:
+                case ACTOR_DEAD_HAND:
+                case ACTOR_BIG_OCTO:
+                case ACTOR_GERUDO_FIGHTER:
+                    shouldKeepMiniBossBGM = TRUE;
+                    break;
+                case ACTOR_STALFOS:
+                    shouldKeepMiniBossBGM = (enemy->params != 2 && enemy->params != 3);
+                    break;
+                case ACTOR_DARK_LINK:
+                    shouldKeepMiniBossBGM = ((EnTorch2*)enemy)->actionState != ENTORCH2_WAIT;
+                    break;
+            }
+        }
+
+        if (!shouldKeepMiniBossBGM) {
+            if (sPrevMainBgmSeqId != -1) {
+                Audio_RestoreBGM();
+            } else {
+                Audio_StopBGM();
+            }
+        }
+    }
+}
+
 void Enemizer_ActorSetupExtra(void) {
     if (gSettingsContext.enemizer == OFF) {
         return;
     }
 
     EnemyOverride enemySpawnerOvr = Enemizer_GetSpawnerOverride();
-
     if (enemySpawnerOvr.actorId != 0) {
         Enemizer_SpawnObjectsForActor(enemySpawnerOvr.actorId, enemySpawnerOvr.params);
     }
+
+    // Check if music should stop when loading another room.
+    Enemizer_HandleMiniBossBattleTheme();
 }
 
 // Run special checks for certain enemies
@@ -535,41 +576,9 @@ void Enemizer_Update(void) {
         }
     }
 
-    // Some randomized enemies like Flare Dancers start the Mini Boss battle theme and
-    // don't stop it when leaving the room.
-    // Here the battle theme will be stopped when there are no more mini bosses loaded.
-    if (Audio_GetActiveSeqId(0) == BGM_MINI_BOSS) {
-        u8 shouldKeepMiniBossBGM = FALSE;
-        Actor* enemy             = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
-        for (; enemy != NULL && !shouldKeepMiniBossBGM; enemy = enemy->next) {
-            if (enemy->update == NULL && enemy->draw == NULL) {
-                // Ignore killed actors
-                continue;
-            }
-            switch (enemy->id) {
-                case ACTOR_POE_SISTER:
-                case ACTOR_FLARE_DANCER:
-                case ACTOR_DEAD_HAND:
-                case ACTOR_BIG_OCTO:
-                case ACTOR_GERUDO_FIGHTER:
-                    shouldKeepMiniBossBGM = TRUE;
-                    break;
-                case ACTOR_STALFOS:
-                    shouldKeepMiniBossBGM = (enemy->params != 2 && enemy->params != 3);
-                    break;
-                case ACTOR_DARK_LINK:
-                    shouldKeepMiniBossBGM = ((EnTorch2*)enemy)->actionState != ENTORCH2_WAIT;
-                    break;
-            }
-        }
-
-        if (!shouldKeepMiniBossBGM) {
-            if (sPrevMainBgmSeqId != -1) {
-                Audio_RestoreBGM();
-            } else {
-                Audio_StopBGM();
-            }
-        }
+    // CsMode check is for Big Octo, which turns into a prop temporarily on spawn.
+    if (!Player_InCsMode(gGlobalContext)) {
+        Enemizer_HandleMiniBossBattleTheme();
     }
 
     Enemizer_RoomLoadSignal = FALSE;
