@@ -9,8 +9,12 @@
 
 #include <stddef.h>
 
+// Check that actor doesn't have an enemy as parent (e.g. Mad Scrub flower).
+#define IS_NOT_ENEMY_CHILD(actor) (actor->parent == NULL || actor->parent->type != ACTORTYPE_ENEMY)
+
 static EnemyOverride rEnemyOverrides[ENEMY_OVERRIDES_MAX];
 static s32 rEnemyOverrides_Count = 0;
+static u8 sRoomLoadSignal        = FALSE;
 
 // Enemies that need to spawn at ground level to work properly.
 static EnemyActorData sGroundedEnemies[] = {
@@ -109,7 +113,7 @@ static EnemyOverride Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actor
     return (EnemyOverride){ 0 };
 }
 
-// Helper macro for the function below. Optionally specify dungeon mode as fifth argument
+// Helper macro for the function below. Optionally specify dungeon mode as fifth argument.
 #define LOC(scene, layer, room, entry, ...) \
     (__VA_OPT__((((u64)__VA_ARGS__) << 32) |)(scene << 24) | (layer << 16) | (room << 8) | entry)
 
@@ -330,11 +334,91 @@ EnemyOverride Enemizer_GetSpawnerOverride(void) {
     return Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, 0xFF);
 }
 
+// Handle opening certain doors that are normally handled by the specific enemies in the area.
+// On the frame after a room or scene load (so all actors have been initialized), search for
+// the enemies that should be defeated.
+// Then, on every frame, check when their actors are killed to open the door.
+static void Enemizer_HandleClearConditions(void) {
+    static Actor *sSFMWolfos, *sLizalfos1, *sLizalfos2;
+    static u8 sDefeated1, sDefeated2;
+
+    if (sRoomLoadSignal) {
+        sSFMWolfos = sLizalfos1 = sLizalfos2 = NULL;
+        sDefeated1 = sDefeated2 = FALSE;
+    }
+
+    if (gGlobalContext->sceneNum == SCENE_SACRED_FOREST_MEADOW) {
+        // Open the gate when the enemy is defeated.
+        if (sRoomLoadSignal) {
+            Actor* enemy = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
+            for (; enemy != NULL; enemy = enemy->next) {
+                if (enemy->world.pos.z > 1600.0 && IS_NOT_ENEMY_CHILD(enemy)) {
+                    sSFMWolfos = enemy;
+                    break;
+                }
+            }
+            if (Flags_GetSwitch(gGlobalContext, 0x1F) && sSFMWolfos != NULL) {
+                Actor_Kill(sSFMWolfos);
+                sSFMWolfos = NULL;
+            }
+        }
+        if (sSFMWolfos != NULL && sSFMWolfos->update == NULL && sSFMWolfos->draw == NULL) {
+            Flags_SetSwitch(gGlobalContext, 0x1F);
+            sSFMWolfos = NULL;
+        }
+    } else if (gGlobalContext->sceneNum == SCENE_DODONGOS_CAVERN && gGlobalContext->roomNum == 3) {
+        // Miniboss room: open the correct doors when the enemies are defeated.
+        if (sRoomLoadSignal) {
+            Actor* enemy = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
+            for (; enemy != NULL; enemy = enemy->next) {
+                if (enemy->room == 0x3 && IS_NOT_ENEMY_CHILD(enemy)) {
+                    if (enemy->world.pos.z < -1540.0) { // Lower lizalfos
+                        if (Flags_GetSwitch(gGlobalContext, 5)) {
+                            Actor_Kill(enemy);
+                        } else if (sLizalfos1 == NULL) {
+                            sLizalfos1 = enemy;
+                        } else {
+                            sLizalfos2 = enemy;
+                        }
+                    } else { // Upper lizalfos
+                        if (Flags_GetSwitch(gGlobalContext, 6) || !Flags_GetSwitch(gGlobalContext, 5) ||
+                            PLAYER->actor.world.pos.y < 200.0) {
+                            Actor_Kill(enemy);
+                        } else if (sLizalfos1 == NULL) {
+                            sLizalfos1 = enemy;
+                        } else {
+                            sLizalfos2 = enemy;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (sLizalfos1 != NULL && sLizalfos1->update == NULL && sLizalfos1->draw == NULL) {
+            sDefeated1 = TRUE;
+            sLizalfos1 = NULL;
+        }
+
+        if (sLizalfos2 != NULL && sLizalfos2->update == NULL && sLizalfos2->draw == NULL) {
+            sDefeated2 = TRUE;
+            sLizalfos2 = NULL;
+        }
+
+        if (sDefeated1 && sDefeated2) {
+            u32 flag = Flags_GetSwitch(gGlobalContext, 5) ? 6 : 5;
+            Flags_SetSwitch(gGlobalContext, flag);
+            sDefeated1 = sDefeated2 = FALSE;
+        }
+    }
+}
+
 // Some randomized enemies like Flare Dancers start the Mini Boss battle theme and
 // don't stop it when leaving the room.
 // This function will stop the battle theme if there are no more mini bosses loaded.
 static void Enemizer_HandleMiniBossBattleTheme(void) {
-    if (Audio_GetActiveSeqId(0) == BGM_MINI_BOSS) {
+    // Always check if music should stop when loading another room, otherwise only check if player is not
+    // in cutscene mode because Big Octo turns into a prop temporarily during its intro cutscene.
+    if (Audio_GetActiveSeqId(0) == BGM_MINI_BOSS && (sRoomLoadSignal || !Player_InCsMode(gGlobalContext))) {
         u8 shouldKeepMiniBossBGM = FALSE;
         Actor* enemy             = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
         for (; enemy != NULL && !shouldKeepMiniBossBGM; enemy = enemy->next) {
@@ -369,82 +453,6 @@ static void Enemizer_HandleMiniBossBattleTheme(void) {
     }
 }
 
-static void Enemizer_HandleClearConditions(u8 isAfterRoomLoad) {
-    static Actor *sSFMWolfos, *sLizalfos1, *sLizalfos2;
-    static u8 sDefeated1, sDefeated2;
-
-    if (isAfterRoomLoad) {
-        sSFMWolfos = sLizalfos1 = sLizalfos2 = NULL;
-        sDefeated1 = sDefeated2 = FALSE;
-    }
-
-    if (gGlobalContext->sceneNum == SCENE_SACRED_FOREST_MEADOW) {
-        // Open the gate when the enemy is defeated.
-        if (isAfterRoomLoad) {
-            Actor* enemy = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
-            while (enemy != NULL) {
-                if (enemy->world.pos.z > 1600.0) {
-                    sSFMWolfos = enemy;
-                    break;
-                }
-                enemy = enemy->next;
-            }
-            if (Flags_GetSwitch(gGlobalContext, 0x1F) && sSFMWolfos != NULL) {
-                Actor_Kill(sSFMWolfos);
-                sSFMWolfos = NULL;
-            }
-        }
-        if (sSFMWolfos != NULL && sSFMWolfos->update == NULL && sSFMWolfos->draw == NULL) {
-            Flags_SetSwitch(gGlobalContext, 0x1F);
-            sSFMWolfos = NULL;
-        }
-    } else if (gGlobalContext->sceneNum == SCENE_DODONGOS_CAVERN && gGlobalContext->roomNum == 3) {
-        // Miniboss room: open the correct doors when the enemies are defeated.
-        if (isAfterRoomLoad) {
-            Actor* enemy = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
-            while (enemy != NULL) {
-                if (enemy->room == 0x3) {
-                    if (enemy->world.pos.y < 200.0) {
-                        if (Flags_GetSwitch(gGlobalContext, 5)) {
-                            Actor_Kill(enemy);
-                        } else if (sLizalfos1 == NULL) {
-                            sLizalfos1 = enemy;
-                        } else {
-                            sLizalfos2 = enemy;
-                        }
-                    } else {
-                        if (Flags_GetSwitch(gGlobalContext, 6) || !Flags_GetSwitch(gGlobalContext, 5) ||
-                            PLAYER->actor.world.pos.y < 200.0) {
-                            Actor_Kill(enemy);
-                        } else if (sLizalfos1 == NULL) {
-                            sLizalfos1 = enemy;
-                        } else {
-                            sLizalfos2 = enemy;
-                        }
-                    }
-                }
-                enemy = enemy->next;
-            }
-        }
-
-        if (sLizalfos1 != NULL && sLizalfos1->update == NULL && sLizalfos1->draw == NULL) {
-            sDefeated1 = TRUE;
-            sLizalfos1 = NULL;
-        }
-
-        if (sLizalfos2 != NULL && sLizalfos2->update == NULL && sLizalfos2->draw == NULL) {
-            sDefeated2 = TRUE;
-            sLizalfos2 = NULL;
-        }
-
-        if (sDefeated1 && sDefeated2) {
-            u32 flag = Flags_GetSwitch(gGlobalContext, 5) ? 6 : 5;
-            Flags_SetSwitch(gGlobalContext, flag);
-            sDefeated1 = sDefeated2 = FALSE;
-        }
-    }
-}
-
 // Called once per room load, after all actor entries have been spawned.
 void Enemizer_AfterActorSetup(void) {
     if (gSettingsContext.enemizer == OFF) {
@@ -456,10 +464,7 @@ void Enemizer_AfterActorSetup(void) {
         Enemizer_SpawnObjectsForActor(enemySpawnerOvr.actorId, enemySpawnerOvr.params);
     }
 
-    Enemizer_HandleClearConditions(TRUE);
-
-    // Check if music should stop when loading another room.
-    Enemizer_HandleMiniBossBattleTheme();
+    sRoomLoadSignal = TRUE;
 }
 
 // Run special checks on every frame
@@ -468,10 +473,8 @@ void Enemizer_Update(void) {
         return;
     }
 
-    Enemizer_HandleClearConditions(FALSE);
+    Enemizer_HandleClearConditions();
+    Enemizer_HandleMiniBossBattleTheme();
 
-    // CsMode check is for Big Octo, which turns into a prop temporarily on spawn.
-    if (!Player_InCsMode(gGlobalContext)) {
-        Enemizer_HandleMiniBossBattleTheme();
-    }
+    sRoomLoadSignal = FALSE;
 }
