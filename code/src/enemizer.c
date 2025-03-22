@@ -449,7 +449,9 @@ EnemyOverride Enemizer_GetSpawnerOverride(void) {
 // don't stop it when leaving the room.
 // This function will stop the battle theme if there are no more mini bosses loaded.
 static void Enemizer_HandleMiniBossBattleTheme(void) {
-    if (Audio_GetActiveSeqId(0) == BGM_MINI_BOSS) {
+    // Always check if music should stop when loading another room, otherwise only check if player is not
+    // in cutscene mode because Big Octo turns into a prop temporarily during its intro cutscene.
+    if (Audio_GetActiveSeqId(0) == BGM_MINI_BOSS && (sRoomLoadSignal || !Player_InCsMode(gGlobalContext))) {
         u8 shouldKeepMiniBossBGM = FALSE;
         Actor* enemy             = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
         for (; enemy != NULL && !shouldKeepMiniBossBGM; enemy = enemy->next) {
@@ -576,9 +578,6 @@ void Enemizer_AfterActorSetup(void) {
     }
 
     sRoomLoadSignal = TRUE;
-
-    // Check if music should stop when loading another room.
-    Enemizer_HandleMiniBossBattleTheme();
 }
 
 // Run special checks on every frame
@@ -588,11 +587,7 @@ void Enemizer_Update(void) {
     }
 
     Enemizer_HandleClearConditions();
-
-    // CsMode check is for Big Octo, which turns into a prop temporarily on spawn.
-    if (!Player_InCsMode(gGlobalContext)) {
-        Enemizer_HandleMiniBossBattleTheme();
-    }
+    Enemizer_HandleMiniBossBattleTheme();
 
     sRoomLoadSignal = FALSE;
 }
