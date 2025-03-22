@@ -229,7 +229,7 @@ static void Enemizer_MoveSpecificLocations(ActorEntry* actorEntry, s32 actorEntr
         case LOC(3, 0, 19, 0, DUNGEONMODE_MQ):
         case LOC(3, 0, 20, 2, DUNGEONMODE_VANILLA):
         case LOC(3, 0, 20, 2, DUNGEONMODE_MQ):
-            // Move the wallmasters in the Forest Temple rotating hallways down to the center of the room.
+            // Move the wallmasters in the Forest Temple twisted hallways down to the center of the room.
             // These locations should still be restricted to flying enemies because of how the room rotates
             // as the player approaches.
             actorEntry->pos.y = 1278;

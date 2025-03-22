@@ -500,8 +500,8 @@ void InitEnemyLocations(void) {
         enemyLocations[3][0][17][0]      = EnemyLocation(ENEMY_SKULLTULA,          LocType::ABOVE_GROUND);
         enemyLocations[3][0][18][0]      = EnemyLocation(ENEMY_FLOORMASTER,        LocType::ABOVE_GROUND);
         enemyLocations[3][0][19][0]      = EnemyLocation(ENEMY_WALLMASTER,         LocType::ABOVE_VOID);
-        enemyLocations[3][0][20][0]      = EnemyLocation(ENEMY_BUBBLE_GREEN,       LocType::ABOVE_GROUND);
-        enemyLocations[3][0][20][1]      = EnemyLocation(ENEMY_BUBBLE_GREEN,       LocType::ABOVE_GROUND);
+        enemyLocations[3][0][20][0]      = EnemyLocation(ENEMY_BUBBLE_GREEN,       LocType::ABOVE_VOID);
+        enemyLocations[3][0][20][1]      = EnemyLocation(ENEMY_BUBBLE_GREEN,       LocType::ABOVE_VOID);
         enemyLocations[3][0][20][2]      = EnemyLocation(ENEMY_WALLMASTER,         LocType::ABOVE_VOID);
         enemyLocations[3][0][21][0]      = EnemyLocation(ENEMY_BUBBLE_BLUE,        LocType::ABOVE_GROUND);
         enemyLocations[3][0][21][1]      = EnemyLocation(ENEMY_BUBBLE_BLUE,        LocType::ABOVE_GROUND);
@@ -1052,8 +1052,8 @@ void InitEnemyLocations(void) {
         enemyLocations[3][0][17][1]      = EnemyLocation(ENEMY_SKULLTULA,          LocType::ABOVE_GROUND);
         enemyLocations[3][0][18][0]      = EnemyLocation(ENEMY_REDEAD,             LocType::ABOVE_GROUND);
         enemyLocations[3][0][19][0]      = EnemyLocation(ENEMY_WALLMASTER,         LocType::ABOVE_VOID);
-        enemyLocations[3][0][20][0]      = EnemyLocation(ENEMY_BUBBLE_GREEN,       LocType::ABOVE_GROUND);
-        enemyLocations[3][0][20][1]      = EnemyLocation(ENEMY_BUBBLE_GREEN,       LocType::ABOVE_GROUND);
+        enemyLocations[3][0][20][0]      = EnemyLocation(ENEMY_BUBBLE_GREEN,       LocType::ABOVE_VOID);
+        enemyLocations[3][0][20][1]      = EnemyLocation(ENEMY_BUBBLE_GREEN,       LocType::ABOVE_VOID);
         enemyLocations[3][0][20][2]      = EnemyLocation(ENEMY_WALLMASTER,         LocType::ABOVE_VOID);
         enemyLocations[3][0][21][0]      = EnemyLocation(ENEMY_FLOORMASTER,        LocType::ABOVE_GROUND);
     }
