@@ -34,4 +34,6 @@ typedef struct EnDodojr {
 } EnDodojr; // size = 0x520
 _Static_assert(sizeof(EnDodojr) == 0x520, "EnDodojr size");
 
+void EnDodojr_rInit(Actor* thisx, GlobalContext* globalCtx);
+
 #endif //_DODONGOS_H_
