@@ -741,21 +741,6 @@ bool CanDoGlitch(GlitchType glitch, GlitchDifficulty difficulty) {
     return false;
 }
 
-bool CanDefeatEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry, u16 vanillaActorId, u16 vanillaActorParams /*= 0x0000*/) {
-    u16 actorId = vanillaActorId;
-    // u16 actorParams = vanillaActorParams;
-    Enemizer::EnemyLocation loc = Enemizer::enemyLocations[scene][layer][room][actorEntry];
-    if (loc.randomizedEnemy.actorId != 0) {
-        actorId = loc.randomizedEnemy.actorId;
-        // actorParams = loc.randomizedParams;
-    }
-
-    switch (actorId) {
-        default:
-            return true;
-    }
-}
-
 // Updates all logic helpers. Should be called whenever a non-helper is changed
 void UpdateHelpers() {
     NumBottles      = ((NoBottles) ? 0 : (Bottles + ((DeliverLetter) ? 1 : 0)));
