@@ -14,6 +14,7 @@
 #include "entrance.hpp"
 #include "shops.hpp"
 #include "debug.hpp"
+#include "enemizer.hpp"
 
 #include <vector>
 #include <unistd.h>
@@ -999,6 +1000,7 @@ int Fill() {
         GenerateStartingInventory();
         RemoveStartingItemsFromPool();
         FillExcludedLocations();
+        Enemizer::RandomizeEnemies();
 
         // Temporarily add shop items to the ItemPool so that entrance randomization
         // can validate the world using deku/hylian shields

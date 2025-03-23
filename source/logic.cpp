@@ -11,6 +11,7 @@
 #include "dungeon.hpp"
 #include "descriptions.hpp"
 #include "ocarina_notes.hpp"
+#include "enemizer.hpp"
 
 using namespace Settings;
 
