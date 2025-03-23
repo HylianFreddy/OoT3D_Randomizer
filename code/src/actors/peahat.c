@@ -25,5 +25,9 @@ void EnPeehat_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         if (this->state == STATE_SEEK_PLAYER && thisx->world.pos.y < PLAYER->actor.world.pos.y) {
             Math_SmoothStepToF(&thisx->world.pos.y, PLAYER->actor.world.pos.y, 3, 5.0, 0);
         }
+
+        // Vanilla code doesn't check for ceilings.
+        Actor_UpdateBgCheckInfo(globalCtx, thisx, 25.0f, 30.0f, 100.0f,
+                                UPDBGCHECKINFO_WALL | UPDBGCHECKINFO_CEILING | UPDBGCHECKINFO_FLOOR_WATER);
     }
 }
