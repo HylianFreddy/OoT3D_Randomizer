@@ -279,8 +279,7 @@ static void Enemizer_MoveSpecificLocations(ActorEntry* actorEntry, s32 actorEntr
             break;
         case LOC(7, 0, 9, 1, DUNGEONMODE_VANILLA):
         case LOC(7, 0, 9, 5, DUNGEONMODE_MQ):
-            // If the fire bubble in the shadow temple cavern is not vanilla, raise it a bit as most other enemies would
-            // spawn down in the void and could just be ignored.
+            // Raise the fire bubble in the shadow temple cavern if it is not vanilla
             if (actorEntry->id != ACTOR_BUBBLE || actorEntry->params != 0xFFFE) {
                 actorEntry->pos.y = -1080;
             }
@@ -302,6 +301,10 @@ static void Enemizer_MoveSpecificLocations(ActorEntry* actorEntry, s32 actorEntr
             actorEntry->pos.x = -2700;
             actorEntry->pos.y = -1360;
             actorEntry->pos.z = -1570;
+            break;
+        case LOC(8, 0, 0, 0, DUNGEONMODE_VANILLA):
+            // Move a skulltula in BOTW down inside the room
+            actorEntry->pos.y = 75;
             break;
         case LOC(8, 0, 0, 4, DUNGEONMODE_VANILLA):
             // Move the wallmaster in the central room of BOTW so it doesn't raycast down into the basement
