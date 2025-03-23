@@ -358,6 +358,13 @@ static void Enemizer_MoveSpecificEnemies(ActorEntry* actorEntry) {
     // If there is a water box, set yWaterSurface.
     waterBoxFound = WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z,
                                             &yWaterSurface, &waterBox);
+
+    // In Lake Hylia, hardcode yWaterSurface because it might not be correct when the actor entries are spawned.
+    if (waterBoxFound && gGlobalContext->sceneNum == SCENE_LAKE_HYLIA) {
+        // There are no enemies on the river coming from Gerudo Valley, so always use the main waterbox height.
+        yWaterSurface = gSaveContext.eventChkInf[6] & 0x0200 ? -1313.0 : -1993.0;
+    }
+
     // Ignore water boxes below the ground.
     if (waterBoxFound && yWaterSurface < yGroundIntersect) {
         waterBoxFound = FALSE;
