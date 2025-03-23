@@ -2254,6 +2254,12 @@ PlayInit_patch:
 TitleLinkObject_patch:
     .word 0xFFFF0014
 
+.section .patch_Room_StartTransition
+    bl hook_Room_StartTransition
+
+.section .patch_Actor_Spawn
+    bl hook_Actor_Spawn
+
 .section .patch_ExtendObjectGetSlot
 .global ExtendObjectGetSlot_patch
 ExtendObjectGetSlot_patch:
@@ -2273,6 +2279,11 @@ Cutscene_CheckObjectLoaded_patch:
 .global AfterObjectListCommand_patch
 AfterObjectListCommand_patch:
     bl hook_AfterObjectListCommand
+
+.section .patch_SceneCommandActorEntryList
+.global SceneCommandActorEntryList_patch
+SceneCommandActorEntryList_patch:
+    b hook_SceneCommandActorEntryList
 
 .section .patch_GetObjectEntry_33AB24
 .global GetObjectEntry_33AB24_patch

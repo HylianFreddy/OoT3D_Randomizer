@@ -882,7 +882,7 @@ EntrancesByScene Entrances_HyruleField = {
 EntrancesByScene Entrances_IceCavern = {
     "Ice Cavern",
     .nbItems = 2,
-    .initialCursorPos = 3,
+    .initialCursorPos = 4,
     {
         {0x0088, "From Zora's Fountain"},
         {0x05D8, "[Unused] Near Block Puzzle Room"},
@@ -1000,7 +1000,7 @@ EntrancesByScene Entrances_KnowItAllBrothersHouse = {
 EntrancesByScene Entrances_KokiriForest = {
     "Kokiri Forest",
     .nbItems = 13,
-    .initialCursorPos = 3,
+    .initialCursorPos = 10,
     {
         {0x00EE, "Main Cutscene Entrance"},
         {0x0209, "From Inside the Deku Tree"},
@@ -1030,7 +1030,7 @@ EntrancesByScene Entrances_KokiriShop = {
 EntrancesByScene Entrances_LakeHylia = {
     "Lake Hylia",
     .nbItems = 10,
-    .initialCursorPos = 3,
+    .initialCursorPos = 11,
     {
         {0x0102, "From Hyrule Field"},
         {0x0219, "From Gerudo Valley"},

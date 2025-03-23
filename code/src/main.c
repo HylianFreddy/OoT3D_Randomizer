@@ -43,6 +43,8 @@ void Randomizer_Init() {
 }
 
 void before_Play_Init(GlobalContext* globalCtx) {
+    CitraPrint("________________");
+    CitraPrint("before_Play_Init");
     if (!rRandomizerInit) {
         Randomizer_Init();
         rRandomizerInit = 1;
@@ -54,6 +56,7 @@ void before_Play_Init(GlobalContext* globalCtx) {
 void autoLoadSaveFile();
 
 void before_GlobalContext_Update(GlobalContext* globalCtx) {
+    // CitraPrint("before_GlobalContext_Update");
     rGameplayFrames++;
     ItemOverride_Update();
     ExtendedObject_UpdateEntries();
@@ -66,6 +69,11 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
     ItemEffect_RupeeAmmo(&gSaveContext);
     Triforce_HandleCreditsWarp();
     Enemizer_Update();
+
+    // if (rInputCtx.pressed.zr) {
+    //     Vec3f pos = PLAYER->actor.world.pos;
+    //     Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x95, pos.x, pos.y, pos.z, 0, 0, 0, 0x8201, FALSE);
+    // }
 }
 
 void autoLoadSaveFile() {
@@ -93,6 +101,7 @@ s32 checkFastForward(void) {
 }
 
 void after_GlobalContext_Update() {
+    // CitraPrint("after_GlobalContext_Update");
     // The alert is always displayed on the Title Screen, and for 10 seconds after opening a save file.
     if (missingRomfsAlert && romfsAlertFrames > 0) {
         Draw_DrawFormattedStringTop(75, 180, COLOR_WHITE,
@@ -106,6 +115,7 @@ void after_GlobalContext_Update() {
     Multiplayer_Sync_Update();
 
     if (gGlobalContext->state.running == 0) {
+        CitraPrint("state.running == 0");
         Model_DestroyAll();
     }
 }

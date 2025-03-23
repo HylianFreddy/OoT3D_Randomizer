@@ -124,7 +124,7 @@ void InitOptions(void) {
     strcpy(options[opNum].description, "");
     options[opNum++].optionPointer = &gExtSaveData.option_Spoilers;
 
-    // Enemizer
+    // Enemizer Seed Salt
     altNum = 0;
     strcpy(options[opNum].name, "Enemizer");
     strcpy(options[opNum].alternatives[altNum++], "Off");

@@ -19,6 +19,13 @@ enum class LocType {
     SPAWNER,       // Location is a grounded enemy spawner (stalchildren, leevers).
 };
 
+// Enemy requirements to pass to the patch to edit the ActorEntry at runtime.
+enum class EnemyRequirement {
+    ON_GROUND,        // Ground-based enemy that doesn't work in mid-air, it should be spawned at ground level.
+    AT_WATER_SURFACE, // Water-based enemy that doesn't work in mid-air, it should be spawned at water surface.
+    IN_MID_AIR,       // Flying enemy that doesn't work at ground level, it should be spawned up in the air.
+};
+
 typedef enum EnemyId {
     ENEMY_POE,
     ENEMY_STALFOS,
@@ -101,7 +108,14 @@ class EnemyType {
     std::string name;
     u16 actorId;
     std::vector<u16> possibleParams; // Values to randomly select as actor params, without affecting the logic.
+    // std::string filter_func;
+    // ConditionFn killLogic;
     std::vector<LocType> validLocTypes;
+    // std::vector<LocType> acceptableLocationConditions;
+    // std::vector<LocType> requiredLocationConditions;
+    // std::string weight;
+    // std::string drop_logic;
+    // std::string soulName;
 };
 
 class EnemyLocation {

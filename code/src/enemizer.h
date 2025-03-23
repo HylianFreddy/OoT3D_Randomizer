@@ -5,6 +5,20 @@
 
 #define ENEMY_OVERRIDES_MAX 700
 
+#define REQ_ON_GROUND (1 << 0)
+#define REQ_ABOVE_GROUND (1 << 1)
+#define REQ_ABOVE_GROUND_IN_AIR (1 << 2)
+#define REQ_WATER (1 << 3)
+#define REQ_WATER_SURFACE (1 << 4)
+#define REQ_NO_WATER (1 << 5)
+#define REQ_FLYING (1 << 6)
+
+typedef struct EnemyData {
+    s16 actorId;
+    s16 params;
+    u8 requirements;
+} EnemyData;
+
 typedef struct EnemyActorData {
     s16 actorId;
     s16 actorParams;

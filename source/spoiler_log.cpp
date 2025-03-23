@@ -725,6 +725,7 @@ static void WriteHints(tinyxml2::XMLDocument& spoilerLog) {
 // Writes the randomized enemies to the spoiler log.
 static void WriteRandomizedEnemies(tinyxml2::XMLDocument& spoilerLog) {
     using namespace Enemizer;
+    CitraPrint("Writing enemies to spoiler log...");
 
     if (!Settings::Enemizer) {
         return;
@@ -806,6 +807,7 @@ static void WriteRandomizedEnemies(tinyxml2::XMLDocument& spoilerLog) {
     }
 
     spoilerLog.RootElement()->InsertEndChild(parentNode);
+    CitraPrint("Spoiler log done!");
 }
 
 static void WriteAllLocations(tinyxml2::XMLDocument& spoilerLog, const bool collapsible = false) {
