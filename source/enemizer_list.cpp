@@ -117,7 +117,7 @@ void InitEnemyTypes(void) {
     enemyTypes[ENEMY_SKULL_KID] = EnemyType("Skull Kid", ACTOR_SKULL_KID, { 0xFFFF },
         { LocType::ABOVE_GROUND, LocType::SHALLOW_WATER });
     enemyTypes[ENEMY_FLYING_POT] = EnemyType("Flying Pot", ACTOR_FLYING_POT, { 0x0000 },
-        { LocType::ABOVE_GROUND, LocType::UNDERWATER, LocType::SHALLOW_WATER });
+        { LocType::ABOVE_GROUND, LocType::SHALLOW_WATER });
     enemyTypes[ENEMY_FREEZARD] = EnemyType("Freezard", ACTOR_FREEZARD, { 0x0000, 0xFFFF }, // normal / appears and moves when approached
         { LocType::ABOVE_GROUND, LocType::UNDERWATER, LocType::SHALLOW_WATER });
     enemyTypes[ENEMY_STINGER_WATER] = EnemyType("Stinger (Water)", ACTOR_STINGER_WATER, { 0x0000 },
