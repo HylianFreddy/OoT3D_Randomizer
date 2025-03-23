@@ -38,7 +38,7 @@ void InitEnemyTypes(void) {
         { LocType::ABOVE_GROUND, LocType::SHALLOW_WATER });
     enemyTypes[ENEMY_DINOLFOS] = EnemyType("Dinolfos", ACTOR_LIZALFOS, { 0xFFFE },
         { LocType::ABOVE_GROUND, LocType::SHALLOW_WATER });
-    enemyTypes[ENEMY_GOHMA_LARVA] = EnemyType("Gohma Larva", ACTOR_GOHMA_LARVA, { 0x0000, 0x0007 }, // egg that drops and hatches / normal egg
+    enemyTypes[ENEMY_GOHMA_LARVA] = EnemyType("Gohma Larva", ACTOR_GOHMA_LARVA, { 0x0000, 0x0007 }, // egg that drops and hatches / stationary egg
         { LocType::ABOVE_GROUND, LocType::UNDERWATER, LocType::SHALLOW_WATER, LocType::SPAWNER });
     enemyTypes[ENEMY_SHABOM] = EnemyType("Shabom", ACTOR_SHABOM, { 0x0000 },
         { LocType::ABOVE_GROUND, LocType::UNDERWATER, LocType::ABOVE_WATER, LocType::SHALLOW_WATER, LocType::SPAWNER });
