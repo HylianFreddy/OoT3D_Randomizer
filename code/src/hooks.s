@@ -28,6 +28,15 @@ hook_after_GlobalContext_Update:
     pop {r0-r12, lr}
     b 0x2E25F0
 
+.global hook_DrawScreen
+hook_DrawScreen:
+    push {r0-r12, lr}
+    bl checkFastForward
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    beq 0x418B88 @ handles drawing screen
+    bx lr
+
 .global hook_Gfx_Update
 hook_Gfx_Update:
     push {r0-r12, lr}
@@ -1749,6 +1758,15 @@ hook_AboutToPickUpActor:
     cmp r0,#0x0
     pop {r0-r12,lr}
     subeq lr,lr,#0x8
+    bx lr
+
+.global hook_GoronPotGuaranteeReward
+hook_GoronPotGuaranteeReward:
+    mov r3,#0x0
+    push {r0-r12, lr}
+    cpy r0,r4
+    bl BgSpot18Basket_SetRotation
+    pop {r0-r12, lr}
     bx lr
 
 .global hook_TargetReticleColor

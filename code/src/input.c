@@ -11,7 +11,12 @@
 InputContext rInputCtx;
 
 void Input_Update(void) {
+    irrstScanInput();
+    u32 zKeys = irrstKeysHeld();
+
     rInputCtx.cur.val      = real_hid.pad.pads[real_hid.pad.index].curr.val;
+    rInputCtx.cur.zl = (zKeys >> 14) & 1;
+    rInputCtx.cur.zr = (zKeys >> 15) & 1;
     rInputCtx.pressed.val  = (rInputCtx.cur.val) & (~rInputCtx.old.val);
     rInputCtx.up.val       = (~rInputCtx.cur.val) & (rInputCtx.old.val);
     rInputCtx.old.val      = rInputCtx.cur.val;
@@ -20,7 +25,6 @@ void Input_Update(void) {
     rInputCtx.touchPressed = real_hid.touch.touches[real_hid.touch.index].updated && !rInputCtx.touchHeld;
     rInputCtx.touchHeld    = real_hid.touch.touches[real_hid.touch.index].updated;
 
-    irrstScanInput();
     irrstCstickRead(&(rInputCtx.cStick));
 }
 

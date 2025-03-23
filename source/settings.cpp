@@ -14,6 +14,8 @@
 #include "trial.hpp"
 #include "keys.hpp"
 #include "gold_skulltulas.hpp"
+#include "ocarina_notes.hpp"
+#include "commit_string.h"
 
 #define CREATE_SOULMENUNAMES
 #include "../code/src/enemy_souls.h"
@@ -26,7 +28,7 @@ using namespace SFX;
 
 namespace Settings {
 std::string seed;
-std::string version = RANDOMIZER_VERSION "-" COMMIT_NUMBER;
+std::string version = RANDOMIZER_VERSION "-" COMMIT_STRING;
 std::array<u8, 5> hashIconIndexes;
 
 std::vector<std::string> NumOpts(int min, int max, int step = 1, std::string textBefore = {},
@@ -98,7 +100,7 @@ Option RandomizeWorld            = Option::Bool("Randomize Settings",     {"No",
 Option StartingAge               = Option::U8  ("Starting Age",           {"Adult", "Child", "Random"},                                      {ageDesc},                                                                                                       OptionCategory::Setting,    AGE_CHILD);
 u8 ResolvedStartingAge;
 Option ShuffleEntrances          = Option::Bool("Shuffle Entrances",       {"Off", "On"},                                                    {shuffleEntrancesDesc});
-Option ShuffleDungeonEntrances   = Option::U8  (2, "Dungeon Entrances",    {"Off", "On", "On + Ganon"},                                      {dungeonEntrancesDesc});
+Option ShuffleDungeonEntrances   = Option::U8  (2, "Dungeon Entrances",    {"Off", "On (no Ganon)", "On + Ganon"},                           {dungeonEntrancesDesc});
 Option ShuffleBossEntrances      = Option::U8  (2, "Boss Entrances",       {"Off", "Age Restricted", "Full"},                                {bossEntrancesDesc});
 Option ShuffleOverworldEntrances = Option::Bool(2, "Overworld Entrances",  {"Off", "On"},                                                    {overworldEntrancesDesc});
 Option ShuffleInteriorEntrances  = Option::U8  (2, "Interior Entrances",   {"Off", "Simple", "All"},                                         {interiorEntrancesOff, interiorEntrancesSimple, interiorEntrancesAll});
@@ -113,7 +115,7 @@ Option MixInteriors              = Option::Bool(4, "Mix Interiors",        {"Off
 Option MixGrottos                = Option::Bool(4, "Mix Grottos",          {"Off", "On"},                                                    {mixGrottosDesc});
 Option DecoupleEntrances         = Option::Bool(2, "Decouple Entrances",   {"Off", "On"},                                                    {decoupledEntrancesDesc});
 Option BombchusInLogic           = Option::Bool("Bombchus in Logic",       {"Off", "On"},                                                    {bombchuLogicDesc});
-Option AmmoDrops                 = Option::U8  ("Ammo Drops",              {"On", "On + Bombchu", "Off"},                                    {defaultAmmoDropsDesc, bombchuDropsDesc, noAmmoDropsDesc},                                                       OptionCategory::Setting,    AMMODROPS_BOMBCHU);
+Option AmmoDrops                 = Option::U8  ("Ammo Drops",              {"On (Vanilla)", "On (+Bombchus)", "Disabled"},                   {defaultAmmoDropsDesc, bombchuDropsDesc, noAmmoDropsDesc},                                                       OptionCategory::Setting,    AMMODROPS_BOMBCHU);
 Option HeartDropRefill           = Option::U8  ("Heart Drops and Refills", {"On", "No Drop", "No Refill", "Off"},                            {defaultHeartDropsDesc, noHeartDropsDesc, noHeartRefillDesc, scarceHeartsDesc},                                  OptionCategory::Setting,    HEARTDROPREFILL_VANILLA);
 Option MQDungeonCount            = Option::U8  ("MQ Dungeon Count",        {MultiVecOpts({NumOpts(0, 12), {"Random"}})},                     {mqDungeonCountDesc});
 u8 MQSet;
@@ -451,6 +453,7 @@ Option HyperEnemies        = Option::Bool(2, "Hyper Enemies",       {"Off", "On"
 Option FreeCamera          = Option::Bool("Free Camera",            {"Off", "On"},                                                          {freeCamDesc},                                                                                                    OptionCategory::Setting,    ON);
 Option RandomGsLocations   = Option::Bool("Random GS Locations",    {"Off", "On"},                                                          {randomGsLocationsDesc});
 Option GsLocGuaranteeNew   = Option::Bool(2, "Guarantee New",       {"Off", "On"},                                                          {gsLocGuaranteeNewDesc});
+Option RandomSongNotes     = Option::Bool("Random Ocarina Melodies",{"Off", "On"},                                                          {randomSongNotesDesc});
 std::vector<Option*> gameplayOptions = {
     &FastBunnyHood,
     &KeepFWWarpPoint,
@@ -469,6 +472,7 @@ std::vector<Option*> gameplayOptions = {
     &FreeCamera,
     &RandomGsLocations,
     &GsLocGuaranteeNew,
+    &RandomSongNotes,
 };
 
 // Excluded Locations (Individual definitions made in ItemLocation class)
@@ -1549,6 +1553,7 @@ SettingsContext FillContext() {
     ctx.hyperMiddleBosses   = (HyperMiddleBosses) ? 1 : 0;
     ctx.hyperEnemies        = (HyperEnemies) ? 1 : 0;
     ctx.freeCamera          = (FreeCamera) ? 1 : 0;
+    ctx.randomSongNotes     = (RandomSongNotes) ? 1 : 0;
 
     ctx.faroresWindAnywhere  = (FaroresWindAnywhere) ? 1 : 0;
     ctx.stickAsAdult         = (StickAsAdult) ? 1 : 0;
@@ -3144,6 +3149,8 @@ void UpdateSettings() {
     } else {
         LACSCondition = LACSCONDITION_VANILLA;
     }
+
+    GenerateSongList();
 
     UpdateCosmetics();
 
