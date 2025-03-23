@@ -77,6 +77,7 @@
 #include "peahat.h"
 #include "stinger.h"
 #include "flying_traps.h"
+#include "dodongos.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -132,6 +133,8 @@ void Actor_Init() {
 
     gActorOverlayTable[0x2E].initInfo->init   = DoorShutter_rInit;
     gActorOverlayTable[0x2E].initInfo->update = (ActorFunc)DoorShutter_rUpdate;
+
+    gActorOverlayTable[0x2F].initInfo->init = EnDodojr_rInit;
 
     gActorOverlayTable[0x33].initInfo->type   = ACTORTYPE_ENEMY;
     gActorOverlayTable[0x33].initInfo->update = EnTorch2_rUpdate;

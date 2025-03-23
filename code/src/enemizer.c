@@ -18,17 +18,17 @@ static u8 sRoomLoadSignal        = FALSE;
 
 // Enemies that need to spawn at ground level to work properly.
 static EnemyActorData sGroundedEnemies[] = {
-    { .actorId = ACTOR_STALFOS, .actorParams = 0x0002 },
+    { .actorId = ACTOR_STALFOS, .actorParams = 0x0002 }, // Rises from ground
     { .actorId = ACTOR_DODONGO, .anyParams = TRUE },
     { .actorId = ACTOR_LEEVER, .anyParams = TRUE },
-    { .actorId = ACTOR_GOHMA_LARVA, .actorParams = 0x0007 },
+    { .actorId = ACTOR_GOHMA_LARVA, .actorParams = 0x0007 }, // Stationary egg
     { .actorId = ACTOR_BABY_DODONGO, .anyParams = TRUE },
     { .actorId = ACTOR_DARK_LINK, .anyParams = TRUE },
     { .actorId = ACTOR_TAILPASARAN, .anyParams = TRUE },
     { .actorId = ACTOR_STINGER_FLOOR, .anyParams = TRUE },
     { .actorId = ACTOR_DEKU_BABA, .anyParams = TRUE },
     { .actorId = ACTOR_MAD_SCRUB, .anyParams = TRUE },
-    { .actorId = ACTOR_BUBBLE, .actorParams = 0xFFFE },
+    { .actorId = ACTOR_BUBBLE, .actorParams = 0xFFFE }, // Fire Bubble
     { .actorId = ACTOR_FLYING_FLOOR_TILE, .anyParams = TRUE },
     { .actorId = ACTOR_BEAMOS, .anyParams = TRUE },
     { .actorId = ACTOR_REDEAD, .anyParams = TRUE },
@@ -140,7 +140,7 @@ static void Enemizer_MoveSpecificLocations(ActorEntry* actorEntry, s32 actorEntr
         case LOC(3, 0, 19, 0, DUNGEONMODE_MQ):
         case LOC(3, 0, 20, 2, DUNGEONMODE_VANILLA):
         case LOC(3, 0, 20, 2, DUNGEONMODE_MQ):
-            // Move the wallmasters in the Forest Temple rotating hallways down to the center of the room.
+            // Move the wallmasters in the Forest Temple twisted hallways down to the center of the room.
             // These locations should still be restricted to flying enemies because of how the room rotates
             // as the player approaches.
             actorEntry->pos.y = 1278;
@@ -170,6 +170,35 @@ static void Enemizer_MoveSpecificLocations(ActorEntry* actorEntry, s32 actorEntr
         case LOC(6, 0, 27, 7, DUNGEONMODE_MQ):
             // Move the stalfos in MQ Child spirit down onto the platform
             actorEntry->pos.y = 50;
+            break;
+        case LOC(7, 0, 8, 0, DUNGEONMODE_VANILLA):
+            // Move a skulltula in shadow temple corridor down inside the room
+            actorEntry->pos.y = -500;
+            break;
+        case LOC(7, 0, 8, 1, DUNGEONMODE_VANILLA):
+            // Move a skulltula in shadow temple corridor down inside the room
+            actorEntry->pos.y = -600;
+            break;
+        case LOC(7, 0, 8, 2, DUNGEONMODE_VANILLA):
+            // Move a skulltula in shadow temple corridor down inside the room
+            actorEntry->pos.y = -700;
+            break;
+        case LOC(7, 0, 8, 3, DUNGEONMODE_VANILLA):
+        case LOC(7, 0, 8, 1, DUNGEONMODE_MQ):
+            // Move a skulltula in shadow temple corridor down inside the room
+            actorEntry->pos.y = -750;
+            break;
+        case LOC(7, 0, 9, 1, DUNGEONMODE_VANILLA):
+        case LOC(7, 0, 9, 5, DUNGEONMODE_MQ):
+            // If the fire bubble in the shadow temple cavern is not vanilla, raise it a bit as most other enemies would
+            // spawn down in the void and could just be ignored.
+            if (actorEntry->id != ACTOR_BUBBLE || actorEntry->params != 0xFFFE) {
+                actorEntry->pos.y = -1080;
+            }
+            break;
+        case LOC(7, 0, 9, 2, DUNGEONMODE_VANILLA):
+            // Move the wallmaster in shadow temple cavern down inside the room
+            actorEntry->pos.y = -870;
             break;
         case LOC(7, 0, 21, 13, DUNGEONMODE_VANILLA):
         case LOC(7, 0, 21, 16, DUNGEONMODE_MQ):
@@ -240,6 +269,13 @@ static void Enemizer_MoveSpecificEnemies(ActorEntry* actorEntry) {
     // If there is a water box, set yWaterSurface.
     waterBoxFound = WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z,
                                             &yWaterSurface, &waterBox);
+
+    // In Lake Hylia, hardcode yWaterSurface because it might not be correct when the actor entries are spawned.
+    if (waterBoxFound && gGlobalContext->sceneNum == SCENE_LAKE_HYLIA) {
+        // There are no enemies on the river coming from Gerudo Valley, so always use the main waterbox height.
+        yWaterSurface = gSaveContext.eventChkInf[6] & 0x0200 ? -1313.0 : -1993.0;
+    }
+
     // Ignore water boxes below the ground.
     if (waterBoxFound && yWaterSurface < yGroundIntersect) {
         waterBoxFound = FALSE;
