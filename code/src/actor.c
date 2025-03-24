@@ -225,6 +225,8 @@ void Actor_Init() {
 
     gActorOverlayTable[0x11B].initInfo->update = NULL;
 
+    gActorOverlayTable[0x11D].initInfo->type = ACTORTYPE_ENEMY; // Flying Pot
+
     gActorOverlayTable[0x126].initInfo->init   = (ActorFunc)ObjBean_rInit;
     gActorOverlayTable[0x126].initInfo->update = (ActorFunc)ObjBean_rUpdate;
 

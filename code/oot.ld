@@ -508,8 +508,8 @@ SECTIONS
 		*(.patch_BombchuShopAlwaysOpen)
 	}
 
-	.patch_LeeverSkipChangeCategory 0x1DE010 : {
-		*(.patch_LeeverSkipChangeCategory)
+	.patch_LeeverDontChangeCategory 0x1DE010 : {
+		*(.patch_LeeverDontChangeCategory)
 	}
 
 	.patch_LeeverSandCheck_Init 0x1DE078 : {
@@ -1326,6 +1326,10 @@ SECTIONS
 
 	.patch_ShadowShip_CSTimer 0x3E6C50 : {
 		*(.patch_ShadowShip_CSTimer)
+	}
+
+	.patch_FlyingPotDontChangeCategory 0x3E7008 : {
+		*(.patch_FlyingPotDontChangeCategory)
 	}
 
 	.patch_FairyReward 0x3E7598 : {
