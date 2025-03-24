@@ -8,7 +8,7 @@
 #include "z3Dcutscene.h"
 #include "z3Ditem.h"
 #include "z3Dmath.h"
-#include "z3DbgCheck.h"
+#include "z3Dbgcheck.h"
 #include "z3Dscene.h"
 #include "z3Dactor_id.h"
 
