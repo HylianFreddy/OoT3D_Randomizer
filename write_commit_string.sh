@@ -1,7 +1,7 @@
 # This script writes a #define macro with the current commit hash to `source/commit_string.h`.
 # The macro is used to show the randomizer version in the menu.
 
-commit_string=$(git show --no-patch --format=format:"%h")
+commit_string=dev-$(git show --no-patch --format=format:"%h")
 
 # If there are uncommitted changes, add a marker to the string.
 if ([[ -n $(git status --porcelain) ]])
