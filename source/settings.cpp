@@ -135,6 +135,7 @@ Option MQCastle                  = Option::U8  (2, "Ganon's Castle",      {"Vani
 Option TriforceHunt              = Option::Bool("Triforce Hunt",          {"Off", "On"},                                                     {triforceHuntDesc});
 Option TriforcePiecesTotal       = Option::U8  (2, "Total pieces",        {NumOpts(1, 200)},                                                 {triforcePiecesTotalDesc},                                                                                       OptionCategory::Setting,    29);
 Option TriforcePiecesRequired    = Option::U8  (2, "Required pieces",     {NumOpts(1, 100)},                                                 {triforcePiecesRequiredDesc},                                                                                    OptionCategory::Setting,    19);
+Option Enemizer                  = Option::Bool("Enemy Randomizer",       {"Off", "On"},                                                     {enemizerDesc});
 std::vector<Option *> worldOptions = {
     &RandomizeWorld,
     &StartingAge,
@@ -173,6 +174,7 @@ std::vector<Option *> worldOptions = {
     &TriforceHunt,
     &TriforcePiecesTotal,
     &TriforcePiecesRequired,
+    &Enemizer,
 };
 std::vector<Option *> dungeonOptions = {
     &MQDeku,
@@ -1460,6 +1462,8 @@ SettingsContext FillContext() {
     ctx.triforcePiecesTotal    = TriforcePiecesTotal.Value<u8>() + 1;
     ctx.triforcePiecesRequired = TriforcePiecesRequired.Value<u8>() + 1;
 
+    ctx.enemizer = (Enemizer) ? 1 : 0;
+
     ctx.shuffleRewards         = ShuffleRewards.Value<u8>();
     ctx.linksPocketItem        = LinksPocketItem.Value<u8>();
     ctx.shuffleSongs           = ShuffleSongs.Value<u8>();
@@ -1550,6 +1554,7 @@ SettingsContext FillContext() {
     ctx.hyperMiddleBosses   = (HyperMiddleBosses) ? 1 : 0;
     ctx.hyperEnemies        = (HyperEnemies) ? 1 : 0;
     ctx.freeCamera          = (FreeCamera) ? 1 : 0;
+    ctx.randomGsLocations   = (RandomGsLocations) ? 1 : 0;
 
     ctx.faroresWindAnywhere  = (FaroresWindAnywhere) ? 1 : 0;
     ctx.stickAsAdult         = (StickAsAdult) ? 1 : 0;
