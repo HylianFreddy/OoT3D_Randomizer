@@ -6,9 +6,6 @@
 .section .patch_FireproofDekuShieldTwo
     b 0x25157C
 
-.section .patch_LikeLikeNeverEatShield
-    b 0x355C0C
-
 .section .patch_loader
 .global loader_patch
 loader_patch:
