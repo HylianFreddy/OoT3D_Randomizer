@@ -9,6 +9,11 @@ void EnTorch2_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 
     s32 prevFloorType = sFloorType;
 
+    if (gSettingsContext.enemizer == ON) {
+        // Skip adjusting position after spawning.
+        this->darkPlayer.darkLinkAdjustedSpawnPos = 1;
+    }
+
     EnTorch2_Update(thisx, globalCtx);
 
     if (gSettingsContext.enemizer == ON) {
