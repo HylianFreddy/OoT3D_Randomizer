@@ -1024,10 +1024,6 @@ SECTIONS
 		*(.patch_MasterSwordTimerCheck)
 	}
 
-	.patch_LikeLikeNeverEatShield 0x355BF0 : {
-		*(.patch_LikeLikeNeverEatShield)
-	}
-
 	.patch_LikeLikeNeverEatTunic 0x355C2C : {
 		*(.patch_LikeLikeNeverEatTunic)
 	}
