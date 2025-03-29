@@ -176,6 +176,7 @@ endif
 
 #---------------------------------------------------------------------------------
 all: delete3DSX create_basecode $(BUILD) $(GFXBUILD) $(DEPSDIR) $(ROMFS_T3XFILES) $(T3XHFILES)
+	@$(TOPDIR)/write_commit_string.sh
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 delete3DSX:
