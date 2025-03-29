@@ -1,9 +1,6 @@
 #!/bin/bash
 
 compile() {
-  # If building manually just replace SHA with your own text.
-  export commitHashShort=$(echo ${GITHUB_SHA::6})
-  sed -i "s/develop/${commitHashShort:-develop}/" ./source/randomizer.hpp
   make -j
   bannertoolexec makebanner -i ./banner.png -a ./audio.wav -o ./banner.bnr
   bannertoolexec makesmdh -s "Ocarina of Time 3D Randomizer" -l "A different Ocarina of Time experience" -p "Gamestabled & Gymnast86" -i icon.png -o ./icon.icn
