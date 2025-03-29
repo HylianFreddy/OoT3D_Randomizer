@@ -1,13 +1,24 @@
+#!/bin/bash
+
 # This script writes a #define macro with the current commit hash to `source/commit_string.h`.
 # The macro is used to show the randomizer version in the menu.
 
-commit_string=$(git show --no-patch --format=format:"%h")
+# When building from GitHub Actions, use the value from GITHUB_SHA.
+commit_string=${GITHUB_SHA::6}
 
-# If there are uncommitted changes, add a marker to the string.
-if ([[ -n $(git status --porcelain) ]])
+if ([[ -z $commit_string ]])
 then
-    commit_string="${commit_string}*"
+    # When building locally, get the last commit id with git.
+    commit_string=$(git show --no-patch --format=format:"%h")
+
+    # If there are uncommitted changes, add a marker to the string.
+    if ([[ -n $(git status --porcelain) ]])
+    then
+        commit_string="${commit_string}*"
+    fi
 fi
+
+commit_string="Dev-${commit_string}"
 
 # If the commit string doesn't change, don't rewrite the file to avoid useless rebuilds.
 new_content="#define COMMIT_STRING \"$commit_string\""
