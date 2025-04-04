@@ -2,6 +2,8 @@
 
 #include <unistd.h>
 
+#include "build_id.h"
+
 #include "cosmetics.hpp"
 #include "dungeon.hpp"
 #include "fill.hpp"
@@ -27,7 +29,7 @@ using namespace SFX;
 
 namespace Settings {
 std::string seed;
-std::string version = RANDOMIZER_VERSION "-" COMMIT_NUMBER;
+std::string version = RANDOMIZER_VERSION "-" BUILD_ID;
 std::array<u8, 5> hashIconIndexes;
 
 std::vector<std::string> NumOpts(int min, int max, int step = 1, std::string textBefore = {},
