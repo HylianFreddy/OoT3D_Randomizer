@@ -2415,3 +2415,15 @@ hook_EnEncount1_SetLeeverAimType:
     pop {r0}
     strheq r0,[r1,r7] @ Set aimType only if actor is Leever
     bx lr
+
+.global hook_BabyDodongoWallCheck
+hook_BabyDodongoWallCheck:
+    tst r0,#0x8
+    bxeq lr @ no wall detected, return
+    push {r0-r12, lr}
+    @ prevent burrowing for soulless baby dodongos
+    cpy r0,r4
+    bl EnemySouls_CheckSoulForActor
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    bx lr
