@@ -15,7 +15,7 @@
 #include "keys.hpp"
 #include "gold_skulltulas.hpp"
 #include "ocarina_notes.hpp"
-#include "commit_string.h"
+#include "build_id.h"
 
 #define CREATE_SOULMENUNAMES
 #include "../code/src/enemy_souls.h"
@@ -28,7 +28,7 @@ using namespace SFX;
 
 namespace Settings {
 std::string seed;
-std::string version = RANDOMIZER_VERSION "-" COMMIT_STRING;
+std::string version = RANDOMIZER_VERSION "-" BUILD_ID;
 std::array<u8, 5> hashIconIndexes;
 
 std::vector<std::string> NumOpts(int min, int max, int step = 1, std::string textBefore = {},
