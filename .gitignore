@@ -20,4 +20,4 @@ build/*
 *.zar
 source/patch_symbols*.hpp
 .DS_Store
-commit_string.h
+build_id.h
