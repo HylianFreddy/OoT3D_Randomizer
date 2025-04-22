@@ -368,6 +368,12 @@ static void Enemizer_MoveSpecificEnemies(ActorEntry* actorEntry) {
     // Potential mid-air position to spawn the actor off the ground if needed.
     yMidAirPos = ABS(yUpperGroundIntersect - yGroundIntersect) < 50 ? upperPos.y : yUpperGroundIntersect - 50;
 
+    // Ignore ground checks in Forest Temple twisted hallways.
+    if (gGlobalContext->sceneNum == SCENE_FOREST_TEMPLE &&
+        (gGlobalContext->roomNum == 19 || gGlobalContext->roomNum == 20)) {
+        yGroundIntersect = yMidAirPos = actorEntry->pos.y;
+    }
+
     // If there is a water box, set yWaterSurface.
     waterBoxFound = WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, actorPos.x, actorPos.z,
                                             &yWaterSurface, &waterBox);
