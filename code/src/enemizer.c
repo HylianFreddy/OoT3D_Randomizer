@@ -368,10 +368,14 @@ static void Enemizer_MoveSpecificEnemies(ActorEntry* actorEntry) {
     // Potential mid-air position to spawn the actor off the ground if needed.
     yMidAirPos = ABS(yUpperGroundIntersect - yGroundIntersect) < 50 ? upperPos.y : yUpperGroundIntersect - 50;
 
-    // Ignore ground checks in Forest Temple twisted hallways.
-    if (gGlobalContext->sceneNum == SCENE_FOREST_TEMPLE &&
-        (gGlobalContext->roomNum == 19 || gGlobalContext->roomNum == 20)) {
-        yGroundIntersect = yMidAirPos = actorEntry->pos.y;
+    // Ignore ground checks where the ground is an actor that the raycast fails to detect:
+    // - Forest Temple twisted hallways
+    // - Fire Temple staircase
+    if ((gGlobalContext->sceneNum == SCENE_FOREST_TEMPLE &&
+         (gGlobalContext->roomNum == 19 || gGlobalContext->roomNum == 20)) ||
+        ((gGlobalContext->sceneNum == SCENE_FIRE_TEMPLE && gGlobalContext->roomNum == 14 &&
+          yGroundIntersect < 4150.0))) {
+        isInvalidGround = TRUE;
     }
 
     // If there is a water box, set yWaterSurface.
