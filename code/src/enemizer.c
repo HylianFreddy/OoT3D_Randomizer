@@ -248,6 +248,18 @@ static void Enemizer_MoveSpecificLocations(ActorEntry* actorEntry, s32 actorEntr
             // Move the wallmaster in spirit child side out of the wall
             actorEntry->pos.z = -1400;
             break;
+        case LOC(6, 0, 3, 0, DUNGEONMODE_VANILLA):
+            // Move a green bubble in spirit child side out of the pit
+            actorEntry->pos.y = 80;
+            break;
+        case LOC(6, 0, 4, 0, DUNGEONMODE_VANILLA):
+            // Move a skullwalltula in spirit child side out of the wall
+            actorEntry->pos.x = -1150;
+            break;
+        case LOC(6, 0, 4, 1, DUNGEONMODE_VANILLA):
+            // Move a skullwalltula in spirit child side out of the wall
+            actorEntry->pos.x = -1150;
+            break;
         case LOC(6, 0, 3, 3, DUNGEONMODE_MQ):
             // Move a keese in spirit child side out of the wall
             actorEntry->pos.x = -1720;
