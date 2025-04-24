@@ -1224,6 +1224,10 @@ SECTIONS
 		*(.patch_ShabomAfterDamagePlayer)
 	}
 
+	.patch_BabyDodongoWallCheck 0x3B833C : {
+		*(.patch_BabyDodongoWallCheck)
+	}
+
 	.patch_RandomGsLoc_CustomTokenSpawnOffset 0x3B94C4 : {
 		*(.patch_RandomGsLoc_CustomTokenSpawnOffset)
 	}

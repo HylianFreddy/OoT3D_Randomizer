@@ -2506,3 +2506,8 @@ EnEncount1_SpawnLeever_patch:
 .global EnEncount1_SetLeeverAimType_patch
 EnEncount1_SetLeeverAimType_patch:
     bl hook_EnEncount1_SetLeeverAimType
+
+.section .patch_BabyDodongoWallCheck
+.global BabyDodongoWallCheck_patch
+BabyDodongoWallCheck_patch:
+    bl hook_BabyDodongoWallCheck
