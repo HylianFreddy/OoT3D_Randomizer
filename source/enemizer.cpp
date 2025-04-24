@@ -5,25 +5,25 @@
 namespace Enemizer {
 
 static void AssignRandomEnemy(EnemyLocation& loc) {
-    std::vector<EnemyType> enemyOptions;
-    for (s32 enemyId = 0; enemyId < ENEMY_MAX; enemyId++) {
+    std::vector<u16> enemyOptions;
+    for (u16 enemyId = 0; enemyId < ENEMY_MAX; enemyId++) {
         EnemyType& candidate = enemyTypes[enemyId];
         if (enemyId == loc.vanillaEnemyId || candidate.CanBeAtLocTypes(loc.types)) {
-            enemyOptions.push_back(candidate);
+            enemyOptions.push_back(enemyId);
         }
     }
     if (enemyOptions.size() > 0) {
-        loc.randomizedEnemy  = RandomElement(enemyOptions);
-        loc.randomizedParams = RandomElement(loc.randomizedEnemy.possibleParams);
+        loc.randomizedEnemyId = RandomElement(enemyOptions);
+        loc.randomizedParams  = RandomElement(enemyTypes[loc.randomizedEnemyId].possibleParams);
     }
 }
 
 void RandomizeEnemies() {
+    InitEnemyLocations();
+
     if (!Settings::Enemizer) {
         return;
     }
-
-    InitEnemyLocations();
 
     CitraPrint("___________________");
     CitraPrint("Randomizing Enemies...");
@@ -46,13 +46,14 @@ void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {
         for (auto& layer : scene.second) {
             for (auto& room : layer.second) {
                 for (auto& entry : room.second) {
-                    if (entry.second.randomizedEnemy.actorId != 0) {
+                    EnemyType& enemyType = enemyTypes[entry.second.randomizedEnemyId];
+                    if (enemyType.actorId != 0) {
                         EnemyOverride ovr;
                         ovr.scene      = scene.first;
                         ovr.layer      = layer.first;
                         ovr.room       = room.first;
                         ovr.actorEntry = entry.first;
-                        ovr.actorId    = entry.second.randomizedEnemy.actorId;
+                        ovr.actorId    = enemyType.actorId;
                         ovr.params     = entry.second.randomizedParams;
                         enemyOverrides.push_back(ovr);
                     }
@@ -74,7 +75,7 @@ void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {
     CitraPrint("Enemy overrides done!");
     // CitraPrint("enemyOverrides[0]" + std::to_string(enemyOverrides[0].key));
     // CitraPrint("enemyOverrides[1]" + std::to_string(enemyOverrides[1].key));
-    CitraPrint("enemyLocations[15][0][0][4] is " + (enemyLocations[15][0][0][4].randomizedEnemy.name));
+    CitraPrint("enemyLocations[15][0][0][4] is " + (enemyTypes[enemyLocations[15][0][0][4].randomizedEnemyId].name));
     // CitraPrint("OVR 0 " + std::to_string(enemyOverrides[0].scene) + " " + std::to_string(enemyOverrides[0].layer) +
     //            " " + std::to_string(enemyOverrides[0].room) + " " + std::to_string(enemyOverrides[0].actorEntry) +
     //            " " + std::to_string(enemyOverrides[0].actorId) + " " + std::to_string(enemyOverrides[0].params));
