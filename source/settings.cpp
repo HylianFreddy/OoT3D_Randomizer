@@ -213,6 +213,7 @@ Option ShuffleAdultTradeQuest = Option::Bool("Shuffle Adult Trade",    {"Off", "
 Option ShuffleChestMinigame   = Option::U8  ("Shuffle Chest Minigame", {"Off", "On (Separate)", "On (Pack)"},                             {chestMinigameDesc});
 Option ShuffleFrogSongRupees  = Option::Bool("Shuffle Frog Rupees",    {"Off", "On"},                                                     {frogSongRupeesDesc});
 Option ShuffleEnemySouls      = Option::U8  ("Shuffle Enemy Souls",    {"Off", "All enemies", "Bosses only"},                             {enemySoulDesc});
+Option SoullessAppearance     = Option::U8  (2, "Soulless Appearance", {"Purple Flame", "Flashing"},                                      {soullessPurpleFlameDesc, soullessFlashingDesc},                                                                       OptionCategory::Cosmetic);
 Option ShuffleOcarinaButtons  = Option::Bool("Shuffle Ocarina Buttons",{"Off", "On"},                                                     {ocarinaButtonsDesc});
 std::vector<Option *> shuffleOptions = {
     &RandomizeShuffle,
@@ -235,6 +236,7 @@ std::vector<Option *> shuffleOptions = {
     &ShuffleChestMinigame,
     &ShuffleFrogSongRupees,
     &ShuffleEnemySouls,
+    &SoullessAppearance,
     &ShuffleOcarinaButtons,
 };
 
@@ -1484,6 +1486,7 @@ SettingsContext FillContext() {
     ctx.shuffleAdultTradeQuest = (ShuffleAdultTradeQuest) ? 1 : 0;
     ctx.shuffleChestMinigame   = ShuffleChestMinigame.Value<u8>();
     ctx.shuffleEnemySouls      = ShuffleEnemySouls.Value<u8>();
+    ctx.soullessAppearance     = SoullessAppearance.Value<u8>();
     ctx.shuffleOcarinaButtons  = (ShuffleOcarinaButtons) ? 1 : 0;
 
     ctx.mapsAndCompasses   = MapsAndCompasses.Value<u8>();
@@ -2313,6 +2316,14 @@ void ForceChange(u32 kDown, Option* currentSetting) {
     } else {
         startingOcarinaButtons.Lock();
         startingInventory.ResetMenuIndex();
+    }
+
+    if (!RandomizeShuffle) {
+        if (ShuffleEnemySouls) {
+            SoullessAppearance.Unhide();
+        } else {
+            SoullessAppearance.Hide();
+        }
     }
 
     if (!RandomizeDungeon) {

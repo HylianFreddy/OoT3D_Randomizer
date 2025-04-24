@@ -175,6 +175,8 @@ extern string_view adultTradeDesc;
 extern string_view chestMinigameDesc;
 
 extern string_view enemySoulDesc;
+extern string_view soullessPurpleFlameDesc;
+extern string_view soullessFlashingDesc;
 
 extern string_view ocarinaButtonsDesc;
 

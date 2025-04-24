@@ -429,6 +429,7 @@ extern Option ShuffleFrogSongRupees;
 extern Option ShuffleAdultTradeQuest;
 extern Option ShuffleChestMinigame;
 extern Option ShuffleEnemySouls;
+extern Option SoullessAppearance;
 extern Option ShuffleOcarinaButtons;
 
 extern Option MapsAndCompasses;
