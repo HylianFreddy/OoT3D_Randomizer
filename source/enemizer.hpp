@@ -3,9 +3,12 @@
 #include "../code/src/enemizer.h"
 
 #include <string>
-#include <functional>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
 
 #include "debug.hpp"
+#include "settings.hpp"
 
 namespace Enemizer {
 
@@ -87,8 +90,9 @@ typedef enum EnemyId {
 class EnemyType {
   public:
     EnemyType() = default;
-    EnemyType(std::string _name, u16 _actorId, std::vector<u16> _possibleParams, std::vector<LocType> _validLocTypes)
-        : name(std::move(_name)), actorId(_actorId), possibleParams(_possibleParams),
+    EnemyType(std::string _name, bool* _soulVar, u16 _actorId, std::vector<u16> _possibleParams,
+              std::vector<LocType> _validLocTypes)
+        : name(std::move(_name)), soulVar(_soulVar), actorId(_actorId), possibleParams(_possibleParams),
           validLocTypes(std::move(_validLocTypes)) {
     }
 
@@ -98,7 +102,12 @@ class EnemyType {
         });
     }
 
+    bool HasSoul() const {
+        return Settings::ShuffleEnemySouls.IsNot(SHUFFLEENEMYSOULS_ALL) || *soulVar;
+    }
+
     std::string name;
+    bool* soulVar;
     u16 actorId;
     std::vector<u16> possibleParams; // Values to randomly select as actor params, without affecting the logic.
     std::vector<LocType> validLocTypes;
@@ -113,10 +122,10 @@ class EnemyLocation {
         : vanillaEnemyId(_vanillaEnemyId), types(std::move(_types)) {
     }
 
-    u16 vanillaEnemyId;
+    u16 vanillaEnemyId    = 0;
+    u16 randomizedEnemyId = 0;
+    u16 randomizedParams  = 0;
     std::vector<LocType> types;
-    EnemyType randomizedEnemy;
-    u16 randomizedParams;
 };
 
 using EnemyLocationsMap_Room  = std::unordered_map<u8, EnemyLocation>;
