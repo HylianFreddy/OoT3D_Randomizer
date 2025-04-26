@@ -6,7 +6,7 @@ namespace Enemizer {
 
 static void AssignRandomEnemy(EnemyLocation& loc) {
     std::vector<u16> enemyOptions;
-    for (u16 enemyId = 0; enemyId < ENEMY_MAX; enemyId++) {
+    for (u16 enemyId = ENEMY_INVALID + 1; enemyId < ENEMY_MAX; enemyId++) {
         EnemyType& candidate = enemyTypes[enemyId];
         if (enemyId == loc.vanillaEnemyId || candidate.CanBeAtLocTypes(loc.types)) {
             enemyOptions.push_back(enemyId);

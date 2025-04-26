@@ -11,6 +11,7 @@ EnemyLocationsMap enemyLocations            = {};
 
 // clang-format off
 void InitEnemyTypes(void) {
+    enemyTypes[ENEMY_INVALID] = EnemyType("Invalid Enemy", &noVariable, 0, { 0 }, {});
     enemyTypes[ENEMY_POE] = EnemyType("Poe", &SoulPoe, ACTOR_POE, { 0x0000, 0x0002, 0x0003 }, // normal, Sharp, Flat
         { LocType::ABOVE_GROUND, LocType::ABOVE_VOID, LocType::UNDERWATER, LocType::ABOVE_WATER, LocType::SHALLOW_WATER, LocType::SPAWNER });
     enemyTypes[ENEMY_STALFOS] = EnemyType("Stalfos", &SoulStalfos, ACTOR_STALFOS, { 0x0002, 0x0003 }, // rises from ground / drops from above when approached
@@ -299,7 +300,7 @@ void InitEnemyLocations(void) {
     // enemyLocations[91][0][3][2]   = EnemyLocation(ENEMY_OCTOROK,            LocType::ABOVE_WATER);
     enemyLocations[91][2][1][1]      = EnemyLocation(ENEMY_SKULL_KID,          LocType::ABOVE_GROUND);
     enemyLocations[91][2][1][2]      = EnemyLocation(ENEMY_SKULL_KID,          LocType::ABOVE_GROUND);
-    enemyLocations[91][2][3][2]      = EnemyLocation(ENEMY_OCTOROK,            LocType::ABOVE_WATER);
+    // enemyLocations[91][2][3][2]   = EnemyLocation(ENEMY_OCTOROK,            LocType::ABOVE_WATER);
     enemyLocations[91][2][9][1]      = EnemyLocation(ENEMY_SKULL_KID,          LocType::ABOVE_GROUND);
     enemyLocations[92][0][0][7]      = EnemyLocation(ENEMY_GUAY,               LocType::ABOVE_GROUND);
     enemyLocations[92][0][0][8]      = EnemyLocation(ENEMY_GUAY,               LocType::ABOVE_GROUND);
