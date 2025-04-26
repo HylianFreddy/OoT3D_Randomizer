@@ -125,11 +125,16 @@ void AreaTable_Init_ShadowTemple() {
                     { [] { return CanDefeatEnemies(7, 0, 16); },
                       /*Glitched*/
                       [] { return CanDoGlitch(GlitchType::HookshotClip, GlitchDifficulty::INTERMEDIATE); } }),
-                LocationAccess(SHADOW_TEMPLE_FALLING_SPIKES_LOWER_CHEST, { [] { return true; } }),
-                LocationAccess(SHADOW_TEMPLE_FALLING_SPIKES_UPPER_CHEST,
-                               { [] { return LogicShadowUmbrella || GoronBracelet; } }),
-                LocationAccess(SHADOW_TEMPLE_FALLING_SPIKES_SWITCH_CHEST,
-                               { [] { return LogicShadowUmbrella || GoronBracelet; } }),
+                LocationAccess(SHADOW_TEMPLE_FALLING_SPIKES_LOWER_CHEST,
+                               { [] { return CanPassEnemy(7, 0, 9, 5, SpaceAroundEnemy::NONE); } }),
+                LocationAccess(SHADOW_TEMPLE_FALLING_SPIKES_UPPER_CHEST, { [] {
+                                   return CanPassEnemy(7, 0, 9, 5, SpaceAroundEnemy::NONE) &&
+                                          (LogicShadowUmbrella || GoronBracelet);
+                               } }),
+                LocationAccess(SHADOW_TEMPLE_FALLING_SPIKES_SWITCH_CHEST, { [] {
+                                   return CanPassEnemy(7, 0, 9, 5, SpaceAroundEnemy::NONE) &&
+                                          (LogicShadowUmbrella || GoronBracelet);
+                               } }),
                 LocationAccess(SHADOW_TEMPLE_INVISIBLE_SPIKES_CHEST, { [] {
                                    return CanDefeatEnemies(7, 0, 11) && SmallKeys(SHADOW_TEMPLE, 2, 3) &&
                                           (LogicLensShadowBack || CanUse(LENS_OF_TRUTH));
