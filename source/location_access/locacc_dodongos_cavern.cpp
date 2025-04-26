@@ -308,7 +308,8 @@ void AreaTable_Init_DodongosCavern() {
             Area("Dodongos Cavern Compass Room", "Dodongos Cavern", DODONGOS_CAVERN, NO_DAY_NIGHT_CYCLE, {},
                  {
                      // Locations
-                     LocationAccess(DODONGOS_CAVERN_COMPASS_CHEST, { [] { return true; } }),
+                     LocationAccess(DODONGOS_CAVERN_COMPASS_CHEST,
+                                    { [] { return CanPassEnemy(1, 0, 15, 0, SpaceAroundEnemy::NONE); } }),
                  },
                  {
                      // Exits

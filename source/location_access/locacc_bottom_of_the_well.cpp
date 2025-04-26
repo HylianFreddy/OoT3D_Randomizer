@@ -16,14 +16,22 @@ void AreaTable_Init_BottomOfTheWell() {
         {
             // Exits
             Entrance(BOTTOM_OF_THE_WELL_MAIN_AREA,
-                     { [] { return Dungeon::BottomOfTheWell.IsVanilla() && IsChild && CanPassEnemy(8, 0, 0, 1); } }),
+                     {
+                         [] { return Dungeon::BottomOfTheWell.IsVanilla() && IsChild && CanPassEnemy(8, 0, 0, 1); },
+                         /*Glitched*/
+                         [] {
+                             return Dungeon::BottomOfTheWell.IsVanilla() &&
+                                    CanDoGlitch(GlitchType::HookshotClip, GlitchDifficulty::INTERMEDIATE) &&
+                                    CanUse(LONGSHOT) && CanHookEnemy(8, 0, 0, 1);
+                         },
+                     }),
             Entrance(BOTTOM_OF_THE_WELL_MQ_PERIMETER, { [] { return Dungeon::BottomOfTheWell.IsMQ() && IsChild; },
                                                         /*Glitched*/
                                                         [] {
                                                             return Dungeon::BottomOfTheWell.IsMQ() &&
                                                                    CanDoGlitch(GlitchType::HookshotClip,
                                                                                GlitchDifficulty::INTERMEDIATE) &&
-                                                                   Longshot && false;
+                                                                   CanUse(LONGSHOT) && CanHookEnemy(8, 0, 0, 4);
                                                         } }), // TODO: Rewrite logic to account for adult in MQ BotW
             Entrance(KAKARIKO_VILLAGE, { [] { return true; } }),
         });
