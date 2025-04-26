@@ -180,14 +180,14 @@ void Enemizer_Init(void) {
     // Mocks (MUST BE SORTED!)
     //  u16 actorId = ACTOR_ARMOS;
     //  u16 params = 0xFFFF;
-    rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
-        .scene      = 81,
-        .layer      = 0,
-        .room       = 0,
-        .actorEntry = 9,
-        .actorId    = ACTOR_MOBLIN,
-        .params     = 0x0000,
-    };
+    // rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
+    //     .scene      = 10,
+    //     .layer      = 0,
+    //     .room       = 7,
+    //     .actorEntry = 5,
+    //     .actorId    = ACTOR_ARMOS,
+    //     .params     = 0xFFFF,
+    // };
 
     while (rEnemyOverrides[rEnemyOverrides_Count].actorId != 0) {
         rEnemyOverrides_Count++;
@@ -475,16 +475,31 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     EnemyOverride enemyOverride =
         Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
 
+    gSaveContext.items[SLOT_HOOKSHOT] = ITEM_HOOKSHOT;
+    gSaveContext.items[SLOT_BEAN] = ITEM_LONGSHOT;
+    gSettingsContext.extraArrowEffects = 1;
     // Mock
+    if (enemyOverride.actorId == 0)
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
-        if (actorEntry->id == sEnemyData[i].actorId) {
+        if (actorEntry->id == sEnemyData[i].actorId && (actorEntry->id != ACTOR_SKULLWALLTULA || ((actorEntry->params & 0xE000) == 0))) {
             // if (actorEntryIndex != 3) {
             //     enemyOverride.actorId = 0x10;
             //     enemyOverride.params  = 0x0000;
             //     break;
             // }
-            enemyOverride.actorId = ACTOR_PEAHAT;
-            enemyOverride.params  = 0xFFFF;
+            // enemyOverride.actorId = ACTOR_PEAHAT; enemyOverride.params  = 0xFFFF;
+            // enemyOverride.actorId = ACTOR_MOBLIN; enemyOverride.params  = 0x0000;
+            // enemyOverride.actorId = ACTOR_SKULLTULA; enemyOverride.params  = 0x0001;
+            // enemyOverride.actorId = ACTOR_DEKU_BABA; enemyOverride.params  = 0x0000;
+            // enemyOverride.actorId = ACTOR_BEAMOS; enemyOverride.params  = 0x0500;
+            // enemyOverride.actorId = ACTOR_ARMOS; enemyOverride.params  = 0xFFFF;
+            // enemyOverride.actorId = ACTOR_MAD_SCRUB; enemyOverride.params = (actorEntryIndex + 1) << 8;
+            // enemyOverride.actorId = ACTOR_FREEZARD; enemyOverride.params  = 0x0000;
+            // enemyOverride.actorId = ACTOR_REDEAD; enemyOverride.params  = 0x7F01;
+            enemyOverride.actorId = ACTOR_DEAD_HAND_HAND; enemyOverride.params  = 0x0000;
+            // enemyOverride.actorId = ACTOR_ANUBIS_SPAWNER; enemyOverride.params  = 0x0003;
+            // enemyOverride.actorId = ACTOR_BARI; enemyOverride.params  = 0xFFFF;
+            // enemyOverride.actorId = ACTOR_BUBBLE; enemyOverride.params  = 0x02FC;
             break;
         }
     }
@@ -649,11 +664,14 @@ void Enemizer_AfterActorSetup(void) {
     sRoomLoadSignal = TRUE;
 }
 
+#include "draw.h"
 // Run special checks on every frame
 void Enemizer_Update(void) {
     if (gSettingsContext.enemizer == OFF) {
         return;
     }
+
+    Draw_DrawFormattedStringTop(10,0,COLOR_WHITE, "Room %d", gGlobalContext->roomNum);
 
     Enemizer_HandleClearConditions();
     Enemizer_HandleMiniBossBattleTheme();

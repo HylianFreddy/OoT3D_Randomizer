@@ -85,6 +85,7 @@ void ItemOverride_Init(void) {
         gItemUsabilityTable[ITEM_MASK_GERUDO] = 0x09;
         gItemUsabilityTable[ITEM_MASK_TRUTH]  = 0x09;
     }
+    gSettingsContext.hookshotAsChild = 1;
     if (gSettingsContext.hookshotAsChild) {
         gItemUsabilityTable[ITEM_HOOKSHOT] = 0x09;
         gItemUsabilityTable[ITEM_LONGSHOT] = 0x09;
@@ -187,6 +188,18 @@ ItemOverride ItemOverride_LookupByKey(ItemOverride_Key key) {
 }
 
 ItemOverride ItemOverride_Lookup(Actor* actor, u8 scene, u8 itemId) {
+    if (actor->id == 0x0A && (actor->params & 0x1F) == 0xc) {
+        return (ItemOverride) {
+            .key = {
+                .type = OVR_COLLECTABLE, // random value for non-zero key
+            },
+            .value = {
+                .itemId = GI_ARROW_ICE,
+                .player = 0,
+                .looksLikeItemId = GI_ARROW_ICE,
+            },
+        };
+    }
     return (ItemOverride) {
         .key = {
             .type = OVR_COLLECTABLE, // random value for non-zero key
