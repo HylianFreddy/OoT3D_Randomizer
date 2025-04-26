@@ -135,7 +135,7 @@ void InitEnemyTypes(void) {
         { LocType::ABOVE_GROUND, LocType::ABOVE_VOID, LocType::UNDERWATER, LocType::ABOVE_WATER, LocType::SHALLOW_WATER });
 
     u32 maxlen = 0;
-    for (s32 i = 0; i < ENEMY_MAX; i++) {
+    for (s32 i = ENEMY_INVALID + 1; i < ENEMY_MAX; i++) {
         if (enemyTypes[i].actorId == 0) {
             CitraPrint("ERROR: enemyTypes not filled correctly!");
             printf("ERROR ERROR ERROR!");

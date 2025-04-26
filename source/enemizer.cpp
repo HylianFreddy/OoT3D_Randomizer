@@ -27,20 +27,34 @@ void RandomizeEnemies() {
 
     CitraPrint("___________________");
     CitraPrint("Randomizing Enemies...");
+    s32 ovrCount = 0;
     for (auto& scene : enemyLocations) {
         for (auto& layer : scene.second) {
             for (auto& room : layer.second) {
                 for (auto& entry : room.second) {
+                    ovrCount++;
                     AssignRandomEnemy(entry.second);
                 }
             }
         }
     }
+    CitraPrint("Enemy loc count = " + std::to_string(ovrCount));
     AddDuplicateLocations();
     CitraPrint("Enemies randomization complete!");
 }
 
 void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {
+    s32 ovrCount = 0;
+    for (auto& scene : enemyLocations) {
+        for (auto& layer : scene.second) {
+            for (auto& room : layer.second) {
+                for (auto& entry : room.second) {
+                    ovrCount++;
+                }
+            }
+        }
+    }
+    CitraPrint("Enemy loc count = " + std::to_string(ovrCount));
     CitraPrint("Filling enemy overrides...");
     for (auto& scene : enemyLocations) {
         for (auto& layer : scene.second) {
