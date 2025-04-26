@@ -23,6 +23,7 @@ enum class LocType {
 };
 
 typedef enum EnemyId {
+    ENEMY_INVALID,
     ENEMY_POE,
     ENEMY_STALFOS,
     ENEMY_OCTOROK,
