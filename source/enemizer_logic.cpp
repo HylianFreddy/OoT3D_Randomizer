@@ -12,7 +12,7 @@ using EnemyConditionFn = std::function<bool(Enemizer::EnemyLocation&)>;
 namespace Logic {
 
 static bool AllEnemiesSatisfy(EnemyConditionFn conditionFn, u8 scene, u8 layer, u8 room,
-                       std::vector<u8> actorEntries /*= {}*/) {
+                              std::vector<u8> actorEntries /*= {}*/) {
     auto& roomMap = enemyLocations[scene][layer][room];
     if (actorEntries.empty()) {
         for (auto& entry : roomMap) {
@@ -31,7 +31,7 @@ static bool AllEnemiesSatisfy(EnemyConditionFn conditionFn, u8 scene, u8 layer, 
 }
 
 static bool AnyEnemySatisfies(EnemyConditionFn conditionFn, u8 scene, u8 layer, u8 room,
-                       std::vector<u8> actorEntries /*= {}*/) {
+                              std::vector<u8> actorEntries /*= {}*/) {
     auto flippedConditionFn = [&conditionFn](EnemyLocation& loc) { return !conditionFn(loc); };
     return !AllEnemiesSatisfy(flippedConditionFn, scene, layer, room, actorEntries);
 }
@@ -39,7 +39,7 @@ static bool AnyEnemySatisfies(EnemyConditionFn conditionFn, u8 scene, u8 layer, 
 bool IsWallmaster(u8 scene, u8 layer, u8 room, u8 actorEntry) {
     EnemyLocation& loc = enemyLocations[scene][layer][room][actorEntry];
     return loc.randomizedEnemyId == ENEMY_WALLMASTER ||
-           (loc.randomizedEnemyId == 0 && loc.vanillaEnemyId == ENEMY_WALLMASTER);
+           (loc.randomizedEnemyId == ENEMY_INVALID && loc.vanillaEnemyId == ENEMY_WALLMASTER);
 }
 
 bool CanDefeatEnemy(u16 enemyId) {
@@ -120,7 +120,7 @@ bool CanDefeatEnemy(u16 enemyId) {
                    CanUse(MEGATON_HAMMER) || CanUse(BOW) || CanUse(HOOKSHOT) || CanUse(SLINGSHOT) || HasExplosives;
         case ENEMY_MOBLIN_CLUB:
             return CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) || CanUse(STICKS) ||
-                   CanUse(MEGATON_HAMMER) || CanUse(BOW) || CanUse(SLINGSHOT) || HasExplosives;
+                   CanUse(MEGATON_HAMMER) || CanUse(BOW) || HasExplosives;
         case ENEMY_MOBLIN_SPEAR:
             return CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) || CanUse(STICKS) ||
                    CanUse(MEGATON_HAMMER) || CanUse(BOW) || CanUse(HOOKSHOT) || CanUse(SLINGSHOT) || HasExplosives;
@@ -225,7 +225,7 @@ static EnemyConditionFn _CanDefeatEnemy([](EnemyLocation& loc) {
     u16 enemyId       = loc.vanillaEnemyId;
     bool isUnderwater = std::find(loc.types.begin(), loc.types.end(), LocType::UNDERWATER) != loc.types.end();
 
-    if (loc.randomizedEnemyId != 0) {
+    if (loc.randomizedEnemyId != ENEMY_INVALID) {
         enemyId = loc.randomizedEnemyId;
     }
 
@@ -248,7 +248,7 @@ static bool _CanPassEnemy(EnemyLocation& loc, SpaceAroundEnemy space = SpaceArou
     u16 enemyId       = loc.vanillaEnemyId;
     bool isUnderwater = std::find(loc.types.begin(), loc.types.end(), LocType::UNDERWATER) != loc.types.end();
 
-    if (loc.randomizedEnemyId != 0) {
+    if (loc.randomizedEnemyId != ENEMY_INVALID) {
         enemyId = loc.randomizedEnemyId;
     }
 
@@ -306,7 +306,7 @@ bool CanHookEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry) {
     EnemyLocation& loc = enemyLocations[scene][layer][room][actorEntry];
     u16 enemyId        = loc.vanillaEnemyId;
 
-    if (loc.randomizedEnemyId != 0) {
+    if (loc.randomizedEnemyId != ENEMY_INVALID) {
         enemyId = loc.randomizedEnemyId;
     }
 
@@ -332,7 +332,7 @@ bool CanHookEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry) {
 static EnemyConditionFn _CanDetonateEnemy([](EnemyLocation& loc) {
     u16 enemyId = loc.vanillaEnemyId;
 
-    if (loc.randomizedEnemyId != 0) {
+    if (loc.randomizedEnemyId != ENEMY_INVALID) {
         enemyId = loc.randomizedEnemyId;
     }
 
@@ -349,6 +349,7 @@ static EnemyConditionFn _CanDetonateEnemy([](EnemyLocation& loc) {
     return false;
 });
 
+// check peahat
 bool CanDetonateEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry) {
     return _CanDetonateEnemy(enemyLocations[scene][layer][room][actorEntry]);
 }
@@ -363,7 +364,7 @@ static EnemyConditionFn _CanGetDekuBabaSticks([](EnemyLocation& loc) {
         return false;
     }
 
-    if (loc.randomizedEnemyId != 0) {
+    if (loc.randomizedEnemyId != ENEMY_INVALID) {
         enemyId = loc.randomizedEnemyId;
     }
 
@@ -387,7 +388,7 @@ static EnemyConditionFn _CanGetDekuBabaNuts([](EnemyLocation& loc) {
     u16 enemyId       = loc.vanillaEnemyId;
     bool isUnderwater = std::find(loc.types.begin(), loc.types.end(), LocType::UNDERWATER) != loc.types.end();
 
-    if (loc.randomizedEnemyId != 0) {
+    if (loc.randomizedEnemyId != ENEMY_INVALID) {
         enemyId = loc.randomizedEnemyId;
     }
 
