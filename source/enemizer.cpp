@@ -27,20 +27,27 @@ void RandomizeEnemies() {
 
     CitraPrint("___________________");
     CitraPrint("Randomizing Enemies...");
-    s32 ovrCount = 0;
     for (auto& scene : enemyLocations) {
         for (auto& layer : scene.second) {
             for (auto& room : layer.second) {
                 for (auto& entry : room.second) {
-                    ovrCount++;
                     AssignRandomEnemy(entry.second);
                 }
             }
         }
     }
-    CitraPrint("Enemy loc count = " + std::to_string(ovrCount));
     AddDuplicateLocations();
     CitraPrint("Enemies randomization complete!");
+
+    s32 ovrCount = 0;
+    for (auto& scene : enemyLocations) {
+        for (auto& layer : scene.second) {
+            for (auto& room : layer.second) {
+                ovrCount += room.second.size();
+            }
+        }
+    }
+    CitraPrint("Enemy loc count start = " + std::to_string(ovrCount));
 }
 
 void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {
@@ -48,13 +55,11 @@ void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {
     for (auto& scene : enemyLocations) {
         for (auto& layer : scene.second) {
             for (auto& room : layer.second) {
-                for (auto& entry : room.second) {
-                    ovrCount++;
-                }
+                ovrCount += room.second.size();
             }
         }
     }
-    CitraPrint("Enemy loc count = " + std::to_string(ovrCount));
+    CitraPrint("Enemy loc count end = " + std::to_string(ovrCount));
     CitraPrint("Filling enemy overrides...");
     for (auto& scene : enemyLocations) {
         for (auto& layer : scene.second) {
@@ -70,6 +75,9 @@ void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {
                         ovr.actorId    = enemyType.actorId;
                         ovr.params     = entry.second.randomizedParams;
                         enemyOverrides.push_back(ovr);
+                    } else {
+                        CitraPrint("INVALID ENEMY LOC = " + std::to_string(scene.first) + std::to_string(layer.first) +
+                                   std::to_string(room.first) + std::to_string(entry.first));
                     }
                 }
             }
