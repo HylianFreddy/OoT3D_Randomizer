@@ -18,6 +18,4 @@ typedef struct EnBubble {
     /* 0x01C0 */ char unk_01C0[0x120];
 } EnBubble;
 
-void EnBubble_rUpdate(Actor* thisx, GlobalContext* globalCtx);
-
 #endif //_SHABOM_H_

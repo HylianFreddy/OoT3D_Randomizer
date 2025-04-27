@@ -2075,15 +2075,14 @@ hook_FlyingTileCollision:
     addne lr,lr,#0x8 @ Skip setting actionFunc
     bx lr
 
-.global hook_ShabomDropCollectible
-hook_ShabomDropCollectible:
-    cpy r0,r6
+.global hook_ShabomAfterDamagePlayer
+hook_ShabomAfterDamagePlayer:
     push {r0-r12, lr}
-    cpy r0,r5 @ actor
-    bl EnemySouls_CheckSoulForActor
+    bl Shabom_CheckEnemySoul
     cmp r0,#0x0
     pop {r0-r12, lr}
-    addeq lr,lr,#0x4 @ skip call to Item_DropCollectibleRandom
+    beq 0x3B511C @ Skip popping
+    strh r10,[r5,#0x80]
     bx lr
 
 .global hook_DodongoAfterSwallowBomb

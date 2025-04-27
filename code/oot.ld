@@ -88,10 +88,6 @@ SECTIONS
 		*(.patch_BeanDaddyModifyBeansBought)
 	}
 
-	.patch_ShabomDropCollectible 0x13232C : {
-		*(.patch_ShabomDropCollectible)
-	}
-
 	.patch_PlayerCheckVoidOut 0x132B64 : {
 		*(.patch_PlayerCheckVoidOut)
 	}
@@ -1222,6 +1218,10 @@ SECTIONS
 
 	.patch_GerudoArcheryOne 0x3AFA34 : {
 		*(.patch_GerudoArcheryOne)
+	}
+
+	.patch_ShabomAfterDamagePlayer 0x3B5060 : {
+		*(.patch_ShabomAfterDamagePlayer)
 	}
 
 	.patch_BabyDodongoWallCheck 0x3B833C : {
