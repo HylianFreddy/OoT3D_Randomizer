@@ -129,7 +129,7 @@ void Actor_Init() {
 
     gActorOverlayTable[0x1D].initInfo->update = EnPeehat_rUpdate;
 
-    // gActorOverlayTable[0x2D].initInfo->update = EnBubble_rUpdate;
+    gActorOverlayTable[0x2D].initInfo->update = EnBubble_rUpdate;
 
     gActorOverlayTable[0x2E].initInfo->init   = DoorShutter_rInit;
     gActorOverlayTable[0x2E].initInfo->update = (ActorFunc)DoorShutter_rUpdate;

@@ -2204,10 +2204,10 @@ FlyingPotCollision_patch:
 FlyingTileCollision_patch:
     bl hook_FlyingTileCollision
 
-.section .patch_ShabomAfterDamagePlayer
-.global ShabomAfterDamagePlayer_patch
-ShabomAfterDamagePlayer_patch:
-    bl hook_ShabomAfterDamagePlayer
+.section .patch_ShabomDropCollectible
+.global ShabomDropCollectible_patch
+ShabomDropCollectible_patch:
+    bl hook_ShabomDropCollectible
 
 .section .patch_DodongoAfterSwallowBomb
 .global DodongoAfterSwallowBomb_patch
