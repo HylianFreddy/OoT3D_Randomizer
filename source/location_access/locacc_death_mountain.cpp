@@ -66,7 +66,7 @@ void AreaTable_Init_DeathMountain() {
         });
 
     static constexpr auto ForEachEnemy_Summit = [](auto& enemyCheckFn) {
-        return (IsChild && enemyCheckFn(96, 0, 0, { 6, 7, 8 })) || (IsAdult && enemyCheckFn(96, 0, 0, { 2, 3, 4, 8 }));
+        return (IsChild && enemyCheckFn(96, 0, 0, { 6, 7, 8 })) || (IsAdult && enemyCheckFn(96, 2, 0, { 2, 3, 4, 8 }));
     };
     areaTable[DEATH_MOUNTAIN_SUMMIT] = Area(
         "Death Mountain Summit", "Death Mountain", DEATH_MOUNTAIN_TRAIL, DAY_NIGHT_CYCLE,
