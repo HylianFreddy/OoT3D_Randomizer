@@ -77,6 +77,7 @@
 #include "stinger.h"
 #include "flying_traps.h"
 #include "dodongos.h"
+#include "stalchild.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -288,6 +289,8 @@ void Actor_Init() {
     gActorOverlayTable[0x19C].initInfo->draw    = EnSi_rDraw;
 
     gActorOverlayTable[0x1A3].initInfo->update = EnDntNomal_rUpdate;
+
+    gActorOverlayTable[0x1B0].initInfo->update = EnSkb_rUpdate;
 
     gActorOverlayTable[0x1B9].initInfo->init = EnGs_rInit;
 
