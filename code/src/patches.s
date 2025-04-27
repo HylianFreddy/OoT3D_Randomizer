@@ -2511,3 +2511,8 @@ EnEncount1_SetLeeverAimType_patch:
 .global BabyDodongoWallCheck_patch
 BabyDodongoWallCheck_patch:
     bl hook_BabyDodongoWallCheck
+
+.section .patch_PeahatLarvaGroundCheck
+.global PeahatLarvaGroundCheck_patch
+PeahatLarvaGroundCheck_patch:
+    bl hook_PeahatLarvaGroundCheck
