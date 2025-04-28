@@ -514,7 +514,7 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
                              actor->scale.x != 0 &&                    // if scale is 0, enemy is invisible;
                              actor->id != 0x11D && actor->id != 0x06B; // flying traps will appear normal.
     if (shouldDrawSoulless && (PauseContext_GetState() == 0) &&
-        gSettingsContext.soullessAppearance == SOULLESS_PURPLE_FLAME) {
+        gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_PURPLE_FLAME) {
         s32 velFrameIdx = (rGameplayFrames % 16);
         s32 accFrameIdx = (rGameplayFrames % 4);
         s32 bossMult    = (actor->type == ACTORTYPE_BOSS ? 4 : 1);
@@ -531,7 +531,8 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
 
     actor->draw(actor, globalCtx);
 
-    if (shouldDrawSoulless && (gSettingsContext.soullessAppearance != SOULLESS_FLASHING || rGameplayFrames % 2 == 0)) {
+    if (shouldDrawSoulless &&
+        (gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_FLASHING || rGameplayFrames % 2 == 0)) {
         // make enemy invisible
         gMainClass->sub180.saModelsCount1 = origSaModelsCount1; // 3D models
         gMainClass->sub180.saModelsCount2 = origSaModelsCount2; // 2D billboards

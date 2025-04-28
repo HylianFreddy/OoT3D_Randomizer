@@ -561,11 +561,6 @@ string_view enemySoulDesc             = "Enemies will be invincible until you fi
                                         "You can exclude some enemies by adding their\n"   //
                                         "souls in the Starting Inventory.\n\n"             //
                                         "WARNING: Incompatible with Master Quest Logic.";  //
-string_view soullessPurpleFlameDesc   = "Soulless enemies will appear as a purple flame,\n"//
-                                        "and their body will be invisible.";               //
-string_view soullessFlashingDesc      = "Soulless enemies will flash between visible and \n"
-                                        "invisible on every frame.\n"                      //
-                                        "Do not enable if flashing images bother you.";    //
 /*------------------------------                                                           //
 |   SHUFFLE OCARINA BUTTONS    |                                                           //
 ------------------------------*/                                                           //
@@ -1242,6 +1237,13 @@ string_view betaSoldOutDesc           = "The game contains an unused model for s
                                         "items in shops. It's a remade version of the N64\n"
                                         "model, spelling \"Sold Out\" in English.\n\n"     //
                                         "This setting enables its use in shops.";          //
+/*------------------------------                                                           //
+|    SOULLESS ENEMIES LOOK     |                                                           //
+------------------------------*/                                                           //
+string_view soullessPurpleFlameDesc   = "Soulless enemies will appear as a purple flame,\n"//
+                                        "and their body will be invisible.";               //
+string_view soullessFlashingDesc      = "Soulless enemies will flash between visible and\n"
+                                        "invisible on every frame.";                       //
 /*------------------------------                                                           //
 |        SHUFFLE MUSIC         |                                                           //
 ------------------------------*/                                                           //

@@ -213,7 +213,6 @@ Option ShuffleAdultTradeQuest = Option::Bool("Shuffle Adult Trade",    {"Off", "
 Option ShuffleChestMinigame   = Option::U8  ("Shuffle Chest Minigame", {"Off", "On (Separate)", "On (Pack)"},                             {chestMinigameDesc});
 Option ShuffleFrogSongRupees  = Option::Bool("Shuffle Frog Rupees",    {"Off", "On"},                                                     {frogSongRupeesDesc});
 Option ShuffleEnemySouls      = Option::U8  ("Shuffle Enemy Souls",    {"Off", "All enemies", "Bosses only"},                             {enemySoulDesc});
-Option SoullessAppearance     = Option::U8  (2, "Soulless Appearance", {"Purple Flame", "Flashing"},                                      {soullessPurpleFlameDesc, soullessFlashingDesc},                                                                       OptionCategory::Cosmetic);
 Option ShuffleOcarinaButtons  = Option::Bool("Shuffle Ocarina Buttons",{"Off", "On"},                                                     {ocarinaButtonsDesc});
 std::vector<Option *> shuffleOptions = {
     &RandomizeShuffle,
@@ -236,7 +235,6 @@ std::vector<Option *> shuffleOptions = {
     &ShuffleChestMinigame,
     &ShuffleFrogSongRupees,
     &ShuffleEnemySouls,
-    &SoullessAppearance,
     &ShuffleOcarinaButtons,
 };
 
@@ -1268,10 +1266,11 @@ u8 boomerangTrailColorMode = 0;
 std::string finalChuTrailInnerColor   = BombchuTrailInnerColor.GetSelectedOptionText();
 std::string finalChuTrailOuterColor   = BombchuTrailOuterColor.GetSelectedOptionText();
 
-Option ColoredKeys =     Option::Bool("Colored Small Keys", {"Off", "On"},                                {coloredKeysDesc},                                                                                                                                  OptionCategory::Cosmetic);
-Option ColoredBossKeys = Option::Bool("Colored Boss Keys",  {"Off", "On"},                                {coloredBossKeysDesc},                                                                                                                              OptionCategory::Cosmetic);
-Option MirrorWorld =     Option::U8  ("Mirror World",       {"Off", "On", "Scene", "Entrance", "Random"}, {mirrorWorldOffDesc, mirrorWorldOnDesc, mirrorWorldSceneDesc, mirrorWorldEntranceDesc, mirrorWorldRandomDesc},                                      OptionCategory::Cosmetic);
-Option BetaSoldOut =     Option::Bool("Beta Sold-Out Model",{"Off", "On"},                                {betaSoldOutDesc},                                                                                                                                  OptionCategory::Cosmetic);
+Option ColoredKeys         = Option::Bool("Colored Small Keys",     {"Off", "On"},                                {coloredKeysDesc},                                                                                                                                  OptionCategory::Cosmetic);
+Option ColoredBossKeys     = Option::Bool("Colored Boss Keys",      {"Off", "On"},                                {coloredBossKeysDesc},                                                                                                                              OptionCategory::Cosmetic);
+Option MirrorWorld         = Option::U8  ("Mirror World",           {"Off", "On", "Scene", "Entrance", "Random"}, {mirrorWorldOffDesc, mirrorWorldOnDesc, mirrorWorldSceneDesc, mirrorWorldEntranceDesc, mirrorWorldRandomDesc},                                      OptionCategory::Cosmetic);
+Option BetaSoldOut         = Option::Bool("Beta Sold-Out Model",    {"Off", "On"},                                {betaSoldOutDesc},                                                                                                                                  OptionCategory::Cosmetic);
+Option SoullessEnemiesLook = Option::U8  ("Soulless Enemies Look",  {"Purple Flame", "Flashing"},                 {soullessPurpleFlameDesc, soullessFlashingDesc},                                                                                                    OptionCategory::Cosmetic);
 
 std::vector<Option *> cosmeticOptions = {
     &CustomTunicColors,
@@ -1304,6 +1303,7 @@ std::vector<Option *> cosmeticOptions = {
     &ColoredBossKeys,
     &MirrorWorld,
     &BetaSoldOut,
+    &SoullessEnemiesLook,
 };
 
 static std::vector<std::string> musicOptions = {"Off", "On (Mixed)", "On (Grouped)", "On (Own)"};
@@ -1486,7 +1486,6 @@ SettingsContext FillContext() {
     ctx.shuffleAdultTradeQuest = (ShuffleAdultTradeQuest) ? 1 : 0;
     ctx.shuffleChestMinigame   = ShuffleChestMinigame.Value<u8>();
     ctx.shuffleEnemySouls      = ShuffleEnemySouls.Value<u8>();
-    ctx.soullessAppearance     = SoullessAppearance.Value<u8>();
     ctx.shuffleOcarinaButtons  = (ShuffleOcarinaButtons) ? 1 : 0;
 
     ctx.mapsAndCompasses   = MapsAndCompasses.Value<u8>();
@@ -1633,6 +1632,7 @@ SettingsContext FillContext() {
     ctx.mirrorWorld                 = MirrorWorld.Value<u8>();
     ctx.coloredKeys                 = (ColoredKeys) ? 1 : 0;
     ctx.coloredBossKeys             = (ColoredBossKeys) ? 1 : 0;
+    ctx.soullessEnemiesLook         = SoullessEnemiesLook.Value<u8>();
     ctx.shuffleSFX                  = ShuffleSFX.Value<u8>();
     ctx.shuffleSFXFootsteps         = (ShuffleSFXFootsteps) ? 1 : 0;
     ctx.shuffleSFXLinkVoice         = (ShuffleSFXLinkVoice) ? 1 : 0;
@@ -2306,9 +2306,11 @@ void ForceChange(u32 kDown, Option* currentSetting) {
 
     if (ShuffleEnemySouls || RandomizeShuffle) {
         startingEnemySouls.Unlock();
+        SoullessEnemiesLook.Unlock();
     } else {
         startingEnemySouls.Lock();
         startingInventory.ResetMenuIndex();
+        SoullessEnemiesLook.Lock();
     }
 
     if (ShuffleOcarinaButtons || RandomizeShuffle) {
@@ -2316,14 +2318,6 @@ void ForceChange(u32 kDown, Option* currentSetting) {
     } else {
         startingOcarinaButtons.Lock();
         startingInventory.ResetMenuIndex();
-    }
-
-    if (!RandomizeShuffle) {
-        if (ShuffleEnemySouls) {
-            SoullessAppearance.Unhide();
-        } else {
-            SoullessAppearance.Hide();
-        }
     }
 
     if (!RandomizeDungeon) {
@@ -2762,6 +2756,7 @@ std::vector<std::pair<Option*, u8>> racingOverrides = {
     { &SkipSongReplays, SONGREPLAYS_SKIP_NO_SFX },
     { &ColoredKeys, ON },
     { &ColoredBossKeys, ON },
+    { &SoullessEnemiesLook, SOULLESSLOOK_PURPLE_FLAME },
 };
 
 // Options that should be overridden and then restored after generating when vanilla logic is enabled

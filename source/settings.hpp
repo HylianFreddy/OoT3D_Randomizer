@@ -429,7 +429,6 @@ extern Option ShuffleFrogSongRupees;
 extern Option ShuffleAdultTradeQuest;
 extern Option ShuffleChestMinigame;
 extern Option ShuffleEnemySouls;
-extern Option SoullessAppearance;
 extern Option ShuffleOcarinaButtons;
 
 extern Option MapsAndCompasses;
@@ -819,6 +818,7 @@ extern Option ColoredKeys;
 extern Option ColoredBossKeys;
 extern Option MirrorWorld;
 extern Option BetaSoldOut;
+extern Option SoullessEnemiesLook;
 
 extern Option ShuffleMusic;
 extern Option ShuffleBGM;

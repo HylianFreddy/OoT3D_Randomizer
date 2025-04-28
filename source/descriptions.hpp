@@ -175,8 +175,6 @@ extern string_view adultTradeDesc;
 extern string_view chestMinigameDesc;
 
 extern string_view enemySoulDesc;
-extern string_view soullessPurpleFlameDesc;
-extern string_view soullessFlashingDesc;
 
 extern string_view ocarinaButtonsDesc;
 
@@ -385,6 +383,9 @@ extern string_view mirrorWorldEntranceDesc;
 extern string_view mirrorWorldRandomDesc;
 
 extern string_view betaSoldOutDesc;
+
+extern string_view soullessPurpleFlameDesc;
+extern string_view soullessFlashingDesc;
 
 extern string_view musicRandoDesc;
 extern string_view shuffleBGMDesc;

@@ -197,9 +197,9 @@ typedef enum {
 } ShuffleEnemySoulsSetting;
 
 typedef enum {
-    SOULLESS_PURPLE_FLAME,
-    SOULLESS_FLASHING,
-} SoullessAppearanceSetting;
+    SOULLESSLOOK_PURPLE_FLAME,
+    SOULLESSLOOK_FLASHING,
+} SoullessEnemiesLookSetting;
 
 typedef enum {
     MAPSANDCOMPASSES_START_WITH,
@@ -525,7 +525,6 @@ typedef struct {
     u8 shuffleAdultTradeQuest;
     u8 shuffleChestMinigame;
     u8 shuffleEnemySouls;
-    u8 soullessAppearance;
     u8 shuffleOcarinaButtons;
 
     u8 mapsAndCompasses;
@@ -669,6 +668,7 @@ typedef struct {
     u8 coloredKeys;
     u8 coloredBossKeys;
     u8 mirrorWorld;
+    u8 soullessEnemiesLook;
 
     u8 shuffleSFX;
     u8 shuffleSFXFootsteps;
