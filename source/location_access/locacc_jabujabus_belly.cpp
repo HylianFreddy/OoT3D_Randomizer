@@ -96,7 +96,7 @@ void AreaTable_Init_JabuJabusBelly() {
                                   return Here(JABU_JABUS_BELLY_GREEN_TENTACLE, [] {
                                       // Defeating Biri is not really required but it can be difficult to target the
                                       // tentacle with the Biri around it.
-                                      return CanDefeatEnemies(2, 0, 8) && CanUse(BOOMERANG);
+                                      return CanDefeatEnemies(2, 0, 8) && SoulParasiticTentacle && CanUse(BOOMERANG);
                                   });
                               } }),
                  });
