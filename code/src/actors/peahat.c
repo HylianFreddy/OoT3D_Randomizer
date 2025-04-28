@@ -37,16 +37,18 @@ void EnPeehat_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 
     if (!EnemySouls_CheckSoulForActor(thisx) && thisx->params == 1) { // Peahat Larva
         // Prevent death when hitting player's shield.
-        if (this->actionFunc == EnPeehat_StateAttackRecoil) {
+        if (this->actionFunc == EnPeehat_StateAttackRecoil && thisx->speedXZ > -1.0) {
             this->actionFunc = EnPeehat_Larva_StateSeekPlayer;
             this->state      = STATE_SEEK_PLAYER;
             this->colliderQuadBase.atFlags &= ~(1 << 2); // AT_BOUNCED
         }
 
-        // Prevent death when hitting ground.
         CollisionPoly floorPoly;
         f32 yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &thisx->world.pos);
 
+        // Keep peahat larvas slightly above ground so their attack collider can still damage the player.
+        // Sometimes they can still touch the ground anyway, so there is also a stand-alone patch to prevent
+        // them from dying in that case.
         if (thisx->world.pos.y < yGroundIntersect + 10) {
             thisx->world.pos.y = yGroundIntersect + 10;
         }
