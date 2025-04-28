@@ -1156,6 +1156,10 @@ SECTIONS
 		*(.patch_SariasSongHintsTwo)
 	}
 
+	.patch_PeahatLarvaGroundCheck 0x391740 : {
+		*(.patch_PeahatLarvaGroundCheck)
+	}
+
 	.patch_OcarinaMinigameEndAfterWin 0x39DF38 : {
 		*(.patch_OcarinaMinigameEndAfterWin)
 	}
