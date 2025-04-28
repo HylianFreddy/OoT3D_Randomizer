@@ -68,9 +68,7 @@ void AreaTable_Init_JabuJabusBelly() {
                      Entrance(JABU_JABUS_BELLY_FORKED_CORRIDOR, { [] { return true; } }),
                      Entrance(JABU_JABUS_BELLY_BIGOCTO_ROOM, { [] {
                                   return Here(JABU_JABUS_BELLY_GREEN_TENTACLE, [] {
-                                      // Biri Soul is not really required but it can be difficult to target the tentacle
-                                      // with the Biri around it.
-                                      return SoulParasiticTentacle && SoulBiriBari && CanUse(BOOMERANG);
+                                      return SoulParasiticTentacle && CanUse(BOOMERANG);
                                   });
                               } }),
                  });
