@@ -127,7 +127,7 @@ void Scene_Init(void) {
            sizeof(Scene));
 
     gRestrictionFlags[72].flags2 = 0; // Allows warp songs in GTG
-    // gRestrictionFlags[93].flags2 = 0; // Allows warp songs in Windmill / Dampe's grave
+    gRestrictionFlags[93].flags2 = 0; // Allows warp songs in Windmill / Dampe's grave
     gRestrictionFlags[94].flags2 = 0; // Allows warp songs in Ganon's Castle
 
     gRestrictionFlags[72].flags3 = 0; // Allows farore's wind in GTG
