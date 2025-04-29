@@ -151,7 +151,7 @@ void AreaTable_Init_ForestTemple() {
                                          CanDoGlitch(GlitchType::ActionSwap, GlitchDifficulty::ADVANCED))));
                            } }),
                 Entrance(FOREST_TEMPLE_NW_OUTDOORS_UPPER,
-                         { [] { return CanUse(LONGSHOT) && CanHookEnemy(3, 0, 8, 5); },
+                         { [] { return CanUse(LONGSHOT) && CanHookEnemy(3, 0, 8, 5, ENEMY_ON_LEDGE); },
                            /*Glitched*/
                            [] {
                                return CanDoGlitch(GlitchType::HookshotJump_Boots, GlitchDifficulty::INTERMEDIATE) ||

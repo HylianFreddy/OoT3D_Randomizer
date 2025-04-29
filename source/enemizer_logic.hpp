@@ -9,6 +9,8 @@ enum class SpaceAroundEnemy {
     NONE,
 };
 
+#define ENEMY_ON_LEDGE true
+
 bool IsWallmaster(u8 scene, u8 layer, u8 room, u8 actorEntry);
 bool CanDefeatEnemy(u16 enemyId);
 bool CanDefeatEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry);
@@ -18,7 +20,7 @@ bool CanPassEnemies(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries = 
                     SpaceAroundEnemy space = SpaceAroundEnemy::WIDE);
 bool CanPassAnyEnemy(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries = {},
                      SpaceAroundEnemy space = SpaceAroundEnemy::WIDE);
-bool CanHookEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry);
+bool CanHookEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry, bool onLedge = false);
 bool CanDetonateEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry);
 bool CanDetonateAnyEnemy(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries = {});
 bool CanGetDekuBabaSticks(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries = {});

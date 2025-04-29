@@ -294,7 +294,7 @@ bool CanPassAnyEnemy(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries /
                              actorEntries);
 }
 
-bool CanHookEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry) {
+bool CanHookEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry, bool onLedge) {
     EnemyLocation& loc = enemyLocations[scene][layer][room][actorEntry];
     u16 enemyId        = loc.randomizedEnemyId != ENEMY_INVALID ? loc.randomizedEnemyId : loc.vanillaEnemyId;
 
@@ -303,15 +303,15 @@ bool CanHookEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry) {
     }
 
     switch (enemyId) {
-        // Not included as they can walk off ledges.
-        // case ENEMY_IRON_KNUCKLE:
-        // case ENEMY_FLOORMASTER:
         case ENEMY_LIKE_LIKE:
         case ENEMY_REDEAD:
         case ENEMY_GIBDO:
             return true;
         case ENEMY_FREEZARD:
             return loc.randomizedParams == 0; // immobile, always spawned
+        case ENEMY_IRON_KNUCKLE:
+        case ENEMY_FLOORMASTER:
+            return !onLedge; // these can walk off ledges
         default:
             return false;
     }
@@ -333,7 +333,6 @@ static EnemyConditionFn _CanDetonateEnemy([](EnemyLocation& loc) {
     return false;
 });
 
-// check peahat
 bool CanDetonateEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry) {
     return _CanDetonateEnemy(enemyLocations[scene][layer][room][actorEntry]);
 }

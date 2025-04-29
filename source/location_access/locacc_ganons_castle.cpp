@@ -127,7 +127,7 @@ void AreaTable_Init_GanonsCastle() {
                 EventAccess(&ShadowTrialClear, { [] {
                     return CanUse(LIGHT_ARROWS) && CanUse(MEGATON_HAMMER) &&
                            ((FireArrows && (LogicLensCastle || CanUse(LENS_OF_TRUTH))) ||
-                            (CanUse(LONGSHOT) && ((CanHookEnemy(13, 0, 12, 3) && CanUse(HOVER_BOOTS)) ||
+                            (CanUse(LONGSHOT) && ((CanHookEnemy(13, 0, 12, 3, ENEMY_ON_LEDGE) && CanUse(HOVER_BOOTS)) ||
                                                   (DinsFire && (LogicLensCastle || CanUse(LENS_OF_TRUTH))))));
                 } }),
             },
@@ -140,7 +140,8 @@ void AreaTable_Init_GanonsCastle() {
                 LocationAccess(GANONS_CASTLE_SHADOW_TRIAL_GOLDEN_GAUNTLETS_CHEST, { [] {
                                    return CanUse(FIRE_ARROWS) ||
                                           (CanUse(LONGSHOT) &&
-                                           ((CanHookEnemy(13, 0, 12, 3) && CanUse(HOVER_BOOTS)) || CanUse(DINS_FIRE)));
+                                           ((CanHookEnemy(13, 0, 12, 3, ENEMY_ON_LEDGE) && CanUse(HOVER_BOOTS)) ||
+                                            CanUse(DINS_FIRE)));
                                } }),
             },
             {});
