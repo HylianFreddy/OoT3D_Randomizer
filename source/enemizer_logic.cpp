@@ -292,6 +292,14 @@ bool CanPassAnyEnemy(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries /
                              actorEntries);
 }
 
+bool CanCrawlNearEnemies(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries /*= {}*/) {
+    return AllEnemiesSatisfy(
+        [](EnemyLocation& loc) {
+            return loc.GetEnemyId() != ENEMY_DEAD_HAND_HAND || CanDefeatEnemy(ENEMY_DEAD_HAND_HAND);
+        },
+        scene, layer, room, actorEntries);
+}
+
 bool CanHookEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry, bool onLedge) {
     EnemyLocation& loc = enemyLocations[scene][layer][room][actorEntry];
     u16 enemyId        = loc.GetEnemyId();

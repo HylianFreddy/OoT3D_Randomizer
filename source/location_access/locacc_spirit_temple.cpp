@@ -82,6 +82,7 @@ void AreaTable_Init_SpiritTemple() {
                      Entrance(SPIRIT_TEMPLE_CHILD_CLIMB, { [] {
                                   return SmallKeys(SPIRIT_TEMPLE, 1) &&
                                          CanPassEnemies(6, 0, 1, { 1, 2 }, SpaceAroundEnemy::NARROW) &&
+                                         CanCrawlNearEnemies(6, 0, 1, { 1, 2 }) &&
                                          CanPassEnemies(6, 0, 4, { 2, 3 }, SpaceAroundEnemy::NARROW);
                               } }),
                  });
