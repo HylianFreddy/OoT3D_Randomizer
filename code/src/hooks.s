@@ -2422,7 +2422,7 @@ hook_BabyDodongoWallCheck:
     tst r0,#0x8
     bxeq lr @ no wall detected, return
     push {r0-r12, lr}
-    @ prevent burrowing for soulless baby dodongos
+    @ Prevent burrowing for soulless baby dodongos.
     cpy r0,r4
     bl EnemySouls_CheckSoulForActor
     cmp r0,#0x0
