@@ -377,23 +377,23 @@ void AreaTable_Init_LostWoods() {
                                            Entrance(LW_BEYOND_MIDO, { [] { return true; } }),
                                        });
 
-    areaTable[SFM_ENTRYWAY] = Area(
-        "SFM Entryway", "Sacred Forest Meadow", SACRED_FOREST_MEADOW, NO_DAY_NIGHT_CYCLE, {}, {},
-        {
-            // Exits
-            Entrance(LW_BEYOND_MIDO, { [] { return true; } }),
-            Entrance(SACRED_FOREST_MEADOW, { [] {
-                         return ((IsChild && CanDefeatEnemy(86, 0, 0, 1) &&
-                                  CanPassEnemies(86, 0, 0, { 5, 6, 7, 10 }, SpaceAroundEnemy::NARROW) &&
-                                  CanPassEnemies(86, 0, 0, { 8, 9 })) ||
-                                 (IsAdult && (CanUse(SCARECROW) ||
-                                              (Settings::Enemizer ? (CanPassEnemies(86, 2, 0, { 6, 7, 8, 9, 10 },
-                                                                                    SpaceAroundEnemy::NARROW) &&
-                                                                     CanPassEnemy(86, 2, 0, 11))
-                                                                  : CanDefeatEnemy(Enemizer::ENEMY_MOBLIN_SPEAR)))));
-                     } }),
-            Entrance(SFM_WOLFOS_GROTTO, { [] { return CanOpenBombGrotto; } }),
-        });
+    areaTable[SFM_ENTRYWAY] =
+        Area("SFM Entryway", "Sacred Forest Meadow", SACRED_FOREST_MEADOW, NO_DAY_NIGHT_CYCLE, {}, {},
+             {
+                 // Exits
+                 Entrance(LW_BEYOND_MIDO, { [] { return true; } }),
+                 Entrance(SACRED_FOREST_MEADOW, { [] {
+                              return ((IsChild && CanDefeatEnemy(86, 0, 0, 1) &&
+                                       CanPassEnemies(86, 0, 0, { 5, 6, 7, 10 }, SpaceAroundEnemy::NARROW) &&
+                                       CanPassEnemies(86, 0, 0, { 8, 9 })) ||
+                                      (IsAdult && CanPassEnemy(86, 2, 0, 11) &&
+                                       (CanUse(SCARECROW) ||
+                                        (Settings::Enemizer
+                                             ? (CanPassEnemies(86, 2, 0, { 6, 7, 8, 9, 10 }, SpaceAroundEnemy::NARROW))
+                                             : CanDefeatEnemy(Enemizer::ENEMY_MOBLIN_SPEAR)))));
+                          } }),
+                 Entrance(SFM_WOLFOS_GROTTO, { [] { return CanOpenBombGrotto; } }),
+             });
 
     static constexpr auto ForEachEnemy_SacredForestMeadow = [](auto& enemyCheckFn) {
         return (IsChild && enemyCheckFn(86, 0, 0, { 5, 6, 7, 8, 9, 10 })) || (IsAdult && enemyCheckFn(86, 2, 0, {}));
