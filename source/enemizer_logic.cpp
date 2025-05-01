@@ -300,7 +300,7 @@ bool CanCrawlNearEnemies(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntri
         scene, layer, room, actorEntries);
 }
 
-bool CanHookEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry, bool onLedge) {
+bool CanHookEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry, bool onLedge /*= false*/) {
     EnemyLocation& loc = enemyLocations[scene][layer][room][actorEntry];
     u16 enemyId        = loc.GetEnemyId();
 
@@ -318,33 +318,36 @@ bool CanHookEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry, bool onLedge) {
         case ENEMY_IRON_KNUCKLE:
         case ENEMY_FLOORMASTER:
             return !onLedge; // these can walk off ledges
-        default:
-            return false;
     }
+
+    return false;
 }
 
-static EnemyConditionFn _CanDetonateEnemy([](EnemyLocation& loc) {
+static bool _CanDetonateEnemy(EnemyLocation& loc, bool needLowHeight = false) {
     u16 enemyId = loc.GetEnemyId();
 
     switch (enemyId) {
         // case ENEMY_BEAMOS: useless to include as it requires an explosion to explode
-        // case ENEMY_PEAHAT: explodes up in the air, e.g. it wouldn't open a grotto
         case ENEMY_DODONGO:
         case ENEMY_DODONGO_BABY:
         case ENEMY_ARMOS:
         case ENEMY_FLARE_DANCER:
             return CanDefeatEnemy(enemyId);
+        case ENEMY_PEAHAT: // explodes up in the air, e.g. it wouldn't open a grotto
+            return !needLowHeight && CanDefeatEnemy(enemyId);
     }
 
     return false;
-});
-
-bool CanDetonateEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry) {
-    return _CanDetonateEnemy(enemyLocations[scene][layer][room][actorEntry]);
 }
 
-bool CanDetonateAnyEnemy(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries /*= {}*/) {
-    return AnyEnemySatisfies(_CanDetonateEnemy, scene, layer, room, actorEntries);
+bool CanDetonateEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry, bool needLowHeight /*= false*/) {
+    return _CanDetonateEnemy(enemyLocations[scene][layer][room][actorEntry], needLowHeight);
+}
+
+bool CanDetonateAnyEnemy(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries /*= {}*/,
+                         bool needLowHeight /*= false*/) {
+    return AnyEnemySatisfies([needLowHeight](EnemyLocation& loc) { return _CanDetonateEnemy(loc, needLowHeight); },
+                             scene, layer, room, actorEntries);
 }
 
 static EnemyConditionFn _CanGetDekuBabaSticks([](EnemyLocation& loc) {

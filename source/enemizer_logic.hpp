@@ -22,8 +22,8 @@ bool CanPassAnyEnemy(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries =
                      SpaceAroundEnemy space = SpaceAroundEnemy::WIDE);
 bool CanCrawlNearEnemies(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries = {});
 bool CanHookEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry, bool onLedge = false);
-bool CanDetonateEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry);
-bool CanDetonateAnyEnemy(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries = {});
+bool CanDetonateEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry, bool needLowHeight = false);
+bool CanDetonateAnyEnemy(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries = {}, bool needLowHeight = false);
 bool CanGetDekuBabaSticks(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries = {});
 bool CanGetDekuBabaNuts(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries = {});
 
