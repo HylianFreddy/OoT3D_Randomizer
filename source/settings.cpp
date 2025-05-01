@@ -2744,7 +2744,7 @@ bool IsMQOption(Option *option) {
            option == &MQGTG           ||
            option == &MQCastle;
 }
-// clang-format on
+
 // Options that should be overridden and then restored after generating when racing is enabled
 std::vector<std::pair<Option*, u8>> racingOverrides = {
     { &QuickText, QUICKTEXT_TURBO },
@@ -2753,6 +2753,7 @@ std::vector<std::pair<Option*, u8>> racingOverrides = {
     { &ColoredBossKeys, ON },
     { &SoullessEnemiesLook, SOULLESSLOOK_PURPLE_FLAME },
 };
+// clang-format on
 
 // Options that should be overridden and then restored after generating when vanilla logic is enabled
 std::vector<std::pair<Option*, u8>> vanillaLogicOverrides = {
