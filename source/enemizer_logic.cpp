@@ -37,9 +37,7 @@ static bool AnyEnemySatisfies(EnemyConditionFn conditionFn, u8 scene, u8 layer, 
 }
 
 bool IsWallmaster(u8 scene, u8 layer, u8 room, u8 actorEntry) {
-    EnemyLocation& loc = enemyLocations[scene][layer][room][actorEntry];
-    return loc.randomizedEnemyId == ENEMY_WALLMASTER ||
-           (loc.randomizedEnemyId == ENEMY_INVALID && loc.vanillaEnemyId == ENEMY_WALLMASTER);
+    return enemyLocations[scene][layer][room][actorEntry].GetEnemyId() == ENEMY_WALLMASTER;
 }
 
 bool CanDefeatEnemy(u16 enemyId) {
@@ -222,8 +220,8 @@ bool CanDefeatEnemy(u16 enemyId) {
 }
 
 static EnemyConditionFn _CanDefeatEnemy([](EnemyLocation& loc) {
-    u16 enemyId       = loc.randomizedEnemyId != ENEMY_INVALID ? loc.randomizedEnemyId : loc.vanillaEnemyId;
-    bool isUnderwater = std::find(loc.types.begin(), loc.types.end(), LocType::UNDERWATER) != loc.types.end();
+    u16 enemyId       = loc.GetEnemyId();
+    bool isUnderwater = loc.IsUnderwater();
 
     if (isUnderwater) {
         return enemyTypes[enemyId].HasSoul() && CanUse(IRON_BOOTS) && CanUse(HOOKSHOT);
@@ -241,8 +239,8 @@ bool CanDefeatEnemies(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries 
 }
 
 static bool _CanPassEnemy(EnemyLocation& loc, SpaceAroundEnemy space = SpaceAroundEnemy::WIDE) {
-    u16 enemyId       = loc.randomizedEnemyId != ENEMY_INVALID ? loc.randomizedEnemyId : loc.vanillaEnemyId;
-    bool isUnderwater = std::find(loc.types.begin(), loc.types.end(), LocType::UNDERWATER) != loc.types.end();
+    u16 enemyId       = loc.GetEnemyId();
+    bool isUnderwater = loc.IsUnderwater();
 
     switch (space) {
         case SpaceAroundEnemy::NONE:
@@ -294,57 +292,67 @@ bool CanPassAnyEnemy(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries /
                              actorEntries);
 }
 
-bool CanHookEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry) {
+bool CanCrawlNearEnemies(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries /*= {}*/) {
+    return AllEnemiesSatisfy(
+        [](EnemyLocation& loc) {
+            return loc.GetEnemyId() != ENEMY_DEAD_HAND_HAND || CanDefeatEnemy(ENEMY_DEAD_HAND_HAND);
+        },
+        scene, layer, room, actorEntries);
+}
+
+bool CanHookEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry, bool onLedge /*= false*/) {
     EnemyLocation& loc = enemyLocations[scene][layer][room][actorEntry];
-    u16 enemyId        = loc.randomizedEnemyId != ENEMY_INVALID ? loc.randomizedEnemyId : loc.vanillaEnemyId;
+    u16 enemyId        = loc.GetEnemyId();
 
     if (!enemyTypes[enemyId].HasSoul()) {
         return false;
     }
 
     switch (enemyId) {
-        // Not included as they can walk off ledges.
-        // case ENEMY_IRON_KNUCKLE:
-        // case ENEMY_FLOORMASTER:
         case ENEMY_LIKE_LIKE:
         case ENEMY_REDEAD:
         case ENEMY_GIBDO:
             return true;
         case ENEMY_FREEZARD:
             return loc.randomizedParams == 0; // immobile, always spawned
-        default:
-            return false;
+        case ENEMY_IRON_KNUCKLE:
+        case ENEMY_FLOORMASTER:
+            return !onLedge; // these can walk off ledges
     }
+
+    return false;
 }
 
-static EnemyConditionFn _CanDetonateEnemy([](EnemyLocation& loc) {
-    u16 enemyId = loc.randomizedEnemyId != ENEMY_INVALID ? loc.randomizedEnemyId : loc.vanillaEnemyId;
+static bool _CanDetonateEnemy(EnemyLocation& loc, bool needLowHeight = false) {
+    u16 enemyId = loc.GetEnemyId();
 
     switch (enemyId) {
         // case ENEMY_BEAMOS: useless to include as it requires an explosion to explode
-        // case ENEMY_PEAHAT: explodes up in the air, e.g. it wouldn't open a grotto
         case ENEMY_DODONGO:
         case ENEMY_DODONGO_BABY:
         case ENEMY_ARMOS:
         case ENEMY_FLARE_DANCER:
             return CanDefeatEnemy(enemyId);
+        case ENEMY_PEAHAT: // explodes up in the air, e.g. it wouldn't open a grotto
+            return !needLowHeight && CanDefeatEnemy(enemyId);
     }
 
     return false;
-});
-
-// check peahat
-bool CanDetonateEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry) {
-    return _CanDetonateEnemy(enemyLocations[scene][layer][room][actorEntry]);
 }
 
-bool CanDetonateAnyEnemy(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries /*= {}*/) {
-    return AnyEnemySatisfies(_CanDetonateEnemy, scene, layer, room, actorEntries);
+bool CanDetonateEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry, bool needLowHeight /*= false*/) {
+    return _CanDetonateEnemy(enemyLocations[scene][layer][room][actorEntry], needLowHeight);
+}
+
+bool CanDetonateAnyEnemy(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntries /*= {}*/,
+                         bool needLowHeight /*= false*/) {
+    return AnyEnemySatisfies([needLowHeight](EnemyLocation& loc) { return _CanDetonateEnemy(loc, needLowHeight); },
+                             scene, layer, room, actorEntries);
 }
 
 static EnemyConditionFn _CanGetDekuBabaSticks([](EnemyLocation& loc) {
-    u16 enemyId = loc.randomizedEnemyId != ENEMY_INVALID ? loc.randomizedEnemyId : loc.vanillaEnemyId;
-    if (std::find(loc.types.begin(), loc.types.end(), LocType::UNDERWATER) != loc.types.end()) {
+    u16 enemyId = loc.GetEnemyId();
+    if (loc.IsUnderwater()) {
         return false;
     }
 
@@ -365,8 +373,8 @@ bool CanGetDekuBabaSticks(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntr
 }
 
 static EnemyConditionFn _CanGetDekuBabaNuts([](EnemyLocation& loc) {
-    u16 enemyId       = loc.randomizedEnemyId != ENEMY_INVALID ? loc.randomizedEnemyId : loc.vanillaEnemyId;
-    bool isUnderwater = std::find(loc.types.begin(), loc.types.end(), LocType::UNDERWATER) != loc.types.end();
+    u16 enemyId       = loc.GetEnemyId();
+    bool isUnderwater = loc.IsUnderwater();
 
     switch (enemyId) { // same as defeat condition but exclude boomerang
         case ENEMY_DEKU_BABA_BIG:

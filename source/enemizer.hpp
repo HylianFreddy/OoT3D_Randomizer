@@ -123,6 +123,14 @@ class EnemyLocation {
         : vanillaEnemyId(_vanillaEnemyId), types(std::move(_types)) {
     }
 
+    u16 GetEnemyId() {
+        return randomizedEnemyId != ENEMY_INVALID ? randomizedEnemyId : vanillaEnemyId;
+    }
+
+    bool IsUnderwater() {
+        return std::find(types.begin(), types.end(), LocType::UNDERWATER) != types.end();
+    }
+
     u16 vanillaEnemyId    = 0;
     u16 randomizedEnemyId = 0;
     u16 randomizedParams  = 0;
