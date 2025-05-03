@@ -1,7 +1,6 @@
 #include "dark_link.h"
 #include "settings.h"
 #include "enemizer.h"
-#include "common.h"
 
 #define EnTorch2_Update ((ActorFunc)GAME_ADDR(0x22F0C8))
 
