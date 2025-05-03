@@ -648,6 +648,10 @@ SECTIONS
 		*(.patch_BusinessScrubCheckFlags)
 	}
 
+	.patch_DarkLinkPlayerRecoil 0x22F838 : {
+		*(.patch_DarkLinkPlayerRecoil)
+	}
+
 	.patch_SceneCommandActorEntryList 0x234498 : {
 		*(.patch_SceneCommandActorEntryList)
 	}
