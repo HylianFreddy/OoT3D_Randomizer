@@ -21,8 +21,8 @@ void EnTorch2_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         }
     }
 
-    if (gSettingsContext.enemizer == ON) {
-        // Skip adjusting position after spawning.
+    // For enemy randomizer, skip adjusting position after spawning outside of vanilla location.
+    if (globalCtx->sceneNum != SCENE_WATER_TEMPLE || globalCtx->roomNum != 13) {
         this->darkPlayer.darkLinkAdjustedSpawnPos = 1;
     }
 
