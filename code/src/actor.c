@@ -78,6 +78,7 @@
 #include "flying_traps.h"
 #include "dodongos.h"
 #include "stalchild.h"
+#include "skull_kid.h"
 
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
@@ -218,6 +219,8 @@ void Actor_Init() {
     gActorOverlayTable[0x10F].initInfo->update  = ItemEtcetera_rUpdate;
 
     gActorOverlayTable[0x113].initInfo->init = EnIk_rInit;
+
+    gActorOverlayTable[0x115].initInfo->update = EnSkj_rUpdate;
 
     gActorOverlayTable[0x11A].initInfo->update = EnDns_rUpdate;
 
