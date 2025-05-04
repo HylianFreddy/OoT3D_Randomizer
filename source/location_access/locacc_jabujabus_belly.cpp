@@ -41,7 +41,9 @@ void AreaTable_Init_JabuJabusBelly() {
                      // Exits
                      Entrance(JABU_JABUS_BELLY_ENTRYWAY, { [] { return true; } }),
                      Entrance(JABU_JABUS_BELLY_LIFT_MIDDLE,
-                              { [] { return CanUseProjectile && CanPassEnemies(2, 0, 0, { 3, 4 }); },
+                              { [] {
+                                   return CanUseProjectile && CanPassEnemies(2, 0, 0, { 3, 4 });
+                               },
                                 /*Glitched*/
                                 [] {
                                     return (CanPassEnemies(2, 0, 0, { 3, 4 }) && CanUse(STICKS) && CanTakeDamage &&
@@ -130,8 +132,9 @@ void AreaTable_Init_JabuJabusBelly() {
                  {
                      // Exits
                      Entrance(JABU_JABUS_BELLY_MAIN_UPPER, { [] { return true; } }),
-                     Entrance(JABU_JABUS_BELLY_SHABOMB_CORRIDOR,
-                              { [] { return CanPassEnemies(2, 0, 14, { 10, 11, 14, 15 }); } }),
+                     Entrance(JABU_JABUS_BELLY_SHABOMB_CORRIDOR, { [] {
+                                  return CanPassEnemies(2, 0, 14, { 10, 11, 14, 15 });
+                              } }),
                      Entrance(JABU_JABUS_BELLY_LOWER_SIDE_ROOM, { [] { return true; } }),
                  });
 
@@ -154,9 +157,13 @@ void AreaTable_Init_JabuJabusBelly() {
             },
             {
                 // Exits
-                Entrance(JABU_JABUS_BELLY_MAIN_LOWER, { [] { return CanPassEnemies(2, 0, 14, { 10, 11, 14, 15 }); } }),
+                Entrance(JABU_JABUS_BELLY_MAIN_LOWER, { [] {
+                             return CanPassEnemies(2, 0, 14, { 10, 11, 14, 15 });
+                         } }),
                 Entrance(JABU_JABUS_BELLY_LIFT_LOWER,
-                         { [] { return CanPassEnemies(2, 0, 14, { 12, 13, 16 }) && CanUseProjectile; },
+                         { [] {
+                              return CanPassEnemies(2, 0, 14, { 12, 13, 16 }) && CanUseProjectile;
+                          },
                            /*Glitched*/
                            [] {
                                return CanPassEnemies(2, 0, 14, { 12, 13, 16 }) && CanUse(STICKS) && CanTakeDamage &&
@@ -193,8 +200,9 @@ void AreaTable_Init_JabuJabusBelly() {
                  },
                  {
                      // Exits
-                     Entrance(JABU_JABUS_BELLY_SHABOMB_CORRIDOR,
-                              { [] { return CanPassEnemies(2, 0, 14, { 12, 13, 16 }); } }),
+                     Entrance(JABU_JABUS_BELLY_SHABOMB_CORRIDOR, { [] {
+                                  return CanPassEnemies(2, 0, 14, { 12, 13, 16 });
+                              } }),
                      Entrance(JABU_JABUS_BELLY_LIFT_MIDDLE, { [] { return true; } }),
                  });
 
@@ -214,8 +222,12 @@ void AreaTable_Init_JabuJabusBelly() {
             {
                 // Exits
                 Entrance(JABU_JABUS_BELLY_MAIN_UPPER, { [] { return true; } }),
-                Entrance(JABU_JABUS_BELLY_BOOMERANG_ROOM, { [] { return CanPassEnemies(2, 0, 7, { 1, 4 }); } }),
-                Entrance(JABU_JABUS_BELLY_MAP_ROOM, { [] { return CanPassEnemies(2, 0, 7, { 0, 3 }); } }),
+                Entrance(JABU_JABUS_BELLY_BOOMERANG_ROOM, { [] {
+                             return CanPassEnemies(2, 0, 7, { 1, 4 });
+                         } }),
+                Entrance(JABU_JABUS_BELLY_MAP_ROOM, { [] {
+                             return CanPassEnemies(2, 0, 7, { 0, 3 });
+                         } }),
                 Entrance(JABU_JABUS_BELLY_COMPASS_ROOM, { [] {
                              return CanPassEnemies(2, 0, 7, { 0, 3 }) && Here(JABU_JABUS_BELLY_MAP_ROOM, [] {
                                         return SoulParasiticTentacle && CanUse(BOOMERANG);

@@ -28,10 +28,12 @@ void AreaTable_Init_SpiritTemple() {
             Area("Spirit Temple Lobby", "Spirit Temple", SPIRIT_TEMPLE, NO_DAY_NIGHT_CYCLE,
                  {
                      // Events
-                     EventAccess(&DekuBabaSticks,
-                                 { [] { return DekuBabaSticks || CanGetDekuBabaSticks(6, 0, 0, { 0, 1, 12, 13 }); } }),
-                     EventAccess(&DekuBabaNuts,
-                                 { [] { return DekuBabaNuts || CanGetDekuBabaNuts(6, 0, 0, { 0, 1, 12, 13 }); } }),
+                     EventAccess(&DekuBabaSticks, { [] {
+                         return DekuBabaSticks || CanGetDekuBabaSticks(6, 0, 0, { 0, 1, 12, 13 });
+                     } }),
+                     EventAccess(&DekuBabaNuts, { [] {
+                         return DekuBabaNuts || CanGetDekuBabaNuts(6, 0, 0, { 0, 1, 12, 13 });
+                     } }),
                  },
                  {},
                  {
@@ -156,10 +158,12 @@ void AreaTable_Init_SpiritTemple() {
                                            HasBombchus || (Bombs && LogicSpiritLowerAdultSwitch)) &&
                                           (HoverBoots || CanJumpslash);
                                } }),
-                LocationAccess(SPIRIT_TEMPLE_FIRST_MIRROR_LEFT_CHEST,
-                               { [] { return SmallKeys(SPIRIT_TEMPLE, 3) && CanPassAnyEnemy(6, 0, 15, { 2, 12 }); } }),
-                LocationAccess(SPIRIT_TEMPLE_FIRST_MIRROR_RIGHT_CHEST,
-                               { [] { return SmallKeys(SPIRIT_TEMPLE, 3) && CanPassAnyEnemy(6, 0, 15, { 2, 12 }); } }),
+                LocationAccess(SPIRIT_TEMPLE_FIRST_MIRROR_LEFT_CHEST, { [] {
+                                   return SmallKeys(SPIRIT_TEMPLE, 3) && CanPassAnyEnemy(6, 0, 15, { 2, 12 });
+                               } }),
+                LocationAccess(SPIRIT_TEMPLE_FIRST_MIRROR_RIGHT_CHEST, { [] {
+                                   return SmallKeys(SPIRIT_TEMPLE, 3) && CanPassAnyEnemy(6, 0, 15, { 2, 12 });
+                               } }),
                 LocationAccess(SPIRIT_TEMPLE_GS_BOULDER_ROOM, { [] {
                                    return CanPlay(SongOfTime) &&
                                           (CanUse(BOW) || CanUse(HOOKSHOT) || CanUse(SLINGSHOT) || CanUse(BOOMERANG) ||
@@ -168,8 +172,9 @@ void AreaTable_Init_SpiritTemple() {
             },
             {
                 // Exits
-                Entrance(SPIRIT_TEMPLE_CENTRAL_CHAMBER,
-                         { [] { return SmallKeys(SPIRIT_TEMPLE, 1) && CanPassAnyEnemy(6, 0, 15, { 2, 12 }); } }),
+                Entrance(SPIRIT_TEMPLE_CENTRAL_CHAMBER, { [] {
+                             return SmallKeys(SPIRIT_TEMPLE, 1) && CanPassAnyEnemy(6, 0, 15, { 2, 12 });
+                         } }),
             });
 
         static constexpr auto ForEachEnemy_CentralChamber = [](auto& enemyCheckFn) {
