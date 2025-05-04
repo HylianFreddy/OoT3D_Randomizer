@@ -40,9 +40,12 @@ void AreaTable_Init_DodongosCavern() {
             "Dodongos Cavern Lobby", "Dodongos Cavern", DODONGOS_CAVERN, NO_DAY_NIGHT_CYCLE,
             {
                 // Events
-                EventAccess(&DekuBabaSticks,
-                            { [] { return DekuBabaSticks || CanGetDekuBabaSticks(1, 0, 0, { 7, 8, 9 }); } }),
-                EventAccess(&DekuBabaNuts, { [] { return DekuBabaNuts || CanGetDekuBabaNuts(1, 0, 0, { 7, 8, 9 }); } }),
+                EventAccess(&DekuBabaSticks, { [] {
+                    return DekuBabaSticks || CanGetDekuBabaSticks(1, 0, 0, { 7, 8, 9 });
+                } }),
+                EventAccess(&DekuBabaNuts, { [] {
+                    return DekuBabaNuts || CanGetDekuBabaNuts(1, 0, 0, { 7, 8, 9 });
+                } }),
                 EventAccess(&GossipStoneFairy, { [] {
                                                     return GossipStoneFairy ||
                                                            (CanSummonGossipFairy && Here(DODONGOS_CAVERN_LOBBY, [] {
@@ -164,18 +167,17 @@ void AreaTable_Init_DodongosCavern() {
                  {
                      // Exits
                      Entrance(DODONGOS_CAVERN_LOBBY, { [] { return true; } }),
-                     Entrance(DODONGOS_CAVERN_SE_ROOM, { [] {
-                                                            return Here(DODONGOS_CAVERN_SE_CORRIDOR, [] {
-                                                                return CanBlastOrSmash ||
-                                                                       CanDetonateAnyEnemy(1, 0, 1, { 5, 6, 7 });
-                                                            });
-                                                        },
-                                                         /*Glitched*/
-                                                         [] {
-                                                             return Here(DODONGOS_CAVERN_SE_CORRIDOR, [] {
-                                                                 return (GlitchBlueFireWall && BlueFire);
-                                                             });
-                                                         } }),
+                     Entrance(DODONGOS_CAVERN_SE_ROOM,
+                              { [] {
+                                   return Here(DODONGOS_CAVERN_SE_CORRIDOR, [] {
+                                       return CanBlastOrSmash || CanDetonateAnyEnemy(1, 0, 1, { 5, 6, 7 });
+                                   });
+                               },
+                                /*Glitched*/
+                                [] {
+                                    return Here(DODONGOS_CAVERN_SE_CORRIDOR,
+                                                [] { return (GlitchBlueFireWall && BlueFire); });
+                                } }),
                      Entrance(DODONGOS_CAVERN_NEAR_LOWER_LIZALFOS, { [] { return true; } }),
                  });
 
@@ -209,12 +211,14 @@ void AreaTable_Init_DodongosCavern() {
                  {
                      // Exits
                      Entrance(DODONGOS_CAVERN_NEAR_LOWER_LIZALFOS, { [] {
-                                  return Here(DODONGOS_CAVERN_LOWER_LIZALFOS,
-                                              [] { return CanDefeatEnemies(1, 0, 3, { 0, 1 }); });
+                                  return Here(DODONGOS_CAVERN_LOWER_LIZALFOS, [] {
+                                      return CanDefeatEnemies(1, 0, 3, { 0, 1 });
+                                  });
                               } }),
                      Entrance(DODONGOS_CAVERN_DODONGO_ROOM, { [] {
-                                  return Here(DODONGOS_CAVERN_LOWER_LIZALFOS,
-                                              [] { return CanDefeatEnemies(1, 0, 3, { 0, 1 }); });
+                                  return Here(DODONGOS_CAVERN_LOWER_LIZALFOS, [] {
+                                      return CanDefeatEnemies(1, 0, 3, { 0, 1 });
+                                  });
                               } }),
                  });
 
@@ -327,8 +331,9 @@ void AreaTable_Init_DodongosCavern() {
                  {
                      // Exits
                      Entrance(DODONGOS_CAVERN_STAIRS_UPPER, { [] { return true; } }),
-                     Entrance(DODONGOS_CAVERN_BOMB_ROOM_LOWER,
-                              { [] { return CanPassEnemies(1, 0, 0, { 5, 6 }, SpaceAroundEnemy::NARROW); } }),
+                     Entrance(DODONGOS_CAVERN_BOMB_ROOM_LOWER, { [] {
+                                  return CanPassEnemies(1, 0, 0, { 5, 6 }, SpaceAroundEnemy::NARROW);
+                              } }),
                  });
 
         areaTable[DODONGOS_CAVERN_BOMB_ROOM_LOWER] = Area(
@@ -421,12 +426,14 @@ void AreaTable_Init_DodongosCavern() {
                      // Exits
                      Entrance(DODONGOS_CAVERN_LOWER_LIZALFOS, { [] { return true; } }),
                      Entrance(DODONGOS_CAVERN_FIRST_SLINGSHOT_ROOM, { [] {
-                                  return Here(DODONGOS_CAVERN_LOWER_LIZALFOS,
-                                              [] { return CanDefeatEnemies(1, 0, 3, { 2, 3 }); });
+                                  return Here(DODONGOS_CAVERN_LOWER_LIZALFOS, [] {
+                                      return CanDefeatEnemies(1, 0, 3, { 2, 3 });
+                                  });
                               } }),
                      Entrance(DODONGOS_CAVERN_SECOND_SLINGSHOT_ROOM, { [] {
-                                  return Here(DODONGOS_CAVERN_LOWER_LIZALFOS,
-                                              [] { return CanDefeatEnemies(1, 0, 3, { 2, 3 }); });
+                                  return Here(DODONGOS_CAVERN_LOWER_LIZALFOS, [] {
+                                      return CanDefeatEnemies(1, 0, 3, { 2, 3 });
+                                  });
                               } }),
                  });
 

@@ -418,18 +418,18 @@ void AreaTable_Init_LostWoods() {
         },
         {
             // Exits
-            Entrance(SFM_ENTRYWAY, { [] {
-                         return ((IsChild && CanPassEnemies(86, 0, 0, { 8, 9 })) ||
-                                 (IsAdult && CanPassEnemy(86, 2, 0, 11)));
-                     } }),
+            Entrance(
+                SFM_ENTRYWAY, { [] {
+                    return ((IsChild && CanPassEnemies(86, 0, 0, { 8, 9 })) || (IsAdult && CanPassEnemy(86, 2, 0, 11)));
+                } }),
             Entrance(
                 FOREST_TEMPLE_ENTRYWAY,
                 { [] { return CanUse(HOOKSHOT); },
                   /*Glitched*/ [] { return CanDoGlitch(GlitchType::BombHover, GlitchDifficulty::INTERMEDIATE); } }),
-            Entrance(SFM_FAIRY_GROTTO, { [] {
-                         return ((IsChild && CanPassEnemies(86, 0, 0, { 8, 9 })) ||
-                                 (IsAdult && CanPassEnemy(86, 2, 0, 11)));
-                     } }),
+            Entrance(
+                SFM_FAIRY_GROTTO, { [] {
+                    return ((IsChild && CanPassEnemies(86, 0, 0, { 8, 9 })) || (IsAdult && CanPassEnemy(86, 2, 0, 11)));
+                } }),
             Entrance(SFM_STORMS_GROTTO,
                      { [] { return CanOpenStormGrotto; },
                        /*Glitched*/

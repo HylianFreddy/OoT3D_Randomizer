@@ -460,36 +460,39 @@ void AreaTable_Init_FireTemple() {
                      Entrance(FIRE_TEMPLE_FIRE_MAZE_ROOM, { [] { return true; } }),
                  });
 
-        areaTable[FIRE_TEMPLE_FIRE_MAZE_ROOM] = Area(
-            "Fire Temple Fire Maze Room", "Fire Temple", FIRE_TEMPLE, NO_DAY_NIGHT_CYCLE,
-            {
-                // Events
-                EventAccess(&DekuBabaSticks,
-                            { [] { return DekuBabaSticks || CanGetDekuBabaSticks(4, 0, 10, { 25, 44 }); } }),
-                EventAccess(&DekuBabaNuts, { [] { return DekuBabaNuts || CanGetDekuBabaNuts(4, 0, 10, { 25, 44 }); } }),
-            },
-            {},
-            {
-                // Exits
-                Entrance(FIRE_TEMPLE_CORRIDOR, { [] { return true; } }),
-                Entrance(FIRE_TEMPLE_FIRE_MAZE_UPPER,
-                         { [] { return CanUse(HOVER_BOOTS); },
-                           /*Glitched*/
-                           [] {
-                               return Bombs && CanDoGlitch(GlitchType::BombHover, GlitchDifficulty::NOVICE) &&
-                                      CanDoGlitch(GlitchType::ISG, GlitchDifficulty::INTERMEDIATE);
-                           } }),
-                Entrance(FIRE_TEMPLE_FIRE_MAZE_SIDE_ROOM, { [] { return true; } }),
-                Entrance(FIRE_TEMPLE_WEST_CENTRAL_LOWER, { [] { return SmallKeys(FIRE_TEMPLE, 8); } }),
-                Entrance(FIRE_TEMPLE_LATE_FIRE_MAZE,
-                         { [] { return LogicFireFlameMaze || (CanUse(LONGSHOT) && CanHookEnemy(4, 0, 10, 14)); },
-                           /*Glitched*/
-                           [] {
-                               return CanDoGlitch(GlitchType::Megaflip, GlitchDifficulty::INTERMEDIATE) ||
-                                      (CanDoGlitch(GlitchType::SuperSlide, GlitchDifficulty::ADVANCED) && Bombs &&
-                                       CanShield);
-                           } }),
-            });
+        areaTable[FIRE_TEMPLE_FIRE_MAZE_ROOM] =
+            Area("Fire Temple Fire Maze Room", "Fire Temple", FIRE_TEMPLE, NO_DAY_NIGHT_CYCLE,
+                 {
+                     // Events
+                     EventAccess(&DekuBabaSticks, { [] {
+                         return DekuBabaSticks || CanGetDekuBabaSticks(4, 0, 10, { 25, 44 });
+                     } }),
+                     EventAccess(&DekuBabaNuts, { [] {
+                         return DekuBabaNuts || CanGetDekuBabaNuts(4, 0, 10, { 25, 44 });
+                     } }),
+                 },
+                 {},
+                 {
+                     // Exits
+                     Entrance(FIRE_TEMPLE_CORRIDOR, { [] { return true; } }),
+                     Entrance(FIRE_TEMPLE_FIRE_MAZE_UPPER,
+                              { [] { return CanUse(HOVER_BOOTS); },
+                                /*Glitched*/
+                                [] {
+                                    return Bombs && CanDoGlitch(GlitchType::BombHover, GlitchDifficulty::NOVICE) &&
+                                           CanDoGlitch(GlitchType::ISG, GlitchDifficulty::INTERMEDIATE);
+                                } }),
+                     Entrance(FIRE_TEMPLE_FIRE_MAZE_SIDE_ROOM, { [] { return true; } }),
+                     Entrance(FIRE_TEMPLE_WEST_CENTRAL_LOWER, { [] { return SmallKeys(FIRE_TEMPLE, 8); } }),
+                     Entrance(FIRE_TEMPLE_LATE_FIRE_MAZE,
+                              { [] { return LogicFireFlameMaze || (CanUse(LONGSHOT) && CanHookEnemy(4, 0, 10, 14)); },
+                                /*Glitched*/
+                                [] {
+                                    return CanDoGlitch(GlitchType::Megaflip, GlitchDifficulty::INTERMEDIATE) ||
+                                           (CanDoGlitch(GlitchType::SuperSlide, GlitchDifficulty::ADVANCED) && Bombs &&
+                                            CanShield);
+                                } }),
+                 });
 
         areaTable[FIRE_TEMPLE_FIRE_MAZE_UPPER] = Area(
             "Fire Temple Fire Maze Upper", "Fire Temple", FIRE_TEMPLE, NO_DAY_NIGHT_CYCLE, {}, {},

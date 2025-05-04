@@ -240,32 +240,35 @@ void AreaTable_Init_WaterTemple() {
                                 } }),
                  });
 
-        areaTable[WATER_TEMPLE_BOULDERS_LOWER] = Area(
-            "Water Temple Boulders Lower", "Water Temple", WATER_TEMPLE, NO_DAY_NIGHT_CYCLE,
-            {
-                // Events
-                EventAccess(&DekuBabaSticks,
-                            { [] { return DekuBabaSticks || CanGetDekuBabaSticks(5, 0, 12, { 4, 6 }); } }),
-                EventAccess(&DekuBabaNuts, { [] { return DekuBabaNuts || CanGetDekuBabaNuts(5, 0, 12, { 4, 6 }); } }),
-            },
-            {
-                // Locations
-                LocationAccess(WATER_TEMPLE_GS_NEAR_BOSS_KEY_CHEST, { [] {
-                                   return CanUse(LONGSHOT) || Here(WATER_TEMPLE_BOULDERS_UPPER, [] {
-                                              return (IsAdult && HookshotOrBoomerang) ||
-                                                     (CanUse(IRON_BOOTS) && CanUse(HOOKSHOT));
-                                          });
-                               } }),
-            },
-            {
-                // Exits
-                Entrance(WATER_TEMPLE_NORTH_LOWER, { [] { return SmallKeys(WATER_TEMPLE, 4); } }),
-                Entrance(WATER_TEMPLE_BLOCK_ROOM, { [] { return true; } }),
-                Entrance(WATER_TEMPLE_BOULDERS_UPPER, { [] {
-                             return (IsAdult && (CanUse(HOVER_BOOTS) || LogicWaterNorthBasementLedgeJump)) ||
-                                    (CanUse(HOVER_BOOTS) && CanUse(IRON_BOOTS));
-                         } }),
-            });
+        areaTable[WATER_TEMPLE_BOULDERS_LOWER] =
+            Area("Water Temple Boulders Lower", "Water Temple", WATER_TEMPLE, NO_DAY_NIGHT_CYCLE,
+                 {
+                     // Events
+                     EventAccess(&DekuBabaSticks, { [] {
+                         return DekuBabaSticks || CanGetDekuBabaSticks(5, 0, 12, { 4, 6 });
+                     } }),
+                     EventAccess(&DekuBabaNuts, { [] {
+                         return DekuBabaNuts || CanGetDekuBabaNuts(5, 0, 12, { 4, 6 });
+                     } }),
+                 },
+                 {
+                     // Locations
+                     LocationAccess(WATER_TEMPLE_GS_NEAR_BOSS_KEY_CHEST, { [] {
+                                        return CanUse(LONGSHOT) || Here(WATER_TEMPLE_BOULDERS_UPPER, [] {
+                                                   return (IsAdult && HookshotOrBoomerang) ||
+                                                          (CanUse(IRON_BOOTS) && CanUse(HOOKSHOT));
+                                               });
+                                    } }),
+                 },
+                 {
+                     // Exits
+                     Entrance(WATER_TEMPLE_NORTH_LOWER, { [] { return SmallKeys(WATER_TEMPLE, 4); } }),
+                     Entrance(WATER_TEMPLE_BLOCK_ROOM, { [] { return true; } }),
+                     Entrance(WATER_TEMPLE_BOULDERS_UPPER, { [] {
+                                  return (IsAdult && (CanUse(HOVER_BOOTS) || LogicWaterNorthBasementLedgeJump)) ||
+                                         (CanUse(HOVER_BOOTS) && CanUse(IRON_BOOTS));
+                              } }),
+                 });
 
         areaTable[WATER_TEMPLE_BLOCK_ROOM] = Area(
             "Water Temple Block Room", "Water Temple", WATER_TEMPLE, NO_DAY_NIGHT_CYCLE,

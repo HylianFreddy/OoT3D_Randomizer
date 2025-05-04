@@ -45,10 +45,12 @@ void AreaTable_Init_DekuTree() {
             {
                 // Exits
                 Entrance(DEKU_TREE_ENTRYWAY, { [] { return true; } }),
-                Entrance(DEKU_TREE_2F_MIDDLE_ROOM,
-                         { [] { return CanPassEnemies(0, 0, 0, { 0, 1, 2 }, SpaceAroundEnemy::NARROW); } }),
-                Entrance(DEKU_TREE_COMPASS_ROOM,
-                         { [] { return CanPassEnemies(0, 0, 0, { 0, 1, 2 }, SpaceAroundEnemy::NARROW); } }),
+                Entrance(DEKU_TREE_2F_MIDDLE_ROOM, { [] {
+                             return CanPassEnemies(0, 0, 0, { 0, 1, 2 }, SpaceAroundEnemy::NARROW);
+                         } }),
+                Entrance(DEKU_TREE_COMPASS_ROOM, { [] {
+                             return CanPassEnemies(0, 0, 0, { 0, 1, 2 }, SpaceAroundEnemy::NARROW);
+                         } }),
                 Entrance(DEKU_TREE_BASEMENT_LOWER, { [] {
                              return Here(DEKU_TREE_LOBBY, [] {
                                  return HasFireSourceWithTorch ||
@@ -244,9 +246,12 @@ void AreaTable_Init_DekuTree() {
             "Deku Tree Basement Upper", "Deku Tree", DEKU_TREE, NO_DAY_NIGHT_CYCLE,
             {
                 // Events
-                EventAccess(&DekuBabaSticks,
-                            { [] { return DekuBabaSticks || CanGetDekuBabaSticks(0, 0, 3, { 0, 3, 5 }); } }),
-                EventAccess(&DekuBabaNuts, { [] { return DekuBabaNuts || CanGetDekuBabaNuts(0, 0, 3, { 0, 3, 5 }); } }),
+                EventAccess(&DekuBabaSticks, { [] {
+                    return DekuBabaSticks || CanGetDekuBabaSticks(0, 0, 3, { 0, 3, 5 });
+                } }),
+                EventAccess(&DekuBabaNuts, { [] {
+                    return DekuBabaNuts || CanGetDekuBabaNuts(0, 0, 3, { 0, 3, 5 });
+                } }),
             },
             {},
             {

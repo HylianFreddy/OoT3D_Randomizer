@@ -118,8 +118,9 @@ void AreaTable_Init_ForestTemple() {
                  },
                  {
                      // Locations
-                     LocationAccess(FOREST_TEMPLE_FIRST_STALFOS_CHEST,
-                                    { [] { return CanDefeatEnemies(3, 0, 6, { 0, 1 }); } }),
+                     LocationAccess(FOREST_TEMPLE_FIRST_STALFOS_CHEST, { [] {
+                                        return CanDefeatEnemies(3, 0, 6, { 0, 1 });
+                                    } }),
                  },
                  {
                      // Exits
@@ -130,10 +131,12 @@ void AreaTable_Init_ForestTemple() {
             "Forest Temple NW Outdoors Lower", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE,
             {
                 // Events
-                EventAccess(&DekuBabaSticks,
-                            { [] { return DekuBabaSticks || CanGetDekuBabaSticks(3, 0, 8, { 1, 2, 3, 4 }); } }),
-                EventAccess(&DekuBabaNuts,
-                            { [] { return DekuBabaNuts || CanGetDekuBabaNuts(3, 0, 8, { 1, 2, 3, 4 }); } }),
+                EventAccess(&DekuBabaSticks, { [] {
+                    return DekuBabaSticks || CanGetDekuBabaSticks(3, 0, 8, { 1, 2, 3, 4 });
+                } }),
+                EventAccess(&DekuBabaNuts, { [] {
+                    return DekuBabaNuts || CanGetDekuBabaNuts(3, 0, 8, { 1, 2, 3, 4 });
+                } }),
             },
             {},
             {
@@ -160,8 +163,9 @@ void AreaTable_Init_ForestTemple() {
                                        CanDoGlitch(GlitchType::BombHover, GlitchDifficulty::NOVICE) &&
                                        CanDoGlitch(GlitchType::ISG, GlitchDifficulty::INTERMEDIATE));
                            } }),
-                Entrance(FOREST_TEMPLE_MAP_ROOM,
-                         { [] { return CanPassEnemies(3, 0, 8, { 1, 2, 3 }, SpaceAroundEnemy::NARROW); } }),
+                Entrance(FOREST_TEMPLE_MAP_ROOM, { [] {
+                             return CanPassEnemies(3, 0, 8, { 1, 2, 3 }, SpaceAroundEnemy::NARROW);
+                         } }),
                 Entrance(FOREST_TEMPLE_SEWER, { [] {
                              return GoldScale || CanUse(IRON_BOOTS) || HasAccessTo(FOREST_TEMPLE_NE_OUTDOORS_UPPER);
                          } }),
@@ -193,9 +197,12 @@ void AreaTable_Init_ForestTemple() {
             "Forest Temple NE Outdoors Lower", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE,
             {
                 // Events
-                EventAccess(&DekuBabaSticks,
-                            { [] { return DekuBabaSticks || CanGetDekuBabaSticks(3, 0, 7, { 3, 5 }); } }),
-                EventAccess(&DekuBabaNuts, { [] { return DekuBabaNuts || CanGetDekuBabaNuts(3, 0, 7, { 3, 5 }); } }),
+                EventAccess(&DekuBabaSticks, { [] {
+                    return DekuBabaSticks || CanGetDekuBabaSticks(3, 0, 7, { 3, 5 });
+                } }),
+                EventAccess(&DekuBabaNuts, { [] {
+                    return DekuBabaNuts || CanGetDekuBabaNuts(3, 0, 7, { 3, 5 });
+                } }),
             },
             {
                 // Locations
@@ -359,20 +366,23 @@ void AreaTable_Init_ForestTemple() {
                            } }),
             });
 
-        areaTable[FOREST_TEMPLE_NW_CORRIDOR_TWISTED] = Area(
-            "Forest Temple NW Corridor Twisted", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE,
-            {
-                // Events
-                EventAccess(&DekuBabaSticks,
-                            { [] { return DekuBabaSticks || CanGetDekuBabaSticks(3, 0, 11, { 0, 2 }); } }),
-                EventAccess(&DekuBabaNuts, { [] { return DekuBabaNuts || CanGetDekuBabaNuts(3, 0, 11, { 0, 2 }); } }),
-            },
-            {},
-            {
-                // Exits
-                Entrance(FOREST_TEMPLE_BLOCK_PUSH_ROOM, { [] { return SmallKeys(FOREST_TEMPLE, 2); } }),
-                Entrance(FOREST_TEMPLE_RED_POE_ROOM, { [] { return SmallKeys(FOREST_TEMPLE, 3); } }),
-            });
+        areaTable[FOREST_TEMPLE_NW_CORRIDOR_TWISTED] =
+            Area("Forest Temple NW Corridor Twisted", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE,
+                 {
+                     // Events
+                     EventAccess(&DekuBabaSticks, { [] {
+                         return DekuBabaSticks || CanGetDekuBabaSticks(3, 0, 11, { 0, 2 });
+                     } }),
+                     EventAccess(&DekuBabaNuts, { [] {
+                         return DekuBabaNuts || CanGetDekuBabaNuts(3, 0, 11, { 0, 2 });
+                     } }),
+                 },
+                 {},
+                 {
+                     // Exits
+                     Entrance(FOREST_TEMPLE_BLOCK_PUSH_ROOM, { [] { return SmallKeys(FOREST_TEMPLE, 2); } }),
+                     Entrance(FOREST_TEMPLE_RED_POE_ROOM, { [] { return SmallKeys(FOREST_TEMPLE, 3); } }),
+                 });
 
         areaTable[FOREST_TEMPLE_NW_CORRIDOR_STRAIGHTENED] =
             Area("Forest Temple NW Corridor Straightened", "Forest Temple", FOREST_TEMPLE, NO_DAY_NIGHT_CYCLE, {},
@@ -408,8 +418,9 @@ void AreaTable_Init_ForestTemple() {
                 // Locations
                 LocationAccess(FOREST_TEMPLE_BOW_CHEST, { [] {
                                    return CanDefeatEnemy(Enemizer::ENEMY_STALFOS) &&
-                                          Here(FOREST_TEMPLE_LOWER_STALFOS,
-                                               [] { return CanDefeatEnemies(3, 0, 6, { 0, 1 }); });
+                                          Here(FOREST_TEMPLE_LOWER_STALFOS, [] {
+                                              return CanDefeatEnemies(3, 0, 6, { 0, 1 });
+                                          });
                                } }),
             },
             {
