@@ -2,6 +2,17 @@
 .text
 .syntax unified
 
+.section .loader
+.global hook_into_loader
+hook_into_loader:
+    push {r0-r12, lr}
+    bl loader_main
+    pop {r0-r12, lr}
+    bl 0x100028
+    b  0x100004
+
+.section .text.randomizer_hooks
+
 .global hook_before_GlobalContext_Update
 hook_before_GlobalContext_Update:
     push {r0-r12, lr}
@@ -2139,14 +2150,10 @@ hook_CheckForTextControlCode:
     pop {r1-r12, lr}
     bx lr
 
-@ ----------------------------------
-@ ----------------------------------
-
-.section .loader
-.global hook_into_loader
-hook_into_loader:
+.global hook_PlayInit
+hook_PlayInit:
     push {r0-r12, lr}
-    bl loader_main
+    bl before_Play_Init
     pop {r0-r12, lr}
-    bl 0x100028
-    b  0x100004
+    cpy r5,r0
+    bx lr
