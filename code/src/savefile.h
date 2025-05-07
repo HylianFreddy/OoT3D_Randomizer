@@ -70,6 +70,11 @@ typedef struct {
     s8 option_IgnoreMaskReaction;
     s8 option_SkipSongReplays;
     s8 option_FreeCamControl;
+    s8 option_FireballLink;
+    s8 option_HyperActors;
+    s8 option_SilentRolls;
+    s8 option_Spoilers;
+    s8 option_Enemizer;
 } ExtSaveData;
 
 #ifdef DECLARE_EXTSAVEDATA

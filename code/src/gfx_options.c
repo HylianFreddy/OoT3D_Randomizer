@@ -10,7 +10,7 @@
 #define BORDER_WIDTH 2
 #define CHOICE_COLUMN 220
 #define DESCRIPTION_ROW 184
-#define OPTIONS_COUNT 6
+#define OPTIONS_COUNT 12
 
 typedef struct {
     char name[30];
@@ -38,7 +38,8 @@ void InitOptions(void) {
     altNum = 0;
     strcpy(options[opNum].name, "Play Sound Effects");
     strcpy(options[opNum].alternatives[altNum++], "Off");
-    strcpy(options[opNum].alternatives[altNum++], "On");
+    strcpy(options[opNum].alternatives[altNum++], "On (Vanilla)");
+    strcpy(options[opNum].alternatives[altNum++], "On (Randomized)");
     strcpy(options[opNum].description, "Toggles the sound effects.");
     options[opNum++].optionPointer = &gExtSaveData.option_EnableSFX;
 
@@ -81,6 +82,55 @@ void InitOptions(void) {
                "Change the input directions of the free camera.\n\nThis feature is not available on old 3DS systems.");
         options[opNum++].optionPointer = &gExtSaveData.option_FreeCamControl;
     }
+
+    // Speed Boost
+    altNum = 0;
+    strcpy(options[opNum].name, "Speed Boost");
+    strcpy(options[opNum].alternatives[altNum++], "Off");
+    strcpy(options[opNum].alternatives[altNum++], "On");
+    strcpy(options[opNum].description, "");
+    options[opNum++].optionPointer = &customSpeedBoost;
+
+    // Fireball Link
+    altNum = 0;
+    strcpy(options[opNum].name, "Fireball Link");
+    strcpy(options[opNum].alternatives[altNum++], "Off");
+    strcpy(options[opNum].alternatives[altNum++], "On");
+    strcpy(options[opNum].description, "");
+    options[opNum++].optionPointer = &gExtSaveData.option_FireballLink;
+
+    // Hyper Actors
+    altNum = 0;
+    strcpy(options[opNum].name, "Hyper Actors");
+    strcpy(options[opNum].alternatives[altNum++], "Off");
+    strcpy(options[opNum].alternatives[altNum++], "On");
+    strcpy(options[opNum].description, "");
+    options[opNum++].optionPointer = &gExtSaveData.option_HyperActors;
+
+    // Silent Rolls
+    altNum = 0;
+    strcpy(options[opNum].name, "Silent Rolls");
+    strcpy(options[opNum].alternatives[altNum++], "Off");
+    strcpy(options[opNum].alternatives[altNum++], "Mute voice");
+    strcpy(options[opNum].alternatives[altNum++], "Mute all");
+    strcpy(options[opNum].description, "");
+    options[opNum++].optionPointer = &gExtSaveData.option_SilentRolls;
+
+    // Show Spoilers
+    altNum = 0;
+    strcpy(options[opNum].name, "Spoilers");
+    strcpy(options[opNum].alternatives[altNum++], "Hide");
+    strcpy(options[opNum].alternatives[altNum++], "Show");
+    strcpy(options[opNum].description, "");
+    options[opNum++].optionPointer = &gExtSaveData.option_Spoilers;
+
+    // Enemizer Seed Salt
+    altNum = 0;
+    strcpy(options[opNum].name, "Enemizer");
+    strcpy(options[opNum].alternatives[altNum++], "Off");
+    strcpy(options[opNum].alternatives[altNum++], "On");
+    strcpy(options[opNum].description, "");
+    options[opNum++].optionPointer = &gExtSaveData.option_Enemizer;
 }
 
 void Gfx_DrawOptions(void) {
@@ -149,4 +199,5 @@ void Gfx_OptionsUpdate(void) {
         PrevOption(&options[selectedOption]);
         handledInput = true;
     }
+    gSettingsContext.enemizer = gExtSaveData.option_Enemizer;
 }

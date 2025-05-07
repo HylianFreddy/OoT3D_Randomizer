@@ -51,5 +51,6 @@ void ItemOverride_CheckZeldasLetter();
 void ItemOverride_PushDungeonReward(u8 dungeon);
 void ItemOverride_CheckStartingItem();
 void ItemOverride_PushHardcodedItem(s16 getItemId);
+void ItemOverride_ActivateTest();
 
 #endif //_ITEM_OVERRIDES_H_

@@ -9,6 +9,7 @@
 #include "entrance.hpp"
 #include "hints.hpp"
 #include "gold_skulltulas.hpp"
+#include "ocarina_notes.hpp"
 #include "utils.hpp"
 #include "enemizer.hpp"
 
@@ -68,7 +69,7 @@ bool WritePatch(u32 patchOffset, s32 patchSize, char* patchDataPtr, Handle& code
         // Write patch offset address to code
         buf[0] = (patchOffset >> 16) & 0xFF;
         buf[1] = (patchOffset >> 8) & 0xFF;
-        buf[2] = (patchOffset)&0xFF;
+        buf[2] = (patchOffset) & 0xFF;
         if (!R_SUCCEEDED(FSFILE_Write(code, &bytesWritten, totalRW, buf, 3, FS_WRITE_FLUSH))) {
             return false;
         }
@@ -77,7 +78,7 @@ bool WritePatch(u32 patchOffset, s32 patchSize, char* patchDataPtr, Handle& code
         // Write patch size to code
         u32 newPatchSize = (patchSize > PATCH_SIZE_MAX) ? PATCH_SIZE_MAX : patchSize;
         buf[0]           = (newPatchSize >> 8) & 0xFF;
-        buf[1]           = (newPatchSize)&0xFF;
+        buf[1]           = (newPatchSize) & 0xFF;
         if (!R_SUCCEEDED(FSFILE_Write(code, &bytesWritten, totalRW, buf, 2, FS_WRITE_FLUSH))) {
             return false;
         }
@@ -643,6 +644,25 @@ bool WriteAllPatches() {
     if (Settings::BetaSoldOut &&
         !WritePatch(patchOffset, patchSize, &soldOutCMBIndex, code, bytesWritten, totalRW, buf)) {
         return false;
+    }
+
+    /*---------------------------------
+    |        Random Song Notes        |
+    ---------------------------------*/
+
+    // Overwrite the game's gOcarinaSongButtons struct with the randomized songs.
+    // The other structs that hold song data will be modified at runtime via basepatch code, copying from
+    // gOcarinaSongButtons.
+
+    if (Settings::RandomSongNotes) {
+        const u32 OCARINASONGBUTTONS_ADDR = 0x0054C222;
+
+        patchOffset = V_TO_P(OCARINASONGBUTTONS_ADDR);
+        patchSize   = sizeof(rSongData);
+
+        if (!WritePatch(patchOffset, patchSize, (char*)&rSongData, code, bytesWritten, totalRW, buf)) {
+            return false;
+        }
     }
 
     /*---------------------------------

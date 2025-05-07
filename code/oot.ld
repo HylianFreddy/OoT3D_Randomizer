@@ -92,6 +92,10 @@ SECTIONS
 		*(.patch_PlayerCheckVoidOut)
 	}
 
+	.patch_FireproofDekuShieldOne 0x1330C4 : {
+		*(.patch_FireproofDekuShieldOne)
+	}
+
 	.patch_BiggoronDontSetBGSFlag 0x133F7C : {
 		*(.patch_BiggoronDontSetBGSFlag)
 	}
@@ -648,6 +652,10 @@ SECTIONS
 		*(.patch_DarkLinkPlayerRecoil)
 	}
 
+	.patch_SceneCommandActorEntryList 0x234498 : {
+		*(.patch_SceneCommandActorEntryList)
+	}
+
 	.patch_GanonCSEquipMS 0x2359A4 : {
 		*(.patch_GanonCSEquipMS)
 	}
@@ -671,6 +679,10 @@ SECTIONS
 	.patch_SwordTrailDurationGrezzoFix 0x2507D0 : {
 		*(.patch_SwordTrailDurationGrezzoFix)
 	} /*duration is set to 6 due to framerate increase. NOP to allow custom duration*/
+
+	.patch_FireproofDekuShieldTwo 0x251528 : {
+		*(.patch_FireproofDekuShieldTwo)
+	}
 
 	.patch_MultiplyPlayerSpeed 0x251D34 : {
 		*(.patch_MultiplyPlayerSpeed)
@@ -948,6 +960,10 @@ SECTIONS
 		*(.patch_GetObjectEntry_33AB24)
 	} /* Used for: chest ice trap smoke effect */
 
+	.patch_Room_StartTransition 0x33B6C0 : {
+		*(.patch_Room_StartTransition)
+	}
+
 	.patch_BiggoronDayCheck 0x33DCC0 : {
 		*(.patch_BiggoronDayCheck)
 	}
@@ -1094,6 +1110,10 @@ SECTIONS
 
 	.patch_OverrideObjectIsLoaded 0x373074 : {
 	    *(.patch_OverrideObjectIsLoaded)
+	}
+
+	.patch_Actor_Spawn 0x3738D4 : {
+	    *(.patch_Actor_Spawn)
 	}
 
 	.patch_ConvertBombDropTwo 0x3747A4 : {
@@ -1246,6 +1266,10 @@ SECTIONS
 
 	.patch_ForestTempleBasementPuzzleDelay 0x3BFA8C : {
 		*(.patch_ForestTempleBasementPuzzleDelay)
+	}
+
+	.patch_GoronPotGuaranteeReward 0x3C148C : {
+		*(.patch_GoronPotGuaranteeReward)
 	}
 
 	.patch_GerudoArcheryTwo 0x3C2D80 : {
@@ -1434,6 +1458,10 @@ SECTIONS
 
 	.patch_SleepQueryCallback 0x3FD6C4 : {
 		*(.patch_SleepQueryCallback)
+	}
+
+	.patch_DrawScreen 0x416398 : {
+		*(.patch_DrawScreen)
 	}
 
 	/* Start of regional differences: 0x41A144 */

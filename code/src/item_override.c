@@ -85,6 +85,7 @@ void ItemOverride_Init(void) {
         gItemUsabilityTable[ITEM_MASK_GERUDO] = 0x09;
         gItemUsabilityTable[ITEM_MASK_TRUTH]  = 0x09;
     }
+    gSettingsContext.hookshotAsChild = 1;
     if (gSettingsContext.hookshotAsChild) {
         gItemUsabilityTable[ITEM_HOOKSHOT] = 0x09;
         gItemUsabilityTable[ITEM_LONGSHOT] = 0x09;
@@ -161,6 +162,15 @@ static ItemOverride_Key ItemOverride_GetSearchKey(Actor* actor, u8 scene, u8 ite
 }
 
 ItemOverride ItemOverride_LookupByKey(ItemOverride_Key key) {
+    return (ItemOverride) {
+        .key = key,
+        .value = {
+            // .itemId = GI_ICE_TRAP,
+            .itemId = GI_RUPEE_RED,
+            .player = 0,
+            .looksLikeItemId = 0,
+        },
+    };
     s32 start = 0;
     s32 end   = rItemOverrides_Count - 1;
     while (start <= end) {
@@ -178,6 +188,29 @@ ItemOverride ItemOverride_LookupByKey(ItemOverride_Key key) {
 }
 
 ItemOverride ItemOverride_Lookup(Actor* actor, u8 scene, u8 itemId) {
+    if (actor->id == 0x0A && (actor->params & 0x1F) == 0xc) {
+        return (ItemOverride) {
+            .key = {
+                .type = OVR_COLLECTABLE, // random value for non-zero key
+            },
+            .value = {
+                .itemId = GI_ARROW_ICE,
+                .player = 0,
+                .looksLikeItemId = GI_ARROW_ICE,
+            },
+        };
+    }
+    return (ItemOverride) {
+        .key = {
+            .type = OVR_COLLECTABLE, // random value for non-zero key
+        },
+        .value = {
+            .itemId = GI_ICE_TRAP,
+            .player = 0,
+            .looksLikeItemId = GI_ARROW_LIGHT,
+        },
+    };
+
     ItemOverride_Key key = ItemOverride_GetSearchKey(actor, scene, itemId);
     if (key.all == 0) {
         return (ItemOverride){ 0 };
@@ -211,6 +244,21 @@ static void ItemOverride_Activate(ItemOverride override) {
              .cmabIndex2      = drawItemRow->cmabIndex2,
     };
     rActiveItemObjectId = rActiveDrawItem.objectId;
+}
+
+void ItemOverride_ActivateTest() {
+    ItemOverride testOverride = {
+        .key = {
+            .type = OVR_COLLECTABLE, // random value for non-zero key
+        },
+        .value = {
+            .itemId = GI_ICE_TRAP,
+        }
+    };
+
+    ItemOverride_Activate(testOverride);
+    PLAYER->interactRangeActor = rDummyActor;
+    PLAYER->getItemId          = rActiveItemRow->baseItemId;
 }
 
 static void ItemOverride_Clear(void) {
@@ -397,6 +445,7 @@ static void ItemOverride_TryPendingItem(void) {
     }
 }
 
+#include "input.h"
 void ItemOverride_Update(void) {
     ItemOverride_CheckStartingItem();
     ItemOverride_CheckZeldasLetter();
@@ -411,6 +460,9 @@ void ItemOverride_Update(void) {
         if (IceTrap_IsPending()) {
             IceTrap_Give();
         } else {
+            if (rInputCtx.cur.zr && rInputCtx.cur.a) {
+                ItemOverride_ActivateTest();
+            }
             ItemOverride_TryPendingItem();
             if (readyStatus == READY_IN_WATER) {
                 // Force underwater player flag in order to play the correct get-item

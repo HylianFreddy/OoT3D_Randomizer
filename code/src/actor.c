@@ -498,7 +498,9 @@ void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
     }
 
     actor->update(actor, globalCtx);
-    HyperActors_Main(actor, globalCtx);
+    if (gExtSaveData.option_HyperActors) {
+        HyperActors_Main(actor, globalCtx);
+    }
 
     if (tempHammerQuakeFlag != 0) {
         globalCtx->actorCtx.hammerQuakeFlag = tempHammerQuakeFlag;
@@ -548,4 +550,13 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
     }
 
     return 1; // continue as normal
+}
+
+void Actor_OverrideSpawn(u16* actorId, u16* params) {
+}
+
+void RoomTest(void) {
+}
+
+void ActorEntriesTest(void) {
 }

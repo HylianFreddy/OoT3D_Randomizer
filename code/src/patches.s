@@ -1,5 +1,11 @@
 .arm
 
+.section .patch_FireproofDekuShieldOne
+    b 0x13335C
+
+.section .patch_FireproofDekuShieldTwo
+    b 0x25157C
+
 .section .patch_loader
 .global loader_patch
 loader_patch:
@@ -14,6 +20,9 @@ before_GlobalContext_Update_patch:
 .global after_GlobalContext_Update_patch
 after_GlobalContext_Update_patch:
     b hook_after_GlobalContext_Update
+
+.section .patch_DrawScreen
+    bl hook_DrawScreen
 
 .section .patch_Gfx_Update
 .global GfX_Update_patch
@@ -2053,6 +2062,11 @@ SetFWPlayerParams_patch:
 AboutToPickUpActor_patch:
     bl hook_AboutToPickUpActor
 
+.section .patch_GoronPotGuaranteeReward
+.global GoronPotGuaranteeReward_patch
+GoronPotGuaranteeReward_patch:
+    bl hook_GoronPotGuaranteeReward
+
 .section .patch_TargetReticleColor
 .global TargetReticleColor_patch
 TargetReticleColor_patch:
@@ -2237,6 +2251,12 @@ PlayInit_patch:
 TitleLinkObject_patch:
     .word 0xFFFF0014
 
+.section .patch_Room_StartTransition
+    bl hook_Room_StartTransition
+
+.section .patch_Actor_Spawn
+    bl hook_Actor_Spawn
+
 .section .patch_ExtendObjectGetSlot
 .global ExtendObjectGetSlot_patch
 ExtendObjectGetSlot_patch:
@@ -2256,6 +2276,11 @@ Cutscene_CheckObjectLoaded_patch:
 .global AfterObjectListCommand_patch
 AfterObjectListCommand_patch:
     bl hook_AfterObjectListCommand
+
+.section .patch_SceneCommandActorEntryList
+.global SceneCommandActorEntryList_patch
+SceneCommandActorEntryList_patch:
+    b hook_SceneCommandActorEntryList
 
 .section .patch_GetObjectEntry_33AB24
 .global GetObjectEntry_33AB24_patch

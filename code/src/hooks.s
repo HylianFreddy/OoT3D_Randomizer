@@ -28,6 +28,15 @@ hook_after_GlobalContext_Update:
     pop {r0-r12, lr}
     b 0x2E25F0
 
+.global hook_DrawScreen
+hook_DrawScreen:
+    push {r0-r12, lr}
+    bl checkFastForward
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    beq 0x418B88 @ handles drawing screen
+    bx lr
+
 .global hook_Gfx_Update
 hook_Gfx_Update:
     push {r0-r12, lr}
@@ -1735,6 +1744,15 @@ hook_AboutToPickUpActor:
     subeq lr,lr,#0x8
     bx lr
 
+.global hook_GoronPotGuaranteeReward
+hook_GoronPotGuaranteeReward:
+    mov r3,#0x0
+    push {r0-r12, lr}
+    cpy r0,r4
+    bl BgSpot18Basket_SetRotation
+    pop {r0-r12, lr}
+    bx lr
+
 .global hook_TargetReticleColor
 hook_TargetReticleColor:
     mov r4,#0x0
@@ -2128,6 +2146,24 @@ hook_CheckForTextControlCode:
     pop {r1-r12, lr}
     bx lr
 
+.global hook_Room_StartTransition
+hook_Room_StartTransition:
+    cpy r5,r0
+    push {r0-r12, lr}
+    bl RoomTest
+    pop {r0-r12, lr}
+    bx lr
+
+.global hook_Actor_Spawn
+hook_Actor_Spawn:
+    cpy r7,r0
+    push {r0-r12, lr}
+    add r0,sp,#0x8  @ actorId
+    add r1,sp,#0x74 @ params
+    bl Actor_OverrideSpawn
+    pop {r0-r12, lr}
+    bx lr
+
 .global hook_PlayInit
 hook_PlayInit:
     push {r0-r12, lr}
@@ -2143,6 +2179,14 @@ hook_GetObjectEntry_Generic:
     bl Object_GetEntry
     pop {r1-r12, lr}
     bx lr
+
+.global hook_GetObjectEntry_34F270
+hook_GetObjectEntry_34F270:
+    push {r1-r12, lr}
+    @ r0 = slot
+    bl Object_GetEntry
+    pop {r1-r12, lr}
+    b 0x34f274
 
 .global hook_GetObjectEntry_33AB24
 hook_GetObjectEntry_33AB24:
@@ -2185,13 +2229,12 @@ hook_AfterObjectListCommand:
     mov r0,#0x1
     bx lr
 
-.global hook_GetObjectEntry_34F270
-hook_GetObjectEntry_34F270:
-    push {r1-r12, lr}
-    @ r0 = slot
-    bl Object_GetEntry
-    pop {r1-r12, lr}
-    b 0x34F274
+.global hook_SceneCommandActorEntryList
+hook_SceneCommandActorEntryList:
+    push {r0-r12, lr}
+    bl ActorEntriesTest
+    pop {r0-r12, lr}
+    bx lr
 
 .global hook_AltHeadersCommand
 hook_AltHeadersCommand:

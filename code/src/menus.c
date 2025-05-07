@@ -4,6 +4,7 @@
 #include "savefile.h"
 #include "settings.h"
 #include "dungeon_rewards.h"
+#include "common.h"
 #include "item_override.h"
 
 #define gItemsMenuSpritesManager (*(MenuSpriteManager**)GAME_ADDR(0x506734))
@@ -151,4 +152,12 @@ u16 SaveMenu_IgnoreOpen(void) {
     return ItemOverride_IsAPendingOverride() || // safety check to avoid missing pending overrides by save-warping
            (gSettingsContext.menuOpeningButton == 0 && rInputCtx.cur.sel) ||
            (gSettingsContext.menuOpeningButton == 1 && rInputCtx.cur.strt);
+}
+
+void Menu_CheckAndTriggerSariaHint(void) {
+    if (IsInGameOrBossChallenge() && PauseContext_GetState() && PLAYER->naviActor != NULL &&
+        gGearMenuSelectedSlot == GEARSLOT_OCARINA && rInputCtx.cur.a) {
+        PLAYER->naviTextId = -0xE0;
+        PLAYER->naviActor->flags |= (1 << 16);
+    }
 }

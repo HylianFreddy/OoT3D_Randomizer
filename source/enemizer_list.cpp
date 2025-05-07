@@ -134,6 +134,17 @@ void InitEnemyTypes(void) {
         { LocType::ABOVE_GROUND, LocType::SHALLOW_WATER, LocType::SPAWNER });
     enemyTypes[ENEMY_GUAY] = EnemyType("Guay", &SoulGuay, ACTOR_GUAY, { 0x0000, 0x0001 }, // normal / big
         { LocType::ABOVE_GROUND, LocType::ABOVE_VOID, LocType::UNDERWATER, LocType::ABOVE_WATER, LocType::SHALLOW_WATER });
+
+    u32 maxlen = 0;
+    for (s32 i = ENEMY_INVALID + 1; i < ENEMY_MAX; i++) {
+        if (enemyTypes[i].actorId == 0) {
+            CitraPrint("ERROR: enemyTypes not filled correctly!");
+            printf("ERROR ERROR ERROR!");
+        } else if (enemyTypes[i].name.length() > maxlen) {
+            maxlen = enemyTypes[i].name.length();
+        }
+    }
+    CitraPrint("maxlen " + std::to_string(maxlen));
 };
 
 void InitEnemyLocations(void) {
