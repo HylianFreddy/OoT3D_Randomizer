@@ -180,14 +180,14 @@ void Enemizer_Init(void) {
     // Mocks (MUST BE SORTED!)
     //  u16 actorId = ACTOR_ARMOS;
     //  u16 params = 0xFFFF;
-    // rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
-    //     .scene      = 10,
-    //     .layer      = 0,
-    //     .room       = 7,
-    //     .actorEntry = 5,
-    //     .actorId    = ACTOR_ARMOS,
-    //     .params     = 0xFFFF,
-    // };
+    rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){
+        .scene      = 96,
+        .layer      = 2,
+        .room       = 0,
+        .actorEntry = 6,
+        .actorId    = ACTOR_PEAHAT,
+        .params     = 0xFFFF,
+    };
 
     while (rEnemyOverrides[rEnemyOverrides_Count].actorId != 0) {
         rEnemyOverrides_Count++;
@@ -478,6 +478,8 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     gSaveContext.items[SLOT_HOOKSHOT] = ITEM_HOOKSHOT;
     gSaveContext.items[SLOT_BEAN] = ITEM_LONGSHOT;
     gSettingsContext.extraArrowEffects = 1;
+    // gSettingsContext.shuffleEnemySouls = SHUFFLEENEMYSOULS_ALL;
+    // gSettingsContext.soullessEnemiesLook = SOULLESSLOOK_FLASHING;
     // Mock
     if (enemyOverride.actorId == 0)
     for (u32 i = 0; i < ARRAY_SIZE(sEnemyData); i++) {
@@ -487,19 +489,31 @@ void Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
             //     enemyOverride.params  = 0x0000;
             //     break;
             // }
+            // enemyOverride.actorId = ACTOR_ARMOS; enemyOverride.params  = 0xFFFF;
+            // enemyOverride.actorId = ACTOR_BABY_DODONGO; enemyOverride.params  = 0x0000;
+            // enemyOverride.actorId = ACTOR_DODONGO; enemyOverride.params  = 0x0000;
             // enemyOverride.actorId = ACTOR_PEAHAT; enemyOverride.params  = 0xFFFF;
+            // enemyOverride.actorId = ACTOR_PEAHAT; enemyOverride.params  = 0x0001;
             // enemyOverride.actorId = ACTOR_MOBLIN; enemyOverride.params  = 0x0000;
             // enemyOverride.actorId = ACTOR_SKULLTULA; enemyOverride.params  = 0x0001;
             // enemyOverride.actorId = ACTOR_DEKU_BABA; enemyOverride.params  = 0x0000;
             // enemyOverride.actorId = ACTOR_BEAMOS; enemyOverride.params  = 0x0500;
-            // enemyOverride.actorId = ACTOR_ARMOS; enemyOverride.params  = 0xFFFF;
             // enemyOverride.actorId = ACTOR_MAD_SCRUB; enemyOverride.params = (actorEntryIndex + 1) << 8;
             // enemyOverride.actorId = ACTOR_FREEZARD; enemyOverride.params  = 0x0000;
             // enemyOverride.actorId = ACTOR_REDEAD; enemyOverride.params  = 0x7F01;
-            enemyOverride.actorId = ACTOR_DEAD_HAND_HAND; enemyOverride.params  = 0x0000;
+            // enemyOverride.actorId = ACTOR_STALCHILD; enemyOverride.params  = 0x0000;
             // enemyOverride.actorId = ACTOR_ANUBIS_SPAWNER; enemyOverride.params  = 0x0003;
             // enemyOverride.actorId = ACTOR_BARI; enemyOverride.params  = 0xFFFF;
             // enemyOverride.actorId = ACTOR_BUBBLE; enemyOverride.params  = 0x02FC;
+            // enemyOverride.actorId = ACTOR_BUBBLE; enemyOverride.params  = 0xFFFE;
+            // enemyOverride.actorId = ACTOR_KEESE; enemyOverride.params  = 0x0001;
+            // enemyOverride.actorId = ACTOR_GUAY; enemyOverride.params  = 0x0001;
+            // enemyOverride.actorId = ACTOR_DEAD_HAND_HAND; enemyOverride.params  = 0x0000;
+            // enemyOverride.actorId = ACTOR_IRON_KNUCKLE; enemyOverride.params  = 0xFF02;
+            // enemyOverride.actorId = ACTOR_DARK_LINK; enemyOverride.params = 0x0000;
+            // enemyOverride.actorId = ACTOR_SKULL_KID; enemyOverride.params = 0xFFFF;
+            // enemyOverride.actorId = ACTOR_LIZALFOS; enemyOverride.params = 0xFF80;
+            // enemyOverride.actorId = ACTOR_LIZALFOS; enemyOverride.params = 0xFFFF;
             break;
         }
     }
