@@ -676,6 +676,10 @@ SECTIONS
 		*(.patch_EnExItemModelDraw)
 	}
 
+	.patch_RedeadCanFreezePlayer 0x24DC2C : {
+		*(.patch_RedeadCanFreezePlayer)
+	}
+
 	.patch_SwordTrailDurationGrezzoFix 0x2507D0 : {
 		*(.patch_SwordTrailDurationGrezzoFix)
 	} /*duration is set to 6 due to framerate increase. NOP to allow custom duration*/
@@ -730,6 +734,10 @@ SECTIONS
 
 	.patch_FlyingTileCollision 0x26E730 : {
 		*(.patch_FlyingTileCollision)
+	}
+
+	.patch_DeadHandHandCanGrabPlayer 0x26EB58 : {
+		*(.patch_DeadHandHandCanGrabPlayer)
 	}
 
 	.patch_RedBoulderExplode 0x26FE7C : {
