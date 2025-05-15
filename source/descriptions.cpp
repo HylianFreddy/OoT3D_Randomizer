@@ -1267,6 +1267,11 @@ string_view shuffleSFXCategorically   = "Sound effects will be shuffled in categ
                                         "\n"                                               //
                                         "The sound may get annoying fast when disabled.";  //
 /*------------------------------                                                           //
+|      OTHER SFX OPTIONS       |                                                           //
+------------------------------*/                                                           //
+string_view ocarinaNoteInstrumentDesc = "Change the instrument used when playing the\n"    //
+                                        "ocarina.\n";                                      //
+/*------------------------------                                                           //
 |    RANDOM TRAP DAMAGE TYPE   |                                                           //
 ------------------------------*/                                                           //
 string_view randomTrapDmgDesc         = "All traps will be the base game ice trap";        //

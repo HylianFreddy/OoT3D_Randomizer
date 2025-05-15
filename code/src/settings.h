@@ -666,6 +666,8 @@ typedef struct {
     u8 shuffleSFXLinkVoice;
     u8 shuffleSFXCategorically;
 
+    u8 ocarinaNoteInstrument;
+
     union {
         u8 dungeonModes[12];
         struct {

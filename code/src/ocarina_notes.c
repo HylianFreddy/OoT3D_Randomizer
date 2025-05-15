@@ -81,3 +81,10 @@ u32 OcarinaNotes_HandleInputs(u32 ocarinaInputs) {
     ocarinaInputs &= ownedBtnsMask;
     return ocarinaInputs;
 }
+
+s32 OcarinaNotes_OverrideInstrument(u32 instrument) {
+    if (instrument == OCARINA_INSTRUMENT_DEFAULT) {
+        return gSettingsContext.ocarinaNoteInstrument;
+    }
+    return instrument;
+}
