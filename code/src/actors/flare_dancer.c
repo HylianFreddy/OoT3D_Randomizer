@@ -1,5 +1,6 @@
 #include "flare_dancer.h"
 #include "settings.h"
+#include "bgm.h"
 
 #define EnFd_Update ((ActorFunc)GAME_ADDR(0x1B004C))
 
@@ -12,6 +13,7 @@ void EnFd_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     EnFd* this = (EnFd*)thisx;
 
     Actor* prevEnemiesHead = globalCtx->actorCtx.actorList[ACTORTYPE_ENEMY].first;
+    u32 prevBgm            = Audio_GetActiveSeqId(0);
 
     EnFd_Update(thisx, globalCtx);
 
@@ -25,6 +27,19 @@ void EnFd_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
                     ((EnFdFire*)enemy)->actionFunc = EnFdFire_Disappear;
                 }
                 enemy = enemy->next;
+            }
+        }
+
+        // Draw at most 10 fire dot effects to reduce lag.
+        EnFdEffect* eff    = this->effects;
+        s16 dotEffectCount = 0;
+        for (s32 i = 0; i < EN_FD_EFFECT_COUNT; i++, eff++) {
+            if (eff->type == FD_EFFECT_DOT) {
+                if (dotEffectCount >= 10) {
+                    eff->type = FD_EFFECT_NONE;
+                } else {
+                    dotEffectCount++;
+                }
             }
         }
 
@@ -49,6 +64,15 @@ void EnFd_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         if (isInvalidGround && thisx->world.pos.y < thisx->home.pos.y - 200.0) {
             // If Flare Dancer falls out of bounds, make it respawn at its home.
             this->actionFunc = EnFd_Reappear;
+        }
+
+        // If Flare Dancer started the Mini-Boss battle theme, disable it immediately
+        if (prevBgm != BGM_MINI_BOSS && Audio_GetActiveSeqId(0) == BGM_MINI_BOSS) {
+            if (sPrevMainBgmSeqId != -1) {
+                Audio_RestoreBGM();
+            } else {
+                Audio_StopBGM();
+            }
         }
     }
 }
