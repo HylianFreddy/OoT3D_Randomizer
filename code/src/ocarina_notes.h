@@ -62,6 +62,17 @@ enum OcarinaSprites {
 
 #define OcarinaUIStruct (*((void**)GAME_ADDR(0x5093EC)))
 
+// These values are one less than in OoT decomp
+typedef enum OcarinaInstrumentId {
+    OCARINA_INSTRUMENT_DEFAULT,
+    OCARINA_INSTRUMENT_MALON,
+    OCARINA_INSTRUMENT_WHISTLE,     // Impa
+    OCARINA_INSTRUMENT_HARP,        // Sheik
+    OCARINA_INSTRUMENT_GRIND_ORGAN, // Windmill Man
+    OCARINA_INSTRUMENT_FLUTE,       // Skull Kid
+    OCARINA_INSTRUMENT_MAX,
+} OcarinaInstrumentId;
+
 s32 OcarinaNotes_IsButtonOwned(OcarinaNoteButton button);
 void OcarinaNotes_RegisterButtonOwned(OcarinaNoteButton button);
 
