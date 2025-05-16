@@ -216,6 +216,7 @@ bool SaveSpecifiedPreset(std::string_view presetName, OptionCategory category) {
 
 void SaveCachedSettings() {
     SavePreset(CACHED_SETTINGS_FILENAME, OptionCategory::Setting);
+    SavePreset("seed " + Settings::seed, OptionCategory::Setting);
 }
 
 void LoadCachedSettings() {
