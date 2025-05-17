@@ -26,7 +26,7 @@ int Playthrough_Init(u32 seed) {
 
     Settings::UpdateSettings();
     // once the settings have been finalized turn them into a string for hashing
-    std::string settingsStr;
+    settingsStr = "";
     for (Menu* menu : Settings::GetAllOptionMenus()) {
         // don't go through non-menus
         if (menu->mode != OPTION_MENU) {

@@ -48,6 +48,7 @@ settings *, /* Making the `settings` itself tag be displayable but hiding its su
 excluded-locations,
 enabled-tricks,
 enabled-glitches,
+setting-string,
 required-trials,
 hints {
     display: none;
