@@ -9,6 +9,8 @@
 
 using RandomizerHash = std::array<std::string, 5>;
 
+extern std::string settingsStr;
+
 void InitLogDirectories(FS_Archive sdmcArchive);
 
 void GenerateHash();
