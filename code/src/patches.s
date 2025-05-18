@@ -1,11 +1,5 @@
 .arm
 
-.section .patch_FireproofDekuShieldOne
-    b 0x13335C
-
-.section .patch_FireproofDekuShieldTwo
-    b 0x25157C
-
 .section .patch_loader
 .global loader_patch
 loader_patch:
