@@ -872,6 +872,10 @@ SECTIONS
 		*(.patch_ApplyDamageMultiplier)
 	}
 
+	.patch_PickupItemDrop 0x354AB0 : {
+		*(.patch_PickupItemDrop)
+	}
+
 	.patch_FastChests 0x354CD4 : {
 		*(.patch_FastChests)
 	}
@@ -890,6 +894,10 @@ SECTIONS
 
 	.patch_PlaySound 0x35C528 : {
 		*(.patch_PlaySound)
+	}
+
+	.patch_DeleteEquipment 0x35D1F8 : {
+		*(.patch_DeleteEquipment)
 	}
 
 	.patch_ConvertBombDropOne 0x35E46C : {

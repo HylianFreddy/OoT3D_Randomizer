@@ -94,16 +94,13 @@ noOverrideTextID:
 
 .global hook_OverrideItemID
 hook_OverrideItemID:
-    ldr r1,.rActiveItemRow_addr
-    ldr r1,[r1]
-    cmp r1,#0x0
-    beq noOverrideItemID
     push {r0-r12, lr}
     cpy r0,r2
     bl ItemOverride_GetItemTextAndItemID
+    cmp r0,#0x0
     pop {r0-r12, lr}
-    b 0x2BC1DC
-noOverrideItemID:
+    bne 0x2BC1DC
+    @ no override
     ldrb r1,[r6,#0x0]
     b 0x2BC1D4
 
@@ -2156,4 +2153,24 @@ hook_PlayInit:
     bl before_Play_Init
     pop {r0-r12, lr}
     cpy r5,r0
+    bx lr
+
+.global hook_DeleteEquipment
+hook_DeleteEquipment:
+    push {r0-r12, lr}
+    cpy r0,r1 @ equipment type
+    cpy r1,r4 @ equipment value
+    bl Equipment_OverrideDelete
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    strheq r2,[r12,#0xB6]
+    bx lr
+
+.global hook_PickupItemDrop
+hook_PickupItemDrop:
+    ldrb r1,[r6,#0x0]
+    push {r0-r12, lr}
+    cpy r0,r1 @ item id
+    bl ItemOverride_OnPickupItemDrop
+    pop {r0-r12, lr}
     bx lr
