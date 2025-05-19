@@ -2261,3 +2261,13 @@ PlayInit_patch:
 .global TitleLinkObject_patch
 TitleLinkObject_patch:
     .word 0xFFFF0014
+
+.section .patch_DeleteEquipment
+.global DeleteEquipment_patch
+DeleteEquipment_patch:
+    bl hook_DeleteEquipment
+
+.section .patch_PickupItemDrop
+.global PickupItemDrop_patch
+PickupItemDrop_patch:
+    bl hook_PickupItemDrop
