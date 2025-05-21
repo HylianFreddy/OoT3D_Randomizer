@@ -244,3 +244,22 @@ void Player_UpdateRainbowTunic(void) {
     *(f32*)(cmabChunk + greenOffset) = color.g / 255.0f;
     *(f32*)(cmabChunk + blueOffset)  = color.b / 255.0f;
 }
+
+void Player_OnBonk(void) {
+    static const s8 sBonkDamageValues[] = { 0, 0x4, 0x8, 0x10, 0x20 };
+
+    if (gSettingsContext.bonkDamage == BONKDAMAGE_OHKO) {
+        gSaveContext.health = 0;
+        return;
+    }
+
+    s8 damage = sBonkDamageValues[gSettingsContext.bonkDamage];
+    if (gSaveContext.doubleDefense) {
+        damage /= 2;
+    }
+    gSaveContext.health -= damage;
+
+    if (gSaveContext.health < 0) {
+        gSaveContext.health = 0;
+    }
+}

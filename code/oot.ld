@@ -1570,6 +1570,10 @@ SECTIONS
 		*(.patch_LHOwlEntranceOverride)
 	}
 
+	.patch_PlayerBonk 0x492CD0 + region_offset : {
+		*(.patch_PlayerBonk)
+	}
+
 	.patch_FairyUseHealAmount 0x4968B4 + region_offset : {
 		*(.patch_FairyUseHealAmount)
 	}
