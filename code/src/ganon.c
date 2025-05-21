@@ -21,3 +21,7 @@ void Ganon_GiveMSMidFight(void) {
         gSaveContext.equips.buttonItems[0] = 0x3C;
     }
 }
+
+void Ganon_OnFinalBlow(void) {
+    SaveGame(gGlobalContext, FALSE);
+}

@@ -2276,3 +2276,8 @@ DeleteEquipment_patch:
 .global PickupItemDrop_patch
 PickupItemDrop_patch:
     bl hook_PickupItemDrop
+
+.section .patch_GanonFinalBlow
+.global GanonFinalBlow_patch
+GanonFinalBlow_patch:
+    bl hook_GanonFinalBlow
