@@ -1311,8 +1311,7 @@ Option ShuffleSFXFootsteps     = Option::Bool(2, "Include Footsteps",    {"No", 
 Option ShuffleSFXLinkVoice     = Option::Bool(2, "Include Link's Voice", {"No", "Yes"},                             {""},                                                                                                                                      OptionCategory::Cosmetic,               ON);
 Option ShuffleSFXCategorically = Option::Bool(2, "Categorical Shuffle",  {"Off", "On"},                             {shuffleSFXCategorically},                                                                                                                 OptionCategory::Cosmetic,               ON);
 
-Option OcarinaNoteInstrument   = Option::U8("Ocarina Instrument",      {"Default", "Malon", "Whistle", "Harp", "Grind Organ", "Flute", "Random Choice"}, {ocarinaNoteInstrumentDesc}, OptionCategory::Cosmetic);
-#define OCARINA_INSTRUMENT_RANDOM_CHOICE (OcarinaNoteInstrument.GetOptionCount() - 1)
+Option OcarinaNoteInstrument   = Option::U8("Ocarina Instrument",      {"Default", "Malon", "Whistle", "Harp", "Grind Organ", "Flute", "Random Choice", "Scene Specific"}, {ocarinaNoteInstrumentDesc}, OptionCategory::Cosmetic);
 
 std::vector<Option*> audioOptions = {
     &ShuffleMusic,

@@ -1,6 +1,7 @@
 #include "ocarina_notes.h"
 #include "savefile.h"
 #include "settings.h"
+#include "common.h"
 
 s32 OcarinaNotes_IsButtonOwned(OcarinaNoteButton button) {
     return (gSettingsContext.shuffleOcarinaButtons == OFF) ||
@@ -83,8 +84,11 @@ u32 OcarinaNotes_HandleInputs(u32 ocarinaInputs) {
 }
 
 s32 OcarinaNotes_OverrideInstrument(u32 instrument) {
-    if (instrument == OCARINA_INSTRUMENT_DEFAULT) {
-        return gSettingsContext.ocarinaNoteInstrument;
+    if (instrument != OCARINA_INSTRUMENT_DEFAULT) {
+        return instrument;
     }
-    return instrument;
+    if (gSettingsContext.ocarinaNoteInstrument == OCARINA_INSTRUMENT_SCENE_SPECIFIC) {
+        return Hash(gGlobalContext->sceneNum) % OCARINA_INSTRUMENT_MAX;
+    }
+    return gSettingsContext.ocarinaNoteInstrument;
 }

@@ -420,6 +420,11 @@ typedef enum {
 } ShuffleSFXSetting;
 
 typedef enum {
+    OCARINA_INSTRUMENT_RANDOM_CHOICE = 6,
+    OCARINA_INSTRUMENT_SCENE_SPECIFIC,
+} OcarinaInstrumentRandomSetting;
+
+typedef enum {
     DUNGEON_NEITHER,
     DUNGEON_BARREN,
     DUNGEON_WOTH,
