@@ -2148,3 +2148,11 @@ hook_PlayInit:
     pop {r0-r12, lr}
     cpy r5,r0
     bx lr
+
+.global hook_GanonFinalBlow
+hook_GanonFinalBlow:
+    push {r0-r12, lr}
+    bl Ganon_OnFinalBlow
+    pop {r0-r12, lr}
+    mov r1,#0x1
+    bx lr

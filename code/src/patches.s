@@ -2261,3 +2261,8 @@ PlayInit_patch:
 .global TitleLinkObject_patch
 TitleLinkObject_patch:
     .word 0xFFFF0014
+
+.section .patch_GanonFinalBlow
+.global GanonFinalBlow_patch
+GanonFinalBlow_patch:
+    bl hook_GanonFinalBlow
