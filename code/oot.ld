@@ -96,6 +96,10 @@ SECTIONS
 		*(.patch_KingZoraDontStartTimer)
 	}
 
+	.patch_GanonFinalBlow 0x13B684 : {
+		*(.patch_GanonFinalBlow)
+	}
+
 	.patch_SongOfStormsLocation 0x1427E0 : {
 		*(.patch_SongOfStormsLocation)
 	}
