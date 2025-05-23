@@ -854,3 +854,7 @@ void SaveFile_AfterLoadGame(void) {
         ItemOverride_PushHardcodedItem(GI_GANON_BOSS_KEY);
     }
 }
+
+void SaveFile_OnGameOver(void) {
+    gExtSaveData.deathCount++;
+}

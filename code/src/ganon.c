@@ -23,5 +23,6 @@ void Ganon_GiveMSMidFight(void) {
 }
 
 void Ganon_OnFinalBlow(void) {
+    gFinalPlaytimeSeconds = gExtSaveData.playtimeSeconds;
     SaveGame(gGlobalContext, FALSE);
 }
