@@ -1093,10 +1093,11 @@ hook_SaveMenuIgnoreOpen:
 .endif
     bx lr
 
-.global hook_PermadeathDeleteSave
-hook_PermadeathDeleteSave:
+.global hook_GameOverStart
+hook_GameOverStart:
     push {r0-r12, lr}
     bl Permadeath_DeleteSave
+    bl SaveFile_OnGameOver
     pop {r0-r12, lr}
     bx lr
 
@@ -2181,4 +2182,12 @@ hook_GanonFinalBlow:
     bl Ganon_OnFinalBlow
     pop {r0-r12, lr}
     mov r1,#0x1
+    bx lr
+
+.global hook_PlayerBonk
+hook_PlayerBonk:
+    strh r8,[r7,#0x38]
+    push {r0-r12, lr}
+    bl Player_OnBonk
+    pop {r0-r12, lr}
     bx lr

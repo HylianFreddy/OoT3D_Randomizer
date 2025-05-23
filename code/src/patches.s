@@ -1602,10 +1602,10 @@ DontSetMotionSetting_patch:
 SaveMenuIgnoreOpen_patch:
     bl hook_SaveMenuIgnoreOpen
 
-.section .patch_PermadeathDeleteSave
-.global PermadeathDeleteSave_patch
-PermadeathDeleteSave_patch:
-    bl hook_PermadeathDeleteSave
+.section .patch_GameOverStart
+.global GameOverStart_patch
+GameOverStart_patch:
+    bl hook_GameOverStart
 
 .section .patch_PermadeathSkipMenu
 .global PermadeathSkipMenu_patch
@@ -2281,3 +2281,8 @@ PickupItemDrop_patch:
 .global GanonFinalBlow_patch
 GanonFinalBlow_patch:
     bl hook_GanonFinalBlow
+
+.section .patch_PlayerBonk
+.global PlayerBonk_patch
+PlayerBonk_patch:
+    bl hook_PlayerBonk

@@ -13,6 +13,7 @@
 #include "input.h"
 #include "colors.h"
 #include "common.h"
+#include "savefile.h"
 
 #define PlayerActor_Init ((ActorFunc)GAME_ADDR(0x191844))
 
@@ -31,6 +32,9 @@
 
 u16 healthDecrement = 0;
 u8 storedMask       = 0;
+
+static s8 sHitCooldown = 0;
+static s16 sPrevHealth = 0x9999;
 
 void** Player_EditAndRetrieveCMB(ZARInfo* zarInfo, u32 objModelIdx) {
     void** cmbMan = ZAR_GetCMBByIndex(zarInfo, objModelIdx);
@@ -102,6 +106,12 @@ void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
     if (gSettingsContext.hookshotAsChild) {
         Hookshot_ActorInit->objectId = (gSaveContext.linkAge == 1 ? 0x1 : 0x14);
     }
+
+    // Increase hit counter when respawning after a void out.
+    if ((gSaveContext.respawnFlag == 1) || (gSaveContext.respawnFlag == -1)) {
+        gExtSaveData.hitCount++;
+    }
+    sPrevHealth = gSaveContext.health;
 }
 
 void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
@@ -112,6 +122,15 @@ void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     if (thisx->draw == PlayerActor_Draw) {
         thisx->draw = PlayerActor_rDraw;
     }
+
+    // Handle hit/damage counters
+    if (sHitCooldown > 0) {
+        sHitCooldown--;
+    }
+    if (gSaveContext.health < sPrevHealth) {
+        gExtSaveData.damageReceived += (sPrevHealth - gSaveContext.health);
+    }
+    sPrevHealth = gSaveContext.health;
 
     Arrow_HandleSwap(this, globalCtx);
 
@@ -356,4 +375,37 @@ void Player_UpdateRainbowTunic(void) {
     *(f32*)(cmabChunk + redOffset)   = color.r / 255.0f;
     *(f32*)(cmabChunk + greenOffset) = color.g / 255.0f;
     *(f32*)(cmabChunk + blueOffset)  = color.b / 255.0f;
+}
+
+void Player_OnBonk(void) {
+    static const s8 sBonkDamageValues[] = { 0, 0x4, 0x8, 0x10, 0x20 };
+
+    gExtSaveData.bonkCount++;
+
+    if (gSettingsContext.bonkDamage == BONKDAMAGE_OHKO) {
+        gSaveContext.health = 0;
+        return;
+    }
+
+    s8 damage = sBonkDamageValues[gSettingsContext.bonkDamage];
+    if (gSaveContext.doubleDefense) {
+        damage /= 2;
+    }
+    gSaveContext.health -= damage;
+
+    if (gSaveContext.health < 0) {
+        gSaveContext.health = 0;
+    }
+}
+
+void Player_OnHit(void) {
+    if (Player_InBlockingCsMode(gGlobalContext, PLAYER)) {
+        return;
+    }
+
+    if (sHitCooldown == 0) {
+        gExtSaveData.hitCount++;
+    }
+
+    sHitCooldown = 5;
 }

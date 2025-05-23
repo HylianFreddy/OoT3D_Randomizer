@@ -487,5 +487,9 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
         return 0; // ignore this collision
     }
 
+    if (ac->actor == &PLAYER->actor) {
+        Player_OnHit();
+    }
+
     return 1; // continue as normal
 }

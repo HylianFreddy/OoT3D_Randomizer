@@ -885,6 +885,13 @@ string_view damageMultiDesc           = "Changes the amount of damage taken.\n" 
                                         "\n"                                               //
                                         "If set to OHKO, Link will die in one hit.";       //
 /*------------------------------                                                           //
+|          BONK DAMAGE         |                                                           //
+------------------------------*/                                                           //
+string_view bonkDamageDesc            = "When rolling, hitting a wall or object will hurt\n"
+                                        "Link.\n"                                          //
+                                        "Damage is unaffected by the damage multiplier\n"  //
+                                        "setting.";                                        //
+/*------------------------------                                                           //
 |          PERMADEATH          |                                                           //
 ------------------------------*/                                                           //
 string_view permadeathDesc            = "Dying deletes your save file and kicks you back\n"//
