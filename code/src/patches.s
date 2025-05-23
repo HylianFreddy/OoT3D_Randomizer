@@ -2266,3 +2266,8 @@ TitleLinkObject_patch:
 .global GanonFinalBlow_patch
 GanonFinalBlow_patch:
     bl hook_GanonFinalBlow
+
+.section .patch_PlayerBonk
+.global PlayerBonk_patch
+PlayerBonk_patch:
+    bl hook_PlayerBonk
