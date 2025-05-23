@@ -267,6 +267,8 @@ void Player_UpdateRainbowTunic(void) {
 void Player_OnBonk(void) {
     static const s8 sBonkDamageValues[] = { 0, 0x4, 0x8, 0x10, 0x20 };
 
+    gExtSaveData.bonkCount++;
+
     if (gSettingsContext.bonkDamage == BONKDAMAGE_OHKO) {
         gSaveContext.health = 0;
         return;

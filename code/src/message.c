@@ -104,6 +104,9 @@ u32 Message_HandleTextControlCode(TextControlCode ctrl, void* textObj, UnkTextCo
                     snprintf(str, MAX_DYNAMIC_STRING_SIZE, "%d \xC2%c", fullHearts, '\xBC' + quarterHearts - 1);
                 }
                 break;
+            case TEXT_CTRL_BONK_COUNT:
+                snprintf(str, MAX_DYNAMIC_STRING_SIZE, "%d", gExtSaveData.bonkCount);
+                break;
             default:
                 break;
         }

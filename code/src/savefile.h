@@ -64,6 +64,7 @@ typedef struct {
     s32 hitCount;
     s32 damageReceived;
     s32 deathCount;
+    s32 bonkCount;
     u8 permadeath;
     u8 triforcePieces;
     // Ingame Options, all need to be s8

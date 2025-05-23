@@ -1098,13 +1098,13 @@ void CreateAlwaysIncludedMessages() {
     {
         Text happyMsg = Text{
             /*english*/ "Thank you, @...&I've been keeping watch over you all this time...^"
-                        "...specifically, you took #11111111# to bring down Ganondorf.^"
+                        "...specifically, you took #11111111#&to bring down Ganondorf.^"
                         "You have discovered #222222# of all items scattered throughout Hyrule.^"
                         "You saved your progress #333# times.",
             /*french */ "TO DO",
             /*spanish*/ "TO DO",
             /*italian*/ "Grazie, @...&Ti ho osservato tutto questo tempo...^"
-                        "...per essere precisi, ci hai messo #11111111# per sconfiggere Ganondorf.^"
+                        "...per essere precisi, ci hai messo #11111111#&per sconfiggere Ganondorf.^"
                         "Hai scoperto il #222222# di tutti gli oggetti sparpagliati per Hyrule.^"
                         "Hai salvato i tuoi progressi #333# volte.",
             /*german */ "TO DO",
@@ -1116,26 +1116,29 @@ void CreateAlwaysIncludedMessages() {
         CreateMessageFromTextObject(0x706F, 0, 2, 3, happyMsg);
 
         Text sadMsg = Text{
-            /*english*/ "You've also been hit #111# times, and received #2222# hearts of damage in total.",
+            /*english*/ "You've also been hit #111# times, received #2222# hearts of damage in total, "
+                        "and you've been knocked out #333# times.",
             /*french */ "TO DO",
             /*spanish*/ "TO DO",
-            /*italian*/ "Sei anche stato colpito #111# volte, e hai ricevuto #2222# cuori di danno in totale.",
+            /*italian*/ "Sei anche stato colpito #111# volte, hai ricevuto #2222# cuori di danno in totale, "
+                        "e sei stato messo al tappeto #333# volte.",
             /*german */ "TO DO",
         };
-        sadMsg = AddColorsAndFormat(sadMsg, { QM_RED, QM_RED });
+        sadMsg = AddColorsAndFormat(sadMsg, { QM_RED, QM_RED, QM_RED });
         sadMsg.Replace("111", HIT_COUNT());
         sadMsg.Replace("2222", DAMAGE_RECEIVED());
+        sadMsg.Replace("333", DEATH_COUNT());
         CreateMessageFromTextObject(0x7091, 0, 2, 3, sadMsg);
 
         Text linkMsg = Text{
-            /*english*/ "...and you've been knocked out #111# times.",
+            /*english*/ "...oh, and you've bonked #111# times.",
             /*french */ "TO DO",
             /*spanish*/ "TO DO",
-            /*italian*/ "...e sei stato messo al tappeto #111# volte.",
+            /*italian*/ "...oh, e sei andato a sbattere #111# volte.",
             /*german */ "TO DO",
         };
         linkMsg = AddColorsAndFormat(linkMsg, { QM_RED });
-        linkMsg.Replace("111", DEATH_COUNT());
+        linkMsg.Replace("111", BONK_COUNT());
         CreateMessageFromTextObject(0x7092, 0, 2, 3, linkMsg);
     }
 }
@@ -1469,5 +1472,8 @@ std::string HIT_COUNT() {
 }
 std::string DAMAGE_RECEIVED() {
     return { '\x7F', static_cast<char>(TEXT_CTRL_DAMAGE_RECEIVED) };
+}
+std::string BONK_COUNT() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_BONK_COUNT) };
 }
 } // namespace CustomMessages

@@ -99,6 +99,7 @@ typedef enum TextControlCode {
     /* 0x34 */ TEXT_CTRL_DEATH_COUNT,
     /* 0x35 */ TEXT_CTRL_HIT_COUNT,
     /* 0x36 */ TEXT_CTRL_DAMAGE_RECEIVED,
+    /* 0x37 */ TEXT_CTRL_BONK_COUNT,
 } TextControlCode;
 
 typedef struct UnkTextControlData {

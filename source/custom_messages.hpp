@@ -65,4 +65,5 @@ std::string SAVE_COUNT();
 std::string DEATH_COUNT();
 std::string HIT_COUNT();
 std::string DAMAGE_RECEIVED();
+std::string BONK_COUNT();
 } // namespace CustomMessages
