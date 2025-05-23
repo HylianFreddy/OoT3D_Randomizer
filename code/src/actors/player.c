@@ -253,7 +253,7 @@ f32 Player_GetSpeedMultiplier(void) {
         speedMultiplier *= 1.5;
     }
 
-    if (customSpeedBoost) {
+    if (gExtSaveData.option_SpeedBoost) {
         // Constant speed boost
         if (PLAYER->stateFuncPtr == (void*)0x4BA378 && rInputCtx.touchHeld &&
             (rInputCtx.touchX > 0x40 && rInputCtx.touchX < 0x100) &&

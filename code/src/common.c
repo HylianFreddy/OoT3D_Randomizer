@@ -3,8 +3,7 @@
 #include "3ds/svc.h"
 #include "lib/printf.h"
 
-s8 customSpeedBoost = 1;
-u8 playingOnCitra   = 0;
+u8 playingOnCitra = 0;
 
 s8 BitCompare(u32 value1, u32 value2, u8 bit) {
     if ((value1 & (1 << bit)) > (value2 & (1 << bit))) {

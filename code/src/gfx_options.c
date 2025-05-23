@@ -89,7 +89,7 @@ void InitOptions(void) {
     strcpy(options[opNum].alternatives[altNum++], "Off");
     strcpy(options[opNum].alternatives[altNum++], "On");
     strcpy(options[opNum].description, "");
-    options[opNum++].optionPointer = &customSpeedBoost;
+    options[opNum++].optionPointer = &gExtSaveData.option_SpeedBoost;
 
     // Fireball Link
     altNum = 0;
