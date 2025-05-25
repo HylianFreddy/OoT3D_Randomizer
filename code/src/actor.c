@@ -438,7 +438,9 @@ void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
     }
 
     actor->update(actor, globalCtx);
-    HyperActors_Main(actor, globalCtx);
+    if (gExtSaveData.option_HyperActors) {
+        HyperActors_Main(actor, globalCtx);
+    }
 
     if (tempHammerQuakeFlag != 0) {
         globalCtx->actorCtx.hammerQuakeFlag = tempHammerQuakeFlag;

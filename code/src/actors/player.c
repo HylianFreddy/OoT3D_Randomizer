@@ -164,7 +164,80 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
 
     Player_UpdateRainbowTunic();
 
+    static Vec3f vecAcc = { 0 };
+    static Vec3f vecVel = { 0 };
+    static Vec3f vecPos = { 0 };
+    Player* this        = (Player*)thisx;
+
+    s32 tempSaModelsCount1 = gMainClass->sub180.saModelsCount1;
+    s32 tempSaModelsCount2 = gMainClass->sub180.saModelsCount2;
+
     PlayerActor_Draw(thisx, globalCtx);
+
+    if (!gExtSaveData.option_FireballLink) {
+        return;
+    }
+
+    gMainClass->sub180.saModelsCount1 = tempSaModelsCount1; // 3D models
+    gMainClass->sub180.saModelsCount2 = tempSaModelsCount2; // 2D billboards
+
+    thisx->shape.shadowDrawFunc = NULL;
+
+    if ((this->stateFlags1 & (1 << 0x14)) || // first person ("return A")
+        PauseContext_GetState()) {
+        return;
+    }
+
+    s32 velFrameIdx = (rGameplayFrames % 16);
+    s32 accFrameIdx = (rGameplayFrames % 4);
+    vecAcc.y        = 0.12f * accFrameIdx;
+    vecVel.x        = 0.5f * Math_SinS(0x1000 * velFrameIdx);
+    vecVel.z        = 0.5f * Math_CosS(0x1000 * velFrameIdx);
+    s16 scale       = 150;
+
+    // clang-format off
+    static s16 colorVals[21][7] = {
+        {0xFF, 0xFF, 0xFF, 0x00,    0x00, 0x00, 0x00,},
+        {0xFF, 0xFF, 0xFF, 0x08,    0x00, 0x00, 0x00,},
+        {0xFF, 0xFF, 0xFF, 0x10,    0x00, 0x00, 0x00,},
+        {0xFF, 0xFF, 0xFF, 0x20,    0x00, 0x00, 0x00,},
+        {0xFF, 0x80, 0x00, 0x20,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x20,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x30,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x40,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x70,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xA0,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xD0,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x08, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x10, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x18, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x20, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x28, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x30, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x38, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x40, 0x00,},
+    };
+    // clang-format on
+
+    s32 index = gSaveContext.health / 16;
+    if (index > 20) {
+        index = 20;
+    }
+    s16* currentColors = colorVals[index];
+
+    if (PLAYER->stateFuncPtr == (void*)GAME_ADDR(0x492A3C)) { // Rolling
+        vecPos   = thisx->world.pos;
+        vecPos.y = thisx->focus.pos.y;
+    } else {
+        vecPos = thisx->focus.pos;
+    }
+
+    EffectSsDeadDb_Spawn(globalCtx, &vecPos, &vecVel, &vecAcc, scale, -1,                        //
+                         currentColors[0], currentColors[1], currentColors[2], currentColors[3], //
+                         currentColors[4], currentColors[5], currentColors[6],                   //
+                         1, 8, 0);
 }
 
 static u8 swimBoostTimer = 0;
