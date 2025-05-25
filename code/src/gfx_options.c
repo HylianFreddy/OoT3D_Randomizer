@@ -10,7 +10,7 @@
 #define BORDER_WIDTH 2
 #define CHOICE_COLUMN 220
 #define DESCRIPTION_ROW 184
-#define OPTIONS_COUNT 6
+#define OPTIONS_COUNT 10
 
 typedef struct {
     char name[30];
@@ -81,6 +81,14 @@ void InitOptions(void) {
                "Change the input directions of the free camera.\n\nThis feature is not available on old 3DS systems.");
         options[opNum++].optionPointer = &gExtSaveData.option_FreeCamControl;
     }
+
+    // Speed Boost
+    altNum = 0;
+    strcpy(options[opNum].name, "Speed Boost");
+    strcpy(options[opNum].alternatives[altNum++], "Off");
+    strcpy(options[opNum].alternatives[altNum++], "On");
+    strcpy(options[opNum].description, "");
+    options[opNum++].optionPointer = &customSpeedBoost;
 }
 
 void Gfx_DrawOptions(void) {

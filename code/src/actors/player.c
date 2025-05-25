@@ -9,6 +9,7 @@
 #include "arrow.h"
 #include "grotto.h"
 #include "item_override.h"
+#include "input.h"
 #include "colors.h"
 #include "common.h"
 
@@ -165,12 +166,45 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
     PlayerActor_Draw(thisx, globalCtx);
 }
 
+static u8 swimBoostTimer = 0;
+#define SWIM_BOOST_POWER (f32)1
+#define SWIM_BOOST_DURATION 20
+
 f32 Player_GetSpeedMultiplier(void) {
     f32 speedMultiplier = 1;
 
     if (gSettingsContext.fastBunnyHood && PLAYER->currentMask == 4 &&
         PLAYER->stateFuncPtr == (void*)GAME_ADDR(0x4BA378)) {
         speedMultiplier *= 1.5;
+    }
+
+    if (customSpeedBoost) {
+        // Constant speed boost
+        if (PLAYER->stateFuncPtr == (void*)0x4BA378) {
+            speedMultiplier *= 1.5;
+
+            // Extra speed boost in Hyrule Field
+            if (gGlobalContext->sceneNum == 0x51) {
+                speedMultiplier *= 2;
+            }
+        }
+
+        // Swim boost
+        if (PLAYER->stateFuncPtr == (void*)0x4A3344) {
+            if (rInputCtx.pressed.b) {
+                swimBoostTimer = SWIM_BOOST_DURATION;
+            }
+
+            speedMultiplier *= 1 + SWIM_BOOST_POWER * ((f32)swimBoostTimer / SWIM_BOOST_DURATION);
+
+            if (swimBoostTimer > 0) {
+                swimBoostTimer--;
+            }
+        } else {
+            swimBoostTimer = 0;
+        }
+    } else {
+        swimBoostTimer = 0;
     }
 
     if (IceTrap_ActiveCurse == ICETRAP_CURSE_SLOW) {
