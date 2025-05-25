@@ -10,7 +10,7 @@
 #define BORDER_WIDTH 2
 #define CHOICE_COLUMN 220
 #define DESCRIPTION_ROW 184
-#define OPTIONS_COUNT 10
+#define OPTIONS_COUNT 7
 
 typedef struct {
     char name[30];
@@ -88,7 +88,7 @@ void InitOptions(void) {
     strcpy(options[opNum].alternatives[altNum++], "Off");
     strcpy(options[opNum].alternatives[altNum++], "On");
     strcpy(options[opNum].description, "");
-    options[opNum++].optionPointer = &customSpeedBoost;
+    options[opNum++].optionPointer = &gExtSaveData.option_SpeedBoost;
 }
 
 void Gfx_DrawOptions(void) {

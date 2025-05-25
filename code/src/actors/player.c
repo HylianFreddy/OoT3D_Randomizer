@@ -10,6 +10,7 @@
 #include "grotto.h"
 #include "item_override.h"
 #include "input.h"
+#include "savefile.h"
 #include "colors.h"
 #include "common.h"
 
@@ -167,8 +168,8 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 static u8 swimBoostTimer = 0;
-#define SWIM_BOOST_POWER (f32)1
-#define SWIM_BOOST_DURATION 20
+#define SWIM_BOOST_POWER 3.0f
+#define SWIM_BOOST_DURATION 40
 
 f32 Player_GetSpeedMultiplier(void) {
     f32 speedMultiplier = 1;
@@ -178,19 +179,22 @@ f32 Player_GetSpeedMultiplier(void) {
         speedMultiplier *= 1.5;
     }
 
-    if (customSpeedBoost) {
+    if (gExtSaveData.option_SpeedBoost) {
         // Constant speed boost
-        if (PLAYER->stateFuncPtr == (void*)0x4BA378) {
-            speedMultiplier *= 1.5;
-
-            // Extra speed boost in Hyrule Field
-            if (gGlobalContext->sceneNum == 0x51) {
-                speedMultiplier *= 2;
+        if (PLAYER->stateFuncPtr == (void*)GAME_ADDR(0x4BA378) && rInputCtx.touchHeld &&
+            (rInputCtx.touchX > 0x40 && rInputCtx.touchX < 0x100) &&
+            (rInputCtx.touchY > 0x25 && rInputCtx.touchY < 0xC8)) {
+            if (rInputCtx.touchY > 145) {
+                speedMultiplier *= 1.5;
+            } else if (rInputCtx.touchY > 91) {
+                speedMultiplier *= 3.0;
+            } else {
+                speedMultiplier *= 5.0;
             }
         }
 
         // Swim boost
-        if (PLAYER->stateFuncPtr == (void*)0x4A3344) {
+        if (PLAYER->stateFuncPtr == (void*)GAME_ADDR(0x4A3344)) {
             if (rInputCtx.pressed.b) {
                 swimBoostTimer = SWIM_BOOST_DURATION;
             }
