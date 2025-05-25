@@ -244,3 +244,6 @@ void Player_UpdateRainbowTunic(void) {
     *(f32*)(cmabChunk + greenOffset) = color.g / 255.0f;
     *(f32*)(cmabChunk + blueOffset)  = color.b / 255.0f;
 }
+
+void Player_OnBonk(void) {
+}
