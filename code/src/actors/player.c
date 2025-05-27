@@ -246,4 +246,23 @@ void Player_UpdateRainbowTunic(void) {
 }
 
 void Player_OnBonk(void) {
+    switch (gSettingsContext.bonkDamage) {
+        case BONKDAMAGE_OHKO:
+            gSaveContext.health = 0;
+            break;
+        default:
+            const s8 bonkDamageValues[] = { 0x0, 0x04, 0x08, 0x10, 0x20, 0x40 };
+
+            s8 damage = bonkDamageValues[gSettingsContext.bonkDamage];
+            if (gSaveContext.nayrusLoveTimer > 0) {
+                damage = 0;
+            } else if (gSaveContext.doubleDefense) {
+                damage /= 2;
+            }
+            gSaveContext.health -= damage;
+            if (gSaveContext.health < 0) {
+                gSaveContext.health = 0;
+            }
+            break;
+    }
 }
