@@ -61,6 +61,10 @@ typedef struct {
     u32 playtimeSeconds;
     u32 scenesDiscovered[SAVEFILE_SCENES_DISCOVERED_IDX_COUNT];
     u32 entrancesDiscovered[SAVEFILE_ENTRANCES_DISCOVERED_IDX_COUNT];
+    s32 hitCount;
+    s32 damageReceived;
+    s32 deathCount;
+    s32 bonkCount;
     u8 permadeath;
     u8 triforcePieces;
     // Ingame Options, all need to be s8
@@ -79,5 +83,7 @@ typedef struct {
 #endif
 
 EXTERN ExtSaveData gExtSaveData;
+
+extern u32 gFinalPlaytimeSeconds;
 
 #endif //_SAVEFILE_H_

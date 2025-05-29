@@ -857,7 +857,6 @@ void SaveFile_AfterLoadGame(void) {
 }
 
 void SaveFile_OnGameOver(void) {
-    // Handle hit stuff
-
+    gExtSaveData.deathCount++;
     Permadeath_DeleteSave();
 }

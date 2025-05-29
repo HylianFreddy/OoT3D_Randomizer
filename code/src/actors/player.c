@@ -11,6 +11,7 @@
 #include "item_override.h"
 #include "colors.h"
 #include "common.h"
+#include "savefile.h"
 
 #define PlayerActor_Init ((ActorFunc)GAME_ADDR(0x191844))
 
@@ -143,9 +144,13 @@ void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         }
     }
 
-    // Handle hit stuff
-    // Ignore single units of elemental damage
-    if (gSaveContext.health < sPrevHealth - 1) {
+    // Handle hit/damage counters
+    s16 lostHealth = sPrevHealth - gSaveContext.health;
+    if (lostHealth > 0) {
+        gExtSaveData.damageReceived += (sPrevHealth - gSaveContext.health);
+    }
+    // Don't count hits for single units of elemental damage
+    if (lostHealth > 1) {
         Player_OnHit();
     }
     sPrevHealth = gSaveContext.health;
@@ -256,11 +261,12 @@ void Player_UpdateRainbowTunic(void) {
 }
 
 void Player_OnBonk(void) {
+    gExtSaveData.bonkCount++;
 }
 
 void Player_OnHit(void) {
     if (rGameplayFrames - sLastHitFrame > 5) {
-        // Do stuff
+        gExtSaveData.hitCount++;
     }
 
     sLastHitFrame = rGameplayFrames;
