@@ -116,6 +116,8 @@ extern string_view triforceHuntDesc;
 extern string_view triforcePiecesTotalDesc;
 extern string_view triforcePiecesRequiredDesc;
 
+extern string_view enemizerDesc;
+
 extern string_view shuffleRewardsEndOfDungeon;
 extern string_view shuffleRewardsAnyDungeon;
 extern string_view shuffleRewardsOverworld;
@@ -283,7 +285,16 @@ extern string_view mapsShowDungeonModesDesc;
 
 extern string_view damageMultiDesc;
 
+extern string_view bonkDamageDesc;
+
 extern string_view permadeathDesc;
+
+extern string_view gloomModeOffDesc;
+extern string_view gloomModeDeathDesc;
+extern string_view gloomModeDamageDesc;
+extern string_view gloomModeHitDesc;
+extern string_view gloomModeCollisionDesc;
+extern string_view gloomModeEmptyDesc;
 
 extern string_view startingTimeDesc;
 
@@ -382,6 +393,9 @@ extern string_view mirrorWorldRandomDesc;
 
 extern string_view betaSoldOutDesc;
 
+extern string_view soullessPurpleFlameDesc;
+extern string_view soullessFlashingDesc;
+
 extern string_view musicRandoDesc;
 extern string_view shuffleBGMDesc;
 extern string_view shuffleMelodiesDesc;
@@ -393,6 +407,8 @@ extern string_view shuffleSFXAll;
 extern string_view shuffleSFXSceneSpecific;
 extern string_view shuffleSFXChaos;
 extern string_view shuffleSFXCategorically;
+
+extern string_view ocarinaNoteInstrumentDesc;
 
 extern string_view randomTrapDmgDesc;
 extern string_view basicTrapDmgDesc;
@@ -409,6 +425,7 @@ extern string_view hyperEnemiesDesc;
 extern string_view freeCamDesc;
 extern string_view randomGsLocationsDesc;
 extern string_view gsLocGuaranteeNewDesc;
+extern string_view randomSongNotesDesc;
 
 extern string_view ToggleAllTricksDesc;
 

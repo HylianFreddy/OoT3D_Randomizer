@@ -133,6 +133,21 @@ s32 ShopsanityItem_CanBuy(GlobalContext* globalCtx, EnGirlA* item) {
     }
 }
 
+// Allow buying shields even when already owned.
+s32 ShopsanityItem_CanBuyShields(GlobalContext* globalCtx, EnGirlA* item) {
+    if (item->basePrice > gSaveContext.rupees) {
+        return CANBUY_RESULT_NEED_RUPEES;
+    }
+    s16 shieldValue = item->getItemId == GI_SHIELD_DEKU ? EQUIP_VALUE_SHIELD_DEKU : EQUIP_VALUE_SHIELD_HYLIAN;
+    u8 hasShield = gSaveContext.equipment & (1 << (3 + shieldValue));
+    if (!hasShield) {
+        return CANBUY_RESULT_0;
+    }
+    // No get item event, need to call item effect now.
+    ItemTable_CallEffect(ItemTable_GetItemRow(item->getItemId));
+    return CANBUY_RESULT_1;
+}
+
 s16 ShopsanityItem_GetPrice(ShopsanityItem* item) {
     return rShopsanityPrices[ShopsanityItem_GetIndex(item)]; // Get price from table
 }
@@ -175,11 +190,8 @@ void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalC
     DeleteModel_At(&item->model2);
 
     // edit the cmbs for custom models
-    ObjectStatus* obj = ExtendedObject_GetStatus(objectId);
-    if (obj != NULL) {
-        void* ZARBuf = obj->zarInfo.buf;
-        CustomModels_EditItemCMB(ZARBuf, objectId, special);
-    }
+    ObjectEntry* obj = Object_FindEntryOrSpawn(objectId);
+    CustomModels_EditItemCMB(obj->zarInfo.buf, objectId, special);
 
     item->model = SkeletonAnimationModel_Spawn(&item->actor, globalCtx, objectId, objModelIdx);
     if (objectId == 0x017F) { // Set the mesh for rupees
@@ -189,7 +201,7 @@ void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalC
     CustomModels_ApplyItemCMAB(item->model, objectId, special);
 
     if (cmabIdx >= 0) {
-        void* cmabMan = ExtendedObject_GetCMABByIndex(objectId, cmabIdx);
+        void* cmabMan = Object_GetCMABByIndex(objectId, cmabIdx);
         TexAnim_Spawn(item->model->unk_0C, cmabMan);
         item->model->unk_0C->animSpeed = 2.0f;
         item->model->unk_0C->animMode  = 1;
@@ -198,7 +210,7 @@ void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalC
     if (objModelIdx2 >= 0) {
         item->model2 = SkeletonAnimationModel_Spawn(&item->actor, globalCtx, objectId, objModelIdx2);
         if (cmabIdx2 >= 0) {
-            void* cmabMan = ExtendedObject_GetCMABByIndex(objectId, cmabIdx2);
+            void* cmabMan = Object_GetCMABByIndex(objectId, cmabIdx2);
             TexAnim_Spawn(item->model2->unk_0C, cmabMan);
             item->model2->unk_0C->animSpeed = 2.0f;
             item->model2->unk_0C->animMode  = 1;
@@ -209,8 +221,8 @@ void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalC
 void ShopsanityItem_InitializeItem(EnGirlA* item, GlobalContext* globalCtx) {
     ShopsanityItem* shopItem = (ShopsanityItem*)item;
 
-    if (Object_IsLoaded(&globalCtx->objectCtx, item->objBankIndex) &&
-        ExtendedObject_IsLoaded(&globalCtx->objectCtx, shopItem->rObjBankIndex)) {
+    if (Object_IsLoaded(&globalCtx->objectCtx, item->objectSlot) &&
+        Object_IsLoaded(&globalCtx->objectCtx, shopItem->rObjectSlot)) {
         EnGirlA_InitializeItemAction(item, globalCtx);
         ShopsanityItem_ResetModels(shopItem, globalCtx, shopItem->itemRow->objectId, shopItem->itemRow->objectModelIdx,
                                    shopItem->itemRow->objectModelIdx2, shopItem->itemRow->cmabIndex,
@@ -233,8 +245,8 @@ void ShopsanityItem_InitializeRegularShopItem(EnGirlA* item, GlobalContext* glob
     ShopsanityItem* shopItem     = (ShopsanityItem*)item;
     ShopItemEntry* shopItemEntry = &EnGirlA_ShopItemEntries[shopItem->getItemId];
 
-    if (Object_IsLoaded(&globalCtx->objectCtx, item->objBankIndex) &&
-        ExtendedObject_IsLoaded(&globalCtx->objectCtx, shopItem->rObjBankIndex)) {
+    if (Object_IsLoaded(&globalCtx->objectCtx, item->objectSlot) &&
+        Object_IsLoaded(&globalCtx->objectCtx, shopItem->rObjectSlot)) {
         EnGirlA_InitializeItemAction(item, globalCtx);
         ShopsanityItem_ResetModels(shopItem, globalCtx, shopItemEntry->objId, shopItemEntry->objModelIdx,
                                    shopItemEntry->objModelIdx2, shopItemEntry->cmabIndex, shopItemEntry->cmabIndex2,
@@ -244,6 +256,9 @@ void ShopsanityItem_InitializeRegularShopItem(EnGirlA* item, GlobalContext* glob
         if (item->getItemId == GI_TUNIC_GORON ||
             item->getItemId == GI_TUNIC_ZORA) { // Override buyable functions for tunics
             item->canBuyFunc = ShopsanityItem_CanBuy;
+        } else if (item->getItemId == GI_SHIELD_DEKU || item->getItemId == GI_SHIELD_HYLIAN) {
+            // Override buyable functions for shields to allow buying extra ones.
+            item->canBuyFunc = ShopsanityItem_CanBuyShields;
         }
         item->itemGiveFunc        = shopItemEntry->itemGiveFunc;
         item->buyEventFunc        = shopItemEntry->buyEventFunc;
@@ -261,14 +276,20 @@ void ShopsanityItem_InitializeRegularShopItem(EnGirlA* item, GlobalContext* glob
     }
 }
 
+// For shop items that are not overridden at all
+void ShopsanityItem_InitializeVanillaShopItem(EnGirlA* item, GlobalContext* globalCtx) {
+    EnGirlA_InitializeItemAction(item, globalCtx);
+    // Override buyable functions for shields to allow buying extra ones.
+    if (item->getItemId == GI_SHIELD_DEKU || item->getItemId == GI_SHIELD_HYLIAN) {
+        item->canBuyFunc = ShopsanityItem_CanBuyShields;
+    }
+}
+
 void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
     ShopsanityItem* item = (ShopsanityItem*)itemx;
     ItemOverride override;
-    s32 objBankIndex;
 
-    if (Object_GetIndex(&globalCtx->objectCtx, 0x148) < 0) {
-        Object_Spawn(&globalCtx->objectCtx, 0x148);
-    }
+    Object_FindEntryOrSpawn(0x148);
     CustomModel_Update();
 
     item->shopItemPosition = numShopItemsLoaded;
@@ -281,22 +302,16 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
     override = ItemOverride_Lookup(&item->super.actor, globalCtx->sceneNum, item->getItemId);
     if ((override.value.all == 0) || Shopsanity_CheckAlreadySold(item)) {
         EnGirlA_Init(itemx, globalCtx);
+        item->super.actionFunc2 = ShopsanityItem_InitializeVanillaShopItem;
     } else if (override.value.player == 0xFF) { // Special way to detect regular shop items
         EnGirlA_Init(itemx, globalCtx);
 
         item->super.actionFunc2 = ShopsanityItem_InitializeRegularShopItem;
         item->getItemId         = override.value.itemId;
-
-        objBankIndex =
-            ExtendedObject_GetIndex(&globalCtx->objectCtx, EnGirlA_ShopItemEntries[override.value.itemId].objId);
-        if (objBankIndex < 0) {
-            objBankIndex =
-                ExtendedObject_Spawn(&globalCtx->objectCtx, EnGirlA_ShopItemEntries[override.value.itemId].objId);
-        }
-        item->rObjBankIndex = objBankIndex;
+        item->rObjectSlot       = Object_FindSlotOrSpawn(EnGirlA_ShopItemEntries[override.value.itemId].objId);
     } else {
-        item->super.objBankIndex =
-            Object_GetIndex(&globalCtx->objectCtx, EnGirlA_ShopItemEntries[item->super.actor.params].objId);
+        item->super.objectSlot =
+            Object_GetSlot(&globalCtx->objectCtx, EnGirlA_ShopItemEntries[item->super.actor.params].objId);
         item->super.unk_1FC = 1.0f;
 
         item->super.actionFunc2 = ShopsanityItem_InitializeItem;
@@ -311,13 +326,8 @@ void ShopsanityItem_Init(Actor* itemx, GlobalContext* globalCtx) {
               id == GI_ARROWS_MEDIUM || id == GI_ARROWS_LARGE || id == GI_SEEDS_5 || id == GI_SEEDS_30)) {
             id = ItemTable_ResolveUpgrades(id);
         }
-        item->itemRow = ItemTable_GetItemRow(id);
-
-        objBankIndex = ExtendedObject_GetIndex(&globalCtx->objectCtx, item->itemRow->objectId);
-        if (objBankIndex < 0) {
-            objBankIndex = ExtendedObject_Spawn(&globalCtx->objectCtx, item->itemRow->objectId);
-        }
-        item->rObjBankIndex = objBankIndex;
+        item->itemRow     = ItemTable_GetItemRow(id);
+        item->rObjectSlot = Object_FindSlotOrSpawn(item->itemRow->objectId);
     }
 }
 

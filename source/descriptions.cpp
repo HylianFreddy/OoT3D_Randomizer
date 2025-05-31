@@ -359,6 +359,10 @@ string_view triforcePiecesRequiredDesc= "Set the number of pieces required to be
                                         "game.\n\n"                                        //
                                         "Hold A to scroll faster.";                        //
 /*------------------------------                                                           //
+|       ENEMY RANDOMIZER       |                                                           //
+------------------------------*/                                                           //
+string_view enemizerDesc              = "Randomize most enemies in the game.";             //
+/*------------------------------                                                           //
 |   SHUFFLE DUNGEON REWARDS    |                                                           //
 ------------------------------*/                                                           //
 string_view shuffleRewardsEndOfDungeon= "Medallions and Spiritual Stones will be given as\n"
@@ -550,8 +554,8 @@ string_view chestMinigameDesc         = "The 5 key chests in the Treasure Chest 
 /*------------------------------                                                           //
 |     SHUFFLE ENEMY SOULS      |                                                           //
 ------------------------------*/                                                           //
-string_view enemySoulDesc             = "Enemies will be invincible and appear as a purple\n"
-                                        "flame until you find their \"soul\".\n"           //
+string_view enemySoulDesc             = "Enemies will be invincible until you find their\n"//
+                                        "\"soul\".\n"                                      //
                                         "Each enemy type will have a soul added into the\n"//
                                         "item pool.\n\n"                                   //
                                         "You can exclude some enemies by adding their\n"   //
@@ -885,10 +889,38 @@ string_view damageMultiDesc           = "Changes the amount of damage taken.\n" 
                                         "\n"                                               //
                                         "If set to OHKO, Link will die in one hit.";       //
 /*------------------------------                                                           //
+|          BONK DAMAGE         |                                                           //
+------------------------------*/                                                           //
+string_view bonkDamageDesc            = "Choose how many Hearts of damage you'll take when\n"
+                                        "hitting a wall or object during a roll.\n\n"      //
+                                        "Damage is unaffected by the damage multiplier\n"  //
+                                        "setting, but it will respect Nayru's Love and\n"  //
+                                        "Double Defense.";                                 //
+/*------------------------------                                                           //
 |          PERMADEATH          |                                                           //
 ------------------------------*/                                                           //
 string_view permadeathDesc            = "Dying deletes your save file and kicks you back\n"//
                                         "out to the main menu.";                           //
+/*------------------------------                                                           //
+|          GLOOM MODE          |                                                           //
+------------------------------*/                                                           //
+string_view gloomModeOffDesc          = "Enabling this setting will make your hearts\n"    //
+                                        "permanently disappear on various conditions.\n\n" //
+                                        "THE GAME MAY BECOME IMPOSSIBLE TO BEAT if you\n"  //
+                                        "lose too many hearts.";                           //
+string_view gloomModeDeathDesc        = "Delete 1 Heart when getting a Game Over.\n\n"     //
+                                        "The Permadeath setting, if enabled, will be\n"    //
+                                        "changed to take effect when you lose all hearts.";//
+string_view gloomModeDamageDesc       = "Delete 1 heart when losing health for any reason,\n"
+                                        "except continuous elemental damage from being\n"  //
+                                        "burned or frozen.\n\n"                            //
+                                        "Double Defense will require 2 hits per Heart.";   //
+string_view gloomModeCollisionDesc    = "Delete 1 heart not only when losing health, but\n"//
+                                        "also when any collision is detected: getting hit\n"
+                                        "during invincibility frames or blocking an attack\n"
+                                        "with your shield count as collisions.\n\n"        //
+                                        "Double Defense will require 2 hits per Heart.";   //
+string_view gloomModeEmptyDesc        = "Hearts will be deleted when they become empty.";  //
 /*------------------------------                                                           //
 |        STARTING TIME         |                                                           //
 ------------------------------*/                                                           //
@@ -1234,6 +1266,13 @@ string_view betaSoldOutDesc           = "The game contains an unused model for s
                                         "model, spelling \"Sold Out\" in English.\n\n"     //
                                         "This setting enables its use in shops.";          //
 /*------------------------------                                                           //
+|    SOULLESS ENEMIES LOOK     |                                                           //
+------------------------------*/                                                           //
+string_view soullessPurpleFlameDesc   = "Soulless enemies will appear as a purple flame,\n"//
+                                        "and their body will be invisible.";               //
+string_view soullessFlashingDesc      = "Soulless enemies will flash between visible and\n"
+                                        "invisible on every frame.";                       //
+/*------------------------------                                                           //
 |        SHUFFLE MUSIC         |                                                           //
 ------------------------------*/                                                           //
 string_view musicRandoDesc            = "Randomize the music in the game.";                //
@@ -1266,6 +1305,11 @@ string_view shuffleSFXChaos           = "Each sound effect will become random ab
 string_view shuffleSFXCategorically   = "Sound effects will be shuffled in categories.\n"  //
                                         "\n"                                               //
                                         "The sound may get annoying fast when disabled.";  //
+/*------------------------------                                                           //
+|      OTHER SFX OPTIONS       |                                                           //
+------------------------------*/                                                           //
+string_view ocarinaNoteInstrumentDesc = "Change the instrument used when playing the\n"    //
+                                        "ocarina.";                                        //
 /*------------------------------                                                           //
 |    RANDOM TRAP DAMAGE TYPE   |                                                           //
 ------------------------------*/                                                           //
@@ -1338,6 +1382,12 @@ string_view gsLocGuaranteeNewDesc     = "Excludes the original location from the
                                         "If no new locations are available, the original\n"//
                                         "will be used regardless.";                        //
                                                                                            //
+/*------------------------------                                                           //
+|      RANDOM SONG NOTES       |                                                           //
+------------------------------*/                                                           //
+string_view randomSongNotesDesc       = "Randomize the notes for each ocarina song.\n"     //
+                                        "Regular songs will be 3 notes repeated twice.\n"  //
+                                        "Warp songs will be between 5 and 8 notes.";       //
                                                                                            //--------------//
 /*------------------------------                                                                           //
 |  DETAILED LOGIC EXPLANATIONS |                                                                           //

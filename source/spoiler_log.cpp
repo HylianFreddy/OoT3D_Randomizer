@@ -11,6 +11,8 @@
 #include "utils.hpp"
 #include "shops.hpp"
 #include "gold_skulltulas.hpp"
+#include "ocarina_notes.hpp"
+#include "enemizer.hpp"
 
 #include <3ds.h>
 #include <cstdio>
@@ -566,6 +568,37 @@ static void WriteRequiredTrials(tinyxml2::XMLDocument& spoilerLog) {
     }
 }
 
+// Writes the randomized notes for each song.
+static void WriteSongNotes(tinyxml2::XMLDocument& spoilerLog) {
+    if (!Settings::RandomSongNotes) {
+        return;
+    }
+
+    auto parentNode = spoilerLog.NewElement("song-notes");
+
+    for (u8 songId = OCARINA_SONG_MINUET; songId < OCARINA_SONG_MAX; songId++) {
+        auto node        = parentNode->InsertNewChildElement("song");
+        std::string name = ocarinaSongNames[songId];
+        node->SetAttribute("name", name.c_str());
+
+        constexpr int16_t LONGEST_NAME = 18; // The longest song name.
+        // Insert a padding so we get a kind of table in the XML document.
+        int16_t requiredPadding = LONGEST_NAME - name.length();
+        if (requiredPadding >= 0) {
+            std::string padding(requiredPadding, ' ');
+            node->SetAttribute("_", padding.c_str());
+        }
+
+        std::string noteStr = "";
+        for (u32 btnIndex = 0; btnIndex < rSongData[songId].length; btnIndex++) {
+            noteStr += ocarinaBtnChars[rSongData[songId].buttons[btnIndex]] + " ";
+        }
+        node->SetText(noteStr.c_str());
+    }
+
+    spoilerLog.RootElement()->InsertEndChild(parentNode);
+}
+
 // Writes the area and a description of where any moved Gold Skulltulas are.
 static void WriteNewGsLocations(tinyxml2::XMLDocument& spoilerLog, const bool collapsible = false) {
     if (!Settings::RandomGsLocations) {
@@ -689,6 +722,92 @@ static void WriteHints(tinyxml2::XMLDocument& spoilerLog) {
     spoilerLog.RootElement()->InsertEndChild(parentNode);
 }
 
+// Writes the randomized enemies to the spoiler log.
+static void WriteRandomizedEnemies(tinyxml2::XMLDocument& spoilerLog) {
+    using namespace Enemizer;
+
+    if (!Settings::Enemizer) {
+        return;
+    }
+
+    auto parentNode = spoilerLog.NewElement("enemies");
+
+    // Create sorted vector of scenes
+    std::vector<std::pair<u8, EnemyLocationsMap_Scene>> scenes;
+    std::copy(enemyLocations.begin(), enemyLocations.end(), std::back_inserter(scenes));
+    std::sort(scenes.begin(), scenes.end(), [](const auto& a, const auto& b) { return a.first < b.first; });
+
+    for (auto& scene : scenes) {
+        auto sceneNode        = parentNode->InsertNewChildElement("scene");
+        std::string sceneName = std::to_string(scene.first) + " - " + sceneNames[scene.first];
+        sceneNode->SetAttribute("name", sceneName.c_str());
+
+        // Create sorted vector of layers
+        std::vector<std::pair<u8, EnemyLocationsMap_Layer>> layers;
+        std::copy(scene.second.begin(), scene.second.end(), std::back_inserter(layers));
+        std::sort(layers.begin(), layers.end(), [](const auto& a, const auto& b) { return a.first < b.first; });
+
+        for (auto& layer : layers) {
+            // Skip duplicated layers
+            if ((layer.first == 1 && scene.first == SCENE_HYRULE_FIELD) ||
+                (layer.first == 3 && scene.first == SCENE_GRAVEYARD)) {
+                continue;
+            }
+
+            auto layerNode = sceneNode->InsertNewChildElement("layer");
+            std::string layerName;
+            if (layer.first == 0) {
+                if (scene.second.size() == 1) {
+                    layerName = "All";
+                } else {
+                    layerName = "Child";
+                }
+            } else if (layer.first == 1) { // Only used for Lon Lon Ranch
+                layerName = "Child - Night";
+            } else if (layer.first == 2 || layer.first == 3) {
+                layerName = "Adult";
+            }
+            layerNode->SetAttribute("name", layerName.c_str());
+
+            // Create sorted vector of rooms
+            std::vector<std::pair<u8, EnemyLocationsMap_Room>> rooms;
+            std::copy(layer.second.begin(), layer.second.end(), std::back_inserter(rooms));
+            std::sort(rooms.begin(), rooms.end(), [](const auto& a, const auto& b) { return a.first < b.first; });
+
+            for (auto& room : rooms) {
+                auto roomNode = layerNode->InsertNewChildElement("room");
+                roomNode->SetAttribute("name", std::to_string(room.first).c_str());
+
+                // Create sorted vector of entries
+                std::vector<std::pair<u8, EnemyLocation>> entries;
+                std::copy(room.second.begin(), room.second.end(), std::back_inserter(entries));
+                std::sort(entries.begin(), entries.end(),
+                          [](const auto& a, const auto& b) { return a.first < b.first; });
+
+                for (auto& entry : entries) {
+                    auto enemyNode = roomNode->InsertNewChildElement("enemy");
+
+                    std::string entryName = enemyTypes[entry.second.vanillaEnemyId].name;
+
+                    enemyNode->SetAttribute("name", entryName.c_str());
+
+                    constexpr int16_t LONGEST_NAME = 18; // The longest name of an enemy.
+                    // Insert a padding so we get a kind of table in the XML document.
+                    int16_t requiredPadding = LONGEST_NAME - entryName.length();
+                    if (requiredPadding >= 0) {
+                        std::string padding(requiredPadding, ' ');
+                        enemyNode->SetAttribute("_", padding.c_str());
+                    }
+
+                    enemyNode->SetText(enemyTypes[entry.second.randomizedEnemyId].name.c_str());
+                }
+            }
+        }
+    }
+
+    spoilerLog.RootElement()->InsertEndChild(parentNode);
+}
+
 static void WriteAllLocations(tinyxml2::XMLDocument& spoilerLog, const bool collapsible = false) {
     auto parentNode = spoilerLog.NewElement("all-locations");
 
@@ -732,6 +851,7 @@ bool SpoilerLog_Write() {
     }
     WriteMasterQuestDungeons(spoilerLog, true);
     WriteRequiredTrials(spoilerLog);
+    WriteSongNotes(spoilerLog);
     WriteNewGsLocations(spoilerLog, true);
     WritePlaythrough(spoilerLog, true);
     WriteWayOfTheHeroLocation(spoilerLog, true);
@@ -743,6 +863,7 @@ bool SpoilerLog_Write() {
     WriteHints(spoilerLog);
     WriteShuffledEntrances(spoilerLog, true);
     WriteAllLocations(spoilerLog, true);
+    WriteRandomizedEnemies(spoilerLog);
 
     auto e = spoilerLog.SaveFile(GetSpoilerLogPath().c_str());
     return e == tinyxml2::XML_SUCCESS;

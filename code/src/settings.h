@@ -197,6 +197,11 @@ typedef enum {
 } ShuffleEnemySoulsSetting;
 
 typedef enum {
+    SOULLESSLOOK_PURPLE_FLAME,
+    SOULLESSLOOK_FLASHING,
+} SoullessEnemiesLookSetting;
+
+typedef enum {
     MAPSANDCOMPASSES_START_WITH,
     MAPSANDCOMPASSES_VANILLA,
     MAPSANDCOMPASSES_OWN_DUNGEON,
@@ -326,6 +331,24 @@ typedef enum {
 } DamageMultiplierSetting;
 
 typedef enum {
+    BONKDAMAGE_NONE,
+    BONKDAMAGE_QUARTER,
+    BONKDAMAGE_HALF,
+    BONKDAMAGE_ONE,
+    BONKDAMAGE_TWO,
+    BONKDAMAGE_FOUR,
+    BONKDAMAGE_OHKO,
+} BonkDamageSetting;
+
+typedef enum {
+    GLOOMMODE_OFF,
+    GLOOMMODE_DEATH,
+    GLOOMMODE_DAMAGE,
+    GLOOMMODE_COLLISION,
+    GLOOMMODE_EMPTY,
+} GloomModeSetting;
+
+typedef enum {
     STARTINGTIME_DAY,
     STARTINGTIME_NIGHT,
 } StartingTimeSetting;
@@ -420,6 +443,11 @@ typedef enum {
 } ShuffleSFXSetting;
 
 typedef enum {
+    OCARINA_INSTRUMENT_RANDOM_CHOICE = 6,
+    OCARINA_INSTRUMENT_SCENE_SPECIFIC,
+} OcarinaInstrumentRandomSetting;
+
+typedef enum {
     DUNGEON_NEITHER,
     DUNGEON_BARREN,
     DUNGEON_WOTH,
@@ -500,6 +528,7 @@ typedef struct {
     u8 triforceHunt;
     u8 triforcePiecesTotal;
     u8 triforcePiecesRequired;
+    u8 enemizer;
 
     u8 shuffleRewards;
     u8 linksPocketItem;
@@ -562,7 +591,9 @@ typedef struct {
     u8 fastBunnyHood;
 
     u8 damageMultiplier;
+    u8 bonkDamage;
     u8 permadeath;
+    u8 gloomMode;
     u8 startingTime;
     u8 gossipStoneHints;
     u8 totAltarHints;
@@ -591,6 +622,8 @@ typedef struct {
     u8 hyperMiddleBosses;
     u8 hyperEnemies;
     u8 freeCamera;
+    u8 randomGsLocations;
+    u8 randomSongNotes;
 
     u8 faroresWindAnywhere;
     u8 stickAsAdult;
@@ -660,11 +693,14 @@ typedef struct {
     u8 coloredKeys;
     u8 coloredBossKeys;
     u8 mirrorWorld;
+    u8 soullessEnemiesLook;
 
     u8 shuffleSFX;
     u8 shuffleSFXFootsteps;
     u8 shuffleSFXLinkVoice;
     u8 shuffleSFXCategorically;
+
+    u8 ocarinaNoteInstrument;
 
     union {
         u8 dungeonModes[12];
