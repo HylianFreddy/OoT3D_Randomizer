@@ -245,6 +245,11 @@ std::vector<LocationKey> GetAccessibleLocations(const std::vector<LocationKey>& 
 
     // Main access checking loop
     while (newItemLocations.size() > 0 || updatedEvents || ageTimePropogated || firstIteration) {
+        hidScanInput();
+        if (hidKeysDown() & KEY_SELECT) {
+            exit(0); // stop the app
+        }
+
         firstIteration    = false;
         ageTimePropogated = false;
         updatedEvents     = false;
