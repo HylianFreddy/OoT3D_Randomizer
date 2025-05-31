@@ -1,6 +1,7 @@
 #include "dark_link.h"
 #include "settings.h"
 #include "enemizer.h"
+#include "common.h"
 
 #define EnTorch2_Update ((ActorFunc)GAME_ADDR(0x22F0C8))
 
@@ -23,6 +24,13 @@ void EnTorch2_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     // For enemy randomizer, skip adjusting position after spawning outside of vanilla location.
     if (globalCtx->sceneNum != SCENE_WATER_TEMPLE || globalCtx->roomNum != 13) {
         this->darkPlayer.darkLinkAdjustedSpawnPos = 1;
+    }
+
+    // To decide when the battle should start, vanilla code checks distance to player only on the horizontal plane.
+    // If the vertical distance is too high, hack the horizontal one to a high value to make the check fail on
+    // this frame.
+    if (this->actionState == ENTORCH2_WAIT && ABS(thisx->yDistToPlayer) > 200.0f) {
+        thisx->xzDistToPlayer = 1000.0f;
     }
 
     EnTorch2_Update(thisx, globalCtx);
@@ -76,26 +84,38 @@ void EnTorch2_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     sPlayerWeaponClanked = FALSE;
 }
 
-void DarkLink_OverrideSpawnedActor(s16* actorId, s16* params, f32* posZ) {
-    if (gSettingsContext.enemizer == OFF) {
-        return;
+Actor* DarkLink_Spawn(Actor* spawner) {
+    s16 actorId = ACTOR_DARK_LINK;
+    s16 params  = 0;
+    f32 posZ    = spawner->world.pos.z;
+
+    if (gSettingsContext.enemizer == ON) {
+        EnemyOverride enemyOverride = Enemizer_GetSpawnerOverride();
+        actorId                     = enemyOverride.actorId;
+        params                      = enemyOverride.params;
+        posZ -= 75.0; // Move enemy outside of the tree.
     }
 
-    EnemyOverride enemyOverride = Enemizer_GetSpawnerOverride();
+    return Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, actorId, spawner->world.pos.x, spawner->world.pos.y,
+                       posZ, 0, spawner->yawTowardsPlayer, 0, params, 1);
+}
 
-    if (enemyOverride.actorId == 0) {
-        return;
+Actor* DarkLink_Find(void) {
+    s16 actorId = ACTOR_DARK_LINK;
+
+    if (gSettingsContext.enemizer == ON) {
+        EnemyOverride enemyOverride = Enemizer_GetSpawnerOverride();
+        actorId                     = enemyOverride.actorId;
     }
 
-    if (actorId != NULL) {
-        *actorId = enemyOverride.actorId;
+    // Search all types as some enemies don't spawn as Enemy type (e.g. Anubis spawner is Switch)
+    for (s32 actorType = 0; actorType < ACTORTYPE_MAX; actorType++) {
+        Actor* found = Actor_Find(&gGlobalContext->actorCtx, actorId, actorType);
+        if (found != NULL) {
+            return found;
+        }
     }
-    if (params != NULL) {
-        *params = enemyOverride.params;
-    }
-    if (posZ != NULL) {
-        *posZ -= 75.0; // Move enemy outside of the tree.
-    }
+    return NULL;
 }
 
 // Vanilla code removes hammer recoil for both Links.
