@@ -32,8 +32,10 @@ typedef struct EnemyOverride {
 
 void Enemizer_Init(void);
 void Enemizer_Update(void);
-void Enemizer_OverrideActorEntry(ActorEntry* entry, s32 actorEntryIndex);
+u8 Enemizer_OverrideActorEntry(ActorEntry* entry, s32 actorEntryIndex);
 void Enemizer_AfterActorSetup(void);
 EnemyOverride Enemizer_GetSpawnerOverride(void);
+s32 Enemizer_IsRoomCleared(void);
+void Enemizer_MoveSpecificEnemies(ActorEntry* actorEntry);
 
 #endif // _ENEMIZER_H_

@@ -85,37 +85,40 @@ void EnTorch2_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 Actor* DarkLink_Spawn(Actor* spawner) {
-    s16 actorId = ACTOR_DARK_LINK;
-    s16 params  = 0;
-    f32 posZ    = spawner->world.pos.z;
+    ActorEntry tempActorEntry = {
+        .id = ACTOR_DARK_LINK,
+        .pos = {
+            .x = spawner->world.pos.x,
+            .y = spawner->world.pos.y,
+            .z = spawner->world.pos.z,
+        },
+        .rot = {
+            .x = 0,
+            .y = spawner->yawTowardsPlayer,
+            .z = 0,
+        },
+        .params = 0,
+    };
 
     if (gSettingsContext.enemizer == ON) {
         EnemyOverride enemyOverride = Enemizer_GetSpawnerOverride();
-        actorId                     = enemyOverride.actorId;
-        params                      = enemyOverride.params;
-        posZ -= 75.0; // Move enemy outside of the tree.
+        tempActorEntry.id           = enemyOverride.actorId;
+        tempActorEntry.params       = enemyOverride.params;
+        tempActorEntry.pos.z -= 75; // Move enemy outside of the tree.
+
+        // Apply position updates depending on the specific enemy.
+        Enemizer_MoveSpecificEnemies(&tempActorEntry);
     }
 
-    return Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, actorId, spawner->world.pos.x, spawner->world.pos.y,
-                       posZ, 0, spawner->yawTowardsPlayer, 0, params, 1);
+    return Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, tempActorEntry.id, tempActorEntry.pos.x,
+                       tempActorEntry.pos.y, tempActorEntry.pos.z, tempActorEntry.rot.x, tempActorEntry.rot.y,
+                       tempActorEntry.rot.z, tempActorEntry.params, TRUE);
 }
 
-Actor* DarkLink_Find(void) {
-    s16 actorId = ACTOR_DARK_LINK;
-
-    if (gSettingsContext.enemizer == ON) {
-        EnemyOverride enemyOverride = Enemizer_GetSpawnerOverride();
-        actorId                     = enemyOverride.actorId;
-    }
-
-    // Search all types as some enemies don't spawn as Enemy type (e.g. Anubis spawner is Switch)
-    for (s32 actorType = 0; actorType < ACTORTYPE_MAX; actorType++) {
-        Actor* found = Actor_Find(&gGlobalContext->actorCtx, actorId, actorType);
-        if (found != NULL) {
-            return found;
-        }
-    }
-    return NULL;
+s32 DarkLink_IsAlive(void) {
+    // The randomizer changes Dark Link's actor category to Enemy instead of Boss,
+    // so the temp clear flag will be set when he's defeated.
+    return !Enemizer_IsRoomCleared();
 }
 
 // Vanilla code removes hammer recoil for both Links.
