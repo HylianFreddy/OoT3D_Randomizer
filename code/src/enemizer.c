@@ -6,6 +6,7 @@
 #include "scene.h"
 #include "bgm.h"
 #include "dark_link.h"
+#include "z3D/actors/z_en_item00.h"
 
 #include <stddef.h>
 
@@ -16,7 +17,10 @@ static EnemyOverride rEnemyOverrides[ENEMY_OVERRIDES_MAX];
 static s32 rEnemyOverrides_Count = 0;
 static u8 sRoomLoadSignal        = FALSE;
 static Actor* sSFMWolfos         = NULL;
-static u8 sLizalfosDefeated      = FALSE;
+static u8 sLastRoomCleared       = FALSE;
+EnemizerLocationFlags gEnemizerLocationFlags;
+
+static EnemyOverride Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actorEntry);
 
 // Enemies that need to spawn at ground level to work properly.
 static EnemyActorData sGroundedEnemies[] = {
@@ -39,6 +43,7 @@ static EnemyActorData sGroundedEnemies[] = {
     { .actorId = ACTOR_WITHERED_DEKU_BABA, .anyParams = TRUE },
     { .actorId = ACTOR_ANUBIS_SPAWNER, .anyParams = TRUE },
     { .actorId = ACTOR_FLYING_POT, .anyParams = TRUE },
+    { .actorId = ACTOR_HINT_DEKU_SCRUB, .anyParams = TRUE },
     { .actorId = ACTOR_STALCHILD, .anyParams = TRUE },
 };
 
@@ -97,14 +102,28 @@ static EnemyObjectDependency sEnemyObjectDeps[] = {
 };
 // clang-format on
 
-s32 Enemizer_IsActive(void) {
-    return gSettingsContext.enemizer == ON;
+u8 Enemizer_IsEnemyRandomized(EnemyId enemyId) {
+    return gSettingsContext.enemizer == ON && gSettingsContext.enemizerList[enemyId] == ENEMYMODE_RANDOMIZED;
 }
 
 void Enemizer_Init(void) {
+    if (gSettingsContext.enemizer == OFF) {
+        return;
+    }
+
     while (rEnemyOverrides[rEnemyOverrides_Count].actorId != 0) {
         rEnemyOverrides_Count++;
     }
+
+    // Initialize flags for specific location overrides.
+    // For groups of enemies with the same location type, just check one of them.
+    gEnemizerLocationFlags.sfmWolfos      = Enemizer_FindOverride(86, 0, 0, 1).actorId != 0;
+    gEnemizerLocationFlags.dcLizalfos     = Enemizer_FindOverride(1, 0, 3, 1).actorId != 0; // both Vanilla and MQ
+    gEnemizerLocationFlags.gerudoFighters = Enemizer_FindOverride(12, 0, 1, 1).actorId != 0;
+    gEnemizerLocationFlags.nabooruKnuckle = Enemizer_FindOverride(23, 0, 1, 0).actorId != 0;
+    gEnemizerLocationFlags.shadowShipStalfos =
+        Enemizer_FindOverride(7, 0, 21, gSettingsContext.shadowTempleDungeonMode == DUNGEONMODE_VANILLA ? 13 : 16)
+            .actorId != 0;
 }
 
 static EnemyOverride Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actorEntry) {
@@ -253,6 +272,16 @@ static void Enemizer_MoveSpecificLocations(ActorEntry* actorEntry, s32 actorEntr
             // Move a keese in the invisible floor room in BOTW to be over flat ground and not the sloped wall
             actorEntry->pos.x = 250;
             actorEntry->pos.z = -970;
+            break;
+        case LOC(12, 0, 1, 1):
+        case LOC(12, 0, 2, 1):
+        case LOC(12, 0, 5, 1):
+            // Move Gerudo Fighter down inside the room
+            actorEntry->pos.y = 120;
+            break;
+        case LOC(12, 0, 4, 1):
+            // Move Gerudo Fighter down inside the room
+            actorEntry->pos.y = -120;
             break;
         case LOC(86, 0, 0, 1):
             // Move the SFM wolfos more towards the center, some enemies might jump over the fence
@@ -429,15 +458,15 @@ EnemyOverride Enemizer_GetSpawnerOverride(void) {
     return Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, 0xFF);
 }
 
-s32 Enemizer_IsRoomCleared(void) {
-    return gGlobalContext->actorCtx.flags.tempClear & (1 << gGlobalContext->roomNum);
+u8 Enemizer_IsRoomCleared(void) {
+    return (gGlobalContext->actorCtx.flags.tempClear >> gGlobalContext->roomNum) & 1;
 }
 
 // Handle opening certain doors that are normally handled by the specific enemies in the area,
 // by checking on every frame if the randomized enemies have been defeated.
 static void Enemizer_HandleClearConditions(void) {
     if (gGlobalContext->sceneNum == SCENE_SACRED_FOREST_MEADOW && gSaveContext.linkAge == AGE_CHILD &&
-        !Flags_GetSwitch(gGlobalContext, 0x1F)) {
+        gEnemizerLocationFlags.sfmWolfos && !Flags_GetSwitch(gGlobalContext, 0x1F)) {
         // Handle the entrance gate in the Child layer if it's not open already.
         // Checking the clear flag doesn't work because there are other enemies in the same room, so
         // search for the enemy actor manually. Run the search multiple times if necessary because
@@ -460,12 +489,31 @@ static void Enemizer_HandleClearConditions(void) {
             Flags_SetSwitch(gGlobalContext, 0x1F);
             sSFMWolfos = NULL;
         }
-    } else if (gGlobalContext->sceneNum == SCENE_DODONGOS_CAVERN && gGlobalContext->roomNum == 3) {
+    } else if (gGlobalContext->sceneNum == SCENE_DODONGOS_CAVERN && gGlobalContext->roomNum == 3 &&
+               gEnemizerLocationFlags.dcLizalfos) {
         // Miniboss room: open the correct doors when the room is cleared.
-        if (Enemizer_IsRoomCleared() && !sLizalfosDefeated) {
+        if (Enemizer_IsRoomCleared() && !sLastRoomCleared) {
             u32 flag = Flags_GetSwitch(gGlobalContext, 5) ? 6 : 5;
             Flags_SetSwitch(gGlobalContext, flag);
-            sLizalfosDefeated = TRUE;
+            sLastRoomCleared = TRUE;
+        }
+    } else if (gGlobalContext->sceneNum == SCENE_THIEVES_HIDEOUT && gEnemizerLocationFlags.gerudoFighters) {
+        const s8 keyFlagsByRoom[6] = { 0, 0x0A, 0x0C, 0, 0x0E, 0x0F };
+
+        s8 keyFlag = keyFlagsByRoom[gGlobalContext->roomNum];
+        // Spawn the key when the room is cleared.
+        if (Enemizer_IsRoomCleared() && !sLastRoomCleared) {
+            // Take the horizontal position from the Gerudo Fighter's actor entry, which is #1 in all 4 rooms.
+            Vec3s pos  = gGlobalContext->actorEntryList[1].pos;
+            f32 posY   = gGlobalContext->roomNum == 4 ? 0.0f : 240.0f;
+            Actor* key = Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, ACTOR_EN_ITEM00, pos.x, posY, pos.z, 0,
+                                     0, 0, (keyFlag << 8) | ITEM00_SMALL_KEY, FALSE);
+            key->gravity     = -0.9f;
+            sLastRoomCleared = TRUE;
+        }
+        // Permanently clear the room when the key is collected, so the enemy doesn't respawn.
+        if (Flags_GetCollectible(gGlobalContext, keyFlag)) {
+            Flags_SetClear(gGlobalContext, gGlobalContext->roomNum);
         }
     }
 }
@@ -521,9 +569,9 @@ void Enemizer_AfterActorSetup(void) {
         Enemizer_SpawnObjectsForActor(enemySpawnerOvr.actorId, enemySpawnerOvr.params);
     }
 
-    sSFMWolfos        = NULL;
-    sLizalfosDefeated = FALSE;
-    sRoomLoadSignal   = TRUE;
+    sSFMWolfos       = NULL;
+    sLastRoomCleared = FALSE;
+    sRoomLoadSignal  = TRUE;
 }
 
 // Run special checks on every frame

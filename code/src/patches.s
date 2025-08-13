@@ -2367,6 +2367,11 @@ GetObjectEntry_EnDekunutsInit_patch:
 GetObjectEntry_EnNutsballInit_patch:
     bl hook_GetObjectEntry_Generic
 
+.section .patch_GetObjectEntry_EnHintnutsInit
+.global GetObjectEntry_EnHintnutsInit_patch
+GetObjectEntry_EnHintnutsInit_patch:
+    bl hook_GetObjectEntry_Generic
+
 .section .patch_AltHeadersCommand
 .global AltHeadersCommand_patch
 AltHeadersCommand_patch:
@@ -2511,3 +2516,13 @@ RedeadCanFreezePlayer_patch:
 .global DeadHandHandCanGrabPlayer_patch
 DeadHandHandCanGrabPlayer_patch:
     bl hook_DeadHandHandCanGrabPlayer
+
+.section .patch_GerudoBattleMusic
+.global GerudoBattleMusic_patch
+GerudoBattleMusic_patch:
+    bl hook_GerudoBattleMusic
+
+.section .patch_FixActorKillLoop
+.global FixActorKillLoop_patch
+FixActorKillLoop_patch:
+    bl hook_FixActorKillLoop

@@ -202,8 +202,10 @@ bool CanDefeatEnemy(u16 enemyId) {
         case ENEMY_FREEZARD:
             return CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) || CanUse(MEGATON_HAMMER) || CanUse(FIRE_ARROWS) ||
                    CanUse(HOOKSHOT) || CanUse(DINS_FIRE) || HasExplosives;
-        // case ENEMY_GERUDO_FIGHTER: // Unimplemented
-        //     return false;
+        case ENEMY_HINT_DEKU_SCRUB:
+            return CanUse(DEKU_SHIELD) || CanUse(HYLIAN_SHIELD) || CanUse(MEGATON_HAMMER);
+        case ENEMY_GERUDO_FIGHTER:
+            return CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) || CanUse(MEGATON_HAMMER);
         case ENEMY_WOLFOS:
             return CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) || CanUse(STICKS) ||
                    CanUse(MEGATON_HAMMER) || CanUse(BOW) || CanUse(SLINGSHOT) || CanUse(DINS_FIRE) || HasExplosives;
@@ -219,12 +221,24 @@ bool CanDefeatEnemy(u16 enemyId) {
     }
 }
 
+static bool CanDefeatEnemyUnderwater(u16 enemyId) {
+    if (!enemyTypes[enemyId].HasSoul()) {
+        return false;
+    }
+
+    if (enemyId == ENEMY_HINT_DEKU_SCRUB) {
+        return CanUse(DEKU_SHIELD) || CanUse(HYLIAN_SHIELD);
+    }
+
+    return CanUse(IRON_BOOTS) && CanUse(HOOKSHOT);
+}
+
 static EnemyConditionFn _CanDefeatEnemy([](EnemyLocation& loc) {
     u16 enemyId       = loc.GetEnemyId();
     bool isUnderwater = loc.IsUnderwater();
 
     if (isUnderwater) {
-        return enemyTypes[enemyId].HasSoul() && CanUse(IRON_BOOTS) && CanUse(HOOKSHOT);
+        return CanDefeatEnemyUnderwater(enemyId);
     }
 
     return CanDefeatEnemy(enemyId);

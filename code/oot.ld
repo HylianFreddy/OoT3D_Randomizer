@@ -476,6 +476,10 @@ SECTIONS
 		*(.patch_KingZoraSetTradedPrescriptionFlag)
 	}
 
+	.patch_GerudoBattleMusic 0x1C6FD8 : {
+		*(.patch_GerudoBattleMusic)
+	}
+
 	.patch_EnEncount1_SpawnLeever 0x1CC94C : {
 		*(.patch_EnEncount1_SpawnLeever)
 	}
@@ -630,6 +634,10 @@ SECTIONS
 
 	.patch_GetObjectEntry_EnDekunutsInit 0x2293AC : {
 		*(.patch_GetObjectEntry_EnDekunutsInit)
+	}
+
+	.patch_GetObjectEntry_EnHintnutsInit 0x22AB70 : {
+		*(.patch_GetObjectEntry_EnHintnutsInit)
 	}
 
 	.patch_patch_ItemGiveBombchuDropTwo 0x22BAE4 : {
@@ -1680,6 +1688,10 @@ SECTIONS
 
 	.patch_AfterActorSetup_RoomChange 0x461434 + region_offset : {
 		*(.patch_AfterActorSetup_RoomChange)
+	}
+
+	.patch_FixActorKillLoop 0x4615E0 + region_offset : {
+		*(.patch_FixActorKillLoop)
 	}
 
 	.patch_ActorUpdate 0x461790 + region_offset : {

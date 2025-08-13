@@ -287,7 +287,12 @@ void Actor_Init() {
     gActorOverlayTable[0x191].initInfo->init   = BgSpot12Saku_rInit;
     gActorOverlayTable[0x191].initInfo->update = BgSpot12Saku_rUpdate;
 
+    gActorOverlayTable[0x192].initInfo->init = EnHintnuts_rInit;
+
     gActorOverlayTable[0x195].initInfo->init = EnShopnuts_rInit;
+
+    gActorOverlayTable[0x197].initInfo->update = EnGeldB_rUpdate;
+    gActorOverlayTable[0x197].initInfo->draw   = EnGeldB_rDraw;
 
     gActorOverlayTable[0x198].initInfo->update = OceffWipe2_rUpdate;
     gActorOverlayTable[0x199].initInfo->update = OceffWipe3_rUpdate;
@@ -555,4 +560,8 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
     }
 
     return 1; // continue as normal
+}
+
+s32 Actor_IsKilled(Actor* actor) {
+    return actor->update == NULL && actor->draw == NULL;
 }
