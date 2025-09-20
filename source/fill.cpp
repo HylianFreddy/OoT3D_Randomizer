@@ -958,6 +958,7 @@ void VanillaFill() {
     GenerateLocationPool();
     GenerateItemPool();
     GenerateStartingInventory();
+    Enemizer::RandomizeEnemies();
     // Place vanilla item in each location
     RandomizeDungeonRewards();
     for (LocationKey loc : allLocations) {
