@@ -96,9 +96,7 @@ void AreaTable_Init_JabuJabusBelly() {
                      Entrance(JABU_JABUS_BELLY_FORKED_CORRIDOR, { [] { return CanPassEnemy(2, 0, 2, 2); } }),
                      Entrance(JABU_JABUS_BELLY_BIGOCTO_ROOM, { [] {
                                   return Here(JABU_JABUS_BELLY_GREEN_TENTACLE, [] {
-                                      // Defeating Biri is not really required but it can be difficult to target the
-                                      // tentacle with the Biri around it.
-                                      return CanDefeatEnemies(2, 0, 8) && SoulParasiticTentacle && CanUse(BOOMERANG);
+                                      return SoulParasiticTentacle && CanUse(BOOMERANG);
                                   });
                               } }),
                  });

@@ -27,6 +27,8 @@
 
 namespace fs = std::filesystem;
 
+std::string settingsStr;
+
 namespace {
 std::string placementtxt;
 
@@ -856,6 +858,11 @@ bool SpoilerLog_Write() {
     if (Settings::Logic.Is(LOGIC_GLITCHED)) {
         WriteEnabledGlitches(spoilerLog);
     }
+
+    auto settingStringNode = spoilerLog.NewElement("setting-string");
+    settingStringNode->SetText(settingsStr.c_str());
+    spoilerLog.RootElement()->InsertEndChild(settingStringNode);
+
     WriteMasterQuestDungeons(spoilerLog, true);
     WriteRequiredTrials(spoilerLog);
     WriteSongNotes(spoilerLog);

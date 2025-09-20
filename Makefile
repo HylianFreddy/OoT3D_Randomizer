@@ -31,9 +31,9 @@ include $(DEVKITARM)/3ds_rules
 #     - icon.png
 #     - <libctru folder>/default_icon.png
 #---------------------------------------------------------------------------------
-APP_TITLE       :=  Ocarina of Time 3D Randomizer
-APP_AUTHOR      :=  Gamestabled
-APP_DESCRIPTION :=  A different Ocarina of Time experience
+APP_TITLE       :=  OoT3DR custom build
+APP_AUTHOR      :=
+APP_DESCRIPTION :=
 TARGET		    :=	$(notdir $(CURDIR))
 BUILD		    :=	build
 SOURCES		    :=	$(sort $(dir $(wildcard source/*/ source/)))
@@ -176,6 +176,9 @@ endif
 
 #---------------------------------------------------------------------------------
 all: delete3DSX create_basecode $(BUILD) $(GFXBUILD) $(DEPSDIR) $(ROMFS_T3XFILES) $(T3XHFILES)
+ifndef GITHUB_ENV
+	@$(TOPDIR)/write_build_id.sh
+endif
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 delete3DSX:

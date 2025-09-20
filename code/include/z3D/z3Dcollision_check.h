@@ -137,6 +137,9 @@ typedef void (*Collider_SetCylinder_proc)(struct GlobalContext* globalCtx, Colli
 typedef void (*Collider_UpdateCylinder_proc)(struct Actor* actor, ColliderCylinder* collider);
 #define Collider_UpdateCylinder ((Collider_UpdateCylinder_proc)GAME_ADDR(0x37632C))
 
+typedef void (*Collider_UpdateSpheres_proc)(s32 limb, void* collider, nn_math_MTX34* modelMtx);
+#define Collider_UpdateSpheres ((Collider_UpdateSpheres_proc)0x357750)
+
 typedef void (*CollisionCheck_SetOC_proc)(struct GlobalContext* globalCtx, struct CollisionCheckContext* colChkCtx,
                                           void* collider);
 #define CollisionCheck_SetOC ((CollisionCheck_SetOC_proc)GAME_ADDR(0x3762A4))
