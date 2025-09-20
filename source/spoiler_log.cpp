@@ -11,6 +11,7 @@
 #include "utils.hpp"
 #include "shops.hpp"
 #include "gold_skulltulas.hpp"
+#include "ocarina_notes.hpp"
 #include "enemizer.hpp"
 
 #include <3ds.h>
@@ -567,6 +568,37 @@ static void WriteRequiredTrials(tinyxml2::XMLDocument& spoilerLog) {
     }
 }
 
+// Writes the randomized notes for each song.
+static void WriteSongNotes(tinyxml2::XMLDocument& spoilerLog) {
+    if (!Settings::RandomSongNotes) {
+        return;
+    }
+
+    auto parentNode = spoilerLog.NewElement("song-notes");
+
+    for (u8 songId = OCARINA_SONG_MINUET; songId < OCARINA_SONG_MAX; songId++) {
+        auto node        = parentNode->InsertNewChildElement("song");
+        std::string name = ocarinaSongNames[songId];
+        node->SetAttribute("name", name.c_str());
+
+        constexpr int16_t LONGEST_NAME = 18; // The longest song name.
+        // Insert a padding so we get a kind of table in the XML document.
+        int16_t requiredPadding = LONGEST_NAME - name.length();
+        if (requiredPadding >= 0) {
+            std::string padding(requiredPadding, ' ');
+            node->SetAttribute("_", padding.c_str());
+        }
+
+        std::string noteStr = "";
+        for (u32 btnIndex = 0; btnIndex < rSongData[songId].length; btnIndex++) {
+            noteStr += ocarinaBtnChars[rSongData[songId].buttons[btnIndex]] + " ";
+        }
+        node->SetText(noteStr.c_str());
+    }
+
+    spoilerLog.RootElement()->InsertEndChild(parentNode);
+}
+
 // Writes the area and a description of where any moved Gold Skulltulas are.
 static void WriteNewGsLocations(tinyxml2::XMLDocument& spoilerLog, const bool collapsible = false) {
     if (!Settings::RandomGsLocations) {
@@ -826,6 +858,7 @@ bool SpoilerLog_Write() {
     }
     WriteMasterQuestDungeons(spoilerLog, true);
     WriteRequiredTrials(spoilerLog);
+    WriteSongNotes(spoilerLog);
     WriteNewGsLocations(spoilerLog, true);
     WritePlaythrough(spoilerLog, true);
     WriteWayOfTheHeroLocation(spoilerLog, true);

@@ -491,7 +491,9 @@ extern Option CompassesShowReward;
 extern Option CompassesShowWotH;
 extern Option MapsShowDungeonMode;
 extern Option DamageMultiplier;
+extern Option BonkDamage;
 extern Option Permadeath;
+extern Option GloomMode;
 extern Option StartingTime;
 extern Option ChestAnimations;
 extern Option ChestAppearance;
@@ -513,6 +515,7 @@ extern Option HyperEnemies;
 extern Option FreeCamera;
 extern Option RandomGsLocations;
 extern Option GsLocGuaranteeNew;
+extern Option RandomSongNotes;
 extern bool HasNightStart;
 
 extern Option FaroresWindAnywhere;
@@ -833,6 +836,8 @@ extern Option ShuffleSFX;
 extern Option ShuffleSFXFootsteps;
 extern Option ShuffleSFXLinkVoice;
 extern Option ShuffleSFXCategorically;
+
+extern Option OcarinaNoteInstrument;
 
 extern u32 LinksPocketRewardBitMask;
 extern std::array<u32, 9> rDungeonRewardOverrides;

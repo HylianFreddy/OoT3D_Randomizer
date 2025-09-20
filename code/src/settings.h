@@ -342,6 +342,24 @@ typedef enum {
 } DamageMultiplierSetting;
 
 typedef enum {
+    BONKDAMAGE_NONE,
+    BONKDAMAGE_QUARTER,
+    BONKDAMAGE_HALF,
+    BONKDAMAGE_ONE,
+    BONKDAMAGE_TWO,
+    BONKDAMAGE_FOUR,
+    BONKDAMAGE_OHKO,
+} BonkDamageSetting;
+
+typedef enum {
+    GLOOMMODE_OFF,
+    GLOOMMODE_DEATH,
+    GLOOMMODE_DAMAGE,
+    GLOOMMODE_COLLISION,
+    GLOOMMODE_EMPTY,
+} GloomModeSetting;
+
+typedef enum {
     STARTINGTIME_DAY,
     STARTINGTIME_NIGHT,
 } StartingTimeSetting;
@@ -434,6 +452,11 @@ typedef enum {
     SHUFFLESFX_SCENESPECIFIC,
     SHUFFLESFX_CHAOS,
 } ShuffleSFXSetting;
+
+typedef enum {
+    OCARINA_INSTRUMENT_RANDOM_CHOICE = 6,
+    OCARINA_INSTRUMENT_SCENE_SPECIFIC,
+} OcarinaInstrumentRandomSetting;
 
 typedef enum {
     DUNGEON_NEITHER,
@@ -580,7 +603,9 @@ typedef struct {
     u8 fastBunnyHood;
 
     u8 damageMultiplier;
+    u8 bonkDamage;
     u8 permadeath;
+    u8 gloomMode;
     u8 startingTime;
     u8 gossipStoneHints;
     u8 totAltarHints;
@@ -610,6 +635,7 @@ typedef struct {
     u8 hyperEnemies;
     u8 freeCamera;
     u8 randomGsLocations;
+    u8 randomSongNotes;
 
     u8 faroresWindAnywhere;
     u8 stickAsAdult;
@@ -685,6 +711,8 @@ typedef struct {
     u8 shuffleSFXFootsteps;
     u8 shuffleSFXLinkVoice;
     u8 shuffleSFXCategorically;
+
+    u8 ocarinaNoteInstrument;
 
     union {
         u8 dungeonModes[12];

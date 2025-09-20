@@ -15,6 +15,7 @@
 #include "keys.hpp"
 #include "gold_skulltulas.hpp"
 #include "enemizer.hpp"
+#include "ocarina_notes.hpp"
 
 #define CREATE_SOULMENUNAMES
 #include "../code/src/enemy_souls.h"
@@ -460,7 +461,9 @@ std::vector<Option *> itemPoolOptions = {
 Option FastBunnyHood       = Option::Bool("Fast Bunny Hood",        {"Off", "On"},                                                          {fastBunnyHoodDesc});
 Option KeepFWWarpPoint     = Option::Bool("Keep FW Warp Point",     {"Off", "On"},                                                          {keepFWWarpPointDesc});
 Option DamageMultiplier    = Option::U8  ("Damage Multiplier",      {"x1/2", "x1", "x2", "x4", "x8", "x16", "OHKO"},                        {damageMultiDesc},                                                                                                OptionCategory::Setting,    DAMAGEMULTIPLIER_DEFAULT);
+Option BonkDamage          = Option::U8  ("Bonk Damage",            {"0", "1/4", "1/2", "1", "2", "4", "OHKO"},                             {bonkDamageDesc});
 Option Permadeath          = Option::Bool("Permadeath",             {"Off", "On"},                                                          {permadeathDesc});
+Option GloomMode           = Option::U8  ("Gloom Mode",             {"Off", "Death", "Damage", "Collision", "Empty"},                       {gloomModeOffDesc, gloomModeDeathDesc, gloomModeDamageDesc, gloomModeCollisionDesc, gloomModeEmptyDesc});
 Option RandomTrapDmg       = Option::U8  ("Random Trap Damage",     {"Off", "Basic", "Advanced"},                                           {randomTrapDmgDesc, basicTrapDmgDesc, advancedTrapDmgDesc},                                                       OptionCategory::Setting,    RANDOMTRAPS_BASIC);
 Option FireTrap            = Option::Bool(2, "Fire Trap",           {"Off", "On"},                                                          {fireTrapDesc},                                                                                                   OptionCategory::Setting,    ON);
 Option AntiFairyTrap       = Option::Bool(2, "Anti-Fairy Trap",     {"Off", "On"},                                                          {antiFairyTrapDesc},                                                                                              OptionCategory::Setting,    ON);
@@ -474,11 +477,14 @@ Option HyperEnemies        = Option::Bool(2, "Hyper Enemies",       {"Off", "On"
 Option FreeCamera          = Option::Bool("Free Camera",            {"Off", "On"},                                                          {freeCamDesc},                                                                                                    OptionCategory::Setting,    ON);
 Option RandomGsLocations   = Option::Bool("Random GS Locations",    {"Off", "On"},                                                          {randomGsLocationsDesc});
 Option GsLocGuaranteeNew   = Option::Bool(2, "Guarantee New",       {"Off", "On"},                                                          {gsLocGuaranteeNewDesc});
+Option RandomSongNotes     = Option::Bool("Random Ocarina Melodies",{"Off", "On"},                                                          {randomSongNotesDesc});
 std::vector<Option*> gameplayOptions = {
     &FastBunnyHood,
     &KeepFWWarpPoint,
     &DamageMultiplier,
+    &BonkDamage,
     &Permadeath,
+    &GloomMode,
     &RandomTrapDmg,
     &FireTrap,
     &AntiFairyTrap,
@@ -492,6 +498,7 @@ std::vector<Option*> gameplayOptions = {
     &FreeCamera,
     &RandomGsLocations,
     &GsLocGuaranteeNew,
+    &RandomSongNotes,
 };
 
 // Excluded Locations (Individual definitions made in ItemLocation class)
@@ -1328,6 +1335,8 @@ Option ShuffleSFXFootsteps     = Option::Bool(2, "Include Footsteps",    {"No", 
 Option ShuffleSFXLinkVoice     = Option::Bool(2, "Include Link's Voice", {"No", "Yes"},                             {""},                                                                                                                                      OptionCategory::Cosmetic,               ON);
 Option ShuffleSFXCategorically = Option::Bool(2, "Categorical Shuffle",  {"Off", "On"},                             {shuffleSFXCategorically},                                                                                                                 OptionCategory::Cosmetic,               ON);
 
+Option OcarinaNoteInstrument   = Option::U8("Ocarina Instrument",      {"Default", "Malon", "Whistle", "Harp", "Grind Organ", "Flute", "Random Choice", "Scene Specific"}, {ocarinaNoteInstrumentDesc}, OptionCategory::Cosmetic);
+
 std::vector<Option*> audioOptions = {
     &ShuffleMusic,
     &ShuffleBGM,
@@ -1338,6 +1347,7 @@ std::vector<Option*> audioOptions = {
     &ShuffleSFXFootsteps,
     &ShuffleSFXLinkVoice,
     &ShuffleSFXCategorically,
+    &OcarinaNoteInstrument,
 };
 
 Menu preferences              = Menu::SubMenu("Misc Preferences",           &preferenceOptions);
@@ -1552,7 +1562,9 @@ SettingsContext FillContext() {
     ctx.compassesShowWotH   = CompassesShowWotH.Value<u8>();
     ctx.mapsShowDungeonMode = MapsShowDungeonMode.Value<u8>();
     ctx.damageMultiplier    = DamageMultiplier.Value<u8>();
+    ctx.bonkDamage          = BonkDamage.Value<u8>();
     ctx.permadeath          = (Permadeath) ? 1 : 0;
+    ctx.gloomMode           = GloomMode.Value<u8>();
     ctx.startingTime        = StartingTime.Value<u8>();
     ctx.chestAnimations     = (ChestAnimations) ? 1 : 0;
     ctx.chestAppearance     = ChestAppearance.Value<u8>();
@@ -1572,6 +1584,7 @@ SettingsContext FillContext() {
     ctx.hyperEnemies        = (HyperEnemies) ? 1 : 0;
     ctx.freeCamera          = (FreeCamera) ? 1 : 0;
     ctx.randomGsLocations   = (RandomGsLocations) ? 1 : 0;
+    ctx.randomSongNotes     = (RandomSongNotes) ? 1 : 0;
 
     ctx.faroresWindAnywhere  = (FaroresWindAnywhere) ? 1 : 0;
     ctx.stickAsAdult         = (StickAsAdult) ? 1 : 0;
@@ -1648,6 +1661,7 @@ SettingsContext FillContext() {
     ctx.shuffleSFXFootsteps         = (ShuffleSFXFootsteps) ? 1 : 0;
     ctx.shuffleSFXLinkVoice         = (ShuffleSFXLinkVoice) ? 1 : 0;
     ctx.shuffleSFXCategorically     = (ShuffleSFXCategorically) ? 1 : 0;
+    ctx.ocarinaNoteInstrument       = OcarinaNoteInstrument.Value<u8>();
 
     ctx.linksPocketRewardBitMask = LinksPocketRewardBitMask;
 
@@ -3205,6 +3219,8 @@ void UpdateSettings() {
         LACSCondition = LACSCONDITION_VANILLA;
     }
 
+    GenerateSongList();
+
     UpdateCosmetics();
 
     InitMusicRandomizer();
@@ -3230,6 +3246,11 @@ void UpdateSettings() {
     InitSFXRandomizer();
     if (ShuffleSFX.IsNot(SHUFFLESFX_OFF)) {
         SFX::ShuffleSequences(ShuffleSFXCategorically.Value<bool>());
+    }
+
+    if (OcarinaNoteInstrument.Is(OCARINA_INSTRUMENT_RANDOM_CHOICE)) {
+        size_t randomIndex = Random(0, OCARINA_INSTRUMENT_RANDOM_CHOICE, true);
+        OcarinaNoteInstrument.SetSelectedIndex(randomIndex);
     }
 }
 
