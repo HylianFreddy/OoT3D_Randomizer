@@ -8,6 +8,8 @@
 #include "entrance.h"
 #include "multiplayer.h"
 #include "item_override.h"
+#include "permadeath.h"
+#include "gloom.h"
 
 #define DECLARE_EXTSAVEDATA
 #include "savefile.h"
@@ -515,6 +517,14 @@ void SaveFile_SetStartingInventory(void) {
     gSaveContext.equipment |= gSettingsContext.startingEquipment;
     gSaveContext.upgrades |= gSettingsContext.startingUpgrades;
 
+    u8 startingShields = gSettingsContext.startingEquipment >> (4 * EQUIP_TYPE_SHIELD);
+    if (startingShields & EQUIP_VALUE_SHIELD_DEKU) {
+        gExtSaveData.dekuShieldsCount = 1;
+    }
+    if (startingShields & EQUIP_VALUE_SHIELD_HYLIAN) {
+        gExtSaveData.hylianShieldsCount = 1;
+    }
+
     // max rupees
     if (gSettingsContext.startingMaxRupees) {
         u8 wallet = (gSaveContext.upgrades >> 12) & 0x3;
@@ -853,4 +863,10 @@ void SaveFile_AfterLoadGame(void) {
 
         ItemOverride_PushHardcodedItem(GI_GANON_BOSS_KEY);
     }
+}
+
+void SaveFile_OnGameOver(void) {
+    gExtSaveData.deathCount++;
+    Gloom_OnDeath();
+    Permadeath_DeleteSave();
 }
