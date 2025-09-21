@@ -2277,11 +2277,6 @@ GanonFinalBlow_patch:
 PlayerBonk_patch:
     bl hook_PlayerBonk
 
-.section .patch_DrawHeartIcon
-.global DrawHeartIcon_patch
-DrawHeartIcon_patch:
-    bl hook_DrawHeartIcon
-
 .section .patch_ExtendObjectGetSlot
 .global ExtendObjectGetSlot_patch
 ExtendObjectGetSlot_patch:
@@ -2571,3 +2566,8 @@ FixActorKillLoop_patch:
 .global AfterInvalidatingRoomObjects_patch
 AfterInvalidatingRoomObjects_patch:
     bl hook_AfterInvalidatingRoomObjects
+
+.section .patch_DrawHeartIcon
+.global DrawHeartIcon_patch
+DrawHeartIcon_patch:
+    bl hook_DrawHeartIcon

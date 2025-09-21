@@ -2198,15 +2198,6 @@ hook_PlayerBonk:
     pop {r0-r12, lr}
     bx lr
 
-.global hook_DrawHeartIcon
-hook_DrawHeartIcon:
-    push {r0-r12, lr}
-    cpy r0,r1 @ heart icon index
-    bl Gloom_ShouldDrawHeartBorder
-    cmp r0,#0x0
-    pop {r0-r12, lr}
-    bx lr
-
 .global hook_GetObjectEntry_Generic
 hook_GetObjectEntry_Generic:
     push {r1-r12, lr}
@@ -2528,4 +2519,13 @@ hook_AfterInvalidatingRoomObjects:
     bl ExtendedObject_InvalidateRoomObjects
     pop {r0-r12, lr}
     ldr r0,[sp,#0x18]
+    bx lr
+
+.global hook_DrawHeartIcon
+hook_DrawHeartIcon:
+    push {r0-r12, lr}
+    cpy r0,r1 @ heart icon index
+    bl Gloom_ShouldDrawHeartBorder
+    cmp r0,#0x0
+    pop {r0-r12, lr}
     bx lr
