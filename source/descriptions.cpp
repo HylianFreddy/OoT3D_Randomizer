@@ -902,10 +902,39 @@ string_view damageMultiDesc           = "Changes the amount of damage taken.\n" 
                                         "\n"                                               //
                                         "If set to OHKO, Link will die in one hit.";       //
 /*------------------------------                                                           //
+|          BONK DAMAGE         |                                                           //
+------------------------------*/                                                           //
+string_view bonkDamageDesc            = "Choose how many Hearts of damage you'll take when\n"
+                                        "hitting a wall or object during a roll.\n\n"      //
+                                        "Damage is unaffected by the damage multiplier\n"  //
+                                        "setting, but it will respect Nayru's Love and\n"  //
+                                        "Double Defense.";                                 //
+/*------------------------------                                                           //
 |          PERMADEATH          |                                                           //
 ------------------------------*/                                                           //
 string_view permadeathDesc            = "Dying deletes your save file and kicks you back\n"//
                                         "out to the main menu.";                           //
+/*------------------------------                                                           //
+|          GLOOM MODE          |                                                           //
+------------------------------*/                                                           //
+string_view gloomModeOffDesc          = "Enabling this setting will make your hearts\n"    //
+                                        "permanently disappear on various conditions.";    //
+string_view gloomModeDeathDesc        = "Delete 1 heart when getting a Game Over.\n\n"     //
+                                        "The Permadeath setting, if enabled, will be\n"    //
+                                        "changed to take effect when you lose all hearts.";//
+string_view gloomModeDamageDesc       = "Delete 1 heart when losing health for any reason,\n"
+                                        "except continuous elemental damage from being\n"  //
+                                        "burned or frozen.\n\n"                            //
+                                        "Double Defense will require 2 hits per heart.";   //
+string_view gloomModeCollisionDesc    = "Delete 1 heart not only when losing health, but\n"//
+                                        "also when any collision is detected: getting hit\n"
+                                        "during invincibility frames or blocking an attack\n"
+                                        "with your shield count as collisions.\n\n"        //
+                                        "Double Defense will require 2 hits per heart.\n\n"//
+                                        "WARNING: THE GAME MAY BE IMPOSSIBLE TO BEAT\n"    //
+                                        "because you can still be expected to use a shield\n"
+                                        "(for example to reflect Twinrova's attacks).";    //
+string_view gloomModeEmptyDesc        = "Hearts will be deleted when they become empty.";  //
 /*------------------------------                                                           //
 |        STARTING TIME         |                                                           //
 ------------------------------*/                                                           //
@@ -1291,6 +1320,11 @@ string_view shuffleSFXCategorically   = "Sound effects will be shuffled in categ
                                         "\n"                                               //
                                         "The sound may get annoying fast when disabled.";  //
 /*------------------------------                                                           //
+|      OTHER SFX OPTIONS       |                                                           //
+------------------------------*/                                                           //
+string_view ocarinaNoteInstrumentDesc = "Change the instrument used when playing the\n"    //
+                                        "ocarina.";                                        //
+/*------------------------------                                                           //
 |    RANDOM TRAP DAMAGE TYPE   |                                                           //
 ------------------------------*/                                                           //
 string_view randomTrapDmgDesc         = "All traps will be the base game ice trap";        //
@@ -1362,6 +1396,12 @@ string_view gsLocGuaranteeNewDesc     = "Excludes the original location from the
                                         "If no new locations are available, the original\n"//
                                         "will be used regardless.";                        //
                                                                                            //
+/*------------------------------                                                           //
+|      RANDOM SONG NOTES       |                                                           //
+------------------------------*/                                                           //
+string_view randomSongNotesDesc       = "Randomize the notes for each ocarina song.\n"     //
+                                        "Regular songs will be 3 notes repeated twice.\n"  //
+                                        "Warp songs will be between 5 and 8 notes.";       //
                                                                                            //--------------//
 /*------------------------------                                                                           //
 |  DETAILED LOGIC EXPLANATIONS |                                                                           //

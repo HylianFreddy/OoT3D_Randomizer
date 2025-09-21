@@ -100,6 +100,10 @@ SECTIONS
 		*(.patch_KingZoraDontStartTimer)
 	}
 
+	.patch_GanonFinalBlow 0x13B684 : {
+		*(.patch_GanonFinalBlow)
+	}
+
 	.patch_StalchildDespawn_13DB68 0x13DB68 : {
 		*(.patch_StalchildDespawn_13DB68)
 	}
@@ -688,8 +692,8 @@ SECTIONS
 		*(.patch_MultiplyPlayerSpeed)
 	}
 
-	.patch_PermadeathDeleteSave 0x252424 : {
-		*(.patch_PermadeathDeleteSave)
+	.patch_GameOverStart 0x252424 : {
+		*(.patch_GameOverStart)
 	}
 
 	.patch_SkipDaruniaDanceThree 0x257F00 : {
@@ -842,6 +846,10 @@ SECTIONS
 
 	.patch_ActorDraw 0x2D6310 : {
 		*(.patch_ActorDraw)
+	}
+
+	.patch_OcarinaNoteSound_Player 0x2D6A04 : {
+		*(.patch_OcarinaNoteSound_Player)
 	}
 
 	.patch_CamUpdate 0x2D84C8 : {
@@ -1020,6 +1028,10 @@ SECTIONS
 		*(.patch_GetObjectEntry_353CE4)
 	}
 
+	.patch_PickupItemDrop 0x354AB0 : {
+		*(.patch_PickupItemDrop)
+	}
+
 	.patch_FastChests 0x354CD4 : {
 		*(.patch_FastChests)
 	}
@@ -1038,6 +1050,10 @@ SECTIONS
 
 	.patch_PlaySound 0x35C528 : {
 		*(.patch_PlaySound)
+	}
+
+	.patch_DeleteEquipment 0x35D1F8 : {
+		*(.patch_DeleteEquipment)
 	}
 
 	.patch_ConvertBombDropOne 0x35E46C : {
@@ -1494,6 +1510,10 @@ SECTIONS
 		*(.patch_GearMenuEmptySlot)
 	}
 
+	.patch_DrawHeartIcon 0x444368 + region_offset : {
+		*(.patch_DrawHeartIcon)
+	}
+
 	.patch_BeforeLoadGame 0x447380 + region_offset : {
 		*(.patch_BeforeLoadGame)
 	}
@@ -1730,6 +1750,10 @@ SECTIONS
 		*(.patch_EnableFW)
 	}
 
+	.patch_OcarinaNoteSound_Npc 0x477C08 + region_offset : {
+		*(.patch_OcarinaNoteSound_Npc)
+	}
+
 	.patch_StoreTargetActorType 0x479984 + region_offset : {
 		*(.patch_StoreTargetActorType)
 	}
@@ -1788,6 +1812,10 @@ SECTIONS
 
 	.patch_LHOwlEntranceOverride 0x492080 + region_offset : {
 		*(.patch_LHOwlEntranceOverride)
+	}
+
+	.patch_PlayerBonk 0x492CD0 + region_offset : {
+		*(.patch_PlayerBonk)
 	}
 
 	.patch_FairyUseHealAmount 0x4968B4 + region_offset : {
