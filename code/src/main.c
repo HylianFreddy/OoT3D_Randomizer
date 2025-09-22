@@ -29,6 +29,37 @@ static u8 rRandomizerInit     = 0;
 u32 rGameplayFrames           = 0;
 
 void Randomizer_Init() {
+    gSettingsContext.stickAsAdult         = ON;
+    gSettingsContext.boomerangAsAdult     = ON;
+    gSettingsContext.hammerAsChild        = ON;
+    gSettingsContext.slingshotAsAdult     = ON;
+    gSettingsContext.bowAsChild           = ON;
+    gSettingsContext.hookshotAsChild      = ON;
+    gSettingsContext.ironbootsAsChild     = ON;
+    gSettingsContext.hoverbootsAsChild    = ON;
+    gSettingsContext.masksAsAdult         = ON;
+    gSettingsContext.kokiriSwordAsAdult   = ON;
+    gSettingsContext.masterSwordAsChild   = ON;
+    gSettingsContext.biggoronSwordAsChild = ON;
+    gSettingsContext.dekuShieldAsAdult    = ON;
+    gSettingsContext.mirrorShieldAsChild  = ON;
+    gSettingsContext.goronTunicAsChild    = ON;
+    gSettingsContext.zoraTunicAsChild     = ON;
+
+    gSettingsContext.keepFWWarpPoint     = ON;
+    gSettingsContext.enemizer            = ON;
+    gSettingsContext.customTunicColors   = ON;
+    gSettingsContext.sheikHints          = ON;
+    gSettingsContext.quickText           = QUICKTEXT_TURBO;
+    gSettingsContext.skipSongReplays     = SONGREPLAYS_SKIP_NO_SFX;
+    gExtSaveData.option_SkipSongReplays  = SONGREPLAYS_SKIP_NO_SFX;
+    gSettingsContext.faroresWindAnywhere = ON;
+    gSettingsContext.freeCamera          = ON;
+    gSettingsContext.extraArrowEffects   = ON;
+    // gSettingsContext.shuffleEnemySouls   = SHUFFLEENEMYSOULS_ALL;
+    gSettingsContext.soullessEnemiesLook = SOULLESSLOOK_FLASHING;
+    gSettingsContext.gerudoFortress      = GERUDOFORTRESS_FAST;
+
     rHeap_Init();
     Actor_Init();
     Entrance_Init();
@@ -44,6 +75,8 @@ void Randomizer_Init() {
 }
 
 void before_Play_Init(GlobalContext* globalCtx) {
+    CitraPrint("________________");
+    CitraPrint("before_Play_Init");
     if (!rRandomizerInit) {
         Randomizer_Init();
         rRandomizerInit = 1;
@@ -55,13 +88,15 @@ void before_Play_Init(GlobalContext* globalCtx) {
 void autoLoadSaveFile();
 
 void before_GlobalContext_Update(GlobalContext* globalCtx) {
+    // CitraPrint("before_GlobalContext_Update");
+    autoLoadSaveFile();
+
     rGameplayFrames++;
     ItemOverride_Update();
     ExtendedObject_UpdateEntries();
     Model_UpdateAll(globalCtx);
     Input_Update();
     Gloom_Update();
-    autoLoadSaveFile();
     SaveFile_EnforceHealthLimit();
     Settings_SkipSongReplays();
     Multiplayer_Run();
@@ -95,6 +130,7 @@ s32 checkFastForward(void) {
 }
 
 void after_GlobalContext_Update() {
+    // CitraPrint("after_GlobalContext_Update");
     // The alert is always displayed on the Title Screen, and for 10 seconds after opening a save file.
     if (missingRomfsAlert && romfsAlertFrames > 0) {
         Draw_DrawFormattedStringTop(75, 180, COLOR_WHITE,
@@ -108,6 +144,7 @@ void after_GlobalContext_Update() {
     Multiplayer_Sync_Update();
 
     if (gGlobalContext->state.running == 0) {
+        CitraPrint("state.running == 0");
         Model_DestroyAll();
     }
 }

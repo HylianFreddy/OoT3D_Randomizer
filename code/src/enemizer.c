@@ -1,6 +1,7 @@
 #include "enemizer.h"
 #include "objects.h"
 #include "common.h"
+#include "input.h"
 #include "savefile.h"
 #include "settings.h"
 #include "scene.h"
@@ -12,6 +13,11 @@
 
 #define SKIP_ACTOR_ENTRY TRUE
 #define KEEP_ACTOR_ENTRY FALSE
+
+static const u32 sBaseTestEnemyId = ENEMY_BUBBLE_WHITE;
+static u32 sTestEnemyId           = sBaseTestEnemyId;
+static u32 sTestEnemyParamsIndex  = 0;
+static u32 sTestToggle            = ENEMYMODE_RANDOMIZED;
 
 static EnemyOverride rEnemyOverrides[ENEMY_OVERRIDES_MAX];
 static s32 rEnemyOverrides_Count = 0;
@@ -102,14 +108,107 @@ static EnemyObjectDependency sEnemyObjectDeps[] = {
 };
 // clang-format on
 
+// clang-format off
+TestEnemyData sTestEnemyData[] = {
+    [ENEMY_POE] = (TestEnemyData){ACTOR_POE, (s16[]){ 0x0000, 0x0002, 0x0003 }},
+    [ENEMY_STALFOS] = (TestEnemyData){ACTOR_STALFOS, (s16[]){ 0x0002, 0x0003 }},
+    [ENEMY_OCTOROK] = (TestEnemyData){ACTOR_OCTOROK, (s16[]){ 0x0000 }},
+    [ENEMY_WALLMASTER] = (TestEnemyData){ACTOR_WALLMASTER, (s16[]){ 0x0000 }},
+    [ENEMY_DODONGO] = (TestEnemyData){ACTOR_DODONGO, (s16[]){ 0x0000 }},
+    [ENEMY_KEESE_NORMAL] = (TestEnemyData){ACTOR_KEESE, (s16[]){ 0x0002 }},
+    [ENEMY_KEESE_FIRE] = (TestEnemyData){ACTOR_KEESE, (s16[]){ 0x0001 }},
+    [ENEMY_KEESE_ICE] = (TestEnemyData){ACTOR_KEESE, (s16[]){ 0x0004 }},
+    [ENEMY_TEKTITE_RED] = (TestEnemyData){ACTOR_TEKTITE, (s16[]){ 0xFFFF }},
+    [ENEMY_TEKTITE_BLUE] = (TestEnemyData){ACTOR_TEKTITE, (s16[]){ 0xFFFE }},
+    [ENEMY_LEEVER] = (TestEnemyData){ACTOR_LEEVER, (s16[]){ 0x0000, 0x0001 }},
+    [ENEMY_PEAHAT] = (TestEnemyData){ACTOR_PEAHAT, (s16[]){ 0xFFFF }},
+    [ENEMY_PEAHAT_LARVA] = (TestEnemyData){ACTOR_PEAHAT, (s16[]){ 0x0001 }},
+    [ENEMY_LIZALFOS] = (TestEnemyData){ACTOR_LIZALFOS, (s16[]){ 0xFF80, 0xFFFF }},
+    [ENEMY_DINOLFOS] = (TestEnemyData){ACTOR_LIZALFOS, (s16[]){ 0xFFFE }},
+    [ENEMY_GOHMA_LARVA] = (TestEnemyData){ACTOR_GOHMA_LARVA, (s16[]){ 0x0000, 0x0007 }},
+    [ENEMY_SHABOM] = (TestEnemyData){ACTOR_SHABOM, (s16[]){ 0x0000 }},
+    [ENEMY_DODONGO_BABY] = (TestEnemyData){ACTOR_BABY_DODONGO, (s16[]){ 0x0000 }},
+    [ENEMY_DARK_LINK] = (TestEnemyData){ACTOR_DARK_LINK, (s16[]){ 0x0000 }},
+    [ENEMY_BIRI] = (TestEnemyData){ACTOR_BIRI, (s16[]){ 0xFFFF }},
+    [ENEMY_TAILPASARAN] = (TestEnemyData){ACTOR_TAILPASARAN, (s16[]){ 0xFFFF }},
+    [ENEMY_SKULLTULA] = (TestEnemyData){ACTOR_SKULLTULA, (s16[]){ 0x0000, 0x0001 }},
+    [ENEMY_TORCH_SLUG] = (TestEnemyData){ACTOR_TORCH_SLUG, (s16[]){ 0xFFFF }},
+    [ENEMY_STINGER_FLOOR] = (TestEnemyData){ACTOR_STINGER_FLOOR, (s16[]){ 0x000A }},
+    [ENEMY_MOBLIN_CLUB] = (TestEnemyData){ACTOR_MOBLIN, (s16[]){ 0x0000 }},
+    [ENEMY_MOBLIN_SPEAR] = (TestEnemyData){ACTOR_MOBLIN, (s16[]){ 0xFFFF }},
+    [ENEMY_ARMOS] = (TestEnemyData){ACTOR_ARMOS, (s16[]){ 0xFFFF }},
+    [ENEMY_DEKU_BABA_SMALL] = (TestEnemyData){ACTOR_DEKU_BABA, (s16[]){ 0x0000 }},
+    [ENEMY_DEKU_BABA_BIG] = (TestEnemyData){ACTOR_DEKU_BABA, (s16[]){ 0x0001 }},
+    [ENEMY_MAD_SCRUB] = (TestEnemyData){ACTOR_MAD_SCRUB, (s16[]){ 0x0100, 0x0300, 0x0500 }},
+    [ENEMY_BARI] = (TestEnemyData){ACTOR_BARI, (s16[]){ 0xFFFF }},
+    [ENEMY_BUBBLE_BLUE] = (TestEnemyData){ACTOR_BUBBLE, (s16[]){ 0xFFFF }},
+    [ENEMY_BUBBLE_FIRE] = (TestEnemyData){ACTOR_BUBBLE, (s16[]){ 0xFFFE }},
+    [ENEMY_BUBBLE_GREEN] = (TestEnemyData){ACTOR_BUBBLE, (s16[]){ 0x02FC, 0x00FB }},
+    [ENEMY_BUBBLE_WHITE] = (TestEnemyData){ACTOR_BUBBLE, (s16[]){ 0x00FD }},
+    [ENEMY_FLYING_FLOOR_TILE] = (TestEnemyData){ACTOR_FLYING_FLOOR_TILE, (s16[]){ 0x0000 }},
+    [ENEMY_BEAMOS] = (TestEnemyData){ACTOR_BEAMOS, (s16[]){ 0x0500, 0x0501 }},
+    [ENEMY_FLOORMASTER] = (TestEnemyData){ACTOR_FLOORMASTER, (s16[]){ 0x0000 }},
+    [ENEMY_REDEAD] = (TestEnemyData){ACTOR_REDEAD, (s16[]){ 0x7F01, 0x7F02 }},
+    [ENEMY_GIBDO] = (TestEnemyData){ACTOR_REDEAD, (s16[]){ 0x7FFE }},
+    [ENEMY_DEAD_HAND_HAND] = (TestEnemyData){ACTOR_DEAD_HAND_HAND, (s16[]){ 0x0000 }},
+    [ENEMY_SKULLWALLTULA] = (TestEnemyData){ACTOR_SKULLWALLTULA, (s16[]){ 0x0000 }},
+    [ENEMY_FLARE_DANCER] = (TestEnemyData){ACTOR_FLARE_DANCER, (s16[]){ 0x0000 }},
+    [ENEMY_SHELL_BLADE] = (TestEnemyData){ACTOR_SHELL_BLADE, (s16[]){ 0x0000 }},
+    [ENEMY_DEKU_BABA_WITHERED] = (TestEnemyData){ACTOR_WITHERED_DEKU_BABA, (s16[]){ 0x0000 }},
+    [ENEMY_LIKE_LIKE] = (TestEnemyData){ACTOR_LIKE_LIKE, (s16[]){ 0x0000 }},
+    [ENEMY_SPIKE] = (TestEnemyData){ACTOR_SPIKE, (s16[]){ 0x0000 }},
+    [ENEMY_ANUBIS] = (TestEnemyData){ACTOR_ANUBIS_SPAWNER, (s16[]){ 0x0003 }},
+    [ENEMY_IRON_KNUCKLE] = (TestEnemyData){ACTOR_IRON_KNUCKLE, (s16[]){ 0xFF01, 0xFF02, 0xFF03 }},
+    [ENEMY_SKULL_KID] = (TestEnemyData){ACTOR_SKULL_KID, (s16[]){ 0xFFFF }},
+    [ENEMY_FLYING_POT] = (TestEnemyData){ACTOR_FLYING_POT, (s16[]){ 0x0000 }},
+    [ENEMY_FREEZARD] = (TestEnemyData){ACTOR_FREEZARD, (s16[]){ 0x0000, 0xFFFF }},
+    [ENEMY_STINGER_WATER] = (TestEnemyData){ACTOR_STINGER_WATER, (s16[]){ 0x0000 }},
+    [ENEMY_HINT_DEKU_SCRUB] = (TestEnemyData){ACTOR_HINT_DEKU_SCRUB, (s16[]){ 0x0000 }},
+    [ENEMY_GERUDO_FIGHTER] = (TestEnemyData){ACTOR_GERUDO_FIGHTER, (s16[]){ 0x0000 }},
+    [ENEMY_WOLFOS] = (TestEnemyData){ACTOR_WOLFOS, (s16[]){ 0xFF00, 0xFF01 }},
+    [ENEMY_STALCHILD] = (TestEnemyData){ACTOR_STALCHILD, (s16[]){ 0x0000, 0x0005 }},
+    [ENEMY_GUAY] = (TestEnemyData){ACTOR_GUAY, (s16[]){ 0x0000, 0x0001 }},
+};
+// clang-format on
+
 u8 Enemizer_IsEnemyRandomized(EnemyId enemyId) {
     return gSettingsContext.enemizer == ON && gSettingsContext.enemizerList[enemyId] == ENEMYMODE_RANDOMIZED;
 }
+
+// Helper macro for mocks; va_args is params index
+#define MOCK(_scene, _layer, _room, _entry, _enemyId, ...)                         \
+    rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){                    \
+        .scene      = _scene,                                                      \
+        .layer      = _layer,                                                      \
+        .room       = _room,                                                       \
+        .actorEntry = _entry,                                                      \
+        .actorId    = sTestEnemyData[_enemyId].actorId,                            \
+        .params     = sTestEnemyData[_enemyId].params[0 __VA_OPT__(+__VA_ARGS__)], \
+    };
 
 void Enemizer_Init(void) {
     if (gSettingsContext.enemizer == OFF) {
         return;
     }
+
+    // Mocks (MUST BE SORTED!)
+    MOCK(85, 2, 0, 1, ENEMY_BUBBLE_WHITE);
+    MOCK(85, 2, 0, 2, ENEMY_SHABOM);
+    MOCK(85, 2, 0, 3, ENEMY_HINT_DEKU_SCRUB);
+    MOCK(85, 2, 0, 4, ENEMY_BUBBLE_GREEN);
+    MOCK(85, 2, 0, 5, ENEMY_DEKU_BABA_SMALL);
+    MOCK(85, 2, 0, 6, ENEMY_GIBDO);
+    MOCK(85, 2, 0, 7, ENEMY_FLARE_DANCER);
+    MOCK(85, 2, 0, 8, ENEMY_KEESE_FIRE);
+    MOCK(85, 2, 0, 9, ENEMY_ANUBIS);
+    MOCK(85, 2, 0, 10, ENEMY_FLYING_FLOOR_TILE);
+
+    MOCK(85, 2, 1, 2, ENEMY_BUBBLE_BLUE);
+    MOCK(85, 2, 1, 3, ENEMY_FLARE_DANCER);
+    MOCK(85, 2, 1, 4, ENEMY_FLYING_FLOOR_TILE);
+    MOCK(85, 2, 1, 5, ENEMY_KEESE_NORMAL);
+    MOCK(85, 2, 1, 6, ENEMY_SPIKE);
+    MOCK(85, 2, 1, 7, ENEMY_KEESE_ICE);
 
     while (rEnemyOverrides[rEnemyOverrides_Count].actorId != 0) {
         rEnemyOverrides_Count++;
@@ -124,7 +223,21 @@ void Enemizer_Init(void) {
     gEnemizerLocationFlags.shadowShipStalfos =
         Enemizer_FindOverride(7, 0, 21, gSettingsContext.shadowTempleDungeonMode == DUNGEONMODE_VANILLA ? 13 : 16)
             .actorId != 0;
+
+    gSettingsContext.enemizerList[sTestEnemyId]             = sTestToggle;
+    gSettingsContext.enemizerList[ENEMY_INVALID]            = ENEMYMODE_VANILLA;
+    gSettingsContext.enemizerList[ENEMY_POE_SISTER]         = ENEMYMODE_VANILLA;
+    gSettingsContext.enemizerList[ENEMY_DEAD_HAND]          = ENEMYMODE_VANILLA;
+    gSettingsContext.enemizerList[ENEMY_BIG_OCTO]           = ENEMYMODE_VANILLA;
+    gSettingsContext.enemizerList[ENEMY_PARASITIC_TENTACLE] = ENEMYMODE_VANILLA;
+
+    gEnemizerLocationFlags.sfmWolfos         = 1;
+    gEnemizerLocationFlags.dcLizalfos        = 1;
+    gEnemizerLocationFlags.gerudoFighters    = 1;
+    gEnemizerLocationFlags.nabooruKnuckle    = 1;
+    gEnemizerLocationFlags.shadowShipStalfos = 1;
 }
+#undef MOCK
 
 static EnemyOverride Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actorEntry) {
     s32 key   = (scene << 24) | (layer << 16) | (room << 8) | actorEntry;
@@ -413,8 +526,27 @@ u8 Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
         return KEEP_ACTOR_ENTRY;
     }
 
+    // CitraPrint("%d %d %d %d", gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
+
     EnemyOverride enemyOverride =
         Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
+
+    // Mock
+    if (enemyOverride.actorId == 0 && Enemizer_IsEnemyRandomized(sTestEnemyId))
+        for (u32 i = 0; i < ARRAY_SIZE(sTestEnemyData); i++) {
+            if (actorEntry->id == sTestEnemyData[i].actorId &&
+                (actorEntry->id != ACTOR_SKULLWALLTULA || ((actorEntry->params & 0xE000) == 0))) {
+                // if (actorEntryIndex != 3) {
+                //     enemyOverride.actorId = 0x10;
+                //     enemyOverride.params  = 0x0000;
+                //     break;
+                // }
+                TestEnemyData testEnemy = sTestEnemyData[sTestEnemyId];
+                enemyOverride.actorId   = testEnemy.actorId;
+                enemyOverride.params    = testEnemy.params[sTestEnemyParamsIndex];
+                break;
+            }
+        }
 
     // Do nothing if the override doesn't exist
     if (enemyOverride.actorId == 0) {
@@ -459,7 +591,16 @@ u8 Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
 
 EnemyOverride Enemizer_GetSpawnerOverride(void) {
     // Dynamic enemy spawners are represented by actorEntry=0xFF
-    return Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, 0xFF);
+    EnemyOverride enemyOverride =
+        Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, 0xFF);
+    if (Enemizer_IsEnemyRandomized(sTestEnemyId)) {
+        TestEnemyData testEnemy = sTestEnemyData[sTestEnemyId];
+        enemyOverride.actorId   = testEnemy.actorId;
+        enemyOverride.params    = testEnemy.params[0];
+        CitraPrint("Enemizer_GetSpawnerOverride %X %X %X FF, %X", gGlobalContext->sceneNum, rSceneLayer,
+                   enemyOverride.actorId, enemyOverride.params);
+    }
+    return enemyOverride;
 }
 
 u8 Enemizer_IsRoomCleared(void) {
@@ -578,11 +719,27 @@ void Enemizer_AfterActorSetup(void) {
     sRoomLoadSignal  = TRUE;
 }
 
+#include "draw.h"
+void Object_DrawDebugInfo();
 // Run special checks on every frame
 void Enemizer_Update(void) {
     if (gSettingsContext.enemizer == OFF) {
         return;
     }
+
+    if (rInputCtx.pressed.zr) {
+        // gGlobalContext->actorCtx.flags.clear = 0;
+        // gGlobalContext->actorCtx.flags.swch  = 0;
+        // Flags_SetSwitch(gGlobalContext, 5);
+        do {
+            sTestEnemyId = (sTestEnemyId + 1) % ENEMY_MAX;
+        } while (!Enemizer_IsEnemyRandomized(sTestEnemyId) && sTestEnemyId != sBaseTestEnemyId);
+    }
+
+    Draw_DrawFormattedStringTop(10, 0, COLOR_WHITE, "Enemizer ON - Room %d - sTestEnemyId %d", //
+                                gGlobalContext->roomNum, sTestEnemyId);
+
+    // Object_DrawDebugInfo();
 
     Enemizer_HandleClearConditions();
     Enemizer_HandleMiniBossBattleTheme();

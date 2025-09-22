@@ -92,6 +92,10 @@ SECTIONS
 		*(.patch_PlayerCheckVoidOut)
 	}
 
+	.patch_FireproofDekuShieldOne 0x1330C4 : {
+		*(.patch_FireproofDekuShieldOne)
+	}
+
 	.patch_BiggoronDontSetBGSFlag 0x133F7C : {
 		*(.patch_BiggoronDontSetBGSFlag)
 	}
@@ -687,6 +691,10 @@ SECTIONS
 	.patch_SwordTrailDurationGrezzoFix 0x2507D0 : {
 		*(.patch_SwordTrailDurationGrezzoFix)
 	} /*duration is set to 6 due to framerate increase. NOP to allow custom duration*/
+
+	.patch_FireproofDekuShieldTwo 0x251528 : {
+		*(.patch_FireproofDekuShieldTwo)
+	}
 
 	.patch_MultiplyPlayerSpeed 0x251D34 : {
 		*(.patch_MultiplyPlayerSpeed)

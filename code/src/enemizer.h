@@ -5,6 +5,11 @@
 
 #define ENEMY_OVERRIDES_MAX 800
 
+typedef struct TestEnemyData {
+    s16 actorId;
+    s16* params;
+} TestEnemyData;
+
 // This enum's values are sorted so that the enemy names
 // appear in alphabetical order in the app.
 typedef enum EnemyId {

@@ -45,7 +45,14 @@ class EnemyType {
     bool* soulVar;
     u16 actorId;
     std::vector<u16> possibleParams; // Values to randomly select as actor params, without affecting the logic.
+    // std::string filter_func;
+    // ConditionFn killLogic;
     std::vector<LocType> validLocTypes;
+    // std::vector<LocType> acceptableLocationConditions;
+    // std::vector<LocType> requiredLocationConditions;
+    // std::string weight;
+    // std::string drop_logic;
+    // std::string soulName;
 };
 
 class EnemyLocation {
