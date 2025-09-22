@@ -1585,10 +1585,10 @@ DontSetMotionSetting_patch:
 SaveMenuIgnoreOpen_patch:
     bl hook_SaveMenuIgnoreOpen
 
-.section .patch_PermadeathDeleteSave
-.global PermadeathDeleteSave_patch
-PermadeathDeleteSave_patch:
-    bl hook_PermadeathDeleteSave
+.section .patch_GameOverStart
+.global GameOverStart_patch
+GameOverStart_patch:
+    bl hook_GameOverStart
 
 .section .patch_PermadeathSkipMenu
 .global PermadeathSkipMenu_patch
@@ -2061,6 +2061,11 @@ SetFWPlayerParams_patch:
 AboutToPickUpActor_patch:
     bl hook_AboutToPickUpActor
 
+.section .patch_GoronPotGuaranteeReward
+.global GoronPotGuaranteeReward_patch
+GoronPotGuaranteeReward_patch:
+    bl hook_GoronPotGuaranteeReward
+
 .section .patch_TargetReticleColor
 .global TargetReticleColor_patch
 TargetReticleColor_patch:
@@ -2244,6 +2249,36 @@ PlayInit_patch:
 .global TitleLinkObject_patch
 TitleLinkObject_patch:
     .word 0xFFFF0014
+
+.section .patch_OcarinaNoteSound_Player
+.global OcarinaNoteSound_Player_patch
+OcarinaNoteSound_Player_patch:
+    b hook_OcarinaNoteSound_Player
+
+.section .patch_OcarinaNoteSound_Npc
+.global OcarinaNoteSound_Npc_patch
+OcarinaNoteSound_Npc_patch:
+    bl hook_OcarinaNoteSound_Npc
+
+.section .patch_DeleteEquipment
+.global DeleteEquipment_patch
+DeleteEquipment_patch:
+    bl hook_DeleteEquipment
+
+.section .patch_PickupItemDrop
+.global PickupItemDrop_patch
+PickupItemDrop_patch:
+    bl hook_PickupItemDrop
+
+.section .patch_GanonFinalBlow
+.global GanonFinalBlow_patch
+GanonFinalBlow_patch:
+    bl hook_GanonFinalBlow
+
+.section .patch_PlayerBonk
+.global PlayerBonk_patch
+PlayerBonk_patch:
+    bl hook_PlayerBonk
 
 .section .patch_ExtendObjectGetSlot
 .global ExtendObjectGetSlot_patch
@@ -2534,3 +2569,8 @@ FixActorKillLoop_patch:
 .global AfterInvalidatingRoomObjects_patch
 AfterInvalidatingRoomObjects_patch:
     bl hook_AfterInvalidatingRoomObjects
+
+.section .patch_DrawHeartIcon
+.global DrawHeartIcon_patch
+DrawHeartIcon_patch:
+    bl hook_DrawHeartIcon

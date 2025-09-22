@@ -9,8 +9,12 @@
 #include "arrow.h"
 #include "grotto.h"
 #include "item_override.h"
+#include "input.h"
+#include "savefile.h"
 #include "colors.h"
 #include "common.h"
+#include "savefile.h"
+#include "gloom.h"
 
 #define PlayerActor_Init ((ActorFunc)GAME_ADDR(0x191844))
 
@@ -29,6 +33,9 @@
 
 u16 healthDecrement = 0;
 u8 storedMask       = 0;
+
+static u32 sLastHitFrame = 0;
+static s16 sPrevHealth   = INT16_MAX;
 
 void** Player_EditAndRetrieveCMB(ZARInfo* zarInfo, u32 objModelIdx) {
     void** cmbMan = ZAR_GetCMBByIndex(zarInfo, objModelIdx);
@@ -95,6 +102,8 @@ void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
     if (gSettingsContext.hookshotAsChild) {
         Hookshot_ActorInit->objectId = (gSaveContext.linkAge == 1 ? 0x1 : 0x14);
     }
+
+    sPrevHealth = gSaveContext.health;
 }
 
 void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
@@ -124,16 +133,25 @@ void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         IceTrap_DispelCurses();
     }
 
-    if (healthDecrement <= 0) {
-        return;
+    if (healthDecrement > 0) {
+        if (gSaveContext.health > 4) {
+            gSaveContext.health--;
+            healthDecrement--;
+        } else {
+            healthDecrement = 0;
+        }
     }
 
-    if (gSaveContext.health > 4) {
-        gSaveContext.health--;
-        healthDecrement--;
-    } else {
-        healthDecrement = 0;
+    // Handle hit/damage counters
+    s16 lostHealth = sPrevHealth - gSaveContext.health;
+    if (lostHealth > 0) {
+        gExtSaveData.damageReceived += (sPrevHealth - gSaveContext.health);
     }
+    // Don't count hits for single units of elemental damage
+    if (lostHealth > 1) {
+        Player_OnHit();
+    }
+    sPrevHealth = gSaveContext.health;
 }
 
 void PlayerActor_rDestroy(Actor* thisx, GlobalContext* globalCtx) {
@@ -157,8 +175,85 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
 
     Player_UpdateRainbowTunic();
 
+    static Vec3f vecAcc = { 0 };
+    static Vec3f vecVel = { 0 };
+    static Vec3f vecPos = { 0 };
+    Player* this        = (Player*)thisx;
+
+    s32 tempSaModelsCount1 = gMainClass->sub180.saModelsCount1;
+    s32 tempSaModelsCount2 = gMainClass->sub180.saModelsCount2;
+
     PlayerActor_Draw(thisx, globalCtx);
+
+    if (!gExtSaveData.option_FireballLink) {
+        return;
+    }
+
+    gMainClass->sub180.saModelsCount1 = tempSaModelsCount1; // 3D models
+    gMainClass->sub180.saModelsCount2 = tempSaModelsCount2; // 2D billboards
+
+    thisx->shape.shadowDrawFunc = NULL;
+
+    if ((this->stateFlags1 & (1 << 0x14)) || // first person ("return A")
+        PauseContext_GetState()) {
+        return;
+    }
+
+    s32 velFrameIdx = (rGameplayFrames % 16);
+    s32 accFrameIdx = (rGameplayFrames % 4);
+    vecAcc.y        = 0.12f * accFrameIdx;
+    vecVel.x        = 0.5f * Math_SinS(0x1000 * velFrameIdx);
+    vecVel.z        = 0.5f * Math_CosS(0x1000 * velFrameIdx);
+    s16 scale       = 150;
+
+    // clang-format off
+    static s16 colorVals[21][7] = {
+        {0xFF, 0xFF, 0xFF, 0x00,    0x00, 0x00, 0x00,},
+        {0xFF, 0xFF, 0xFF, 0x08,    0x00, 0x00, 0x00,},
+        {0xFF, 0xFF, 0xFF, 0x10,    0x00, 0x00, 0x00,},
+        {0xFF, 0xFF, 0xFF, 0x20,    0x00, 0x00, 0x00,},
+        {0xFF, 0x80, 0x00, 0x20,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x20,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x30,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x40,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x70,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xA0,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xD0,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x08, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x10, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x18, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x20, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x28, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x30, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x38, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x40, 0x00,},
+    };
+    // clang-format on
+
+    s32 index = gSaveContext.health / 16;
+    if (index > 20) {
+        index = 20;
+    }
+    s16* currentColors = colorVals[index];
+
+    if (PLAYER->stateFuncPtr == (void*)GAME_ADDR(0x492A3C)) { // Rolling
+        vecPos   = thisx->world.pos;
+        vecPos.y = thisx->focus.pos.y;
+    } else {
+        vecPos = thisx->focus.pos;
+    }
+
+    EffectSsDeadDb_Spawn(globalCtx, &vecPos, &vecVel, &vecAcc, scale, -1,                        //
+                         currentColors[0], currentColors[1], currentColors[2], currentColors[3], //
+                         currentColors[4], currentColors[5], currentColors[6],                   //
+                         1, 8, 0);
 }
+
+static u8 swimBoostTimer = 0;
+#define SWIM_BOOST_POWER 3.0f
+#define SWIM_BOOST_DURATION 40
 
 f32 Player_GetSpeedMultiplier(void) {
     f32 speedMultiplier = 1;
@@ -166,6 +261,38 @@ f32 Player_GetSpeedMultiplier(void) {
     if (gSettingsContext.fastBunnyHood && PLAYER->currentMask == 4 &&
         PLAYER->stateFuncPtr == (void*)GAME_ADDR(0x4BA378)) {
         speedMultiplier *= 1.5;
+    }
+
+    if (gExtSaveData.option_SpeedBoost) {
+        // Constant speed boost
+        if (PLAYER->stateFuncPtr == (void*)GAME_ADDR(0x4BA378) && rInputCtx.touchHeld &&
+            (rInputCtx.touchX > 0x40 && rInputCtx.touchX < 0x100) &&
+            (rInputCtx.touchY > 0x25 && rInputCtx.touchY < 0xC8)) {
+            if (rInputCtx.touchY > 145) {
+                speedMultiplier *= 1.5;
+            } else if (rInputCtx.touchY > 91) {
+                speedMultiplier *= 3.0;
+            } else {
+                speedMultiplier *= 5.0;
+            }
+        }
+
+        // Swim boost
+        if (PLAYER->stateFuncPtr == (void*)GAME_ADDR(0x4A3344)) {
+            if (rInputCtx.pressed.b) {
+                swimBoostTimer = SWIM_BOOST_DURATION;
+            }
+
+            speedMultiplier *= 1 + SWIM_BOOST_POWER * ((f32)swimBoostTimer / SWIM_BOOST_DURATION);
+
+            if (swimBoostTimer > 0) {
+                swimBoostTimer--;
+            }
+        } else {
+            swimBoostTimer = 0;
+        }
+    } else {
+        swimBoostTimer = 0;
     }
 
     if (IceTrap_ActiveCurse == ICETRAP_CURSE_SLOW) {
@@ -237,4 +364,37 @@ void Player_UpdateRainbowTunic(void) {
     *(f32*)(cmabChunk + redOffset)   = color.r / 255.0f;
     *(f32*)(cmabChunk + greenOffset) = color.g / 255.0f;
     *(f32*)(cmabChunk + blueOffset)  = color.b / 255.0f;
+}
+
+void Player_OnBonk(void) {
+    gExtSaveData.bonkCount++;
+
+    switch (gSettingsContext.bonkDamage) {
+        case BONKDAMAGE_OHKO:
+            gSaveContext.health = 0;
+            break;
+        default:
+            const s8 bonkDamageValues[] = { 0x0, 0x04, 0x08, 0x10, 0x20, 0x40 };
+
+            s8 damage = bonkDamageValues[gSettingsContext.bonkDamage];
+            if (gSaveContext.nayrusLoveTimer > 0) {
+                damage = 0;
+            } else if (gSaveContext.doubleDefense) {
+                damage /= 2;
+            }
+            gSaveContext.health -= damage;
+            if (gSaveContext.health < 0) {
+                gSaveContext.health = 0;
+            }
+            break;
+    }
+}
+
+void Player_OnHit(void) {
+    if (rGameplayFrames - sLastHitFrame > 5) {
+        gExtSaveData.hitCount++;
+        Gloom_OnHit();
+    }
+
+    sLastHitFrame = rGameplayFrames;
 }

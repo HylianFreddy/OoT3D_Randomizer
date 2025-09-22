@@ -19,7 +19,7 @@ then
     fi
 else
     # Building locally
-    BUILD_ID=Dev-$(git show --no-patch --format=format:"%h" --abbrev=6)
+    BUILD_ID=Custom-$(git show --no-patch --format=format:"%h" --abbrev=6)
 
     # If there are uncommitted changes, add a marker to the string.
     if [[ -n $(git status --porcelain) ]]

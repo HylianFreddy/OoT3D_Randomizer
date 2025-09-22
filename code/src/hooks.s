@@ -103,16 +103,13 @@ noOverrideTextID:
 
 .global hook_OverrideItemID
 hook_OverrideItemID:
-    ldr r1,.rActiveItemRow_addr
-    ldr r1,[r1]
-    cmp r1,#0x0
-    beq noOverrideItemID
     push {r0-r12, lr}
     cpy r0,r2
     bl ItemOverride_GetItemTextAndItemID
+    cmp r0,#0x0
     pop {r0-r12, lr}
-    b 0x2BC1DC
-noOverrideItemID:
+    bne 0x2BC1DC
+    @ no override
     ldrb r1,[r6,#0x0]
     b 0x2BC1D4
 
@@ -1089,10 +1086,10 @@ hook_SaveMenuIgnoreOpen:
 .endif
     bx lr
 
-.global hook_PermadeathDeleteSave
-hook_PermadeathDeleteSave:
+.global hook_GameOverStart
+hook_GameOverStart:
     push {r0-r12, lr}
-    bl Permadeath_DeleteSave
+    bl SaveFile_OnGameOver
     pop {r0-r12, lr}
     bx lr
 
@@ -1744,6 +1741,15 @@ hook_AboutToPickUpActor:
     subeq lr,lr,#0x8
     bx lr
 
+.global hook_GoronPotGuaranteeReward
+hook_GoronPotGuaranteeReward:
+    mov r3,#0x0
+    push {r0-r12, lr}
+    cpy r0,r4
+    bl BgSpot18Basket_SetRotation
+    pop {r0-r12, lr}
+    bx lr
+
 .global hook_TargetReticleColor
 hook_TargetReticleColor:
     mov r4,#0x0
@@ -2145,6 +2151,62 @@ hook_PlayInit:
     cpy r5,r0
     bx lr
 
+.global hook_OcarinaNoteSound_Player
+hook_OcarinaNoteSound_Player:
+    push {r0,r2,r3,lr}
+    bl 0x2CFE00 @ original instruction, sets vibrato
+    mov r0,#0x0 @ default ocarina instrument
+    bl OcarinaNotes_OverrideInstrument
+    cpy r1,r0
+    pop {r0,r2,r3,lr}
+    b 0x2CFD24 @ set instrument
+
+.global hook_OcarinaNoteSound_Npc
+hook_OcarinaNoteSound_Npc:
+    and r1,r0,#0xFF @ instrument
+    push {r0, r2-r12, lr}
+    cpy r0,r1
+    bl OcarinaNotes_OverrideInstrument
+    cpy r1,r0
+    pop {r0, r2-r12, lr}
+    bx lr
+
+.global hook_DeleteEquipment
+hook_DeleteEquipment:
+    push {r0-r12, lr}
+    cpy r0,r1 @ equipment type
+    cpy r1,r4 @ equipment value
+    bl Equipment_OverrideDelete
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    strheq r2,[r12,#0xB6]
+    bx lr
+
+.global hook_PickupItemDrop
+hook_PickupItemDrop:
+    ldrb r1,[r6,#0x0]
+    push {r0-r12, lr}
+    cpy r0,r1 @ item id
+    bl ItemOverride_OnPickupItemDrop
+    pop {r0-r12, lr}
+    bx lr
+
+.global hook_GanonFinalBlow
+hook_GanonFinalBlow:
+    push {r0-r12, lr}
+    bl Ganon_OnFinalBlow
+    pop {r0-r12, lr}
+    mov r1,#0x1
+    bx lr
+
+.global hook_PlayerBonk
+hook_PlayerBonk:
+    strh r8,[r7,#0x38]
+    push {r0-r12, lr}
+    bl Player_OnBonk
+    pop {r0-r12, lr}
+    bx lr
+
 .global hook_GetObjectEntry_Generic
 hook_GetObjectEntry_Generic:
     push {r1-r12, lr}
@@ -2466,4 +2528,13 @@ hook_AfterInvalidatingRoomObjects:
     bl ExtendedObject_InvalidateRoomObjects
     pop {r0-r12, lr}
     ldr r0,[sp,#0x18]
+    bx lr
+
+.global hook_DrawHeartIcon
+hook_DrawHeartIcon:
+    push {r0-r12, lr}
+    cpy r0,r1 @ heart icon index
+    bl Gloom_ShouldDrawHeartBorder
+    cmp r0,#0x0
+    pop {r0-r12, lr}
     bx lr

@@ -132,6 +132,9 @@ void Scene_Init(void) {
             // Allow Warp Songs and Farore's Wind
             gRestrictionFlags[i].flags2 = 0;
             gRestrictionFlags[i].flags3 = 0;
+        } else if (scene == SCENE_WINDMILL_AND_DAMPES_GRAVE) {
+            // Allow Warp Songs
+            gRestrictionFlags[i].flags2 = 0;
         }
 
         if (gSettingsContext.enemizer == ON && scene == SCENE_MARKET_RUINS) {

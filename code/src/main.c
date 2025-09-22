@@ -13,9 +13,11 @@
 #include "grotto.h"
 #include "item_effect.h"
 #include "triforce.h"
+#include "ocarina_notes.h"
 #include "objects.h"
 #include "enemizer.h"
 #include "scene.h"
+#include "gloom.h"
 
 #include "z3D/z3D.h"
 #include "3ds/extdata.h"
@@ -31,6 +33,7 @@ void Randomizer_Init() {
     Actor_Init();
     Entrance_Init();
     ItemOverride_Init();
+    OcarinaNotes_UpdateSongs();
     Enemizer_Init();
     extDataInit();
     irrstInit();
@@ -57,6 +60,7 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
     ExtendedObject_UpdateEntries();
     Model_UpdateAll(globalCtx);
     Input_Update();
+    Gloom_Update();
     autoLoadSaveFile();
     SaveFile_EnforceHealthLimit();
     Settings_SkipSongReplays();

@@ -15,6 +15,7 @@
 #include "keys.hpp"
 #include "gold_skulltulas.hpp"
 #include "enemizer.hpp"
+#include "ocarina_notes.hpp"
 #include "build_id.h"
 
 #define CREATE_SOULMENUNAMES
@@ -113,7 +114,7 @@ Option RandomizeWorld            = Option::Bool("Randomize Settings",     {"No",
 Option StartingAge               = Option::U8  ("Starting Age",           {"Adult", "Child", "Random"},                                      {ageDesc},                                                                                                       OptionCategory::Setting,    AGE_CHILD);
 u8 ResolvedStartingAge;
 Option ShuffleEntrances          = Option::Bool("Shuffle Entrances",       {"Off", "On"},                                                    {shuffleEntrancesDesc});
-Option ShuffleDungeonEntrances   = Option::U8  (2, "Dungeon Entrances",    {"Off", "On", "On + Ganon"},                                      {dungeonEntrancesDesc});
+Option ShuffleDungeonEntrances   = Option::U8  (2, "Dungeon Entrances",    {"Off", "On (no Ganon)", "On + Ganon"},                           {dungeonEntrancesDesc});
 Option ShuffleBossEntrances      = Option::U8  (2, "Boss Entrances",       {"Off", "Age Restricted", "Full"},                                {bossEntrancesDesc});
 Option ShuffleOverworldEntrances = Option::Bool(2, "Overworld Entrances",  {"Off", "On"},                                                    {overworldEntrancesDesc});
 Option ShuffleInteriorEntrances  = Option::U8  (2, "Interior Entrances",   {"Off", "Simple", "All"},                                         {interiorEntrancesOff, interiorEntrancesSimple, interiorEntrancesAll});
@@ -128,7 +129,7 @@ Option MixInteriors              = Option::Bool(4, "Mix Interiors",        {"Off
 Option MixGrottos                = Option::Bool(4, "Mix Grottos",          {"Off", "On"},                                                    {mixGrottosDesc});
 Option DecoupleEntrances         = Option::Bool(2, "Decouple Entrances",   {"Off", "On"},                                                    {decoupledEntrancesDesc});
 Option BombchusInLogic           = Option::Bool("Bombchus in Logic",       {"Off", "On"},                                                    {bombchuLogicDesc});
-Option AmmoDrops                 = Option::U8  ("Ammo Drops",              {"On", "On + Bombchu", "Off"},                                    {defaultAmmoDropsDesc, bombchuDropsDesc, noAmmoDropsDesc},                                                       OptionCategory::Setting,    AMMODROPS_BOMBCHU);
+Option AmmoDrops                 = Option::U8  ("Ammo Drops",              {"On (Vanilla)", "On (+Bombchus)", "Disabled"},                   {defaultAmmoDropsDesc, bombchuDropsDesc, noAmmoDropsDesc},                                                       OptionCategory::Setting,    AMMODROPS_BOMBCHU);
 Option HeartDropRefill           = Option::U8  ("Heart Drops and Refills", {"On", "No Drop", "No Refill", "Off"},                            {defaultHeartDropsDesc, noHeartDropsDesc, noHeartRefillDesc, scarceHeartsDesc},                                  OptionCategory::Setting,    HEARTDROPREFILL_VANILLA);
 Option MQDungeonCount            = Option::U8  ("MQ Dungeon Count",        {MultiVecOpts({NumOpts(0, 12), {"Random"}})},                     {mqDungeonCountDesc});
 u8 MQSet;
@@ -461,7 +462,9 @@ std::vector<Option *> itemPoolOptions = {
 Option FastBunnyHood       = Option::Bool("Fast Bunny Hood",        {"Off", "On"},                                                          {fastBunnyHoodDesc});
 Option KeepFWWarpPoint     = Option::Bool("Keep FW Warp Point",     {"Off", "On"},                                                          {keepFWWarpPointDesc});
 Option DamageMultiplier    = Option::U8  ("Damage Multiplier",      {"x1/2", "x1", "x2", "x4", "x8", "x16", "OHKO"},                        {damageMultiDesc},                                                                                                OptionCategory::Setting,    DAMAGEMULTIPLIER_DEFAULT);
+Option BonkDamage          = Option::U8  ("Bonk Damage",            {"0", "1/4", "1/2", "1", "2", "4", "OHKO"},                             {bonkDamageDesc});
 Option Permadeath          = Option::Bool("Permadeath",             {"Off", "On"},                                                          {permadeathDesc});
+Option GloomMode           = Option::U8  ("Gloom Mode",             {"Off", "Death", "Damage", "Collision", "Empty"},                       {gloomModeOffDesc, gloomModeDeathDesc, gloomModeDamageDesc, gloomModeCollisionDesc, gloomModeEmptyDesc});
 Option RandomTrapDmg       = Option::U8  ("Random Trap Damage",     {"Off", "Basic", "Advanced"},                                           {randomTrapDmgDesc, basicTrapDmgDesc, advancedTrapDmgDesc},                                                       OptionCategory::Setting,    RANDOMTRAPS_BASIC);
 Option FireTrap            = Option::Bool(2, "Fire Trap",           {"Off", "On"},                                                          {fireTrapDesc},                                                                                                   OptionCategory::Setting,    ON);
 Option AntiFairyTrap       = Option::Bool(2, "Anti-Fairy Trap",     {"Off", "On"},                                                          {antiFairyTrapDesc},                                                                                              OptionCategory::Setting,    ON);
@@ -475,11 +478,14 @@ Option HyperEnemies        = Option::Bool(2, "Hyper Enemies",       {"Off", "On"
 Option FreeCamera          = Option::Bool("Free Camera",            {"Off", "On"},                                                          {freeCamDesc},                                                                                                    OptionCategory::Setting,    ON);
 Option RandomGsLocations   = Option::Bool("Random GS Locations",    {"Off", "On"},                                                          {randomGsLocationsDesc});
 Option GsLocGuaranteeNew   = Option::Bool(2, "Guarantee New",       {"Off", "On"},                                                          {gsLocGuaranteeNewDesc});
+Option RandomSongNotes     = Option::Bool("Random Ocarina Melodies",{"Off", "On"},                                                          {randomSongNotesDesc});
 std::vector<Option*> gameplayOptions = {
     &FastBunnyHood,
     &KeepFWWarpPoint,
     &DamageMultiplier,
+    &BonkDamage,
     &Permadeath,
+    &GloomMode,
     &RandomTrapDmg,
     &FireTrap,
     &AntiFairyTrap,
@@ -493,6 +499,7 @@ std::vector<Option*> gameplayOptions = {
     &FreeCamera,
     &RandomGsLocations,
     &GsLocGuaranteeNew,
+    &RandomSongNotes,
 };
 
 // Excluded Locations (Individual definitions made in ItemLocation class)
@@ -1329,6 +1336,8 @@ Option ShuffleSFXFootsteps     = Option::Bool(2, "Include Footsteps",    {"No", 
 Option ShuffleSFXLinkVoice     = Option::Bool(2, "Include Link's Voice", {"No", "Yes"},                             {""},                                                                                                                                      OptionCategory::Cosmetic,               ON);
 Option ShuffleSFXCategorically = Option::Bool(2, "Categorical Shuffle",  {"Off", "On"},                             {shuffleSFXCategorically},                                                                                                                 OptionCategory::Cosmetic,               ON);
 
+Option OcarinaNoteInstrument   = Option::U8("Ocarina Instrument",      {"Default", "Malon", "Whistle", "Harp", "Grind Organ", "Flute", "Random Choice", "Scene Specific"}, {ocarinaNoteInstrumentDesc}, OptionCategory::Cosmetic);
+
 std::vector<Option*> audioOptions = {
     &ShuffleMusic,
     &ShuffleBGM,
@@ -1339,6 +1348,7 @@ std::vector<Option*> audioOptions = {
     &ShuffleSFXFootsteps,
     &ShuffleSFXLinkVoice,
     &ShuffleSFXCategorically,
+    &OcarinaNoteInstrument,
 };
 
 Menu preferences              = Menu::SubMenu("Misc Preferences",           &preferenceOptions);
@@ -1553,7 +1563,9 @@ SettingsContext FillContext() {
     ctx.compassesShowWotH   = CompassesShowWotH.Value<u8>();
     ctx.mapsShowDungeonMode = MapsShowDungeonMode.Value<u8>();
     ctx.damageMultiplier    = DamageMultiplier.Value<u8>();
+    ctx.bonkDamage          = BonkDamage.Value<u8>();
     ctx.permadeath          = (Permadeath) ? 1 : 0;
+    ctx.gloomMode           = GloomMode.Value<u8>();
     ctx.startingTime        = StartingTime.Value<u8>();
     ctx.chestAnimations     = (ChestAnimations) ? 1 : 0;
     ctx.chestAppearance     = ChestAppearance.Value<u8>();
@@ -1573,6 +1585,7 @@ SettingsContext FillContext() {
     ctx.hyperEnemies        = (HyperEnemies) ? 1 : 0;
     ctx.freeCamera          = (FreeCamera) ? 1 : 0;
     ctx.randomGsLocations   = (RandomGsLocations) ? 1 : 0;
+    ctx.randomSongNotes     = (RandomSongNotes) ? 1 : 0;
 
     ctx.faroresWindAnywhere  = (FaroresWindAnywhere) ? 1 : 0;
     ctx.stickAsAdult         = (StickAsAdult) ? 1 : 0;
@@ -1649,6 +1662,7 @@ SettingsContext FillContext() {
     ctx.shuffleSFXFootsteps         = (ShuffleSFXFootsteps) ? 1 : 0;
     ctx.shuffleSFXLinkVoice         = (ShuffleSFXLinkVoice) ? 1 : 0;
     ctx.shuffleSFXCategorically     = (ShuffleSFXCategorically) ? 1 : 0;
+    ctx.ocarinaNoteInstrument       = OcarinaNoteInstrument.Value<u8>();
 
     ctx.linksPocketRewardBitMask = LinksPocketRewardBitMask;
 
@@ -2806,7 +2820,6 @@ std::vector<std::pair<Option*, u8>> racingOverrides = {
 // Options that should be overridden and then restored after generating when vanilla logic is enabled
 std::vector<std::pair<Option*, u8>> vanillaLogicOverrides = {
     { &TriforceHunt, OFF },
-    { &Enemizer, OFF },
     { &LinksPocketItem, LINKSPOCKETITEM_DUNGEON_REWARD },
     { &ShuffleRewards, REWARDSHUFFLE_END_OF_DUNGEON },
     { &ShuffleSongs, SONGSHUFFLE_SONG_LOCATIONS },
@@ -3206,6 +3219,8 @@ void UpdateSettings() {
         LACSCondition = LACSCONDITION_VANILLA;
     }
 
+    GenerateSongList();
+
     UpdateCosmetics();
 
     InitMusicRandomizer();
@@ -3231,6 +3246,11 @@ void UpdateSettings() {
     InitSFXRandomizer();
     if (ShuffleSFX.IsNot(SHUFFLESFX_OFF)) {
         SFX::ShuffleSequences(ShuffleSFXCategorically.Value<bool>());
+    }
+
+    if (OcarinaNoteInstrument.Is(OCARINA_INSTRUMENT_RANDOM_CHOICE)) {
+        size_t randomIndex = Random(0, OCARINA_INSTRUMENT_RANDOM_CHOICE, true);
+        OcarinaNoteInstrument.SetSelectedIndex(randomIndex);
     }
 }
 
@@ -3349,6 +3369,24 @@ bool ValidateSettings() {
         posY += 7;
     }
 
+    // Check that there are no Heart requirements with Gloom Mode.
+    if (GloomMode.IsNot(GLOOMMODE_OFF) &&
+        (Bridge.Is(RAINBOWBRIDGE_HEARTS) || GanonsBossKey.Is(GANONSBOSSKEY_LACS_HEARTS))) {
+        if (Bridge.IsHidden() && GanonsBossKey.IsHidden()) {
+            Bridge.SetSelectedIndex(RAINBOWBRIDGE_VANILLA);
+            GanonsBossKey.SetSelectedIndex(GANONSBOSSKEY_VANILLA);
+        } else {
+            printf("\x1b[%d;0H"
+                   "----------------------------------------"
+                   "Gloom Mode is incompatible with Heart\n"
+                   "requirements for LACS or Rainbow Bridge."
+                   "----------------------------------------",
+                   posY);
+            valid = false;
+            posY += 5;
+        }
+    }
+
     // Check that there are no MQ dungeons with Enemy Souls or Enemy Randomizer.
     if ((ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_ALL) || Enemizer) && MQDungeonCount.IsNot(0) &&
         Logic.IsNot(LOGIC_NONE) && Logic.IsNot(LOGIC_VANILLA)) {
@@ -3365,7 +3403,7 @@ bool ValidateSettings() {
                    "Please disable one of the following:\n"
                    " - MQ Dungeons (setting Count to 0)\n"
                    " - Logic\n"
-                   " - Enemy Soul Shuffle / Enemy Randomizer\n"
+                   " - Enemy Soul Shuffle / Enemy Randomizer"
                    "----------------------------------------",
                    posY);
             valid = false;

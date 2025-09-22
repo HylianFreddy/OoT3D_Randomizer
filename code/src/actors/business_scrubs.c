@@ -33,6 +33,13 @@ u32 EnDns_rPurchaseableCheck(EnDns* scrub) {
     s16 price;
 
     if (gSettingsContext.scrubsanity == SCRUBSANITY_OFF) {
+        // Allow buying Deku Shield even when already owned.
+        if (scrub->dnsItemEntry == rScrubTable[4]) { // Deku Shield
+            if (gSaveContext.rupees < scrub->dnsItemEntry->itemPrice) {
+                return 0;
+            }
+            return 4;
+        }
         return VanillaScrubTable[scrub->actor.params]->purchaseableCheck(scrub);
     } else if (gSettingsContext.scrubsanity == SCRUBSANITY_AFFORDABLE) {
         price = 10;

@@ -185,6 +185,10 @@ bool LoadPreset(std::string_view presetName, OptionCategory category) {
             }
         }
     }
+
+    // Update settings and menus that need to be hidden or revealed.
+    Settings::ForceChange(0, nullptr);
+
     return true;
 }
 
@@ -216,6 +220,7 @@ bool SaveSpecifiedPreset(std::string_view presetName, OptionCategory category) {
 
 void SaveCachedSettings() {
     SavePreset(CACHED_SETTINGS_FILENAME, OptionCategory::Setting);
+    SavePreset("seed " + Settings::seed, OptionCategory::Setting);
 }
 
 void LoadCachedSettings() {
