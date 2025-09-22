@@ -14,6 +14,7 @@
 #include "entrance.hpp"
 #include "shops.hpp"
 #include "debug.hpp"
+#include "enemizer.hpp"
 
 #include <vector>
 #include <unistd.h>
@@ -999,6 +1000,7 @@ int Fill() {
         GenerateStartingInventory();
         RemoveStartingItemsFromPool();
         FillExcludedLocations();
+        Enemizer::RandomizeEnemies();
 
         // Temporarily add shop items to the ItemPool so that entrance randomization
         // can validate the world using deku/hylian shields
@@ -1041,7 +1043,7 @@ int Fill() {
                     total_replaced += num_to_replace;
                     for (int j = 0; j < num_to_replace; j++) {
                         int itemindex       = indices[j];
-                        int shopsanityPrice = GetRandomShopPrice();
+                        int shopsanityPrice = GetShopPrice();
                         NonShopItems[TransformShopIndex(i * 8 + itemindex - 1)].Price =
                             shopsanityPrice; // Set price to be retrieved by the patch and textboxes
                         Location(ShopLocationLists[i][itemindex - 1])->SetShopsanityPrice(shopsanityPrice);
