@@ -74,14 +74,7 @@ void Player_SetChildCustomTunicCMAB(void) {
     TexAnim_Spawn(PLAYER->skelAnime.unk_28->unk_0C, cmabMan);
 }
 
-#include "savefile.h"
 void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
-    // gSettingsContext.shuffleEnemySouls = ON;
-    gSettingsContext.quickText = QUICKTEXT_TURBO;
-    gSettingsContext.skipSongReplays = SONGREPLAYS_SKIP_NO_SFX;
-    gExtSaveData.option_SkipSongReplays = SONGREPLAYS_SKIP_NO_SFX;
-    gSettingsContext.faroresWindAnywhere = ON;
-    gSettingsContext.freeCamera = ON;
     if (IceTrap_ActiveCurse == ICETRAP_CURSE_SHIELD) {
         gSaveContext.equips.equipment &= ~0xF0; // unequip shield
     }

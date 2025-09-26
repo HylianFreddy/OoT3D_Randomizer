@@ -47,7 +47,6 @@ void Randomizer_Init() {
     gSettingsContext.zoraTunicAsChild     = ON;
 
     gSettingsContext.keepFWWarpPoint     = ON;
-    gSettingsContext.enemizer            = ON;
     gSettingsContext.customTunicColors   = ON;
     gSettingsContext.sheikHints          = ON;
     gSettingsContext.quickText           = QUICKTEXT_TURBO;
@@ -56,6 +55,7 @@ void Randomizer_Init() {
     gSettingsContext.faroresWindAnywhere = ON;
     gSettingsContext.freeCamera          = ON;
     gSettingsContext.extraArrowEffects   = ON;
+    // gSettingsContext.enemizer            = ON;
     // gSettingsContext.shuffleEnemySouls   = SHUFFLEENEMYSOULS_ALL;
     gSettingsContext.soullessEnemiesLook = SOULLESSLOOK_FLASHING;
     gSettingsContext.gerudoFortress      = GERUDOFORTRESS_FAST;
