@@ -865,8 +865,12 @@ typedef s32 (*Animation_GetLastFrame_proc)(SkelAnime* anime, s32 animation_index
 #define Animation_GetLastFrame ((Animation_GetLastFrame_proc)GAME_ADDR(0x36AE14))
 
 typedef void (*Animation_Change_proc)(SkelAnime* anime, s32 animation_index, f32 play_speed, f32 start_frame,
-                                      f32 end_frame, f32 morph_frames, s32 mode) __attribute__((pcs("aapcs-vfp")));
+                                      f32 end_frame, s32 mode, f32 morph_frames)
+    __attribute__((pcs("aapcs-vfp")));
 #define Animation_Change ((Animation_Change_proc)GAME_ADDR(0x375C08))
+
+typedef s32 (*SkelAnime_Update_proc)(SkelAnime* skelAnime);
+#define SkelAnime_Update ((SkelAnime_Update_proc)GAME_ADDR(0x3731E0))
 
 typedef void (*EffectSsDeadDb_Spawn_proc)(GlobalContext* globalCtx, Vec3f* position, Vec3f* velocity,
                                           Vec3f* acceleration, s16 scale, s16 scale_step, s16 prim_r, s16 prim_g,

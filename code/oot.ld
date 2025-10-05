@@ -1372,10 +1372,6 @@ SECTIONS
 		*(.patch_FlyingPotDontChangeCategory)
 	}
 
-	.patch_FairyReward 0x3E7598 : {
-		*(.patch_FairyReward)
-	}
-
 	.patch_RainbowBridge 0x3E7CAC : {
 		*(.patch_RainbowBridge)
 	}
