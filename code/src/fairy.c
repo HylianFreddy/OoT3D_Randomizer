@@ -4,6 +4,7 @@
 #include "objects.h"
 #include "common.h"
 #include "colors.h"
+#include "item_override.h"
 
 #define NAVI_COLORS_ARRAY ((Color_RGBA8*)GAME_ADDR(0x50C998))
 
@@ -135,4 +136,63 @@ s32 Fairy_SetTargetReticleColor(TargetContext* targetCtx) {
 void Fairy_ResetRainbowCMABs(void) {
     staticRainbowPointerCMAB = 0;
     staticRainbowReticleCMAB = 0;
+}
+
+/* Great Fairy */
+
+#define BgDyYoseizo_Init ((ActorFunc)GAME_ADDR(0x25DD10))
+#define BgDyYoseizo_Draw ((ActorFunc)GAME_ADDR(0x289AEC))
+
+static void GreatFairy_OverrideReward(BgDyYoseizo* fairy) {
+    s16 fairyIdx = fairy->fountainType;
+
+    if (gGlobalContext->sceneNum == SCENE_GREAT_FAIRYS_FOUNTAIN_SPELLS) {
+        if (!(gSaveContext.itemGetInf[1] & (0x100 << fairyIdx))) {
+            ItemOverride_PushDelayedOverride(0x10 + fairyIdx);
+            gSaveContext.itemGetInf[1] |= (0x100 << fairyIdx);
+        }
+    } else if (gGlobalContext->sceneNum == SCENE_GREAT_FAIRYS_FOUNTAIN_MAGIC) {
+        if (!(gGlobalContext->actorCtx.flags.chest & (0x1 << fairyIdx))) {
+            ItemOverride_PushDelayedOverride(0x13 + fairyIdx);
+            gGlobalContext->actorCtx.flags.chest |= (0x1 << fairyIdx);
+        }
+    }
+
+    gSaveContext.healthAccumulator = 0x140;
+    gSaveContext.magic             = gSaveContext.magicLevel * 0x30;
+}
+
+static void GreatFairy_Action_WaitForSong(BgDyYoseizo* this, GlobalContext* globalCtx) {
+    if (Flags_GetSwitch(globalCtx, 0x38)) {
+        globalCtx->ocarinaMode = 4;
+        GreatFairy_OverrideReward(this);
+        this->actionFn = NULL;
+    }
+}
+
+void BgDyYoseizo_rInit(Actor* thisx, GlobalContext* globalCtx) {
+    BgDyYoseizo* this = (BgDyYoseizo*)thisx;
+
+    BgDyYoseizo_Init(thisx, globalCtx);
+
+    thisx->scale = (Vec3f){
+        .x = 0.035f,
+        .y = 0.035f,
+        .z = 0.035f,
+    };
+    Animation_Change(&this->skelAnime, 7, 1.0, 0.0, Animation_GetLastFrame(&this->skelAnime, 7), 0, -10.0);
+    thisx->draw    = BgDyYoseizo_Draw;
+    this->actionFn = GreatFairy_Action_WaitForSong;
+}
+
+void BgDyYoseizo_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
+    BgDyYoseizo* this = (BgDyYoseizo*)thisx;
+
+    globalCtx->lightSettingOverride = PLAYER->actor.world.pos.z < -300 ? 2 : 0xFF;
+
+    SkelAnime_Update(&this->skelAnime);
+
+    if (this->actionFn != NULL) {
+        this->actionFn(this, globalCtx);
+    }
 }

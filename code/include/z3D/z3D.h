@@ -550,10 +550,12 @@ typedef struct GlobalContext {
     /* 0x2A90 */ u8 msgMode; // seems to be used primarily for the ocarina
     /* 0x2A91 */ char unk_2A91[0xEB];
     /* 0x2B7C */ u16 lastPlayedSong;
-    /* 0x2B7E */ s16 unk_2B7E; // msgCtx.unk_E3EE in OoT
+    /* 0x2B7E */ s16 ocarinaMode; // msgCtx.ocarinaMode in OoT
     /* 0x2B80 */ char unk_2B80[0x06B0];
     /* 0x3230 */ u32 lightSettingsList_addr;
-    /* 0x3234 */ char unk_3234[0x0824];
+    /* 0x3234 */ char unk_3234[0x0003];
+    /* 0x3237 */ u8 lightSettingOverride;
+    /* 0x3238 */ char unk_3238[0x0820];
     /* 0x3A58 */ ObjectContext objectCtx;
     /* 0x43DC */ char unk_43DC[0x0854];
     /* 0x4C30 */ s8 roomNum;
@@ -894,8 +896,12 @@ typedef s32 (*Animation_GetLastFrame_proc)(SkelAnime* anime, s32 animation_index
 #define Animation_GetLastFrame ((Animation_GetLastFrame_proc)GAME_ADDR(0x36AE14))
 
 typedef void (*Animation_Change_proc)(SkelAnime* anime, s32 animation_index, f32 play_speed, f32 start_frame,
-                                      f32 end_frame, f32 morph_frames, s32 mode) __attribute__((pcs("aapcs-vfp")));
+                                      f32 end_frame, s32 mode, f32 morph_frames)
+    __attribute__((pcs("aapcs-vfp")));
 #define Animation_Change ((Animation_Change_proc)GAME_ADDR(0x375C08))
+
+typedef s32 (*SkelAnime_Update_proc)(SkelAnime* skelAnime);
+#define SkelAnime_Update ((SkelAnime_Update_proc)GAME_ADDR(0x3731E0))
 
 typedef void (*EffectSsDeadDb_Spawn_proc)(GlobalContext* globalCtx, Vec3f* position, Vec3f* velocity,
                                           Vec3f* acceleration, s16 scale, s16 scale_step, s16 prim_r, s16 prim_g,

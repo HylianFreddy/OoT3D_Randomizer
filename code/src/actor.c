@@ -84,6 +84,8 @@
 #include "bubble.h"
 #include "ganondorf.h"
 
+#include "fairy.h"
+
 #define OBJECT_GI_KEY 170
 #define OBJECT_GI_BOSSKEY 185
 #define OBJECT_GI_HEARTS 189
@@ -123,6 +125,9 @@ void Actor_Init() {
 
     gActorOverlayTable[0xA].initInfo->init   = EnBox_rInit;
     gActorOverlayTable[0xA].initInfo->update = EnBox_rUpdate;
+
+    gActorOverlayTable[0xB].initInfo->init   = BgDyYoseizo_rInit;
+    gActorOverlayTable[0xB].initInfo->update = BgDyYoseizo_rUpdate;
 
     gActorOverlayTable[0xD].initInfo->init   = EnPoh_rInit;
     gActorOverlayTable[0xD].initInfo->update = EnPoh_rUpdate;

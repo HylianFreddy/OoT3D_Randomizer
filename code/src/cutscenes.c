@@ -3,7 +3,6 @@
 #include "settings.h"
 #include "savefile.h"
 #include "entrance.h"
-#include "z3D/actors/z_bg_dy_yoseizo.h"
 #include <stddef.h>
 
 // Patched over call to Item_Give
@@ -137,7 +136,7 @@ u32 Cutscene_CheckEponasSongFlag(void) {
 void Cutscene_OverrideEponasSong(void) {
     gSaveContext.eventChkInf[5] |= 0x100;
     ItemOverride_PushDelayedOverride(0x27);
-    gGlobalContext->unk_2B7E = 4;
+    gGlobalContext->ocarinaMode = 4;
 }
 
 u32 Cutscene_CheckSariasSongFlag(void) {
@@ -169,27 +168,7 @@ void Cutscene_OverrideSongOfStorms(void) {
     gSaveContext.eventChkInf[6] |= 0x20;
     gSaveContext.eventChkInf[5] |= 0x800;
     ItemOverride_PushDelayedOverride(0x2B);
-    gGlobalContext->unk_2B7E = 4;
-}
-
-void Cutscene_OverrideFairyReward(BgDyYoseizo* fairy) {
-    s16 fairyIdx = fairy->unk_D2C;
-
-    if (gGlobalContext->sceneNum == 0x3D) {
-        if (!(gSaveContext.itemGetInf[1] & (0x100 << fairyIdx))) {
-            ItemOverride_PushDelayedOverride(0x10 + fairyIdx);
-            gSaveContext.itemGetInf[1] |= (0x100 << fairyIdx);
-        }
-    } else if (gGlobalContext->sceneNum == 0x3B) {
-        if (!(gGlobalContext->actorCtx.flags.chest & (0x1 << fairyIdx))) {
-            ItemOverride_PushDelayedOverride(0x13 + fairyIdx);
-            gGlobalContext->actorCtx.flags.chest |= (0x1 << fairyIdx);
-        }
-    }
-
-    gSaveContext.healthAccumulator = 0x140;
-    gSaveContext.magic             = gSaveContext.magicLevel * 0x30;
-    Actor_Kill(&fairy->actor);
+    gGlobalContext->ocarinaMode = 4;
 }
 
 // skip dungeon exit cutscenes

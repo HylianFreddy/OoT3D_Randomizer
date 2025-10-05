@@ -642,13 +642,6 @@ BusinessScrubTable_patch:
 KakarikoGateCheck_patch:
     bl hook_KakarikoGateCheck
 
-.section .patch_FairyReward
-.global FairyReward_patch
-FairyReward_patch:
-    cpy r0,r4
-    bl Cutscene_OverrideFairyReward
-    b 0x3E75F8
-
 .section .patch_PoeCollectorGetFirstTextbox
 .global PoeCollectorGetFirstTextbox_patch
 PoeCollectorGetFirstTextbox_patch:
