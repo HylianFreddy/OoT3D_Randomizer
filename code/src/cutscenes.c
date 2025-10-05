@@ -137,7 +137,7 @@ u32 Cutscene_CheckEponasSongFlag(void) {
 void Cutscene_OverrideEponasSong(void) {
     gSaveContext.eventChkInf[5] |= 0x100;
     ItemOverride_PushDelayedOverride(0x27);
-    gGlobalContext->unk_2B7E = 4;
+    gGlobalContext->ocarinaMode = 4;
 }
 
 u32 Cutscene_CheckSariasSongFlag(void) {
@@ -169,7 +169,7 @@ void Cutscene_OverrideSongOfStorms(void) {
     gSaveContext.eventChkInf[6] |= 0x20;
     gSaveContext.eventChkInf[5] |= 0x800;
     ItemOverride_PushDelayedOverride(0x2B);
-    gGlobalContext->unk_2B7E = 4;
+    gGlobalContext->ocarinaMode = 4;
 }
 
 void Cutscene_OverrideFairyReward(BgDyYoseizo* fairy) {
