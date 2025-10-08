@@ -204,9 +204,9 @@ ItemOverride ItemOverride_Lookup(Actor* actor, u8 scene, u8 itemId) {
     //         .type = OVR_COLLECTABLE, // random value for non-zero key
     //     },
     //     .value = {
-    //         .itemId = GI_ICE_TRAP,
+    //         .itemId = GI_ARROW_ICE,
     //         .player = 0,
-    //         .looksLikeItemId = GI_ARROW_LIGHT,
+    //         .looksLikeItemId = 0,
     //     },
     // };
 
@@ -217,6 +217,15 @@ ItemOverride ItemOverride_Lookup(Actor* actor, u8 scene, u8 itemId) {
 
     return ItemOverride_LookupByKey(key);
 }
+
+ItemOverride sTestOverride = {
+    .key = {
+        .type = OVR_COLLECTABLE, // random value for non-zero key
+    },
+    .value = {
+        .itemId = GI_ARROW_LIGHT,
+    }
+};
 
 static void ItemOverride_Activate(ItemOverride override) {
     u16 resolvedItemId = ItemTable_ResolveUpgrades(override.value.itemId);
@@ -243,21 +252,6 @@ static void ItemOverride_Activate(ItemOverride override) {
              .cmabIndex2      = drawItemRow->cmabIndex2,
     };
     rActiveItemObjectId = rActiveDrawItem.objectId;
-}
-
-void ItemOverride_ActivateTest() {
-    ItemOverride testOverride = {
-        .key = {
-            .type = OVR_COLLECTABLE, // random value for non-zero key
-        },
-        .value = {
-            .itemId = GI_ICE_TRAP,
-        }
-    };
-
-    ItemOverride_Activate(testOverride);
-    PLAYER->interactRangeActor = rDummyActor;
-    PLAYER->getItemId          = rActiveItemRow->baseItemId;
 }
 
 static void ItemOverride_Clear(void) {
@@ -460,7 +454,7 @@ void ItemOverride_Update(void) {
             IceTrap_Give();
         } else {
             if (rInputCtx.cur.zr && rInputCtx.cur.a) {
-                ItemOverride_ActivateTest();
+                ItemOverride_PushPendingOverride(sTestOverride);
             }
             ItemOverride_TryPendingItem();
             if (readyStatus == READY_IN_WATER) {
