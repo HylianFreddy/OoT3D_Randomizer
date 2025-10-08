@@ -393,6 +393,10 @@ void ItemEffect_Shield(SaveContext* saveCtx, s16 shield, s16 arg2) {
 void ItemEffect_GiveStone(SaveContext* saveCtx, s16 mask, s16 arg2) {
     s32 trueMask = mask << 16;
     saveCtx->questItems |= trueMask;
+    u8 hasAllStones = (saveCtx->questItems >> 18 & 0b111) == 0b111;
+    if (hasAllStones) {
+        gSaveContext.eventChkInf[8] |= 0x0001; // watched zelda escape cutscene
+    }
 }
 
 void ItemEffect_GiveMedallion(SaveContext* saveCtx, s16 mask, s16 arg2) {
