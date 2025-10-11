@@ -10,13 +10,12 @@
 
 typedef void (*SetNextEntrance_proc)(struct GlobalContext* globalCtx, s16 entranceIndex, u32 sceneLoadFlag,
                                      u32 transition);
-#define SetNextEntrance_addr 0x3716F0
-#define SetNextEntrance ((SetNextEntrance_proc)SetNextEntrance_addr)
+#define SetNextEntrance_addr
+#define SetNextEntrance ((SetNextEntrance_proc)GAME_ADDR(0x3716F0))
 
-#define dynamicExitList_addr 0x53C094
 #define dynamicExitList \
-    ((s16*)dynamicExitList_addr) // = { 0x045B, 0x0482, 0x0340, 0x044B, 0x02A2, 0x0201, 0x03B8, 0x04EE, 0x03C0, 0x0463,
-                                 // 0x01CD, 0x0394, 0x0340, 0x057C }
+    ((s16*)GAME_ADDR(0x53C094)) // = { 0x045B, 0x0482, 0x0340, 0x044B, 0x02A2, 0x0201, 0x03B8, 0x04EE, 0x03C0, 0x0463,
+                                // 0x01CD, 0x0394, 0x0340, 0x057C }
 
 // Warp Song indices array : 0x53C33C = { 0x0600, 0x04F6, 0x0604, 0x01F1, 0x0568, 0x05F4 }
 
@@ -127,12 +126,20 @@ void Scene_Init(void) {
                                                                       : &gDungeonSceneTable[13],
            sizeof(Scene));
 
-    gRestrictionFlags[72].flags2 = 0; // Allows warp songs in GTG
-    // gRestrictionFlags[93].flags2 = 0; // Allows warp songs in Windmill / Dampe's grave
-    gRestrictionFlags[94].flags2 = 0; // Allows warp songs in Ganon's Castle
+    for (s32 i = 0; gRestrictionFlags[i].scene != 0xFF; i++) {
+        u8 scene = gRestrictionFlags[i].scene;
+        if (scene == SCENE_GERUDO_TRAINING_GROUND || scene == SCENE_INSIDE_GANONS_CASTLE) {
+            // Allow Warp Songs and Farore's Wind
+            gRestrictionFlags[i].flags2 = 0;
+            gRestrictionFlags[i].flags3 = 0;
+        }
 
-    gRestrictionFlags[72].flags3 = 0; // Allows farore's wind in GTG
-    gRestrictionFlags[94].flags3 = 0; // Allows farore's wind in Ganon's Castle
+        if (gSettingsContext.enemizer == ON && scene == SCENE_MARKET_RUINS) {
+            // Allow hookshot and other items except Farore's Wind
+            gRestrictionFlags[i].flags2 = 0;
+            gRestrictionFlags[i].flags3 &= 0xFFFF0000;
+        }
+    }
 }
 
 static void Entrance_SeparateOGCFairyFountainExit(void) {

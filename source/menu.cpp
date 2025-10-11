@@ -61,7 +61,7 @@ void MenuInit() {
     // Create directories
     FS_Archive sdmcArchive;
     if (R_SUCCEEDED(FSUSER_OpenArchive(&sdmcArchive, ARCHIVE_SDMC, fsMakePath(PATH_EMPTY, "")))) {
-        CreateLogDirectories(sdmcArchive);
+        InitLogDirectories(sdmcArchive);
         CreatePresetDirectories(sdmcArchive);
         Music::CreateMusicDirectories(sdmcArchive);
 
@@ -424,6 +424,14 @@ void UpdateGenerateMenu(u32 kDown) {
     }
 }
 
+void GoToMenu(Menu* newMenu) {
+    if (currentMenu != newMenu) {
+        menuList.push_back(newMenu);
+        currentMenu = menuList.back();
+        ModeChangeInit();
+    }
+}
+
 void PrintMainMenu() {
     printf("\x1b[0;%dHMain Settings", 1 + (BOTTOM_WIDTH - 13) / 2);
 
@@ -746,6 +754,7 @@ void GenerateRandomizer() {
         }
     }
 
+    Music::DeleteOldArchive();
     if (Settings::ShuffleMusic) {
         printf("\x1b[12;10HShuffling Music...");
         auto musicRes = Music::ShuffleMusic_Archive();

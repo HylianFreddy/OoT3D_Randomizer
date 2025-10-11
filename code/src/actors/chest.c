@@ -10,11 +10,9 @@
 #include "objects.h"
 #include "custom_models.h"
 
-#define EnBox_Init_addr 0x1899EC
-#define EnBox_Init ((ActorFunc)EnBox_Init_addr)
+#define EnBox_Init ((ActorFunc)GAME_ADDR(0x1899EC))
 
-#define EnBox_Update_addr 0x1D5B70
-#define EnBox_Update ((ActorFunc)EnBox_Update_addr)
+#define EnBox_Update ((ActorFunc)GAME_ADDR(0x1D5B70))
 
 static Actor* sLastTrapChest = 0;
 static Actor* sBomb          = 0;
@@ -28,6 +26,13 @@ u32 isBombchuMajor(void) {
 void EnBox_rInit(Actor* thisx, GlobalContext* globalCtx) {
     EnBox_Init(thisx, globalCtx);
     sLastTrapChest = 0;
+
+    ItemOverride thisOverride = ItemOverride_Lookup(thisx, globalCtx->sceneNum, 0);
+    if (thisOverride.value.itemId == GI_ICE_TRAP) {
+        // Make sure zelda_dangeon_keep and object_fz are loaded
+        Object_FindEntryOrSpawn(0x3);
+        Object_FindEntryOrSpawn(0x114);
+    }
 
     if ((gSettingsContext.chestAppearance != CHESTAPPEARANCE_VANILLA)) {
         // Set mipmap count to 1 for both chest models, to avoid issues with custom textures
@@ -78,19 +83,13 @@ void Chest_ChangeAppearance(Actor* thisx, GlobalContext* globalCtx) {
     // Change Chest Texture
     if (gSettingsContext.chestAppearance == CHESTAPPEARANCE_TEXTURE ||
         gSettingsContext.chestAppearance == CHESTAPPEARANCE_SIZE_AND_TEXTURE) {
-        s16 exObjectBankIdx = Object_GetIndex(&rExtendedObjectCtx, OBJECT_CUSTOM_GENERAL_ASSETS);
-        void* cmabMan;
-        if (exObjectBankIdx < 0) {
-            exObjectBankIdx = Object_Spawn(&rExtendedObjectCtx, OBJECT_CUSTOM_GENERAL_ASSETS);
-        }
-
         static const u32 chestType_to_assetIndex[CHESTTYPE_MAX] = { TEXANIM_GOLD_CHEST, 0, 0,
                                                                     TEXANIM_KEY_CHEST,  0, TEXANIM_HEART_CHEST,
                                                                     TEXANIM_SKULL_CHEST };
 
         u32 assetIndex = chestType_to_assetIndex[type];
         if (assetIndex != 0) {
-            cmabMan = ZAR_GetCMABByIndex(&rExtendedObjectCtx.status[exObjectBankIdx].zarInfo, assetIndex);
+            void* cmabMan = Object_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, assetIndex);
             TexAnim_Spawn(this->skelAnime.unk_28->unk_0C, cmabMan);
         }
     }
@@ -246,16 +245,16 @@ u8 Chest_OverrideIceSmoke(Actor* thisx) {
             case ICETRAP_BOMB_SIMPLE:
             case ICETRAP_BOMB_KNOCKDOWN:
                 sBomb = Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x10, thisx->world.pos.x,
-                                    thisx->world.pos.y, thisx->world.pos.z, 0, 0, 0, 0);
+                                    thisx->world.pos.y, thisx->world.pos.z, 0, 0, 0, 0, FALSE);
                 break;
             case ICETRAP_ANTIFAIRY:
                 sFairy = (EnElf*)Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x18, thisx->world.pos.x,
-                                             thisx->world.pos.y, thisx->world.pos.z, 0, 0, 0, 0x5);
+                                             thisx->world.pos.y, thisx->world.pos.z, 0, 0, 0, 0x5, FALSE);
                 PLAYER->actor.home.pos.y = -5000; // Make Link airborne for a frame to cancel the get item event
                 break;
             case ICETRAP_RUPPY:
                 Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x131, thisx->world.pos.x,
-                            thisx->world.pos.y + 30, thisx->world.pos.z, 0, 0, 0, 0x2);
+                            thisx->world.pos.y + 30, thisx->world.pos.z, 0, 0, 0, 0x2, FALSE);
                 PLAYER->actor.home.pos.y = -5000; // Make Link airborne for a frame to cancel the get item event
                 break;
             case ICETRAP_FIRE:

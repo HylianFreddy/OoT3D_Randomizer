@@ -2,11 +2,9 @@
 #include "lake_hylia_objects.h"
 #include "objects.h"
 
-#define BgSpot06Objects_Update_addr 0x3833F8
-#define BgSpot06Objects_Update ((ActorFunc)BgSpot06Objects_Update_addr)
+#define BgSpot06Objects_Update ((ActorFunc)GAME_ADDR(0x3833F8))
 
-#define BgSpot06Objects_Destroy_addr 0x2AD1E4
-#define BgSpot06Objects_Destroy ((ActorFunc)BgSpot06Objects_Destroy_addr)
+#define BgSpot06Objects_Destroy ((ActorFunc)GAME_ADDR(0x2AD1E4))
 
 static u8 actionCounter = 0; // used to perform some actions on subsequent frames
 static s8 waterMovement = 0; // to be used when implementing moving water plane
@@ -18,7 +16,7 @@ void BgSpot06Objects_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         return; // don't do anything for child Link
 
     if (actionCounter == 0) {
-        Object_Spawn(&globalCtx->objectCtx, 0x3); // object containing floor switch data (and ice block data)
+        Object_FindEntryOrSpawn(0x3); // object containing floor switch data (and ice block data)
 
         s16 switchParams;
         if (gSaveContext.eventChkInf[4] & 0x0400) { // Water Temple blue warp cleared
@@ -35,15 +33,15 @@ void BgSpot06Objects_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         }
 
         // Spawn a floor switch
-        floorSwitch =
-            Actor_Spawn(&globalCtx->actorCtx, globalCtx, 0x12A, -896.0f, -1243.0f, 6953.0f, 0, 0, 0, switchParams);
+        floorSwitch = Actor_Spawn(&globalCtx->actorCtx, globalCtx, 0x12A, -896.0f, -1243.0f, 6953.0f, 0, 0, 0,
+                                  switchParams, FALSE);
 
         // Spawn a sign
-        Actor_Spawn(&globalCtx->actorCtx, globalCtx, 0x141, -970.0f, -1242.0f, 6954.0f, 0, 0, 0, 0x0046);
+        Actor_Spawn(&globalCtx->actorCtx, globalCtx, 0x141, -970.0f, -1242.0f, 6954.0f, 0, 0, 0, 0x0046, FALSE);
 
         // Spawn a Navi check spot
         if (!(gSaveContext.eventChkInf[4] & 0x0400)) { // Water Temple blue warp not cleared
-            Actor_Spawn(&globalCtx->actorCtx, globalCtx, 0x173, -896.0f, -1243.0f, 6953.0f, 0, 0, 0, 0x3DB3);
+            Actor_Spawn(&globalCtx->actorCtx, globalCtx, 0x173, -896.0f, -1243.0f, 6953.0f, 0, 0, 0, 0x3DB3, FALSE);
         }
 
         actionCounter++;

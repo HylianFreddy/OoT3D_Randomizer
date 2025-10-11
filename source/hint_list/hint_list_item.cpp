@@ -2265,7 +2265,7 @@ void HintTable_Init_Item() {
 
     hintTable[SOUL_ITEM_DARK_LINK] = HintText::Item({
                        // obscure text
-                       Text{"the Dark Link Soul", /*french*/"l'Essence de l'ombre de @", /*spanish*/"el alma de @ Oscuro", /*italian*/"l'anima di @ Oscuro", /*german*/"die Seele von schwarzen @"},
+                       Text{"the Dark @ Soul", /*french*/"l'Essence de l'ombre de @", /*spanish*/"el alma de @ Oscuro", /*italian*/"l'anima di @ Oscuro", /*german*/"die Seele von schwarzen @"},
                      }, {
                        // ambiguous text
                        Text{"a Soul", /*french*/"une Essence", /*spanish*/"un alma", /*italian*/"un'anima", /*german*/"eine Seele"},
@@ -2292,7 +2292,7 @@ void HintTable_Init_Item() {
 
     hintTable[SOUL_ITEM_GERUDO] = HintText::Item({
                        // obscure text
-                       Text{"the Gerudo Soul", /*french*/"l'Essence de Voleuse Gerudo", /*spanish*/"el alma de Gerudo", /*italian*/"l'anima di Gerudo", /*german*/"die Seele von Gerudos"},
+                       Text{"the Gerudo and Iron Knuckle Soul", /*french*/"l'Essence de Voleuse Gerudo et de Hache-Viande", /*spanish*/"el alma de Gerudo y Nudillo de hierro", /*italian*/"l'anima di Gerudo e Guerriero d'acciaio", /*german*/"die Seele von Gerudos und Eisenprinzen"},
                      }, {
                        // ambiguous text
                        Text{"a Soul", /*french*/"une Essence", /*spanish*/"un alma", /*italian*/"un'anima", /*german*/"eine Seele"},

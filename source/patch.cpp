@@ -9,6 +9,8 @@
 #include "entrance.hpp"
 #include "hints.hpp"
 #include "gold_skulltulas.hpp"
+#include "utils.hpp"
+#include "enemizer.hpp"
 #include "ocarina_notes.hpp"
 
 #include <array>
@@ -19,61 +21,45 @@
 #include <vector>
 
 #include "../code/src/custom_models.h"
+#include "../code/src/enemizer.h"
 
-const PatchSymbols UsaSymbols = { GSETTINGSCONTEXT_USA_ADDR,        GSPOILERDATA_USA_ADDR,
-                                  GSPOILERDATALOCS_USA_ADDR,        NUMCUSTOMMESSAGEENTRIES_USA_ADDR,
-                                  PTRCUSTOMMESSAGEENTRIES_USA_ADDR, RBGMOVERRIDES_USA_ADDR,
-                                  RCUSTOMMESSAGES_USA_ADDR,         RDUNGEONINFODATA_USA_ADDR,
-                                  RDUNGEONREWARDOVERRIDES_USA_ADDR, RENTRANCEOVERRIDES_USA_ADDR,
-                                  RGSLOCOVERRIDES_USA_ADDR,         RITEMOVERRIDES_USA_ADDR,
-                                  RSCRUBRANDOMITEMPRICES_USA_ADDR,  RSFXDATA_USA_ADDR,
+const PatchSymbols UsaSymbols = { GSETTINGSCONTEXT_USA_ADDR,
+                                  GSPOILERDATA_USA_ADDR,
+                                  GSPOILERDATALOCS_USA_ADDR,
+                                  NUMCUSTOMMESSAGEENTRIES_USA_ADDR,
+                                  PTRCUSTOMMESSAGEENTRIES_USA_ADDR,
+                                  RBGMOVERRIDES_USA_ADDR,
+                                  RCUSTOMMESSAGES_USA_ADDR,
+                                  RDUNGEONINFODATA_USA_ADDR,
+                                  RDUNGEONREWARDOVERRIDES_USA_ADDR,
+                                  RENEMYOVERRIDES_USA_ADDR,
+                                  RENTRANCEOVERRIDES_USA_ADDR,
+                                  RGSLOCOVERRIDES_USA_ADDR,
+                                  RITEMOVERRIDES_USA_ADDR,
+                                  RSCRUBRANDOMITEMPRICES_USA_ADDR,
+                                  RSFXDATA_USA_ADDR,
                                   RSHOPSANITYPRICES_USA_ADDR };
 
-const PatchSymbols EurSymbols = { GSETTINGSCONTEXT_EUR_ADDR,        GSPOILERDATA_EUR_ADDR,
-                                  GSPOILERDATALOCS_EUR_ADDR,        NUMCUSTOMMESSAGEENTRIES_EUR_ADDR,
-                                  PTRCUSTOMMESSAGEENTRIES_EUR_ADDR, RBGMOVERRIDES_EUR_ADDR,
-                                  RCUSTOMMESSAGES_EUR_ADDR,         RDUNGEONINFODATA_EUR_ADDR,
-                                  RDUNGEONREWARDOVERRIDES_EUR_ADDR, RENTRANCEOVERRIDES_EUR_ADDR,
-                                  RGSLOCOVERRIDES_EUR_ADDR,         RITEMOVERRIDES_EUR_ADDR,
-                                  RSCRUBRANDOMITEMPRICES_EUR_ADDR,  RSFXDATA_EUR_ADDR,
+const PatchSymbols EurSymbols = { GSETTINGSCONTEXT_EUR_ADDR,
+                                  GSPOILERDATA_EUR_ADDR,
+                                  GSPOILERDATALOCS_EUR_ADDR,
+                                  NUMCUSTOMMESSAGEENTRIES_EUR_ADDR,
+                                  PTRCUSTOMMESSAGEENTRIES_EUR_ADDR,
+                                  RBGMOVERRIDES_EUR_ADDR,
+                                  RCUSTOMMESSAGES_EUR_ADDR,
+                                  RDUNGEONINFODATA_EUR_ADDR,
+                                  RDUNGEONREWARDOVERRIDES_EUR_ADDR,
+                                  RENEMYOVERRIDES_EUR_ADDR,
+                                  RENTRANCEOVERRIDES_EUR_ADDR,
+                                  RGSLOCOVERRIDES_EUR_ADDR,
+                                  RITEMOVERRIDES_EUR_ADDR,
+                                  RSCRUBRANDOMITEMPRICES_EUR_ADDR,
+                                  RSFXDATA_EUR_ADDR,
                                   RSHOPSANITYPRICES_EUR_ADDR };
 
 // For specification on the IPS file format, visit: https://zerosoft.zophar.net/ips.php
 
 using FILEPtr = std::unique_ptr<FILE, decltype(&std::fclose)>;
-
-bool CopyFile(FS_Archive sdmcArchive, const char* dst, const char* src) {
-    Result res = 0;
-    Handle outFile;
-    u32 bytesWritten = 0;
-    // Delete dst if it exists
-    FSUSER_DeleteFile(sdmcArchive, fsMakePath(PATH_ASCII, dst));
-
-    // Open dst destination
-    if (!R_SUCCEEDED(res = FSUSER_OpenFile(&outFile, sdmcArchive, fsMakePath(PATH_ASCII, dst),
-                                           FS_OPEN_WRITE | FS_OPEN_CREATE, 0))) {
-        return false;
-    }
-
-    if (auto file = FILEPtr{ std::fopen(src, "r"), std::fclose }) {
-        // obtain file size
-        fseek(file.get(), 0, SEEK_END);
-        const auto lSize = static_cast<size_t>(ftell(file.get()));
-        rewind(file.get());
-
-        // copy file into the buffer
-        std::vector<char> buffer(lSize);
-        fread(buffer.data(), 1, buffer.size(), file.get());
-
-        // Write the buffer to final destination
-        if (!R_SUCCEEDED(res = FSFILE_Write(outFile, &bytesWritten, 0, buffer.data(), buffer.size(), FS_WRITE_FLUSH))) {
-            return false;
-        }
-    }
-
-    FSFILE_Close(outFile);
-    return true;
-}
 
 bool WritePatch(u32 patchOffset, s32 patchSize, char* patchDataPtr, Handle& code, u32& bytesWritten, u32& totalRW,
                 char* buf) {
@@ -125,13 +111,11 @@ bool WriteAllPatches() {
     u32 bytesWritten = 0;
     u32 totalRW      = 0;
     char buf[512];
-    std::string titleId;
+    std::string titleId = Settings::TitleId();
     PatchSymbols patchSymbols;
     if (Settings::Region == REGION_EUR) {
-        titleId      = "0004000000033600";
         patchSymbols = EurSymbols;
     } else { // REGION_NA
-        titleId      = "0004000000033500";
         patchSymbols = UsaSymbols;
     }
 
@@ -507,10 +491,10 @@ bool WriteAllPatches() {
     ---------------------------------*/
 
     const u32 SWORDTRAILCOLORSARRAY_ADDR = 0x0053C136;
-    Cosmetics::Color_RGBA8 p1StartColor  = Cosmetics::HexStrToColorRGBA8(Settings::finalSwordTrailOuterColor);
-    Cosmetics::Color_RGBA8 p2StartColor  = Cosmetics::HexStrToColorRGBA8(Settings::finalSwordTrailInnerColor);
-    Cosmetics::Color_RGBA8 p1EndColor    = Cosmetics::HexStrToColorRGBA8(Settings::finalSwordTrailOuterColor);
-    Cosmetics::Color_RGBA8 p2EndColor    = Cosmetics::HexStrToColorRGBA8(Settings::finalSwordTrailInnerColor);
+    Color_RGBA8 p1StartColor             = Cosmetics::HexStrToColorRGBA8(Settings::finalSwordTrailOuterColor);
+    Color_RGBA8 p2StartColor             = Cosmetics::HexStrToColorRGBA8(Settings::finalSwordTrailInnerColor);
+    Color_RGBA8 p1EndColor               = Cosmetics::HexStrToColorRGBA8(Settings::finalSwordTrailOuterColor);
+    Color_RGBA8 p2EndColor               = Cosmetics::HexStrToColorRGBA8(Settings::finalSwordTrailInnerColor);
     bool shouldDrawSimple                = Settings::ChosenSimpleMode ||
                             (p1StartColor.r != 0xFF && p1StartColor.g != 0xFF && p1StartColor.b != 0xFF) ||
                             (p2StartColor.r != 0xFF && p2StartColor.g != 0xFF && p2StartColor.b != 0xFF);
@@ -648,6 +632,37 @@ bool WriteAllPatches() {
     }
 
     /*---------------------------------
+    |   Sold Out Cosmetic Shop Model  |
+    ---------------------------------*/
+
+    const u32 SHOPITEMENTRY_SOLDOUT_CMBINDEX_ADDR = 0x525672;
+    char soldOutCMBIndex                          = 0;
+
+    patchOffset = V_TO_P(SHOPITEMENTRY_SOLDOUT_CMBINDEX_ADDR);
+    patchSize   = 1;
+
+    if (Settings::BetaSoldOut &&
+        !WritePatch(patchOffset, patchSize, &soldOutCMBIndex, code, bytesWritten, totalRW, buf)) {
+        return false;
+    }
+
+    /*---------------------------------
+    |         Enemy Overrides         |
+    ---------------------------------*/
+
+    if (Settings::Enemizer) {
+        std::vector<EnemyOverride> enemyOverrides;
+        Enemizer::FillPatchOverrides(enemyOverrides);
+
+        patchOffset = V_TO_P(patchSymbols.RENEMYOVERRIDES_ADDR);
+        patchSize   = sizeof(EnemyOverride) * enemyOverrides.size();
+
+        if (!WritePatch(patchOffset, patchSize, (char*)enemyOverrides.data(), code, bytesWritten, totalRW, buf)) {
+            return false;
+        }
+    }
+
+    /*---------------------------------
     |        Random Song Notes        |
     ---------------------------------*/
 
@@ -695,10 +710,10 @@ bool WriteAllPatches() {
     |       custom assets      |
     --------------------------*/
 
-    Cosmetics::Color_RGBAf childTunicColor  = Cosmetics::HexStrToColorRGBAf(Settings::finalChildTunicColor);
-    Cosmetics::Color_RGBAf kokiriTunicColor = Cosmetics::HexStrToColorRGBAf(Settings::finalKokiriTunicColor);
-    Cosmetics::Color_RGBAf goronTunicColor  = Cosmetics::HexStrToColorRGBAf(Settings::finalGoronTunicColor);
-    Cosmetics::Color_RGBAf zoraTunicColor   = Cosmetics::HexStrToColorRGBAf(Settings::finalZoraTunicColor);
+    Color_RGBAf childTunicColor  = Cosmetics::HexStrToColorRGBAf(Settings::finalChildTunicColor);
+    Color_RGBAf kokiriTunicColor = Cosmetics::HexStrToColorRGBAf(Settings::finalKokiriTunicColor);
+    Color_RGBAf goronTunicColor  = Cosmetics::HexStrToColorRGBAf(Settings::finalGoronTunicColor);
+    Color_RGBAf zoraTunicColor   = Cosmetics::HexStrToColorRGBAf(Settings::finalZoraTunicColor);
 
     // Delete assets if it exists
     Handle assetsOut;
@@ -753,6 +768,8 @@ bool WriteAllPatches() {
     FSFILE_Close(assetsOut);
 
     FSUSER_CloseArchive(sdmcArchive);
+
+    romfsExit();
 
     return true;
 }

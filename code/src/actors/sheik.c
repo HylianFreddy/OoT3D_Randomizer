@@ -35,17 +35,7 @@ void Sheik_Spawn(void) {
     }
 
     if ((Sheik_IsAt_TempleOfTime() && !HasGanonsBK()) || (Sheik_IsAt_GanonsCastle() && HasGanonsBK())) {
-        if (Actor_Find(&gGlobalContext->actorCtx, 0x48, ACTORTYPE_NPC)) {
-            return;
-        }
-
-        if (Object_GetIndex(&gGlobalContext->objectCtx, 0x8A) < 0) {
-            Object_Spawn(&gGlobalContext->objectCtx, 0x8A);
-            return;
-        }
-        if (!Object_IsLoaded(&gGlobalContext->objectCtx, Object_GetIndex(&gGlobalContext->objectCtx, 0x8A))) {
-            return;
-        }
+        Object_FindEntryOrSpawn(0x8A);
 
         Vec3f pos;
         Vec3s rot;
@@ -61,7 +51,7 @@ void Sheik_Spawn(void) {
         EnXc* sheik = (EnXc*)Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x48, //
                                          pos.x, pos.y, pos.z,                             //
                                          rot.x, rot.y, rot.z,                             //
-                                         100);
+                                         100, FALSE);
         if (sheik == (void*)0) {
             return;
         }

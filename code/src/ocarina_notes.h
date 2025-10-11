@@ -90,7 +90,7 @@ typedef struct {
     /* 0x7 */ u8 bFlat4Flag;
 } OcarinaNote; // size = 0x8
 
-#define OcarinaUIStruct (*((void**)0x5093EC))
+#define OcarinaUIStruct (*((void**)GAME_ADDR(0x5093EC)))
 
 // sequence of notes to check when a song has been played
 #define gOcarinaSongButtons ((OcarinaSongButtonSequence*)0x54C222)

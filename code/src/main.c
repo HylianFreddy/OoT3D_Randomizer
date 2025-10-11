@@ -13,6 +13,9 @@
 #include "grotto.h"
 #include "item_effect.h"
 #include "triforce.h"
+#include "objects.h"
+#include "enemizer.h"
+#include "scene.h"
 #include "ocarina_notes.h"
 
 #include "z3D/z3D.h"
@@ -24,44 +27,42 @@ GlobalContext* gGlobalContext = NULL;
 static u8 rRandomizerInit     = 0;
 u32 rGameplayFrames           = 0;
 
-void set_GlobalContext(GlobalContext* globalCtx) {
-    gGlobalContext = globalCtx;
-}
-
 void Randomizer_Init() {
     rHeap_Init();
     Actor_Init();
     Entrance_Init();
     ItemOverride_Init();
+    Enemizer_Init();
     OcarinaNotes_UpdateSongs();
     extDataInit();
     irrstInit();
+
+    s64 output = 0;
+    svcGetSystemInfo(&output, 0x20000, 0);
+    playingOnCitra = (output != 0);
+}
+
+void before_Play_Init(GlobalContext* globalCtx) {
+    if (!rRandomizerInit) {
+        Randomizer_Init();
+        rRandomizerInit = 1;
+    }
+    gGlobalContext = globalCtx;
+    rSceneLayer    = 0;
 }
 
 void before_GlobalContext_Update(GlobalContext* globalCtx) {
-    if (!rRandomizerInit) {
-        Randomizer_Init();
-        set_GlobalContext(globalCtx);
-        rRandomizerInit = 1;
-
-        s64 output = 0;
-        svcGetSystemInfo(&output, 0x20000, 0);
-        playingOnCitra = (output != 0);
-    }
     rGameplayFrames++;
     ItemOverride_Update();
-    ActorSetup_Extra();
+    ExtendedObject_UpdateEntries();
     Model_UpdateAll(globalCtx);
     Input_Update();
     SaveFile_EnforceHealthLimit();
-
     Settings_SkipSongReplays();
-
     Multiplayer_Run();
-
     ItemEffect_RupeeAmmo(&gSaveContext);
-
     Triforce_HandleCreditsWarp();
+    Enemizer_Update();
 }
 
 void after_GlobalContext_Update() {
@@ -76,4 +77,8 @@ void after_GlobalContext_Update() {
     }
 
     Multiplayer_Sync_Update();
+
+    if (gGlobalContext->state.running == 0) {
+        Model_DestroyAll();
+    }
 }

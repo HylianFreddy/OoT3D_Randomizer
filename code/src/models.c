@@ -9,35 +9,28 @@
 #include <stddef.h>
 
 typedef void (*SkeletonAnimationModel_MatrixCopy_proc)(SkeletonAnimationModel* glModel, nn_math_MTX34* mtx);
-#define SkeletonAnimationModel_MatrixCopy_addr 0x3721E0
-#define SkeletonAnimationModel_MatrixCopy \
-    ((SkeletonAnimationModel_MatrixCopy_proc)SkeletonAnimationModel_MatrixCopy_addr)
+#define SkeletonAnimationModel_MatrixCopy ((SkeletonAnimationModel_MatrixCopy_proc)GAME_ADDR(0x3721E0))
 
 typedef void (*SkeletonAnimationModel_Draw_proc)(SkeletonAnimationModel* glModel, s32 param_2);
-#define SkeletonAnimationModel_Draw_addr 0x372170
-#define SkeletonAnimationModel_Draw ((SkeletonAnimationModel_Draw_proc)SkeletonAnimationModel_Draw_addr)
+#define SkeletonAnimationModel_Draw ((SkeletonAnimationModel_Draw_proc)GAME_ADDR(0x372170))
 
 typedef void (*SkeletonAnimationModel_SpawnAt_proc)(Actor* actor, GlobalContext* globalCtx,
                                                     SkeletonAnimationModel** glModel, s32 objModelIdx);
-#define SkeletonAnimationModel_SpawnAt_addr 0x372F38
-#define SkeletonAnimationModel_SpawnAt ((SkeletonAnimationModel_SpawnAt_proc)SkeletonAnimationModel_SpawnAt_addr)
+#define SkeletonAnimationModel_SpawnAt ((SkeletonAnimationModel_SpawnAt_proc)GAME_ADDR(0x372F38))
 
 typedef void (*Actor_SetModelMatrix_proc)(f32 x, f32 y, f32 z, nn_math_MTX34* mtx, ActorShape* shape);
-#define Actor_SetModelMatrix_addr 0x3679D0
-#define Actor_SetModelMatrix ((Actor_SetModelMatrix_proc)Actor_SetModelMatrix_addr)
+#define Actor_SetModelMatrix ((Actor_SetModelMatrix_proc)GAME_ADDR(0x3679D0))
 
 #define LOADEDMODELS_MAX 16
 Model ModelContext[LOADEDMODELS_MAX] = { 0 };
 
 void Model_SetAnim(SkeletonAnimationModel* model, s16 objectId, u32 objectAnimIdx) {
-    void* cmabMan = ExtendedObject_GetCMABByIndex(objectId, objectAnimIdx);
+    void* cmabMan = Object_GetCMABByIndex(objectId, objectAnimIdx);
     TexAnim_Spawn(model->unk_0C, cmabMan);
 }
 
 void Model_Init(Model* model, GlobalContext* globalCtx) {
-    // Should probably parse the ZAR to find the CMBs correctly,
-    // but this is fine for now
-    void* ZARBuf = rExtendedObjectCtx.status[model->objectBankIdx - OBJECT_EXCHANGE_BANK_MAX].zarInfo.buf;
+    void* ZARBuf = Object_GetEntry(model->objectSlot)->zarInfo.buf;
 
     // edit the cmbs for custom models
     CustomModels_EditItemCMB(ZARBuf, model->itemRow->objectId, model->itemRow->special);
@@ -88,8 +81,6 @@ void Model_Destroy(Model* model) {
 void Model_UpdateAll(GlobalContext* globalCtx) {
     Model* model;
 
-    Object_UpdateBank((ObjectContext*)&rExtendedObjectCtx);
-
     for (s32 i = 0; i < LOADEDMODELS_MAX; ++i) {
         model = &ModelContext[i];
 
@@ -106,7 +97,7 @@ void Model_UpdateAll(GlobalContext* globalCtx) {
 
         // Actor is alive, model has not been loaded yet
         if ((model->actor != NULL) && (!model->loaded)) {
-            if (ExtendedObject_IsLoaded(&globalCtx->objectCtx, model->objectBankIdx)) {
+            if (Object_IsLoaded(&globalCtx->objectCtx, model->objectSlot)) {
                 Model_Init(model, globalCtx);
             }
         }
@@ -179,21 +170,13 @@ void Model_LookupByOverride(Model* model, ItemOverride override) {
     }
 }
 
-void Model_GetObjectBankIndex(Model* model, Actor* actor, GlobalContext* globalCtx) {
-    s32 objectBankIdx = ExtendedObject_GetIndex(&globalCtx->objectCtx, model->itemRow->objectId);
-    if (objectBankIdx < 0) {
-        objectBankIdx = ExtendedObject_Spawn(&globalCtx->objectCtx, model->itemRow->objectId);
-    }
-    model->objectBankIdx = objectBankIdx;
-}
-
 void Model_InfoLookup(Model* model, Actor* actor, GlobalContext* globalCtx, u16 baseItemId) {
     ItemOverride override;
 
     // Special case for bombchu drops
     if ((actor->id == 0x15) && (actor->params == 5)) {
-        model->itemRow = ItemTable_GetItemRow(GI_BOMBCHUS_5);
-        Model_GetObjectBankIndex(model, actor, globalCtx);
+        model->itemRow    = ItemTable_GetItemRow(GI_BOMBCHUS_5);
+        model->objectSlot = Object_FindSlotOrSpawn(model->itemRow->objectId);
         return;
     }
 
@@ -214,7 +197,7 @@ void Model_InfoLookup(Model* model, Actor* actor, GlobalContext* globalCtx, u16 
 
     if (override.key.all != 0) {
         Model_LookupByOverride(model, override);
-        Model_GetObjectBankIndex(model, actor, globalCtx);
+        model->objectSlot = Object_FindSlotOrSpawn(model->itemRow->objectId);
     }
 }
 
@@ -229,12 +212,12 @@ void Model_Create(Model* model, GlobalContext* globalCtx) {
     }
 
     if (newModel != NULL) {
-        newModel->actor         = model->actor;
-        newModel->itemRow       = model->itemRow;
-        newModel->objectBankIdx = model->objectBankIdx;
-        newModel->loaded        = 0;
-        newModel->saModel       = NULL;
-        newModel->saModel2      = NULL;
+        newModel->actor      = model->actor;
+        newModel->itemRow    = model->itemRow;
+        newModel->objectSlot = model->objectSlot;
+        newModel->loaded     = 0;
+        newModel->saModel    = NULL;
+        newModel->saModel2   = NULL;
         switch (newModel->itemRow->objectId) {
             case 0x00BA: // Medallions
             case 0x019C: // Kokiri Emerald

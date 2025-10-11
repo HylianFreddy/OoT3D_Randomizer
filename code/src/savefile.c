@@ -110,10 +110,12 @@ void SaveFile_Init(u32 fileBaseIndex) {
         gSaveContext.eventChkInf[0x9] |= 0x000E;                                // Free 3 carpenters
         gSaveContext.sceneFlags[DUNGEON_THIEVES_HIDEOUT].swch |= 0x000D01DC;    // heard yells/unlocked doors
         gSaveContext.sceneFlags[DUNGEON_THIEVES_HIDEOUT].collect |= 0x0000C400; // picked up keys
+        gSaveContext.sceneFlags[DUNGEON_THIEVES_HIDEOUT].clear |= 0x00000032;   // cleared rooms (for Enemy Randomizer)
     } else if (gSettingsContext.gerudoFortress == GERUDOFORTRESS_OPEN) {
         gSaveContext.eventChkInf[0x9] |= 0x000F;                                // Free all carpenters
         gSaveContext.sceneFlags[DUNGEON_THIEVES_HIDEOUT].swch |= 0x000F01FE;    // heard yells/unlocked doors
         gSaveContext.sceneFlags[DUNGEON_THIEVES_HIDEOUT].collect |= 0x0000D400; // picked up keys
+        gSaveContext.sceneFlags[DUNGEON_THIEVES_HIDEOUT].clear |= 0x00000036;   // cleared rooms (for Enemy Randomizer)
     }
 
     if (gSettingsContext.zorasFountain == ZORASFOUNTAIN_OPEN) {
@@ -634,8 +636,7 @@ void SaveFile_BorrowMask(s16 SI_ItemId) {
 }
 
 typedef s32 (*Inventory_ReplaceItem_proc)(GlobalContext* globalCtx, u16 oldItem, u16 newItem);
-#define Inventory_ReplaceItem_addr 0x316CEC
-#define Inventory_ReplaceItem ((Inventory_ReplaceItem_proc)Inventory_ReplaceItem_addr)
+#define Inventory_ReplaceItem ((Inventory_ReplaceItem_proc)GAME_ADDR(0x316CEC))
 
 u32 SaveFile_CheckForWeirdEggHatch(void) {
     // Force the egg into the child trade slot so that it can hatch
@@ -711,14 +712,12 @@ s8 SaveFile_GetIgnoreMaskReactionOption(u32 reactionSet) {
 }
 
 void SaveFile_InitExtSaveData(u32 saveNumber, u8 fromSaveCreation) {
+    // Reset entire struct to 0 before setting specific fields.
+    memset(&gExtSaveData, 0, sizeof(gExtSaveData));
+
     gExtSaveData.version = EXTSAVEDATA_VERSION; // Do not change this line
-    memset(&gExtSaveData.extInf, 0, sizeof(gExtSaveData.extInf));
     gExtSaveData.extInf[EXTINF_MASTERSWORDFLAGS] =
         (gSettingsContext.shuffleMasterSword && !(gSettingsContext.startingEquipment & 0x2)) ? 0 : 1;
-    memset(&gExtSaveData.fwStored, 0, sizeof(gExtSaveData.fwStored));
-    gExtSaveData.playtimeSeconds = 0;
-    memset(&gExtSaveData.scenesDiscovered, 0, sizeof(gExtSaveData.scenesDiscovered));
-    memset(&gExtSaveData.entrancesDiscovered, 0, sizeof(gExtSaveData.entrancesDiscovered));
     gExtSaveData.permadeath = fromSaveCreation ? gSettingsContext.permadeath : 0;
     // Ingame Options
     gExtSaveData.option_EnableBGM          = gSettingsContext.playMusic;
@@ -784,6 +783,12 @@ void SaveFile_SaveExtSaveData(u32 saveNumber) {
     extDataWriteFileDirectly(fsa, path, &gExtSaveData, 0, sizeof(gExtSaveData));
 
     extDataUnmount(fsa);
+}
+
+void SaveFile_BeforeCopy(s32 srcFileNum) {
+    // When the game writes the copied savefile, it calls SaveFile_SaveExtSaveData,
+    // so in order to properly copy the ExtData they first need to be loaded from the source savefile.
+    SaveFile_LoadExtSaveData(srcFileNum);
 }
 
 void SaveFile_EnforceHealthLimit(void) {

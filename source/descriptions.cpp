@@ -53,7 +53,10 @@ string_view logicGlitchless           = "No glitches are required, but may requi
 string_view logicGlitched             = "The glitches you enable at the set difficulty\n"  //
                                         "or below may be required.\n"                      //
                                         "\n"                                               //
-                                        "In development, but still usable.";               //
+                                        "WIP feature. Allows glitch logic for the entire\n"//
+                                        "overworld and the following vanilla dungeons:\n"  //
+                                        "Deku Tree, Dodongo's Cavern, Jabu Jabu, and\n"    //
+                                        "Forest, Water, and Fire Temple.";                 //
 string_view logicNoLogic              = "Maximize randomization, All locations are\n"      //
                                         "considered available. MAY BE IMPOSSIBLE TO BEAT.";//
 string_view logicVanilla              = "For those who want to play the game normally but\n"
@@ -356,6 +359,21 @@ string_view triforcePiecesRequiredDesc= "Set the number of pieces required to be
                                         "game.\n\n"                                        //
                                         "Hold A to scroll faster.";                        //
 /*------------------------------                                                           //
+|       ENEMY RANDOMIZER       |                                                           //
+------------------------------*/                                                           //
+string_view enemizerDesc              = "Randomize most enemies in the game.\n\n"          //
+                                        "WARNING: Incompatible with Master Quest Logic.";  //
+string_view enemizerListDesc          = "Scroll to open the Enemy List.";                  //
+string_view enemyRandomizedDesc       = "This enemy will be included in the pool of\n"     //
+                                        "random enemies.";                                 //
+string_view enemyVanillaDesc          = "This enemy will be excluded from the random pool,\n"
+                                        "but it will appear at its vanilla locations.";    //
+string_view enemyRemovedDesc          = "This enemy will be excluded from the random pool,\n"
+                                        "and it won't appear at randomized locations.\n\n" //
+                                        "Exception: if all possible options for a location\n"
+                                        "are removed, that location will revert to using\n"//
+                                        "its vanilla enemy.";                              //
+/*------------------------------                                                           //
 |   SHUFFLE DUNGEON REWARDS    |                                                           //
 ------------------------------*/                                                           //
 string_view shuffleRewardsEndOfDungeon= "Medallions and Spiritual Stones will be given as\n"
@@ -414,6 +432,8 @@ string_view shopsFour                 = "Vanilla shop items will be shuffled amo
 string_view shopsRandom               = "Vanilla shop items will be shuffled among\n"      //
                                         "different shops, and each shop will contain\n"    //
                                         "1-4 non-vanilla shop items.";                     //
+string_view shopPriceRandom           = "Prices of shuffled shop items are random.";        //
+string_view shopPriceAffordable       = "Prices of shuffled shop items are 10 rupees.";     //
 /*------------------------------                                                           //
 |         TOKENSANITY          |                                                           //
 ------------------------------*/                                                           //
@@ -547,8 +567,8 @@ string_view chestMinigameDesc         = "The 5 key chests in the Treasure Chest 
 /*------------------------------                                                           //
 |     SHUFFLE ENEMY SOULS      |                                                           //
 ------------------------------*/                                                           //
-string_view enemySoulDesc             = "Enemies will be invincible and appear as a purple\n"
-                                        "flame until you find their \"soul\".\n"           //
+string_view enemySoulDesc             = "Enemies will be invincible until you find their\n"//
+                                        "\"soul\".\n"                                      //
                                         "Each enemy type will have a soul added into the\n"//
                                         "item pool.\n\n"                                   //
                                         "You can exclude some enemies by adding their\n"   //
@@ -850,6 +870,8 @@ string_view dampeHintDesc            =  "Reading Dampe's diary will reveal the l
 string_view skulltulaHintDesc        =  "Talking to a cursed House of Skulltula resident\n"//
                                         "will tell you the reward they will give you for\n"//
                                         "removing their curse.";                           //
+string_view fishingHintsDesc         =  "The aquarium at the fishing pond will show what\n"//
+                                        "reward you can win as your current age.";         //
 /*------------------------------                                                           //
 |  MAP AND COMPASS GIVES INFO  |                                                           //
 ------------------------------*/                                                           //
@@ -1222,6 +1244,20 @@ string_view mirrorWorldEntranceDesc   = "Different entrances to the same region 
 string_view mirrorWorldRandomDesc     = "Whether the world is mirrored may change after\n" //
                                         "every loading zone inconsistently.";              //
 /*------------------------------                                                           //
+| SOLD OUT COSMETIC SHOP MODEL |                                                           //
+------------------------------*/                                                           //
+string_view betaSoldOutDesc           = "The game contains an unused model for sold out\n" //
+                                        "items in shops. It's a remade version of the N64\n"
+                                        "model, spelling \"Sold Out\" in English.\n\n"     //
+                                        "This setting enables its use in shops.";          //
+/*------------------------------                                                           //
+|    SOULLESS ENEMIES LOOK     |                                                           //
+------------------------------*/                                                           //
+string_view soullessPurpleFlameDesc   = "Soulless enemies will appear as a purple flame,\n"//
+                                        "and their body will be invisible.";               //
+string_view soullessFlashingDesc      = "Soulless enemies will flash between visible and\n"
+                                        "invisible on every frame.";                       //
+/*------------------------------                                                           //
 |        SHUFFLE MUSIC         |                                                           //
 ------------------------------*/                                                           //
 string_view musicRandoDesc            = "Randomize the music in the game.";                //
@@ -1318,7 +1354,7 @@ string_view randomGsLocationsDesc     = "Moves Gold Skulltulas to different loca
                                         "Business Scrub grottos, Fairy Fountains, etc.\n"  //
                                         "Some new locations are only available with certain"
                                         "settings enabled, like tricks and glitches.\n"    //
-                                        "The logic is updated for any that are moved.";    //
+                                        "WIP feature. Most dungeon locations are the same.";
                                                                                            //
 string_view gsLocGuaranteeNewDesc     = "Excludes the original location from the Gold\n"   //
                                         "Skulltula's available locations pool.\n"          //

@@ -9,7 +9,7 @@
 
 using RandomizerHash = std::array<std::string, 5>;
 
-void CreateLogDirectories(FS_Archive sdmcArchive);
+void InitLogDirectories(FS_Archive sdmcArchive);
 
 void GenerateHash();
 const RandomizerHash& GetRandomizerHash();
@@ -23,3 +23,5 @@ const SpoilerDataLocs* GetSpoilerDataLocs(size_t index);
 void PlacementLog_Msg(std::string_view msg);
 void PlacementLog_Clear();
 bool PlacementLog_Write();
+
+extern const char* sceneNames[SCENE_MAX];

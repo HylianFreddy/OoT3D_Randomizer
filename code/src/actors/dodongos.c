@@ -2,8 +2,10 @@
 #include "dodongos.h"
 #include "enemy_souls.h"
 
-#define EnDodongo_Idle ((EnDodongoActionFunc)0x3E4FE8)
-#define EnDodojr_JumpAttackBounce ((EnDodojrActionFunc)0x3D069C)
+#define EnDodongo_Idle ((EnDodongoActionFunc)GAME_ADDR(0x3E4FE8))
+#define EnDodojr_JumpAttackBounce ((EnDodojrActionFunc)GAME_ADDR(0x3D069C))
+
+#define EnDodojr_Init ((ActorFunc)GAME_ADDR(0x1F51E8))
 
 s32 Dodongos_AfterSwallowBomb_Normal(EnDodongo* this) {
     if (!EnemySouls_CheckSoulForActor(&this->base)) {
@@ -22,4 +24,11 @@ s32 Dodongos_AfterSwallowBomb_Baby(EnDodojr* this) {
     }
 
     return 0;
+}
+
+void EnDodojr_rInit(Actor* thisx, GlobalContext* globalCtx) {
+    EnDodojr_Init(thisx, globalCtx);
+
+    // Fix vanilla bug that causes dust to be consistently drawn at y=0 when the Baby Dodongo emerges from the ground.
+    thisx->floorHeight = thisx->home.pos.y;
 }

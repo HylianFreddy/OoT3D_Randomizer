@@ -4,51 +4,34 @@
 #include "common.h"
 #include "objects.h"
 
-#define EnSw_Init_addr 0x1691C8
-#define EnSw_Init ((ActorFunc)EnSw_Init_addr)
+#define EnSw_Init ((ActorFunc)GAME_ADDR(0x1691C8))
+#define EnSw_Update ((ActorFunc)GAME_ADDR(0x1BB110))
 
-#define EnSw_Update_addr 0x1BB110
-#define EnSw_Update ((ActorFunc)EnSw_Update_addr)
+#define EnSw_GoldSkulltulaDeath (void*)GAME_ADDR(0x3B91BC)
+#define EnSw_WalltulaIdle ((void*)GAME_ADDR(0x3CDAAC))
+#define EnSw_SetupGoingHome ((void*)GAME_ADDR(0x3C2A50))
 
-#define EnSw_GoldSkulltulaDeath (void*)0x3B91BC
+#define Skullwalltula_IsCloseToPlayer(walltula) \
+    (walltula->base.xzDistToPlayer < 250.0 && ABS(walltula->base.yDistToPlayer) < 50.0)
 
 const GsLocOverride rGsLocOverrides[100] = { 0 };
-const GsLocOverride* gsSpawnQueue[10]    = { 0 };
 
-void GsQueue_Clear(void) {
-    for (size_t i = 0; i < ARRAY_SIZE(gsSpawnQueue); i++) {
-        gsSpawnQueue[i] = NULL;
+void Gs_SpawnAltLocs(void) {
+    if (!IsInGame() || !gSettingsContext.randomGsLocations) {
+        return;
     }
-}
 
-void GsQueue_Add(const GsLocOverride* gsLocOverride) {
-    for (size_t i = 0; i < ARRAY_SIZE(gsSpawnQueue); i++) {
-        if (gsSpawnQueue[i] == NULL) {
-            gsSpawnQueue[i] = gsLocOverride;
+    Object_FindEntryOrSpawn(0x24);
+
+    for (u32 i = 0; i < ARRAY_SIZE(rGsLocOverrides); i++) {
+        const GsLocOverride* gs = &rGsLocOverrides[i];
+        if (gs->bitFlag == 0) {
+            // End of list.
             return;
         }
-    }
-}
 
-void GsQueue_Update(void) {
-    if (!IsInGame()) {
-        return;
-    }
-    // Loading the skulltula object in the Market Day Child scene causes a crash
-    if (gGlobalContext->sceneNum == 0x20) {
-        return;
-    }
-    if (Object_GetIndex(&gGlobalContext->objectCtx, 0x24) < 0) {
-        Object_Spawn(&gGlobalContext->objectCtx, 0x24);
-        return;
-    }
-    if (!Object_IsLoaded(&gGlobalContext->objectCtx, Object_GetIndex(&gGlobalContext->objectCtx, 0x24))) {
-        return;
-    }
-
-    for (size_t i = 0; i < ARRAY_SIZE(gsSpawnQueue); i++) {
-        if (gsSpawnQueue[i] != NULL) {
-            const GsLocOverride* gs = gsSpawnQueue[i];
+        if (gs->scene == gGlobalContext->sceneNum && gs->room == gGlobalContext->roomNum &&
+            (gs->ageCondition == GS_AGE_BOTH || gs->ageCondition == gSaveContext.linkAge)) {
 
             s16 params = 0;
             if (gs->timeCondition == GS_TIME_ALWAYS) {
@@ -62,14 +45,16 @@ void GsQueue_Update(void) {
 
             Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x95,      //
                         gs->posRot.pos.x, gs->posRot.pos.y, gs->posRot.pos.z, //
-                        gs->posRot.rot.x, gs->posRot.rot.y, gs->posRot.rot.z, params);
-
-            gsSpawnQueue[i] = NULL;
+                        gs->posRot.rot.x, gs->posRot.rot.y, gs->posRot.rot.z, params, FALSE);
         }
     }
 }
 
 u8 Gs_HasAltLoc(void* ptr, GsParamPointerType ppt, u8 adjustArrayIndex) {
+    if (!gSettingsContext.randomGsLocations) {
+        return FALSE;
+    }
+
     u8 arrayIndex = 0;
     u8 bitFlag    = 0;
 
@@ -112,26 +97,6 @@ u8 Gs_HasAltLoc(void* ptr, GsParamPointerType ppt, u8 adjustArrayIndex) {
         }
     }
     return FALSE;
-}
-
-void Gs_QueueAlternateLocated(void) {
-    if (gGlobalContext == NULL) {
-        return;
-    }
-    GsQueue_Clear();
-    for (u32 i = 0; i < ARRAY_SIZE(rGsLocOverrides); i++) {
-        const GsLocOverride* gs = &rGsLocOverrides[i];
-        if (gs->bitFlag == 0) {
-            // End of list.
-            return;
-        }
-
-        if (gs->scene == gGlobalContext->sceneNum && gs->room == gGlobalContext->roomNum &&
-            (gs->ageCondition == GS_AGE_BOTH || gs->ageCondition == gSaveContext.linkAge)) {
-
-            GsQueue_Add(gs);
-        }
-    }
 }
 
 u8 Gs_CustomTangibilityCheck(Actor* thisx) {
@@ -208,7 +173,7 @@ Vec3f* Gs_GetCustomTokenSpawnPos(Actor* thisx) {
 void EnSw_rInit(Actor* thisx, GlobalContext* globalCtx) {
     EnSw_Init(thisx, globalCtx);
 
-    if (thisx->params & 0xE000) {
+    if (gSettingsContext.randomGsLocations && thisx->params & 0xE000) {
         // Post-init rotation fix
         for (u32 i = 0; i < ARRAY_SIZE(rGsLocOverrides); i++) {
             if (rGsLocOverrides[i].arrayIndex == 0 && rGsLocOverrides[i].bitFlag == 0) {
@@ -222,6 +187,15 @@ void EnSw_rInit(Actor* thisx, GlobalContext* globalCtx) {
                 thisx->shape.rot = thisx->world.rot;
                 break;
             }
+        }
+    }
+
+    if (Enemizer_IsEnemyRandomized(ENEMY_SKULLWALLTULA) && thisx->params == 0) {
+        // Randomized Skullwalltulas will appear flat on the ground.
+        thisx->shape.rot.x = 0xC000;
+        // Force despawn if room is already cleared (in the base game they ignore the flag for some reason)
+        if (Flags_GetClear(globalCtx, globalCtx->roomNum)) {
+            Actor_Kill(thisx);
         }
     }
 }
@@ -245,6 +219,15 @@ void EnSw_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         thisx->world.rot.z = 0;
     }
 
+    if (Enemizer_IsEnemyRandomized(ENEMY_SKULLWALLTULA) && thisx->params == 0) {
+        // Randomized Skullwalltulas: fix facing direction when detecting and attacking the player.
+        thisx->shape.rot.y = 0;
+        // Always rotate towards player when idle
+        if (this->action_fn == EnSw_WalltulaIdle && Skullwalltula_IsCloseToPlayer(this)) {
+            this->targetRot = thisx->yawTowardsPlayer;
+        }
+    }
+
     EnSw_Update(thisx, globalCtx);
 
     if (prev_action_fn != this->action_fn && this->action_fn == EnSw_GoldSkulltulaDeath) {
@@ -253,8 +236,7 @@ void EnSw_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 typedef void (*FUN_00375B70_proc)(GlobalContext* globalCtx, Actor* actor);
-#define FUN_00375B70_addr 0x375B70
-#define FUN_00375B70 ((FUN_00375B70_proc)FUN_00375B70_addr)
+#define FUN_00375B70 ((FUN_00375B70_proc)GAME_ADDR(0x375B70))
 
 void EnSw_Kill(EnSw* thisx, GlobalContext* globalCtx) {
     if (thisx->action_fn == EnSw_GoldSkulltulaDeath || (thisx->base.params & 0x4000 && !gSaveContext.nightFlag)) {
@@ -269,4 +251,33 @@ void EnSw_Kill(EnSw* thisx, GlobalContext* globalCtx) {
     thisx->deathTimer_maybe = 15;
     thisx->unk_word1        = 1;
     thisx->action_fn        = EnSw_GoldSkulltulaDeath;
+}
+
+// Return -1 to use vanilla check
+s32 Skullwalltula_ShouldAttack(EnSw* walltula) {
+    if (!Enemizer_IsEnemyRandomized(ENEMY_SKULLWALLTULA)) {
+        return -1;
+    }
+
+    Vec3f posResult;
+    CollisionPoly* outPoly;
+    s32 bgId;
+    // Facing player, being close enough and not having obstacles in the way
+    return ABS(walltula->base.yawTowardsPlayer - walltula->base.shape.rot.z) < 0x4000 &&
+           Skullwalltula_IsCloseToPlayer(walltula) &&
+           !BgCheck_EntityLineTest1(&gGlobalContext->colCtx, &walltula->base.world.pos, &PLAYER->actor.world.pos,
+                                    &posResult, &outPoly, TRUE, FALSE, FALSE, TRUE, &bgId);
+}
+
+s16 Skullwalltula_GetTargetRotation(s16 orig, EnSw* walltula) {
+    if (!Enemizer_IsEnemyRandomized(ENEMY_SKULLWALLTULA)) {
+        return orig;
+    }
+    if (walltula->action_fn == EnSw_SetupGoingHome) {
+        // Going back to home position, turn around
+        return walltula->targetRot + 0x8000;
+    }
+    // Attacking player, remove Y offset
+    walltula->targetPos.y = PLAYER->actor.world.pos.y;
+    return walltula->base.yawTowardsPlayer;
 }

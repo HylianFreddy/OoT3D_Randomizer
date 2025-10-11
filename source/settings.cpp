@@ -14,6 +14,7 @@
 #include "trial.hpp"
 #include "keys.hpp"
 #include "gold_skulltulas.hpp"
+#include "enemizer.hpp"
 #include "ocarina_notes.hpp"
 
 #define CREATE_SOULMENUNAMES
@@ -53,6 +54,19 @@ std::vector<std::string> MultiVecOpts(std::vector<std::vector<std::string>> opti
         }
     }
     return options;
+}
+
+template <typename T, size_t N, typename Func>
+static std::vector<Option*> mapArrayToOptions(const T (&array)[N], Func mapper) {
+    static std::vector<Option> optionObjects;
+    optionObjects.reserve(N);
+    std::vector<Option*> optionPointers = {};
+    for (T elem : array) {
+        Option opt = mapper(elem);
+        optionObjects.push_back(std::move(opt));
+        optionPointers.push_back(&optionObjects.back());
+    }
+    return optionPointers;
 }
 
 // clang-format off
@@ -135,6 +149,11 @@ Option MQCastle                  = Option::U8  (2, "Ganon's Castle",      {"Vani
 Option TriforceHunt              = Option::Bool("Triforce Hunt",          {"Off", "On"},                                                     {triforceHuntDesc});
 Option TriforcePiecesTotal       = Option::U8  (2, "Total pieces",        {NumOpts(1, 200)},                                                 {triforcePiecesTotalDesc},                                                                                       OptionCategory::Setting,    29);
 Option TriforcePiecesRequired    = Option::U8  (2, "Required pieces",     {NumOpts(1, 100)},                                                 {triforcePiecesRequiredDesc},                                                                                    OptionCategory::Setting,    19);
+Option Enemizer                  = Option::Bool("Enemy Randomizer",       {"Off", "On"},                                                     {enemizerDesc});
+Option EnemizerListToggle        = Option::Bool(2, "Enemy List",          {" >", ""},                                                        {enemizerListDesc},                                                                                              OptionCategory::Toggle);
+// These are initialized in InitSettings because they depend on Enemizer::enemyTypes, which is not statically initialized
+std::vector<Option*> enemizerListOptions;
+static Menu enemizerListMenu;
 std::vector<Option *> worldOptions = {
     &RandomizeWorld,
     &StartingAge,
@@ -173,6 +192,8 @@ std::vector<Option *> worldOptions = {
     &TriforceHunt,
     &TriforcePiecesTotal,
     &TriforcePiecesRequired,
+    &Enemizer,
+    &EnemizerListToggle,
 };
 std::vector<Option *> dungeonOptions = {
     &MQDeku,
@@ -195,6 +216,7 @@ Option ShuffleRewards         = Option::U8  ("Shuffle Dungeon Rewards",{"End of 
 Option LinksPocketItem        = Option::U8  ("Link's Pocket",          {"Dungeon Reward", "Advancement", "Anything", "Nothing"},          {linksPocketDungeonReward, linksPocketAdvancement, linksPocketAnything, linksPocketNothing});
 Option ShuffleSongs           = Option::U8  ("Shuffle Songs",          {"Song Locations", "Dungeon Rewards", "Anywhere"},                 {songsSongLocations, songsDungeonRewards, songsAllLocations});
 Option Shopsanity             = Option::U8  ("Shopsanity",             {MultiVecOpts({{"Off"}, NumOpts(0, 4), {"Random"}})},              {shopsOff, shopsZero, shopsOne, shopsTwo, shopsThree, shopsFour, shopsRandom});
+Option ShopsanityPrices       = Option::U8  (2, "Shopsanity Prices",   {"Random", "Affordable"},                                          {shopPriceRandom, shopPriceAffordable});
 Option Tokensanity            = Option::U8  ("Tokensanity",            {"Off", "Dungeons", "Overworld", "All Tokens"},                    {tokensOff, tokensDungeon, tokensOverworld, tokensAllTokens});
 Option Scrubsanity            = Option::U8  ("Scrub Shuffle",          {"Off", "Affordable", "Expensive", "Random Prices"},               {scrubsOff, scrubsAffordable, scrubsExpensive, scrubsRandomPrices});
 Option ShuffleCows            = Option::Bool("Shuffle Cows",           {"Off", "On"},                                                     {shuffleCowsDesc});
@@ -209,7 +231,7 @@ Option ShuffleMerchants       = Option::U8  ("Shuffle Merchants",      {"Off", "
 Option ShuffleAdultTradeQuest = Option::Bool("Shuffle Adult Trade",    {"Off", "On"},                                                     {adultTradeDesc});
 Option ShuffleChestMinigame   = Option::U8  ("Shuffle Chest Minigame", {"Off", "On (Separate)", "On (Pack)"},                             {chestMinigameDesc});
 Option ShuffleFrogSongRupees  = Option::Bool("Shuffle Frog Rupees",    {"Off", "On"},                                                     {frogSongRupeesDesc});
-Option ShuffleEnemySouls      = Option::U8  ("Shuffle Enemy Souls",    {"Off", "On"},                                                     {enemySoulDesc});
+Option ShuffleEnemySouls      = Option::U8  ("Shuffle Enemy Souls",    {"Off", "All enemies", "Bosses only"},                             {enemySoulDesc});
 Option ShuffleOcarinaButtons  = Option::Bool("Shuffle Ocarina Buttons",{"Off", "On"},                                                     {ocarinaButtonsDesc});
 std::vector<Option *> shuffleOptions = {
     &RandomizeShuffle,
@@ -217,6 +239,7 @@ std::vector<Option *> shuffleOptions = {
     &LinksPocketItem,
     &ShuffleSongs,
     &Shopsanity,
+    &ShopsanityPrices,
     &Tokensanity,
     &Scrubsanity,
     &ShuffleCows,
@@ -340,13 +363,14 @@ Option ToTAltarHints       = Option::Bool(2, "Temple of Time Altar",{"Off", "On"
 Option GanonHints          = Option::Bool(2, "Ganondorf",           {"Off", "On"},                                                          {ganonHintsDesc});
 Option DampeHint           = Option::Bool(2, "Dampe's Diary",       {"Off", "On"},                                                          {dampeHintDesc});
 Option SkulltulaHints      = Option::Bool(2, "House of Skulltula",  {"Off", "On"},                                                          {skulltulaHintDesc});
+Option FishingHints        = Option::Bool(2, "Fishing Prizes",      {"Off", "On"},                                                          {fishingHintsDesc});
 Option ClearerHints        = Option::U8  ("Hint Clarity",           {"Obscure", "Ambiguous", "Clear"},                                      {obscureHintsDesc, ambiguousHintsDesc, clearHintsDesc});
 Option CompassesShowReward = Option::U8  ("Compasses Show Rewards", {"No", "Yes"},                                                          {compassesShowRewardsDesc});
 Option CompassesShowWotH   = Option::U8  ("Compasses Show WotH",    {"No", "Yes"},                                                          {compassesShowWotHDesc},                                                                                          OptionCategory::Setting,    ON);
 Option MapsShowDungeonMode = Option::U8  ("Maps Show Dungeon Modes",{"No", "Yes"},                                                          {mapsShowDungeonModesDesc},                                                                                       OptionCategory::Setting,    ON);
 Option StartingTime        = Option::U8  ("Starting Time",          {"Day", "Night"},                                                       {startingTimeDesc});
 Option ChestAnimations     = Option::Bool("Chest Animations",       {"Always Fast", "Match Contents"},                                      {chestAnimDesc});
-Option ChestAppearance     = Option::U8  ("Chest Appearance Mod",   {"Vanilla", "Texture", "Size & Texture", "Classic CSMC"},               {chestVanillaDesc, chestTextureDesc, chestSizeTextureDesc, chestClassicDesc});
+Option ChestAppearance     = Option::U8  ("Chest Appearance Mod",   {"Vanilla", "Texture", "Size + Texture", "Classic CSMC"},             {chestVanillaDesc, chestTextureDesc, chestSizeTextureDesc, chestClassicDesc});
 Option ChestAgony          = Option::Bool(2, "Need Shard of Agony", {"No", "Yes"},                                                          {chestAgonyDesc});
 Option GenerateSpoilerLog  = Option::Bool("Generate Spoiler Log",   {"No", "Yes"},                                                          {""},                                                                                                             OptionCategory::Setting,    ON);
 Option IngameSpoilers      = Option::Bool("Ingame Spoilers",        {"Hide", "Show"},                                                       {ingameSpoilersHideDesc, ingameSpoilersShowDesc });
@@ -361,6 +385,7 @@ std::vector<Option *> miscOptions = {
     &GanonHints,
     &DampeHint,
     &SkulltulaHints,
+    &FishingHints,
     &ClearerHints,
     &CompassesShowReward,
     &CompassesShowWotH,
@@ -676,17 +701,9 @@ std::vector<Option *> startingStonesMedallionsOptions = {
 };
 
 // Initialize startingEnemySoulsOptions with one Option for each element in SoulMenuNames
-std::vector<Option> startEnSoOptObjects;
-std::vector<Option *> startingEnemySoulsOptions = [](){
-    startEnSoOptObjects.reserve(SOUL_MAX);
-    std::vector<Option *> options = {};
-    for (SoulMenuInfo info : SoulMenuNames) {
-        Option opt = Option::U8 (info.name, {"Off", "On"}, {""});
-        startEnSoOptObjects.push_back(std::move(opt));
-        options.push_back(&startEnSoOptObjects.back());
-    }
-    return options;
-}();
+std::vector<Option *> startingEnemySoulsOptions = mapArrayToOptions(SoulMenuNames, [](SoulMenuInfo info){
+    return Option::U8 (info.name, {"Off", "On"}, {""});
+});
 
 Option StartingOcarinaButtonL = Option::U8  ("Ocarina Button L", {"Off", "On"}, {""});
 Option StartingOcarinaButtonR = Option::U8  ("Ocarina Button R", {"Off", "On"}, {""});
@@ -1256,14 +1273,16 @@ std::string finalEnemyNaviOuterColor  = EnemyNaviOuterColor.GetSelectedOptionTex
 std::string finalPropNaviOuterColor   = PropNaviOuterColor.GetSelectedOptionText();
 std::string finalSwordTrailOuterColor = SwordTrailOuterColor.GetSelectedOptionText();
 std::string finalSwordTrailInnerColor = SwordTrailInnerColor.GetSelectedOptionText();
-Cosmetics::Color_RGBA8 finalBoomerangColor = {0};
+Color_RGBA8 finalBoomerangColor = {0};
 u8 boomerangTrailColorMode = 0;
 std::string finalChuTrailInnerColor   = BombchuTrailInnerColor.GetSelectedOptionText();
 std::string finalChuTrailOuterColor   = BombchuTrailOuterColor.GetSelectedOptionText();
 
-Option ColoredKeys =     Option::Bool("Colored Small Keys", {"Off", "On"},                                {coloredKeysDesc},                                                                                                                                  OptionCategory::Cosmetic);
-Option ColoredBossKeys = Option::Bool("Colored Boss Keys",  {"Off", "On"},                                {coloredBossKeysDesc},                                                                                                                              OptionCategory::Cosmetic);
-Option MirrorWorld =     Option::U8  ("Mirror World",       {"Off", "On", "Scene", "Entrance", "Random"}, {mirrorWorldOffDesc, mirrorWorldOnDesc, mirrorWorldSceneDesc, mirrorWorldEntranceDesc, mirrorWorldRandomDesc},                                      OptionCategory::Cosmetic);
+Option ColoredKeys         = Option::Bool("Colored Small Keys",     {"Off", "On"},                                {coloredKeysDesc},                                                                                                                                  OptionCategory::Cosmetic);
+Option ColoredBossKeys     = Option::Bool("Colored Boss Keys",      {"Off", "On"},                                {coloredBossKeysDesc},                                                                                                                              OptionCategory::Cosmetic);
+Option MirrorWorld         = Option::U8  ("Mirror World",           {"Off", "On", "Scene", "Entrance", "Random"}, {mirrorWorldOffDesc, mirrorWorldOnDesc, mirrorWorldSceneDesc, mirrorWorldEntranceDesc, mirrorWorldRandomDesc},                                      OptionCategory::Cosmetic);
+Option BetaSoldOut         = Option::Bool("Beta Sold-Out Model",    {"Off", "On"},                                {betaSoldOutDesc},                                                                                                                                  OptionCategory::Cosmetic);
+Option SoullessEnemiesLook = Option::U8  ("Soulless Enemies Look",  {"Purple Flame", "Flashing"},                 {soullessPurpleFlameDesc, soullessFlashingDesc},                                                                                                    OptionCategory::Cosmetic);
 
 std::vector<Option *> cosmeticOptions = {
     &CustomTunicColors,
@@ -1295,6 +1314,8 @@ std::vector<Option *> cosmeticOptions = {
     &ColoredKeys,
     &ColoredBossKeys,
     &MirrorWorld,
+    &BetaSoldOut,
+    &SoullessEnemiesLook,
 };
 
 static std::vector<std::string> musicOptions = {"Off", "On (Mixed)", "On (Grouped)", "On (Own)"};
@@ -1458,6 +1479,11 @@ SettingsContext FillContext() {
     ctx.triforcePiecesTotal    = TriforcePiecesTotal.Value<u8>() + 1;
     ctx.triforcePiecesRequired = TriforcePiecesRequired.Value<u8>() + 1;
 
+    ctx.enemizer = (Enemizer) ? 1 : 0;
+    for (u8 i = 0; i < ENEMY_MAX; i++) {
+        ctx.enemizerList[i] = enemizerListOptions[i]->Value<u8>();
+    }
+
     ctx.shuffleRewards         = ShuffleRewards.Value<u8>();
     ctx.linksPocketItem        = LinksPocketItem.Value<u8>();
     ctx.shuffleSongs           = ShuffleSongs.Value<u8>();
@@ -1524,6 +1550,7 @@ SettingsContext FillContext() {
                       (!StartingLightArrows || (ShuffleMasterSword && !StartingMasterSword)));
     ctx.dampeHint           = DampeHint ? 1 : 0;
     ctx.skulltulaHints      = SkulltulaHints ? 1 : 0;
+    ctx.fishingHints        = FishingHints ? 1 : 0;
     ctx.compassesShowReward = CompassesShowReward.Value<u8>();
     ctx.compassesShowWotH   = CompassesShowWotH.Value<u8>();
     ctx.mapsShowDungeonMode = MapsShowDungeonMode.Value<u8>();
@@ -1547,6 +1574,7 @@ SettingsContext FillContext() {
     ctx.hyperMiddleBosses   = (HyperMiddleBosses) ? 1 : 0;
     ctx.hyperEnemies        = (HyperEnemies) ? 1 : 0;
     ctx.freeCamera          = (FreeCamera) ? 1 : 0;
+    ctx.randomGsLocations   = (RandomGsLocations) ? 1 : 0;
     ctx.randomSongNotes     = (RandomSongNotes) ? 1 : 0;
 
     ctx.faroresWindAnywhere  = (FaroresWindAnywhere) ? 1 : 0;
@@ -1619,6 +1647,7 @@ SettingsContext FillContext() {
     ctx.mirrorWorld                 = MirrorWorld.Value<u8>();
     ctx.coloredKeys                 = (ColoredKeys) ? 1 : 0;
     ctx.coloredBossKeys             = (ColoredBossKeys) ? 1 : 0;
+    ctx.soullessEnemiesLook         = SoullessEnemiesLook.Value<u8>();
     ctx.shuffleSFX                  = ShuffleSFX.Value<u8>();
     ctx.shuffleSFXFootsteps         = (ShuffleSFXFootsteps) ? 1 : 0;
     ctx.shuffleSFXLinkVoice         = (ShuffleSFXLinkVoice) ? 1 : 0;
@@ -1751,6 +1780,18 @@ SettingsContext FillContext() {
 
 // One-time initialization
 void InitSettings() {
+    enemizerListOptions = mapArrayToOptions(Enemizer::enemyTypes, [](Enemizer::EnemyType enemy) {
+        bool hidden = enemy.actorId == 0 || enemy.validLocTypes.empty();
+        return Option::U8(enemy.name, { "Randomized", "Vanilla", "Removed" },
+                          {
+                              enemyRandomizedDesc,
+                              enemyVanillaDesc,
+                              enemyRemovedDesc,
+                          },
+                          OptionCategory::Setting, 0, hidden);
+    });
+    enemizerListMenu    = Menu::SubMenu("Enemy List", &enemizerListOptions, "", false);
+
     // Create Location Exclude settings
     AddExcludedOptions();
 
@@ -1860,6 +1901,13 @@ void ResolveExcludedLocationConflicts() {
         Unhide(rewardsLocations);
     } else {
         IncludeAndHide(rewardsLocations);
+    }
+
+    // Only show Shopsanity prices setting if Shopsanity is enabled
+    if (!Shopsanity.Is(SHOPSANITY_OFF) && !Shopsanity.Is(SHOPSANITY_ZERO)) {
+        ShopsanityPrices.Unhide();
+    } else {
+        ShopsanityPrices.Hide();
     }
 
     // Force Include Vanilla Skulltula locations
@@ -2224,6 +2272,18 @@ void ForceChange(u32 kDown, Option* currentSetting) {
             TriforcePiecesTotal.Hide();
             TriforcePiecesRequired.Hide();
         }
+
+        if (Enemizer) {
+            EnemizerListToggle.Unhide();
+        } else {
+            EnemizerListToggle.Hide();
+        }
+    }
+
+    if (EnemizerListToggle) {
+        // Open Enemy List and reset the toggle option.
+        GoToMenu(&enemizerListMenu);
+        EnemizerListToggle.SetToDefault();
     }
 
     // If Triforce Hunt is enabled, lock Ganon BK setting to the "Triforce" option.
@@ -2292,9 +2352,11 @@ void ForceChange(u32 kDown, Option* currentSetting) {
 
     if (ShuffleEnemySouls || RandomizeShuffle) {
         startingEnemySouls.Unlock();
+        SoullessEnemiesLook.Unlock();
     } else {
         startingEnemySouls.Lock();
         startingInventory.ResetMenuIndex();
+        SoullessEnemiesLook.Lock();
     }
 
     if (ShuffleOcarinaButtons || RandomizeShuffle) {
@@ -2392,7 +2454,7 @@ void ForceChange(u32 kDown, Option* currentSetting) {
     }
 
     // Manage toggle for misc hints options
-    ToggleSet(miscOptions, &MiscHints, &ToTAltarHints, &SkulltulaHints);
+    ToggleSet(miscOptions, &MiscHints, &ToTAltarHints, &FishingHints);
 
     if (ChestAppearance.IsNot(CHESTAPPEARANCE_VANILLA)) {
         ChestAgony.Unhide();
@@ -2733,18 +2795,21 @@ bool IsMQOption(Option *option) {
            option == &MQGTG           ||
            option == &MQCastle;
 }
-// clang-format on
+
 // Options that should be overridden and then restored after generating when racing is enabled
 std::vector<std::pair<Option*, u8>> racingOverrides = {
     { &QuickText, QUICKTEXT_TURBO },
     { &SkipSongReplays, SONGREPLAYS_SKIP_NO_SFX },
     { &ColoredKeys, ON },
     { &ColoredBossKeys, ON },
+    { &SoullessEnemiesLook, SOULLESSLOOK_PURPLE_FLAME },
 };
+// clang-format on
 
 // Options that should be overridden and then restored after generating when vanilla logic is enabled
 std::vector<std::pair<Option*, u8>> vanillaLogicOverrides = {
     { &TriforceHunt, OFF },
+    { &Enemizer, OFF },
     { &LinksPocketItem, LINKSPOCKETITEM_DUNGEON_REWARD },
     { &ShuffleRewards, REWARDSHUFFLE_END_OF_DUNGEON },
     { &ShuffleSongs, SONGSHUFFLE_SONG_LOCATIONS },
@@ -2944,7 +3009,7 @@ static void UpdateCosmetics() {
     }
     // Boomerang Trail
     std::string tempString;
-    Cosmetics::Color_RGBA8 tempColor;
+    Color_RGBA8 tempColor;
     ChooseFinalColor(BoomerangTrailColor, tempString, weaponTrailColors);
     tempColor             = Cosmetics::HexStrToColorRGBA8(tempString);
     finalBoomerangColor.r = tempColor.r;
@@ -3196,6 +3261,7 @@ const std::vector<Menu*> GetAllOptionMenus() {
         std::vector<Menu*> foundMenus = GetMenusRecursive(menu);
         allMenus.insert(allMenus.end(), foundMenus.begin(), foundMenus.end());
     }
+    allMenus.push_back(&enemizerListMenu); // this menu is detached from the others
     return allMenus;
 }
 
@@ -3288,27 +3354,39 @@ bool ValidateSettings() {
         posY += 7;
     }
 
-    // Check that there are no MQ dungeons with Enemy Souls
-    if (ShuffleEnemySouls && Logic.IsNot(LOGIC_NONE) && Logic.IsNot(LOGIC_VANILLA) && MQDungeonCount.IsNot(0)) {
-        if (ShuffleEnemySouls.IsHidden()) {
-            ShuffleEnemySouls.SetSelectedIndex(OFF);
+    // Check that there are no MQ dungeons with Enemy Souls or Enemy Randomizer.
+    if ((ShuffleEnemySouls.Is(SHUFFLEENEMYSOULS_ALL) || Enemizer) && MQDungeonCount.IsNot(0) &&
+        Logic.IsNot(LOGIC_NONE) && Logic.IsNot(LOGIC_VANILLA)) {
+        if (ShuffleEnemySouls.IsHidden() && Enemizer.IsHidden()) {
+            ShuffleEnemySouls.SetSelectedIndex(SHUFFLEENEMYSOULS_OFF);
+            Enemizer.SetSelectedIndex(OFF);
         } else {
             printf("\x1b[%d;0H"
                    "----------------------------------------"
-                   "Enemy Soul Shuffle currently does not\n"
-                   "have logic for Master Quest dungeons.\n\n"
+                   "Enemy Soul Shuffle and Enemy Randomizer\n"
+                   "currently do not have logic for Master\n"
+                   "Quest dungeons.\n"
+                   "\n"
                    "Please disable one of the following:\n"
                    " - MQ Dungeons (setting Count to 0)\n"
                    " - Logic\n"
-                   " - Enemy Soul Shuffle\n"
+                   " - Enemy Soul Shuffle / Enemy Randomizer\n"
                    "----------------------------------------",
                    posY);
             valid = false;
-            posY += 10;
+            posY += 11;
         }
     }
 
     return valid;
+}
+
+std::string TitleId() {
+    if (Region == REGION_EUR) {
+        return "0004000000033600";
+    } else { // REGION_NA
+        return "0004000000033500";
+    }
 }
 
 } // namespace Settings

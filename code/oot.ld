@@ -88,6 +88,10 @@ SECTIONS
 		*(.patch_BeanDaddyModifyBeansBought)
 	}
 
+	.patch_PlayerCheckVoidOut 0x132B64 : {
+		*(.patch_PlayerCheckVoidOut)
+	}
+
 	.patch_BiggoronDontSetBGSFlag 0x133F7C : {
 		*(.patch_BiggoronDontSetBGSFlag)
 	}
@@ -96,12 +100,16 @@ SECTIONS
 		*(.patch_KingZoraDontStartTimer)
 	}
 
+	.patch_StalchildDespawn_13DB68 0x13DB68 : {
+		*(.patch_StalchildDespawn_13DB68)
+	}
+
 	.patch_SongOfStormsLocation 0x1427E0 : {
 		*(.patch_SongOfStormsLocation)
 	}
 
 	.patch_JabuSwitchRutoCheck 0x143AC8 : {
-	  *(.patch_JabuSwitchRutoCheck)
+		*(.patch_JabuSwitchRutoCheck)
 	}
 
 	.patch_OwlMagicCheck 0x144B44 : {
@@ -148,6 +156,18 @@ SECTIONS
 		*(.patch_ScrubNutUpgradeOne)
 	}
 
+	.patch_GrogCheckForShouldDespawn 0x16485C : {
+		*(.patch_GrogCheckForShouldDespawn)
+	}
+
+	.patch_GetObjectEntry_164BC8 0x164BC8 : {
+		*(.patch_GetObjectEntry_164BC8)
+	}
+
+	.patch_CheckFadoCanSpawnInLostWoods 0x1657EC : {
+		*(.patch_CheckFadoCanSpawnInLostWoods)
+	}
+
 	.patch_EnKoInitCheckForest_165834 0x165834 : {
 		*(.patch_EnKoInitCheckForest_165834)
 	}
@@ -176,16 +196,20 @@ SECTIONS
 		*(.patch_MidoCheckDekuTreeClearOne)
 	}
 
+	.patch_GetObjectEntry_EnRdInit_One 0x167DA4 : {
+		*(.patch_GetObjectEntry_EnRdInit_One)
+	}
+
+	.patch_GetObjectEntry_EnRdInit_Two 0x167E38 : {
+		*(.patch_GetObjectEntry_EnRdInit_Two)
+	}
+
 	.patch_SariasSongCheckFlag 0x1686A0 : {
 		*(.patch_SariasSongCheckFlag)
 	}
 
-	.patch_GrogCheckForShouldDespawn 0x16485C : {
-		*(.patch_GrogCheckForShouldDespawn)
-	}
-
-	.patch_CheckFadoCanSpawnInLostWoods 0x1657EC : {
-		*(.patch_CheckFadoCanSpawnInLostWoods)
+	.patch_GetObjectEntry_EnSiInit 0x168B20 : {
+		*(.patch_GetObjectEntry_EnSiInit)
 	}
 
 	.patch_RandomGsLoc_BlockSpawn_Tree 0x16C43C : {
@@ -201,7 +225,7 @@ SECTIONS
 	}
 
 	.patch_MaskSalesmanBorrowMask 0x16D148 : {
-	    *(patch_MaskSalesmanBorrowMask)
+		*(.patch_MaskSalesmanBorrowMask)
 	}
 
 	.patch_KingZoraIgnoreSapphire 0x1736B8 : {
@@ -210,6 +234,10 @@ SECTIONS
 
 	.patch_MidoForestDialog 0x173944 : {
 		*(.patch_MidoForestDialog)
+	}
+
+	.patch_LeeverSandCheck_Big 0x1743D0 : {
+		*(.patch_LeeverSandCheck_Big)
 	}
 
 	.patch_SkipTimeTravelCutsceneOne 0x174DEC : {
@@ -276,8 +304,16 @@ SECTIONS
 		*(.patch_EponasSongCheckFlag)
 	}
 
+	.patch_GetObjectEntry_EnXcInit 0x18D7AC : {
+		*(.patch_GetObjectEntry_EnXcInit)
+	}
+
 	.patch_PreludeLocation 0x18D9FC : {
 		*(.patch_PreludeLocation)
+	}
+
+	.patch_SkullKidPoacherSawCheck 0x18ED80 : {
+		*(.patch_SkullKidPoacherSawCheck)
 	}
 
 	.patch_PoeCollectorCheckPoints 0x19091C : {
@@ -344,6 +380,10 @@ SECTIONS
 		*(.patch_EponasSongCheckFlagTwo)
 	}
 
+	.patch_GohmaLarvaDeathSignalParent 0x1968DC : {
+		*(.patch_GohmaLarvaDeathSignalParent)
+	}
+
 	.patch_AmyBlockCooldownTimer 0x196ECC : {
 		*(.patch_AmyBlockCooldownTimer)
 	}
@@ -360,12 +400,28 @@ SECTIONS
 		*(.patch_PierreSoftlockFixOne)
 	}
 
+	.patch_EnBlkobj_FindDarkLink 0x1A0BC8 : {
+		*(.patch_EnBlkobj_FindDarkLink)
+	}
+
+	.patch_EnBlkobj_SpawnDarkLink 0x1A137C : {
+		*(.patch_EnBlkobj_SpawnDarkLink)
+	}
+
 	.patch_RutoBlueWarpOverride 0x1A1900 : {
 		*(.patch_RutoBlueWarpOverride)
 	}
 
 	.patch_KotakeDontPlayBattleMusic 0x1A8218 : {
 		*(.patch_KotakeDontPlayBattleMusic)
+	}
+
+	.patch_GetObjectEntry_EnGomaInit_One 0x1B3130 : {
+		*(.patch_GetObjectEntry_EnGomaInit_One)
+	}
+
+	.patch_GetObjectEntry_EnGomaInit_Two 0x1B3208 : {
+		*(.patch_GetObjectEntry_EnGomaInit_Two)
 	}
 
 	.patch_GossipStoneAddSariaHint 0x1B3968 : {
@@ -392,6 +448,10 @@ SECTIONS
 		*(.patch_MidoCheckDekuTreeClearThree)
 	}
 
+	.patch_GetObjectEntry_EnTiteInit 0x1BBC9C : {
+		*(.patch_GetObjectEntry_EnTiteInit)
+	}
+
 	.patch_FishingNewRecord 0x1C3AA4 : {
 		*(.patch_FishingNewRecord)
 	}
@@ -414,6 +474,18 @@ SECTIONS
 
 	.patch_KingZoraSetTradedPrescriptionFlag 0x1C52A0 : {
 		*(.patch_KingZoraSetTradedPrescriptionFlag)
+	}
+
+	.patch_GerudoBattleMusic 0x1C6FD8 : {
+		*(.patch_GerudoBattleMusic)
+	}
+
+	.patch_EnEncount1_SpawnLeever 0x1CC94C : {
+		*(.patch_EnEncount1_SpawnLeever)
+	}
+
+	.patch_EnEncount1_SetLeeverAimType 0x1CC984 : {
+		*(.patch_EnEncount1_SetLeeverAimType)
 	}
 
 	.patch_TruthSpinnerSpeed 0x1CD814 : {
@@ -440,6 +512,14 @@ SECTIONS
 		*(.patch_BombchuShopAlwaysOpen)
 	}
 
+	.patch_LeeverDontChangeCategory 0x1DE010 : {
+		*(.patch_LeeverDontChangeCategory)
+	}
+
+	.patch_LeeverSandCheck_Init 0x1DE078 : {
+		*(.patch_LeeverSandCheck_Init)
+	}
+
 	.patch_AdultBlueWarpOverride 0x1E3F50 : {
 		*(.patch_AdultBlueWarpOverride)
 	}
@@ -456,8 +536,16 @@ SECTIONS
 		*(.patch_BoomerangTrailEffect)
 	} /*EnBoom_Draw*/
 
+	.patch_GohmaEggDeathSignalParent 0x1F5F48 : {
+		*(.patch_GohmaEggDeathSignalParent)
+	}
+
 	.patch_ItemGiveBombchuDropOne 0x1F6F70 : {
 		*(.patch_ItemGiveBombchuDropOne)
+	}
+
+	.patch_GetObjectEntry_1F85B0 0x1F85B0 : {
+		*(.patch_GetObjectEntry_1F85B0)
 	}
 
 	.patch_BombchuBowlingStaticReward 0x206150 : {
@@ -513,11 +601,19 @@ SECTIONS
 	}
 
 	.patch_DungeonCheckJabuMQBox 0x21590C : {
-	  *(.patch_DungeonCheckJabuMQBox)
+		*(.patch_DungeonCheckJabuMQBox)
 	}
 
 	.patch_JabuBoxCheckRuto 0x215934 : {
-	  *(.patch_JabuBoxCheckRuto)
+		*(.patch_JabuBoxCheckRuto)
+	}
+
+	.patch_GetObjectEntry_ObjSwitchInit 0x215A60 : {
+		*(.patch_GetObjectEntry_ObjSwitchInit)
+	}
+
+	.patch_EnEncount1_SpawnStalchildWolfos 0x21C020 : {
+		*(.patch_EnEncount1_SpawnStalchildWolfos)
 	}
 
 	.patch_DekuTheaterMaskOfTruth 0x21CA30 : {
@@ -536,16 +632,36 @@ SECTIONS
 		*(.patch_HookshotDrawChain)
 	}
 
+	.patch_GetObjectEntry_EnDekunutsInit 0x2293AC : {
+		*(.patch_GetObjectEntry_EnDekunutsInit)
+	}
+
+	.patch_GetObjectEntry_EnHintnutsInit 0x22AB70 : {
+		*(.patch_GetObjectEntry_EnHintnutsInit)
+	}
+
 	.patch_patch_ItemGiveBombchuDropTwo 0x22BAE4 : {
 		*(.patch_ItemGiveBombchuDropTwo)
+	}
+
+	.patch_GetObjectEntry_EnNutsballInit 0x22DEC4 : {
+		*(.patch_GetObjectEntry_EnNutsballInit)
 	}
 
 	.patch_BusinessScrubCheckFlags 0x22EE64 : {
 		*(.patch_BusinessScrubCheckFlags)
 	}
 
+	.patch_DarkLinkPlayerRecoil 0x22F838 : {
+		*(.patch_DarkLinkPlayerRecoil)
+	}
+
 	.patch_GanonCSEquipMS 0x2359A4 : {
 		*(.patch_GanonCSEquipMS)
+	}
+
+	.patch_AnubisFlameCircleCheck 0x246F64 : {
+		*(.patch_AnubisFlameCircleCheck)
 	}
 
 	.patch_RainbowChuTrailOne 0x247FC0 : {
@@ -558,6 +674,10 @@ SECTIONS
 
 	.patch_EnExItemModelDraw 0x249C94 : {
 		*(.patch_EnExItemModelDraw)
+	}
+
+	.patch_RedeadCanFreezePlayer 0x24DC2C : {
+		*(.patch_RedeadCanFreezePlayer)
 	}
 
 	.patch_SwordTrailDurationGrezzoFix 0x2507D0 : {
@@ -612,12 +732,16 @@ SECTIONS
 		*(.patch_FlyingTileCollision)
 	}
 
+	.patch_DeadHandHandCanGrabPlayer 0x26EB58 : {
+		*(.patch_DeadHandHandCanGrabPlayer)
+	}
+
 	.patch_RedBoulderExplode 0x26FE7C : {
 		*(.patch_RedBoulderExplode)
 	}
 
 	.patch_MaskSalesmanGiveMaskOfTruth 0x271D48 : {
-	    *(.patch_MaskSalesmanGiveMaskOfTruth)
+		*(.patch_MaskSalesmanGiveMaskOfTruth)
 	}
 
 	.patch_SongOfTimeJingle 0x274B1C : {
@@ -721,19 +845,19 @@ SECTIONS
 	}
 
 	.patch_CamUpdate 0x2D84C8 : {
-	    * (.patch_CamUpdate)
+		*(.patch_CamUpdate)
 	}
 
 	.patch_CamRoll 0x2D88E4 : {
-	    *(.patch_CamRoll)
+		*(.patch_CamRoll)
 	}
 
 	.patch_CheckForTextControlCode 0x2E0490 : {
-	    * (.patch_CheckForTextControlCode)
+		*(.patch_CheckForTextControlCode)
 	}
 
 	.patch_HandleTextControlCode 0x2E057C : {
-	    * (.patch_HandleTextControlCode)
+		*(.patch_HandleTextControlCode)
 	}
 
 	.patch_SceneInitAfterCopyScenes 0x2EAFDC : {
@@ -742,6 +866,10 @@ SECTIONS
 
 	.patch_ChildCanOpenBowSubMenu 0x2EB2D8 : {
 		*(.patch_ChildCanOpenBowSubMenu)
+	}
+
+	.patch_FileSelect_CopyFile 0x2EDA04 : {
+		*(.patch_FileSelect_CopyFile)
 	}
 
 	.patch_CorrectCompassChests 0x2F161C : {
@@ -757,7 +885,7 @@ SECTIONS
 	}
 
 	.patch_OcarinaNoteButtonsDraw 0x2F9430 : {
-	    * (.patch_OcarinaNoteButtonsDraw)
+		*(.patch_OcarinaNoteButtonsDraw)
 	}
 
 	.patch_SaveGame 0x2FBFA8 : {
@@ -777,15 +905,15 @@ SECTIONS
 	}
 
 	.patch_OoBBombchuOne 0x315120 : {
-        *(.patch_OoBBombchuOne)
+		*(.patch_OoBBombchuOne)
 	}
 
 	.patch_OoBBombchuTwo 0x31513C : {
-        *(.patch_OoBBombchuTwo)
+		*(.patch_OoBBombchuTwo)
 	}
 
 	.patch_OoBBombchuThree 0x315150 : {
-        *(.patch_OoBBombchuThree)
+		*(.patch_OoBBombchuThree)
 	}
 
 	.patch_CollisionATvsAC 0x3191B0 : {
@@ -824,9 +952,17 @@ SECTIONS
 		*(.patch_LostWoodsBridgeMusic)
 	}
 
-	.patch_ChestGetIceTrapObjectStatus 0x33AB24 : {
-		*(.patch_ChestGetIceTrapObjectStatus)
+	.patch_GetObjectEntry_339DFC 0x339DFC : {
+		*(.patch_GetObjectEntry_339DFC)
 	}
+
+	.patch_GetObjectEntry_33A950 0x33A950 : {
+		*(.patch_GetObjectEntry_33A950)
+	}
+
+	.patch_GetObjectEntry_33AB24 0x33AB24 : {
+		*(.patch_GetObjectEntry_33AB24)
+	} /* Used for: chest ice trap smoke effect */
 
 	.patch_BiggoronDayCheck 0x33DCC0 : {
 		*(.patch_BiggoronDayCheck)
@@ -860,12 +996,28 @@ SECTIONS
 		*(.patch_FWLoadSet)
 	}
 
+	.patch_GetObjectEntry_34F270 0x34F270 : {
+		*(.patch_GetObjectEntry_34F270)
+	}
+
+	.patch_GetObjectEntry_34FE68 0x34FE68 : {
+		*(.patch_GetObjectEntry_34FE68)
+	}
+
 	.patch_FWGetSet 0x3519CC : {
 		*(.patch_FWGetSet)
 	}
 
 	.patch_ApplyDamageMultiplier 0x352DC0 : {
 		*(.patch_ApplyDamageMultiplier)
+	}
+
+	.patch_GetObjectEntry_352F28 0x352F28 : {
+		*(.patch_GetObjectEntry_352F28)
+	} /* Used for: Flare Dancer */
+
+	.patch_GetObjectEntry_353CE4 0x353CE4 : {
+		*(.patch_GetObjectEntry_353CE4)
 	}
 
 	.patch_FastChests 0x354CD4 : {
@@ -892,6 +1044,18 @@ SECTIONS
 		*(.patch_ConvertBombDropOne)
 	}
 
+	.patch_SkullwalltulaAttack_35F328 0x35F328 : {
+		*(.patch_SkullwalltulaAttack_35F328)
+	}
+
+	.patch_SkullwalltulaTargetRotation 0x35F828 : {
+		*(.patch_SkullwalltulaTargetRotation)
+	}
+
+	.patch_SkullwalltulaAttack_35F834 0x35F834 : {
+		*(.patch_SkullwalltulaAttack_35F834)
+	}
+
 	.patch_ISGCrouchStab 0x360690 : {
 		*(.patch_ISGCrouchStab)
 	}
@@ -900,9 +1064,17 @@ SECTIONS
 		*(.patch_ForceTrailEffectUpdate)
 	} /*EffectBlure_AddVertex*/
 
-	.patch_ModelSpawnGetObjectStatus 0x36A96C : {
-		*(.patch_ModelSpawnGetObjectStatus)
+	.patch_ExtendObjectGetSlot 0x363CB4 : {
+		*(.patch_ExtendObjectGetSlot)
 	}
+
+	.patch_StalchildDespawn_366338 0x366338 : {
+		*(.patch_StalchildDespawn_366338)
+	}
+
+	.patch_GetObjectEntry_36A96C 0x36A96C : {
+		*(.patch_GetObjectEntry_36A96C)
+	} /* Used for: freestanding item models */
 
 	.patch_IgnoreMaskReaction 0x36BBC4 : {
 		*(.patch_IgnoreMaskReaction)
@@ -925,11 +1097,19 @@ SECTIONS
 	}
 
 	.patch_MaskSalesmanCheckNoMaskOne 0x372B64 : {
-	    *(.patch_MaskSalesmanCheckNoMask)
+		*(.patch_MaskSalesmanCheckNoMaskOne)
 	}
 
 	.patch_MaskSalesmanCheckNoMaskTwo 0x372B70 : {
-	    *(.patch_MaskSalesmanCheckNoMaskTwo)
+		*(.patch_MaskSalesmanCheckNoMaskTwo)
+	}
+
+	.patch_GetObjectEntry_372F7C 0x372F7C : {
+	    *(.patch_GetObjectEntry_372F7C)
+	}
+
+	.patch_OverrideObjectIsLoaded 0x373074 : {
+	    *(.patch_OverrideObjectIsLoaded)
 	}
 
 	.patch_ConvertBombDropTwo 0x3747A4 : {
@@ -956,16 +1136,20 @@ SECTIONS
 		*(.patch_GKSetDurability)
 	}
 
-	.patch_GiveItemMasterSword 0x376C18 : {
-		*(.patch_GiveItemMasterSword)
-	}
-
 	.patch_GiantsKnifeWithoutKokiriSword 0x376BEC : {
 		*(.patch_GiantsKnifeWithoutKokiriSword)
 	}
 
+	.patch_GiveItemMasterSword 0x376C18 : {
+		*(.patch_GiveItemMasterSword)
+	}
+
 	.patch_NoLensOfTruthNaviText 0x37798C : {
 		*(.patch_NoLensOfTruthNaviText)
+	}
+
+	.patch_AltHeadersCommand 0x379020 : {
+		*(.patch_AltHeadersCommand)
 	}
 
 	.patch_FrogRewardPurple 0x3898F0 : {
@@ -992,6 +1176,10 @@ SECTIONS
 		*(.patch_SariasSongHintsTwo)
 	}
 
+	.patch_PeahatLarvaGroundCheck 0x391740 : {
+		*(.patch_PeahatLarvaGroundCheck)
+	}
+
 	.patch_OcarinaMinigameEndAfterWin 0x39DF38 : {
 		*(.patch_OcarinaMinigameEndAfterWin)
 	}
@@ -1002,6 +1190,14 @@ SECTIONS
 
 	.patch_OverrideDrawItemThree 0x3A0EA8 : {
 		*(.patch_OverrideDrawItemThree)
+	}
+
+	.patch_AfterInvalidatingRoomObjects 0x3A7698 : {
+		*(.patch_AfterInvalidatingRoomObjects)
+	}
+
+	.patch_AfterObjectListCommand 0x3A7708 : {
+		*(.patch_AfterObjectListCommand)
 	}
 
 	.patch_KokiriCheckOpenForest 0x3ACCFC : {
@@ -1034,6 +1230,10 @@ SECTIONS
 
 	.patch_ShabomAfterDamagePlayer 0x3B5060 : {
 		*(.patch_ShabomAfterDamagePlayer)
+	}
+
+	.patch_BabyDodongoWallCheck 0x3B833C : {
+		*(.patch_BabyDodongoWallCheck)
 	}
 
 	.patch_RandomGsLoc_CustomTokenSpawnOffset 0x3B94C4 : {
@@ -1100,6 +1300,18 @@ SECTIONS
 		*(.patch_MalonNextAction)
 	}
 
+	.patch_BombPurchaseableCheck 0x3CE800 : {
+		*(.patch_BombPurchaseableCheck)
+	}
+
+	.patch_ScrubStickUpgradeTwo 0x3CE990 : {
+		*(.patch_ScrubStickUpgradeTwo)
+	}
+
+	.patch_ScrubNutUpgradeTwo 0x3CE9DC : {
+		*(.patch_ScrubNutUpgradeTwo)
+	}
+
 	.patch_GrannySetRewardFlag 0x3D0E34 : {
 		*(.patch_GrannySetRewardFlag)
 	}
@@ -1112,20 +1324,20 @@ SECTIONS
 		*(.patch_MidoCheckDekuTreeClearFour)
 	}
 
+	.patch_LeeverAfterDie 0x3D4E10 : {
+		*(.patch_LeeverAfterDie)
+	}
+
+	.patch_LeeverAfterSink 0x3D6188 : {
+		*(.patch_LeeverAfterSink)
+	}
+
+	.patch_LeeverSandCheck_Small 0x3DE2A0 : {
+		*(.patch_LeeverSandCheck_Small)
+	}
+
 	.patch_ShadowShip_Speed 0x3DFB30 : {
 		*(.patch_ShadowShip_Speed)
-	}
-
-	.patch_BombPurchaseableCheck 0x3CE800 : {
-		*(.patch_BombPurchaseableCheck)
-	}
-
-	.patch_ScrubStickUpgradeTwo 0x3CE990 : {
-		*(.patch_ScrubStickUpgradeTwo)
-	}
-
-	.patch_ScrubNutUpgradeTwo 0x3CE9DC : {
-		*(.patch_ScrubNutUpgradeTwo)
 	}
 
 	.patch_FireBlockSpeed 0x3E0BB4 : {
@@ -1150,6 +1362,10 @@ SECTIONS
 
 	.patch_ShadowShip_CSTimer 0x3E6C50 : {
 		*(.patch_ShadowShip_CSTimer)
+	}
+
+	.patch_FlyingPotDontChangeCategory 0x3E7008 : {
+		*(.patch_FlyingPotDontChangeCategory)
 	}
 
 	.patch_FairyReward 0x3E7598 : {
@@ -1240,352 +1456,377 @@ SECTIONS
 		*(.patch_SleepQueryCallback)
 	}
 
-	.patch_OcarinaNoteButtonsPress 0x41AAAC : {
-	    * (.patch_OcarinaNoteButtonsPress)
+	/* Start of regional differences: 0x41A144 */
+	region_offset = DEFINED(_EUR_) ? 0x24 : 0;
+
+	.patch_OcarinaNoteButtonsPress 0x41AAAC + region_offset : {
+		*(.patch_OcarinaNoteButtonsPress)
 	}
 
-	.patch_CurseTrapDizzyStick 0x41AB24 : {
+	.patch_CurseTrapDizzyStick 0x41AB24 + region_offset : {
 		*(.patch_CurseTrapDizzyStick)
 	}
 
-	.patch_CurseTrapDizzyButtons 0x41ABDC : {
+	.patch_CurseTrapDizzyButtons 0x41ABDC + region_offset : {
 		*(.patch_CurseTrapDizzyButtons)
 	}
 
-	.patch_PermadeathSkipMenu 0x41C980 : {
+	.patch_PermadeathSkipMenu 0x41C980 + region_offset : {
 		*(.patch_PermadeathSkipMenu)
 	}
 
-	.patch_SaveMenuIgnoreOpen 0x42EC00 : {
+	.patch_SaveMenuIgnoreOpen 0x42EC00 + region_offset : {
 		*(.patch_SaveMenuIgnoreOpen)
 	}
 
-	.patch_ItemsMenuDraw 0x434C08 : {
+	.patch_ItemsMenuDraw 0x434C08 + region_offset : {
 		*(.patch_ItemsMenuDraw)
 	}
 
-	.patch_GearMenuEmptySlot 0x438C00 : {
+	.patch_PlayInit 0x4352F4 + region_offset : {
+		*(.patch_PlayInit)
+	}
+
+	/* Variation of regional differences: 0x436690 */
+	region_offset = DEFINED(_EUR_) ? 0x20 : 0;
+
+	.patch_GearMenuEmptySlot 0x438C00 + region_offset : {
 		*(.patch_GearMenuEmptySlot)
 	}
 
-	.patch_BeforeLoadGame 0x447380 : {
+	.patch_BeforeLoadGame 0x447380 + region_offset : {
 		*(.patch_BeforeLoadGame)
 	}
 
-	.patch_AfterLoadGame 0x449F00 : {
-		*(.patch_AfterLoadGame)
-	}
-
-	.patch_DontSetMotionSetting 0x447410 : {
+	.patch_DontSetMotionSetting 0x447410 + region_offset : {
 		*(.patch_DontSetMotionSetting)
 	}
 
-	.patch_OverrideFogDuringGameplayInit 0x4485B4 : {
+	.patch_OverrideFogDuringGameplayInit 0x4485B4 + region_offset : {
 		*(.patch_OverrideFogDuringGameplayInit)
 	}
 
-	.patch_CheckForWeirdEggHatchGameplayInit 0x448A64 : {
-	    *(.patch_CheckForWeirdEggHatchGameplayInit)
+	.patch_CheckForWeirdEggHatchGameplayInit 0x448A64 + region_offset : {
+		*(.patch_CheckForWeirdEggHatchGameplayInit)
 	}
 
-	.patch_CheckForPocketCuccoHatchGameplayInit 0x448A80 : {
+	.patch_CheckForPocketCuccoHatchGameplayInit 0x448A80 + region_offset : {
 		*(.patch_CheckForPocketCuccoHatchGameplayInit)
 	}
 
-	.patch_InitSceneMirrorWorld 0x4490DC : {
+	.patch_InitSceneMirrorWorld 0x4490DC + region_offset : {
 		*(.patch_InitSceneMirrorWorld)
 	}
 
-	.patch_InitSceneEntranceOverride 0x449190 : {
+	.patch_InitSceneEntranceOverride 0x449190 + region_offset : {
 		*(.patch_InitSceneEntranceOverride)
 	}
 
-	.patch_InitSceneClearExtendedObjects 0x449218 : {
+	.patch_InitSceneClearExtendedObjects 0x449218 + region_offset : {
 		*(.patch_InitSceneClearExtendedObjects)
 	}
 
-	.patch_SaveFile_Init 0x449A04 : {
+	.patch_SaveFile_Init 0x449A04 + region_offset : {
 		*(.patch_SaveFile_Init)
 	}
 
-	.patch_SavewarpSetRespawnFlag 0x449E40 : {
+	.patch_SavewarpSetRespawnFlag 0x449E40 + region_offset : {
 		*(.patch_SavewarpSetRespawnFlag)
 	}
 
-	.patch_Multiplayer_OnLoadFile 0x449EFC : {
+	.patch_Multiplayer_OnLoadFile 0x449EFC + region_offset : {
 		*(.patch_Multiplayer_OnLoadFile)
 	}
 
-	.patch_GetCustomMessageEntryTwo 0x44D564 : {
+	.patch_AfterLoadGame 0x449F00 + region_offset : {
+		*(.patch_AfterLoadGame)
+	}
+
+	.patch_GetCustomMessageEntryTwo 0x44D564 + region_offset : {
 		*(.patch_GetCustomMessageEntryTwo)
 	}
 
-	.patch_GetCustomMessageTextTwo 0x44D5A4 : {
+	.patch_GetCustomMessageTextTwo 0x44D5A4 + region_offset : {
 		*(.patch_GetCustomMessageTextTwo)
 	}
 
-	.patch_GameplayDestroy 0x44E294 : {
+	.patch_GameplayDestroy 0x44E294 + region_offset : {
 		*(.patch_GameplayDestroy)
 	}
 
-	.patch_ExtendedObjectClear 0x44E754 : {
-		*(.patch_ExtendedObjectClear)
+	.patch_ExtendedObjectClear 0x44E758 + region_offset : {
+			*(.patch_ExtendedObjectClear)
 	}
 
-	.patch_Multiplayer_UpdatePrevActorFlags 0x44E878 : {
+	.patch_Multiplayer_UpdatePrevActorFlags 0x44E878 + region_offset : {
 		*(.patch_Multiplayer_UpdatePrevActorFlags)
 	}
 
-	.patch_PlayEntranceCutscene 0x44F068 : {
+	.patch_PlayEntranceCutscene 0x44F068 + region_offset : {
 		*(.patch_PlayEntranceCutscene)
 	}
 
-	.patch_RequiemLocation 0x44F104 : {
+	.patch_RequiemLocation 0x44F104 + region_offset : {
 		*(.patch_RequiemLocation)
 	}
 
-	.patch_NocturneLocation 0x44F12C : {
+	.patch_NocturneLocation 0x44F12C + region_offset : {
 		*(.patch_NocturneLocation)
 	}
 
-	.patch_SariasGift 0x44F188 : {
+	.patch_SariasGift 0x44F188 + region_offset : {
 		*(.patch_SariasGift)
 	}
 
-	.patch_LACSConditionOne 0x44F1D4 : {
+	.patch_LACSConditionOne 0x44F1D4 + region_offset : {
 		*(.patch_LACSConditionOne)
 	}
 
-	.patch_LACSConditionTwo 0x44F20C : {
+	.patch_LACSConditionTwo 0x44F20C + region_offset : {
 		*(.patch_LACSConditionTwo)
 	}
 
-	.patch_BossChallenge_Enter 0x44F634 : {
+	.patch_BossChallenge_Enter 0x44F634 + region_offset : {
 		*(.patch_BossChallenge_Enter)
 	}
 
-	.patch_SetSavewarpEntrance 0x44FBE4 : {
+	.patch_SetSavewarpEntrance 0x44FBE4 + region_offset : {
 		*(.patch_SetSavewarpEntrance)
 	}
 
-	.patch_LullabyCheckFlag 0x44FD54 : {
+	.patch_LullabyCheckFlag 0x44FD54 + region_offset : {
 		*(.patch_LullabyCheckFlag)
 	}
 
-	.patch_LoadFileSwordless 0x44FD98 : {
+	.patch_LoadFileSwordless 0x44FD98 + region_offset : {
 		*(.patch_LoadFileSwordless)
 	}
 
-	.patch_OpenSaveDontSpoilTradeItems 0x44FDF8 : {
+	.patch_OpenSaveDontSpoilTradeItems 0x44FDF8 + region_offset : {
 		*(.patch_OpenSaveDontSpoilTradeItems)
 	}
 
-	.patch_OnActorSetup_SceneChange 0x452250 : {
+	.patch_OnActorSetup_SceneChange 0x452250 + region_offset : {
 		*(.patch_OnActorSetup_SceneChange)
 	}
 
-	.patch_AfterActorSetup_SceneChange 0x4522B8 : {
+	.patch_AfterActorSetup_SceneChange 0x4522B8 + region_offset : {
 		*(.patch_AfterActorSetup_SceneChange)
 	}
 
-	.patch_before_GlobalContext_Update 0x452390 : {
+	.patch_before_GlobalContext_Update 0x452390 + region_offset : {
 		*(.patch_before_GlobalContext_Update)
 	}
 
-	.patch_after_GlobalContext_Update 0x452434 : {
+	.patch_after_GlobalContext_Update 0x452434 + region_offset : {
 		*(.patch_after_GlobalContext_Update)
 	}
 
-	.patch_FixItemsMenuSlotDuplication 0x456B90 : {
+	.patch_FixItemsMenuSlotDuplication 0x456B90 + region_offset : {
 		*(.patch_FixItemsMenuSlotDuplication)
 	}
 
-	.patch_GameOverDontSpoilTradeItems 0x458BE0 : {
+	.patch_GameOverDontSpoilTradeItems 0x458BE0 + region_offset : {
 		*(.patch_GameOverDontSpoilTradeItems)
 	}
 
-	.patch_DeathHandleBButton 0x458CA8 : {
+	.patch_DeathHandleBButton 0x458CA8 + region_offset : {
 		*(.patch_DeathHandleBButton)
 	}
 
-	.patch_PermadeathForceQuit 0x458E20 : {
+	.patch_PermadeathForceQuit 0x458E20 + region_offset : {
 		*(.patch_PermadeathForceQuit)
 	}
 
-	.patch_SetGameOverEntrance 0x458E3C : {
+	.patch_SetGameOverEntrance 0x458E3C + region_offset : {
 		*(.patch_SetGameOverEntrance)
 	}
 
-	.patch_SetGameOverRespawnFlag 0x458EF0 : {
+	.patch_SetGameOverRespawnFlag 0x458EF0 + region_offset : {
 		*(.patch_SetGameOverRespawnFlag)
 	}
 
-	.patch_InterfaceDrawDontSpoilTradeItems 0x45A17C : {
+	.patch_InterfaceDrawDontSpoilTradeItems 0x45A17C + region_offset : {
 		*(.patch_InterfaceDrawDontSpoilTradeItems)
 	}
 
-	.patch_TimerExpiration 0x45A948 : {
+	.patch_TimerExpiration 0x45A948 + region_offset : {
 		*(.patch_TimerExpiration)
 	}
 
-	.patch_Timer2TickSound 0x45A9B4 : {
+	.patch_Timer2TickSound 0x45A9B4 + region_offset : {
 		*(.patch_Timer2TickSound)
 	}
 
-	.patch_SunsSongEndCloseTextbox 0x45B514 : {
+	.patch_SunsSongEndCloseTextbox 0x45B514 + region_offset : {
 		*(.patch_SunsSongEndCloseTextbox)
 	}
 
-	.patch_SetSunsSongRespawnFlag 0x45B660 : {
+	.patch_SetSunsSongRespawnFlag 0x45B660 + region_offset : {
 		*(.patch_SetSunsSongRespawnFlag)
 	}
 
-	.patch_BossChallenge_ExitMenu 0x45CCA4 : {
+	.patch_BossChallenge_ExitMenu 0x45CCA4 + region_offset : {
 		*(.patch_BossChallenge_ExitMenu)
 	}
 
-	.patch_StoreChildBButtonEquip 0x45F20C : {
+	.patch_StoreChildBButtonEquip 0x45F20C + region_offset : {
 		*(.patch_StoreChildBButtonEquip)
 	}
 
-	.patch_BecomeAdult 0x45F230 : {
+	.patch_BecomeAdult 0x45F230 + region_offset : {
 		*(.patch_BecomeAdult)
 	}
 
-	.patch_AlwaysRestoreChildEquips 0x45F3B0 : {
+	.patch_AlwaysRestoreChildEquips 0x45F3B0 + region_offset : {
 		*(.patch_AlwaysRestoreChildEquips)
 	}
 
-	.patch_ChildDontEquipSwordSlotByDefault 0x45F49C : {
+	.patch_ChildDontEquipSwordSlotByDefault 0x45F49C + region_offset : {
 		*(.patch_ChildDontEquipSwordSlotByDefault)
 	}
 
-	.patch_OnActorSetup_RoomChange 0x4613C4 : {
+	.patch_OnActorSetup_RoomChange 0x4613C4 + region_offset : {
 		*(.patch_OnActorSetup_RoomChange)
 	}
 
-	.patch_AfterActorSetup_RoomChange 0x461434 : {
+	.patch_AfterActorSetup_RoomChange 0x461434 + region_offset : {
 		*(.patch_AfterActorSetup_RoomChange)
 	}
 
-	.patch_ActorUpdate 0x461790 : {
+	.patch_FixActorKillLoop 0x4615E0 + region_offset : {
+		*(.patch_FixActorKillLoop)
+	}
+
+	.patch_ActorUpdate 0x461790 + region_offset : {
 		*(.patch_ActorUpdate)
 	}
 
-	.patch_TitleCardUpdate 0x4618B8 : {
+	.patch_TitleCardUpdate 0x4618B8 + region_offset : {
 		*(.patch_TitleCardUpdate)
 	}
 
-	.patch_ItemsMenuNumSprites 0x46B758 : {
+	.patch_ItemsMenuNumSprites 0x46B758 + region_offset : {
 		*(.patch_ItemsMenuNumSprites)
 	}
 
-	.patch_CheckForWeirdEggHatchKankyo 0x470D00 : {
-	    *(.patch_CheckForWeirdEggHatchKankyo)
+	.patch_CheckForWeirdEggHatchKankyo 0x470D00 + region_offset : {
+		*(.patch_CheckForWeirdEggHatchKankyo)
 	}
 
-	.patch_CheckForPocketCuccoHatchKankyo 0x470D1C : {
+	.patch_CheckForPocketCuccoHatchKankyo 0x470D1C + region_offset : {
 		*(.patch_CheckForPocketCuccoHatchKankyo)
 	}
 
-	.patch_CriticalHealthCheckOne 0x4715B8 : {
+	.patch_CriticalHealthCheckOne 0x4715B8 + region_offset : {
 		*(.patch_CriticalHealthCheckOne)
 	}
 
-	.patch_CriticalHealthCheckTwo 0x4716D4 : {
+	.patch_CriticalHealthCheckTwo 0x4716D4 + region_offset : {
 		*(.patch_CriticalHealthCheckTwo)
 	}
 
-	.patch_EnableFW 0x476D1C : {
+	.patch_EnableFW 0x476D1C + region_offset : {
 		*(.patch_EnableFW)
 	}
 
-	.patch_StoreTargetActorType 0x479984 : {
+	.patch_StoreTargetActorType 0x479984 + region_offset : {
 		*(.patch_StoreTargetActorType)
 	}
 
-	.patch_TargetReticleColor 0x47B284 : {
+	.patch_TargetReticleColor 0x47B284 + region_offset : {
 		*(.patch_TargetReticleColor)
 	}
 
-	.patch_TargetPointerColor 0x47BAE8 : {
+	.patch_TargetPointerColor 0x47BAE8 + region_offset : {
 		*(.patch_TargetPointerColor)
 	}
 
-	.patch_FWKeepWarpPoint 0x47C3C0 : {
+	.patch_FWKeepWarpPoint 0x47C3C0 + region_offset : {
 		*(.patch_FWKeepWarpPoint)
 	}
 
-	.patch_TurboTextAdvance 0x480928 : {
+	.patch_TurboTextAdvance 0x480928 + region_offset : {
 		*(.patch_TurboTextAdvance)
 	}
 
-	.patch_SetBGMDayNight 0x483C88 : {
+	.patch_SetBGMDayNight 0x483C88 + region_offset : {
 		*(.patch_SetBGMDayNight)
 	}
 
-	.patch_TurboTextClose 0x488214 : {
+	.patch_Cutscene_CheckObjectLoaded 0x4849D8 + region_offset : {
+		*(.patch_Cutscene_CheckObjectLoaded)
+	}
+
+	.patch_TurboTextClose 0x488214 + region_offset : {
 		*(.patch_TurboTextClose)
 	}
 
-	.patch_WarpSongEntranceOverride 0x488850 : {
+	.patch_WarpSongEntranceOverride 0x488850 + region_offset : {
 		*(.patch_WarpSongEntranceOverride)
 	}
 
-	.patch_SetFWPlayerParams 0x4911B8 : {
+	.patch_SetFWPlayerParams 0x4911B8 + region_offset : {
 		*(.patch_SetFWPlayerParams)
 	}
 
-	.patch_SwapFaroresWind 0x49186C : {
+	.patch_SwapFaroresWind 0x49186C + region_offset : {
 		*(.patch_SwapFaroresWind)
 	}
 
-	.patch_SkipTimeTravelCutsceneTwo 0x4918C8 : {
-		*(.patch_SkipTimeTravelCutsceneTwo)
-	}
-
-	.patch_SwapAgeIgnoreSceneSetup 0x4918B0 : {
+	.patch_SwapAgeIgnoreSceneSetup 0x4918B0 + region_offset : {
 		*(.patch_SwapAgeIgnoreSceneSetup)
 	}
 
-	.patch_DMTOwlEntranceOverride 0x492064 : {
+	.patch_SkipTimeTravelCutsceneTwo 0x4918C8 + region_offset : {
+		*(.patch_SkipTimeTravelCutsceneTwo)
+	}
+
+	.patch_DMTOwlEntranceOverride 0x492064 + region_offset : {
 		*(.patch_DMTOwlEntranceOverride)
 	}
 
-	.patch_LHOwlEntranceOverride 0x492080 : {
+	.patch_LHOwlEntranceOverride 0x492080 + region_offset : {
 		*(.patch_LHOwlEntranceOverride)
 	}
 
-	.patch_FairyUseHealAmount 0x4968B4 : {
+	.patch_FairyUseHealAmount 0x4968B4 + region_offset : {
 		*(.patch_FairyUseHealAmount)
 	}
 
-	.patch_SendDroppedBottleContents 0x496A1C : {
+	.patch_SendDroppedBottleContents 0x496A1C + region_offset : {
 		*(.patch_SendDroppedBottleContents)
 	}
 
-	.patch_ReturnFW 0x496B88 : {
+	.patch_ReturnFW 0x496B88 + region_offset : {
 		*(.patch_ReturnFW)
 	}
 
-	.patch_SetSpecialVoidOutRespawnFlag 0x496C70 : {
+	.patch_SetSpecialVoidOutRespawnFlag 0x496C70 + region_offset : {
 		*(.patch_SetSpecialVoidOutRespawnFlag)
 	}
 
-	.patch_GanonBattleDeathWarp 0x496C98 : {
+	.patch_GanonBattleDeathWarp 0x496C98 + region_offset : {
 		*(.patch_GanonBattleDeathWarp)
 	}
 
-	.patch_GanonRestoreMSOnDeath 0x496CB4 : {
+	.patch_GanonRestoreMSOnDeath 0x496CB4 + region_offset : {
 		*(.patch_GanonRestoreMSOnDeath)
 	}
 
-	.patch_CriticalHealthCheckThree 0x49F294 : {
+	.patch_CriticalHealthCheckThree 0x49F294 + region_offset : {
 		*(.patch_CriticalHealthCheckThree)
 	}
 
-	.patch_OverrideGiDrawIdPlusOne 0x4BC610 : {
-		*(.patch_OverrideGiDrawIdPlusOne)
+	/* End of regional differences: 0x4A5AE0 */
+	region_offset = 0;
+
+	.patch_OverrideGiDrawIdPlusOne_Ground 0x4BC610 : {
+		*(.patch_OverrideGiDrawIdPlusOne_Ground)
+	}
+
+	.patch_OverrideGiDrawIdPlusOne_Water 0x4BD5DC : {
+		*(.patch_OverrideGiDrawIdPlusOne_Water)
 	}
 
 	.patch_EditDrawGetItemBeforeModelSpawn 0x4C0FD0 : {
@@ -1618,26 +1859,6 @@ SECTIONS
 		*(.patch_DampeSetCollectibleFlag)
 	}
 
-	.patch_KingDodongoID 0x514594 : {
-		*(.patch_KingDodongoID)
-	}
-
-	.patch_KingDodongoFireBreathID 0x520D38 : {
-		*(.patch_KingDodongoFireBreathID)
-	}
-
-	.patch_PhantomGanonLightningID 0x523698 : {
-		*(.patch_PhantomGanonLightningID)
-	}
-
-	.patch_GohmaLarvaID 0x525F24 : {
-		*(.patch_GohmaLarvaID)
-	}
-
-	.patch_VolvagiaRockID 0x52FDB4 : {
-		*(.patch_VolvagiaRockID)
-	}
-
 	.patch_BombchuCheapestPriceOne 0x525348 : {
 		*(.patch_BombchuCheapestPriceOne)
 	}
@@ -1662,16 +1883,24 @@ SECTIONS
 		*(.patch_TycoonWalletSize)
 	}
 
+	.patch_TitleLinkObject 0x53CCF0 : {
+		*(.patch_TitleLinkObject)
+	}
+
 	. = 0x005C7000;
 	.text : {
 		__text_start = . ;
-		*(.text)
-		*(.text.*)
-		*(.rodata)
-		*(.data)
-		*(.bss)
+		*(.text*)
+		*(.rodata*)
+		*(.data*)
+		*(.bss*)
+		*(.init*)
+		*(.fini*)
+		*(.eh_frame*)
+		*(.init_array*)
+		*(.fini_array*)
 		*(COMMON)
 		rCustomMessages = . ;
-		__text_end  = . ;
+		__text_end = . ;
 	}
 }

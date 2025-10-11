@@ -5,7 +5,7 @@
 #include "savefile.h"
 #include "settings.h"
 
-#define GyroDrawHUDIcon *(u8*)0x4FC648
+#define GyroDrawHUDIcon (*(u8*)GAME_ADDR(0x4FC648))
 s16 pitch = 0, yaw = 0;
 f32 dist = 0;
 
@@ -246,7 +246,7 @@ void Camera_FreeCamUpdate(Vec3s* out, Camera* camera) {
         s16 bgId          = camera->player->actor.floorBgId;
         s16 newCamDataIdx = Camera_GetCamDataId(&camera->globalCtx->colCtx, camera->player->actor.floorPoly, bgId);
         s16 newSetting =
-            (bgId == 0x32) ? camera->globalCtx->colCtx.stat.colHeader->camDataList[newCamDataIdx].setting : 0;
+            (bgId == 0x32) ? camera->globalCtx->colCtx.stat.colHeader->bgCamList[newCamDataIdx].setting : 0;
 
         if (newCamDataIdx != -1 && newSetting && (newSetting != 0x35 || gSaveContext.linkAge) &&
             camera->player->actor.world.pos.y - camera->player->actor.floorHeight < 2) {
