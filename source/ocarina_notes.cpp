@@ -31,16 +31,15 @@ static constexpr u8 vanillaRequiredButtons[OCARINA_SONG_MAX] = {
 
 OcarinaSongButtonSequence rSongData[OCARINA_SONG_MAX];
 u8 rSongRequiredButtons[OCARINA_SONG_MAX];
+u8 rFrogSongNotes[FROG_SONG_LENGTH];
 
-OcarinaSongButtonSequence GetRandomSong(u8 songLength) {
-    OcarinaSongButtonSequence songNotes = { .length = songLength, .buttons = { 0 } };
+static void RandomizeNoteSequence(u8 noteSequence[], u8 songLength) {
     for (u32 noteIndex = 0; noteIndex < songLength; noteIndex++) {
-        songNotes.buttons[noteIndex] = Random(OCARINA_BUTTON_L, OCARINA_BUTTON_MAX);
+        noteSequence[noteIndex] = Random(OCARINA_BUTTON_L, OCARINA_BUTTON_MAX);
     }
-    return songNotes;
 }
 
-bool IsValidSong(OcarinaSongButtonSequence song) {
+static bool IsValidSong(OcarinaSongButtonSequence song) {
     // Check if this song contains or is contained by another song.
     for (OcarinaSongButtonSequence otherSong : rSongData) {
         if (otherSong.length == 0)
@@ -67,13 +66,14 @@ void GenerateSongList(void) {
     // Generate random songs
     for (u8 songId = OCARINA_SONG_MINUET; songId < OCARINA_SONG_MAX; songId++) {
         for (u32 attempts = 0; attempts < 1000; attempts++) {
-            OcarinaSongButtonSequence randomSong;
+            OcarinaSongButtonSequence randomSong = { 0 };
             if (songId <= OCARINA_SONG_PRELUDE) {
                 // warp songs: random length between 5 and 8
-                randomSong = GetRandomSong(Random(5, 9));
+                randomSong.length = Random(5, 9);
+                RandomizeNoteSequence(randomSong.buttons, randomSong.length);
             } else {
                 // regular songs: 3 notes repeated twice
-                randomSong            = GetRandomSong(3);
+                RandomizeNoteSequence(randomSong.buttons, 3);
                 randomSong.length     = 6;
                 randomSong.buttons[3] = randomSong.buttons[0];
                 randomSong.buttons[4] = randomSong.buttons[1];
@@ -89,4 +89,6 @@ void GenerateSongList(void) {
             }
         }
     }
+
+    RandomizeNoteSequence(rFrogSongNotes, FROG_SONG_LENGTH);
 }

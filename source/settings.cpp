@@ -15,7 +15,6 @@
 #include "keys.hpp"
 #include "gold_skulltulas.hpp"
 #include "enemizer.hpp"
-#include "ocarina_notes.hpp"
 
 #define CREATE_SOULMENUNAMES
 #include "../code/src/enemy_souls.h"
@@ -3208,8 +3207,6 @@ void UpdateSettings() {
     } else {
         LACSCondition = LACSCONDITION_VANILLA;
     }
-
-    GenerateSongList();
 
     UpdateCosmetics();
 
