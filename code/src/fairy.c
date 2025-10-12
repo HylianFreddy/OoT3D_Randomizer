@@ -188,7 +188,7 @@ void BgDyYoseizo_rInit(Actor* thisx, GlobalContext* globalCtx) {
 void BgDyYoseizo_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     BgDyYoseizo* this = (BgDyYoseizo*)thisx;
 
-    globalCtx->lightSettingOverride = PLAYER->actor.world.pos.z < -300 ? 2 : 0xFF;
+    globalCtx->envCtx.lightSettingOverride = PLAYER->actor.world.pos.z < -300 ? 2 : 0xFF;
 
     SkelAnime_Update(&this->skelAnime);
 
