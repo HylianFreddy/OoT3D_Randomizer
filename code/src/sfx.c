@@ -13,7 +13,8 @@ u8 SeqTypeIsMovement(SeqType type) {
 }
 
 u32 SetSFX(u32 original) {
-    if (IsInGameOrBossChallenge() && PLAYER->stateFuncPtr == (void*)GAME_ADDR(0x492A3C) && // rolling
+    u8 playerIsInGame = gGlobalContext && PLAYER && IsInGameOrBossChallenge();
+    if (playerIsInGame && PLAYER->stateFuncPtr == (void*)GAME_ADDR(0x492A3C) && // rolling
         ((gExtSaveData.option_SilentRolls > 0 &&
           (original == 0x10004EB || original == 0x100050B)) || // adult voice and child voice
          (gExtSaveData.option_SilentRolls == 2 &&
