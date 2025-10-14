@@ -2,6 +2,8 @@
 
 #include <unistd.h>
 
+#include "build_id.h"
+
 #include "cosmetics.hpp"
 #include "dungeon.hpp"
 #include "fill.hpp"
@@ -15,7 +17,6 @@
 #include "keys.hpp"
 #include "gold_skulltulas.hpp"
 #include "enemizer.hpp"
-#include "build_id.h"
 
 #define CREATE_SOULMENUNAMES
 #include "../code/src/enemy_souls.h"

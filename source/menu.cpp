@@ -7,6 +7,8 @@
 #include <cstring>
 #include <ctime>
 
+#include "build_id.h"
+
 #include "cosmetics.hpp"
 #include "menu.hpp"
 #include "patch.hpp"
@@ -17,7 +19,6 @@
 #include "location_access.hpp"
 #include "debug.hpp"
 #include "music.hpp"
-#include "build_id.h"
 
 namespace {
 bool seedChanged;
