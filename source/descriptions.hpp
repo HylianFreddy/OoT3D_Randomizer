@@ -116,6 +116,12 @@ extern string_view triforceHuntDesc;
 extern string_view triforcePiecesTotalDesc;
 extern string_view triforcePiecesRequiredDesc;
 
+extern string_view enemizerDesc;
+extern string_view enemizerListDesc;
+extern string_view enemyRandomizedDesc;
+extern string_view enemyVanillaDesc;
+extern string_view enemyRemovedDesc;
+
 extern string_view shuffleRewardsEndOfDungeon;
 extern string_view shuffleRewardsAnyDungeon;
 extern string_view shuffleRewardsOverworld;
@@ -137,6 +143,13 @@ extern string_view shopsTwo;
 extern string_view shopsThree;
 extern string_view shopsFour;
 extern string_view shopsRandom;
+
+extern string_view shopPriceRandom;
+extern string_view shopPriceAffordable;
+extern string_view shopPriceChild;
+extern string_view shopPriceAdult;
+extern string_view shopPriceGiant;
+extern string_view shopPriceTycoon;
 
 extern string_view tokensOff;
 extern string_view tokensDungeon;
@@ -285,6 +298,13 @@ extern string_view damageMultiDesc;
 
 extern string_view permadeathDesc;
 
+extern string_view gloomModeOffDesc;
+extern string_view gloomModeDeathDesc;
+extern string_view gloomModeDamageDesc;
+extern string_view gloomModeHitDesc;
+extern string_view gloomModeCollisionDesc;
+extern string_view gloomModeEmptyDesc;
+
 extern string_view startingTimeDesc;
 
 extern string_view locationsReachableDesc;
@@ -381,6 +401,9 @@ extern string_view mirrorWorldEntranceDesc;
 extern string_view mirrorWorldRandomDesc;
 
 extern string_view betaSoldOutDesc;
+
+extern string_view soullessPurpleFlameDesc;
+extern string_view soullessFlashingDesc;
 
 extern string_view musicRandoDesc;
 extern string_view shuffleBGMDesc;

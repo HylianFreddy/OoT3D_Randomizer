@@ -27,4 +27,7 @@ typedef struct EnTuboTrap {
     /* 0x0210 */ SkeletonAnimationModel* saModel;
 } EnTuboTrap;
 
+void EnYukabyun_rUpdate(Actor* thisx, GlobalContext* globalCtx);
+u8 FlyingTraps_IsHiddenTrap(Actor* actor);
+
 #endif //_FLYING_TRAPS_H_
