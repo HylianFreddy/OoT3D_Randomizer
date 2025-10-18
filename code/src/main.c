@@ -34,7 +34,7 @@ void Randomizer_Init() {
     Entrance_Init();
     ItemOverride_Init();
     Enemizer_Init();
-    OcarinaNotes_UpdateSongs();
+    OcarinaNotes_Init();
     extDataInit();
     irrstInit();
 

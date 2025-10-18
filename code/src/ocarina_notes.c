@@ -19,6 +19,45 @@ const u8 menuSongIds[12] = {
 // in order to override gOcarinaMenuSongNoteSequences
 u32 rMenuSongsOverrides[12][8] = { 0 };
 
+void OcarinaNotes_Init(void) {
+    if (gSettingsContext.randomSongNotes == OFF) {
+        return;
+    }
+
+    for (u32 songId = 0; songId < 12; songId++) {
+
+        OcarinaSongButtonSequence songBtns = gOcarinaSongButtons[songId];
+
+        // set playback data
+        OcarinaNote* songNotes = sOcarinaSongNotes[songId];
+        u32 noteIndex          = 0;
+        for (u32 btnIndex = 0; btnIndex < songBtns.length; btnIndex++) {
+            // set menu song override data
+            rMenuSongsOverrides[songId][btnIndex] = songBtns.buttons[btnIndex];
+
+            // add very short pause if this note is the same as the previous one
+            if (btnIndex > 0 && songBtns.buttons[btnIndex] == songBtns.buttons[btnIndex - 1]) {
+                songNotes[noteIndex].pitch  = 0xFF;
+                songNotes[noteIndex].length = 0x1;
+                noteIndex++;
+            }
+
+            songNotes[noteIndex].pitch  = notePitches[songBtns.buttons[btnIndex]];
+            songNotes[noteIndex].length = 0x24; // fixed note length
+
+            noteIndex++;
+        }
+
+        // Set final note to mark end of sequence
+        songNotes[noteIndex].pitch  = 0xFF;
+        songNotes[noteIndex].length = 0;
+
+        // override menu data
+        gOcarinaMenuSongLengths[menuSongIds[songId]]       = songBtns.length;
+        gOcarinaMenuSongNoteSequences[menuSongIds[songId]] = rMenuSongsOverrides[songId];
+    }
+}
+
 s32 OcarinaNotes_IsButtonOwned(OcarinaNoteButton button) {
     return (gSettingsContext.shuffleOcarinaButtons == OFF) ||
            (gExtSaveData.extInf[EXTINF_OCARINA_BUTTONS] & (1 << button));
@@ -97,43 +136,4 @@ u32 OcarinaNotes_HandleInputs(u32 ocarinaInputs) {
     }
     ocarinaInputs &= ownedBtnsMask;
     return ocarinaInputs;
-}
-
-void OcarinaNotes_UpdateSongs(void) {
-    if (gSettingsContext.randomSongNotes == OFF) {
-        return;
-    }
-
-    for (u32 songId = 0; songId < 12; songId++) {
-
-        OcarinaSongButtonSequence songBtns = gOcarinaSongButtons[songId];
-
-        // set playback data
-        OcarinaNote* songNotes = sOcarinaSongNotes[songId];
-        u32 noteIndex          = 0;
-        for (u32 btnIndex = 0; btnIndex < songBtns.length; btnIndex++) {
-            // set menu song override data
-            rMenuSongsOverrides[songId][btnIndex] = songBtns.buttons[btnIndex];
-
-            // add very short pause if this note is the same as the previous one
-            if (btnIndex > 0 && songBtns.buttons[btnIndex] == songBtns.buttons[btnIndex - 1]) {
-                songNotes[noteIndex].pitch  = 0xFF;
-                songNotes[noteIndex].length = 0x1;
-                noteIndex++;
-            }
-
-            songNotes[noteIndex].pitch  = notePitches[songBtns.buttons[btnIndex]];
-            songNotes[noteIndex].length = 0x24; // fixed note length
-
-            noteIndex++;
-        }
-
-        // Set final note to mark end of sequence
-        songNotes[noteIndex].pitch  = 0xFF;
-        songNotes[noteIndex].length = 0;
-
-        // override menu data
-        gOcarinaMenuSongLengths[menuSongIds[songId]]       = songBtns.length;
-        gOcarinaMenuSongNoteSequences[menuSongIds[songId]] = rMenuSongsOverrides[songId];
-    }
 }
