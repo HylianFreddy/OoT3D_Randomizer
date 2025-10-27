@@ -6,7 +6,6 @@
 #include "logic.hpp"
 #include "random.hpp"
 #include "spoiler_log.hpp"
-#include "ocarina_notes.hpp"
 #include "../code/src/item_override.h"
 
 #include <3ds.h>
@@ -45,8 +44,6 @@ int Playthrough_Init(u32 seed) {
     Random_Init(finalHash);
 
     Logic::UpdateHelpers();
-
-    GenerateSongList();
 
     if (Settings::Logic.Is(LOGIC_VANILLA)) {
         VanillaFill(); // Just place items in their vanilla locations
