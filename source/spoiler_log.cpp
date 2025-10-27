@@ -582,13 +582,14 @@ static void InsertSongNode(tinyxml2::XMLElement* parentNode, std::string songNam
 
     std::string noteStr = "";
     for (u32 btnIndex = 0; btnIndex < songLength; btnIndex++) {
-        noteStr += ocarinaBtnChars[notes[btnIndex]] + " ";
+        noteStr += OcarinaNotes::ButtonNames[notes[btnIndex]] + " ";
     }
     node->SetText(noteStr.c_str());
 }
 
 // Writes the randomized notes for each song.
 static void WriteSongNotes(tinyxml2::XMLDocument& spoilerLog) {
+    using namespace OcarinaNotes;
     if (!Settings::RandomSongNotes) {
         return;
     }
@@ -596,10 +597,10 @@ static void WriteSongNotes(tinyxml2::XMLDocument& spoilerLog) {
     auto parentNode = spoilerLog.NewElement("song-notes");
 
     for (u8 songId = OCARINA_SONG_MINUET; songId < OCARINA_SONG_MAX; songId++) {
-        InsertSongNode(parentNode, ocarinaSongNames[songId], rSongData[songId].length, rSongData[songId].buttons);
+        InsertSongNode(parentNode, SongNames[songId], SongData[songId].length, SongData[songId].buttons);
     }
 
-    InsertSongNode(parentNode, "Frog Choir Game", FROG_SONG_LENGTH, rFrogSongNotes);
+    InsertSongNode(parentNode, "Frog Choir Game", FROG_SONG_LENGTH, FrogSongNotes);
 
     spoilerLog.RootElement()->InsertEndChild(parentNode);
 }

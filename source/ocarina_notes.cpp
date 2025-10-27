@@ -3,17 +3,19 @@
 #include "random.hpp"
 #include <string.h>
 
-const std::array<std::string, OCARINA_BUTTON_MAX> ocarinaBtnChars = {
+namespace OcarinaNotes {
+
+const std::array<std::string, OCARINA_BUTTON_MAX> ButtonNames = {
     "L", "R", "Y", "X", "A",
 };
-const std::array<std::string, OCARINA_SONG_MAX> ocarinaSongNames = {
+const std::array<std::string, OCARINA_SONG_MAX> SongNames = {
     "Minuet of Forest",   "Bolero of Fire",   "Serenade of Water", "Requiem of Spirit",
     "Nocturne of Shadow", "Prelude of Light", "Saria's Song",      "Epona's Song",
     "Zelda's Lullaby",    "Sun's Song",       "Song of Time",      "Song of Storms",
 };
 
 // clang-format off
-static constexpr u8 vanillaRequiredButtons[OCARINA_SONG_MAX] = {
+static constexpr u8 sVanillaRequiredButtons[OCARINA_SONG_MAX] = {
     [OCARINA_SONG_MINUET]   = 1 << OCARINA_BUTTON_L | 1 << OCARINA_BUTTON_A | 1 << OCARINA_BUTTON_X | 1 << OCARINA_BUTTON_Y,
     [OCARINA_SONG_BOLERO]   = 1 << OCARINA_BUTTON_R | 1 << OCARINA_BUTTON_L | 1 << OCARINA_BUTTON_Y,
     [OCARINA_SONG_SERENADE] = 1 << OCARINA_BUTTON_L | 1 << OCARINA_BUTTON_R | 1 << OCARINA_BUTTON_Y | 1 << OCARINA_BUTTON_X,
@@ -29,9 +31,9 @@ static constexpr u8 vanillaRequiredButtons[OCARINA_SONG_MAX] = {
 };
 // clang-format on
 
-OcarinaSongButtonSequence rSongData[OCARINA_SONG_MAX];
-u8 rSongRequiredButtons[OCARINA_SONG_MAX];
-u8 rFrogSongNotes[FROG_SONG_LENGTH];
+OcarinaSongButtonSequence SongData[OCARINA_SONG_MAX];
+u8 SongRequiredButtons[OCARINA_SONG_MAX];
+u8 FrogSongNotes[FROG_SONG_LENGTH];
 
 static void RandomizeNoteSequence(u8 noteSequence[], u8 songLength) {
     for (u32 noteIndex = 0; noteIndex < songLength; noteIndex++) {
@@ -41,7 +43,7 @@ static void RandomizeNoteSequence(u8 noteSequence[], u8 songLength) {
 
 static bool IsValidSong(OcarinaSongButtonSequence song) {
     // Check if this song contains or is contained by another song.
-    for (OcarinaSongButtonSequence otherSong : rSongData) {
+    for (OcarinaSongButtonSequence otherSong : SongData) {
         if (otherSong.length == 0)
             break;
 
@@ -57,8 +59,8 @@ static bool IsValidSong(OcarinaSongButtonSequence song) {
 
 void GenerateSongList(void) {
     // Reset structs
-    memset(&rSongData, 0, sizeof(rSongData));
-    memcpy(&rSongRequiredButtons, &vanillaRequiredButtons, sizeof(rSongRequiredButtons));
+    memset(&SongData, 0, sizeof(SongData));
+    memcpy(&SongRequiredButtons, &sVanillaRequiredButtons, sizeof(SongRequiredButtons));
 
     if (!Settings::RandomSongNotes) {
         return;
@@ -81,14 +83,16 @@ void GenerateSongList(void) {
             }
 
             if (IsValidSong(randomSong)) {
-                rSongData[songId] = randomSong;
+                SongData[songId] = randomSong;
                 for (u32 i = 0; i < randomSong.length; i++) {
-                    rSongRequiredButtons[songId] |= (1 << randomSong.buttons[i]);
+                    SongRequiredButtons[songId] |= (1 << randomSong.buttons[i]);
                 }
                 break;
             }
         }
     }
 
-    RandomizeNoteSequence(rFrogSongNotes, FROG_SONG_LENGTH);
+    RandomizeNoteSequence(FrogSongNotes, FROG_SONG_LENGTH);
 }
+
+} // namespace OcarinaNotes

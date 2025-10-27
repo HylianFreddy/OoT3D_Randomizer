@@ -667,6 +667,8 @@ bool WriteAllPatches() {
     ---------------------------------*/
 
     if (Settings::RandomSongNotes) {
+        using namespace OcarinaNotes;
+
         // Overwrite the game's gOcarinaSongButtons struct with the randomized songs.
         // The other structs that hold song data will be modified at runtime via basepatch code,
         // copying from gOcarinaSongButtons.
@@ -674,18 +676,18 @@ bool WriteAllPatches() {
         const u32 OCARINASONGBUTTONS_ADDR = 0x0054C222;
 
         patchOffset = V_TO_P(OCARINASONGBUTTONS_ADDR);
-        patchSize   = sizeof(rSongData);
+        patchSize   = sizeof(SongData);
 
-        if (!WritePatch(patchOffset, patchSize, (char*)&rSongData, code, bytesWritten, totalRW, buf)) {
+        if (!WritePatch(patchOffset, patchSize, (char*)&SongData, code, bytesWritten, totalRW, buf)) {
             return false;
         }
 
         const u32 FROGSONGNOTES_ADDR = 0x0054C8B0;
 
         patchOffset = V_TO_P(FROGSONGNOTES_ADDR);
-        patchSize   = sizeof(rFrogSongNotes);
+        patchSize   = sizeof(FrogSongNotes);
 
-        if (!WritePatch(patchOffset, patchSize, (char*)&rFrogSongNotes, code, bytesWritten, totalRW, buf)) {
+        if (!WritePatch(patchOffset, patchSize, (char*)&FrogSongNotes, code, bytesWritten, totalRW, buf)) {
             return false;
         }
     }
