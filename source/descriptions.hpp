@@ -417,7 +417,9 @@ extern string_view shuffleSFXSceneSpecific;
 extern string_view shuffleSFXChaos;
 extern string_view shuffleSFXCategorically;
 
-extern string_view ocarinaNoteInstrumentDesc;
+extern string_view ocarinaInstrRandomDesc;
+extern string_view ocarinaInstrSceneDesc;
+extern string_view ocarinaInstrDesc;
 
 extern string_view randomTrapDmgDesc;
 extern string_view basicTrapDmgDesc;

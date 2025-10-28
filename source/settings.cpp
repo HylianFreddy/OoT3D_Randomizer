@@ -1331,7 +1331,9 @@ Option ShuffleSFXFootsteps     = Option::Bool(2, "Include Footsteps",    {"No", 
 Option ShuffleSFXLinkVoice     = Option::Bool(2, "Include Link's Voice", {"No", "Yes"},                             {""},                                                                                                                                      OptionCategory::Cosmetic,               ON);
 Option ShuffleSFXCategorically = Option::Bool(2, "Categorical Shuffle",  {"Off", "On"},                             {shuffleSFXCategorically},                                                                                                                 OptionCategory::Cosmetic,               ON);
 
-Option OcarinaNoteInstrument   = Option::U8("Ocarina Instrument",      {"Default", "Malon", "Whistle", "Harp", "Grind Organ", "Flute", "Random Choice", "Scene Specific"}, {ocarinaNoteInstrumentDesc}, OptionCategory::Cosmetic);
+Option OcarinaNoteInstrument   = Option::U8  ("Ocarina Instrument",      {"Random Choice", "Scene Specific",
+                                                                          "Default", "Malon", "Whistle", "Harp",
+                                                                          "Grind Organ", "Flute"},                  {ocarinaInstrRandomDesc, ocarinaInstrSceneDesc, ocarinaInstrDesc},                                                                         OptionCategory::Cosmetic,               OCARINA_INSTR_SETTING_DEFAULT);
 
 std::vector<Option*> audioOptions = {
     &ShuffleMusic,
@@ -3243,8 +3245,8 @@ void UpdateSettings() {
         SFX::ShuffleSequences(ShuffleSFXCategorically.Value<bool>());
     }
 
-    if (OcarinaNoteInstrument.Is(OCARINA_INSTRUMENT_RANDOM_CHOICE)) {
-        size_t randomIndex = Random(0, OCARINA_INSTRUMENT_RANDOM_CHOICE, true);
+    if (OcarinaNoteInstrument.Is(OCARINA_INSTR_SETTING_RANDOM_CHOICE)) {
+        size_t randomIndex = Random(OCARINA_INSTR_SETTING_DEFAULT, OcarinaNoteInstrument.GetOptionCount(), true);
         OcarinaNoteInstrument.SetSelectedIndex(randomIndex);
     }
 }

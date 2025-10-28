@@ -87,8 +87,8 @@ s32 OcarinaNotes_OverrideInstrument(u32 instrument) {
     if (instrument != OCARINA_INSTRUMENT_DEFAULT) {
         return instrument;
     }
-    if (gSettingsContext.ocarinaNoteInstrument == OCARINA_INSTRUMENT_SCENE_SPECIFIC) {
+    if (gSettingsContext.ocarinaNoteInstrument == OCARINA_INSTR_SETTING_SCENE_SPECIFIC) {
         return Hash(gGlobalContext->sceneNum) % OCARINA_INSTRUMENT_MAX;
     }
-    return gSettingsContext.ocarinaNoteInstrument;
+    return gSettingsContext.ocarinaNoteInstrument - OCARINA_INSTR_SETTING_DEFAULT;
 }

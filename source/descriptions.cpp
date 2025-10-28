@@ -1323,8 +1323,10 @@ string_view shuffleSFXCategorically   = "Sound effects will be shuffled in categ
 /*------------------------------                                                           //
 |      OTHER SFX OPTIONS       |                                                           //
 ------------------------------*/                                                           //
-string_view ocarinaNoteInstrumentDesc = "Change the instrument used when playing the\n"    //
+string_view ocarinaInstrDesc          = "Change the instrument used when playing the\n"    //
                                         "ocarina.";                                        //
+string_view ocarinaInstrRandomDesc    = "A random instrument from the list will be chosen.";
+string_view ocarinaInstrSceneDesc     = "The instrument will be different in each scene."; //
 /*------------------------------                                                           //
 |    RANDOM TRAP DAMAGE TYPE   |                                                           //
 ------------------------------*/                                                           //
