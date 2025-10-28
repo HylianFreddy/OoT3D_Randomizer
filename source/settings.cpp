@@ -2813,7 +2813,6 @@ std::vector<std::pair<Option*, u8>> racingOverrides = {
 // Options that should be overridden and then restored after generating when vanilla logic is enabled
 std::vector<std::pair<Option*, u8>> vanillaLogicOverrides = {
     { &TriforceHunt, OFF },
-    { &Enemizer, OFF },
     { &LinksPocketItem, LINKSPOCKETITEM_DUNGEON_REWARD },
     { &ShuffleRewards, REWARDSHUFFLE_END_OF_DUNGEON },
     { &ShuffleSongs, SONGSHUFFLE_SONG_LOCATIONS },
@@ -3045,7 +3044,6 @@ void UpdateSettings() {
     // Override cosmetic options that can affect how fast a seed is beaten
     if (Racing) {
         for (auto overridePair : racingOverrides) {
-            overridePair.first->SetDelayedOption();
             overridePair.first->SetSelectedIndex(overridePair.second);
         }
     }
@@ -3053,8 +3051,13 @@ void UpdateSettings() {
     // If vanilla logic, we want to set all settings which unnecessarily modify vanilla behavior to off
     if (Logic.Is(LOGIC_VANILLA)) {
         for (auto overridePair : vanillaLogicOverrides) {
-            overridePair.first->SetDelayedOption();
             overridePair.first->SetSelectedIndex(overridePair.second);
+        }
+    }
+
+    if (GloomMode.IsNot(GLOOMMODE_OFF) && Logic.IsNot(LOGIC_NONE) && !(GoronTunicAsChild && AgeItemsInLogic)) {
+        for (LocationKey loc : childOnlyHotLocations) {
+            Location(loc)->GetExcludedOption()->SetSelectedIndex(EXCLUDE);
         }
     }
 
