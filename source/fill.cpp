@@ -248,6 +248,7 @@ std::vector<LocationKey> GetAccessibleLocations(const std::vector<LocationKey>& 
     while (newItemLocations.size() > 0 || updatedEvents || ageTimePropogated || firstIteration) {
         hidScanInput();
         if (hidKeysDown() & KEY_SELECT) {
+            gfxExit();
             exit(0); // stop the app
         }
 
