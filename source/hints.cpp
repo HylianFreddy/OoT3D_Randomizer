@@ -412,9 +412,20 @@ static void CreateGoodItemHint() {
     CreateRandomLocationHint(true);
 }
 
-static void CreateJunkHint() {
+static void PlaceJunkHintAt(const LocationKey gossipStone) {
     // duplicate junk hints are possible for now
-    const HintText junkHint = RandomElement(GetHintCategory(HintCategory::Junk));
+    const Text junkHint = RandomElement(GetHintCategory(HintCategory::Junk)).GetText();
+
+    PlacementLog_Msg("\tMessage: ");
+    PlacementLog_Msg(junkHint.GetNAEnglish());
+    PlacementLog_Msg("\n\n");
+
+    bool isTingle = junkHint.GetNAEnglish().find("Tingle") != std::string::npos;
+    u8 color    = isTingle ? QM_GREEN : QM_PINK;
+    AddHint(junkHint, gossipStone, { color });
+}
+
+static void CreateJunkHint() {
     LogicReset();
     const std::vector<LocationKey> gossipStones = GetAccessibleLocations(gossipStoneLocations);
     if (gossipStones.empty()) {
@@ -422,15 +433,7 @@ static void CreateJunkHint() {
         return;
     }
     LocationKey gossipStone = RandomElement(gossipStones);
-    Text hint               = junkHint.GetText();
-
-    PlacementLog_Msg("\tMessage: ");
-    PlacementLog_Msg(hint.NAenglish);
-    PlacementLog_Msg("\n\n");
-
-    bool tingle = hint.GetNAEnglish().find("Tingle") != std::string::npos;
-    u8 color    = tingle ? QM_GREEN : QM_PINK;
-    AddHint(hint, gossipStone, { color });
+    PlaceJunkHintAt(gossipStone);
 }
 
 static std::vector<LocationKey> CalculateBarrenRegions() {
@@ -1146,8 +1149,7 @@ void CreateGossipStoneHints() {
     // If any gossip stones failed to have a hint placed on them for some reason, place a junk hint as a failsafe.
     for (LocationKey gossipStone : FilterFromPool(
              gossipStoneLocations, [](const LocationKey loc) { return Location(loc)->GetPlacedItemKey() == NONE; })) {
-        const HintText junkHint = RandomElement(GetHintCategory(HintCategory::Junk));
-        AddHint(junkHint.GetText(), gossipStone, { QM_PINK });
+        PlaceJunkHintAt(gossipStone);
     }
 
     // Getting gossip stone locations temporarily sets one location to not be reachable.
