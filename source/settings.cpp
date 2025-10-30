@@ -1335,6 +1335,10 @@ Option ShuffleSFXFootsteps     = Option::Bool(2, "Include Footsteps",    {"No", 
 Option ShuffleSFXLinkVoice     = Option::Bool(2, "Include Link's Voice", {"No", "Yes"},                             {""},                                                                                                                                      OptionCategory::Cosmetic,               ON);
 Option ShuffleSFXCategorically = Option::Bool(2, "Categorical Shuffle",  {"Off", "On"},                             {shuffleSFXCategorically},                                                                                                                 OptionCategory::Cosmetic,               ON);
 
+Option OcarinaNoteInstrument   = Option::U8  ("Ocarina Instrument",      {"Random Choice", "Scene Specific",
+                                                                          "Default", "Malon", "Whistle", "Harp",
+                                                                          "Grind Organ", "Flute"},                  {ocarinaInstrRandomDesc, ocarinaInstrSceneDesc, ocarinaInstrDesc},                                                                         OptionCategory::Cosmetic,               OCARINA_INSTR_SETTING_DEFAULT);
+
 std::vector<Option*> audioOptions = {
     &ShuffleMusic,
     &ShuffleBGM,
@@ -1345,6 +1349,7 @@ std::vector<Option*> audioOptions = {
     &ShuffleSFXFootsteps,
     &ShuffleSFXLinkVoice,
     &ShuffleSFXCategorically,
+    &OcarinaNoteInstrument,
 };
 
 Menu preferences              = Menu::SubMenu("Misc Preferences",           &preferenceOptions);
@@ -1657,6 +1662,7 @@ SettingsContext FillContext() {
     ctx.shuffleSFXFootsteps         = (ShuffleSFXFootsteps) ? 1 : 0;
     ctx.shuffleSFXLinkVoice         = (ShuffleSFXLinkVoice) ? 1 : 0;
     ctx.shuffleSFXCategorically     = (ShuffleSFXCategorically) ? 1 : 0;
+    ctx.ocarinaNoteInstrument       = OcarinaNoteInstrument.Value<u8>();
 
     ctx.linksPocketRewardBitMask = LinksPocketRewardBitMask;
 
@@ -3242,6 +3248,11 @@ void UpdateSettings() {
     InitSFXRandomizer();
     if (ShuffleSFX.IsNot(SHUFFLESFX_OFF)) {
         SFX::ShuffleSequences(ShuffleSFXCategorically.Value<bool>());
+    }
+
+    if (OcarinaNoteInstrument.Is(OCARINA_INSTR_SETTING_RANDOM_CHOICE)) {
+        size_t randomIndex = Random(OCARINA_INSTR_SETTING_DEFAULT, OcarinaNoteInstrument.GetOptionCount(), true);
+        OcarinaNoteInstrument.SetSelectedIndex(randomIndex);
     }
 }
 
