@@ -71,6 +71,10 @@ jobs:
           tag: "${{ env.tag_name }}"
           name: "${{ env.tag_name }}"
           body: |
+            This release is a development build containing the following features that have not yet been merged into the main branch:
+            - Add Random Ocarina Melodies
+            - Add SFX setting: Ocarina Instrument
+
             Please note that these are DEVELOPMENT builds and may not be entirely stable.
             When reporting issues, please mention the six character commit listed in the randomizer menu.
             You can use the FBI homebrew application to install the randomizer using either of these QR codes.
