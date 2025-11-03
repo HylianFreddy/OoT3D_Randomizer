@@ -453,7 +453,9 @@ std::vector<LocationKey> GetAccessibleLocations(const std::vector<LocationKey>& 
     if (mode == SearchMode::AllLocationsReachable) {
         allLocationsReachable = true;
         for (const LocationKey loc : allLocations) {
-            if (!Location(loc)->IsAddedToPool()) {
+            bool excludedForGloom = GloomMode.IsNot(GLOOMMODE_OFF) && !(GoronTunicAsChild && AgeItemsInLogic) &&
+                                    ElementInContainer(loc, childOnlyHotLocations);
+            if (!Location(loc)->IsAddedToPool() && !excludedForGloom) {
                 allLocationsReachable = false;
                 auto message          = "Location " + Location(loc)->GetName() + " not reachable\n";
                 PlacementLog_Msg(message);
@@ -965,7 +967,9 @@ void VanillaFill() {
     for (LocationKey loc : allLocations) {
         Location(loc)->PlaceVanillaItem();
     }
+    Enemizer::RandomizeEnemies();
     // If necessary, handle ER stuff
+    playthroughEntrances.clear();
     if (ShuffleEntrances) {
         printf("\x1b[7;10HShuffling Entrances...");
         ShuffleAllEntrances();
@@ -977,6 +981,7 @@ void VanillaFill() {
     CreateItemOverrides();
     CreateEntranceOverrides();
     CreateAlwaysIncludedMessages();
+    CreateMiscHints();
 }
 
 void ClearProgress() {
@@ -1003,11 +1008,18 @@ int Fill() {
         GenerateStartingInventory();
         RemoveStartingItemsFromPool();
         FillExcludedLocations();
-        Enemizer::RandomizeEnemies();
 
         // Temporarily add shop items to the ItemPool so that entrance randomization
         // can validate the world using deku/hylian shields
         AddElementsToPool(ItemPool, GetMinVanillaShopItems(32)); // assume worst case shopsanity 4
+        Enemizer::RandomizeEnemies();
+        Logic::LogicReset();
+        GetAccessibleLocations({}, SearchMode::ValidateWorld, "", false, false);
+        if (!allLocationsReachable) {
+            retries++;
+            ClearProgress();
+            continue;
+        }
         if (ShuffleEntrances) {
             printf("\x1b[7;10HShuffling Entrances");
             if (ShuffleAllEntrances() == ENTRANCE_SHUFFLE_FAILURE) {

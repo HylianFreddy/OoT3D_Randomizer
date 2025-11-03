@@ -1575,10 +1575,10 @@ DontSetMotionSetting_patch:
 SaveMenuIgnoreOpen_patch:
     bl hook_SaveMenuIgnoreOpen
 
-.section .patch_PermadeathDeleteSave
-.global PermadeathDeleteSave_patch
-PermadeathDeleteSave_patch:
-    bl hook_PermadeathDeleteSave
+.section .patch_GameOverStart
+.global GameOverStart_patch
+GameOverStart_patch:
+    bl hook_GameOverStart
 
 .section .patch_PermadeathSkipMenu
 .global PermadeathSkipMenu_patch
@@ -2529,3 +2529,8 @@ FixActorKillLoop_patch:
 .global AfterInvalidatingRoomObjects_patch
 AfterInvalidatingRoomObjects_patch:
     bl hook_AfterInvalidatingRoomObjects
+
+.section .patch_DrawHeartIcon
+.global DrawHeartIcon_patch
+DrawHeartIcon_patch:
+    bl hook_DrawHeartIcon

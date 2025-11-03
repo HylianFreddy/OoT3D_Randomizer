@@ -81,9 +81,10 @@ bool CanDefeatEnemy(u16 enemyId) {
             return CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) || CanUse(STICKS) ||
                    CanUse(MEGATON_HAMMER) || CanUse(BOW) || CanUse(HOOKSHOT) || CanUse(SLINGSHOT) || HasExplosives;
         case ENEMY_PEAHAT:
-            return AtDay && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) || CanUse(STICKS) ||
-                             CanUse(MEGATON_HAMMER) || CanUse(BOW) || CanUse(HOOKSHOT) || CanUse(SLINGSHOT) ||
-                             CanUse(DINS_FIRE) || HasExplosives);
+            return (AtDay && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) ||
+                              CanUse(STICKS) || CanUse(MEGATON_HAMMER) || CanUse(BOW) || CanUse(HOOKSHOT) ||
+                              CanUse(SLINGSHOT) || CanUse(DINS_FIRE))) ||
+                   HasExplosives;
         case ENEMY_PEAHAT_LARVA:
             return true;
         case ENEMY_LIZALFOS:
@@ -99,7 +100,7 @@ bool CanDefeatEnemy(u16 enemyId) {
         case ENEMY_DODONGO_BABY:
             return true;
         case ENEMY_DARK_LINK:
-            return Hearts > 0 && (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD));
+            return CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD);
         case ENEMY_BIRI:
         case ENEMY_BARI:
             return CanUse(STICKS) || CanUse(MEGATON_HAMMER) || CanUse(BOW) || CanUse(HOOKSHOT) || CanUse(BOOMERANG) ||
@@ -147,7 +148,8 @@ bool CanDefeatEnemy(u16 enemyId) {
                     ((CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) || CanUse(STICKS) ||
                       CanUse(SLINGSHOT))));
         case ENEMY_BUBBLE_FIRE:
-            return CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) || CanUse(BOW);
+            return CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) || CanUse(BOW) ||
+                   ((CanUse(HYLIAN_SHIELD) || CanUse(MIRROR_SHIELD)) && CanUse(KOKIRI_SWORD));
         case ENEMY_BUBBLE_WHITE:
             return CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) || CanUse(STICKS) ||
                    CanUse(MEGATON_HAMMER) || CanUse(BOW) || CanUse(SLINGSHOT) || CanUse(DINS_FIRE) || HasExplosives;
