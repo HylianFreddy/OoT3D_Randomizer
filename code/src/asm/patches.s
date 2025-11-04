@@ -1434,6 +1434,12 @@ PATCH PlayInit
 PATCH TitleLinkObject
     .word 0xFFFF0014
 
+PATCH DeleteEquipment
+    bl hook_DeleteEquipment
+
+PATCH PickupItemDrop
+    bl hook_PickupItemDrop
+
 PATCH ExtendObjectGetSlot
     b hook_ExtendObjectGetSlot
 
