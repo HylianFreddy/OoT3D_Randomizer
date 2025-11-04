@@ -2242,6 +2242,26 @@ PlayInit_patch:
 TitleLinkObject_patch:
     .word 0xFFFF0014
 
+.section .patch_DeleteEquipment
+.global DeleteEquipment_patch
+DeleteEquipment_patch:
+    bl hook_DeleteEquipment
+
+.section .patch_PickupItemDrop
+.global PickupItemDrop_patch
+PickupItemDrop_patch:
+    bl hook_PickupItemDrop
+
+.section .patch_GanonFinalBlow
+.global GanonFinalBlow_patch
+GanonFinalBlow_patch:
+    bl hook_GanonFinalBlow
+
+.section .patch_PlayerBonk
+.global PlayerBonk_patch
+PlayerBonk_patch:
+    bl hook_PlayerBonk
+
 .section .patch_ExtendObjectGetSlot
 .global ExtendObjectGetSlot_patch
 ExtendObjectGetSlot_patch:

@@ -382,6 +382,14 @@ void ItemEffect_GiveChildKokiriSword(SaveContext* saveCtx, s16 arg1, s16 arg2) {
     }
 }
 
+void ItemEffect_Shield(SaveContext* saveCtx, s16 shield, s16 arg2) {
+    if (shield == EQUIP_VALUE_SHIELD_DEKU) {
+        gExtSaveData.dekuShieldsCount++;
+    } else if (shield == EQUIP_VALUE_SHIELD_HYLIAN) {
+        gExtSaveData.hylianShieldsCount++;
+    }
+}
+
 void ItemEffect_GiveStone(SaveContext* saveCtx, s16 mask, s16 arg2) {
     s32 trueMask = mask << 16;
     saveCtx->questItems |= trueMask;

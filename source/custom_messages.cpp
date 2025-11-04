@@ -1093,6 +1093,104 @@ void CreateAlwaysIncludedMessages() {
                   /*german */ "Das kannst du haben, wenn du einen Fisch für das Aquarium fängst." };
         CreateMessageFromTextObject(0x40AE, 0, 2, 3, AddColorsAndFormat(aquariumText, {}));
     }
+
+    // Deku Shield and Hylian Shield inventory descriptions. Add counter to vanilla text.
+    // clang-format off
+    CreateMessage(0x73E, 0, 2, 3,
+                  /*english*/ "\x7f\x04\x7f\x1d""DDeku Shield (x"s + DEKU_SHIELD_COUNT() +
+                      ")\x7f\x1d\x00\x7f\x1c\x7f\x02\x10""A child-sized wooden "
+                      "shield.\x7f\x1c\x7f\x02\x10It's light, but also flammable.\x7f\x05\x7f\x06\x00\x7f\x00"s,
+                  /*french */ "\x7f\x04\x7f\x1d""DBouclier Mojo (x"s + DEKU_SHIELD_COUNT() +
+                      ")\x7f\x1d\x00\x7f\x1c\x7f\x02\x10Un bouclier en bois pour "
+                      "enfants.\x7f\x1c\x7f\x02\x10Il est l\xc3\xa9ger mais inflammable.\x7f\x05\x7f\x06\x00\x7f\x00"s,
+                  /*spanish*/ "\x7f\x04\x7f\x1d""DEscudo deku (x"s + DEKU_SHIELD_COUNT() +
+                      ")\x7f\x1d\x00\x7f\x1c\x7f\x02\x10""Escudo de madera de peque\xc3\xb1o "
+                      "tama\xc3\xb1o.\x7f\x1c\x7f\x02\x10""Es ligero, pero inflamable.\x7f\x05\x7f\x06\x00\x7f\x00"s,
+                  /*italian*/ "\x7f\x04\x7f\x1d""AScudo Deku (x"s + DEKU_SHIELD_COUNT() +
+                      ")\x7f\x1d\x00\x7f\x1cUno scudo di legno ideale per i ragazzi.\x7f\x1c\xc3\x88 "
+                      "leggero ma \xc3\xa8 facilmente infiammabile.\x7f\x05\x7f\x06\x00\x7f\x00"s,
+                  /*german */ "\x7f\x04\x7f\x1d""DDeku-Schild (x"s + DEKU_SHIELD_COUNT() +
+                      ")\x7f\x1d\x00\x7f\x1c\x7f\x02\x10""Ein Holzschild, in der Gr\xc3\xb6\xc3\x9f""e "
+                      "passend f\xc3\xbcr\x7f\x1c\x7f\x02\x10Kinder. Er ist leicht, und "
+                      "entflammbar...\x7f\x05\x7f\x06\x00\x7f\x00"s);
+    CreateMessage(0x73F, 0, 2, 3,
+                  /*english*/ "\x7f\x04\x7f\x1d""DHylian Shield (x"s + HYLIAN_SHIELD_COUNT() +
+                      ")\x7f\x1d\x00\x7f\x1c\x7f\x02\x10""A big shield just like the Hylian "
+                      "Knights\x7f\x1c\x7f\x02\x10use. It's light, sturdy and can stand up to\x7f\x1c\x7f\x02\x10""flame "
+                      "attacks.\x7f\x05\x7f\x06\x00\x7f\x00"s,
+                  /*french */ "\x7f\x04\x7f\x1d""DBouclier Hylien (x"s + HYLIAN_SHIELD_COUNT() +
+                      ")\x7f\x1d\x00\x7f\x1c\x7f\x02\x10Un bouclier digne des chevaliers "
+                      "d'Hyrule.\x7f\x1c\x7f\x02\x10Il est l\xc3\xa9ger, robuste et r\xc3\xa9siste au "
+                      "feu.\x7f\x05\x7f\x06\x00\x7f\x00"s,
+                  /*spanish*/ "\x7f\x04\x7f\x1d""DEscudo hyliano (x"s + HYLIAN_SHIELD_COUNT() +
+                      ")\x7f\x1d\x00\x7f\x1c\x7f\x02\x10""Escudo grande como los que usan "
+                      "los\x7f\x1c\x7f\x02\x10""caballeros hylianos. Es ligero, s\xc3\xb3lido y\x7f\x1c\x7f\x02\x10resistente al "
+                      "fuego.\x7f\x05\x7f\x06\x00\x7f\x00"s,
+                  /*italian*/ "\x7f\x04\x7f\x1d""DScudo Hylia (x"s + HYLIAN_SHIELD_COUNT() +
+                      ")\x7f\x1c\x7f\x1d\x00Un grande scudo, uguale a\x7f\x1cquello usato dai cavalieri "
+                      "Hylia.\x7f\x1c\xc3\x88 leggero, robusto e resiste al fuoco.\x7f\x05\x7f\x06\x00\x7f\x00"s,
+                  /*german */ "\x7f\x04\x7f\x1d""DHylia-Schild (x"s + HYLIAN_SHIELD_COUNT() +
+                      ")\x7f\x1d\x00\x7f\x1c\x7f\x02\x10""Ein gro\xc3\x9f""er Schild wie ihn die "
+                      "Hylia-Ritter\x7f\x1c\x7f\x02\x10tragen. Er ist leicht, robust und feuerfest.\x7f\x05\x7f\x06\x00\x7f\x00"s);
+    // clang-format on
+
+    // Zelda final dialog
+    {
+        Text happyMsg = Text{
+            // english
+            "Thank you, @...&I've been keeping watch over you all this time...^"
+            "...specifically, you took #11111111#&to bring down Ganondorf.^"
+            "You have discovered #222222# of all items scattered throughout Hyrule.^"
+            "You saved your progress #333# times.",
+            // french
+            "TO DO",
+            // spanish
+            "TO DO",
+            // italian
+            "Grazie, @...&Ti ho osservato tutto questo tempo...^"
+            "...per essere precisi, ci hai messo #11111111#&per sconfiggere Ganondorf.^"
+            "Hai scoperto il #222222# di tutti gli oggetti sparpagliati per Hyrule.^"
+            "Hai salvato i tuoi progressi #333# volte.",
+            // german
+            "TO DO",
+        };
+        happyMsg = AddColorsAndFormat(happyMsg, { QM_RED, QM_RED, QM_RED });
+        happyMsg.Replace("11111111", FINAL_TIME());
+        happyMsg.Replace("222222", CHECK_PERCENTAGE());
+        happyMsg.Replace("333", SAVE_COUNT());
+        CreateMessageFromTextObject(0x706F, 0, 2, 3, happyMsg);
+
+        Text sadMsg = Text{
+            // english
+            "You've also received #111# hits, for a total of #2222# hearts of damage, "
+            "and you've been knocked out #333# times.",
+            // french
+            "TO DO",
+            // spanish
+            "TO DO",
+            // italian
+            "Hai anche subito #111# colpi, per un totale di #2222# cuori di danno, "
+            "e sei stato messo al tappeto #333# volte.",
+            // german
+            "TO DO",
+        };
+        sadMsg = AddColorsAndFormat(sadMsg, { QM_RED, QM_RED, QM_RED });
+        sadMsg.Replace("111", HIT_COUNT());
+        sadMsg.Replace("2222", DAMAGE_RECEIVED());
+        sadMsg.Replace("333", DEATH_COUNT());
+        CreateMessageFromTextObject(0x7091, 0, 2, 3, sadMsg);
+
+        Text linkMsg = Text{
+            /*english*/ "...oh, and you've bonked #111# times.",
+            /*french */ "TO DO",
+            /*spanish*/ "TO DO",
+            /*italian*/ "...oh, e sei andato a sbattere #111# volte.",
+            /*german */ "TO DO",
+        };
+        linkMsg = AddColorsAndFormat(linkMsg, { QM_RED });
+        linkMsg.Replace("111", BONK_COUNT());
+        CreateMessageFromTextObject(0x7092, 0, 2, 3, linkMsg);
+    }
 }
 
 std::vector<Text> CreateBaseCompassTexts() {
@@ -1402,7 +1500,36 @@ std::string MQ_ELSE() {
 std::string MQ_END() {
     return "\x7F\x2B"s;
 }
+
+// Custom control codes
 std::string TRIFORCE_PIECE_COUNT() {
-    return "\x7F\x30"s;
+    return { '\x7F', static_cast<char>(TEXT_CTRL_TRIFORCE_PIECE_COUNT) };
+}
+std::string FINAL_TIME() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_FINAL_TIME) };
+}
+std::string CHECK_PERCENTAGE() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_CHECK_PERCENTAGE) };
+}
+std::string SAVE_COUNT() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_SAVE_COUNT) };
+}
+std::string DEATH_COUNT() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_DEATH_COUNT) };
+}
+std::string HIT_COUNT() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_HIT_COUNT) };
+}
+std::string DAMAGE_RECEIVED() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_DAMAGE_RECEIVED) };
+}
+std::string BONK_COUNT() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_BONK_COUNT) };
+}
+std::string DEKU_SHIELD_COUNT() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_DEKU_SHIELD_COUNT) };
+}
+std::string HYLIAN_SHIELD_COUNT() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_HYLIAN_SHIELD_COUNT) };
 }
 } // namespace CustomMessages

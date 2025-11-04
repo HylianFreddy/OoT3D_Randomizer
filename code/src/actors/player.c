@@ -11,6 +11,7 @@
 #include "item_override.h"
 #include "colors.h"
 #include "common.h"
+#include "savefile.h"
 #include "gloom.h"
 
 #define PlayerActor_Init ((ActorFunc)GAME_ADDR(0x191844))
@@ -132,9 +133,13 @@ void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         }
     }
 
-    // Handle hit stuff
-    // Ignore single units of elemental damage
-    if (gSaveContext.health < sPrevHealth - 1) {
+    // Handle hit/damage counters
+    s16 lostHealth = sPrevHealth - gSaveContext.health;
+    if (lostHealth > 0) {
+        gExtSaveData.damageReceived += (sPrevHealth - gSaveContext.health);
+    }
+    // Don't count hits for single units of elemental damage
+    if (lostHealth > 1) {
         Player_OnHit();
     }
     sPrevHealth = gSaveContext.health;
@@ -243,8 +248,33 @@ void Player_UpdateRainbowTunic(void) {
     *(f32*)(cmabChunk + blueOffset)  = color.b / 255.0f;
 }
 
+void Player_OnBonk(void) {
+    gExtSaveData.bonkCount++;
+
+    switch (gSettingsContext.bonkDamage) {
+        case BONKDAMAGE_OHKO:
+            gSaveContext.health = 0;
+            break;
+        default:
+            const s8 bonkDamageValues[] = { 0x0, 0x04, 0x08, 0x10, 0x20, 0x40 };
+
+            s8 damage = bonkDamageValues[gSettingsContext.bonkDamage];
+            if (gSaveContext.nayrusLoveTimer > 0) {
+                damage = 0;
+            } else if (gSaveContext.doubleDefense) {
+                damage /= 2;
+            }
+            gSaveContext.health -= damage;
+            if (gSaveContext.health < 0) {
+                gSaveContext.health = 0;
+            }
+            break;
+    }
+}
+
 void Player_OnHit(void) {
     if (rGameplayFrames - sLastHitFrame > 5) {
+        gExtSaveData.hitCount++;
         Gloom_OnHit();
     }
 
