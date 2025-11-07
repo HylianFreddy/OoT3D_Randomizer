@@ -193,8 +193,7 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
     static Vec3f vecPos = { 0 };
     Player* this        = (Player*)thisx;
 
-    s32 tempSaModelsCount1 = gMainClass->sub180.saModelsCount1;
-    s32 tempSaModelsCount2 = gMainClass->sub180.saModelsCount2;
+    s32 prevSaModelsCount1 = gMainClass->sub180.saModelsCount1;
 
     PlayerActor_Draw(thisx, globalCtx);
 
@@ -202,8 +201,10 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
 
-    gMainClass->sub180.saModelsCount1 = tempSaModelsCount1; // 3D models
-    gMainClass->sub180.saModelsCount2 = tempSaModelsCount2; // 2D billboards
+    if (gMainClass->sub180.saModelsCount1 > prevSaModelsCount1) {
+        // Make player model invisible
+        gMainClass->sub180.saModelsList1[prevSaModelsCount1] = (SAModelListEntry){ 0 };
+    }
 
     thisx->shape.shadowDrawFunc = NULL;
 
