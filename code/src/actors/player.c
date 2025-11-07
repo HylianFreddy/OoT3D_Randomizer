@@ -36,6 +36,15 @@ u8 storedMask       = 0;
 static u32 sLastHitFrame = 0;
 static s16 sPrevHealth   = INT16_MAX;
 
+static f32 sSpeedMultiplier = 1.0;
+static u8 swimBoostTimer    = 0;
+#define SWIM_BOOST_POWER 3.0f
+#define SWIM_BOOST_DURATION 40
+#define Player_RunningAction ((void*)GAME_ADDR(0x4BA378))
+#define Player_SwimmingAction ((void*)GAME_ADDR(0x4A3344))
+
+void Player_ComputeSpeedBoosts(void);
+
 void** Player_EditAndRetrieveCMB(ZARInfo* zarInfo, u32 objModelIdx) {
     void** cmbMan = ZAR_GetCMBByIndex(zarInfo, objModelIdx);
     void* cmb     = *cmbMan;
@@ -100,6 +109,22 @@ void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
 
 void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     Player* this = (Player*)thisx;
+
+    Player_ComputeSpeedBoosts();
+
+    if (this->stateFuncPtr == Player_RunningAction && sSpeedMultiplier > 2.99f) {
+        CollisionPoly floorPoly;
+        Vec3f actorPos = (Vec3f){
+            .x = thisx->world.pos.x,
+            .y = thisx->world.pos.y + 100,
+            .z = thisx->world.pos.z,
+        };
+
+        f32 yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
+        thisx->world.pos.y   = yGroundIntersect;
+        thisx->home.pos.y    = yGroundIntersect;
+    }
+
     PlayerActor_Update(thisx, globalCtx);
 
     // Restore Randomizer draw function in case something (like Farore's Wind) overwrote it
@@ -239,39 +264,34 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
                          1, 8, 0);
 }
 
-static u8 swimBoostTimer = 0;
-#define SWIM_BOOST_POWER 3.0f
-#define SWIM_BOOST_DURATION 40
+void Player_ComputeSpeedBoosts(void) {
+    sSpeedMultiplier = 1.0f;
 
-f32 Player_GetSpeedMultiplier(void) {
-    f32 speedMultiplier = 1;
-
-    if (gSettingsContext.fastBunnyHood && PLAYER->currentMask == 4 &&
-        PLAYER->stateFuncPtr == (void*)GAME_ADDR(0x4BA378)) {
-        speedMultiplier *= 1.5;
+    if (gSettingsContext.fastBunnyHood && PLAYER->currentMask == 4 && PLAYER->stateFuncPtr == Player_RunningAction) {
+        sSpeedMultiplier *= 1.5;
     }
 
     if (gExtSaveData.option_SpeedBoost) {
         // Constant speed boost
-        if (PLAYER->stateFuncPtr == (void*)GAME_ADDR(0x4BA378) && rInputCtx.touchHeld &&
+        if (PLAYER->stateFuncPtr == Player_RunningAction && rInputCtx.touchHeld &&
             (rInputCtx.touchX > 0x40 && rInputCtx.touchX < 0x100) &&
             (rInputCtx.touchY > 0x25 && rInputCtx.touchY < 0xC8)) {
             if (rInputCtx.touchY > 145) {
-                speedMultiplier *= 1.5;
+                sSpeedMultiplier *= 1.5;
             } else if (rInputCtx.touchY > 91) {
-                speedMultiplier *= 3.0;
+                sSpeedMultiplier *= 3.0;
             } else {
-                speedMultiplier *= 5.0;
+                sSpeedMultiplier *= 5.0;
             }
         }
 
         // Swim boost
-        if (PLAYER->stateFuncPtr == (void*)GAME_ADDR(0x4A3344)) {
+        if (PLAYER->stateFuncPtr == Player_SwimmingAction) {
             if (rInputCtx.pressed.b) {
                 swimBoostTimer = SWIM_BOOST_DURATION;
             }
 
-            speedMultiplier *= 1 + SWIM_BOOST_POWER * ((f32)swimBoostTimer / SWIM_BOOST_DURATION);
+            sSpeedMultiplier *= 1 + SWIM_BOOST_POWER * ((f32)swimBoostTimer / SWIM_BOOST_DURATION);
 
             if (swimBoostTimer > 0) {
                 swimBoostTimer--;
@@ -284,10 +304,12 @@ f32 Player_GetSpeedMultiplier(void) {
     }
 
     if (IceTrap_ActiveCurse == ICETRAP_CURSE_SLOW) {
-        speedMultiplier *= 0.75;
+        sSpeedMultiplier *= 0.75;
     }
+}
 
-    return speedMultiplier;
+f32 Player_GetSpeedMultiplier(void) {
+    return sSpeedMultiplier;
 }
 
 s32 Player_IsAdult() {
