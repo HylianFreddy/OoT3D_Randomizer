@@ -28,6 +28,15 @@ hook_after_GlobalContext_Update:
     pop {r0-r12, lr}
     b 0x2E25F0
 
+.global hook_DrawScreen
+hook_DrawScreen:
+    push {r0-r12, lr}
+    bl checkFastForward
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    beq 0x418B88 @ handles drawing screen
+    bx lr
+
 .global hook_Gfx_Update
 hook_Gfx_Update:
     push {r0-r12, lr}
