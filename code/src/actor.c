@@ -123,8 +123,9 @@ void Actor_Init() {
 
     gActorOverlayTable[0x9].initInfo->update = (ActorFunc)EnDoor_rUpdate;
 
-    gActorOverlayTable[0xA].initInfo->init   = EnBox_rInit;
-    gActorOverlayTable[0xA].initInfo->update = EnBox_rUpdate;
+    gActorOverlayTable[0xA].initInfo->init         = EnBox_rInit;
+    gActorOverlayTable[0xA].initInfo->update       = EnBox_rUpdate;
+    gActorOverlayTable[0xA].initInfo->instanceSize = sizeof(EnBox);
 
     gActorOverlayTable[0xB].initInfo->init   = BgDyYoseizo_rInit;
     gActorOverlayTable[0xB].initInfo->update = BgDyYoseizo_rUpdate;

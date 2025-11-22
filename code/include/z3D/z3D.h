@@ -883,4 +883,7 @@ typedef void (*SaveGame_proc)(GlobalContext* globalCtx, u8 isSaveFileCreation);
 typedef s32 (*Message_GetState_proc)(void);
 #define Message_GetState ((Message_GetState_proc)GAME_ADDR(0x3769d8))
 
+typedef f32 (*Rand_ZeroOne_proc)(void) __attribute__((pcs("aapcs-vfp")));
+#define Rand_ZeroOne ((Rand_ZeroOne_proc)GAME_ADDR(0x3759D0))
+
 #endif //_Z3D_H_

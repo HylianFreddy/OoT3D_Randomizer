@@ -15,9 +15,33 @@
 
 #define EnBox_Update ((ActorFunc)GAME_ADDR(0x1D5B70))
 
+#define PlaySFXAt(sfxId, pos) \
+    PlaySFX(sfxId, pos, 4, (f32*)GAME_ADDR(0x54AC20), (f32*)GAME_ADDR(0x54AC20), (s8*)GAME_ADDR(0x54AC24))
+
 static Actor* sLastTrapChest = 0;
 static EnBom* sBomb          = 0;
 static EnElf* sFairy         = 0;
+
+// same collider init values as small crate actor (ObjKibako), except dim.height
+static ColliderCylinderInit sCylinderInit = {
+    {
+        0xA,
+        0x9,
+        0x9,
+        0x39,
+        0x20,
+        0x1,
+    },
+    {
+        0,
+        { 0x00000002, 0, 0x01 },
+        { 0x4FC0075C, 0, 0x00 },
+        0x1,
+        0x1,
+        0x1,
+    },
+    { 12, 10, 0, { 0, 0, 0 } },
+};
 
 // Bombchus are a major item if they're in logic and haven't been obtained yet
 u32 isBombchuMajor(void) {
@@ -25,6 +49,7 @@ u32 isBombchuMajor(void) {
 }
 
 void EnBox_rInit(Actor* thisx, GlobalContext* globalCtx) {
+    EnBox* this = (EnBox*)thisx;
     EnBox_Init(thisx, globalCtx);
     sLastTrapChest = 0;
 
@@ -33,6 +58,15 @@ void EnBox_rInit(Actor* thisx, GlobalContext* globalCtx) {
         // Make sure zelda_dangeon_keep and object_fz are loaded
         Object_FindEntryOrSpawn(0x3);
         Object_FindEntryOrSpawn(0x114);
+
+        this->rExt.isTrapChest = TRUE;
+        // Set up collider to make the trap chest breakable
+        Collider_InitCylinder(globalCtx, &this->rExt.collider);
+        Collider_SetCylinder(globalCtx, &this->rExt.collider, &this->dyna.actor, &sCylinderInit);
+        Collider_UpdateCylinder(&this->dyna.actor, &this->rExt.collider);
+        if (thisx->scale.x >= 0.009f) {
+            this->rExt.collider.dim.radius = 20;
+        }
     }
 
     if ((gSettingsContext.chestAppearance != CHESTAPPEARANCE_VANILLA)) {
@@ -129,7 +163,31 @@ void Chest_ChangeAppearance(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
+static void Chest_Break(EnBox* this, GlobalContext* globalCtx) {
+    for (s32 i = 0; i < 30; i++) {
+        Vec3f pos = {
+            .x = ((Rand_ZeroOne() - 0.5f) * 10.0f) + this->dyna.actor.home.pos.x,
+            .y = ((Rand_ZeroOne() * 5.0f) + this->dyna.actor.home.pos.y) + 8.0f,
+            .z = ((Rand_ZeroOne() - 0.5f) * 10.0f) + this->dyna.actor.home.pos.z,
+        };
+        Vec3f velocity = {
+            .x = (Rand_ZeroOne() - 0.5f) * 15.0f,
+            .y = (Rand_ZeroOne() * 16.0f) + 5.0f,
+            .z = (Rand_ZeroOne() - 0.5f) * 15.0f,
+        };
+        s16 scale = 20;
+        s16 arg5  = (scale >= 11) ? 37 : 33;
+        EffectSsKakera_Spawn(globalCtx, &pos, &velocity, &pos, -400, arg5, 10, 2, 0, scale, 1, 0, 80, -1, 3, 1);
+    }
+    // Set chest flag
+    globalCtx->actorCtx.flags.chest |= 1 << (this->dyna.actor.params & 0b11111);
+    PlaySFXAt(0x1000201, &this->dyna.actor.home.pos); // NA_SE_EV_WOODBOX_BREAK
+    PlaySFXAt(0x10002F3, &this->dyna.actor.home.pos); // NA_SE_EN_PO_BIG_GET
+    Actor_Kill(&this->dyna.actor);
+}
+
 void EnBox_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
+    EnBox* this = (EnBox*)thisx;
 
     if (sBomb != 0 && thisx == sLastTrapChest) {
         sBomb->timer = 2;
@@ -167,6 +225,14 @@ void EnBox_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     // Use correct size for the light effect if it appears
     if (thisx->child != 0) {
         thisx->child->scale = thisx->scale;
+    }
+
+    if (this->rExt.isTrapChest) {
+        if (this->rExt.collider.base.acFlags & AC_HIT) {
+            Chest_Break(this, globalCtx);
+        }
+        Collider_UpdateCylinder(&this->dyna.actor, &this->rExt.collider);
+        CollisionCheck_SetAC(globalCtx, &globalCtx->colChkCtx, &this->rExt.collider.base);
     }
 }
 

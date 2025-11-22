@@ -20,6 +20,7 @@ typedef struct {
 } Collider;                         // size = 0x18
 _Static_assert(sizeof(Collider) == 0x18, "Collider size");
 
+#define AC_HIT (1 << 1)     // Had an AC collision
 #define AC_BOUNCED (1 << 7) // Caused an AT collider to bounce off it
 
 typedef struct {

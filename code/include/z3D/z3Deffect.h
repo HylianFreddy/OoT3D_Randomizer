@@ -4,6 +4,8 @@
 #include "z3Dvec.h"
 #include "z3Dcolor.h"
 
+struct GlobalContext;
+
 /* Effects */
 
 #define SPARK_COUNT 24
@@ -155,5 +157,10 @@ typedef struct EffectSsInfo {
 
 typedef void (*EffectSs_Delete_proc)(EffectSs* effectSs);
 #define EffectSs_Delete ((EffectSs_Delete_proc)GAME_ADDR(0x2D6A50))
+
+typedef void (*EffectSsKakera_Spawn_proc)(struct GlobalContext* globalCtx, Vec3f* pos, Vec3f* velocity, Vec3f* arg3,
+                                          s16 gravity, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 scale, s16 arg10,
+                                          s16 arg11, s32 life, s16 colorIdx, s16 objId, u32 cmbIndex);
+#define EffectSsKakera_Spawn ((EffectSsKakera_Spawn_proc)GAME_ADDR(0x365F98))
 
 #endif //_Z3DEFFECT_H_
