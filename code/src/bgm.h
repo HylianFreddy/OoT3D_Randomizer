@@ -11,6 +11,6 @@
 #define BGM_OPENING_DOOR_OF_TIME 0x10005C6
 #define BGM_COUNT 85
 
-u32 SetBGM(u32 original);
+extern u16 BGM_ItemObtained;
 
 #endif // _BGM_H_

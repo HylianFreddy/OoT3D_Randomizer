@@ -8,6 +8,7 @@
 #include "entrance.h"
 #include "savefile.h"
 #include "common.h"
+#include "bgm.h"
 
 #include <stddef.h>
 
@@ -491,6 +492,7 @@ void ItemOverride_GetItemTextAndItemID(Actor* actor) {
             Item_Give(gGlobalContext, actionId);
         }
         ItemOverride_AfterItemReceived();
+        BGM_ItemObtained = rActiveItemOverride.value.itemId;
     }
 }
 
@@ -521,6 +523,7 @@ void ItemOverride_GetSkulltulaToken(Actor* tokenActor) {
         DisplayTextbox(gGlobalContext, itemRow->textId, 0);
         Item_Give(gGlobalContext, itemRow->actionId);
     }
+    BGM_ItemObtained = resolvedItemId;
 }
 
 static s32 ItemOverride_IsDrawItemVanilla(void) {
