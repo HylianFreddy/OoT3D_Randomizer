@@ -31,6 +31,7 @@ void InitOptions(void) {
     strcpy(options[opNum].name, "Play Music");
     strcpy(options[opNum].alternatives[altNum++], "Off");
     strcpy(options[opNum].alternatives[altNum++], "On");
+    strcpy(options[opNum].alternatives[altNum++], "Partial");
     strcpy(options[opNum].description, "Toggles the music.\nTakes effect once music is switched.");
     options[opNum++].optionPointer = &gExtSaveData.option_EnableBGM;
 

@@ -6,7 +6,13 @@
 static u32 rBGMOverrides[128] = { 0 };
 
 u32 SetBGM(u32 original) {
-    if (!gExtSaveData.option_EnableBGM && IsInGameOrBossChallenge()) {
+    u8 shouldSkip =
+        gExtSaveData.option_EnableBGM == 0 ||  // "Off"
+        (gExtSaveData.option_EnableBGM == 2 && // "Partial"
+         original != BGM_GET_ITEM && original != BGM_GET_HEART_CONTAINER && original != BGM_GET_SKULLTULA_TOKEN &&
+         original != BGM_GET_SPIRITUAL_STONE && original != BGM_GET_MEDALLION && original != BGM_OPENING_DOOR_OF_TIME);
+
+    if (shouldSkip && IsInGameOrBossChallenge()) {
         return SEQ_AUDIO_BLANK;
     }
 
