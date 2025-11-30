@@ -4,6 +4,8 @@
 #include "settings.h"
 #include "armos.h"
 #include "actor.h"
+#include "common.h"
+#include "flying_traps.h"
 
 // clang-format off
 static EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
@@ -105,4 +107,74 @@ u8 EnemySouls_CheckSoulForActor(Actor* actor) {
 
     EnemySoulId soulId = EnemySouls_GetSoulId(actor->id);
     return soulId == SOUL_NONE || EnemySouls_GetSoulFlag(soulId);
+}
+
+u8 EnemySouls_ShouldDrawSoulless(Actor* actor) {
+    return !EnemySouls_CheckSoulForActor(actor) && // soul not owned;
+           actor->scale.x != 0 &&                  // if scale is 0, enemy is invisible;
+           !FlyingTraps_IsHiddenTrap(actor);       // hidden flying traps will appear normal.
+}
+
+#define SOULLESS_EFFECT_DURATION 6
+
+static void SoullessEffect_Draw(Vec3f pos, f32 width, f32 height) {
+    pos.x += width * (Rand_ZeroOne() - 0.5);
+    pos.y += height * (Rand_ZeroOne() - 0.5);
+    pos.z += width * (Rand_ZeroOne() - 0.5);
+    Vec3f nullVec         = { 0 };
+    Color_RGBA8 primColor = {
+        .r = 0x6E,
+        .g = 0x05,
+        .b = 0xFF,
+        .a = 0xFF,
+    };
+    Color_RGBA8 envColor = {
+        .r = 0x28,
+        .g = 0x00,
+        .b = 0xFF,
+        .a = 0xFF,
+    };
+    s32 scale = width * 1000;
+    if (scale > INT16_MAX) {
+        scale = INT16_MAX;
+    }
+    EffectSsKiraKira_SpawnDispersed(gGlobalContext, &pos, &nullVec, &nullVec, &primColor, &envColor, scale,
+                                    SOULLESS_EFFECT_DURATION);
+}
+
+static void SoullessEffect_ParseCollider(Collider* collider) {
+    if (collider->actor->flags & ACTOR_FLAG_INSIDE_CULLING_VOLUME && EnemySouls_ShouldDrawSoulless(collider->actor)) {
+        if (collider->shape == COLSHAPE_JNTSPH) {
+            ColliderJntSph* jntSphCol = (ColliderJntSph*)collider;
+            for (s32 j = 0; j < jntSphCol->count; j++) {
+                ColliderJntSphElement* elem = &jntSphCol->elements[j];
+                Spheref worldSphere         = elem->dim.worldSphere;
+                SoullessEffect_Draw(worldSphere.center, worldSphere.radius, worldSphere.radius);
+            }
+        } else if (collider->shape == COLSHAPE_CYLINDER) {
+            ColliderCylinder* cylCol = (ColliderCylinder*)collider;
+            SoullessEffect_Draw(cylCol->dim.position, cylCol->dim.radius, cylCol->dim.height);
+        }
+    }
+}
+
+void EnemySouls_DrawEffects(void) {
+    if ((PauseContext_GetState() != 0) || gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_PURPLE_SPARKS ||
+        rGameplayFrames % SOULLESS_EFFECT_DURATION != 0) {
+        return;
+    }
+
+    // Parse all colliders subscribed to AC
+    for (s32 i = 0; i < gGlobalContext->colChkCtx.colAcCount; i++) {
+        Collider* collider = gGlobalContext->colChkCtx.colAc[i];
+        SoullessEffect_ParseCollider(collider);
+    }
+
+    // Parse colliders subscribed to OC and not AC
+    for (s32 i = 0; i < gGlobalContext->colChkCtx.colOcCount; i++) {
+        Collider* collider = gGlobalContext->colChkCtx.colOc[i];
+        if (!(collider->acFlags & AC_ON)) {
+            SoullessEffect_ParseCollider(collider);
+        }
+    }
 }

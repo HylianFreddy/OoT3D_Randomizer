@@ -163,4 +163,9 @@ typedef void (*EffectSsKakera_Spawn_proc)(struct GlobalContext* globalCtx, Vec3f
                                           s16 arg11, s32 life, s16 colorIdx, s16 objId, u32 cmbIndex);
 #define EffectSsKakera_Spawn ((EffectSsKakera_Spawn_proc)GAME_ADDR(0x365F98))
 
+typedef void (*EffectSsKiraKira_SpawnDispersed_proc)(struct GlobalContext* play, Vec3f* pos, Vec3f* velocity,
+                                                     Vec3f* accel, Color_RGBA8* primColor, Color_RGBA8* envColor,
+                                                     s16 scale, s32 life);
+#define EffectSsKiraKira_SpawnDispersed ((EffectSsKiraKira_SpawnDispersed_proc)GAME_ADDR(0x36EA98))
+
 #endif //_Z3DEFFECT_H_

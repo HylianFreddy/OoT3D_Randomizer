@@ -18,6 +18,7 @@
 #include "scene.h"
 #include "gloom.h"
 #include "ocarina_notes.h"
+#include "enemy_souls.h"
 
 #include "z3D/z3D.h"
 #include "3ds/extdata.h"
@@ -84,6 +85,7 @@ void after_GlobalContext_Update() {
     }
 
     Multiplayer_Sync_Update();
+    EnemySouls_DrawEffects();
 
     if (gGlobalContext->state.running == 0) {
         Model_DestroyAll();

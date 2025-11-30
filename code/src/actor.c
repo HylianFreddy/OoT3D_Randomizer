@@ -534,34 +534,13 @@ void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
 }
 
 void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
-    static Vec3f vecAcc = { 0 };
-    static Vec3f vecVel = { 0 };
-
-    // As a temporary way to mark invulnerable enemies whose soul has not been collected yet,
-    // the model will not be rendered and a flame will take its place.
-    s32 shouldDrawSoulless = !EnemySouls_CheckSoulForActor(actor) && // soul not owned;
-                             actor->scale.x != 0 &&                  // if scale is 0, enemy is invisible;
-                             !FlyingTraps_IsHiddenTrap(actor);       // hidden flying traps will appear normal.
-    if (shouldDrawSoulless && (PauseContext_GetState() == 0) &&
-        gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_PURPLE_FLAME) {
-        s32 velFrameIdx = (rGameplayFrames % 16);
-        s32 accFrameIdx = (rGameplayFrames % 4);
-        s32 bossMult    = (actor->type == ACTORTYPE_BOSS ? 4 : 1);
-        vecAcc.y        = 0.12f * accFrameIdx * bossMult;
-        vecVel.x        = 0.5f * Math_SinS(0x1000 * velFrameIdx) * bossMult;
-        vecVel.z        = 0.5f * Math_CosS(0x1000 * velFrameIdx) * bossMult;
-        s16 scale       = 150 * bossMult;
-        EffectSsDeadDb_Spawn(globalCtx, &actor->focus.pos, &vecVel, &vecAcc, scale, -1, 0x6E, 0x05, 0xFF, 0xFF, 0x28,
-                             0x00, 0xFF, 1, 8, 0);
-    }
-
     s32 origSaModelsCount1 = gMainClass->sub180.saModelsCount1;
     s32 origSaModelsCount2 = gMainClass->sub180.saModelsCount2;
 
     actor->draw(actor, globalCtx);
 
-    if (shouldDrawSoulless &&
-        (gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_FLASHING || rGameplayFrames % 2 == 0)) {
+    if (EnemySouls_ShouldDrawSoulless(actor) && gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_FLASHING &&
+        rGameplayFrames % 2 == 0) {
         // make enemy invisible
         gMainClass->sub180.saModelsCount1 = origSaModelsCount1; // 3D models
         gMainClass->sub180.saModelsCount2 = origSaModelsCount2; // 2D billboards
