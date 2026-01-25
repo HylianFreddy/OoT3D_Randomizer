@@ -64,7 +64,7 @@ void HintTable_Init_Exclude_Overworld() {
 
     hintTable[KF_BOULDER_MAZE_BLUE_RUPEE_2] = HintText::Exclude({
                        // obscure text
-                       Text{"#watching out for rolling stones# you can find", /*french*/"#watching out for rolling stones# you can find", /*spanish*/"#watching out for rolling stones# you can find", /*italian*/"chi #impara a usare L# può trovare", /*german*/"#watching out for rolling stones# you can find"},
+                       Text{"#watching out for rolling stones# you can find", /*french*/"#watching out for rolling stones# you can find", /*spanish*/"#watching out for rolling stones# you can find", /*italian*/"chi #impara a usare `L`# può trovare", /*german*/"#watching out for rolling stones# you can find"},
                      }, {},
                        // clear text
                        Text{"in the #Kokiri boulder maze# you can find", /*french*/"in the #Kokiri boulder maze# you can find", /*spanish*/"in the #Kokiri boulder maze# you can find", /*italian*/"presso #un masso rotolante nella foresta dei Kokiri# puoi trovare", /*german*/"in the #Kokiri boulder maze# you can find"}

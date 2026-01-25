@@ -1321,6 +1321,13 @@ Text AddColorsAndFormat(Text text, const std::vector<u8>& colors /*= {}*/) {
                 textStr->replace(choice, TWO_WAY_CHOICE().length(), NEWLINE() + TWO_WAY_CHOICE());
             }
         }
+
+        // add L button icon
+        size_t lBtn = textStr->find("`L`");
+        while (lBtn != std::string::npos) {
+            textStr->replace(lBtn, 3, "\x7F$\n");
+            lBtn = textStr->find('{');
+        }
     }
     return Text{ "" } + UNSKIPPABLE() + INSTANT_TEXT_ON() + text + INSTANT_TEXT_OFF() + MESSAGE_END();
 }
