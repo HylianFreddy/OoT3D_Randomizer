@@ -136,7 +136,7 @@ static void Multiplayer_Overwrite_mSaveContext(void) {
     mSaveContext.magicMeterSize   = gSaveContext.magicMeterSize;
     // ExtData
     for (size_t i = 0; i < EXTINF_SIZE; i++) {
-        mSaveContext.extInf[i] = gExtSaveData.extInf[i];
+        mSaveContext.extInf[i] = gExtSaveData.extInfArray[i];
     }
     for (size_t i = 0; i < SAVEFILE_SCENES_DISCOVERED_IDX_COUNT; i++) {
         mSaveContext.scenesDiscovered[i] = gExtSaveData.scenesDiscovered[i];
@@ -198,7 +198,7 @@ static void Multiplayer_Overwrite_gSaveContext(void) {
     gSaveContext.magicMeterSize   = mSaveContext.magicMeterSize;
     // ExtData
     for (size_t i = 0; i < EXTINF_SIZE; i++) {
-        gExtSaveData.extInf[i] = mSaveContext.extInf[i];
+        gExtSaveData.extInfArray[i] = mSaveContext.extInf[i];
     }
     for (size_t i = 0; i < SAVEFILE_SCENES_DISCOVERED_IDX_COUNT; i++) {
         gExtSaveData.scenesDiscovered[i] = mSaveContext.scenesDiscovered[i];
@@ -525,7 +525,7 @@ static void Multiplayer_Sync_Init(void) {
 
     // Extra Info Table
     for (size_t i = 0; i < EXTINF_SIZE; i++) {
-        prevExtInf[i] = gExtSaveData.extInf[i];
+        prevExtInf[i] = gExtSaveData.extInfArray[i];
     }
 
     // Triforce Pieces
@@ -854,14 +854,10 @@ static void Multiplayer_Sync_SharedProgress(void) {
     prevAdultTrade = gSaveContext.sceneFlags[0x60].unk;
 
     // Extra Info Table
-    for (size_t index = 0; index < ARRAY_SIZE(gExtSaveData.extInf); index++) {
-        // Don't send this to allow all current players to watch the cutscene
-        if (index == EXTINF_HASTIMETRAVELED) {
-            continue;
-        }
-        if (prevExtInf[index] != gExtSaveData.extInf[index]) {
-            for (size_t bit = 0; bit < BIT_COUNT(gExtSaveData.extInf[index]); bit++) {
-                s8 result = BitCompare(gExtSaveData.extInf[index], prevExtInf[index], bit);
+    for (size_t index = 0; index < ARRAY_SIZE(gExtSaveData.extInfArray); index++) {
+        if (prevExtInf[index] != gExtSaveData.extInfArray[index]) {
+            for (size_t bit = 0; bit < BIT_COUNT(gExtSaveData.extInfArray[index]); bit++) {
+                s8 result = BitCompare(gExtSaveData.extInfArray[index], prevExtInf[index], bit);
                 if (result > 0) {
                     Multiplayer_Send_ExtInfBit(index, bit, 1);
                 } else if (result < 0) {
@@ -869,8 +865,10 @@ static void Multiplayer_Sync_SharedProgress(void) {
                 }
             }
         }
-        prevExtInf[index] = gExtSaveData.extInf[index];
+        prevExtInf[index] = gExtSaveData.extInfArray[index];
     }
+
+    // `hasTimeTraveled` is not synced to allow all current players to watch the cutscene
 
     // Triforce Pieces
     if (prevTriforcePieces != gExtSaveData.triforcePieces) {
@@ -2153,14 +2151,15 @@ void Multiplayer_Receive_WorldMapBit(u16 senderID) {
     }
 }
 
-void Multiplayer_Send_ExtInfBit(u8 index, u8 bit, u8 setOrUnset) {
+void Multiplayer_Send_ExtInfBit(u16 index, u8 bit, u8 setOrUnset) {
     if (!IsSendReceiveReady() || gSettingsContext.mp_SharedProgress == OFF) {
         return;
     }
     memset(mBuffer, 0, mBufSize);
     u8 memSpacer = PrepareSharedProgressPacket(PACKET_EXTINF);
 
-    mBuffer[memSpacer++] = index;
+    mBuffer[memSpacer] = index;
+    memSpacer += sizeof(index);
     mBuffer[memSpacer++] = bit;
     mBuffer[memSpacer++] = setOrUnset;
     Multiplayer_SendPacket(memSpacer, UDS_BROADCAST_NETWORKNODEID);
@@ -2172,7 +2171,8 @@ void Multiplayer_Receive_ExtInfBit(u16 senderID) {
     }
     u8 memSpacer = GetSharedProgressMemSpacerOffset();
 
-    u8 index      = mBuffer[memSpacer++];
+    u16 index = mBuffer[memSpacer];
+    memSpacer += sizeof(index);
     u8 bit        = mBuffer[memSpacer++];
     u8 setOrUnset = mBuffer[memSpacer++];
 

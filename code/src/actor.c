@@ -83,6 +83,7 @@
 #include "stalfos.h"
 #include "bubble.h"
 #include "ganondorf.h"
+#include "obj_mure3.h"
 
 #include "fairy.h"
 
@@ -135,10 +136,11 @@ void Actor_Init() {
 
     gActorOverlayTable[0xF].initInfo->update = (ActorFunc)BgYdanSp_rUpdate;
 
-    gActorOverlayTable[0x15].initInfo->init    = EnItem00_rInit;
-    gActorOverlayTable[0x15].initInfo->destroy = EnItem00_rDestroy;
-    gActorOverlayTable[0x15].initInfo->update  = EnItem00_rUpdate;
-    gActorOverlayTable[0x15].initInfo->draw    = EnItem00_rDraw;
+    gActorOverlayTable[0x15].initInfo->init         = EnItem00_rInit;
+    gActorOverlayTable[0x15].initInfo->destroy      = EnItem00_rDestroy;
+    gActorOverlayTable[0x15].initInfo->update       = EnItem00_rUpdate;
+    gActorOverlayTable[0x15].initInfo->draw         = EnItem00_rDraw;
+    gActorOverlayTable[0x15].initInfo->instanceSize = sizeof(EnItem00);
 
     gActorOverlayTable[0x1D].initInfo->update = EnPeehat_rUpdate;
 
@@ -321,6 +323,8 @@ void Actor_Init() {
 
     gActorOverlayTable[0x1A3].initInfo->update = EnDntNomal_rUpdate;
 
+    gActorOverlayTable[0x1AB].initInfo->update = ObjMure3_rUpdate;
+
     gActorOverlayTable[0x1B0].initInfo->update = EnSkb_rUpdate;
 
     gActorOverlayTable[0x1B9].initInfo->init = EnGs_rInit;
@@ -385,6 +389,14 @@ u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
         return TRUE;
     }
 
+    if (actorEntry->id == ACTOR_EN_ITEM00) {
+        // Mark as spawned by scene layer.
+        // All vanilla actor entries for EnItem00 have Z rotation set to 0,
+        // so we can use it as a custom flag.
+        actorEntry->rot.z = -1;
+        return FALSE;
+    }
+
     return Enemizer_OverrideActorEntry(actorEntry, actorEntryIndex);
 }
 
@@ -424,7 +436,8 @@ s32 Actor_IsBoss(Actor* actor) {
 }
 
 void HyperActors_Main(Actor* thisx, GlobalContext* globalCtx) {
-    if (!IsInGame() || thisx->update == NULL || (PLAYER != NULL && Player_InBlockingCsMode(globalCtx, PLAYER))) {
+    if (!IsInGameOrBossChallenge() || thisx->update == NULL ||
+        (PLAYER != NULL && Player_InBlockingCsMode(globalCtx, PLAYER))) {
         return;
     }
 
