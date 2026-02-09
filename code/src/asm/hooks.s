@@ -2227,3 +2227,16 @@ HOOK PlayerBonk
     bl Player_OnBonk
     pop {r0-r12, lr}
     bx lr
+
+HOOK CmbManagerInit
+    push {r0-r12, lr}
+    bl CmbManager_BeforeInit
+    pop {r0-r12, lr}
+    ldr r0,[r0,#0x0]
+    bx lr
+
+HOOK ActorInit
+    push {r0-r12, lr}
+    bl Actor_rInit
+    pop {r0-r12, lr}
+    bx lr

@@ -97,6 +97,8 @@ void Actor_Kill(Actor* actor) {
 
 void TitleCard_Update(GlobalContext* globalCtx, TitleCardContext* titleCtx);
 
+u8 gIsForSoullessActor;
+
 void Actor_Init() {
     // Some actors have the wrong ID saved in their "initInfo".
     // We fix them all here to allow determining the actor type correctly from
@@ -526,8 +528,15 @@ void HyperActors_Main(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
+void Actor_rInit(Actor* actor, GlobalContext* globalCtx) {
+    gIsForSoullessActor = EnemySouls_ShouldDrawSoulless(actor);
+    actor->init(actor, globalCtx);
+    gIsForSoullessActor = FALSE;
+}
+
 void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
     u8 tempHammerQuakeFlag = globalCtx->actorCtx.hammerQuakeFlag;
+    gIsForSoullessActor = EnemySouls_ShouldDrawSoulless(actor);
 
     if (!EnemySouls_CheckSoulForActor(actor)) {
         globalCtx->actorCtx.hammerQuakeFlag = 0;
@@ -541,6 +550,7 @@ void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
     if (tempHammerQuakeFlag != 0) {
         globalCtx->actorCtx.hammerQuakeFlag = tempHammerQuakeFlag;
     }
+    gIsForSoullessActor = FALSE;
 }
 
 void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {

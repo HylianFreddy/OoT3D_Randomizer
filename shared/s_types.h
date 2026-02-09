@@ -27,6 +27,14 @@ typedef struct Vec3i {
     s32 x, y, z;
 } Vec3i;
 
+typedef struct {
+    u8 x, y, z, w;
+} Vec4b;
+
+typedef struct {
+    u32 x, y, z, w;
+} Vec4i;
+
 typedef struct PosRot {
     Vec3f pos;
     Vec3s rot;

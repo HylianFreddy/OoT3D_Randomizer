@@ -427,6 +427,7 @@ SECTIONS
 	Inventory_ReplaceItem = 0x316CEC + _LD_OFF;
 	.patch_CollisionATvsAC 0x3191B0 + _LD_OFF : { *(.patch_CollisionATvsAC) }
 	ElfMessage_GetSariaText = 0x31C698 + _LD_OFF;
+	.patch_CmbManagerInit 0x31FF78 + _LD_OFF : { *(.patch_CmbManagerInit) }
 	.patch_ISGPutaway 0x32B4AC + _LD_OFF : { *(.patch_ISGPutaway) }
 	Object_Spawn = 0x32E21C + _LD_OFF;
 	Actor_WorldDistXYZToActor = 0x3306C4 + _LD_OFF;
@@ -751,6 +752,7 @@ SECTIONS
 	.patch_OnActorSetup_SceneChange 0x452250 + _LD_OFF : { *(.patch_OnActorSetup_SceneChange) }
 	ret_OnActorSetup_SceneChange = 0x4522A4 + _LD_OFF;
 	.patch_AfterActorSetup_SceneChange 0x4522B8 + _LD_OFF : { *(.patch_AfterActorSetup_SceneChange) }
+	.patch_ActorInit1 0x452320 + _LD_OFF : { *(.patch_ActorInit1) }
 	.patch_before_GlobalContext_Update 0x452390 + _LD_OFF : { *(.patch_before_GlobalContext_Update) }
 	.patch_after_GlobalContext_Update 0x452434 + _LD_OFF : { *(.patch_after_GlobalContext_Update) }
 	.patch_FixItemsMenuSlotDuplication 0x456B90 + _LD_OFF : { *(.patch_FixItemsMenuSlotDuplication) }
@@ -780,6 +782,7 @@ SECTIONS
 	.patch_OnActorSetup_RoomChange 0x4613C4 + _LD_OFF : { *(.patch_OnActorSetup_RoomChange) }
 	ret_OnActorSetup_RoomChange = 0x461424 + _LD_OFF;
 	.patch_AfterActorSetup_RoomChange 0x461434 + _LD_OFF : { *(.patch_AfterActorSetup_RoomChange) }
+	.patch_ActorInit2 0x4615C4 + _LD_OFF : { *(.patch_ActorInit2) }
 	.patch_FixActorKillLoop 0x4615E0 + _LD_OFF : { *(.patch_FixActorKillLoop) }
 	.patch_ActorUpdate 0x461790 + _LD_OFF : { *(.patch_ActorUpdate) }
 	.patch_TitleCardUpdate 0x4618B8 + _LD_OFF : { *(.patch_TitleCardUpdate) }
@@ -820,6 +823,7 @@ SECTIONS
 	.patch_GanonBattleDeathWarp 0x496C98 + _LD_OFF : { *(.patch_GanonBattleDeathWarp) }
 	.patch_GanonRestoreMSOnDeath 0x496CB4 + _LD_OFF : { *(.patch_GanonRestoreMSOnDeath) }
 	.patch_CriticalHealthCheckThree 0x49F294 + _LD_OFF : { *(.patch_CriticalHealthCheckThree) }
+	.patch_ActorInit3 0x4A3318 + _LD_OFF : { *(.patch_ActorInit3) }
 	Player_Action_Swimming = 0x4A3344 + _LD_OFF;
 
 	/* 0x4A5B00 */ _LD_OFF = _LD_EUR ? 0x0 : _LD_OFF;

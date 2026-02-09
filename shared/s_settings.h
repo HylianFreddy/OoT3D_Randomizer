@@ -214,6 +214,7 @@ typedef enum SoullessEnemiesLookSetting {
     SOULLESSLOOK_VANILLA,
     SOULLESSLOOK_PURPLE_FLAMES,
     SOULLESSLOOK_FLASHING,
+    SOULLESSLOOK_BLACK,
 } SoullessEnemiesLookSetting;
 
 typedef enum MapsAndCompassesSetting {

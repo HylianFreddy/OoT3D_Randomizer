@@ -7,6 +7,7 @@
 #include "z3Dmath.h"
 #include "z3Dcollision_check.h"
 #include "z3Dbgcheck.h"
+#include "z3Dcmb.h"
 
 struct Actor;
 struct GlobalContext;
@@ -74,7 +75,7 @@ typedef struct SkeletonAnimationModel {
 } SkeletonAnimationModel; // size = 0xB0
 
 typedef struct SkelAnime {
-    /* 0x00 */ void* unk_00;
+    /* 0x00 */ struct CmbManager* cmbMan;
     /* 0x04 */ struct ZARInfo* zarInfo;
     /* 0x08 */ char unk_08[0x08];
     /* 0x10 */ struct GlobalContext* globalCtx;
