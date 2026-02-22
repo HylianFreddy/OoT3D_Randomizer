@@ -874,19 +874,10 @@ typedef void (*Animation_Change_proc)(SkelAnime* anime, s32 animation_index, f32
 typedef s32 (*SkelAnime_Update_proc)(SkelAnime* skelAnime);
 #define SkelAnime_Update ((SkelAnime_Update_proc)GAME_ADDR(0x3731E0))
 
-typedef void (*EffectSsDeadDb_Spawn_proc)(GlobalContext* globalCtx, Vec3f* position, Vec3f* velocity,
-                                          Vec3f* acceleration, s16 scale, s16 scale_step, s16 prim_r, s16 prim_g,
-                                          s16 prim_b, s16 prim_a, s16 env_r, s16 env_g, s16 env_b, s16 unused,
-                                          s32 frame_duration, s16 play_sound);
-#define EffectSsDeadDb_Spawn ((EffectSsDeadDb_Spawn_proc)GAME_ADDR(0x3642F4))
-
 typedef void (*SaveGame_proc)(GlobalContext* globalCtx, u8 isSaveFileCreation);
 #define SaveGame ((SaveGame_proc)GAME_ADDR(0x2FDAC8))
 
 typedef s32 (*Message_GetState_proc)(void);
 #define Message_GetState ((Message_GetState_proc)GAME_ADDR(0x3769d8))
-
-typedef f32 (*Rand_ZeroOne_proc)(void) __attribute__((pcs("aapcs-vfp")));
-#define Rand_ZeroOne ((Rand_ZeroOne_proc)GAME_ADDR(0x3759D0))
 
 #endif //_Z3D_H_

@@ -1292,7 +1292,7 @@ Option ColoredKeys         = Option::Bool("Colored Small Keys",     {"Off", "On"
 Option ColoredBossKeys     = Option::Bool("Colored Boss Keys",      {"Off", "On"},                                {coloredBossKeysDesc},                                                                                                                              OptionCategory::Cosmetic);
 Option MirrorWorld         = Option::U8  ("Mirror World",           {"Off", "On", "Scene", "Entrance", "Random"}, {mirrorWorldOffDesc, mirrorWorldOnDesc, mirrorWorldSceneDesc, mirrorWorldEntranceDesc, mirrorWorldRandomDesc},                                      OptionCategory::Cosmetic);
 Option BetaSoldOut         = Option::Bool("Beta Sold-Out Model",    {"Off", "On"},                                {betaSoldOutDesc},                                                                                                                                  OptionCategory::Cosmetic);
-Option SoullessEnemiesLook = Option::U8  ("Soulless Enemies Look",  {"Purple Sparks", "Flashing"},                {soullessPurpleSparksDesc, soullessFlashingDesc},                                                                                                   OptionCategory::Cosmetic);
+Option SoullessEnemiesLook = Option::U8  ("Soulless Enemies Look",  {"Vanilla", "Purple Flames", "Flashing"},     {soullessVanillaDesc, soullessPurpleFlamesDesc, soullessFlashingDesc},                                                                              OptionCategory::Cosmetic,     SOULLESSLOOK_PURPLE_FLAMES);
 
 std::vector<Option *> cosmeticOptions = {
     &CustomTunicColors,
@@ -2821,7 +2821,7 @@ std::vector<std::pair<Option*, u8>> racingOverrides = {
     { &SkipSongReplays, SONGREPLAYS_SKIP_NO_SFX },
     { &ColoredKeys, ON },
     { &ColoredBossKeys, ON },
-    { &SoullessEnemiesLook, SOULLESSLOOK_PURPLE_SPARKS },
+    { &SoullessEnemiesLook, SOULLESSLOOK_PURPLE_FLAMES },
 };
 // clang-format on
 

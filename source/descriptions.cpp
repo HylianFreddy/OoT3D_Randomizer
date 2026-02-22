@@ -1293,7 +1293,8 @@ string_view betaSoldOutDesc           = "The game contains an unused model for s
 /*------------------------------                                                           //
 |    SOULLESS ENEMIES LOOK     |                                                           //
 ------------------------------*/                                                           //
-string_view soullessPurpleSparksDesc  = "Soulless enemies will appear with purple sparks\n"//
+string_view soullessVanillaDesc       = "Soulless enemies will appear normal.";            //
+string_view soullessPurpleFlamesDesc  = "Soulless enemies will appear with purple flames\n"//
                                         "around them.";                                    //
 string_view soullessFlashingDesc      = "Soulless enemies will flash between visible and\n"
                                         "invisible on every frame.";                       //
