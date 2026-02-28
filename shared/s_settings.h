@@ -211,7 +211,8 @@ typedef enum ShuffleEnemySoulsSetting {
 } ShuffleEnemySoulsSetting;
 
 typedef enum SoullessEnemiesLookSetting {
-    SOULLESSLOOK_PURPLE_FLAME,
+    SOULLESSLOOK_VANILLA,
+    SOULLESSLOOK_PURPLE_FLAMES,
     SOULLESSLOOK_FLASHING,
 } SoullessEnemiesLookSetting;
 

@@ -740,9 +740,6 @@ s16 Camera_GetCamDataId(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId)
 s32 Animation_GetLastFrame(SkelAnime* anime, s32 animation_index);
 void Animation_Change(SkelAnime* anime, s32 animation_index, f32 play_speed, f32 start_frame, f32 end_frame,
                       f32 morph_frames, s32 mode) __attribute__((pcs("aapcs-vfp")));
-void EffectSsDeadDb_Spawn(GlobalContext* globalCtx, Vec3f* position, Vec3f* velocity, Vec3f* acceleration, s16 scale,
-                          s16 scale_step, s16 prim_r, s16 prim_g, s16 prim_b, s16 prim_a, s16 env_r, s16 env_g,
-                          s16 env_b, s16 unused, s32 frame_duration, s16 play_sound);
 void SaveGame(GlobalContext* globalCtx, u8 isSaveFileCreation);
 s32 Message_GetState(void);
 void SetEventBGM(u32 seqPlayerIndex, u32 seqId);

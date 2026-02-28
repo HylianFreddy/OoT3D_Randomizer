@@ -550,6 +550,7 @@ SECTIONS
 	.patch_ConvertBombDropTwo 0x3747A4 + _LD_OFF : { *(.patch_ConvertBombDropTwo) }
 	.patch_SetSFX 0x37547C + _LD_OFF : { *(.patch_SetSFX) }
 	Audio_PlaySfxGeneral = 0x37547C + _LD_OFF;
+	Rand_ZeroOne = 0x3759D0 + _LD_OFF;
 	Math_SmoothStepToS = 0x375A18 + _LD_OFF;
 	Enemy_StartFinishingBlow = 0x375B70 + _LD_OFF;
 	Audio_PlayActorSfx2 = 0x375BCC + _LD_OFF;
