@@ -869,12 +869,6 @@ typedef void (*Animation_Change_proc)(SkelAnime* anime, s32 animation_index, f32
                                       f32 end_frame, f32 morph_frames, s32 mode) __attribute__((pcs("aapcs-vfp")));
 #define Animation_Change ((Animation_Change_proc)GAME_ADDR(0x375C08))
 
-typedef void (*EffectSsDeadDb_Spawn_proc)(GlobalContext* globalCtx, Vec3f* position, Vec3f* velocity,
-                                          Vec3f* acceleration, s16 scale, s16 scale_step, s16 prim_r, s16 prim_g,
-                                          s16 prim_b, s16 prim_a, s16 env_r, s16 env_g, s16 env_b, s16 unused,
-                                          s32 frame_duration, s16 play_sound);
-#define EffectSsDeadDb_Spawn ((EffectSsDeadDb_Spawn_proc)GAME_ADDR(0x3642F4))
-
 typedef void (*SaveGame_proc)(GlobalContext* globalCtx, u8 isSaveFileCreation);
 #define SaveGame ((SaveGame_proc)GAME_ADDR(0x2FDAC8))
 
