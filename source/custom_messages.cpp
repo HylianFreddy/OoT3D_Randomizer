@@ -32,19 +32,13 @@ constexpr std::array EnglishDungeonNames = {
 };
 
 constexpr std::array FrenchDungeonNames = {
-    "vénérable arbre Mojo",
-    "caverne Dodongo",
-    "ventre de Jabu-Jabu",
-    "temple de la forêt",
-    "temple du feu",
-    "temple de l'eau",
-    "temple de l'esprit",
-    "temple de l'ombre",
-    "puits",
-    "caverne de glace",
-    "",
-    "gymnase Gerudo",
-    "forteresse Gerudo",
+    "vénérable arbre Mojo", "caverne Dodongo",
+    "ventre de Jabu-Jabu",  "temple de la forêt",
+    "temple du feu",        "temple de l'eau",
+    "temple de l'esprit",   "temple de l'ombre",
+    "fond du puits", // Just "puits" in Europe
+    "caverne de glace",     "",
+    "gymnase Gerudo",       "forteresse Gerudo",
     "château de Ganon",
 };
 
@@ -270,6 +264,13 @@ void CreateAlwaysIncludedMessages() {
             COLOR(QM_GREEN) + "Acheter" + NEWLINE() + "Ne pas acheter" + COLOR(QM_WHITE) + MESSAGE_END(),
         INSTANT_TEXT_ON() + "Bombchus (10): 99 rupias" + INSTANT_TEXT_OFF() + NEWLINE() + NEWLINE() + TWO_WAY_CHOICE() +
             COLOR(QM_GREEN) + "Comprar" + NEWLINE() + "No comprar" + COLOR(QM_WHITE) + MESSAGE_END(),
+        INSTANT_TEXT_ON() + "Bombchu (10): 99 Rupees" + INSTANT_TEXT_OFF() + NEWLINE() + NEWLINE() + TWO_WAY_CHOICE() +
+            COLOR(QM_GREEN) + "Buy" + NEWLINE() + "Don't buy" + COLOR(QM_WHITE) + MESSAGE_END(),
+        INSTANT_TEXT_ON() + "Missiles teigneux (10): 99 rubis" + INSTANT_TEXT_OFF() + NEWLINE() + NEWLINE() +
+            TWO_WAY_CHOICE() + COLOR(QM_GREEN) + "Acheter" + NEWLINE() + "Ne pas acheter" + COLOR(QM_WHITE) +
+            MESSAGE_END(),
+        INSTANT_TEXT_ON() + "Bombchus (10): 99 rupias" + INSTANT_TEXT_OFF() + NEWLINE() + NEWLINE() + TWO_WAY_CHOICE() +
+            COLOR(QM_GREEN) + "Comprar" + NEWLINE() + "No comprar" + COLOR(QM_WHITE) + MESSAGE_END(),
         INSTANT_TEXT_ON() + "10 radiomine - 99 rupie" + INSTANT_TEXT_OFF() + NEWLINE() + NEWLINE() + TWO_WAY_CHOICE() +
             COLOR(QM_GREEN) + "Compra" + NEWLINE() + "Non comprare" + COLOR(QM_WHITE) + MESSAGE_END(),
         INSTANT_TEXT_ON() + "Krabbelminen (10 Stück): 99 Rubine" + INSTANT_TEXT_OFF() + NEWLINE() + NEWLINE() +
@@ -283,9 +284,21 @@ void CreateAlwaysIncludedMessages() {
                           "You have " + COLOR(QM_RED) + SKULLTULAS_DESTROYED() + COLOR(QM_WHITE) + " tokens!" +
                           INSTANT_TEXT_OFF() + MESSAGE_END(),
                       INSTANT_TEXT_ON() + "Vous venez de détruire une " + COLOR(QM_RED) + "Skulltula d'or" +
-                          COLOR(QM_WHITE) + "!" + NEWLINE() + "Ce symbole prouve votre prouesse!" + NEWLINE() +
+                          COLOR(QM_WHITE) + "!" + NEWLINE() + "Ce jeton prouve votre prouesse!" + NEWLINE() +
                           NEWLINE() + "Vous avez " + COLOR(QM_RED) + SKULLTULAS_DESTROYED() + COLOR(QM_WHITE) +
                           " jetons!" + INSTANT_TEXT_OFF() + MESSAGE_END(),
+                      INSTANT_TEXT_ON() + "¡Has eliminado una " + COLOR(QM_RED) + "skulltula dorada" + COLOR(QM_WHITE) +
+                          " y has" + NEWLINE() + "conseguido un símbolo para probarlo!" + NEWLINE() + NEWLINE() +
+                          "¡Tienes " + COLOR(QM_RED) + SKULLTULAS_DESTROYED() + COLOR(QM_WHITE) + " símbolos!" +
+                          INSTANT_TEXT_OFF() + MESSAGE_END(),
+                      INSTANT_TEXT_ON() + "You destroyed a " + COLOR(QM_RED) + "Gold Skulltula" + COLOR(QM_WHITE) +
+                          ". You got a" + NEWLINE() + "token proving you destroyed it!" + NEWLINE() + NEWLINE() +
+                          "You have " + COLOR(QM_RED) + SKULLTULAS_DESTROYED() + COLOR(QM_WHITE) + " tokens!" +
+                          INSTANT_TEXT_OFF() + MESSAGE_END(),
+                      INSTANT_TEXT_ON() + "Vous venez de détruire une " + COLOR(QM_RED) + "Skulltula d'or" +
+                          COLOR(QM_WHITE) + " !" + NEWLINE() + "Ce symbole prouve votre haut fait !" + NEWLINE() +
+                          NEWLINE() + "Vous avez " + COLOR(QM_RED) + SKULLTULAS_DESTROYED() + COLOR(QM_WHITE) +
+                          " crânes d'or !" + INSTANT_TEXT_OFF() + MESSAGE_END(),
                       INSTANT_TEXT_ON() + "¡Has eliminado una " + COLOR(QM_RED) + "skulltula dorada" + COLOR(QM_WHITE) +
                           " y has" + NEWLINE() + "conseguido un símbolo para probarlo!" + NEWLINE() + NEWLINE() +
                           "¡Tienes " + COLOR(QM_RED) + SKULLTULAS_DESTROYED() + COLOR(QM_WHITE) + " símbolos!" +
@@ -312,6 +325,15 @@ void CreateAlwaysIncludedMessages() {
         INSTANT_TEXT_ON() + COLOR(QM_RED) + "Bombchus (10): 99 rupias" + NEWLINE() + COLOR(QM_WHITE) +
             "Aunque parezcan ratoncitos de juguete," + NEWLINE() + "¡son bombas de relojería autopropulsadas!" +
             INSTANT_TEXT_OFF() + SHOP_MESSAGE_BOX() + MESSAGE_END(),
+        INSTANT_TEXT_ON() + COLOR(QM_RED) + "Bombchu (10): 99 Rupees" + NEWLINE() + COLOR(QM_WHITE) +
+            "These look like toy mice, but they're" + NEWLINE() + "actually self-propelled time bombs!" +
+            INSTANT_TEXT_OFF() + SHOP_MESSAGE_BOX() + MESSAGE_END(),
+        INSTANT_TEXT_ON() + COLOR(QM_RED) + "Missiles Teigneux (10): 99 rubis" + NEWLINE() + COLOR(QM_WHITE) +
+            "Profilées comme des souris mécaniques," + NEWLINE() + "ces armes sont destructrices !!!" +
+            INSTANT_TEXT_OFF() + SHOP_MESSAGE_BOX() + MESSAGE_END(),
+        INSTANT_TEXT_ON() + COLOR(QM_RED) + "Bombchus (10): 99 rupias" + NEWLINE() + COLOR(QM_WHITE) +
+            "Aunque parezcan ratoncitos de juguete," + NEWLINE() + "¡son bombas de relojería autopropulsadas!" +
+            INSTANT_TEXT_OFF() + SHOP_MESSAGE_BOX() + MESSAGE_END(),
         INSTANT_TEXT_ON() + COLOR(QM_RED) + "10 radiomine - 99 rupie" + NEWLINE() + COLOR(QM_WHITE) +
             "Assomigliano a un topolino," + NEWLINE() + "ma in realtà sono bombe a" + NEWLINE() +
             "orologeria autoguidate!" + INSTANT_TEXT_OFF() + SHOP_MESSAGE_BOX() + MESSAGE_END(),
@@ -327,8 +349,17 @@ void CreateAlwaysIncludedMessages() {
                 COLOR(DungeonColors[dungeon]) + EnglishDungeonNames[dungeon] + NEWLINE() + "Boss Key" +
                 COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + MESSAGE_END(),
             UNSKIPPABLE() + ITEM_OBTAINED(ITEM_KEY_BOSS) + INSTANT_TEXT_ON() + "Vous trouvez la " +
-                COLOR(DungeonColors[dungeon]) + "clé d'or " + NEWLINE() + FrenchDungeonArticles[dungeon] + " " +
+                COLOR(DungeonColors[dungeon]) + "grande clé " + NEWLINE() + FrenchDungeonArticles[dungeon] +
                 FrenchDungeonNames[dungeon] + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + MESSAGE_END(),
+            UNSKIPPABLE() + ITEM_OBTAINED(ITEM_KEY_BOSS) + INSTANT_TEXT_ON() + "¡Tienes la " +
+                COLOR(DungeonColors[dungeon]) + "gran llave " + SpanishDungeonArticles[dungeon] + NEWLINE() +
+                SpanishDungeonNames[dungeon] + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + MESSAGE_END(),
+            UNSKIPPABLE() + ITEM_OBTAINED(ITEM_KEY_BOSS) + INSTANT_TEXT_ON() + "You got the " +
+                COLOR(DungeonColors[dungeon]) + EnglishDungeonNames[dungeon] + NEWLINE() + "Boss Key" +
+                COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + MESSAGE_END(),
+            UNSKIPPABLE() + ITEM_OBTAINED(ITEM_KEY_BOSS) + INSTANT_TEXT_ON() + "Vous trouvez la " +
+                COLOR(DungeonColors[dungeon]) + "clé d'or " + NEWLINE() + FrenchDungeonArticles[dungeon] +
+                FrenchDungeonNames[dungeon] + COLOR(QM_WHITE) + " !" + INSTANT_TEXT_OFF() + MESSAGE_END(),
             UNSKIPPABLE() + ITEM_OBTAINED(ITEM_KEY_BOSS) + INSTANT_TEXT_ON() + "¡Tienes la " +
                 COLOR(DungeonColors[dungeon]) + "gran llave " + SpanishDungeonArticles[dungeon] + NEWLINE() +
                 SpanishDungeonNames[dungeon] + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + MESSAGE_END(),
@@ -346,10 +377,21 @@ void CreateAlwaysIncludedMessages() {
             COLOR(DungeonColors[DUNGEON_INSIDE_GANONS_CASTLE]) + EnglishDungeonNames[DUNGEON_INSIDE_GANONS_CASTLE] +
             NEWLINE() + "Boss Key" + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + MESSAGE_END(),
         UNSKIPPABLE() + ITEM_OBTAINED(ITEM_KEY_BOSS) + INSTANT_TEXT_ON() + "Vous trouvez la " +
-            COLOR(DungeonColors[DUNGEON_INSIDE_GANONS_CASTLE]) + "clé d'or " + NEWLINE() +
-            FrenchDungeonArticles[DUNGEON_INSIDE_GANONS_CASTLE] + " " +
-            FrenchDungeonNames[DUNGEON_INSIDE_GANONS_CASTLE] + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() +
+            COLOR(DungeonColors[DUNGEON_INSIDE_GANONS_CASTLE]) + "grande clé " + NEWLINE() +
+            FrenchDungeonArticles[DUNGEON_INSIDE_GANONS_CASTLE] + FrenchDungeonNames[DUNGEON_INSIDE_GANONS_CASTLE] +
+            COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + MESSAGE_END(),
+        UNSKIPPABLE() + ITEM_OBTAINED(ITEM_KEY_BOSS) + INSTANT_TEXT_ON() + "¡Tienes la " +
+            COLOR(DungeonColors[DUNGEON_INSIDE_GANONS_CASTLE]) + "gran llave " +
+            SpanishDungeonArticles[DUNGEON_INSIDE_GANONS_CASTLE] + NEWLINE() +
+            SpanishDungeonNames[DUNGEON_INSIDE_GANONS_CASTLE] + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() +
             MESSAGE_END(),
+        UNSKIPPABLE() + ITEM_OBTAINED(ITEM_KEY_BOSS) + INSTANT_TEXT_ON() + "You got the " +
+            COLOR(DungeonColors[DUNGEON_INSIDE_GANONS_CASTLE]) + EnglishDungeonNames[DUNGEON_INSIDE_GANONS_CASTLE] +
+            NEWLINE() + "Boss Key" + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + MESSAGE_END(),
+        UNSKIPPABLE() + ITEM_OBTAINED(ITEM_KEY_BOSS) + INSTANT_TEXT_ON() + "Vous trouvez la " +
+            COLOR(DungeonColors[DUNGEON_INSIDE_GANONS_CASTLE]) + "clé d'or " + NEWLINE() +
+            FrenchDungeonArticles[DUNGEON_INSIDE_GANONS_CASTLE] + FrenchDungeonNames[DUNGEON_INSIDE_GANONS_CASTLE] +
+            COLOR(QM_WHITE) + " !" + INSTANT_TEXT_OFF() + MESSAGE_END(),
         UNSKIPPABLE() + ITEM_OBTAINED(ITEM_KEY_BOSS) + INSTANT_TEXT_ON() + "¡Tienes la " +
             COLOR(DungeonColors[DUNGEON_INSIDE_GANONS_CASTLE]) + "gran llave " +
             SpanishDungeonArticles[DUNGEON_INSIDE_GANONS_CASTLE] + NEWLINE() +
@@ -485,9 +527,21 @@ void CreateAlwaysIncludedMessages() {
                       "This sacred blade is the only weapon" + NEWLINE() + "capable of defeating the " +
                       COLOR(QM_GREEN) + "Evil King" + COLOR(QM_WHITE) + "!" + MESSAGE_END(),
                   UNSKIPPABLE() + ITEM_OBTAINED(ITEM_SWORD_MASTER) + INSTANT_TEXT_ON() + "Vous obtenez l'" +
-                      COLOR(QM_RED) + "épée de légende" + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + NEWLINE() +
+                      COLOR(QM_RED) + "épée maîtresse" + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + NEWLINE() +
                       "Cette lame sacrée est l'unique" + NEWLINE() + "arme capable de vaincre le" + NEWLINE() +
                       COLOR(QM_GREEN) + "seigneur du Malin" + COLOR(QM_WHITE) + "!" + MESSAGE_END(),
+                  UNSKIPPABLE() + ITEM_OBTAINED(ITEM_SWORD_MASTER) + INSTANT_TEXT_ON() + "¡Has obtenido la " +
+                      COLOR(QM_RED) + "Espada Maestra" + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + NEWLINE() +
+                      "¡Esta espada sagrada es la única arma" + NEWLINE() + "capaz de derrotar al " + COLOR(QM_GREEN) +
+                      "Rey Malvado" + COLOR(QM_WHITE) + "!" + MESSAGE_END(),
+                  UNSKIPPABLE() + ITEM_OBTAINED(ITEM_SWORD_MASTER) + INSTANT_TEXT_ON() + "You got the " +
+                      COLOR(QM_RED) + "Master Sword" + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + NEWLINE() +
+                      "This sacred blade is the only weapon" + NEWLINE() + "capable of defeating the " +
+                      COLOR(QM_GREEN) + "Evil King" + COLOR(QM_WHITE) + "!" + MESSAGE_END(),
+                  UNSKIPPABLE() + ITEM_OBTAINED(ITEM_SWORD_MASTER) + INSTANT_TEXT_ON() + "Vous obtenez l'" +
+                      COLOR(QM_RED) + "épée de légende" + COLOR(QM_WHITE) + " !" + INSTANT_TEXT_OFF() + NEWLINE() +
+                      "Cette lame sacrée est l'unique" + NEWLINE() + "arme capable de vaincre le" + NEWLINE() +
+                      COLOR(QM_GREEN) + "seigneur du Malin" + COLOR(QM_WHITE) + " !" + MESSAGE_END(),
                   UNSKIPPABLE() + ITEM_OBTAINED(ITEM_SWORD_MASTER) + INSTANT_TEXT_ON() + "¡Has obtenido la " +
                       COLOR(QM_RED) + "Espada Maestra" + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + NEWLINE() +
                       "¡Esta espada sagrada es la única arma" + NEWLINE() + "capaz de derrotar al " + COLOR(QM_GREEN) +
@@ -507,9 +561,21 @@ void CreateAlwaysIncludedMessages() {
                       "It's gigantic! Now you can carry" + NEWLINE() + "up to " + COLOR(QM_YELLOW) + "999 " +
                       COLOR(QM_WHITE) + COLOR(QM_YELLOW) + "Rupees" + COLOR(QM_WHITE) + "!" + MESSAGE_END(),
                   UNSKIPPABLE() + ITEM_OBTAINED(ITEM_WALLET_GIANT) + INSTANT_TEXT_ON() + "Vous obtenez la " +
-                      COLOR(QM_RED) + "bourse de star" + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + NEWLINE() +
+                      COLOR(QM_RED) + "poche de star" + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + NEWLINE() +
                       "Elle peut contenir jusqu'à " + COLOR(QM_YELLOW) + "999 " + COLOR(QM_WHITE) + COLOR(QM_YELLOW) +
                       "rubis" + COLOR(QM_WHITE) + "!" + NEWLINE() + "C'est gigantesque!" + MESSAGE_END(),
+                  UNSKIPPABLE() + ITEM_OBTAINED(ITEM_WALLET_GIANT) + INSTANT_TEXT_ON() + "¡Has conseguido una " +
+                      COLOR(QM_RED) + "bolsa para ricachones" + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + NEWLINE() +
+                      "¡Qué descomunal! Ya puedes llevar" + NEWLINE() + "hasta " + COLOR(QM_YELLOW) + "999 " +
+                      COLOR(QM_WHITE) + COLOR(QM_YELLOW) + "rupias" + COLOR(QM_WHITE) + "!" + MESSAGE_END(),
+                  UNSKIPPABLE() + ITEM_OBTAINED(ITEM_WALLET_GIANT) + INSTANT_TEXT_ON() + "You got a " + COLOR(QM_RED) +
+                      "Tycoon's Wallet" + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + NEWLINE() +
+                      "It's gigantic! Now you can carry" + NEWLINE() + "up to " + COLOR(QM_YELLOW) + "999 " +
+                      COLOR(QM_WHITE) + COLOR(QM_YELLOW) + "Rupees" + COLOR(QM_WHITE) + "!" + MESSAGE_END(),
+                  UNSKIPPABLE() + ITEM_OBTAINED(ITEM_WALLET_GIANT) + INSTANT_TEXT_ON() + "Vous obtenez la " +
+                      COLOR(QM_RED) + "bourse de star" + COLOR(QM_WHITE) + " !" + INSTANT_TEXT_OFF() + NEWLINE() +
+                      "Elle peut contenir jusqu'à " + COLOR(QM_YELLOW) + "999 " + COLOR(QM_WHITE) + COLOR(QM_YELLOW) +
+                      "rubis" + COLOR(QM_WHITE) + " !" + NEWLINE() + "C'est gigantesque !" + MESSAGE_END(),
                   UNSKIPPABLE() + ITEM_OBTAINED(ITEM_WALLET_GIANT) + INSTANT_TEXT_ON() + "¡Has conseguido una " +
                       COLOR(QM_RED) + "bolsa para ricachones" + COLOR(QM_WHITE) + "!" + INSTANT_TEXT_OFF() + NEWLINE() +
                       "¡Qué descomunal! Ya puedes llevar" + NEWLINE() + "hasta " + COLOR(QM_YELLOW) + "999 " +
@@ -601,7 +667,7 @@ void CreateAlwaysIncludedMessages() {
             NEWLINE() + "Hehehe..." + WAIT_FOR_INPUT() + NEWLINE() + UNSKIPPABLE() +
             "Na, da will ich mal nicht so sein..." + NEWLINE() + "Nimm das hier!" + MESSAGE_END());
     // Ice Trap
-    CreateMessage(0x9002, 0, 2, 3,
+    CreateMessage(0x9001, 0, 2, 3,
                   UNSKIPPABLE() + INSTANT_TEXT_ON() + CENTER_TEXT() + COLOR(QM_RED) + "FOOL!" + COLOR(QM_WHITE) +
                       INSTANT_TEXT_OFF() + MESSAGE_END(),
                   UNSKIPPABLE() + INSTANT_TEXT_ON() + CENTER_TEXT() + COLOR(QM_RED) + "IDIOT!" + COLOR(QM_WHITE) +
@@ -612,6 +678,17 @@ void CreateAlwaysIncludedMessages() {
                       INSTANT_TEXT_OFF() + MESSAGE_END(),
                   UNSKIPPABLE() + INSTANT_TEXT_ON() + CENTER_TEXT() + COLOR(QM_RED) + "NARR!" + COLOR(QM_WHITE) +
                       INSTANT_TEXT_OFF() + MESSAGE_END());
+    // Rupoor
+    {
+        Text rupoorMsg = Text{
+            /*english*/ "You got a #Rupoor#!&You lost some rupees.",
+            /*french */ "Vous obtenez un #roupir#!&Vous perdez des rubis.",
+            /*spanish*/ "¡Has obtenido una #Rupobre#!&Significa que has perdido unas rupias.",
+            /*italian*/ "Hai ottenuto una #Baba Rupia#!&Hai perso delle rupie.",
+            /*german */ "Du hast eine #Rubinfalle# gefunden!&Du hast einige Rubine verloren.",
+        };
+        CreateMessageFromTextObject(0x9002, 0, 2, 3, AddColorsAndFormat(rupoorMsg, { QM_RED }));
+    }
     // Curse Traps
     u32 curseIdxOffset = 0;
     CreateMessage(CURSETRAP_TEXT_BASE_INDEX + curseIdxOffset++, 0, 2, 3,
@@ -849,6 +926,9 @@ void CreateAlwaysIncludedMessages() {
             name.NAenglish.length() <= 30 ? ": " : NEWLINE() + "                                        ",
             name.NAfrench.length() <= 30 ? ": " : NEWLINE() + "                                        ",
             name.NAspanish.length() <= 30 ? ": " : NEWLINE() + "                                        ",
+            name.EURenglish.length() <= 30 ? ": " : NEWLINE() + "                                        ",
+            name.EURfrench.length() <= 30 ? " : " : NEWLINE() + "                                        ",
+            name.EURspanish.length() <= 30 ? ": " : NEWLINE() + "                                        ",
             name.EURitalian.length() <= 30 ? " - " : NEWLINE() + "                                        ",
             name.EURgerman.length() <= 30 ? ": " : NEWLINE() + "                                        ",
         };
@@ -922,11 +1002,11 @@ void CreateAlwaysIncludedMessages() {
                       "Unlocking MQ and saving..." + NEWLINE() + NEWLINE() + CENTER_TEXT() + COLOR(QM_RED) +
                       "Do not remove the Game Card" + NEWLINE() + CENTER_TEXT() + "or turn the power off." +
                       INSTANT_TEXT_OFF() + MESSAGE_END(),
-                  UNSKIPPABLE() + INSTANT_TEXT_ON() + CENTER_TEXT() + "The Legend of Zelda Ocarina of Time 3D" +
-                      NEWLINE() + CENTER_TEXT() + "Master Quest va être déverrouillé." + NEWLINE() + CENTER_TEXT() +
-                      "Sauvegarde... Veuillez patienter." + NEWLINE() + NEWLINE() + CENTER_TEXT() + COLOR(QM_RED) +
-                      "N'éteignez pas la console et" + NEWLINE() + CENTER_TEXT() + "ne retirez pas la carte de jeu" +
-                      INSTANT_TEXT_OFF() + MESSAGE_END(),
+                  UNSKIPPABLE() + INSTANT_TEXT_ON() + CENTER_TEXT() + "Vous avez regardé le générique en entier!" +
+                      NEWLINE() + CENTER_TEXT() + "Voici une récompense pour votre patience." + NEWLINE() +
+                      CENTER_TEXT() + "Débloquage de Master Quest et sauvegarde..." + NEWLINE() + NEWLINE() +
+                      CENTER_TEXT() + COLOR(QM_RED) + "N'éteignez pas la console et" + NEWLINE() + CENTER_TEXT() +
+                      "ne retirez pas la carte de jeu" + INSTANT_TEXT_OFF() + MESSAGE_END(),
                   UNSKIPPABLE() + INSTANT_TEXT_ON() + CENTER_TEXT() + "Desbloqueando The Legend of Zelda" + NEWLINE() +
                       CENTER_TEXT() + "Ocarina of Time 3D Master Quest." + NEWLINE() + CENTER_TEXT() +
                       "Guardando. Espera un momento..." + NEWLINE() + NEWLINE() + CENTER_TEXT() + COLOR(QM_RED) +
@@ -946,9 +1026,10 @@ void CreateAlwaysIncludedMessages() {
                   UNSKIPPABLE() + INSTANT_TEXT_ON() + CENTER_TEXT() + "Master Quest doesn't affect the Randomizer," +
                       NEWLINE() + CENTER_TEXT() + "so you can use 3 more save slots now." + NEWLINE() + NEWLINE() +
                       CENTER_TEXT() + "Thanks for playing!" + INSTANT_TEXT_OFF() + MESSAGE_END(),
-                  UNSKIPPABLE() + INSTANT_TEXT_ON() + CENTER_TEXT() + "Vous pouvez désormais jouer à" + NEWLINE() +
-                      CENTER_TEXT() + "The Legend of Zelda Ocarina of Time 3D" + NEWLINE() + CENTER_TEXT() +
-                      "Master Quest!" + INSTANT_TEXT_OFF() + MESSAGE_END(),
+                  UNSKIPPABLE() + INSTANT_TEXT_ON() + CENTER_TEXT() + "Le randomizer désactive Master Quest," +
+                      NEWLINE() + CENTER_TEXT() + "mais vous pouvez utiliser ses trois emplacements" + NEWLINE() +
+                      CENTER_TEXT() + "de sauvegarde supplémentaires." + NEWLINE() + NEWLINE() + CENTER_TEXT() +
+                      "Merci d'avoir joué!" + INSTANT_TEXT_OFF() + MESSAGE_END(),
                   UNSKIPPABLE() + INSTANT_TEXT_ON() + CENTER_TEXT() + "¡Ya puedes jugar The Legend of Zelda" +
                       NEWLINE() + CENTER_TEXT() + "Ocarina of Time 3D Master Quest!" + INSTANT_TEXT_OFF() +
                       MESSAGE_END(),
@@ -1092,6 +1173,76 @@ void CreateAlwaysIncludedMessages() {
                   /*italian*/ "Puoi avere questo se catturi un pesce da mettere nell'acquario.",
                   /*german */ "Das kannst du haben, wenn du einen Fisch für das Aquarium fängst." };
         CreateMessageFromTextObject(0x40AE, 0, 2, 3, AddColorsAndFormat(aquariumText, {}));
+    }
+
+    // Zelda final dialog
+    {
+        Text happyMsg = Text{
+            // english
+            "Thank you, @...&I've been keeping watch over you all this time...^"
+            "...specifically, you took #hh:mm:ss#&to bring down Ganondorf.^"
+            "You have discovered #100.0p# of all items scattered throughout Hyrule.^"
+            "You saved your progress #999# times.",
+            // french
+            "Merci, @...&Je t'ai observé tout ce temps...^"
+            "...au total, tu as pris #hh:mm:ss#&pour vaincre Ganondorf.^"
+            "Tu as découvert #100.0p# des objets éparpillés dans Hyrule.^"
+            "Tu as sauvegardé ta progression #999# fois.",
+            // spanish
+            "Gracias, @...&He velado por ti durante todo este tiempo...^"
+            "...especificamente, tardaste #hh:mm:ss#&en derrotar a Ganondorf.^"
+            "Has descubierto el #100.0p# de todos los objetos dispersos por Hyrule.^"
+            "Has guardado partida #999# veces.",
+            // italian
+            "Grazie, @...&Ti ho osservato tutto questo tempo...^"
+            "...per essere precisi, ci hai messo #hh:mm:ss#&per sconfiggere Ganondorf.^"
+            "Hai scoperto il #100.0p# di tutti gli oggetti sparpagliati per Hyrule.^"
+            "Hai salvato i tuoi progressi #999# volte.",
+            // german
+            "Danke, @...&Ich habe dich die ganze Zeit über beobachtet...^"
+            "Du hast genau #hh:mm:ss# gebraucht,&um Ganondorf zu besiegen.^"
+            "Du hast #100.0p# aller Items entdeckt, die in Hyrule verteilt wurden.^"
+            "Du hast deinen Spielstand #999# mal gespeichert.",
+        };
+        happyMsg = AddColorsAndFormat(happyMsg, { QM_RED, QM_RED, QM_RED });
+        happyMsg.Replace("hh:mm:ss", FINAL_TIME());
+        happyMsg.Replace("100.0p", CHECK_PERCENTAGE());
+        happyMsg.Replace("999", SAVE_COUNT());
+        CreateMessageFromTextObject(0x706F, 0, 2, 3, happyMsg);
+
+        Text sadMsg = Text{
+            // english
+            "You've also received #111# hits, for a total of #2222# hearts of damage, "
+            "and you've been knocked out #333# times.",
+            // french
+            "Tu as aussi été blessé #111# fois, pour un total de #2222# cœurs de dégâts, "
+            "et a été abattu #333# fois.",
+            // spanish
+            "También has recibido #111# golpes, por un total de #2222# corazones de daño, "
+            "y has sido noqueado #333# veces.",
+            // italian
+            "Sei anche stato colpito #111# volte, per un totale di #2222# cuori di danno, "
+            "e sei stato messo al tappeto #333# volte.",
+            // german
+            "Außerdem hast du #111# mal Schaden genommen, zusammen #2222# Herzen an Schaden "
+            "und du wurdest #333# mal besiegt.",
+        };
+        sadMsg = AddColorsAndFormat(sadMsg, { QM_RED, QM_RED, QM_RED });
+        sadMsg.Replace("111", HIT_COUNT());
+        sadMsg.Replace("2222", DAMAGE_RECEIVED());
+        sadMsg.Replace("333", DEATH_COUNT());
+        CreateMessageFromTextObject(0x7091, 0, 2, 3, sadMsg);
+
+        Text linkMsg = Text{
+            /*english*/ "...oh, and you've bonked #111# times.",
+            /*french */ "...oh, et tu t'es cogné #111# fois.",
+            /*spanish*/ "...oh, mas has bonqueado #111# veces.",
+            /*italian*/ "...oh, e sei andato a sbattere #111# volte.",
+            /*german */ "...oh, und du bist #111# mal gegen eine Wand gerollt.",
+        };
+        linkMsg = AddColorsAndFormat(linkMsg, { QM_RED });
+        linkMsg.Replace("111", BONK_COUNT());
+        CreateMessageFromTextObject(0x7092, 0, 2, 3, linkMsg);
     }
 }
 
@@ -1414,7 +1565,30 @@ std::string MQ_ELSE() {
 std::string MQ_END() {
     return "\x7F\x2B"s;
 }
+
+// Custom control codes
 std::string TRIFORCE_PIECE_COUNT() {
-    return "\x7F\x30"s;
+    return { '\x7F', static_cast<char>(TEXT_CTRL_TRIFORCE_PIECE_COUNT) };
+}
+std::string FINAL_TIME() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_FINAL_TIME) };
+}
+std::string CHECK_PERCENTAGE() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_CHECK_PERCENTAGE) };
+}
+std::string SAVE_COUNT() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_SAVE_COUNT) };
+}
+std::string DEATH_COUNT() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_DEATH_COUNT) };
+}
+std::string HIT_COUNT() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_HIT_COUNT) };
+}
+std::string DAMAGE_RECEIVED() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_DAMAGE_RECEIVED) };
+}
+std::string BONK_COUNT() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_BONK_COUNT) };
 }
 } // namespace CustomMessages

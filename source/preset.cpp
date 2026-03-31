@@ -93,6 +93,17 @@ std::vector<std::string> GetSettingsPresets() {
     return presetEntries;
 }
 
+// Gets the cosmetic preset filenames
+std::vector<std::string> GetCosmeticPresets() {
+    std::vector<std::string> presetEntries = {};
+    for (const auto& entry : fs::directory_iterator(GetBasePath(OptionCategory::Cosmetic))) {
+        if (entry.is_regular_file() && entry.path().stem().string() != CACHED_COSMETICS_FILENAME) {
+            presetEntries.push_back(entry.path().stem().string());
+        }
+    }
+    return presetEntries;
+}
+
 static std::string PresetPath(std::string_view presetName, OptionCategory category) {
     return std::string(GetBasePath(category)).append(presetName).append(".xml");
 }
@@ -519,6 +530,8 @@ PremadePreset presetFullChaos = { "Full Chaos",
                                       { &Settings::RandomTrapDmg, RANDOMTRAPS_ADVANCED },
                                       { &Settings::FireTrap, ON },
                                       { &Settings::AntiFairyTrap, ON },
+                                      { &Settings::RupoorTrap, ON },
+                                      { &Settings::RupoorTrapSeverity, RUPOORTRAPSEVERITY_BANKRUPTCY },
                                       { &Settings::CurseTraps, ON },
                                       { &Settings::HyperActors, HYPERACTORS_ON },
                                       // Item Pool Settings

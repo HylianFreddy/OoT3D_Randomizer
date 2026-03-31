@@ -465,11 +465,14 @@ std::vector<Option *> itemPoolOptions = {
 Option FastBunnyHood       = Option::Bool("Fast Bunny Hood",        {"Off", "On"},                                                          {fastBunnyHoodDesc});
 Option KeepFWWarpPoint     = Option::Bool("Keep FW Warp Point",     {"Off", "On"},                                                          {keepFWWarpPointDesc});
 Option DamageMultiplier    = Option::U8  ("Damage Multiplier",      {"x1/2", "x1", "x2", "x4", "x8", "x16", "OHKO"},                        {damageMultiDesc},                                                                                                OptionCategory::Setting,    DAMAGEMULTIPLIER_DEFAULT);
+Option BonkDamage          = Option::U8  ("Bonk Damage",            {"0", "1/4", "1/2", "1", "2", "4", "OHKO"},                             {bonkDamageDesc});
 Option Permadeath          = Option::Bool("Permadeath",             {"Off", "On"},                                                          {permadeathDesc});
 Option GloomMode           = Option::U8  ("Gloom Mode",             {"Off", "Death", "Damage", "Collision", "Empty"},                       {gloomModeOffDesc, gloomModeDeathDesc, gloomModeDamageDesc, gloomModeCollisionDesc, gloomModeEmptyDesc});
 Option RandomTrapDmg       = Option::U8  ("Random Trap Damage",     {"Off", "Basic", "Advanced"},                                           {randomTrapDmgDesc, basicTrapDmgDesc, advancedTrapDmgDesc},                                                       OptionCategory::Setting,    RANDOMTRAPS_BASIC);
 Option FireTrap            = Option::Bool(2, "Fire Trap",           {"Off", "On"},                                                          {fireTrapDesc},                                                                                                   OptionCategory::Setting,    ON);
 Option AntiFairyTrap       = Option::Bool(2, "Anti-Fairy Trap",     {"Off", "On"},                                                          {antiFairyTrapDesc},                                                                                              OptionCategory::Setting,    ON);
+Option RupoorTrap          = Option::Bool(2, "Rupoor Trap",         {"Off", "On"},                                                          {rupoorTrapDesc},                                                                                                 OptionCategory::Setting,    ON);
+Option RupoorTrapSeverity  = Option::U8  (4, "Severity",            {"10", "Random Ratio",  "Bankruptcy"},                                  {rupoorTrapSeverityDesc},                                                                                         OptionCategory::Setting,    RUPOORTRAPSEVERITY_TEN);
 Option CurseTraps          = Option::Bool(2, "Curse Traps",         {"Off", "On"},                                                          {curseTrapsDesc},                                                                                                 OptionCategory::Setting);
 Option ScreenTraps         = Option::Bool(4, "Screen Traps",        {"Off", "On"},                                                          {screenTrapsDesc},                                                                                                OptionCategory::Setting);
 Option ExtraArrowEffects   = Option::Bool("Extra Arrow Effects",    {"Off", "On"},                                                          {extraArrowEffectsDesc});
@@ -485,11 +488,14 @@ std::vector<Option*> gameplayOptions = {
     &FastBunnyHood,
     &KeepFWWarpPoint,
     &DamageMultiplier,
+    &BonkDamage,
     &Permadeath,
     &GloomMode,
     &RandomTrapDmg,
     &FireTrap,
     &AntiFairyTrap,
+    &RupoorTrap,
+    &RupoorTrapSeverity,
     &CurseTraps,
     &ScreenTraps,
     &ExtraArrowEffects,
@@ -1369,18 +1375,38 @@ std::vector<Menu*> personalizationOptions = {
     &audio,
 };
 
-Menu loadPremadePreset      = Menu::Action("Load Premade Preset",        LOAD_PREMADE_PRESET);
-Menu loadCustomPreset       = Menu::Action("Load Custom Preset",         LOAD_CUSTOM_PRESET);
-Menu saveCustomPreset       = Menu::Action("Save Custom Preset",         SAVE_CUSTOM_PRESET);
-Menu deleteCustomPreset     = Menu::Action("Delete Custom Preset",       DELETE_CUSTOM_PRESET);
-Menu resetToDefaultSettings = Menu::Action("Reset to Default Settings",  RESET_TO_DEFAULTS, menuResetToDefaultsDesc);
+Menu loadPremadeRandomizationPreset      = Menu::Action("Load Premade Preset",        LOAD_PREMADE_RANDOMIZATION_PRESET);
+Menu loadCustomRandomizationPreset       = Menu::Action("Load Custom Preset",         LOAD_CUSTOM_RANDOMIZATION_PRESET);
+Menu saveCustomRandomizationPreset       = Menu::Action("Save Custom Preset",         SAVE_CUSTOM_RANDOMIZATION_PRESET);
+Menu deleteCustomRandomizationPreset     = Menu::Action("Delete Custom Preset",       DELETE_CUSTOM_RANDOMIZATION_PRESET);
+Menu resetToDefaultRandomizationSettings = Menu::Action("Reset to Default Settings",  RESET_TO_DEFAULT_RANDOMIZATION_SETTINGS);
+
+std::vector<Menu*> randomizationPresetItems = {
+    &loadPremadeRandomizationPreset,
+    &loadCustomRandomizationPreset,
+    &saveCustomRandomizationPreset,
+    &deleteCustomRandomizationPreset,
+    &resetToDefaultRandomizationSettings,
+};
+
+Menu loadCustomCosmeticPreset           = Menu::Action("Load Custom Preset",         LOAD_CUSTOM_COSMETIC_PRESET);
+Menu saveCustomCosmeticPreset           = Menu::Action("Save Custom Preset",         SAVE_CUSTOM_COSMETIC_PRESET);
+Menu deleteCustomCosmeticPreset         = Menu::Action("Delete Custom Preset",       DELETE_CUSTOM_COSMETIC_PRESET);
+Menu resetToDefaultCosmetics            = Menu::Action("Reset to Default Settings",  RESET_TO_DEFAULT_COSMETICS);
+
+std::vector<Menu*> cosmeticPresetItems = {
+    &loadCustomCosmeticPreset,
+    &saveCustomCosmeticPreset,
+    &deleteCustomCosmeticPreset,
+    &resetToDefaultCosmetics,
+};
+
+Menu randomizationSettingsPresets  = Menu::SubMenu("Randomization Settings Presets", &randomizationPresetItems);
+Menu cosmeticSettingsPresets       = Menu::SubMenu("Cosmetic Settings Presets",      &cosmeticPresetItems);
 
 std::vector<Menu *> settingsPresetItems = {
-    &loadPremadePreset,
-    &loadCustomPreset,
-    &saveCustomPreset,
-    &deleteCustomPreset,
-    &resetToDefaultSettings,
+    &randomizationSettingsPresets,
+    &cosmeticSettingsPresets,
 };
 
 // Detailed Logic Options Submenu
@@ -1570,6 +1596,7 @@ SettingsContext FillContext() {
     ctx.compassesShowWotH   = CompassesShowWotH.Value<u8>();
     ctx.mapsShowDungeonMode = MapsShowDungeonMode.Value<u8>();
     ctx.damageMultiplier    = DamageMultiplier.Value<u8>();
+    ctx.bonkDamage          = BonkDamage.Value<u8>();
     ctx.permadeath          = (Permadeath) ? 1 : 0;
     ctx.gloomMode           = GloomMode.Value<u8>();
     ctx.startingTime        = StartingTime.Value<u8>();
@@ -1583,6 +1610,8 @@ SettingsContext FillContext() {
     ctx.randomTrapDmg       = RandomTrapDmg.Value<u8>();
     ctx.fireTrap            = (FireTrap) ? 1 : 0;
     ctx.antiFairyTrap       = (AntiFairyTrap) ? 1 : 0;
+    ctx.rupoorTrap          = (RupoorTrap) ? 1 : 0;
+    ctx.rupoorTrapSeverity  = RupoorTrapSeverity.Value<u8>();
     ctx.curseTraps          = (CurseTraps) ? 1 : 0;
     ctx.screenTraps         = (ScreenTraps) ? 1 : 0;
     ctx.extraArrowEffects   = (ExtraArrowEffects) ? 1 : 0;
@@ -1816,17 +1845,16 @@ void InitSettings() {
 }
 
 // Set default settings for all settings
-void SetDefaultSettings() {
+void SetDefaultSettings(bool forCosmetics) {
     std::function<void(std::vector<Menu*>*)> setAllOptionsToDefault = [&](std::vector<Menu*>* menuPtr) {
         for (auto menu : *menuPtr) {
             if (menu->mode == SUB_MENU) {
                 setAllOptionsToDefault(menu->itemsList);
             } else if (menu->mode == OPTION_MENU) {
                 for (auto option : *menu->settingsList) {
-                    if (option->IsCategory(OptionCategory::Cosmetic)) {
-                        continue;
+                    if (forCosmetics == option->IsCategory(OptionCategory::Cosmetic)) {
+                        option->SetToDefault();
                     }
-                    option->SetToDefault();
                 }
             }
         }
@@ -2484,12 +2512,22 @@ void ForceChange(u32 kDown, Option* currentSetting) {
     if (RandomTrapDmg.Is(RANDOMTRAPS_ADVANCED)) {
         FireTrap.Unhide();
         AntiFairyTrap.Unhide();
+        RupoorTrap.Unhide();
         CurseTraps.Unhide();
     } else {
         FireTrap.Hide();
         AntiFairyTrap.Hide();
+        RupoorTrap.Hide();
+        RupoorTrap.SetSelectedIndex(0);
         CurseTraps.Hide();
         CurseTraps.SetSelectedIndex(0);
+    }
+
+    if (RupoorTrap) {
+        RupoorTrapSeverity.Unhide();
+    } else {
+        RupoorTrapSeverity.Hide();
+        RupoorTrapSeverity.SetSelectedIndex(0);
     }
 
     if (CurseTraps) {

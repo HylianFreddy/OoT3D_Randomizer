@@ -13,7 +13,6 @@ string_view menuPersonalizationDesc   = "These options do not affect seed genera
 string_view menuIngameDefaultsDesc    = "These options decide what the ingame options are\n"
                                         "set to when creating a save file. The new ingame\n"
                                         "options can be changed in the Custom Info Menu."; //
-string_view menuResetToDefaultsDesc   = "Does not affect personalization settings.";       //
 
 /*------------------------------
 |      PRESET DESCRIPTIONS     |                            *SCREEN WIDTH*
@@ -921,6 +920,14 @@ string_view damageMultiDesc           = "Changes the amount of damage taken.\n" 
                                         "\n"                                               //
                                         "If set to OHKO, Link will die in one hit.";       //
 /*------------------------------                                                           //
+|          BONK DAMAGE         |                                                           //
+------------------------------*/                                                           //
+string_view bonkDamageDesc            = "Choose how many Hearts of damage you'll take when\n"
+                                        "hitting a wall or object during a roll.\n\n"      //
+                                        "Damage is unaffected by the damage multiplier\n"  //
+                                        "setting, but it will respect Nayru's Love and\n"  //
+                                        "Double Defense.";                                 //
+/*------------------------------                                                           //
 |          PERMADEATH          |                                                           //
 ------------------------------*/                                                           //
 string_view permadeathDesc            = "Dying deletes your save file and kicks you back\n"//
@@ -1356,6 +1363,8 @@ string_view antiFairyTrapDesc         = "This dangerous fairy will inflict up to
                                         "of damage, but it usually doesn't kill you if you\n"
                                         "have less than that.";                            //
                                                                                            //
+string_view rupoorTrapDesc            = "This rupee will make you poor instead of rich";   //
+string_view rupoorTrapSeverityDesc    = "Rupees lost when getting a rupoor";               //
 string_view curseTrapsDesc            = "Some traps will apply status effects for 1 minute.";
 string_view screenTrapsDesc           = "Extra curses are added that rotate the screen.";  //
                                                                                            //

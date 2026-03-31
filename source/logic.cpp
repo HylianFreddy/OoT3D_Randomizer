@@ -338,6 +338,8 @@ bool NeedNayrusLove                  = false;
 bool CanSurviveDamage                = false;
 bool CanTakeDamage                   = false;
 bool CanTakeDamageTwice              = false;
+bool CanBonk                         = false;
+bool CanBreakCrate                   = false;
 // bool CanPlantBean        = false;
 bool CanOpenBombGrotto   = false;
 bool CanOpenStormGrotto  = false;
@@ -692,15 +694,16 @@ bool CanDoGlitch(GlitchType glitch, GlitchDifficulty difficulty) {
             if (!GlitchEnabled(GlitchHookshotJump_Bonk, difficulty)) {
                 return false;
             }
-            return IsAdult && Hookshot; // Child hookshot jumps are tiny so these stay as adult only until I check
+            // Child hookshot jumps are tiny so these stay as adult only.
+            return IsAdult && Hookshot && CanBonk;
 
         // Hookshot Jump: Boots
         case GlitchType::HookshotJump_Boots:
             if (!GlitchEnabled(GlitchHookshotJump_Boots, difficulty)) {
                 return false;
             }
-            return IsAdult && Hookshot &&
-                   HasBoots; // Child hookshot jumps are tiny so these stay as adult only until I check
+            // Child hookshot jumps are tiny so these stay as adult only.
+            return IsAdult && Hookshot && HasBoots;
 
         // Cutscene Dives
         case GlitchType::CutsceneDive:
@@ -855,6 +858,26 @@ void UpdateHelpers() {
     CanTakeDamage      = Fairy || CanSurviveDamage;
     CanTakeDamageTwice = (Fairy && NumBottles >= 2) || ((EffectiveHealth == 2) && (CanUse(NAYRUS_LOVE) || Fairy)) ||
                          (EffectiveHealth > 2);
+    {
+        static const s32 bonkDamageRequiredHearts[] = {
+            [BONKDAMAGE_NONE]    = 0,    //
+            [BONKDAMAGE_QUARTER] = 1,    //
+            [BONKDAMAGE_HALF]    = 1,    //
+            [BONKDAMAGE_ONE]     = 2,    //
+            [BONKDAMAGE_TWO]     = 3,    //
+            [BONKDAMAGE_FOUR]    = 5,    //
+            [BONKDAMAGE_OHKO]    = 1000, //
+        };
+        s16 bonkRequiredHearts = bonkDamageRequiredHearts[BonkDamage.Value<u8>()];
+        if (DoubleDefense) {
+            // halve and round up
+            bonkRequiredHearts = (bonkRequiredHearts + 1) / 2;
+        }
+
+        CanBonk = Hearts > bonkRequiredHearts || (Fairy && Hearts > 0) || CanUse(NAYRUS_LOVE);
+    }
+    CanBreakCrate = CanBonk || CanBlastOrSmash;
+
     // CanPlantBean        = IsChild && (MagicBean || MagicBeanPack);
     CanOpenBombGrotto   = CanBlastOrSmash && (ShardOfAgony || LogicGrottosWithoutAgony);
     CanOpenStormGrotto  = CanPlay(SongOfStorms) && (ShardOfAgony || LogicGrottosWithoutAgony);
@@ -1324,6 +1347,12 @@ void LogicReset() {
     CanStunDeku                     = false;
     CanSummonGossipFairy            = false;
     CanSummonGossipFairyWithoutSuns = false;
+    NeedNayrusLove                  = false;
+    CanSurviveDamage                = false;
+    CanTakeDamage                   = false;
+    CanTakeDamageTwice              = false;
+    CanBonk                         = false;
+    CanBreakCrate                   = false;
     // CanPlantBean        = false;
     CanOpenBombGrotto   = false;
     CanOpenStormGrotto  = false;

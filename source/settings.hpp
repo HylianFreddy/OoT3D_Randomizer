@@ -335,7 +335,7 @@ namespace Settings {
 void UpdateSettings();
 SettingsContext FillContext();
 void InitSettings();
-void SetDefaultSettings();
+void SetDefaultSettings(bool forCosmetics = false);
 void ResolveExcludedLocationConflicts();
 void RandomizeAllSettings(const bool selectOptions = false);
 void ForceChange(u32 kDown, Option* currentSetting);
@@ -482,6 +482,7 @@ extern Option CompassesShowReward;
 extern Option CompassesShowWotH;
 extern Option MapsShowDungeonMode;
 extern Option DamageMultiplier;
+extern Option BonkDamage;
 extern Option Permadeath;
 extern Option GloomMode;
 extern Option StartingTime;
@@ -495,6 +496,8 @@ extern Option ArrowSwitchButton;
 extern Option RandomTrapDmg;
 extern Option FireTrap;
 extern Option AntiFairyTrap;
+extern Option RupoorTrap;
+extern Option RupoorTrapSeverity;
 extern Option CurseTraps;
 extern Option ScreenTraps;
 extern Option ExtraArrowEffects;
@@ -837,8 +840,10 @@ extern std::array<u32, 9> rDungeonRewardOverrides;
 extern u8 PlayOption;
 extern u8 Region;
 
-extern Menu loadCustomPreset;
-extern Menu deleteCustomPreset;
+extern Menu loadCustomRandomizationPreset;
+extern Menu deleteCustomRandomizationPreset;
+extern Menu loadCustomCosmeticPreset;
+extern Menu deleteCustomCosmeticPreset;
 
 extern std::vector<std::vector<Option*>> excludeLocationsOptionsVector;
 extern std::vector<Menu*> excludeLocationsMenus;

@@ -18,6 +18,7 @@
 #include "scene.h"
 #include "gloom.h"
 #include "ocarina_notes.h"
+#include "icetrap.h"
 #include "enemy_souls.h"
 
 #include "z3D/z3D.h"
@@ -36,6 +37,7 @@ void Randomizer_Init() {
     ItemOverride_Init();
     Enemizer_Init();
     OcarinaNotes_Init();
+    IceTrap_Init();
     extDataInit();
     irrstInit();
 

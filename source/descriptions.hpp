@@ -8,7 +8,6 @@ extern string_view menuOpenSettingsDesc;
 extern string_view menuGlitchOptionsDesc;
 extern string_view menuPersonalizationDesc;
 extern string_view menuIngameDefaultsDesc;
-extern string_view menuResetToDefaultsDesc;
 
 extern string_view presetNintendedDesc;
 extern string_view presetAllsanityDesc;
@@ -298,6 +297,8 @@ extern string_view mapsShowDungeonModesDesc;
 
 extern string_view damageMultiDesc;
 
+extern string_view bonkDamageDesc;
+
 extern string_view permadeathDesc;
 
 extern string_view gloomModeOffDesc;
@@ -429,6 +430,8 @@ extern string_view basicTrapDmgDesc;
 extern string_view advancedTrapDmgDesc;
 extern string_view fireTrapDesc;
 extern string_view antiFairyTrapDesc;
+extern string_view rupoorTrapDesc;
+extern string_view rupoorTrapSeverityDesc;
 extern string_view curseTrapsDesc;
 extern string_view screenTrapsDesc;
 extern string_view extraArrowEffectsDesc;
