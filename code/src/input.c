@@ -15,8 +15,8 @@ void Input_Update(void) {
     u32 zKeys = irrstKeysHeld();
 
     rInputCtx.cur.val      = real_hid.pad.pads[real_hid.pad.index].curr.val;
-    rInputCtx.cur.zl = (zKeys >> 14) & 1;
-    rInputCtx.cur.zr = (zKeys >> 15) & 1;
+    rInputCtx.cur.zl       = (zKeys >> 14) & 1;
+    rInputCtx.cur.zr       = (zKeys >> 15) & 1;
     rInputCtx.pressed.val  = (rInputCtx.cur.val) & (~rInputCtx.old.val);
     rInputCtx.up.val       = (~rInputCtx.cur.val) & (rInputCtx.old.val);
     rInputCtx.old.val      = rInputCtx.cur.val;

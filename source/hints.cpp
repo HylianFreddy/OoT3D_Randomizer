@@ -422,7 +422,7 @@ static void PlaceJunkHintAt(const LocationKey gossipStone) {
     PlacementLog_Msg("\n\n");
 
     bool isTingle = junkHint.GetNAEnglish().find("Tingle") != std::string::npos;
-    u8 color    = isTingle ? QM_GREEN : QM_PINK;
+    u8 color      = isTingle ? QM_GREEN : QM_PINK;
     AddHint(junkHint, gossipStone, { color });
 }
 

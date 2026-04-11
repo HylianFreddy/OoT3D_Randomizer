@@ -95,9 +95,8 @@ void AreaTable_Init_JabuJabusBelly() {
                      Entrance(JABU_JABUS_BELLY_MAIN_LOWER, { [] { return true; } }),
                      Entrance(JABU_JABUS_BELLY_FORKED_CORRIDOR, { [] { return CanPassEnemy(2, 0, 2, 2); } }),
                      Entrance(JABU_JABUS_BELLY_BIGOCTO_ROOM, { [] {
-                                  return Here(JABU_JABUS_BELLY_GREEN_TENTACLE, [] {
-                                      return SoulParasiticTentacle && CanUse(BOOMERANG);
-                                  });
+                                  return Here(JABU_JABUS_BELLY_GREEN_TENTACLE,
+                                              [] { return SoulParasiticTentacle && CanUse(BOOMERANG); });
                               } }),
                  });
 

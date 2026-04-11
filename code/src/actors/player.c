@@ -37,8 +37,8 @@ static f32 sSpeedMultiplier = 1.0;
 static u8 swimBoostTimer    = 0;
 #define SWIM_BOOST_POWER 3.0f
 #define SWIM_BOOST_DURATION 40
-void Player_Action_Running(Player * player, GlobalContext * globalCtx);
-void Player_Action_Swimming(Player * player, GlobalContext * globalCtx);
+void Player_Action_Running(Player* player, GlobalContext* globalCtx);
+void Player_Action_Swimming(Player* player, GlobalContext* globalCtx);
 void Player_Action_Rolling(Player* player, GlobalContext* globalCtx);
 
 void Player_ComputeSpeedBoosts(void);

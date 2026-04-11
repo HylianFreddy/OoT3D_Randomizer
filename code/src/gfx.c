@@ -927,15 +927,15 @@ static void Gfx_DrawEntranceTracker(void) {
 
 static void (*menu_draw_funcs[])(void) = {
     // Make sure these line up with the GfxPage enum above
-    Gfx_DrawSeedHash,        //
-    Gfx_DrawDungeonItems,    //
-    Gfx_DrawEnemySouls,      //
-    Gfx_DrawSpoilerData,     //
-    Gfx_DrawReadGossipStones,//
-    Gfx_DrawItemTracker,     // All
-    Gfx_DrawItemTracker,     // Groups
-    Gfx_DrawEntranceTracker, // All
-    Gfx_DrawEntranceTracker, // Groups
+    Gfx_DrawSeedHash,         //
+    Gfx_DrawDungeonItems,     //
+    Gfx_DrawEnemySouls,       //
+    Gfx_DrawSpoilerData,      //
+    Gfx_DrawReadGossipStones, //
+    Gfx_DrawItemTracker,      // All
+    Gfx_DrawItemTracker,      // Groups
+    Gfx_DrawEntranceTracker,  // All
+    Gfx_DrawEntranceTracker,  // Groups
     Gfx_DrawOptions,
 };
 

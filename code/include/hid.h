@@ -10,26 +10,26 @@
 typedef union {
     uint32_t val;
     struct {
-        uint32_t a : 1;        // 1
-        uint32_t b : 1;        // 2
-        uint32_t sel : 1;      // 3
-        uint32_t strt : 1;     // 4
-        uint32_t d_right : 1;  // 5
-        uint32_t d_left : 1;   // 6
-        uint32_t d_up : 1;     // 7
-        uint32_t d_down : 1;   // 8
-        uint32_t r : 1;        // 9
-        uint32_t l : 1;        // 10
-        uint32_t x : 1;        // 11
-        uint32_t y : 1;        // 12
-        uint32_t unk0 : 1;     // 13
-        uint32_t zl : 1;       // 14
-        uint32_t zr : 1;       // 15
-        uint32_t unk1 : 13;    // 16
-        uint32_t c_right : 1;  // 29
-        uint32_t c_left : 1;   // 30
-        uint32_t c_up : 1;     // 31
-        uint32_t c_down : 1;   // 32
+        uint32_t a : 1;       // 1
+        uint32_t b : 1;       // 2
+        uint32_t sel : 1;     // 3
+        uint32_t strt : 1;    // 4
+        uint32_t d_right : 1; // 5
+        uint32_t d_left : 1;  // 6
+        uint32_t d_up : 1;    // 7
+        uint32_t d_down : 1;  // 8
+        uint32_t r : 1;       // 9
+        uint32_t l : 1;       // 10
+        uint32_t x : 1;       // 11
+        uint32_t y : 1;       // 12
+        uint32_t unk0 : 1;    // 13
+        uint32_t zl : 1;      // 14
+        uint32_t zr : 1;      // 15
+        uint32_t unk1 : 13;   // 16
+        uint32_t c_right : 1; // 29
+        uint32_t c_left : 1;  // 30
+        uint32_t c_up : 1;    // 31
+        uint32_t c_down : 1;  // 32
     };
 } btn_t;
 
