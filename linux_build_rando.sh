@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 compile() {
   make -j
   bannertoolexec makebanner -i ./banner.png -a ./audio.wav -o ./banner.bnr

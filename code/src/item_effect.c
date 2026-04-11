@@ -160,8 +160,7 @@ void ItemEffect_TriforcePiece(SaveContext* saveCtx, s16 arg1, s16 arg2) {
 
 // With the No Ammo Drops option on, when the player gets an ammo upgrade,
 // the ammo count increases by 10 instead of being set to the maximum
-typedef void (*Inventory_ChangeUpgrade_proc)(u32 upgrade, u32 value);
-#define Inventory_ChangeUpgrade ((Inventory_ChangeUpgrade_proc)GAME_ADDR(0x33C730))
+void Inventory_ChangeUpgrade(u32 upgrade, u32 value);
 
 void ItemEffect_GiveUpgrade(SaveContext* saveCtx, s16 arg1, s16 arg2) {
     Inventory_ChangeUpgrade(arg2, arg1);
@@ -380,6 +379,14 @@ void ItemEffect_GiveChildKokiriSword(SaveContext* saveCtx, s16 arg1, s16 arg2) {
 
     if (gSettingsContext.mp_SharedProgress == ON) {
         Multiplayer_Send_KokiriSwordEquip();
+    }
+}
+
+void ItemEffect_Shield(SaveContext* saveCtx, s16 shield, s16 arg2) {
+    if (shield == EQUIP_VALUE_SHIELD_DEKU) {
+        gExtSaveData.dekuShieldsCount++;
+    } else if (shield == EQUIP_VALUE_SHIELD_HYLIAN) {
+        gExtSaveData.hylianShieldsCount++;
     }
 }
 

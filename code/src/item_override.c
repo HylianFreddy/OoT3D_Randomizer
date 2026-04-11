@@ -8,6 +8,7 @@
 #include "entrance.h"
 #include "savefile.h"
 #include "common.h"
+#include "item_effect.h"
 #include "actors/obj_mure3.h"
 
 #include <stddef.h>
@@ -498,7 +499,7 @@ void ItemOverride_GetItem(Actor* fromActor, Player* player, s8 incomingItemId) {
     player->getItemId = incomingNegative ? -baseItemId : baseItemId;
 }
 
-void ItemOverride_GetItemTextAndItemID(Actor* actor) {
+s32 ItemOverride_GetItemTextAndItemID(Actor* actor) {
     if (rActiveItemRow != NULL) {
         u16 textId  = rActiveItemRow->textId;
         u8 actionId = rActiveItemRow->actionId;
@@ -512,8 +513,18 @@ void ItemOverride_GetItemTextAndItemID(Actor* actor) {
             Item_Give(gGlobalContext, actionId);
         }
         ItemOverride_AfterItemReceived();
-        BGM_ItemObtained = rActiveItemOverride.value.itemId;
+    } else { // No override
+        switch (PLAYER->getItemId) {
+            case GI_SHIELD_DEKU:
+            case GI_SHIELD_HYLIAN:
+                ItemTable_CallEffect(ItemTable_GetItemRow(PLAYER->getItemId));
+                break;
+        };
     }
+
+    BGM_ItemObtained = rActiveItemOverride.value.itemId;
+
+    return rActiveItemRow != NULL;
 }
 
 void ItemOverride_GetSkulltulaToken(Actor* tokenActor) {
@@ -717,4 +728,10 @@ void ItemOverride_PushHardcodedItem(s16 getItemId) {
         }
     };
     ItemOverride_PushPendingOverride(override);
+}
+
+void ItemOverride_OnPickupItemDrop(u8 item) {
+    if (item == ITEM_SHIELD_DEKU || item == ITEM_SHIELD_HYLIAN) {
+        ItemEffect_Shield(&gSaveContext, item - ITEM_SHIELD_DEKU + 1, -1);
+    }
 }

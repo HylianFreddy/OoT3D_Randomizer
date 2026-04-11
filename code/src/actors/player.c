@@ -10,24 +10,20 @@
 #include "grotto.h"
 #include "item_override.h"
 #include "input.h"
-#include "savefile.h"
 #include "colors.h"
 #include "common.h"
 #include "gloom.h"
 #include "savefile.h"
 
-#define PlayerActor_Init ((ActorFunc)GAME_ADDR(0x191844))
+void PlayerActor_Init(Actor* thisx, GlobalContext* globalCtx);
+void PlayerActor_Update(Actor* thisx, GlobalContext* globalCtx);
+void PlayerActor_Destroy(Actor* thisx, GlobalContext* globalCtx);
+void PlayerActor_Draw(Actor* thisx, GlobalContext* globalCtx);
 
-#define PlayerActor_Update ((ActorFunc)GAME_ADDR(0x1E1B54))
+void Player_Action_Running(Player* player, GlobalContext* globalCtx);
 
-#define PlayerActor_Destroy ((ActorFunc)GAME_ADDR(0x19262C))
-
-#define PlayerActor_Draw ((ActorFunc)GAME_ADDR(0x4BF618))
-
-#define Hookshot_ActorInit ((ActorInit*)GAME_ADDR(0x5108E8))
-
-#define PlayerDListGroup_EmptySheathAdult ((void*)GAME_ADDR(0x53C4D8))
-#define PlayerDListGroup_EmptySheathChildWithHylianShield ((void*)GAME_ADDR(0x53C4DC))
+extern struct Unknown PlayerDListGroup_EmptySheathAdult;
+extern struct Unknown PlayerDListGroup_EmptySheathChildWithHylianShield;
 
 #define OBJECT_LINK_OPENING 0x19F
 
@@ -41,8 +37,9 @@ static f32 sSpeedMultiplier = 1.0;
 static u8 swimBoostTimer    = 0;
 #define SWIM_BOOST_POWER 3.0f
 #define SWIM_BOOST_DURATION 40
-#define Player_RunningAction ((void*)GAME_ADDR(0x4BA378))
-#define Player_SwimmingAction ((void*)GAME_ADDR(0x4A3344))
+void Player_Action_Running(Player * player, GlobalContext * globalCtx);
+void Player_Action_Swimming(Player * player, GlobalContext * globalCtx);
+void Player_Action_Rolling(Player* player, GlobalContext* globalCtx);
 
 void Player_ComputeSpeedBoosts(void);
 
@@ -102,7 +99,7 @@ void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
         PLAYER->currentMask = storedMask;
     }
     if (gSettingsContext.hookshotAsChild) {
-        Hookshot_ActorInit->objectId = (gSaveContext.linkAge == 1 ? 0x1 : 0x14);
+        gActorOverlayTable[ACTOR_HOOKSHOT].initInfo->objectId = (gSaveContext.linkAge == 1 ? 0x1 : 0x14);
     }
 
     sPrevHealth = gSaveContext.health;
@@ -113,7 +110,7 @@ void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 
     Player_ComputeSpeedBoosts();
 
-    if (this->stateFuncPtr == Player_RunningAction && sSpeedMultiplier > 2.99f) {
+    if (this->actionFunc == Player_Action_Running && sSpeedMultiplier > 2.99f) {
         CollisionPoly floorPoly;
         Vec3f actorPos = (Vec3f){
             .x = thisx->world.pos.x,
@@ -185,9 +182,9 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
     // For child, do this only with certain shields, because the game already handles the other cases.
     if (!(gSaveContext.equips.equipment & 0x000F)) {
         if (gSaveContext.linkAge == AGE_ADULT) {
-            PLAYER->sheathDLists = PlayerDListGroup_EmptySheathAdult;
+            PLAYER->sheathDLists = &PlayerDListGroup_EmptySheathAdult;
         } else if ((gSaveContext.equips.equipment & 0x00F0) >= 0x0020) { // Hylian or Mirror shield
-            PLAYER->sheathDLists = PlayerDListGroup_EmptySheathChildWithHylianShield;
+            PLAYER->sheathDLists = &PlayerDListGroup_EmptySheathChildWithHylianShield;
         }
     }
 
@@ -198,7 +195,7 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
     static Vec3f vecPos = { 0 };
     Player* this        = (Player*)thisx;
 
-    s32 prevSaModelsCount1 = gMainClass->sub180.saModelsCount1;
+    s32 prevSaModelsCount1 = gMainClass.sub180.saModelsCount1;
 
     PlayerActor_Draw(thisx, globalCtx);
 
@@ -206,9 +203,9 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
 
-    if (gMainClass->sub180.saModelsCount1 > prevSaModelsCount1) {
+    if (gMainClass.sub180.saModelsCount1 > prevSaModelsCount1) {
         // Make player model invisible
-        gMainClass->sub180.saModelsList1[prevSaModelsCount1] = (SAModelListEntry){ 0 };
+        gMainClass.sub180.saModelsList1[prevSaModelsCount1] = (SAModelListEntry){ 0 };
     }
 
     thisx->shape.shadowDrawFunc = NULL;
@@ -257,7 +254,7 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
     }
     s16* currentColors = colorVals[index];
 
-    if (PLAYER->stateFuncPtr == (void*)GAME_ADDR(0x492A3C)) { // Rolling
+    if (PLAYER->actionFunc == Player_Action_Rolling) {
         vecPos   = thisx->world.pos;
         vecPos.y = thisx->focus.pos.y;
     } else {
@@ -273,13 +270,13 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
 void Player_ComputeSpeedBoosts(void) {
     sSpeedMultiplier = 1.0f;
 
-    if (gSettingsContext.fastBunnyHood && PLAYER->currentMask == 4 && PLAYER->stateFuncPtr == Player_RunningAction) {
+    if (gSettingsContext.fastBunnyHood && PLAYER->currentMask == 4 && PLAYER->actionFunc == Player_Action_Running) {
         sSpeedMultiplier *= 1.5;
     }
 
     if (gExtSaveData.option_SpeedBoost) {
         // Constant speed boost
-        if (PLAYER->stateFuncPtr == Player_RunningAction && rInputCtx.touchHeld &&
+        if (PLAYER->actionFunc == Player_Action_Running && rInputCtx.touchHeld &&
             (rInputCtx.touchX > 0x40 && rInputCtx.touchX < 0x100) &&
             (rInputCtx.touchY > 0x25 && rInputCtx.touchY < 0xC8)) {
             if (rInputCtx.touchY > 145) {
@@ -292,7 +289,7 @@ void Player_ComputeSpeedBoosts(void) {
         }
 
         // Swim boost
-        if (PLAYER->stateFuncPtr == Player_SwimmingAction) {
+        if (PLAYER->actionFunc == Player_Action_Swimming) {
             if (rInputCtx.pressed.b) {
                 swimBoostTimer = SWIM_BOOST_DURATION;
             }

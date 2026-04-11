@@ -2,7 +2,7 @@
 #define _FAIRY_H_
 
 #include "z3D/z3D.h"
-#include "actors/z_bg_dy_yoseizo.h"
+#include "z3D/actors/z_bg_dy_yoseizo.h"
 
 typedef struct EnElf {
     /* 0x000 */ Actor actor;

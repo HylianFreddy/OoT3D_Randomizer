@@ -7,6 +7,8 @@
 
 SFXData rSfxData = { 0 };
 
+void Player_Action_Rolling(Player* player, GlobalContext* globalCtx);
+
 u8 SeqTypeIsMovement(SeqType type) {
     return type == SEQ_WALK || type == SEQ_WALK_LOUD || type == SEQ_JUMP || type == SEQ_LAND || type == SEQ_SLIP ||
            type == SEQ_SLIP_LOOP || type == SEQ_BOUND || type == SEQ_CRAWL;
@@ -14,7 +16,7 @@ u8 SeqTypeIsMovement(SeqType type) {
 
 u32 SetSFX(u32 original) {
     u8 playerIsInGame = gGlobalContext && PLAYER && IsInGameOrBossChallenge();
-    if (playerIsInGame && PLAYER->stateFuncPtr == (void*)GAME_ADDR(0x492A3C) && // rolling
+    if (playerIsInGame && PLAYER->actionFunc == Player_Action_Rolling &&
         ((gExtSaveData.option_SilentRolls > 0 &&
           (original == 0x10004EB || original == 0x100050B)) || // adult voice and child voice
          (gExtSaveData.option_SilentRolls == 2 &&

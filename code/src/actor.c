@@ -1,3 +1,5 @@
+#include <sys/cdefs.h>
+
 #include "z3D/z3D.h"
 #include "common.h"
 #include "actor.h"
@@ -87,8 +89,13 @@
 
 #include "fairy.h"
 
-typedef void (*TitleCard_Update_proc)(GlobalContext* globalCtx, TitleCardContext* titleCtx);
-#define TitleCard_Update ((TitleCard_Update_proc)GAME_ADDR(0x47953C))
+void Actor_Kill(Actor* actor) {
+    actor->draw   = NULL;
+    actor->update = NULL;
+    actor->flags &= ~0x1;
+}
+
+void TitleCard_Update(GlobalContext* globalCtx, TitleCardContext* titleCtx);
 
 void Actor_Init() {
     // Some actors have the wrong ID saved in their "initInfo".
@@ -113,7 +120,7 @@ void Actor_Init() {
     gActorOverlayTable[0x4].initInfo->init         = ShopsanityItem_Init;
     gActorOverlayTable[0x4].initInfo->instanceSize = sizeof(ShopsanityItem);
 
-    gActorOverlayTable[0x9].initInfo->update = (ActorFunc)EnDoor_rUpdate;
+    gActorOverlayTable[0x9].initInfo->update = EnDoor_rUpdate;
 
     gActorOverlayTable[0xA].initInfo->init         = EnBox_rInit;
     gActorOverlayTable[0xA].initInfo->update       = EnBox_rUpdate;
@@ -125,7 +132,7 @@ void Actor_Init() {
     gActorOverlayTable[0xD].initInfo->init   = EnPoh_rInit;
     gActorOverlayTable[0xD].initInfo->update = EnPoh_rUpdate;
 
-    gActorOverlayTable[0xF].initInfo->update = (ActorFunc)BgYdanSp_rUpdate;
+    gActorOverlayTable[0xF].initInfo->update = BgYdanSp_rUpdate;
 
     gActorOverlayTable[0x15].initInfo->init         = EnItem00_rInit;
     gActorOverlayTable[0x15].initInfo->destroy      = EnItem00_rDestroy;
@@ -140,7 +147,7 @@ void Actor_Init() {
     gActorOverlayTable[0x27].initInfo->update = BossDodongo_rUpdate;
 
     gActorOverlayTable[0x2E].initInfo->init   = DoorShutter_rInit;
-    gActorOverlayTable[0x2E].initInfo->update = (ActorFunc)DoorShutter_rUpdate;
+    gActorOverlayTable[0x2E].initInfo->update = DoorShutter_rUpdate;
 
     gActorOverlayTable[0x2F].initInfo->init = EnDodojr_rInit;
 
@@ -244,16 +251,16 @@ void Actor_Init() {
 
     gActorOverlayTable[0x11D].initInfo->type = ACTORTYPE_ENEMY; // Flying Pot
 
-    gActorOverlayTable[0x126].initInfo->init   = (ActorFunc)ObjBean_rInit;
-    gActorOverlayTable[0x126].initInfo->update = (ActorFunc)ObjBean_rUpdate;
+    gActorOverlayTable[0x126].initInfo->init   = ObjBean_rInit;
+    gActorOverlayTable[0x126].initInfo->update = ObjBean_rUpdate;
 
     gActorOverlayTable[0x12A].initInfo->init = ObjSwitch_rInit;
 
-    gActorOverlayTable[0x12C].initInfo->update = (ActorFunc)ObjLift_rUpdate;
+    gActorOverlayTable[0x12C].initInfo->update = ObjLift_rUpdate;
 
     gActorOverlayTable[0x131].initInfo->update = EnExRuppy_rUpdate;
 
-    gActorOverlayTable[0x133].initInfo->update = (ActorFunc)EnDaiku_rUpdate;
+    gActorOverlayTable[0x133].initInfo->update = EnDaiku_rUpdate;
 
     gActorOverlayTable[0x138].initInfo->init   = EnGe1_rInit;
     gActorOverlayTable[0x138].initInfo->update = EnGe1_rUpdate;
@@ -266,7 +273,7 @@ void Actor_Init() {
     gActorOverlayTable[0x14D].initInfo->update = EnOwl_rUpdate;
 
     gActorOverlayTable[0x14E].initInfo->init   = EnIshi_rInit;
-    gActorOverlayTable[0x14E].initInfo->update = (ActorFunc)EnIshi_rUpdate;
+    gActorOverlayTable[0x14E].initInfo->update = EnIshi_rUpdate;
 
     gActorOverlayTable[0x153].initInfo->update = EnFu_rUpdate;
 
@@ -279,7 +286,7 @@ void Actor_Init() {
     gActorOverlayTable[0x168].initInfo->init    = EnExItem_rInit;
     gActorOverlayTable[0x168].initInfo->destroy = EnExItem_rDestroy;
 
-    gActorOverlayTable[0x172].initInfo->update = (ActorFunc)DoorGerudo_rUpdate;
+    gActorOverlayTable[0x172].initInfo->update = DoorGerudo_rUpdate;
 
     gActorOverlayTable[0x174].initInfo->update = DemoGt_rUpdate;
 
@@ -329,7 +336,7 @@ void Actor_Init() {
     gActorOverlayTable[0x1C6].initInfo->init    = EnCow_rInit;
     gActorOverlayTable[0x1C6].initInfo->destroy = EnCow_rDestroy;
 
-    gActorOverlayTable[0x1D2].initInfo->update = (ActorFunc)ObjHamishi_rUpdate;
+    gActorOverlayTable[0x1D2].initInfo->update = ObjHamishi_rUpdate;
 
     // Define custom object IDs to be by default the same as the base objects they're based on
     const struct {
@@ -537,8 +544,8 @@ void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
 }
 
 void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
-    s32 origSaModelsCount1 = gMainClass->sub180.saModelsCount1;
-    s32 origSaModelsCount2 = gMainClass->sub180.saModelsCount2;
+    s32 origSaModelsCount1 = gMainClass.sub180.saModelsCount1;
+    s32 origSaModelsCount2 = gMainClass.sub180.saModelsCount2;
 
     actor->draw(actor, globalCtx);
 
@@ -546,8 +553,8 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
         (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_PURPLE_FLAMES ||
          (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_FLASHING && rGameplayFrames % 2 == 0))) {
         // make enemy invisible
-        gMainClass->sub180.saModelsCount1 = origSaModelsCount1; // 3D models
-        gMainClass->sub180.saModelsCount2 = origSaModelsCount2; // 2D billboards
+        gMainClass.sub180.saModelsCount1 = origSaModelsCount1; // 3D models
+        gMainClass.sub180.saModelsCount2 = origSaModelsCount2; // 2D billboards
     }
 }
 

@@ -1,8 +1,8 @@
 #ifndef _Z3DEFFECT_H_
 #define _Z3DEFFECT_H_
 
-#include "z3Dvec.h"
-#include "z3Dcolor.h"
+#include "s_types.h"
+#include "s_colors.h"
 
 struct GlobalContext;
 
@@ -78,12 +78,10 @@ typedef struct EffectContext {
 } EffectContext;
 _Static_assert(sizeof(EffectContext) == 0xD250, "EffectContext size");
 
-#define gEffectContext (*(EffectContext*)GAME_ADDR(0x58B2E0))
+extern EffectContext gEffectContext;
 
-#define EffectBlure_Update ((void (*)(EffectBlure*))GAME_ADDR(0x227000))
-
-typedef void (*Effect_Delete_proc)(struct GlobalContext* globalCtx, s32 index);
-#define Effect_Delete ((Effect_Delete_proc)GAME_ADDR(0x34F0F4))
+void EffectBlure_Update(EffectBlure*);
+void Effect_Delete(struct GlobalContext* globalCtx, s32 index);
 
 /* Effect Soft Sprites */
 
@@ -153,25 +151,16 @@ typedef struct EffectSsInfo {
     // ...
 } EffectSsInfo;
 
-#define gEffectSsInfo (*(EffectSsInfo*)GAME_ADDR(0x598530))
+extern EffectSsInfo gEffectSsInfo;
 
-typedef void (*EffectSs_Delete_proc)(EffectSs* effectSs);
-#define EffectSs_Delete ((EffectSs_Delete_proc)GAME_ADDR(0x2D6A50))
-
-typedef void (*EffectSsKakera_Spawn_proc)(struct GlobalContext* globalCtx, Vec3f* pos, Vec3f* velocity, Vec3f* arg3,
-                                          s16 gravity, s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 scale, s16 arg10,
-                                          s16 arg11, s32 life, s16 colorIdx, s16 objId, u32 cmbIndex);
-#define EffectSsKakera_Spawn ((EffectSsKakera_Spawn_proc)GAME_ADDR(0x365F98))
-
-typedef void (*EffectSsKiraKira_SpawnDispersed_proc)(struct GlobalContext* play, Vec3f* pos, Vec3f* velocity,
-                                                     Vec3f* accel, Color_RGBA8* primColor, Color_RGBA8* envColor,
-                                                     s16 scale, s32 life);
-#define EffectSsKiraKira_SpawnDispersed ((EffectSsKiraKira_SpawnDispersed_proc)GAME_ADDR(0x36EA98))
-
-typedef void (*EffectSsDeadDb_Spawn_proc)(struct GlobalContext* globalCtx, Vec3f* position, Vec3f* velocity,
-                                          Vec3f* acceleration, s16 scale, s16 scale_step, s16 prim_r, s16 prim_g,
-                                          s16 prim_b, s16 prim_a, s16 env_r, s16 env_g, s16 env_b, s16 unused,
-                                          s32 frame_duration, s16 play_sound);
-#define EffectSsDeadDb_Spawn ((EffectSsDeadDb_Spawn_proc)GAME_ADDR(0x3642F4))
+void EffectSs_Delete(EffectSs* effectSs);
+void EffectSsKakera_Spawn(struct GlobalContext* globalCtx, Vec3f* pos, Vec3f* velocity, Vec3f* arg3, s16 gravity,
+                          s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 scale, s16 arg10, s16 arg11, s32 life,
+                          s16 colorIdx, s16 objId, u32 cmbIndex);
+void EffectSsKiraKira_SpawnDispersed(struct GlobalContext* play, Vec3f* pos, Vec3f* velocity, Vec3f* accel,
+                                     Color_RGBA8* primColor, Color_RGBA8* envColor, s16 scale, s32 life);
+void EffectSsDeadDb_Spawn(struct GlobalContext* globalCtx, Vec3f* position, Vec3f* velocity, Vec3f* acceleration, s16 scale,
+                          s16 scale_step, s16 prim_r, s16 prim_g, s16 prim_b, s16 prim_a, s16 env_r, s16 env_g,
+                          s16 env_b, s16 unused, s32 frame_duration, s16 play_sound);
 
 #endif //_Z3DEFFECT_H_

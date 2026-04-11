@@ -11,12 +11,11 @@
 #include "objects.h"
 #include "custom_models.h"
 
-#define EnBox_Init ((ActorFunc)GAME_ADDR(0x1899EC))
-
-#define EnBox_Update ((ActorFunc)GAME_ADDR(0x1D5B70))
+void EnBox_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnBox_Update(Actor* thisx, GlobalContext* globalCtx);
 
 #define PlaySFXAt(sfxId, pos) \
-    PlaySFX(sfxId, pos, 4, (f32*)GAME_ADDR(0x54AC20), (f32*)GAME_ADDR(0x54AC20), (s8*)GAME_ADDR(0x54AC24))
+    Audio_PlaySfxGeneral(sfxId, pos, 4, &gSfxDefaultFreqAndVolScale, &gSfxDefaultFreqAndVolScale, &gSfxDefaultReverb)
 
 static Actor* sLastTrapChest = 0;
 static EnBom* sBomb          = 0;
@@ -216,7 +215,7 @@ void EnBox_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         if (gSaveContext.doubleDefense) {
             healthDecrement /= 2;
         }
-        PlaySound(0x100035C); // Poe laugh SFX
+        Audio_PlayFanfare(0x100035C); // Poe laugh SFX
         sFairy = 0;
     }
 
@@ -309,7 +308,7 @@ u8 Chest_OverrideIceSmoke(Actor* thisx) {
             case ICETRAP_BOMB_SIMPLE:
             case ICETRAP_BOMB_KNOCKDOWN:
                 sBomb = (EnBom*)Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x10, thisx->world.pos.x,
-                                    thisx->world.pos.y, thisx->world.pos.z, 0, 0, 0, 0, FALSE);
+                                            thisx->world.pos.y, thisx->world.pos.z, 0, 0, 0, 0, FALSE);
                 break;
             case ICETRAP_ANTIFAIRY:
                 sFairy = (EnElf*)Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x18, thisx->world.pos.x,

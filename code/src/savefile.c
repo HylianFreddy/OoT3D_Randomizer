@@ -518,6 +518,14 @@ void SaveFile_SetStartingInventory(void) {
     gSaveContext.equipment |= gSettingsContext.startingEquipment;
     gSaveContext.upgrades |= gSettingsContext.startingUpgrades;
 
+    u8 startingShields = gSettingsContext.startingEquipment >> (4 * EQUIP_TYPE_SHIELD);
+    if (startingShields & EQUIP_VALUE_SHIELD_DEKU) {
+        gExtSaveData.dekuShieldsCount = 1;
+    }
+    if (startingShields & EQUIP_VALUE_SHIELD_HYLIAN) {
+        gExtSaveData.hylianShieldsCount = 1;
+    }
+
     // max rupees
     if (gSettingsContext.startingMaxRupees) {
         u8 wallet = (gSaveContext.upgrades >> 12) & 0x3;
@@ -638,8 +646,7 @@ void SaveFile_BorrowMask(s16 SI_ItemId) {
     gSaveContext.sceneFlags[0x60].unk |= (itemId - ITEM_MASK_KEATON) << 0x13;
 }
 
-typedef s32 (*Inventory_ReplaceItem_proc)(GlobalContext* globalCtx, u16 oldItem, u16 newItem);
-#define Inventory_ReplaceItem ((Inventory_ReplaceItem_proc)GAME_ADDR(0x316CEC))
+s32 Inventory_ReplaceItem(GlobalContext* globalCtx, u16 oldItem, u16 newItem);
 
 u32 SaveFile_CheckForWeirdEggHatch(void) {
     // Force the egg into the child trade slot so that it can hatch

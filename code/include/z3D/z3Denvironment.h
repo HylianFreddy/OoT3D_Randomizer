@@ -1,7 +1,7 @@
 #ifndef _Z3DENVIRONMENT_H_
 #define _Z3DENVIRONMENT_H_
 
-#include "z3Dvec.h"
+#include "s_types.h"
 
 #define LIGHT_SETTING_OVERRIDE_NONE 0xFF
 #define LIGHT_SETTING_OVERRIDE_FULL_CONTROL 0xFE

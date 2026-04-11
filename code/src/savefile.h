@@ -1,8 +1,9 @@
 #ifndef _SAVEFILE_H_
 #define _SAVEFILE_H_
 
+#include "s_scene_id.h"
+
 #include "z3D/z3D.h"
-#include "z3D/z3Dscene.h"
 
 #define SAVEFILE_SCENES_DISCOVERED_IDX_COUNT 4
 #define SAVEFILE_ENTRANCES_DISCOVERED_IDX_COUNT 66
@@ -76,6 +77,8 @@ typedef struct {
     u8 permadeath;
     u8 gloomedHeart;
     u8 triforcePieces;
+    u8 dekuShieldsCount;
+    u8 hylianShieldsCount;
     // Ingame Options, all need to be s8
     s8 option_EnableBGM;
     s8 option_EnableSFX;

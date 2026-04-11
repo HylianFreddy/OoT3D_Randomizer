@@ -19,11 +19,8 @@ u32 gFinalPlaytimeSeconds;
 volatile const u32 numCustomMessageEntries;
 volatile const MessageEntry* ptrCustomMessageEntries;
 
-typedef const MessageEntry* (*Message_GetEntry_proc)(void* param_1, u32 textId);
-#define Message_GetEntry ((Message_GetEntry_proc)GAME_ADDR(0x2DF4C4))
-
-typedef const char* (*Message_GetText_proc)(void* param_1, u32 offset);
-#define Message_GetText ((Message_GetText_proc)GAME_ADDR(0x2DF4B0))
+const MessageEntry* Message_GetEntry(void* param_1, u32 textId);
+const char* Message_GetText(void* param_1, u32 offset);
 
 const MessageEntry* Message_GetCustomEntry(void* param_1, u32 textId) {
     s32 start;
@@ -65,6 +62,12 @@ u32 Message_HandleTextControlCode(TextControlCode ctrl, void* textObj, UnkTextCo
         switch (ctrl) {
             case TEXT_CTRL_TRIFORCE_PIECE_COUNT:
                 snprintf(str, MAX_DYNAMIC_STRING_SIZE, "%d", gExtSaveData.triforcePieces);
+                break;
+            case TEXT_CTRL_DEKU_SHIELD_COUNT:
+                snprintf(str, MAX_DYNAMIC_STRING_SIZE, "%d", gExtSaveData.dekuShieldsCount);
+                break;
+            case TEXT_CTRL_HYLIAN_SHIELD_COUNT:
+                snprintf(str, MAX_DYNAMIC_STRING_SIZE, "%d", gExtSaveData.hylianShieldsCount);
                 break;
             case TEXT_CTRL_FINAL_TIME:
                 u32 hours   = gFinalPlaytimeSeconds / 3600;
