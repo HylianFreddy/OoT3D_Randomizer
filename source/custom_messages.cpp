@@ -1611,12 +1611,6 @@ std::string MQ_END() {
 std::string TRIFORCE_PIECE_COUNT() {
     return { '\x7F', static_cast<char>(TEXT_CTRL_TRIFORCE_PIECE_COUNT) };
 }
-std::string DEKU_SHIELD_COUNT() {
-    return { '\x7F', static_cast<char>(TEXT_CTRL_DEKU_SHIELD_COUNT) };
-}
-std::string HYLIAN_SHIELD_COUNT() {
-    return { '\x7F', static_cast<char>(TEXT_CTRL_HYLIAN_SHIELD_COUNT) };
-}
 std::string FINAL_TIME() {
     return { '\x7F', static_cast<char>(TEXT_CTRL_FINAL_TIME) };
 }
@@ -1637,5 +1631,11 @@ std::string DAMAGE_RECEIVED() {
 }
 std::string BONK_COUNT() {
     return { '\x7F', static_cast<char>(TEXT_CTRL_BONK_COUNT) };
+}
+std::string DEKU_SHIELD_COUNT() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_DEKU_SHIELD_COUNT) };
+}
+std::string HYLIAN_SHIELD_COUNT() {
+    return { '\x7F', static_cast<char>(TEXT_CTRL_HYLIAN_SHIELD_COUNT) };
 }
 } // namespace CustomMessages

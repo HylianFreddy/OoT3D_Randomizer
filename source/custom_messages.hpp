@@ -59,8 +59,6 @@ std::string MQ_END();
 
 // Custom control codes
 std::string TRIFORCE_PIECE_COUNT();
-std::string DEKU_SHIELD_COUNT();
-std::string HYLIAN_SHIELD_COUNT();
 std::string FINAL_TIME();
 std::string CHECK_PERCENTAGE();
 std::string SAVE_COUNT();
@@ -68,4 +66,6 @@ std::string DEATH_COUNT();
 std::string HIT_COUNT();
 std::string DAMAGE_RECEIVED();
 std::string BONK_COUNT();
+std::string DEKU_SHIELD_COUNT();
+std::string HYLIAN_SHIELD_COUNT();
 } // namespace CustomMessages

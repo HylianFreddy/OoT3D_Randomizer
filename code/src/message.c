@@ -63,12 +63,6 @@ u32 Message_HandleTextControlCode(TextControlCode ctrl, void* textObj, UnkTextCo
             case TEXT_CTRL_TRIFORCE_PIECE_COUNT:
                 snprintf(str, MAX_DYNAMIC_STRING_SIZE, "%d", gExtSaveData.triforcePieces);
                 break;
-            case TEXT_CTRL_DEKU_SHIELD_COUNT:
-                snprintf(str, MAX_DYNAMIC_STRING_SIZE, "%d", gExtSaveData.dekuShieldsCount);
-                break;
-            case TEXT_CTRL_HYLIAN_SHIELD_COUNT:
-                snprintf(str, MAX_DYNAMIC_STRING_SIZE, "%d", gExtSaveData.hylianShieldsCount);
-                break;
             case TEXT_CTRL_FINAL_TIME:
                 u32 hours   = gFinalPlaytimeSeconds / 3600;
                 u32 minutes = (gFinalPlaytimeSeconds / 60) % 60;
@@ -109,6 +103,12 @@ u32 Message_HandleTextControlCode(TextControlCode ctrl, void* textObj, UnkTextCo
                 break;
             case TEXT_CTRL_BONK_COUNT:
                 snprintf(str, MAX_DYNAMIC_STRING_SIZE, "%d", gExtSaveData.bonkCount);
+                break;
+            case TEXT_CTRL_DEKU_SHIELD_COUNT:
+                snprintf(str, MAX_DYNAMIC_STRING_SIZE, "%d", gExtSaveData.dekuShieldsCount);
+                break;
+            case TEXT_CTRL_HYLIAN_SHIELD_COUNT:
+                snprintf(str, MAX_DYNAMIC_STRING_SIZE, "%d", gExtSaveData.hylianShieldsCount);
                 break;
             default:
                 break;

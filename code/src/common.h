@@ -27,5 +27,6 @@ u8 Bias(u32);
 u8 IsInGame(void);
 u8 IsInGameOrBossChallenge(void);
 void CitraPrint(const char*, ...);
+#include "logger.h"
 
 #endif //_COMMON_H_

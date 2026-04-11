@@ -16,6 +16,11 @@ typedef struct EnemyObjectDependency {
     u16 objectId;
 } EnemyObjectDependency;
 
+typedef struct TestEnemyData {
+    s16 actorId;
+    s16* params;
+} TestEnemyData;
+
 typedef struct EnemizerLocationFlags {
     u8 sfmWolfos : 1;
     u8 dcLizalfos : 1;

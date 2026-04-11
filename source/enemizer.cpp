@@ -27,6 +27,8 @@ void RandomizeEnemies() {
         return;
     }
 
+    LOG(L_ENEMIZER, L_DEBUG, "___________________");
+    LOG(L_ENEMIZER, L_DEBUG, "Randomizing Enemies...");
     for (auto& scene : enemyLocations) {
         for (auto& layer : scene.second) {
             for (auto& room : layer.second) {
@@ -41,9 +43,30 @@ void RandomizeEnemies() {
         }
     }
     AddDuplicateLocations();
+    LOG(L_ENEMIZER, L_DEBUG, "Enemies randomization complete!");
+
+    s32 ovrCount = 0;
+    for (auto& scene : enemyLocations) {
+        for (auto& layer : scene.second) {
+            for (auto& room : layer.second) {
+                ovrCount += room.second.size();
+            }
+        }
+    }
+    LOG(L_ENEMIZER, L_DEBUG, "Enemy loc count start = " + std::to_string(ovrCount));
 }
 
 void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {
+    s32 ovrCount = 0;
+    for (auto& scene : enemyLocations) {
+        for (auto& layer : scene.second) {
+            for (auto& room : layer.second) {
+                ovrCount += room.second.size();
+            }
+        }
+    }
+    LOG(L_ENEMIZER, L_DEBUG, "Enemy loc count end = " + std::to_string(ovrCount));
+    LOG(L_ENEMIZER, L_DEBUG, "Filling enemy overrides...");
     for (auto& scene : enemyLocations) {
         for (auto& layer : scene.second) {
             for (auto& room : layer.second) {
@@ -62,12 +85,17 @@ void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {
                         ovr.actorId    = enemyType.actorId;
                         ovr.params     = entry.second.randomizedParams;
                         enemyOverrides.push_back(ovr);
+                    } else {
+                        LOG(L_ENEMIZER, L_ERROR,
+                            "INVALID ENEMY LOC = " + std::to_string(scene.first) + std::to_string(layer.first) +
+                                std::to_string(room.first) + std::to_string(entry.first));
                     }
                 }
             }
         }
     }
 
+    LOG(L_ENEMIZER, L_DEBUG, "Sorting enemy overrides...");
     std::sort(enemyOverrides.begin(), enemyOverrides.end(),
               [](const EnemyOverride& a, const EnemyOverride& b) { return a.key < b.key; });
 
@@ -76,6 +104,20 @@ void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {
         CitraPrint("ENEMIZER ERROR: Too many Enemy Overrides (" + std::to_string(enemyOverrides.size()) + ")");
         enemyOverrides.clear();
     }
+
+    LOG(L_ENEMIZER, L_DEBUG, "Enemy overrides done!");
+    LOG(L_ENEMIZER, L_TRACE, "enemyOverrides[0]" + std::to_string(enemyOverrides[0].key));
+    LOG(L_ENEMIZER, L_TRACE, "enemyOverrides[1]" + std::to_string(enemyOverrides[1].key));
+    LOG(L_ENEMIZER, L_TRACE,
+        "enemyLocations[15][0][0][4] is " + (enemyTypes[enemyLocations[15][0][0][4].randomizedEnemyId].name));
+    LOG(L_ENEMIZER, L_TRACE,
+        "OVR 0 " + std::to_string(enemyOverrides[0].scene) + " " + std::to_string(enemyOverrides[0].layer) + " " +
+            std::to_string(enemyOverrides[0].room) + " " + std::to_string(enemyOverrides[0].actorEntry) + " " +
+            std::to_string(enemyOverrides[0].actorId) + " " + std::to_string(enemyOverrides[0].params));
+    LOG(L_ENEMIZER, L_TRACE,
+        "OVR 1 " + std::to_string(enemyOverrides[1].scene) + " " + std::to_string(enemyOverrides[1].layer) + " " +
+            std::to_string(enemyOverrides[1].room) + " " + std::to_string(enemyOverrides[1].actorEntry) + " " +
+            std::to_string(enemyOverrides[1].actorId) + " " + std::to_string(enemyOverrides[1].params));
 }
 
 } // namespace Enemizer
