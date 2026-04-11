@@ -542,8 +542,9 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
 
     actor->draw(actor, globalCtx);
 
-    if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_FLASHING && EnemySouls_ShouldDrawSoulless(actor) &&
-        rGameplayFrames % 2 == 0) {
+    if (EnemySouls_ShouldDrawSoulless(actor) &&
+        (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_PURPLE_FLAMES ||
+         (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_FLASHING && rGameplayFrames % 2 == 0))) {
         // make enemy invisible
         gMainClass->sub180.saModelsCount1 = origSaModelsCount1; // 3D models
         gMainClass->sub180.saModelsCount2 = origSaModelsCount2; // 2D billboards

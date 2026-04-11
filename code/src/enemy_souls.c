@@ -120,7 +120,7 @@ u8 EnemySouls_ShouldDrawSoulless(Actor* actor) {
 
 static void SoullessEffect_Draw(Vec3f pos, f32 xRange, f32 yRange, f32 zRange, s16 scale) {
     pos.x += xRange * (Rand_ZeroOne() - 0.5);
-    pos.y += yRange * (Rand_ZeroOne() - 0.5);
+    pos.y += yRange * (Rand_ZeroOne() - 0.5) + scale / 10;
     pos.z += zRange * (Rand_ZeroOne() - 0.5);
     Vec3f nullVec         = { 0 };
     Color_RGBA8 primColor = {
@@ -140,8 +140,12 @@ static void SoullessEffect_Draw(Vec3f pos, f32 xRange, f32 yRange, f32 zRange, s
 }
 
 static void SoullessEffect_ParseCollider(Collider* collider) {
-    u8 isBoss = collider->actor->type == ACTORTYPE_BOSS;
+    if (collider == NULL || collider->actor == NULL) {
+        return;
+    }
+
     if (collider->actor->flags & ACTOR_FLAG_INSIDE_CULLING_VOLUME && EnemySouls_ShouldDrawSoulless(collider->actor)) {
+        u8 isBoss = collider->actor->type == ACTORTYPE_BOSS;
         switch (collider->shape) {
             case COLSHAPE_JNTSPH:
                 ColliderJntSph* jntSphCol = (ColliderJntSph*)collider;
@@ -175,11 +179,9 @@ void EnemySouls_DrawEffects(void) {
         SoullessEffect_ParseCollider(collider);
     }
 
-    // Parse colliders subscribed to OC and not AC
+    // Parse all colliders subscribed to OC
     for (s32 i = 0; i < gGlobalContext->colChkCtx.colOcCount; i++) {
         Collider* collider = gGlobalContext->colChkCtx.colOc[i];
-        if (!(collider->acFlags & AC_ON)) {
-            SoullessEffect_ParseCollider(collider);
-        }
+        SoullessEffect_ParseCollider(collider);
     }
 }
