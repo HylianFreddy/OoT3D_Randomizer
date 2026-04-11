@@ -19,6 +19,7 @@
 #include "gloom.h"
 #include "ocarina_notes.h"
 #include "icetrap.h"
+#include "enemy_souls.h"
 
 #include "z3D/z3D.h"
 #include "3ds/extdata.h"
@@ -69,6 +70,11 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
     Enemizer_Update();
 }
 
+s32 checkFastForward(void) {
+    static u32 updateCycleCounter = 0;
+    return gExtSaveData.option_SpeedBoost && rInputCtx.cur.zl && (++updateCycleCounter % 20 != 0);
+}
+
 void after_GlobalContext_Update() {
     // The alert is always displayed on the Title Screen, and for 10 seconds after opening a save file.
     if (missingRomfsAlert && romfsAlertFrames > 0) {
@@ -81,6 +87,7 @@ void after_GlobalContext_Update() {
     }
 
     Multiplayer_Sync_Update();
+    EnemySouls_DrawEffects();
 
     if (gGlobalContext->state.running == 0) {
         Model_DestroyAll();

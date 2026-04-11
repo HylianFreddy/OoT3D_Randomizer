@@ -4,6 +4,8 @@
 #include "s_types.h"
 #include "s_colors.h"
 
+struct GlobalContext;
+
 /* Effects */
 
 #define SPARK_COUNT 24
@@ -152,5 +154,13 @@ typedef struct EffectSsInfo {
 extern EffectSsInfo gEffectSsInfo;
 
 void EffectSs_Delete(EffectSs* effectSs);
+void EffectSsKakera_Spawn(struct GlobalContext* globalCtx, Vec3f* pos, Vec3f* velocity, Vec3f* arg3, s16 gravity,
+                          s16 arg5, s16 arg6, s16 arg7, s16 arg8, s16 scale, s16 arg10, s16 arg11, s32 life,
+                          s16 colorIdx, s16 objId, u32 cmbIndex);
+void EffectSsKiraKira_SpawnDispersed(struct GlobalContext* play, Vec3f* pos, Vec3f* velocity, Vec3f* accel,
+                                     Color_RGBA8* primColor, Color_RGBA8* envColor, s16 scale, s32 life);
+void EffectSsDeadDb_Spawn(struct GlobalContext* globalCtx, Vec3f* position, Vec3f* velocity, Vec3f* acceleration,
+                          s16 scale, s16 scale_step, s16 prim_r, s16 prim_g, s16 prim_b, s16 prim_a, s16 env_r,
+                          s16 env_g, s16 env_b, s16 unused, s32 frame_duration, s16 play_sound);
 
 #endif //_Z3DEFFECT_H_

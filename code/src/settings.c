@@ -139,7 +139,7 @@ void Settings_SkipSongReplays() {
 
 void Settings_SunsSongEndCloseTextbox() {
     Message_CloseTextbox(gGlobalContext);
-    gGlobalContext->unk_2B7E = 4; // msgCtx.ocarinaMode, exits the ocarina playing
+    gGlobalContext->ocarinaMode = 4; // exits the ocarina playing
 }
 
 s32 Settings_BowAsChild() {

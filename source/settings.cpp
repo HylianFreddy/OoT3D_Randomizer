@@ -109,7 +109,7 @@ Option RandomizeWorld            = Option::Bool("Randomize Settings",     {"No",
 Option StartingAge               = Option::U8  ("Starting Age",           {"Adult", "Child", "Random"},                                      {ageDesc},                                                                                                       OptionCategory::Setting,    AGE_CHILD);
 u8 ResolvedStartingAge;
 Option ShuffleEntrances          = Option::Bool("Shuffle Entrances",       {"Off", "On"},                                                    {shuffleEntrancesDesc});
-Option ShuffleDungeonEntrances   = Option::U8  (2, "Dungeon Entrances",    {"Off", "On", "On + Ganon"},                                      {dungeonEntrancesDesc});
+Option ShuffleDungeonEntrances   = Option::U8  (2, "Dungeon Entrances",    {"Off", "On (no Ganon)", "On + Ganon"},                           {dungeonEntrancesDesc});
 Option ShuffleBossEntrances      = Option::U8  (2, "Boss Entrances",       {"Off", "Age Restricted", "Full"},                                {bossEntrancesDesc});
 Option ShuffleOverworldEntrances = Option::Bool(2, "Overworld Entrances",  {"Off", "On"},                                                    {overworldEntrancesDesc});
 Option ShuffleInteriorEntrances  = Option::U8  (2, "Interior Entrances",   {"Off", "Simple", "All"},                                         {interiorEntrancesOff, interiorEntrancesSimple, interiorEntrancesAll});
@@ -124,7 +124,7 @@ Option MixInteriors              = Option::Bool(4, "Mix Interiors",        {"Off
 Option MixGrottos                = Option::Bool(4, "Mix Grottos",          {"Off", "On"},                                                    {mixGrottosDesc});
 Option DecoupleEntrances         = Option::Bool(2, "Decouple Entrances",   {"Off", "On"},                                                    {decoupledEntrancesDesc});
 Option BombchusInLogic           = Option::Bool("Bombchus in Logic",       {"Off", "On"},                                                    {bombchuLogicDesc});
-Option AmmoDrops                 = Option::U8  ("Ammo Drops",              {"On", "On + Bombchu", "Off"},                                    {defaultAmmoDropsDesc, bombchuDropsDesc, noAmmoDropsDesc},                                                       OptionCategory::Setting,    AMMODROPS_BOMBCHU);
+Option AmmoDrops                 = Option::U8  ("Ammo Drops",              {"On (Vanilla)", "On (+Bombchus)", "Disabled"},                   {defaultAmmoDropsDesc, bombchuDropsDesc, noAmmoDropsDesc},                                                       OptionCategory::Setting,    AMMODROPS_BOMBCHU);
 Option HeartDropRefill           = Option::U8  ("Heart Drops and Refills", {"On", "No Drop", "No Refill", "Off"},                            {defaultHeartDropsDesc, noHeartDropsDesc, noHeartRefillDesc, scarceHeartsDesc},                                  OptionCategory::Setting,    HEARTDROPREFILL_VANILLA);
 Option MQDungeonCount            = Option::U8  ("MQ Dungeon Count",        {MultiVecOpts({NumOpts(0, 12), {"Random"}})},                     {mqDungeonCountDesc});
 u8 MQSet;
@@ -1293,7 +1293,7 @@ Option ColoredKeys         = Option::Bool("Colored Small Keys",     {"Off", "On"
 Option ColoredBossKeys     = Option::Bool("Colored Boss Keys",      {"Off", "On"},                                {coloredBossKeysDesc},                                                                                                                              OptionCategory::Cosmetic);
 Option MirrorWorld         = Option::U8  ("Mirror World",           {"Off", "On", "Scene", "Entrance", "Random"}, {mirrorWorldOffDesc, mirrorWorldOnDesc, mirrorWorldSceneDesc, mirrorWorldEntranceDesc, mirrorWorldRandomDesc},                                      OptionCategory::Cosmetic);
 Option BetaSoldOut         = Option::Bool("Beta Sold-Out Model",    {"Off", "On"},                                {betaSoldOutDesc},                                                                                                                                  OptionCategory::Cosmetic);
-Option SoullessEnemiesLook = Option::U8  ("Soulless Enemies Look",  {"Purple Flame", "Flashing"},                 {soullessPurpleFlameDesc, soullessFlashingDesc},                                                                                                    OptionCategory::Cosmetic);
+Option SoullessEnemiesLook = Option::U8  ("Soulless Enemies Look",  {"Vanilla", "Purple Flames", "Flashing"},     {soullessVanillaDesc, soullessPurpleFlamesDesc, soullessFlashingDesc},                                                                              OptionCategory::Cosmetic,     SOULLESSLOOK_PURPLE_FLAMES);
 
 std::vector<Option *> cosmeticOptions = {
     &CustomTunicColors,
@@ -2854,7 +2854,7 @@ std::vector<std::pair<Option*, u8>> racingOverrides = {
     { &SkipSongReplays, SONGREPLAYS_SKIP_NO_SFX },
     { &ColoredKeys, ON },
     { &ColoredBossKeys, ON },
-    { &SoullessEnemiesLook, SOULLESSLOOK_PURPLE_FLAME },
+    { &SoullessEnemiesLook, SOULLESSLOOK_PURPLE_FLAMES },
 };
 // clang-format on
 

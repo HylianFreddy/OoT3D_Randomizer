@@ -7,12 +7,23 @@
 
 SFXData rSfxData = { 0 };
 
+void Player_Action_Rolling(Player* player, GlobalContext* globalCtx);
+
 u8 SeqTypeIsMovement(SeqType type) {
     return type == SEQ_WALK || type == SEQ_WALK_LOUD || type == SEQ_JUMP || type == SEQ_LAND || type == SEQ_SLIP ||
            type == SEQ_SLIP_LOOP || type == SEQ_BOUND || type == SEQ_CRAWL;
 }
 
 u32 SetSFX(u32 original) {
+    u8 playerIsInGame = gGlobalContext && PLAYER && IsInGameOrBossChallenge();
+    if (playerIsInGame && PLAYER->actionFunc == Player_Action_Rolling &&
+        ((gExtSaveData.option_SilentRolls > 0 &&
+          (original == 0x10004EB || original == 0x100050B)) || // adult voice and child voice
+         (gExtSaveData.option_SilentRolls == 2 &&
+          (original == 0x100003D || original == 0x10000E2))) // other sound effects
+    ) {
+        return SEQ_AUDIO_BLANK;
+    }
     // Hack for hookshot as child (adult voice -> child voice)
     if (original == 0x100050D && gSaveContext.linkAge == 1) {
         original = 0x100050B;
@@ -32,6 +43,10 @@ u32 SetSFX(u32 original) {
     if (IsInGameOrBossChallenge() && ((!gExtSaveData.option_EnableSFX && sfxID != GET_BOXITEM_ID) ||
                                       (!gExtSaveData.option_EnableBGM && sfxID == GET_BOXITEM_ID))) {
         return SEQ_AUDIO_BLANK;
+    }
+
+    if (gExtSaveData.option_EnableSFX == 1) {
+        return original;
     }
 
     // Check for invalid sound effect

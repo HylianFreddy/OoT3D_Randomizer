@@ -8,11 +8,13 @@
 
 #include <sys/cdefs.h>
 #include "z3Dactor.h"
+#include "z3Dequipment.h"
 #include "z3Dcutscene.h"
 #include "z3Ditem.h"
 #include "z3Dmath.h"
 #include "z3Dbgcheck.h"
 #include "z3Deffect.h"
+#include "z3Denvironment.h"
 
 #include "hid.h"
 
@@ -539,10 +541,10 @@ typedef struct GlobalContext {
     /* 0x2A90 */ u8 msgMode; // seems to be used primarily for the ocarina
     /* 0x2A91 */ char unk_2A91[0xEB];
     /* 0x2B7C */ u16 lastPlayedSong;
-    /* 0x2B7E */ s16 unk_2B7E; // msgCtx.unk_E3EE in OoT
-    /* 0x2B80 */ char unk_2B80[0x06B0];
-    /* 0x3230 */ u32 lightSettingsList_addr;
-    /* 0x3234 */ char unk_3234[0x0824];
+    /* 0x2B7E */ s16 ocarinaMode; // msgCtx.ocarinaMode in OoT
+    /* 0x2B80 */ char unk_2B80[0x0610];
+    /* 0x3190 */ EnvironmentContext envCtx;
+    /* 0x328C */ char unk_328C[0x07CC];
     /* 0x3A58 */ ObjectContext objectCtx;
     /* 0x43DC */ char unk_43DC[0x0854];
     /* 0x4C30 */ s8 roomNum;
@@ -738,11 +740,9 @@ f32 Camera_BGCheckInfo(Camera* camera, Vec3f* from, CamColChk* to);
 s32 Quake_Update(Camera* camera, ShakeInfo* camShake);
 s16 Camera_GetCamDataId(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId);
 s32 Animation_GetLastFrame(SkelAnime* anime, s32 animation_index);
-void Animation_Change(SkelAnime* anime, s32 animation_index, f32 play_speed, f32 start_frame, f32 end_frame,
-                      f32 morph_frames, s32 mode) __attribute__((pcs("aapcs-vfp")));
-void EffectSsDeadDb_Spawn(GlobalContext* globalCtx, Vec3f* position, Vec3f* velocity, Vec3f* acceleration, s16 scale,
-                          s16 scale_step, s16 prim_r, s16 prim_g, s16 prim_b, s16 prim_a, s16 env_r, s16 env_g,
-                          s16 env_b, s16 unused, s32 frame_duration, s16 play_sound);
+void Animation_Change(SkelAnime* anime, s32 animation_index, f32 play_speed, f32 start_frame, f32 end_frame, s32 mode,
+                      f32 morph_frames) __attribute__((pcs("aapcs-vfp")));
+s32 SkelAnime_Update(SkelAnime* skelAnime);
 void SaveGame(GlobalContext* globalCtx, u8 isSaveFileCreation);
 s32 Message_GetState(void);
 void SetEventBGM(u32 seqPlayerIndex, u32 seqId);

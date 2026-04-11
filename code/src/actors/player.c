@@ -9,6 +9,7 @@
 #include "arrow.h"
 #include "grotto.h"
 #include "item_override.h"
+#include "input.h"
 #include "colors.h"
 #include "common.h"
 #include "gloom.h"
@@ -31,6 +32,16 @@ u8 storedMask       = 0;
 
 static u32 sLastHitFrame = 0;
 static s16 sPrevHealth   = INT16_MAX;
+
+static f32 sSpeedMultiplier = 1.0;
+static u8 swimBoostTimer    = 0;
+#define SWIM_BOOST_POWER 3.0f
+#define SWIM_BOOST_DURATION 40
+void Player_Action_Running(Player* player, GlobalContext* globalCtx);
+void Player_Action_Swimming(Player* player, GlobalContext* globalCtx);
+void Player_Action_Rolling(Player* player, GlobalContext* globalCtx);
+
+void Player_ComputeSpeedBoosts(void);
 
 void** Player_EditAndRetrieveCMB(ZARInfo* zarInfo, u32 objModelIdx) {
     void** cmbMan = ZAR_GetCMBByIndex(zarInfo, objModelIdx);
@@ -96,6 +107,22 @@ void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
 
 void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     Player* this = (Player*)thisx;
+
+    Player_ComputeSpeedBoosts();
+
+    if (this->actionFunc == Player_Action_Running && sSpeedMultiplier > 2.99f) {
+        CollisionPoly floorPoly;
+        Vec3f actorPos = (Vec3f){
+            .x = thisx->world.pos.x,
+            .y = thisx->world.pos.y + 100,
+            .z = thisx->world.pos.z,
+        };
+
+        f32 yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
+        thisx->world.pos.y   = yGroundIntersect;
+        thisx->home.pos.y    = yGroundIntersect;
+    }
+
     PlayerActor_Update(thisx, globalCtx);
 
     // Restore Randomizer draw function in case something (like Farore's Wind) overwrote it
@@ -163,21 +190,129 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
 
     Player_UpdateRainbowTunic();
 
+    static Vec3f vecAcc = { 0 };
+    static Vec3f vecVel = { 0 };
+    static Vec3f vecPos = { 0 };
+    Player* this        = (Player*)thisx;
+
+    s32 prevSaModelsCount1 = gMainClass.sub180.saModelsCount1;
+
     PlayerActor_Draw(thisx, globalCtx);
+
+    if (!gExtSaveData.option_FireballLink) {
+        return;
+    }
+
+    if (gMainClass.sub180.saModelsCount1 > prevSaModelsCount1) {
+        // Make player model invisible
+        gMainClass.sub180.saModelsList1[prevSaModelsCount1] = (SAModelListEntry){ 0 };
+    }
+
+    thisx->shape.shadowDrawFunc = NULL;
+
+    if ((this->stateFlags1 & (1 << 0x14)) || // first person ("return A")
+        PauseContext_GetState()) {
+        return;
+    }
+
+    s32 velFrameIdx = (rGameplayFrames % 16);
+    s32 accFrameIdx = (rGameplayFrames % 4);
+    vecAcc.y        = 0.12f * accFrameIdx;
+    vecVel.x        = 0.5f * Math_SinS(0x1000 * velFrameIdx);
+    vecVel.z        = 0.5f * Math_CosS(0x1000 * velFrameIdx);
+    s16 scale       = 150;
+
+    // clang-format off
+    static s16 colorVals[21][7] = {
+        {0xFF, 0xFF, 0xFF, 0x00,    0x00, 0x00, 0x00,},
+        {0xFF, 0xFF, 0xFF, 0x08,    0x00, 0x00, 0x00,},
+        {0xFF, 0xFF, 0xFF, 0x10,    0x00, 0x00, 0x00,},
+        {0xFF, 0xFF, 0xFF, 0x20,    0x00, 0x00, 0x00,},
+        {0xFF, 0x80, 0x00, 0x20,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x20,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x30,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x40,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x70,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xA0,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xD0,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x08, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x10, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x18, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x20, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x28, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x30, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x38, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x40, 0x00,},
+    };
+    // clang-format on
+
+    s32 index = gSaveContext.health / 16;
+    if (index > 20) {
+        index = 20;
+    }
+    s16* currentColors = colorVals[index];
+
+    if (PLAYER->actionFunc == Player_Action_Rolling) {
+        vecPos   = thisx->world.pos;
+        vecPos.y = thisx->focus.pos.y;
+    } else {
+        vecPos = thisx->focus.pos;
+    }
+
+    EffectSsDeadDb_Spawn(globalCtx, &vecPos, &vecVel, &vecAcc, scale, -1,                        //
+                         currentColors[0], currentColors[1], currentColors[2], currentColors[3], //
+                         currentColors[4], currentColors[5], currentColors[6],                   //
+                         1, 8, 0);
 }
 
-f32 Player_GetSpeedMultiplier(void) {
-    f32 speedMultiplier = 1;
+void Player_ComputeSpeedBoosts(void) {
+    sSpeedMultiplier = 1.0f;
 
     if (gSettingsContext.fastBunnyHood && PLAYER->currentMask == 4 && PLAYER->actionFunc == Player_Action_Running) {
-        speedMultiplier *= 1.5;
+        sSpeedMultiplier *= 1.5;
+    }
+
+    if (gExtSaveData.option_SpeedBoost) {
+        // Constant speed boost
+        if (PLAYER->actionFunc == Player_Action_Running && rInputCtx.touchHeld &&
+            (rInputCtx.touchX > 0x40 && rInputCtx.touchX < 0x100) &&
+            (rInputCtx.touchY > 0x25 && rInputCtx.touchY < 0xC8)) {
+            if (rInputCtx.touchY > 145) {
+                sSpeedMultiplier *= 1.5;
+            } else if (rInputCtx.touchY > 91) {
+                sSpeedMultiplier *= 3.0;
+            } else {
+                sSpeedMultiplier *= 5.0;
+            }
+        }
+
+        // Swim boost
+        if (PLAYER->actionFunc == Player_Action_Swimming) {
+            if (rInputCtx.pressed.b) {
+                swimBoostTimer = SWIM_BOOST_DURATION;
+            }
+
+            sSpeedMultiplier *= 1 + SWIM_BOOST_POWER * ((f32)swimBoostTimer / SWIM_BOOST_DURATION);
+
+            if (swimBoostTimer > 0) {
+                swimBoostTimer--;
+            }
+        } else {
+            swimBoostTimer = 0;
+        }
+    } else {
+        swimBoostTimer = 0;
     }
 
     if (IceTrap_ActiveCurse == ICETRAP_CURSE_SLOW) {
-        speedMultiplier *= 0.75;
+        sSpeedMultiplier *= 0.75;
     }
+}
 
-    return speedMultiplier;
+f32 Player_GetSpeedMultiplier(void) {
+    return sSpeedMultiplier;
 }
 
 s32 Player_IsAdult() {

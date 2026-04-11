@@ -15,6 +15,9 @@ PATCH before_GlobalContext_Update
 PATCH after_GlobalContext_Update
     b hook_after_GlobalContext_Update
 
+PATCH DrawScreen
+    bl hook_DrawScreen
+
 PATCH Gfx_Update
     b hook_Gfx_Update
 
@@ -422,11 +425,6 @@ PATCH BusinessScrubTable
 
 PATCH KakarikoGateCheck
     bl hook_KakarikoGateCheck
-
-PATCH FairyReward
-    cpy r0,r4
-    bl Cutscene_OverrideFairyReward
-    b 0x3E75F8
 
 PATCH PoeCollectorGetFirstTextbox
     bl hook_PoeCollectorGetFirstTextbox
@@ -1322,6 +1320,9 @@ PATCH SetFWPlayerParams
 PATCH AboutToPickUpActor
     bl hook_AboutToPickUpActor
 
+PATCH GoronPotGuaranteeReward
+    bl hook_GoronPotGuaranteeReward
+
 PATCH TargetReticleColor
     bl hook_TargetReticleColor
 
@@ -1433,6 +1434,12 @@ PATCH PlayInit
 
 PATCH TitleLinkObject
     .word 0xFFFF0014
+
+PATCH DeleteEquipment
+    bl hook_DeleteEquipment
+
+PATCH PickupItemDrop
+    bl hook_PickupItemDrop
 
 PATCH ExtendObjectGetSlot
     b hook_ExtendObjectGetSlot

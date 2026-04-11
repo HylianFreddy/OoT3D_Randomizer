@@ -319,6 +319,7 @@ SECTIONS
 	.patch_LostWoodsShootingGame 0x259E4C + _LD_OFF : { *(.patch_LostWoodsShootingGame) }
 	.patch_CanPlayBombchuBowlingOne 0x25A744 + _LD_OFF : { *(.patch_CanPlayBombchuBowlingOne) }
 	EnDaiku_InitEscape = 0x25A8E4 + _LD_OFF;
+	BgDyYoseizo_Init = 0x25DD10 + _LD_OFF;
 	.patch_GanonDrawMasterSword 0x26207C + _LD_OFF : { *(.patch_GanonDrawMasterSword) }
 	DemoEffect_Update = 0x262C58 + _LD_OFF;
 	DemoKankyo_Update = 0x262EA4 + _LD_OFF;
@@ -364,6 +365,7 @@ SECTIONS
 	.patch_SunsSongLocation 0x2888C8 + _LD_OFF : { *(.patch_SunsSongLocation) }
 	.patch_PierreSoftlockFixTwo 0x288914 + _LD_OFF : { *(.patch_PierreSoftlockFixTwo) }
 	.patch_PierreSoftlockFixThree 0x2889D4 + _LD_OFF : { *(.patch_PierreSoftlockFixThree) }
+	BgDyYoseizo_Draw = 0x289AEC + _LD_OFF;
 	.patch_KakarikoGateCheck 0x28A678 + _LD_OFF : { *(.patch_KakarikoGateCheck) }
 	.patch_BombchuBowlingAlwaysFirstPrize 0x291924 + _LD_OFF : { *(.patch_BombchuBowlingAlwaysFirstPrize) }
 	ItemEtcetera_Update = 0x298D88 + _LD_OFF;
@@ -472,16 +474,19 @@ SECTIONS
 	Collider_SetCylinder = 0x353D24 + _LD_OFF;
 	Collider_InitCylinder = 0x353DD0 + _LD_OFF;
 	SetupItemInWater = 0x354894 + _LD_OFF;
+	.patch_PickupItemDrop 0x354AB0 + _LD_OFF : { *(.patch_PickupItemDrop) }
 	.patch_FastChests 0x354CD4 + _LD_OFF : { *(.patch_FastChests) }
 	.patch_AboutToPickUpActor 0x354DD8 + _LD_OFF : { *(.patch_AboutToPickUpActor) }
 	.patch_MasterSwordTimerCheck 0x354DFC + _LD_OFF : { *(.patch_MasterSwordTimerCheck) }
 	Camera_BGCheckInfo = 0x3553FC + _LD_OFF;
 	.patch_LikeLikeNeverEatTunic 0x355C2C + _LD_OFF : { *(.patch_LikeLikeNeverEatTunic) }
 	DeleteModel_At = 0x357248 + _LD_OFF;
+	Collider_UpdateSpheres = 0x357750 + _LD_OFF;
 	ZAR_GetCMBByIndex = 0x358EF8 + _LD_OFF;
 	BossChallenge_IsActive = 0x35B164 + _LD_OFF;
 	.patch_Audio_PlayFanfare 0x35C528 + _LD_OFF : { *(.patch_Audio_PlayFanfare) }
 	Audio_PlayFanfare = 0x35C528 + _LD_OFF;
+	.patch_DeleteEquipment 0x35D1F8 + _LD_OFF : { *(.patch_DeleteEquipment) }
 	LinkDamage = 0x35D304 + _LD_OFF;
 	FireDamage = 0x35D8D8 + _LD_OFF;
 	Player_InBlockingCsMode = 0x35DB20 + _LD_OFF;
@@ -500,6 +505,7 @@ SECTIONS
 	Flags_GetCollectible = 0x36405C + _LD_OFF;
 	EffectSsDeadDb_Spawn = 0x3642F4 + _LD_OFF;
 	Audio_SetBGM = 0x3655D0 + _LD_OFF;
+	EffectSsKakera_Spawn = 0x365F98 + _LD_OFF;
 	.patch_StalchildDespawn_366338 0x366338 + _LD_OFF : { *(.patch_StalchildDespawn_366338) }
 	Audio_GetActiveSeqId = 0x366684 + _LD_OFF;
 	Flags_SetEnv = 0x366704 + _LD_OFF;
@@ -521,6 +527,7 @@ SECTIONS
 	Math_Vec3f_DistXZ = 0x36D260 + _LD_OFF;
 	Math_SmoothStepToF = 0x36E168 + _LD_OFF;
 	Flags_GetSwitch = 0x36E864 + _LD_OFF;
+	EffectSsKiraKira_SpawnDispersed = 0x36EA98 + _LD_OFF;
 	Flags_SetClear = 0x36EC14 + _LD_OFF;
 	.patch_SetBGMEvent 0x36EC40 + _LD_OFF : { *(.patch_SetBGMEvent) }
 	SetEventBGM = 0x36EC40 + _LD_OFF;
@@ -545,11 +552,13 @@ SECTIONS
 	SkeletonAnimationModel_SpawnAt = 0x372F38 + _LD_OFF;
 	.patch_GetObjectEntry_372F7C 0x372F7C + _LD_OFF : { *(.patch_GetObjectEntry_372F7C) }
 	.patch_OverrideObjectIsLoaded 0x373074 + _LD_OFF : { *(.patch_OverrideObjectIsLoaded) }
+	SkelAnime_Update = 0x3731E0 + _LD_OFF;
 	EnWonderTalk_Update = 0x3731F4 + _LD_OFF;
 	Actor_Spawn = 0x3738D0 + _LD_OFF;
 	.patch_ConvertBombDropTwo 0x3747A4 + _LD_OFF : { *(.patch_ConvertBombDropTwo) }
 	.patch_SetSFX 0x37547C + _LD_OFF : { *(.patch_SetSFX) }
 	Audio_PlaySfxGeneral = 0x37547C + _LD_OFF;
+	Rand_ZeroOne = 0x3759D0 + _LD_OFF;
 	Math_SmoothStepToS = 0x375A18 + _LD_OFF;
 	Enemy_StartFinishingBlow = 0x375B70 + _LD_OFF;
 	Audio_PlayActorSfx2 = 0x375BCC + _LD_OFF;
@@ -617,6 +626,7 @@ SECTIONS
 	.patch_RandomGsLoc_BlockSpawn_Soil 0x3BF690 + _LD_OFF : { *(.patch_RandomGsLoc_BlockSpawn_Soil) }
 	.patch_ForestTempleBasementPuzzleDelay 0x3BFA8C + _LD_OFF : { *(.patch_ForestTempleBasementPuzzleDelay) }
 	ObjLift_Wait = 0x3C05B0 + _LD_OFF;
+	.patch_GoronPotGuaranteeReward 0x3C148C + _LD_OFF : { *(.patch_GoronPotGuaranteeReward) }
 	EnSw_SetupGoingHome = 0x3C2A50 + _LD_OFF;
 	.patch_GerudoArcheryTwo 0x3C2D80 + _LD_OFF : { *(.patch_GerudoArcheryTwo) }
 	.patch_DampeCheckCanDig1 0x3C3354 + _LD_OFF : { *(.patch_DampeCheckCanDig1) }
@@ -685,6 +695,7 @@ SECTIONS
 	.patch_AwakeCallback 0x3FD43C + _LD_OFF : { *(.patch_AwakeCallback) }
 	.patch_SleepQueryCallback 0x3FD6C4 + _LD_OFF : { *(.patch_SleepQueryCallback) }
 	Message_SetInstantText = 0x40B608 + _LD_OFF;
+	.patch_DrawScreen 0x416398 + _LD_OFF : { *(.patch_DrawScreen) }
 
 	/* 0x419E18 - 0x41A143 : Language related function, don't place anything in this range */
 	/* 0x41A144 */ _LD_OFF = _LD_EUR ? 0x24 : _LD_OFF;
@@ -695,6 +706,7 @@ SECTIONS
 	.patch_PermadeathSkipMenu 0x41C980 + _LD_OFF : { *(.patch_PermadeathSkipMenu) }
 	.patch_SaveMenuIgnoreOpen 0x42EC00 + _LD_OFF : { *(.patch_SaveMenuIgnoreOpen) }
 	.patch_ItemsMenuDraw 0x434C08 + _LD_OFF : { *(.patch_ItemsMenuDraw) }
+	Play_Init = 0x4352F0 + _LD_OFF;
 	.patch_PlayInit 0x4352F4 + _LD_OFF : { *(.patch_PlayInit) }
 
 	/* 0x436690 */ _LD_OFF = _LD_EUR ? 0x20 : _LD_OFF;
@@ -702,6 +714,8 @@ SECTIONS
 	.patch_GearMenuEmptySlot 0x438C00 + _LD_OFF : { *(.patch_GearMenuEmptySlot) }
 	.patch_DrawHeartIcon 0x444368 + _LD_OFF : { *(.patch_DrawHeartIcon) }
 	SaveFile_Delete = 0x446FC4 + _LD_OFF;
+	Load_Savefiles_Buffer = 0x447150 + _LD_OFF;
+	FileSelect_LoadGame = 0x44735C + _LD_OFF;
 	.patch_BeforeLoadGame 0x447380 + _LD_OFF : { *(.patch_BeforeLoadGame) }
 	ret_BeforeLoadGame = 0x447384 + _LD_OFF;
 	.patch_DontSetMotionSetting 0x447410 + _LD_OFF : { *(.patch_DontSetMotionSetting) }
@@ -797,6 +811,7 @@ SECTIONS
 	.patch_SkipTimeTravelCutsceneTwo 0x4918C8 + _LD_OFF : { *(.patch_SkipTimeTravelCutsceneTwo) }
 	.patch_DMTOwlEntranceOverride 0x492064 + _LD_OFF : { *(.patch_DMTOwlEntranceOverride) }
 	.patch_LHOwlEntranceOverride 0x492080 + _LD_OFF : { *(.patch_LHOwlEntranceOverride) }
+	Player_Action_Rolling = 0x492A3C + _LD_OFF;
 	.patch_PlayerBonk 0x492CD0 + _LD_OFF : { *(.patch_PlayerBonk) }
 	.patch_FairyUseHealAmount 0x4968B4 + _LD_OFF : { *(.patch_FairyUseHealAmount) }
 	.patch_SendDroppedBottleContents 0x496A1C + _LD_OFF : { *(.patch_SendDroppedBottleContents) }
@@ -805,6 +820,7 @@ SECTIONS
 	.patch_GanonBattleDeathWarp 0x496C98 + _LD_OFF : { *(.patch_GanonBattleDeathWarp) }
 	.patch_GanonRestoreMSOnDeath 0x496CB4 + _LD_OFF : { *(.patch_GanonRestoreMSOnDeath) }
 	.patch_CriticalHealthCheckThree 0x49F294 + _LD_OFF : { *(.patch_CriticalHealthCheckThree) }
+	Player_Action_Swimming = 0x4A3344 + _LD_OFF;
 
 	/* 0x4A5B00 */ _LD_OFF = _LD_EUR ? 0x0 : _LD_OFF;
 

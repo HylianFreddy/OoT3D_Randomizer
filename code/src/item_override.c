@@ -8,6 +8,7 @@
 #include "entrance.h"
 #include "savefile.h"
 #include "common.h"
+#include "item_effect.h"
 #include "actors/obj_mure3.h"
 
 #include <stddef.h>
@@ -17,6 +18,8 @@
 #include "z3D/actors/z_en_box.h"
 #include "z3D/actors/z_en_item00.h"
 #include "z3D/actors/z_obj_mure3.h"
+
+#include "bgm.h"
 
 #define READY_ON_LAND 1
 #define READY_IN_WATER 2
@@ -496,7 +499,7 @@ void ItemOverride_GetItem(Actor* fromActor, Player* player, s8 incomingItemId) {
     player->getItemId = incomingNegative ? -baseItemId : baseItemId;
 }
 
-void ItemOverride_GetItemTextAndItemID(Actor* actor) {
+s32 ItemOverride_GetItemTextAndItemID(Actor* actor) {
     if (rActiveItemRow != NULL) {
         u16 textId  = rActiveItemRow->textId;
         u8 actionId = rActiveItemRow->actionId;
@@ -510,7 +513,18 @@ void ItemOverride_GetItemTextAndItemID(Actor* actor) {
             Item_Give(gGlobalContext, actionId);
         }
         ItemOverride_AfterItemReceived();
+    } else { // No override
+        switch (PLAYER->getItemId) {
+            case GI_SHIELD_DEKU:
+            case GI_SHIELD_HYLIAN:
+                ItemTable_CallEffect(ItemTable_GetItemRow(PLAYER->getItemId));
+                break;
+        };
     }
+
+    BGM_ItemObtained = rActiveItemOverride.value.itemId;
+
+    return rActiveItemRow != NULL;
 }
 
 void ItemOverride_GetSkulltulaToken(Actor* tokenActor) {
@@ -538,6 +552,7 @@ void ItemOverride_GetSkulltulaToken(Actor* tokenActor) {
         DisplayTextbox(gGlobalContext, itemRow->textId, 0);
         Item_Give(gGlobalContext, itemRow->actionId);
     }
+    BGM_ItemObtained = resolvedItemId;
 }
 
 u8 ItemOverride_GetItemDrop(EnItem00* this) {
@@ -713,4 +728,10 @@ void ItemOverride_PushHardcodedItem(s16 getItemId) {
         }
     };
     ItemOverride_PushPendingOverride(override);
+}
+
+void ItemOverride_OnPickupItemDrop(u8 item) {
+    if (item == ITEM_SHIELD_DEKU || item == ITEM_SHIELD_HYLIAN) {
+        ItemEffect_Shield(&gSaveContext, item - ITEM_SHIELD_DEKU + 1, -1);
+    }
 }

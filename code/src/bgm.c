@@ -2,11 +2,30 @@
 #include "bgm.h"
 #include "savefile.h"
 #include "common.h"
+#include "settings.h"
 
 static u32 rBGMOverrides[128] = { 0 };
 
+u16 BGM_ItemObtained = GI_INVALID;
+
 u32 SetBGM(u32 original) {
-    if (!gExtSaveData.option_EnableBGM && IsInGameOrBossChallenge()) {
+    if (BGM_ItemObtained != GI_INVALID) {
+        // Override fanfare for certain items
+        if (BGM_ItemObtained >= GI_FOREST_MEDALLION && BGM_ItemObtained <= GI_LIGHT_MEDALLION) {
+            original = BGM_GET_MEDALLION;
+        } else if (BGM_ItemObtained >= GI_KOKIRI_EMERALD && BGM_ItemObtained <= GI_ZORA_SAPPHIRE) {
+            original = BGM_GET_SPIRITUAL_STONE;
+        }
+        BGM_ItemObtained = GI_INVALID;
+    }
+
+    u8 shouldSkip =
+        gExtSaveData.option_EnableBGM == 0 ||  // "Off"
+        (gExtSaveData.option_EnableBGM == 2 && // "Partial"
+         original != BGM_GET_ITEM && original != BGM_GET_HEART_CONTAINER && original != BGM_GET_SKULLTULA_TOKEN &&
+         original != BGM_GET_SPIRITUAL_STONE && original != BGM_GET_MEDALLION && original != BGM_OPENING_DOOR_OF_TIME);
+
+    if (shouldSkip && IsInGameOrBossChallenge()) {
         return SEQ_AUDIO_BLANK;
     }
 
