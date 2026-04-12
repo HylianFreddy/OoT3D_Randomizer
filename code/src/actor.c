@@ -369,12 +369,12 @@ void Actor_Init() {
 }
 
 void TitleCard_rUpdate(GlobalContext* globalCtx, TitleCardContext* titleCtx) {
-    if (ItemOverride_IsAPendingOverride()) {
-        titleCtx->delayTimer    = 0;
-        titleCtx->durationTimer = 0;
-        titleCtx->alpha         = 0;
-        titleCtx->intensity     = 0;
-    }
+    // if (ItemOverride_IsAPendingOverride()) {
+    titleCtx->delayTimer    = 0;
+    titleCtx->durationTimer = 0;
+    titleCtx->alpha         = 0;
+    titleCtx->intensity     = 0;
+    // }
 
     TitleCard_Update(globalCtx, titleCtx);
 }
