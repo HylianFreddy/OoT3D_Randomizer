@@ -30,6 +30,4 @@ f32 Math_SmoothStepToF(f32* pValue, f32 target, f32 fraction, f32 step, f32 minS
 f32 Math_Vec3f_DistXZ(Vec3f* a, Vec3f* b) __attribute__((pcs("aapcs-vfp")));
 f32 Rand_ZeroOne(void) __attribute__((pcs("aapcs-vfp")));
 
-f32 Rand_ZeroOne(void) __attribute__((pcs("aapcs-vfp")));
-
 #endif

@@ -20,6 +20,7 @@
 #include "ocarina_notes.h"
 #include "icetrap.h"
 #include "enemy_souls.h"
+#include "bgm.h"
 
 #include "z3D/z3D.h"
 #include "3ds/extdata.h"
@@ -68,6 +69,7 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
     ItemEffect_RupeeAmmo(&gSaveContext);
     Triforce_HandleCreditsWarp();
     Enemizer_Update();
+    Bgm_ApplyFanfareMod();
 }
 
 s32 checkFastForward(void) {
