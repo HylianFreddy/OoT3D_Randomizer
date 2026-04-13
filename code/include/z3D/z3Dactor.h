@@ -7,7 +7,6 @@
 #include "z3Dmath.h"
 #include "z3Dcollision_check.h"
 #include "z3Dbgcheck.h"
-#include "z3Dcmb.h"
 
 struct Actor;
 struct GlobalContext;

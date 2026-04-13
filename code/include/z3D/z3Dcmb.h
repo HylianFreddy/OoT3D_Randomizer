@@ -108,6 +108,10 @@ typedef struct CMB_MATS {
     //         Combiner combiners[];
 } CMB_MATS;
 
+static inline CMB_MATS* Cmb_GetMatsChunk(void* cmb) {
+    return (CMB_MATS*)(((u32)cmb) + ((CMB_HEAD*)cmb)->MATSOffset);
+}
+
 typedef struct CMB_TEX {
     /* 0x00 */ char magic[4];
     /* 0x04 */ u32 size;
