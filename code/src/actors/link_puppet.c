@@ -71,17 +71,17 @@ void EnLinkPuppet_Init(Actor* thisx, GlobalContext* globalCtx) {
         cmabMan = ZAR_GetCMABByIndex(PLAYER->zarInfo, 2);
     }
     if (cmabMan != NULL) {
-        TexAnim_Spawn(this->skelAnime.unk_28->unk_0C, cmabMan);
+        TexAnim_Spawn(this->skelAnime.saModel->unk_0C, cmabMan);
     }
-    this->skelAnime.unk_28->unk_0C->animSpeed = 0.0f;
-    this->skelAnime.unk_28->unk_0C->animMode  = 0;
+    this->skelAnime.saModel->unk_0C->animSpeed = 0.0f;
+    this->skelAnime.saModel->unk_0C->animMode  = 0;
 
     // Mesh Groups
     for (size_t index = 0; index < BIT_COUNT(this->ghostPtr->ghostData.meshGroups1); index++) {
-        Model_DisableMeshGroupByIndex(this->skelAnime.unk_28, index);
+        Model_DisableMeshGroupByIndex(this->skelAnime.saModel, index);
     }
     for (size_t index = 0; index < BIT_COUNT(this->ghostPtr->ghostData.meshGroups2); index++) {
-        Model_DisableMeshGroupByIndex(this->skelAnime.unk_28, index + BIT_COUNT(u32));
+        Model_DisableMeshGroupByIndex(this->skelAnime.saModel, index + BIT_COUNT(u32));
     }
 
     // Collision
@@ -118,21 +118,21 @@ void EnLinkPuppet_Update(Actor* thisx, GlobalContext* globalCtx) {
     // Mesh Groups
     for (size_t index = 0; index < BIT_COUNT(this->ghostPtr->ghostData.meshGroups1); index++) {
         if (this->ghostPtr->ghostData.meshGroups1 & (0b1 << index)) {
-            Model_EnableMeshGroupByIndex(this->skelAnime.unk_28, index);
+            Model_EnableMeshGroupByIndex(this->skelAnime.saModel, index);
         } else {
-            Model_DisableMeshGroupByIndex(this->skelAnime.unk_28, index);
+            Model_DisableMeshGroupByIndex(this->skelAnime.saModel, index);
         }
     }
     for (size_t index = 0; index < BIT_COUNT(this->ghostPtr->ghostData.meshGroups2); index++) {
         if (this->ghostPtr->ghostData.meshGroups2 & (0b1 << index)) {
-            Model_EnableMeshGroupByIndex(this->skelAnime.unk_28, index + BIT_COUNT(u32));
+            Model_EnableMeshGroupByIndex(this->skelAnime.saModel, index + BIT_COUNT(u32));
         } else {
-            Model_DisableMeshGroupByIndex(this->skelAnime.unk_28, index + BIT_COUNT(u32));
+            Model_DisableMeshGroupByIndex(this->skelAnime.saModel, index + BIT_COUNT(u32));
         }
     }
 
     // Tunic
-    this->skelAnime.unk_28->unk_0C->curFrame = this->ghostPtr->ghostData.currentTunic;
+    this->skelAnime.saModel->unk_0C->curFrame = this->ghostPtr->ghostData.currentTunic;
 
     // Collider
     Collider_UpdateCylinder(&this->base, &this->collider);

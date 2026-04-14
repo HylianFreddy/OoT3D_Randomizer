@@ -79,16 +79,17 @@ typedef struct SkelAnime {
     /* 0x08 */ char unk_08[0x08];
     /* 0x10 */ struct GlobalContext* globalCtx;
     /* 0x14 */ char unk_14[0x14];
-    /* 0x28 */ struct SkeletonAnimationModel* unk_28;
+    /* 0x28 */ struct SkeletonAnimationModel* saModel;
     /* 0x2C */ char unk_2C[0x4];
-    /* 0x30 */ s32 animationType;
+    /* 0x30 */ s32 animIndex;
     /* 0x34 */ char unk_34[0x8];
     /* 0x3C */ f32 curFrame;
     /* 0x40 */ f32 playSpeed;
     /* 0x44 */ f32 startFrame;
     /* 0x48 */ f32 endFrame;
     /* 0x4C */ f32 animLength;
-    /* 0x50 */ char unk_50[0x24];
+    /* 0x50 */ char unk_50[0x20];
+    /* 0x70 */ s32 animMode;
     /* 0x74 */ u8 limbCount;
     /* 0x75 */ char unk_75[0x03];
     /* 0x78 */ void* jointTable;
@@ -96,7 +97,8 @@ typedef struct SkelAnime {
     /* 0x80 */ char unk_80[0x02];
     /* 0x82 */ u8 tablesAllocated;
     /* 0x83 */ char unk_83[0x01];
-} SkelAnime; // size = 0x84
+} SkelAnime;
+_Static_assert(sizeof(SkelAnime) == 0x84, "SkelAnime size");
 
 typedef void (*ActorFunc)(struct Actor*, struct GlobalContext*);
 

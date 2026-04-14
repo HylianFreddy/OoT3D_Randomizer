@@ -442,12 +442,12 @@ typedef struct {
 
 typedef struct ZARInfo {
     /* 0x00 */ void* buf;
-    /* 0x04 */ char unk_04[0x48];
-    /* 0x4C */ void*** cmbPtrs;  /* Really, this is a pointer to an array of pointers to CMB managers,
-                                    the first member of which is a pointer to the CMB data */
-    /* 0x50 */ void*** csabPtrs; /* Same as above but for CSAB */
+    /* 0x04 */ s32 size;
+    /* 0x08 */ char unk_08[0x44];
+    /* 0x4C */ struct CmbManager** cmbMans;
+    /* 0x50 */ void** csabMans;
     /* 0x54 */ char unk_54[0x04];
-    /* 0x58 */ void*** cmabPtrs; /* Same as above but for CMAB */
+    /* 0x58 */ void** cmabMans;
     /* 0x5C */ char unk_5C[0x14];
 } ZARInfo; // size = 0x70
 
