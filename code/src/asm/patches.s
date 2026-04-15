@@ -1652,3 +1652,6 @@ PATCH ActorInit2
 
 PATCH ActorInit3
     bl hook_ActorInit
+
+PATCH SkelAnimeInit
+    bl hook_SkelAnimeInit

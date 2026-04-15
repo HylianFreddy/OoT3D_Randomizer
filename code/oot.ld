@@ -429,6 +429,7 @@ SECTIONS
 	ElfMessage_GetSariaText = 0x31C698 + _LD_OFF;
 	.patch_Before_CmbManagerInit 0x31FF68 + _LD_OFF : { *(.patch_Before_CmbManagerInit) }
 	.patch_After_CmbManagerInit 0x320454 + _LD_OFF : { *(.patch_After_CmbManagerInit) }
+	SkelAnime_InitImpl = 0x3220F4 + _LD_OFF;
 	.patch_ISGPutaway 0x32B4AC + _LD_OFF : { *(.patch_ISGPutaway) }
 	Object_Spawn = 0x32E21C + _LD_OFF;
 	Actor_WorldDistXYZToActor = 0x3306C4 + _LD_OFF;
@@ -473,6 +474,7 @@ SECTIONS
 	.patch_ApplyDamageMultiplier 0x352DC0 + _LD_OFF : { *(.patch_ApplyDamageMultiplier) }
 	.patch_GetObjectEntry_352F28 0x352F28 + _LD_OFF : { *(.patch_GetObjectEntry_352F28) } /* Used for: Flare Dancer */
 	.patch_GetObjectEntry_353CE4 0x353CE4 + _LD_OFF : { *(.patch_GetObjectEntry_353CE4) }
+	.patch_SkelAnimeInit 0x353D10 + _LD_OFF : { *(.patch_SkelAnimeInit) }
 	Collider_SetCylinder = 0x353D24 + _LD_OFF;
 	Collider_InitCylinder = 0x353DD0 + _LD_OFF;
 	SetupItemInWater = 0x354894 + _LD_OFF;

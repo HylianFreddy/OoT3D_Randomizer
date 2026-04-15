@@ -2247,3 +2247,23 @@ HOOK ActorInit
     bl Actor_rInit
     pop {r0-r12, lr}
     bx lr
+
+@ HOOK SkelAnimeInit
+@     push {lr}
+@     push {r0-r12}
+@     cpy r0,r4 @ Actor
+@     cpy r1,r3 @ CMB Manager
+@     bl Before_SkelAnimeInit
+@     pop {r0-r12}
+@     bl SkelAnime_InitImpl
+@     push {r0-r12}
+@     cpy r0,r3 @ CMB Manager ???
+@     bl After_SkelAnimeInit
+@     pop {r0-r12}
+@     pop {lr}
+@     bx lr
+
+
+HOOK SkelAnimeInit
+    cpy r2,r4 @ Actor
+    b SkelAnime_rInitImpl
