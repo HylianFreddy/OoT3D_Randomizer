@@ -495,6 +495,7 @@ SECTIONS
 	FireDamage = 0x35D8D8 + _LD_OFF;
 	Player_InBlockingCsMode = 0x35DB20 + _LD_OFF;
 	SkelAnime_DrawOpa = 0x35E240 + _LD_OFF;
+	.patch_SkelAnime_DrawOpa 0x35E2B0 + _LD_OFF : { *(.patch_SkelAnime_DrawOpa) }
 	.patch_ConvertBombDropOne 0x35E46C + _LD_OFF : { *(.patch_ConvertBombDropOne) }
 	WaterBox_GetSurfaceImpl = 0x35E8A0 + _LD_OFF;
 	.patch_SkullwalltulaAttack_35F328 0x35F328 + _LD_OFF : { *(.patch_SkullwalltulaAttack_35F328) }
@@ -842,6 +843,7 @@ SECTIONS
 	.patch_EditDrawGetItemAfterMatrixUpdate 0x4C4D14 + _LD_OFF : { *(.patch_EditDrawGetItemAfterMatrixUpdate) }
 	.patch_EditDrawGetItemAfterModelSpawn 0x4C61A4 + _LD_OFF : { *(.patch_EditDrawGetItemAfterModelSpawn) }
 	Model_IsMeshGroupUsed = 0x4C6880 + _LD_OFF;
+	SkelAnime_DrawOpaImpl = 0x4C7AB0 + _LD_OFF;
 	.patch_CrouchStabHitbox 0x4C85D4 + _LD_OFF : { *(.patch_CrouchStabHitbox) }
 
 	/* 0x4C99A7: End of vanilla code in .text section */

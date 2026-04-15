@@ -2267,3 +2267,11 @@ HOOK ActorInit
 HOOK SkelAnimeInit
     cpy r2,r4 @ Actor
     b SkelAnime_rInitImpl
+
+@ HOOK SkelAnime_DrawOpa
+@     push {r0-r12, lr}
+@     ldr r1,[sp,#0x38] @ actor
+@     bl SkelAnime_BeforeDrawOpa
+@     pop {r0-r12, lr}
+@     cpy r6,r0
+@     bx lr

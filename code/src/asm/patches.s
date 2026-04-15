@@ -1655,3 +1655,6 @@ PATCH ActorInit3
 
 PATCH SkelAnimeInit
     bl hook_SkelAnimeInit
+
+PATCH SkelAnime_DrawOpa
+    bl SkelAnime_rDrawOpaImpl
