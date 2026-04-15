@@ -95,7 +95,7 @@ typedef struct SkelAnime {
     /* 0x78 */ void* jointTable;
     /* 0x7C */ void* morphTable;
     /* 0x80 */ char unk_80[0x02];
-    /* 0x82 */ u8 tablesAllocated;
+    /* 0x82 */ u8 dynamicTables;
     /* 0x83 */ char unk_83[0x01];
 } SkelAnime;
 _Static_assert(sizeof(SkelAnime) == 0x84, "SkelAnime size");

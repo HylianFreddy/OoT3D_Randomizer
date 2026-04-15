@@ -427,7 +427,8 @@ SECTIONS
 	Inventory_ReplaceItem = 0x316CEC + _LD_OFF;
 	.patch_CollisionATvsAC 0x3191B0 + _LD_OFF : { *(.patch_CollisionATvsAC) }
 	ElfMessage_GetSariaText = 0x31C698 + _LD_OFF;
-	.patch_CmbManagerInit 0x31FF78 + _LD_OFF : { *(.patch_CmbManagerInit) }
+	.patch_Before_CmbManagerInit 0x31FF68 + _LD_OFF : { *(.patch_Before_CmbManagerInit) }
+	.patch_After_CmbManagerInit 0x320454 + _LD_OFF : { *(.patch_After_CmbManagerInit) }
 	.patch_ISGPutaway 0x32B4AC + _LD_OFF : { *(.patch_ISGPutaway) }
 	Object_Spawn = 0x32E21C + _LD_OFF;
 	Actor_WorldDistXYZToActor = 0x3306C4 + _LD_OFF;

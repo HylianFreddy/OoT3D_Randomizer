@@ -2228,12 +2228,19 @@ HOOK PlayerBonk
     pop {r0-r12, lr}
     bx lr
 
-HOOK CmbManagerInit
+HOOK Before_CmbManagerInit
     push {r0-r12, lr}
     bl CmbManager_BeforeInit
     pop {r0-r12, lr}
-    ldr r0,[r0,#0x0]
+    cpy r5,r0
     bx lr
+
+HOOK After_CmbManagerInit
+    push {r0-r12, lr}
+    cpy r0,r5 @ CmbManager
+    bl CmbManager_AfterInit
+    pop {r0-r12, lr}
+    pop {r4-r11, pc}
 
 HOOK ActorInit
     push {r0-r12, lr}

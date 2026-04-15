@@ -1638,8 +1638,11 @@ PATCH GanonFinalBlow
 PATCH PlayerBonk
     bl hook_PlayerBonk
 
-PATCH CmbManagerInit
-    bl hook_CmbManagerInit
+PATCH Before_CmbManagerInit
+    bl hook_Before_CmbManagerInit
+
+PATCH After_CmbManagerInit
+    bl hook_After_CmbManagerInit
 
 PATCH ActorInit1
     bl hook_ActorInit

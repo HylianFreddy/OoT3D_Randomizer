@@ -6,7 +6,13 @@
 #include "common.h"
 #include "oot_malloc.h"
 
+#include <string.h>
+
 #define GET_STRUCT_FIELD(structPointer, type, offset) (*(type*)((u32)structPointer + offset))
+
+// static u32 sOrigTextureMappersUsed[10];
+// static u32 sOrigBlendMode[10];
+// static u8 sOrigAlphaTestEnabled[10];
 
 static u8 black = 1;
 
@@ -18,6 +24,10 @@ void CmbManager_BeforeInit(CmbManager* cmbMan) {
     CMB_MATS* cmbMats = Cmb_GetMatsChunk(cmbMan->cmbChunk);
     for (size_t i = 0; i < cmbMats->materialCount; i++) {
         Material* mat = &cmbMats->materials[i];
+
+        // sOrigTextureMappersUsed[i] = mat->textureMappersUsed;
+        // sOrigAlphaTestEnabled[i] = mat->alphaTestEnabled;
+        // sOrigBlendMode[i] = mat->blendMode;
 
         if (black) {
             mat->textureMappersUsed = 0;
@@ -37,6 +47,21 @@ void CmbManager_BeforeInit(CmbManager* cmbMan) {
     }
 }
 
+void CmbManager_AfterInit(CmbManager* cmbMan) {
+    // if (!gIsForSoullessActor || gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_BLACK) {
+    //     return;
+    // }
+
+    // CMB_MATS* cmbMats = Cmb_GetMatsChunk(cmbMan->cmbChunk);
+    // for (size_t i = 0; i < cmbMats->materialCount; i++) {
+    //     Material* mat = &cmbMats->materials[i];
+
+    //     mat->textureMappersUsed = sOrigTextureMappersUsed[i];
+    //     mat->alphaTestEnabled = sOrigAlphaTestEnabled[i];
+    //     mat->blendMode = sOrigBlendMode[i];
+    // }
+}
+
 void CmbManager_Log(CmbManager* cmbMan) {
     CMB_MATS* cmbMats = Cmb_GetMatsChunk(cmbMan->cmbChunk);
     for (size_t i = 0; i < cmbMats->materialCount; i++) {
@@ -54,6 +79,7 @@ typedef struct EnTite {
 #define EnTite_Init ((void (*)(EnTite * this, GlobalContext * global_ctx))0x1BBC0C)
 #define ZAR_SetupZARInfo ((void (*)(ZARInfo * zarInfo, void* buf, s32 size, s8 param_4))0x31B124)
 #define SkelAnime_Destroy ((void (*)(SkelAnime * anime))0x350be0)
+// limbCount param is ignored, the function takes the value from the cmb
 #define SkelAnime_Init                                                                                       \
     ((void (*)(Actor * actor, GlobalContext * globalCtx, SkelAnime * skelAnime, s32 cmbIndex, s32 csabIndex, \
                void* jointTable, void* morphTable, s32 limbCount))0x353c9c)
@@ -65,10 +91,18 @@ typedef void (*Foo)(SkelAnime* anime, s32 animation_index, f32 play_speed, f32 s
 void CmbManager_ReInitTektite(void) {
     ObjectEntry* obj = Object_FindEntryOrSpawn(0x16);
     ZARInfo* zarInfo = &obj->zarInfo;
-    // Re-initialize ZarInfo, keeping same buffer and size. This destroys all CMBManagers
+    // Store addresses of CMB Managers to later identify the correct cmbIndex to use for actor models.
+    u32 numCMBs      = 0;
+    if (zarInfo->fileTypeMap[0] != -1) {
+        numCMBs = zarInfo->fileTypes[zarInfo->fileTypeMap[0]].numFiles;
+    }
+    CmbManager* oldCmbMans[numCMBs];
+    memcpy(&oldCmbMans, zarInfo->cmbMans, sizeof(oldCmbMans));
+
+    // Re-initialize ZarInfo, keeping same buffer and size. This destroys all CMB Managers.
     ZAR_Destroy(zarInfo);
     ZAR_SetupZARInfo(zarInfo, obj->buf, obj->size, 0);
-    // Re-initialize CMBManager
+    // Re-initialize CMB Manager.
     black ^= 1;
     gIsForSoullessActor = 1;
     ZAR_GetCMBByIndex(zarInfo, 0);
@@ -95,23 +129,35 @@ void CmbManager_ReInitTektite(void) {
             // EnTite_Init(((EnTite*)actor), gGlobalContext);
 
             SkelAnime* anime = &((EnTite*)actor)->skelAnime;
-            s32 animIndex    = anime->animIndex; (void)animIndex;
-            f32 curFrame     = anime->curFrame; (void)curFrame;
-            f32 playSpeed    = anime->playSpeed; (void)playSpeed;
-            f32 startFrame   = anime->startFrame; (void)startFrame;
-            f32 endFrame     = anime->endFrame; (void)endFrame;
-            f32 animMode     = anime->animMode; (void)animMode;
+            s32 animIndex    = anime->animIndex;
+            f32 curFrame     = anime->curFrame;
+            f32 playSpeed    = anime->playSpeed;
+            f32 startFrame   = anime->startFrame;
+            f32 endFrame     = anime->endFrame;
+            f32 animMode     = anime->animMode;
+            void* jointTable = NULL;
+            void* morphTable = NULL;
+            if (!anime->dynamicTables) {
+                jointTable = anime->jointTable;
+                morphTable = anime->morphTable;
+            }
+            s32 cmbIndex = 0;
+            for (s32 i = 0; i < numCMBs; i++) {
+                if (oldCmbMans[i] == anime->cmbMan) {
+                    cmbIndex = i;
+                    break;
+                }
+            }
 
             SkelAnime_Destroy(anime);
-            SkelAnime_Init(actor, gGlobalContext, anime, 0, 0, actor + 0x228,
-                           actor + 0x430, 10);
+            SkelAnime_Init(actor, gGlobalContext, anime, cmbIndex, animIndex, jointTable, morphTable, 0);
             // Animation_ChangeImpl(anime, 0, 1.0, 1.0, 1.0, 0, 4.0, 0);
             // EnTite_Init(((EnTite*)actor), gGlobalContext);
 
             // Animation_PlayLoop(anime, 1);
             Animation_ChangeImpl(anime, animIndex, playSpeed, startFrame, endFrame, animMode, 0.0, 0);
             // GET_STRUCT_FIELD(actor, u32, 0x63c) = 0x284724;
-            // anime->curFrame = curFrame;
+            anime->curFrame = curFrame;
 
             // CitraPrint("((EnTite*)actor)->skelAnime.cmbMan = %X", ((EnTite*)actor)->skelAnime.cmbMan);
         }

@@ -440,16 +440,42 @@ typedef struct {
 
 #define OBJECT_SLOT_MAX 19
 
+typedef struct ZAR {
+    /* 0x00 */ char magic[4]; //"ZAR\1"
+    /* 0x04 */ u32 size;
+    /* 0x08 */ u16 numTypes;
+    /* 0x0A */ u16 numFiles;
+    /* 0x0C */ u32 fileTypesOffset;
+    /* 0x10 */ u32 fileMetadataOffset;
+    /* 0x14 */ u32 dataOffset;
+    /* 0x18 */ char magic2[8]; // "queen"
+    /* 0x20 */ char data[1];
+} ZAR;
+
+typedef struct ZARFileTypeEntry {
+    /* 0x00 */ u32 numFiles;
+    /* 0x04 */ u32 filesListOffset;
+    /* 0x08 */ u32 typeNameOffset;
+    /* 0x0C */ u32 unk_0C; // always -1?
+} ZARFileTypeEntry;
+
 typedef struct ZARInfo {
     /* 0x00 */ void* buf;
     /* 0x04 */ s32 size;
-    /* 0x08 */ char unk_08[0x44];
+    /* 0x08 */ ZAR* buf2;
+    /* 0x0C */ ZARFileTypeEntry* fileTypes;
+    /* 0x10 */ void* fileMetadata;
+    /* 0x14 */ void* data;
+    /* 0x18 */ ZAR* buf3;
+    /* 0x1C */ s32 fileTypeMap[11];
+    /* 0x48 */ s32 unk_48;
     /* 0x4C */ struct CmbManager** cmbMans;
     /* 0x50 */ void** csabMans;
     /* 0x54 */ char unk_54[0x04];
     /* 0x58 */ void** cmabMans;
     /* 0x5C */ char unk_5C[0x14];
-} ZARInfo; // size = 0x70
+} ZARInfo;
+_Static_assert(sizeof(ZARInfo) == 0x70, "ZARInfo size");
 
 typedef struct ObjectEntry {
     /* 0x00 */ s16 id;
