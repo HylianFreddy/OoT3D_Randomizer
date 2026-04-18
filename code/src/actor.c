@@ -554,8 +554,8 @@ void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
 }
 
 void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
-    s32 origSaModelsCount1 = gMainClass.sub180.saModelsCount1;
-    s32 origSaModelsCount2 = gMainClass.sub180.saModelsCount2;
+    s32 origSaModelsCount1 = gMainClass.sub180.count_08;
+    s32 origSaModelsCount2 = gMainClass.sub180.count_0C;
 
     actor->draw(actor, globalCtx);
 
@@ -563,8 +563,8 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
         (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_PURPLE_FLAMES ||
          (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_FLASHING && rGameplayFrames % 2 == 0))) {
         // make enemy invisible
-        gMainClass.sub180.saModelsCount1 = origSaModelsCount1; // 3D models
-        gMainClass.sub180.saModelsCount2 = origSaModelsCount2; // 2D billboards
+        gMainClass.sub180.count_08 = origSaModelsCount1; // 3D models
+        gMainClass.sub180.count_0C = origSaModelsCount2; // 2D billboards
     }
 }
 

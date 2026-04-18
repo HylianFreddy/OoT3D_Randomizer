@@ -195,7 +195,7 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
     static Vec3f vecPos = { 0 };
     Player* this        = (Player*)thisx;
 
-    s32 prevSaModelsCount1 = gMainClass.sub180.saModelsCount1;
+    s32 prevSaModelsCount1 = gMainClass.sub180.count_08;
 
     PlayerActor_Draw(thisx, globalCtx);
 
@@ -203,9 +203,9 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
 
-    if (gMainClass.sub180.saModelsCount1 > prevSaModelsCount1) {
+    if (gMainClass.sub180.count_08 > prevSaModelsCount1) {
         // Make player model invisible
-        gMainClass.sub180.saModelsList1[prevSaModelsCount1] = (SAModelListEntry){ 0 };
+        gMainClass.sub180.list_20[prevSaModelsCount1] = (SAModelListEntry){ 0 };
     }
 
     thisx->shape.shadowDrawFunc = NULL;

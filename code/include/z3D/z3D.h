@@ -667,12 +667,16 @@ typedef struct SAModelListEntry {
 } SAModelListEntry;
 
 typedef struct SubMainClass_180 {
-    /* 0x000 */ char unk_00[0x8];
-    /* 0x008 */ s32 saModelsCount1;
-    /* 0x00C */ s32 saModelsCount2;
-    /* 0x010 */ char unk_10[0x10];
-    /* 0x020 */ SAModelListEntry* saModelsList1; // 3D models
-    /* 0x024 */ SAModelListEntry* saModelsList2; // 2D billboards
+    /* 0x000 */ char unk_00[0x4];
+    /* 0x004 */ s32 unk_04;
+    /* 0x008 */ s32 count_08;
+    /* 0x00C */ s32 count_0C;
+    /* 0x010 */ char unk_10[0x04];
+    /* 0x014 */ s32 count_14;
+    /* 0x018 */ s32* countPointer_18;
+    /* 0x020 */ SAModelListEntry* list_1C;
+    /* 0x020 */ SAModelListEntry* list_20; // 3D models
+    /* 0x024 */ SAModelListEntry* list_24; // 2D billboards
     /* ... size unknown*/
 } SubMainClass_180;
 
