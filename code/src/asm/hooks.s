@@ -2248,30 +2248,19 @@ HOOK ActorInit
     pop {r0-r12, lr}
     bx lr
 
-@ HOOK SkelAnimeInit
-@     push {lr}
-@     push {r0-r12}
-@     cpy r0,r4 @ Actor
-@     cpy r1,r3 @ CMB Manager
-@     bl Before_SkelAnimeInit
-@     pop {r0-r12}
-@     bl SkelAnime_InitImpl
-@     push {r0-r12}
-@     cpy r0,r3 @ CMB Manager ???
-@     bl After_SkelAnimeInit
-@     pop {r0-r12}
-@     pop {lr}
-@     bx lr
-
-
 HOOK SkelAnimeInit
     cpy r2,r4 @ Actor
     b SkelAnime_rInitImpl
 
-@ HOOK SkelAnime_DrawOpa
-@     push {r0-r12, lr}
-@     ldr r1,[sp,#0x38] @ actor
-@     bl SkelAnime_BeforeDrawOpa
-@     pop {r0-r12, lr}
-@     cpy r6,r0
-@     bx lr
+HOOK SkeletonAnimationModel_Init_3fefec
+    push {r0-r12, lr}
+    bl SkeletonAnimationModel_Init_3fefec
+    pop {r0-r12, lr}
+    cpy r4,r0
+    bx lr
+
+HOOK test
+    push {r0-r12, lr}
+    bl test
+    pop {r0-r12, lr}
+    bx r2

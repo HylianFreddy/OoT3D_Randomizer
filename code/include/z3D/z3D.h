@@ -669,8 +669,8 @@ typedef struct SAModelListEntry {
 typedef struct SubMainClass_180 {
     /* 0x000 */ char unk_00[0x4];
     /* 0x004 */ s32 unk_04;
-    /* 0x008 */ s32 count_08;
-    /* 0x00C */ s32 count_0C;
+    /* 0x008 */ s32 count_08; // 3D models
+    /* 0x00C */ s32 count_0C; // 2D billboards
     /* 0x010 */ char unk_10[0x04];
     /* 0x014 */ s32 count_14;
     /* 0x018 */ s32* countPointer_18;

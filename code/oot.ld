@@ -699,7 +699,10 @@ SECTIONS
 	.patch_PreSwapBuffers 0x3FD384 + _LD_OFF : { *(.patch_PreSwapBuffers) }
 	.patch_AwakeCallback 0x3FD43C + _LD_OFF : { *(.patch_AwakeCallback) }
 	.patch_SleepQueryCallback 0x3FD6C4 + _LD_OFF : { *(.patch_SleepQueryCallback) }
+	.patch_SkeletonAnimationModel_Init_3fefec 0x3FEFF0 + _LD_OFF : { *(.patch_SkeletonAnimationModel_Init_3fefec) }
+	/* .patch_NOP 0x3FF6E4 + _LD_OFF : { *(.patch_NOP) } */
 	Message_SetInstantText = 0x40B608 + _LD_OFF;
+	.patch_test 0x40CBD4 + _LD_OFF : { *(.patch_test) }
 	.patch_DrawScreen 0x416398 + _LD_OFF : { *(.patch_DrawScreen) }
 
 	/* 0x419E18 - 0x41A143 : Language related function, don't place anything in this range */
@@ -844,6 +847,7 @@ SECTIONS
 	.patch_EditDrawGetItemAfterModelSpawn 0x4C61A4 + _LD_OFF : { *(.patch_EditDrawGetItemAfterModelSpawn) }
 	Model_IsMeshGroupUsed = 0x4C6880 + _LD_OFF;
 	SkelAnime_DrawOpaImpl = 0x4C7AB0 + _LD_OFF;
+	.patch_SkeletonAnimationModelDraw 0x4C7B80 + _LD_OFF : { *(.patch_SkeletonAnimationModelDraw) }
 	.patch_CrouchStabHitbox 0x4C85D4 + _LD_OFF : { *(.patch_CrouchStabHitbox) }
 
 	/* 0x4C99A7: End of vanilla code in .text section */

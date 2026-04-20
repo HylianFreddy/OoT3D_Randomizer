@@ -1658,3 +1658,15 @@ PATCH SkelAnimeInit
 
 PATCH SkelAnime_DrawOpa
     bl SkelAnime_rDrawOpaImpl
+
+PATCH SkeletonAnimationModelDraw
+    b SkeletonAnimationModel_rDraw
+
+PATCH SkeletonAnimationModel_Init_3fefec
+    bl hook_SkeletonAnimationModel_Init_3fefec
+
+PATCH test
+    bl hook_test
+
+PATCH NOP
+    nop

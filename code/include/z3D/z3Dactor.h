@@ -61,24 +61,43 @@ typedef struct SkeletonAnimationModel_unk_0C {
     /* 0x11 */ char unk_11[0x87];
 } SkeletonAnimationModel_unk_0C; // size = 0x98
 
+typedef struct SkeletonAnimationModel_unk_14 {
+    void* vtable_4EBD98;
+    void* cmbManager;
+    void* unk_08;
+    void* unk_0C;
+    void* unkAutoClass1;
+} SkeletonAnimationModel_unk_14;
+
 typedef struct SkeletonAnimationModel {
     /* 0x00 */ SkeletonAnimationModel_VTable* vtbl;
     /* 0x04 */ char unk_04[0x08];
     /* 0x0C */ SkeletonAnimationModel_unk_0C* unk_0C;
     /* 0x10 */ SkeletonAnimationModel_unk_10* unk_10;
-    /* 0x14 */ void* unk_draw_struct_14;
+    /* 0x14 */ SkeletonAnimationModel_unk_14* unk_14;
     /* 0x18 */ char unk_18[0x64];
     /* 0x7C */ nn_math_MTX34 mtx;
     /* 0xAC */ s8 unk_AC;
     /* 0xAD */ char unk_AD[0x03];
 } SkeletonAnimationModel; // size = 0xB0
 
+typedef struct UnkSubSkelAnime_20 {
+    /* 0x00 */ char unk_00[0x04];
+    /* 0x04 */ struct Actor* actor;
+    /* 0x08 */ char unk_08[0x08];
+    /* 0x10 */ void* overrideLimbDraw;
+    /* 0x14 */ void* postLimbDraw;
+    // ... size unknown
+} UnkSubSkelAnime_20;
+
 typedef struct SkelAnime {
     /* 0x00 */ struct CmbManager* cmbMan;
     /* 0x04 */ struct ZARInfo* zarInfo;
     /* 0x08 */ char unk_08[0x08];
     /* 0x10 */ struct GlobalContext* globalCtx;
-    /* 0x14 */ char unk_14[0x14];
+    /* 0x14 */ char unk_14[0x0C];
+    /* 0x20 */ UnkSubSkelAnime_20* sub20;
+    /* 0x24 */ char unk_24[0x04];
     /* 0x28 */ struct SkeletonAnimationModel* saModel;
     /* 0x2C */ char unk_2C[0x4];
     /* 0x30 */ s32 animIndex;
