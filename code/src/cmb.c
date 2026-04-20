@@ -21,11 +21,6 @@ typedef struct CmbOriginalData {
 } CmbOriginalData;
 _Static_assert(sizeof(CmbOriginalData) == sizeof(((CMB_HEAD*)0)->name), "CmbOriginalData size");
 
-// static u32 sOrigTextureMappersUsed[10];
-// static u32 sOrigBlendMode[10];
-// static u8 sOrigAlphaTestEnabled[10];
-
-// static u8 black = 1;
 
 void CmbManager_BeforeInit(CmbManager* cmbMan) {
 }
@@ -33,15 +28,15 @@ void CmbManager_BeforeInit(CmbManager* cmbMan) {
 void CmbManager_AfterInit(CmbManager* cmbMan) {
 }
 
-void CmbManager_Log(CmbManager* cmbMan) {
-    CMB_MATS* cmbMats = Cmb_GetMatsChunk(cmbMan->cmbChunk);
-    for (size_t i = 0; i < cmbMats->materialCount; i++) {
-        Material* mat = &cmbMats->materials[i];
-        CitraPrint("textureMappersUsed = %X", mat->textureMappersUsed);
-        CitraPrint("alphaTestEnabled = %X", mat->alphaTestEnabled);
-        CitraPrint("blendMode = %X", mat->blendMode);
-    }
-}
+// void CmbManager_Log(CmbManager* cmbMan) {
+//     CMB_MATS* cmbMats = Cmb_GetMatsChunk(cmbMan->cmbChunk);
+//     for (size_t i = 0; i < cmbMats->materialCount; i++) {
+//         Material* mat = &cmbMats->materials[i];
+//         CitraPrint("textureMappersUsed = %X", mat->textureMappersUsed);
+//         CitraPrint("alphaTestEnabled = %X", mat->alphaTestEnabled);
+//         CitraPrint("blendMode = %X", mat->blendMode);
+//     }
+// }
 
 typedef struct EnTite {
     Actor actor;
@@ -61,13 +56,7 @@ typedef void (*Foo)(SkelAnime* anime, s32 animation_index, f32 play_speed, f32 s
 #define Animation_ChangeImpl ((Foo)0x35302c)
 #define Animation_PlayLoop ((void (*)(SkelAnime * anime, s32 animation_index))0x36e734)
 
-static SkelAnime* sSkelAnime;
-
-void SkelAnime_InitImpl(SkelAnime* skelAnime, ZARInfo* zarInfo, GlobalContext* globalCtx, CmbManager* cmbMan,
-                        s32 unkParam, s32 csabIndex, void* jointTable, void* morphTable, s32 limbCount);
-void SkelAnime_rInitImpl(SkelAnime* skelAnime, ZARInfo* zarInfo, Actor* actor, CmbManager* cmbMan, s32 unkParam,
-                         s32 csabIndex, void* jointTable, void* morphTable, s32 limbCount) {
-
+void SkelAnime_BeforeInit(CmbManager* cmbMan, Actor* actor) {
     if (!EnemySouls_CheckSoulForActor(actor) && gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
         CmbOriginalData* origDataBuf = (CmbOriginalData*)&((CMB_HEAD*)cmbMan->cmbChunk)->name;
         if (origDataBuf->magic != '-') {
@@ -84,9 +73,6 @@ void SkelAnime_rInitImpl(SkelAnime* skelAnime, ZARInfo* zarInfo, Actor* actor, C
             }
         }
     }
-
-    SkelAnime_InitImpl(skelAnime, zarInfo, gGlobalContext, cmbMan, unkParam, csabIndex, jointTable, morphTable,
-                       limbCount);
 }
 
 void RestoreActorModel(Actor* actor) {
@@ -158,78 +144,11 @@ void SkelAnime_DrawOpaImpl(SubMainClass_180* sub180, SkelAnime* skelAnime, nn_ma
                            void* overrideLimbDraw, void* postLimbDraw, Actor* actor, s32 unk);
 void SkelAnime_rDrawOpaImpl(SubMainClass_180* sub180, SkelAnime* skelAnime, nn_math_MTX44* modelMtx,
                             void* overrideLimbDraw, void* postLimbDraw, Actor* actor, s32 unk) {
-    if (actor->id != ACTOR_TEKTITE) {
-        return SkelAnime_DrawOpaImpl(sub180, skelAnime, modelMtx, overrideLimbDraw, postLimbDraw, actor, unk);
-    }
-    // CitraPrint("skelAnime draw rGameplayFrames: %d", rGameplayFrames);
-    // sSkelAnime = skelAnime;
-    // const u8 isBlack  = gIsForSoullessActor && gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK;
-    // CMB_MATS* cmbMats = Cmb_GetMatsChunk(skelAnime->cmbMan->cmbChunk);
-    // // u32 origTextureMappersUsed[cmbMats->materialCount];
-    // // u32 origBlendMode[cmbMats->materialCount];
-    // // u8 origAlphaTestEnabled[cmbMats->materialCount];
-    // static s32 flag = 0;
-    // flag++;
-    // //  0 4 0 512 4
-    // // CitraPrint("sub180: %d %d %d %d %d",
-    // //     sub180->unk_04, sub180->count_08, sub180->count_0C, sub180->count_14, *sub180->countPointer_18);
-
-    // // CitraPrint("skelAnime->saModel->vtbl: %X", skelAnime->saModel->vtbl);
-
-    // if (flag > 1) {
-    //     // CitraPrint("flag=%X, rGameplayFrames=%X", flag, rGameplayFrames);
-    //     for (size_t i = 0; i < cmbMats->materialCount; i++) {
-    //         Material* mat = &cmbMats->materials[i];
-
-    //         // origTextureMappersUsed[i] = mat->textureMappersUsed;
-    //         // origAlphaTestEnabled[i]   = mat->alphaTestEnabled;
-    //         // origBlendMode[i]          = mat->blendMode;
-
-    //         mat->textureMappersUsed = 0;
-    //         mat->alphaTestEnabled   = 0x0;
-    //         mat->blendMode          = 0x0;
-    //     }
-    // }
     SkelAnime_DrawOpaImpl(sub180, skelAnime, modelMtx, overrideLimbDraw, postLimbDraw, actor, unk);
-    // if (flag > 4) {
-    //     for (size_t i = 0; i < cmbMats->materialCount; i++) {
-    //         Material* mat           = &cmbMats->materials[i];
-    //         mat->textureMappersUsed = origTextureMappersUsed[i];
-    //         mat->alphaTestEnabled   = origAlphaTestEnabled[i];
-    //         mat->blendMode          = origBlendMode[i];
-    //     }
-    // }
 }
 
 // #define SkeletonAnimationModel_Draw ((void (*)(SkeletonAnimationModel * model))0x3fed90)
 void SkeletonAnimationModel_rDraw(SkeletonAnimationModel* model, void (*drawFunc)(SkeletonAnimationModel* model)) {
-    if (sSkelAnime == NULL || model != sSkelAnime->saModel) {
-        return drawFunc(model);
-    }
-
-    // CitraPrint("SkeletonAnimationModel_rDraw rGameplayFrames: %d", rGameplayFrames);
-    // void* class = model->unk_14->unkAutoClass1;
-    // CitraPrint("SkeletonAnimationModel_rDraw; %X", *(u8*)(((u32)class)+0x1B9));
-    // static s32 flag = 0;
-    // flag++;
-    // CMB_MATS* cmbMats = Cmb_GetMatsChunk(sSkelAnime->cmbMan->cmbChunk);
-    // if (flag == 1) {
-    //     for (size_t i = 0; i < cmbMats->materialCount; i++) {
-    //         Material* mat           = &cmbMats->materials[i];
-    //         mat->textureMappersUsed = 0;
-    //         mat->alphaTestEnabled   = 0x0;
-    //         mat->blendMode          = 0x0;
-    //     }
-    // }
-    // if (flag > 60) {
-    //     for (size_t i = 0; i < cmbMats->materialCount; i++) {
-    //         Material* mat           = &cmbMats->materials[i];
-    //         mat->textureMappersUsed = 1;
-    //         mat->alphaTestEnabled   = flag % 2;
-    //         mat->blendMode          = 0x0;
-    //     }
-    // }
-
     drawFunc(model);
 }
 

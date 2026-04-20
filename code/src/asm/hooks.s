@@ -2249,8 +2249,13 @@ HOOK ActorInit
     bx lr
 
 HOOK SkelAnimeInit
-    cpy r2,r4 @ Actor
-    b SkelAnime_rInitImpl
+    push {r0-r12, lr}
+    @ r0 = CmbManager
+    cpy r1,r4 @ Actor
+    bl SkelAnime_BeforeInit
+    pop {r0-r12, lr}
+    cpy r0,r10
+    bx lr
 
 HOOK SkeletonAnimationModel_Init_3fefec
     push {r0-r12, lr}

@@ -474,7 +474,7 @@ SECTIONS
 	.patch_ApplyDamageMultiplier 0x352DC0 + _LD_OFF : { *(.patch_ApplyDamageMultiplier) }
 	.patch_GetObjectEntry_352F28 0x352F28 + _LD_OFF : { *(.patch_GetObjectEntry_352F28) } /* Used for: Flare Dancer */
 	.patch_GetObjectEntry_353CE4 0x353CE4 + _LD_OFF : { *(.patch_GetObjectEntry_353CE4) }
-	.patch_SkelAnimeInit 0x353D10 + _LD_OFF : { *(.patch_SkelAnimeInit) }
+	.patch_SkelAnimeInit 0x353D0C + _LD_OFF : { *(.patch_SkelAnimeInit) }
 	Collider_SetCylinder = 0x353D24 + _LD_OFF;
 	Collider_InitCylinder = 0x353DD0 + _LD_OFF;
 	SetupItemInWater = 0x354894 + _LD_OFF;
