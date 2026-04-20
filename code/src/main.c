@@ -90,7 +90,6 @@ void before_Play_Init(GlobalContext* globalCtx) {
 
 void autoLoadSaveFile();
 
-void CmbManager_ReInitTektite(void);
 void before_GlobalContext_Update(GlobalContext* globalCtx) {
     LOG(L_MAIN, L_TRACE, "before_GlobalContext_Update");
     autoLoadSaveFile();
@@ -107,10 +106,6 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
     ItemEffect_RupeeAmmo(&gSaveContext);
     Triforce_HandleCreditsWarp();
     Enemizer_Update();
-
-    if (rInputCtx.pressed.zr) {
-        CmbManager_ReInitTektite();
-    }
 }
 
 void autoLoadSaveFile() {

@@ -236,7 +236,7 @@ ItemOverride sTestOverride = {
         .type = OVR_COLLECTABLE, // random value for non-zero key
     },
     .value = {
-        .itemId = GI_ARROW_LIGHT,
+        .itemId = GI_SOUL_TEKTITE,
     }
 };
 

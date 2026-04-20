@@ -136,7 +136,6 @@ void RestoreActorModel(Actor* actor) {
 }
 
 void AfterSoulObtained(EnemySoulId obtainedSoul) {
-    EnemySouls_SetSoulFlag(obtainedSoul);
     if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
         ActorType actorCats[2] = { ACTORTYPE_ENEMY, ACTORTYPE_BOSS };
         for (s32 i = 0; i < ARRAY_SIZE(actorCats); i++) {
