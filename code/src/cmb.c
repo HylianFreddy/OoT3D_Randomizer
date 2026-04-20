@@ -95,14 +95,11 @@ void RestoreActorModel(Actor* actor) {
     }
     SkelAnime* anime = &((EnTite*)actor)->skelAnime;
 
-    CitraPrint("here 1");
     CmbOriginalData* origDataBuf = (CmbOriginalData*)&((CMB_HEAD*)anime->cmbMan->cmbChunk)->name;
     if (origDataBuf->magic == '-') {
-        CitraPrint("here 2");
         origDataBuf->magic = '^';
         CMB_MATS* cmbMats  = Cmb_GetMatsChunk(anime->cmbMan->cmbChunk);
         for (s32 i = 0; i < cmbMats->materialCount; i++) {
-            CitraPrint("here 3");
             Material* mat           = &cmbMats->materials[i];
             mat->textureMappersUsed = origDataBuf->mats[i].textureMappersUsed;
             mat->alphaTestEnabled   = origDataBuf->mats[i].alphaTestEnabled;
@@ -142,7 +139,6 @@ void RestoreActorModel(Actor* actor) {
         morphTable = anime->morphTable;
     }
 
-    CitraPrint("here 4");
     SkelAnime_Destroy(anime);
     SkelAnime_Init(actor, gGlobalContext, anime, cmbIndex, animIndex, jointTable, morphTable, 0);
     Animation_ChangeImpl(anime, animIndex, playSpeed, startFrame, endFrame, animMode, 0.0, 0);
@@ -150,6 +146,7 @@ void RestoreActorModel(Actor* actor) {
 }
 
 void AfterSoulObtained(EnemySoulId obtainedSoul) {
+    EnemySouls_SetSoulFlag(obtainedSoul);
     if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
         ActorType actorCats[2] = { ACTORTYPE_ENEMY, ACTORTYPE_BOSS };
         for (s32 i = 0; i < ARRAY_SIZE(actorCats); i++) {
