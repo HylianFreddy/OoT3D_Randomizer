@@ -7,7 +7,7 @@
 #include "flying_traps.h"
 
 // clang-format off
-static EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
+EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
     switch (actorId) {
         case 0x00D: return SOUL_POE; // Small Poe
         case 0x175: return SOUL_POE; // Big Poe
