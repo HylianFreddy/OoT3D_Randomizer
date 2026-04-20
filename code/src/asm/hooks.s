@@ -2252,7 +2252,7 @@ HOOK SkelAnimeInit
     push {r0-r12, lr}
     @ r0 = CmbManager
     cpy r1,r4 @ Actor
-    bl SkelAnime_BeforeInit
+    bl EnemySouls_BeforeSkelAnimeInit
     pop {r0-r12, lr}
     cpy r0,r10
     bx lr

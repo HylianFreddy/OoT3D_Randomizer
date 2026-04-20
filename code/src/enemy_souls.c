@@ -1,3 +1,4 @@
+#include "z3D/z3Dcmb.h"
 #include "enemy_souls.h"
 #include "savefile.h"
 #include "settings.h"
@@ -5,6 +6,8 @@
 #include "actor.h"
 #include "common.h"
 #include "flying_traps.h"
+
+static void SoullessDarkness_RestoreModel(Actor* actor);
 
 // clang-format off
 EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
@@ -90,7 +93,7 @@ u8 EnemySouls_GetSoulFlag(EnemySoulId soulId) {
     return gExtSaveData.extInf.enemySouls[(soulId >> 3)] & (1 << (soulId & 0b111));
 }
 
-void EnemySouls_SetSoulFlag(EnemySoulId soulId) {
+static void EnemySouls_SetSoulFlag(EnemySoulId soulId) {
     if (soulId == SOUL_NONE) {
         return;
     }
@@ -114,10 +117,29 @@ u8 EnemySouls_ShouldDrawSoulless(Actor* actor) {
            !FlyingTraps_IsHiddenTrap(actor);       // hidden flying traps will appear normal.
 }
 
+void EnemySouls_OnCollect(EnemySoulId soulId) {
+    EnemySouls_SetSoulFlag(soulId);
+
+    if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
+        ActorType actorCats[2] = { ACTORTYPE_ENEMY, ACTORTYPE_BOSS };
+        for (s32 i = 0; i < ARRAY_SIZE(actorCats); i++) {
+            Actor* actor = gGlobalContext->actorCtx.actorList[actorCats[i]].first;
+            while (actor != NULL) {
+                if (EnemySouls_GetSoulId(actor->id) == soulId) {
+                    SoullessDarkness_RestoreModel(actor);
+                }
+                actor = actor->next;
+            }
+        }
+    }
+}
+
+/* Soulless Flames effect */
+
 #define SOULLESS_EFFECT_DURATION 8
 #define SOULLESS_EFFECT_INTERVAL 3
 
-static void SoullessEffect_Draw(Vec3f pos, f32 xRange, f32 yRange, f32 zRange, s16 scale) {
+static void SoullessFlames_Draw(Vec3f pos, f32 xRange, f32 yRange, f32 zRange, s16 scale) {
     pos.x += xRange * (Rand_ZeroOne() - 0.5);
     pos.y += yRange * (Rand_ZeroOne() - 0.5) + scale / 10;
     pos.z += zRange * (Rand_ZeroOne() - 0.5);
@@ -138,7 +160,7 @@ static void SoullessEffect_Draw(Vec3f pos, f32 xRange, f32 yRange, f32 zRange, s
                          primColor.a, envColor.r, envColor.g, envColor.b, 1, SOULLESS_EFFECT_DURATION, 0);
 }
 
-static void SoullessEffect_ParseCollider(Collider* collider) {
+static void SoullessFlames_ParseCollider(Collider* collider) {
     if (collider == NULL || collider->actor == NULL) {
         return;
     }
@@ -152,14 +174,14 @@ static void SoullessEffect_ParseCollider(Collider* collider) {
                     ColliderJntSphElement* elem = &jntSphCol->elements[j];
                     Spheref worldSphere         = elem->dim.worldSphere;
                     s16 scale                   = isBoss ? 150 : worldSphere.radius > 10.0f ? 100 : 50;
-                    SoullessEffect_Draw(worldSphere.center, worldSphere.radius, worldSphere.radius, worldSphere.radius,
+                    SoullessFlames_Draw(worldSphere.center, worldSphere.radius, worldSphere.radius, worldSphere.radius,
                                         scale);
                 }
                 break;
             case COLSHAPE_CYLINDER:
                 ColliderCylinder* cylCol = (ColliderCylinder*)collider;
                 s16 scale                = isBoss ? 150 : cylCol->dim.radius > 10.0f ? 100 : 50;
-                SoullessEffect_Draw(cylCol->dim.position, cylCol->dim.radius, cylCol->dim.height, cylCol->dim.radius,
+                SoullessFlames_Draw(cylCol->dim.position, cylCol->dim.radius, cylCol->dim.height, cylCol->dim.radius,
                                     scale);
                 break;
         }
@@ -175,12 +197,119 @@ void EnemySouls_DrawEffects(void) {
     // Parse all colliders subscribed to AC
     for (s32 i = 0; i < gGlobalContext->colChkCtx.colAcCount; i++) {
         Collider* collider = gGlobalContext->colChkCtx.colAc[i];
-        SoullessEffect_ParseCollider(collider);
+        SoullessFlames_ParseCollider(collider);
     }
 
     // Parse all colliders subscribed to OC
     for (s32 i = 0; i < gGlobalContext->colChkCtx.colOcCount; i++) {
         Collider* collider = gGlobalContext->colChkCtx.colOc[i];
-        SoullessEffect_ParseCollider(collider);
+        SoullessFlames_ParseCollider(collider);
     }
+}
+
+/* Soulless Darkness effect */
+
+typedef struct CmbOriginalData {
+    char status;
+    struct {
+        u8 textureMappersUsed : 5;
+        u8 alphaTestEnabled : 1; // boolean
+        u8 blendMode : 2;        // values 0-3
+    } mats[15];
+} CmbOriginalData;
+_Static_assert(sizeof(CmbOriginalData) == sizeof(((CMB_HEAD*)0)->name), "CmbOriginalData size");
+
+#define CMBSTATUS_MODIFIED '-'
+#define CMBSTATUS_RESTORED '^'
+
+// Use CMB name field as a buffer to store original values for overwritten data
+static CmbOriginalData* Cmb_GetOrigDataBuffer(CmbManager* cmbMan) {
+    return (CmbOriginalData*)&((CMB_HEAD*)cmbMan->cmbChunk)->name;
+}
+
+void EnemySouls_BeforeSkelAnimeInit(CmbManager* cmbMan, Actor* actor) {
+    if (!EnemySouls_CheckSoulForActor(actor) && gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
+        CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
+        if (origDataBuf->status != CMBSTATUS_MODIFIED) {
+            origDataBuf->status = CMBSTATUS_MODIFIED;
+            CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
+            for (s32 i = 0; i < cmbMats->materialCount; i++) {
+                Material* mat                           = &cmbMats->materials[i];
+                origDataBuf->mats[i].textureMappersUsed = mat->textureMappersUsed;
+                origDataBuf->mats[i].alphaTestEnabled   = mat->alphaTestEnabled;
+                origDataBuf->mats[i].blendMode          = mat->blendMode;
+                mat->textureMappersUsed                 = 0;
+                mat->alphaTestEnabled                   = 0;
+                mat->blendMode                          = 0;
+            }
+        }
+    }
+}
+
+typedef struct EnTite {
+    Actor actor;
+    SkelAnime skelAnime;
+} EnTite;
+
+static SkelAnime* GetSkelAnimeFromActor(Actor* actor) {
+    switch (actor->id) {
+        case ACTOR_TEKTITE:
+            return &((EnTite*)actor)->skelAnime;
+        default:
+            return NULL;
+    }
+}
+
+#define SkelAnime_Destroy ((void (*)(SkelAnime * anime))0x350be0)
+// limbCount param is ignored, the function takes the value from the cmb
+#define SkelAnime_Init                                                                                       \
+    ((void (*)(Actor * actor, GlobalContext * globalCtx, SkelAnime * skelAnime, s32 cmbIndex, s32 csabIndex, \
+               void* jointTable, void* morphTable, s32 limbCount))0x353c9c)
+typedef void (*Foo)(SkelAnime* anime, s32 animation_index, f32 play_speed, f32 start_frame, f32 end_frame, s32 mode,
+                    f32 morph_frames, s32 taper) __attribute__((pcs("aapcs-vfp")));
+#define Animation_ChangeImpl ((Foo)0x35302c)
+static void SoullessDarkness_RestoreModel(Actor* actor) {
+    SkelAnime* anime = GetSkelAnimeFromActor(actor);
+    if (anime == NULL) {
+        return;
+    }
+
+    CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(anime->cmbMan);
+    if (origDataBuf->status == CMBSTATUS_MODIFIED) {
+        origDataBuf->status = CMBSTATUS_RESTORED;
+        CMB_MATS* cmbMats   = Cmb_GetMatsChunk(anime->cmbMan->cmbChunk);
+        for (s32 i = 0; i < cmbMats->materialCount; i++) {
+            Material* mat           = &cmbMats->materials[i];
+            mat->textureMappersUsed = origDataBuf->mats[i].textureMappersUsed;
+            mat->alphaTestEnabled   = origDataBuf->mats[i].alphaTestEnabled;
+            mat->blendMode          = origDataBuf->mats[i].blendMode;
+        }
+    }
+
+    u32 numCMBs  = anime->zarInfo->fileTypes[anime->zarInfo->fileTypeMap[0]].numFiles;
+    s32 cmbIndex = 0;
+    for (s32 i = 0; i < numCMBs; i++) {
+        if (anime->zarInfo->cmbMans[i] == anime->cmbMan) {
+            cmbIndex = i;
+            break;
+        }
+    }
+
+    s32 animIndex    = anime->animIndex;
+    f32 curFrame     = anime->curFrame;
+    f32 playSpeed    = anime->playSpeed;
+    f32 startFrame   = anime->startFrame;
+    f32 endFrame     = anime->endFrame;
+    f32 animMode     = anime->animMode;
+    void* jointTable = NULL;
+    void* morphTable = NULL;
+    if (!anime->dynamicTables) {
+        jointTable = anime->jointTable;
+        morphTable = anime->morphTable;
+    }
+
+    SkelAnime_Destroy(anime);
+    SkelAnime_Init(actor, gGlobalContext, anime, cmbIndex, animIndex, jointTable, morphTable, 0);
+    Animation_ChangeImpl(anime, animIndex, playSpeed, startFrame, endFrame, animMode, 0.0, 0);
+    anime->curFrame = curFrame;
 }
