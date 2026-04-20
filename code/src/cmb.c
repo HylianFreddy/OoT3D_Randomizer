@@ -107,20 +107,10 @@ void RestoreActorModel(Actor* actor) {
         }
     }
 
-    // if (anime->zarInfo->fileTypeMap[0] == -1) {
-    //     return;
-    // }
     u32 numCMBs  = anime->zarInfo->fileTypes[anime->zarInfo->fileTypeMap[0]].numFiles;
-    CmbManager* oldCmbMans[numCMBs];
-    memcpy(&oldCmbMans, anime->zarInfo->cmbMans, sizeof(oldCmbMans));
-
-    ObjectEntry* obj = Object_GetEntry(actor->objectSlot);
-    // Re-initialize ZarInfo, keeping same buffer and size. This destroys all CMB Managers.
-    ZAR_Destroy(anime->zarInfo);
-    ZAR_SetupZARInfo(anime->zarInfo, obj->buf, obj->size, 0);
     s32 cmbIndex = 0;
     for (s32 i = 0; i < numCMBs; i++) {
-        if (oldCmbMans[i] == anime->cmbMan) {
+        if (anime->zarInfo->cmbMans[i] == anime->cmbMan) {
             cmbIndex = i;
             break;
         }
