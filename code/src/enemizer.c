@@ -14,7 +14,7 @@
 #define SKIP_ACTOR_ENTRY TRUE
 #define KEEP_ACTOR_ENTRY FALSE
 
-static const u32 sBaseTestEnemyId = ENEMY_BUBBLE_WHITE;
+const u32 sBaseTestEnemyId = ENEMY_BIRI;
 static u32 sTestEnemyId           = sBaseTestEnemyId;
 static u32 sTestEnemyParamsIndex  = 0;
 static u32 sTestToggle            = ENEMYMODE_RANDOMIZED;
@@ -728,14 +728,14 @@ void Enemizer_Update(void) {
         return;
     }
 
-    if (rInputCtx.pressed.zr) {
-        // gGlobalContext->actorCtx.flags.clear = 0;
-        // gGlobalContext->actorCtx.flags.swch  = 0;
-        // Flags_SetSwitch(gGlobalContext, 5);
-        do {
-            sTestEnemyId = (sTestEnemyId + 1) % ENEMY_MAX;
-        } while (!Enemizer_IsEnemyRandomized(sTestEnemyId) && sTestEnemyId != sBaseTestEnemyId);
-    }
+    // if (rInputCtx.pressed.zr) {
+    //     // gGlobalContext->actorCtx.flags.clear = 0;
+    //     // gGlobalContext->actorCtx.flags.swch  = 0;
+    //     // Flags_SetSwitch(gGlobalContext, 5);
+    //     do {
+    //         sTestEnemyId = (sTestEnemyId + 1) % ENEMY_MAX;
+    //     } while (!Enemizer_IsEnemyRandomized(sTestEnemyId) && sTestEnemyId != sBaseTestEnemyId);
+    // }
 
     Draw_DrawFormattedStringTop(10, 0, COLOR_WHITE, "Enemizer ON - Room %d - sTestEnemyId %d", //
                                 gGlobalContext->roomNum, sTestEnemyId);

@@ -228,6 +228,7 @@ static CmbOriginalData* Cmb_GetOrigDataBuffer(CmbManager* cmbMan) {
 }
 
 void EnemySouls_BeforeSkelAnimeInit(CmbManager* cmbMan, Actor* actor) {
+    CitraPrint("BeforeSkelAnimeInit %X", actor->id);
     if (!EnemySouls_CheckSoulForActor(actor) && gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
         CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
         if (origDataBuf->status != CMBSTATUS_MODIFIED) {
@@ -246,17 +247,114 @@ void EnemySouls_BeforeSkelAnimeInit(CmbManager* cmbMan, Actor* actor) {
     }
 }
 
-typedef struct EnTite {
+typedef struct GenericSkelAnimeActor {
     Actor actor;
     SkelAnime skelAnime;
-} EnTite;
+} GenericSkelAnimeActor;
 
-static SkelAnime* GetSkelAnimeFromActor(Actor* actor) {
+// typedef struct EnFirefly {
+//     Actor actor;
+//     Vec3f bodyPartsPos[3];
+//     SkelAnime skelAnime;
+// } EnFirefly;
+
+// typedef struct EnTp {
+//     Actor actor;
+//     s32 actionIndex;
+//     s32 unk;
+//     void* actionFunc;
+//     SkelAnime skelAnime;
+// } EnTp;
+
+static u32 GetOffsetToSkelAnime(Actor* actor) {
     switch (actor->id) {
-        case ACTOR_TEKTITE:
-            return &((EnTite*)actor)->skelAnime;
+        case ACTOR_POE: // doesnt fade in, lantern colored
+        case ACTOR_BIG_POE:// doesnt fade in
+        case ACTOR_POE_SISTER:
+        case ACTOR_OCTOROK: // OK
+        case ACTOR_BIG_OCTO:
+        case ACTOR_TEKTITE: // cmab
+        case ACTOR_LEEVER: // OK
+        case ACTOR_PEAHAT: // larva has colored tip
+        case ACTOR_LIZALFOS: // OK
+        case ACTOR_BIRI:
+        case ACTOR_BARI:
+        case ACTOR_SKULLTULA:
+        case ACTOR_SKULLWALLTULA:
+        case ACTOR_TORCH_SLUG:
+        case ACTOR_STINGER_FLOOR:
+        case ACTOR_STINGER_WATER:
+        case ACTOR_ARMOS:
+        case ACTOR_WITHERED_DEKU_BABA:
+        case ACTOR_BUBBLE:
+        case ACTOR_BEAMOS:
+        case ACTOR_WALLMASTER:
+        case ACTOR_FLOORMASTER:
+        case ACTOR_SHELL_BLADE:
+        case ACTOR_PARASITIC_TENTACLE:
+        case ACTOR_ANUBIS:
+        case ACTOR_SKULL_KID:
+        case ACTOR_HINT_DEKU_SCRUB:
+        case ACTOR_MAD_SCRUB:
+        case ACTOR_BUSINESS_SCRUB:
+        case ACTOR_STALCHILD:
+        case ACTOR_DOOR_MIMIC:
+        case ACTOR_FLARE_DANCER:
+        case ACTOR_FLARE_DANCER_CORE:
+        case ACTOR_DEAD_HAND:
+        case ACTOR_DEAD_HAND_HAND:
+        case ACTOR_IRON_KNUCKLE:
+        case ACTOR_GOHMA:
+        case ACTOR_GOHMA_LARVA:
+        case ACTOR_DODONGO:
+        case ACTOR_BABY_DODONGO:
+        case ACTOR_KING_DODONGO:
+        case ACTOR_BARINADE:
+        case ACTOR_PHANTOM_GANON:
+        case ACTOR_VOLVAGIA_FLYING: // missing arms
+        case ACTOR_VOLVAGIA_HOLE:
+        case ACTOR_BONGO_BONGO:
+        case ACTOR_GANON:
+            return 0x1A4;
+            // return &((GenericSkelAnimeActor*)actor)->skelAnime;
+        case ACTOR_KEESE:
+            return 0x1C8;
+            // return &((EnFirefly*)actor)->skelAnime;
+        case ACTOR_TAILPASARAN:
+            return 0x1B0;
+            // return &((EnTp*)actor)->skelAnime;
+        case ACTOR_MOBLIN:
+            return 0x1E4;
+        case ACTOR_DEKU_BABA:
+        case ACTOR_GUAY:
+            return 0x1D4;
+        case ACTOR_REDEAD:
+        case ACTOR_WOLFOS:
+        case ACTOR_STALFOS:
+        case ACTOR_GERUDO_FIGHTER:
+            return 0x1E0;
+        case ACTOR_LIKE_LIKE:
+            return 0x2438;
+        case ACTOR_DARK_LINK:
+            return 0x254;
+        case ACTOR_GERUDO_GUARD:
+            return 0x1FC;
+        case ACTOR_PG_HORSE:
+            return 0x26C;
+        case ACTOR_MORPHA:
+            return 0x16E0;
+        case ACTOR_TWINROVA:
+            return 0x5C0;
+        case ACTOR_GANONDORF:
+            return 0x1A8;
+
+        case ACTOR_SHABOM:
+        case ACTOR_FLYING_POT:
+        case ACTOR_FLYING_FLOOR_TILE:
+        case ACTOR_SPIKE:
+        case ACTOR_FREEZARD:
         default:
-            return NULL;
+            return 0;
     }
 }
 
@@ -269,10 +367,15 @@ typedef void (*Foo)(SkelAnime* anime, s32 animation_index, f32 play_speed, f32 s
                     f32 morph_frames, s32 taper) __attribute__((pcs("aapcs-vfp")));
 #define Animation_ChangeImpl ((Foo)0x35302c)
 static void SoullessDarkness_RestoreModel(Actor* actor) {
-    SkelAnime* anime = GetSkelAnimeFromActor(actor);
-    if (anime == NULL) {
+    // SkelAnime* anime = GetSkelAnimeFromActor(actor);
+    // if (anime == NULL) {
+    //     return;
+    // }
+    u32 offsetToSkelAnime = GetOffsetToSkelAnime(actor);
+    if (offsetToSkelAnime == 0) {
         return;
     }
+    SkelAnime* anime = (SkelAnime*)(((u32)actor) + offsetToSkelAnime);
 
     CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(anime->cmbMan);
     if (origDataBuf->status == CMBSTATUS_MODIFIED) {
