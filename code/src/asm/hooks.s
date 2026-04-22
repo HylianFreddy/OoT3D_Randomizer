@@ -2264,8 +2264,49 @@ HOOK SkeletonAnimationModel_Init_3fefec
     cpy r4,r0
     bx lr
 
-HOOK test
+HOOK EnVali_Init_1
     push {r0-r12, lr}
-    bl test
+    bl EnVali_Set
     pop {r0-r12, lr}
-    bx r2
+    cpy r0,r4
+    bx lr
+
+HOOK EnVali_Init_2
+    push {r0-r12, lr}
+    bl EnVali_Unset
+    pop {r0-r12, lr}
+    cpy r0,r6
+    bx lr
+
+HOOK CheckStack
+    str r0,[r7,#0x8]
+    push {r0-r12, lr}
+    cpy r0,r5
+    bl CheckStack
+    pop {r0-r12, lr}
+    bx lr
+
+HOOK SkeletonAnimationModel_Constructor
+    push {r0-r12, lr}
+    cpy r0,r1 @ CmbManager
+    bl EnemySouls_BeforeSkelModelCtor
+    bl BeforeSAMCreate
+    pop {r0-r12, lr}
+    cpy r5,r1
+    bx lr
+
+HOOK SkelAnime_InitImpl
+    push {r0-r12, lr}
+    cpy r0,r3
+    bl Print_SkelAnime_InitImpl
+    pop {r0-r12, lr}
+    cpy r0,r5
+    bx lr
+
+HOOK whatLog
+    push {r0-r12, lr}
+    cpy r0,r12
+    bl whatLog
+    pop {r0-r12, lr}
+    mov r1,#0x34
+    bx lr

@@ -1665,8 +1665,20 @@ PATCH SkeletonAnimationModelDraw
 PATCH SkeletonAnimationModel_Init_3fefec
     bl hook_SkeletonAnimationModel_Init_3fefec
 
-PATCH test
-    bl hook_test
+PATCH EnVali_Init_1
+    bl hook_EnVali_Init_1
 
-PATCH NOP
-    nop
+PATCH CheckStack
+    bl hook_CheckStack
+
+PATCH EnVali_Init_2
+    bl hook_EnVali_Init_2
+
+PATCH SkeletonAnimationModel_Constructor
+    bl hook_SkeletonAnimationModel_Constructor
+
+PATCH SkelAnime_InitImpl
+    bl hook_SkelAnime_InitImpl
+
+PATCH whatLog
+    bl hook_whatLog

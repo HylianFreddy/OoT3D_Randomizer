@@ -183,6 +183,8 @@ SECTIONS
 	EnSw_Update = 0x1BB110 + _LD_OFF;
 	.patch_GetObjectEntry_EnTiteInit 0x1BBC9C + _LD_OFF : { *(.patch_GetObjectEntry_EnTiteInit) }
 	EnTk_Update = 0x1BC088 + _LD_OFF;
+	.patch_EnVali_Init_1 0x1BC540 + _LD_OFF : { *(.patch_EnVali_Init_1) }
+	.patch_EnVali_Init_2 0x1bc584 + _LD_OFF : { *(.patch_EnVali_Init_2) }
 	Fishing_Init = 0x1C0AD8 + _LD_OFF;
 	.patch_FishingNewRecord 0x1C3AA4 + _LD_OFF : { *(.patch_FishingNewRecord) }
 	.patch_FishingSizeIgnoreChild 0x1C3DFC + _LD_OFF : { *(.patch_FishingSizeIgnoreChild) }
@@ -430,6 +432,7 @@ SECTIONS
 	.patch_Before_CmbManagerInit 0x31FF68 + _LD_OFF : { *(.patch_Before_CmbManagerInit) }
 	.patch_After_CmbManagerInit 0x320454 + _LD_OFF : { *(.patch_After_CmbManagerInit) }
 	SkelAnime_InitImpl = 0x3220F4 + _LD_OFF;
+	.patch_SkelAnime_InitImpl 0x32218C + _LD_OFF : { *(.patch_SkelAnime_InitImpl) }
 	.patch_ISGPutaway 0x32B4AC + _LD_OFF : { *(.patch_ISGPutaway) }
 	Object_Spawn = 0x32E21C + _LD_OFF;
 	Actor_WorldDistXYZToActor = 0x3306C4 + _LD_OFF;
@@ -556,6 +559,7 @@ SECTIONS
 	ZAR_GetCMABByIndex = 0x372F0C + _LD_OFF;
 	SkeletonAnimationModel_SpawnAt = 0x372F38 + _LD_OFF;
 	.patch_GetObjectEntry_372F7C 0x372F7C + _LD_OFF : { *(.patch_GetObjectEntry_372F7C) }
+	.patch_CheckStack 0x372FDC + _LD_OFF : { *(.patch_CheckStack) }
 	.patch_OverrideObjectIsLoaded 0x373074 + _LD_OFF : { *(.patch_OverrideObjectIsLoaded) }
 	SkelAnime_Update = 0x3731E0 + _LD_OFF;
 	EnWonderTalk_Update = 0x3731F4 + _LD_OFF;
@@ -700,9 +704,9 @@ SECTIONS
 	.patch_AwakeCallback 0x3FD43C + _LD_OFF : { *(.patch_AwakeCallback) }
 	.patch_SleepQueryCallback 0x3FD6C4 + _LD_OFF : { *(.patch_SleepQueryCallback) }
 	.patch_SkeletonAnimationModel_Init_3fefec 0x3FEFF0 + _LD_OFF : { *(.patch_SkeletonAnimationModel_Init_3fefec) }
-	/* .patch_NOP 0x3FF6E4 + _LD_OFF : { *(.patch_NOP) } */
+	.patch_SkeletonAnimationModel_Constructor 0x3FF540 + _LD_OFF : { *(.patch_SkeletonAnimationModel_Constructor) }
+	.patch_whatLog 0x3FF564 + _LD_OFF : { *(.patch_whatLog) }
 	Message_SetInstantText = 0x40B608 + _LD_OFF;
-	.patch_test 0x40CBD4 + _LD_OFF : { *(.patch_test) }
 	.patch_DrawScreen 0x416398 + _LD_OFF : { *(.patch_DrawScreen) }
 
 	/* 0x419E18 - 0x41A143 : Language related function, don't place anything in this range */

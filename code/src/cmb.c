@@ -21,8 +21,51 @@ typedef struct CmbOriginalData {
 } CmbOriginalData;
 _Static_assert(sizeof(CmbOriginalData) == sizeof(((CMB_HEAD*)0)->name), "CmbOriginalData size");
 
+u8 valiFlag = 0;
+void EnVali_Set() {
+    valiFlag = 1;
+}
+void EnVali_Unset() {
+    valiFlag = 0;
+}
+
+void CheckStack(u32* stack) {
+    if (valiFlag) {
+        CitraPrint("stack = %X %X %X %X %X %X", stack[0], stack[1], stack[2], stack[3], stack[4], stack[5]);
+    }
+}
+
+void BeforeSAMCreate() {
+    if (valiFlag) {
+        CitraPrint("BeforeSAMCreate");
+    }
+}
+
+void Print_SkelAnime_InitImpl(u32 func) {
+    if (valiFlag) {
+        CitraPrint("func=%X",func);
+    }
+}
+
+void whatLog(u32 logFunc) {
+    if (valiFlag) {
+        CitraPrint("logFunc=%X",logFunc);
+    }
+}
 
 void CmbManager_BeforeInit(CmbManager* cmbMan) {
+    void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan);
+    EnemySouls_BeforeCmbManagerInit(cmbMan);
+    // if (Object_FindEntryOrSpawn(0x56)->zarInfo.cmbMans[1] == cmbMan) {
+    //     CitraPrint("mkkmkmk");
+    //     CMB_MATS* cmbMats = Cmb_GetMatsChunk(cmbMan->cmbChunk);
+    //     for (s32 i = 0; i < cmbMats->materialCount; i++) {
+    //         Material* mat           = &cmbMats->materials[i];
+    //         mat->textureMappersUsed = 0;
+    //         mat->alphaTestEnabled   = 0;
+    //         mat->blendMode          = 0;
+    //     }
+    // }
 }
 
 void CmbManager_AfterInit(CmbManager* cmbMan) {

@@ -230,13 +230,33 @@ static CmbOriginalData* Cmb_GetOrigDataBuffer(CmbManager* cmbMan) {
 
 void EnemySouls_BeforeSkelAnimeInit(CmbManager* cmbMan, Actor* actor) {
     CitraPrint("BeforeSkelAnimeInit %X", actor->id);
-    if (!EnemySouls_CheckSoulForActor(actor) && gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
+    // return;
+    // if (!EnemySouls_CheckSoulForActor(actor) && gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
+    //     CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
+    //     if (origDataBuf->status != CMBSTATUS_MODIFIED) {
+    //         origDataBuf->status = CMBSTATUS_MODIFIED;
+    //         CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
+    //         for (s32 i = 0; i < cmbMats->materialCount; i++) {
+    //             Material* mat                           = &cmbMats->materials[i];
+    //             origDataBuf->mats[i].textureMappersUsed = mat->textureMappersUsed;
+    //             origDataBuf->mats[i].alphaTestEnabled   = mat->alphaTestEnabled;
+    //             origDataBuf->mats[i].blendMode          = mat->blendMode;
+    //             mat->textureMappersUsed                 = 0;
+    //             mat->alphaTestEnabled                   = 0;
+    //             mat->blendMode                          = 0;
+    //         }
+    //     }
+    // }
+}
+void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan) {
+    if (gIsForSoullessActor && gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
         CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
         if (origDataBuf->status != CMBSTATUS_MODIFIED) {
             origDataBuf->status = CMBSTATUS_MODIFIED;
             CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
             for (s32 i = 0; i < cmbMats->materialCount; i++) {
                 Material* mat                           = &cmbMats->materials[i];
+                CitraPrint("BeforeCmbManagerInit %X", mat->textureMappersUsed, mat->alphaTestEnabled, mat->blendMode);
                 origDataBuf->mats[i].textureMappersUsed = mat->textureMappersUsed;
                 origDataBuf->mats[i].alphaTestEnabled   = mat->alphaTestEnabled;
                 origDataBuf->mats[i].blendMode          = mat->blendMode;
@@ -246,6 +266,26 @@ void EnemySouls_BeforeSkelAnimeInit(CmbManager* cmbMan, Actor* actor) {
             }
         }
     }
+}
+
+void EnemySouls_BeforeSkelModelCtor(CmbManager* cmbMan) {
+    // if (gIsForSoullessActor && gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
+    //     CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
+    //     if (origDataBuf->status != CMBSTATUS_MODIFIED) {
+    //         origDataBuf->status = CMBSTATUS_MODIFIED;
+    //         CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
+    //         for (s32 i = 0; i < cmbMats->materialCount; i++) {
+    //             CitraPrint("BeforeSkelModelCtor %X", i);
+    //             Material* mat                           = &cmbMats->materials[i];
+    //             origDataBuf->mats[i].textureMappersUsed = mat->textureMappersUsed;
+    //             origDataBuf->mats[i].alphaTestEnabled   = mat->alphaTestEnabled;
+    //             origDataBuf->mats[i].blendMode          = mat->blendMode;
+    //             mat->textureMappersUsed                 = 0;
+    //             mat->alphaTestEnabled                   = 0;
+    //             mat->blendMode                          = 0;
+    //         }
+    //     }
+    // }
 }
 
 typedef struct GenericSkelAnimeActor {
@@ -269,14 +309,14 @@ typedef struct GenericSkelAnimeActor {
 
 static u32 GetOffsetToSkelAnime(Actor* actor) {
     switch (actor->id) {
-        case ACTOR_POE: // doesnt fade in, lantern colored
-        case ACTOR_BIG_POE:// doesnt fade in
+        case ACTOR_POE:     // doesnt fade in, lantern colored
+        case ACTOR_BIG_POE: // doesnt fade in
         case ACTOR_POE_SISTER:
         case ACTOR_OCTOROK: // OK
         case ACTOR_BIG_OCTO:
-        case ACTOR_TEKTITE: // cmab
-        case ACTOR_LEEVER: // OK
-        case ACTOR_PEAHAT: // larva has colored tip
+        case ACTOR_TEKTITE:  // cmab
+        case ACTOR_LEEVER:   // OK
+        case ACTOR_PEAHAT:   // larva has colored tip
         case ACTOR_LIZALFOS: // OK
         case ACTOR_BIRI:
         case ACTOR_BARI:
