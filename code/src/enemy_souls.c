@@ -103,18 +103,15 @@ static void EnemySouls_SetSoulFlag(EnemySoulId soulId) {
 u8 EnemySouls_CheckSoulForActor(Actor* actor) {
     if ((gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_OFF) ||
         (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_BOSSES && !Actor_IsBoss(actor)) ||
-        (actor->id == 0x054 && ((EnAm*)actor)->textureBlend == 0 /* Armos, statue or asleep */)) {
+        // Armos statues and asleep Armos enemies, included so it can be hit and woken up even while soulless
+        (actor->id == ACTOR_ARMOS && ((EnAm*)actor)->textureBlend == 0) ||
+        // Hidden flying traps will appear normal; in this state they already ignore collider hits
+        FlyingTraps_IsHiddenTrap(actor)) {
         return TRUE;
     }
 
     EnemySoulId soulId = EnemySouls_GetSoulId(actor->id);
     return soulId == SOUL_NONE || EnemySouls_GetSoulFlag(soulId);
-}
-
-u8 EnemySouls_ShouldDrawSoulless(Actor* actor) {
-    return !EnemySouls_CheckSoulForActor(actor) && // soul not owned;
-           actor->scale.x != 0 &&                  // if scale is 0, enemy is invisible;
-           !FlyingTraps_IsHiddenTrap(actor);       // hidden flying traps will appear normal.
 }
 
 void EnemySouls_OnCollect(EnemySoulId soulId) {
@@ -134,7 +131,9 @@ void EnemySouls_OnCollect(EnemySoulId soulId) {
     }
 }
 
-/* Soulless Flames effect */
+/*-------------------------------
+|    Soulless Flames effect     |
+-------------------------------*/
 
 #define SOULLESS_EFFECT_DURATION 8
 #define SOULLESS_EFFECT_INTERVAL 3
@@ -161,30 +160,30 @@ static void SoullessFlames_Draw(Vec3f pos, f32 xRange, f32 yRange, f32 zRange, s
 }
 
 static void SoullessFlames_ParseCollider(Collider* collider) {
-    if (collider == NULL || collider->actor == NULL) {
+    if (collider == NULL || collider->actor == NULL || !(collider->actor->flags & ACTOR_FLAG_INSIDE_CULLING_VOLUME) ||
+        (collider->actor->scale.x == 0 && collider->actor->scale.y == 0 && collider->actor->scale.z == 0) ||
+        EnemySouls_CheckSoulForActor(collider->actor)) {
         return;
     }
 
-    if (collider->actor->flags & ACTOR_FLAG_INSIDE_CULLING_VOLUME && EnemySouls_ShouldDrawSoulless(collider->actor)) {
-        u8 isBoss = collider->actor->type == ACTORTYPE_BOSS;
-        switch (collider->shape) {
-            case COLSHAPE_JNTSPH:
-                ColliderJntSph* jntSphCol = (ColliderJntSph*)collider;
-                for (s32 j = 0; j < jntSphCol->count; j++) {
-                    ColliderJntSphElement* elem = &jntSphCol->elements[j];
-                    Spheref worldSphere         = elem->dim.worldSphere;
-                    s16 scale                   = isBoss ? 150 : worldSphere.radius > 10.0f ? 100 : 50;
-                    SoullessFlames_Draw(worldSphere.center, worldSphere.radius, worldSphere.radius, worldSphere.radius,
-                                        scale);
-                }
-                break;
-            case COLSHAPE_CYLINDER:
-                ColliderCylinder* cylCol = (ColliderCylinder*)collider;
-                s16 scale                = isBoss ? 150 : cylCol->dim.radius > 10.0f ? 100 : 50;
-                SoullessFlames_Draw(cylCol->dim.position, cylCol->dim.radius, cylCol->dim.height, cylCol->dim.radius,
+    u8 isBoss = collider->actor->type == ACTORTYPE_BOSS;
+    switch (collider->shape) {
+        case COLSHAPE_JNTSPH:
+            ColliderJntSph* jntSphCol = (ColliderJntSph*)collider;
+            for (s32 j = 0; j < jntSphCol->count; j++) {
+                ColliderJntSphElement* elem = &jntSphCol->elements[j];
+                Spheref worldSphere         = elem->dim.worldSphere;
+                s16 scale                   = isBoss ? 150 : worldSphere.radius > 10.0f ? 100 : 50;
+                SoullessFlames_Draw(worldSphere.center, worldSphere.radius, worldSphere.radius, worldSphere.radius,
                                     scale);
-                break;
-        }
+            }
+            break;
+        case COLSHAPE_CYLINDER:
+            ColliderCylinder* cylCol = (ColliderCylinder*)collider;
+            s16 scale                = isBoss ? 150 : cylCol->dim.radius > 10.0f ? 100 : 50;
+            SoullessFlames_Draw(cylCol->dim.position, cylCol->dim.radius, cylCol->dim.height, cylCol->dim.radius,
+                                scale);
+            break;
     }
 }
 
@@ -207,7 +206,9 @@ void EnemySouls_DrawEffects(void) {
     }
 }
 
-/* Soulless Darkness effect */
+/*-------------------------------
+|   Soulless Darkness effect    |
+-------------------------------*/
 
 typedef struct CmbOriginalData {
     char status;

@@ -529,14 +529,14 @@ void HyperActors_Main(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void Actor_rInit(Actor* actor, GlobalContext* globalCtx) {
-    gIsForSoullessActor = EnemySouls_ShouldDrawSoulless(actor);
+    gIsForSoullessActor = !EnemySouls_CheckSoulForActor(actor);
     actor->init(actor, globalCtx);
     gIsForSoullessActor = FALSE;
 }
 
 void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
     u8 tempHammerQuakeFlag = globalCtx->actorCtx.hammerQuakeFlag;
-    gIsForSoullessActor = EnemySouls_ShouldDrawSoulless(actor);
+    gIsForSoullessActor = !EnemySouls_CheckSoulForActor(actor);
 
     if (!EnemySouls_CheckSoulForActor(actor)) {
         globalCtx->actorCtx.hammerQuakeFlag = 0;
@@ -559,7 +559,7 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
 
     actor->draw(actor, globalCtx);
 
-    if (EnemySouls_ShouldDrawSoulless(actor) &&
+    if (!EnemySouls_CheckSoulForActor(actor) &&
         (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_PURPLE_FLAMES ||
          (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_FLASHING && rGameplayFrames % 2 == 0))) {
         // make enemy invisible
