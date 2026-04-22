@@ -6,8 +6,9 @@
 #include "actor.h"
 #include "common.h"
 #include "flying_traps.h"
+#include "objects.h"
 
-static void SoullessDarkness_RestoreModel(Actor* actor);
+static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
 // clang-format off
 EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
@@ -118,16 +119,7 @@ void EnemySouls_OnCollect(EnemySoulId soulId) {
     EnemySouls_SetSoulFlag(soulId);
 
     if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
-        ActorType actorCats[2] = { ACTORTYPE_ENEMY, ACTORTYPE_BOSS };
-        for (s32 i = 0; i < ARRAY_SIZE(actorCats); i++) {
-            Actor* actor = gGlobalContext->actorCtx.actorList[actorCats[i]].first;
-            while (actor != NULL) {
-                if (EnemySouls_GetSoulId(actor->id) == soulId) {
-                    SoullessDarkness_RestoreModel(actor);
-                }
-                actor = actor->next;
-            }
-        }
+        SoullessDarkness_RestoreSoul(soulId);
     }
 }
 
@@ -255,7 +247,7 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan) {
             origDataBuf->status = CMBSTATUS_MODIFIED;
             CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
             for (s32 i = 0; i < cmbMats->materialCount; i++) {
-                Material* mat                           = &cmbMats->materials[i];
+                Material* mat = &cmbMats->materials[i];
                 CitraPrint("BeforeCmbManagerInit %X", mat->textureMappersUsed, mat->alphaTestEnabled, mat->blendMode);
                 origDataBuf->mats[i].textureMappersUsed = mat->textureMappersUsed;
                 origDataBuf->mats[i].alphaTestEnabled   = mat->alphaTestEnabled;
@@ -399,6 +391,7 @@ static u32 GetOffsetToSkelAnime(Actor* actor) {
     }
 }
 
+#define ZAR_SetupZARInfo ((void (*)(ZARInfo * zarInfo, void* buf, s32 size, s8 param_4))0x31B124)
 #define SkelAnime_Destroy ((void (*)(SkelAnime * anime))0x350be0)
 // limbCount param is ignored, the function takes the value from the cmb
 #define SkelAnime_Init                                                                                       \
@@ -407,30 +400,47 @@ static u32 GetOffsetToSkelAnime(Actor* actor) {
 typedef void (*Foo)(SkelAnime* anime, s32 animation_index, f32 play_speed, f32 start_frame, f32 end_frame, s32 mode,
                     f32 morph_frames, s32 taper) __attribute__((pcs("aapcs-vfp")));
 #define Animation_ChangeImpl ((Foo)0x35302c)
-static void SoullessDarkness_RestoreModel(Actor* actor) {
-    // SkelAnime* anime = GetSkelAnimeFromActor(actor);
-    // if (anime == NULL) {
-    //     return;
-    // }
-    u32 offsetToSkelAnime = GetOffsetToSkelAnime(actor);
-    if (offsetToSkelAnime == 0) {
+
+static void SoullessDarkness_RestoreObject(u16 objectId) {
+    if (objectId == OBJECT_INVALID) {
         return;
     }
-    SkelAnime* anime = (SkelAnime*)(((u32)actor) + offsetToSkelAnime);
+    s32 slot = Object_GetSlot(&gGlobalContext->objectCtx, objectId);
+    if (slot < 0 || !Object_IsLoaded(&gGlobalContext->objectCtx, slot)) {
+        return;
+    }
 
-    CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(anime->cmbMan);
-    if (origDataBuf->status == CMBSTATUS_MODIFIED) {
-        origDataBuf->status = CMBSTATUS_RESTORED;
-        CMB_MATS* cmbMats   = Cmb_GetMatsChunk(anime->cmbMan->cmbChunk);
-        for (s32 i = 0; i < cmbMats->materialCount; i++) {
-            Material* mat           = &cmbMats->materials[i];
-            mat->textureMappersUsed = origDataBuf->mats[i].textureMappersUsed;
-            mat->alphaTestEnabled   = origDataBuf->mats[i].alphaTestEnabled;
-            mat->blendMode          = origDataBuf->mats[i].blendMode;
+    ObjectEntry* obj = Object_GetEntry(slot);
+    ZARInfo* zarInfo = &obj->zarInfo;
+
+    // Restore original values for each CMB that was modified.
+    s32 numCMBs = zarInfo->fileTypes[zarInfo->fileTypeMap[0]].numFiles;
+    for (s32 i = 0; i < numCMBs; i++) {
+        CmbManager* cmbMan = zarInfo->cmbMans[i];
+        if (cmbMan == NULL) {
+            continue;
+        }
+        CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
+        if (origDataBuf->status == CMBSTATUS_MODIFIED) {
+            origDataBuf->status = CMBSTATUS_RESTORED;
+            CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
+            for (s32 i = 0; i < cmbMats->materialCount; i++) {
+                Material* mat           = &cmbMats->materials[i];
+                mat->textureMappersUsed = origDataBuf->mats[i].textureMappersUsed;
+                mat->alphaTestEnabled   = origDataBuf->mats[i].alphaTestEnabled;
+                mat->blendMode          = origDataBuf->mats[i].blendMode;
+            }
         }
     }
 
-    u32 numCMBs  = anime->zarInfo->fileTypes[anime->zarInfo->fileTypeMap[0]].numFiles;
+    // Reinitialize ZarInfo, keeping same buffer and size. This destroys all CmbManagers.
+    ZAR_Destroy(zarInfo);
+    ZAR_SetupZARInfo(zarInfo, obj->buf, obj->size, 0);
+}
+
+static void SoullessDarkness_RestoreSkelAnime(SkelAnime* anime, Actor* actor) {
+    // Find which cmbIndex this SkelAnime uses
+    s32 numCMBs  = anime->zarInfo->fileTypes[anime->zarInfo->fileTypeMap[0]].numFiles;
     s32 cmbIndex = 0;
     for (s32 i = 0; i < numCMBs; i++) {
         if (anime->zarInfo->cmbMans[i] == anime->cmbMan) {
@@ -452,8 +462,85 @@ static void SoullessDarkness_RestoreModel(Actor* actor) {
         morphTable = anime->morphTable;
     }
 
+    // Reinitialize SkelAnime and reload the same animation at the same frame.
     SkelAnime_Destroy(anime);
     SkelAnime_Init(actor, gGlobalContext, anime, cmbIndex, animIndex, jointTable, morphTable, 0);
     Animation_ChangeImpl(anime, animIndex, playSpeed, startFrame, endFrame, animMode, 0.0, 0);
     anime->curFrame = curFrame;
+}
+
+static void SoullessDarkness_RestoreActor(Actor* actor) {
+    u32 offsetToSkelAnime = GetOffsetToSkelAnime(actor);
+    if (offsetToSkelAnime != 0) {
+        SoullessDarkness_RestoreSkelAnime((SkelAnime*)(((u32)actor) + offsetToSkelAnime), actor);
+    }
+
+    // TODO: Restore skelModels
+}
+
+#define MAX_OBJECTS_PER_SOUL 2
+static void SoullessDarkness_RestoreSoul(EnemySoulId soulId) {
+    static u16 sEnemyObjects[SOUL_MAX][MAX_OBJECTS_PER_SOUL] = {
+        [SOUL_POE]           = {},
+        [SOUL_OCTOROK]       = {},
+        [SOUL_KEESE]         = {},
+        [SOUL_TEKTITE]       = { OBJECT_TEKTITE },
+        [SOUL_LEEVER]        = {},
+        [SOUL_PEAHAT]        = {},
+        [SOUL_LIZALFOS]      = {},
+        [SOUL_SHABOM]        = {},
+        [SOUL_BIRI_BARI]     = { OBJECT_BIRI, OBJECT_BARI },
+        [SOUL_TAILPASARAN]   = {},
+        [SOUL_SKULLTULA]     = { OBJECT_SKULLTULA },
+        [SOUL_TORCH_SLUG]    = {},
+        [SOUL_STINGER]       = {},
+        [SOUL_MOBLIN]        = {},
+        [SOUL_ARMOS]         = {},
+        [SOUL_DEKU_BABA]     = {},
+        [SOUL_BUBBLE]        = {},
+        [SOUL_FLYING_TRAP]   = {},
+        [SOUL_BEAMOS]        = {},
+        [SOUL_WALLMASTER]    = {},
+        [SOUL_REDEAD_GIBDO]  = {},
+        [SOUL_SHELL_BLADE]   = {},
+        [SOUL_LIKE_LIKE]     = {},
+        [SOUL_TENTACLE]      = {},
+        [SOUL_ANUBIS]        = {},
+        [SOUL_SPIKE]         = {},
+        [SOUL_SKULL_KID]     = {},
+        [SOUL_FREEZARD]      = {},
+        [SOUL_DEKU_SCRUB]    = {},
+        [SOUL_WOLFOS]        = {},
+        [SOUL_STALCHILD]     = {},
+        [SOUL_GUAY]          = {},
+        [SOUL_DOOR_MIMIC]    = {},
+        [SOUL_STALFOS]       = {},
+        [SOUL_DARK_LINK]     = {},
+        [SOUL_FLARE_DANCER]  = {},
+        [SOUL_DEAD_HAND]     = {},
+        [SOUL_GERUDO]        = {},
+        [SOUL_GOHMA]         = {},
+        [SOUL_DODONGO]       = {},
+        [SOUL_BARINADE]      = {},
+        [SOUL_PHANTOM_GANON] = {},
+        [SOUL_VOLVAGIA]      = {},
+        [SOUL_MORPHA]        = {},
+        [SOUL_BONGO_BONGO]   = {},
+        [SOUL_TWINROVA]      = {},
+        [SOUL_GANON]         = {},
+    };
+    for (s32 i = 0; i < MAX_OBJECTS_PER_SOUL; i++) {
+        SoullessDarkness_RestoreObject(sEnemyObjects[soulId][i]);
+    }
+
+    static ActorType sActorCats[] = { ACTORTYPE_ENEMY, ACTORTYPE_BOSS };
+    for (s32 i = 0; i < ARRAY_SIZE(sActorCats); i++) {
+        Actor* actor = gGlobalContext->actorCtx.actorList[sActorCats[i]].first;
+        while (actor != NULL) {
+            if (EnemySouls_GetSoulId(actor->id) == soulId) {
+                SoullessDarkness_RestoreActor(actor);
+            }
+            actor = actor->next;
+        }
+    }
 }

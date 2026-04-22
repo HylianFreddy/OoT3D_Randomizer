@@ -4,11 +4,16 @@
 #include "z3D/z3D.h"
 
 typedef enum ObjectId {
+    OBJECT_INVALID                   = 0x0000,
     OBJECT_CUSTOM_DOUBLE_DEFENSE     = 0x0004,
     OBJECT_CUSTOM_CHILD_SONGS        = 0x0005,
     OBJECT_CUSTOM_ADULT_SONGS        = 0x0010,
     OBJECT_CUSTOM_SMALL_KEY_FOREST   = 0x0011,
+    OBJECT_TEKTITE                   = 0x0016,
+    OBJECT_BIRI                      = 0x0021,
+    OBJECT_SKULLTULA                 = 0x0024,
     OBJECT_CUSTOM_SMALL_KEY_FIRE     = 0x003A,
+    OBJECT_BARI                      = 0X0056,
     OBJECT_CUSTOM_SMALL_KEY_WATER    = 0x0078,
     OBJECT_CUSTOM_SMALL_KEY_SHADOW   = 0x0079,
     OBJECT_CUSTOM_SMALL_KEY_BOTW     = 0x007A,
