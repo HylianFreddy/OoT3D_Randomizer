@@ -468,10 +468,12 @@ SECTIONS
 	Effect_Delete = 0x34F0F4 + _LD_OFF;
 	.patch_GetObjectEntry_34F270 0x34F270 + _LD_OFF : { *(.patch_GetObjectEntry_34F270) }
 	SystemArena_Free = 0x34FC6C + _LD_OFF;
+	Actor_DestroySkelModelsArray = 0x34FDA8 + _LD_OFF;
 	.patch_GetObjectEntry_34FE68 0x34FE68 + _LD_OFF : { *(.patch_GetObjectEntry_34FE68) }
 	SystemArena_Malloc = 0x35010C + _LD_OFF;
 	SkelAnime_Free2 = 0x350BE0 + _LD_OFF;
 	EventCheck = 0x350CF4 + _LD_OFF;
+	Actor_DestroySkelModels = 0x350F34 + _LD_OFF;
 	.patch_FWGetSet 0x3519CC + _LD_OFF : { *(.patch_FWGetSet) }
 	Health_ChangeBy = 0x352DBC + _LD_OFF;
 	.patch_ApplyDamageMultiplier 0x352DC0 + _LD_OFF : { *(.patch_ApplyDamageMultiplier) }
