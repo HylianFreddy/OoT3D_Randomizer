@@ -281,117 +281,6 @@ void EnemySouls_BeforeSkelModelCtor(CmbManager* cmbMan) {
     // }
 }
 
-typedef struct GenericSkelAnimeActor {
-    Actor actor;
-    SkelAnime skelAnime;
-} GenericSkelAnimeActor;
-
-// typedef struct EnFirefly {
-//     Actor actor;
-//     Vec3f bodyPartsPos[3];
-//     SkelAnime skelAnime;
-// } EnFirefly;
-
-// typedef struct EnTp {
-//     Actor actor;
-//     s32 actionIndex;
-//     s32 unk;
-//     void* actionFunc;
-//     SkelAnime skelAnime;
-// } EnTp;
-
-static u32 GetOffsetToSkelAnime(Actor* actor) {
-    switch (actor->id) {
-        case ACTOR_POE:     // doesnt fade in, lantern colored
-        case ACTOR_BIG_POE: // doesnt fade in
-        case ACTOR_POE_SISTER:
-        case ACTOR_OCTOROK: // OK
-        case ACTOR_BIG_OCTO:
-        case ACTOR_TEKTITE:  // cmab
-        case ACTOR_LEEVER:   // OK
-        case ACTOR_PEAHAT:   // larva has colored tip
-        case ACTOR_LIZALFOS: // OK
-        case ACTOR_BIRI:
-        case ACTOR_BARI:
-        case ACTOR_SKULLTULA:
-        case ACTOR_SKULLWALLTULA:
-        case ACTOR_TORCH_SLUG:
-        case ACTOR_STINGER_FLOOR:
-        case ACTOR_STINGER_WATER:
-        case ACTOR_ARMOS:
-        case ACTOR_WITHERED_DEKU_BABA:
-        case ACTOR_BUBBLE:
-        case ACTOR_BEAMOS:
-        case ACTOR_WALLMASTER:
-        case ACTOR_FLOORMASTER:
-        case ACTOR_SHELL_BLADE:
-        case ACTOR_PARASITIC_TENTACLE:
-        case ACTOR_ANUBIS:
-        case ACTOR_SKULL_KID:
-        case ACTOR_HINT_DEKU_SCRUB:
-        case ACTOR_MAD_SCRUB:
-        case ACTOR_BUSINESS_SCRUB:
-        case ACTOR_STALCHILD:
-        case ACTOR_DOOR_MIMIC:
-        case ACTOR_FLARE_DANCER:
-        case ACTOR_FLARE_DANCER_CORE:
-        case ACTOR_DEAD_HAND:
-        case ACTOR_DEAD_HAND_HAND:
-        case ACTOR_IRON_KNUCKLE:
-        case ACTOR_GOHMA:
-        case ACTOR_GOHMA_LARVA:
-        case ACTOR_DODONGO:
-        case ACTOR_BABY_DODONGO:
-        case ACTOR_KING_DODONGO:
-        case ACTOR_BARINADE:
-        case ACTOR_PHANTOM_GANON:
-        case ACTOR_VOLVAGIA_FLYING: // missing arms
-        case ACTOR_VOLVAGIA_HOLE:
-        case ACTOR_BONGO_BONGO:
-        case ACTOR_GANON:
-            return 0x1A4;
-            // return &((GenericSkelAnimeActor*)actor)->skelAnime;
-        case ACTOR_KEESE:
-            return 0x1C8;
-            // return &((EnFirefly*)actor)->skelAnime;
-        case ACTOR_TAILPASARAN:
-            return 0x1B0;
-            // return &((EnTp*)actor)->skelAnime;
-        case ACTOR_MOBLIN:
-            return 0x1E4;
-        case ACTOR_DEKU_BABA:
-        case ACTOR_GUAY:
-            return 0x1D4;
-        case ACTOR_REDEAD:
-        case ACTOR_WOLFOS:
-        case ACTOR_STALFOS:
-        case ACTOR_GERUDO_FIGHTER:
-            return 0x1E0;
-        case ACTOR_LIKE_LIKE:
-            return 0x2438;
-        case ACTOR_DARK_LINK:
-            return 0x254;
-        case ACTOR_GERUDO_GUARD:
-            return 0x1FC;
-        case ACTOR_PG_HORSE:
-            return 0x26C;
-        case ACTOR_MORPHA:
-            return 0x16E0;
-        case ACTOR_TWINROVA:
-            return 0x5C0;
-        case ACTOR_GANONDORF:
-            return 0x1A8;
-
-        case ACTOR_SHABOM:
-        case ACTOR_FLYING_POT:
-        case ACTOR_FLYING_FLOOR_TILE:
-        case ACTOR_SPIKE:
-        case ACTOR_FREEZARD:
-        default:
-            return 0;
-    }
-}
-
 #define ZAR_SetupZARInfo ((void (*)(ZARInfo * zarInfo, void* buf, s32 size, s8 param_4))0x31B124)
 #define SkelAnime_Destroy ((void (*)(SkelAnime * anime))0x350be0)
 // limbCount param is ignored, the function takes the value from the cmb
@@ -450,6 +339,7 @@ static void SoullessDarkness_RestoreSkelAnime(SkelAnime* anime, Actor* actor) {
         }
     }
 
+    // Temporarily store animation values
     s32 animIndex    = anime->animIndex;
     f32 curFrame     = anime->curFrame;
     f32 playSpeed    = anime->playSpeed;
@@ -470,15 +360,144 @@ static void SoullessDarkness_RestoreSkelAnime(SkelAnime* anime, Actor* actor) {
     anime->curFrame = curFrame;
 }
 
-static void SoullessDarkness_RestoreActor(Actor* actor) {
-    u32 offsetToSkelAnime = GetOffsetToSkelAnime(actor);
+typedef struct GenericSkelAnimeActor {
+    /* 0x000 */ Actor actor;
+    /* 0x1A4 */ SkelAnime skelAnime;
+} GenericSkelAnimeActor;
+
+// typedef struct EnFirefly {
+//     Actor actor;
+//     Vec3f bodyPartsPos[3];
+//     SkelAnime skelAnime;
+// } EnFirefly;
+
+// typedef struct EnTp {
+//     Actor actor;
+//     s32 actionIndex;
+//     s32 unk;
+//     void* actionFunc;
+//     SkelAnime skelAnime;
+// } EnTp;
+
+static void SoullessDarkness_FindAndRestoreSkelAnime(Actor* actor) {
+    s32 offsetToSkelAnime = 0;
+    switch (actor->id) {
+        case ACTOR_POE:     // doesnt fade in, lantern colored
+        case ACTOR_BIG_POE: // doesnt fade in
+        case ACTOR_POE_SISTER:
+        case ACTOR_OCTOROK: // OK
+        case ACTOR_BIG_OCTO:
+        case ACTOR_TEKTITE:  // cmab
+        case ACTOR_LEEVER:   // OK
+        case ACTOR_PEAHAT:   // larva has colored tip
+        case ACTOR_LIZALFOS: // OK
+        case ACTOR_BIRI:
+        case ACTOR_BARI:
+        case ACTOR_SKULLTULA:
+        case ACTOR_SKULLWALLTULA:
+        case ACTOR_TORCH_SLUG:
+        case ACTOR_STINGER_FLOOR:
+        case ACTOR_STINGER_WATER:
+        case ACTOR_ARMOS:
+        case ACTOR_WITHERED_DEKU_BABA:
+        case ACTOR_BUBBLE:
+        case ACTOR_BEAMOS:
+        case ACTOR_WALLMASTER:
+        case ACTOR_FLOORMASTER:
+        case ACTOR_SHELL_BLADE:
+        case ACTOR_PARASITIC_TENTACLE:
+        case ACTOR_ANUBIS:
+        case ACTOR_SKULL_KID:
+        case ACTOR_HINT_DEKU_SCRUB:
+        case ACTOR_MAD_SCRUB:
+        case ACTOR_BUSINESS_SCRUB:
+        case ACTOR_STALCHILD:
+        case ACTOR_DOOR_MIMIC:
+        case ACTOR_FLARE_DANCER:
+        case ACTOR_FLARE_DANCER_CORE:
+        case ACTOR_DEAD_HAND:
+        case ACTOR_DEAD_HAND_HAND:
+        case ACTOR_IRON_KNUCKLE:
+        case ACTOR_GOHMA:
+        case ACTOR_GOHMA_LARVA:
+        case ACTOR_DODONGO:
+        case ACTOR_BABY_DODONGO:
+        case ACTOR_KING_DODONGO:
+        case ACTOR_BARINADE:
+        case ACTOR_PHANTOM_GANON:
+        case ACTOR_VOLVAGIA_FLYING: // missing arms
+        case ACTOR_VOLVAGIA_HOLE:
+        case ACTOR_BONGO_BONGO:
+        case ACTOR_GANON:
+            SoullessDarkness_RestoreSkelAnime(&((GenericSkelAnimeActor*)actor)->skelAnime, actor);
+            break;
+        case ACTOR_KEESE:
+            offsetToSkelAnime = 0x1C8;
+            break;
+            // return &((EnFirefly*)actor)->skelAnime;
+        case ACTOR_TAILPASARAN:
+            offsetToSkelAnime = 0x1B0;
+            break;
+            // return &((EnTp*)actor)->skelAnime;
+        case ACTOR_MOBLIN:
+            offsetToSkelAnime = 0x1E4;
+            break;
+        case ACTOR_DEKU_BABA:
+        case ACTOR_GUAY:
+            offsetToSkelAnime = 0x1D4;
+            break;
+        case ACTOR_REDEAD:
+        case ACTOR_WOLFOS:
+        case ACTOR_STALFOS:
+        case ACTOR_GERUDO_FIGHTER:
+            offsetToSkelAnime = 0x1E0;
+            break;
+        case ACTOR_LIKE_LIKE:
+            offsetToSkelAnime = 0x2438;
+            break;
+        case ACTOR_DARK_LINK:
+            offsetToSkelAnime = 0x254;
+            break;
+        case ACTOR_GERUDO_GUARD:
+            offsetToSkelAnime = 0x1FC;
+            break;
+        case ACTOR_PG_HORSE:
+            offsetToSkelAnime = 0x26C;
+            break;
+        case ACTOR_MORPHA:
+            offsetToSkelAnime = 0x16E0;
+            break;
+        case ACTOR_TWINROVA:
+            offsetToSkelAnime = 0x5C0;
+            break;
+        case ACTOR_GANONDORF:
+            offsetToSkelAnime = 0x1A8;
+            break;
+            // case ACTOR_SHABOM:
+            // case ACTOR_FLYING_POT:
+            // case ACTOR_FLYING_FLOOR_TILE:
+            // case ACTOR_SPIKE:
+            // case ACTOR_FREEZARD:
+            // default:
+            //     return 0;
+    }
+
     if (offsetToSkelAnime != 0) {
         SoullessDarkness_RestoreSkelAnime((SkelAnime*)(((u32)actor) + offsetToSkelAnime), actor);
     }
+}
 
-    if (actor->id == ACTOR_SHABOM) {
-        Actor_CreateSkelModels(actor, gGlobalContext, &((EnBubble*)actor)->saModel, 0, NULL);
+static void SoullessDarkness_FindAndRestoreSkelModels(Actor* actor) {
+    switch (actor->id) {
+        case ACTOR_SHABOM:
+            Actor_CreateSkelModels(actor, gGlobalContext, &((EnBubble*)actor)->saModel, 0, NULL);
+            break;
     }
+}
+
+static void SoullessDarkness_RestoreActor(Actor* actor) {
+    SoullessDarkness_FindAndRestoreSkelAnime(actor);
+    SoullessDarkness_FindAndRestoreSkelModels(actor);
 }
 
 // #define MAX_OBJECTS_PER_SOUL 2
