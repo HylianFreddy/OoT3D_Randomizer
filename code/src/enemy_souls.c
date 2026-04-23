@@ -7,6 +7,7 @@
 #include "common.h"
 #include "flying_traps.h"
 #include "objects.h"
+#include "shabom.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -475,7 +476,9 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         SoullessDarkness_RestoreSkelAnime((SkelAnime*)(((u32)actor) + offsetToSkelAnime), actor);
     }
 
-    // TODO: Restore skelModels
+    if (actor->id == ACTOR_SHABOM) {
+        Actor_CreateSkelModels(actor, gGlobalContext, &((EnBubble*)actor)->saModel, 0, NULL);
+    }
 }
 
 // #define MAX_OBJECTS_PER_SOUL 2

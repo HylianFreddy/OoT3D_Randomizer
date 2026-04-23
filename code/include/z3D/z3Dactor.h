@@ -402,5 +402,10 @@ void Actor_UpdateBgCheckInfo(struct GlobalContext* globalCtx, Actor* actor, f32 
 s32 Player_InCsMode(struct GlobalContext* globalCtx);
 Actor* Actor_FindNearby(struct GlobalContext* globalCtx, Actor* ref_actor, s16 actorId, u8 actor_category, f32 range);
 void ActorShadow_DrawFeet(Actor* actor, void* lights, struct GlobalContext* globalCtx);
+// Variadic arguments are pairs of a model and a CMB index; last argument must always be NULL.
+struct ZARInfo* Actor_CreateSkelModels(Actor* actor, struct GlobalContext* globalCtx,
+                                       SkeletonAnimationModel** firstSAModel, u32 firstCmbIndex, ...);
+struct ZARInfo* Actor_CreateSkelModelsArray(Actor* actor, struct GlobalContext* globalCtx, s32 modelCount,
+                                            SkeletonAnimationModel** models, s32* cmbIndices);
 
 #endif

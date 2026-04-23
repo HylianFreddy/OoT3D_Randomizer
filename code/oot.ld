@@ -475,6 +475,7 @@ SECTIONS
 	.patch_FWGetSet 0x3519CC + _LD_OFF : { *(.patch_FWGetSet) }
 	Health_ChangeBy = 0x352DBC + _LD_OFF;
 	.patch_ApplyDamageMultiplier 0x352DC0 + _LD_OFF : { *(.patch_ApplyDamageMultiplier) }
+	Actor_CreateSkelModelsArray = 0x352EE0 + _LD_OFF;
 	.patch_GetObjectEntry_352F28 0x352F28 + _LD_OFF : { *(.patch_GetObjectEntry_352F28) } /* Used for: Flare Dancer */
 	.patch_GetObjectEntry_353CE4 0x353CE4 + _LD_OFF : { *(.patch_GetObjectEntry_353CE4) }
 	.patch_SkelAnimeInit 0x353D0C + _LD_OFF : { *(.patch_SkelAnimeInit) }
@@ -557,7 +558,7 @@ SECTIONS
 	Actor_Find = 0x372D64 + _LD_OFF;
 	TexAnim_Spawn = 0x372D94 + _LD_OFF;
 	ZAR_GetCMABByIndex = 0x372F0C + _LD_OFF;
-	SkeletonAnimationModel_SpawnAt = 0x372F38 + _LD_OFF;
+	Actor_CreateSkelModels = 0x372F38 + _LD_OFF;
 	.patch_GetObjectEntry_372F7C 0x372F7C + _LD_OFF : { *(.patch_GetObjectEntry_372F7C) }
 	.patch_CheckStack 0x372FDC + _LD_OFF : { *(.patch_CheckStack) }
 	.patch_OverrideObjectIsLoaded 0x373074 + _LD_OFF : { *(.patch_OverrideObjectIsLoaded) }

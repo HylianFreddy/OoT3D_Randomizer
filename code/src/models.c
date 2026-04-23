@@ -10,8 +10,6 @@
 
 void SkeletonAnimationModel_MatrixCopy(SkeletonAnimationModel* glModel, nn_math_MTX34* mtx);
 void SkeletonAnimationModel_Draw(SkeletonAnimationModel* glModel, s32 param_2);
-void SkeletonAnimationModel_SpawnAt(Actor* actor, GlobalContext* globalCtx, SkeletonAnimationModel** glModel,
-                                    s32 objModelIdx);
 void Actor_SetModelMatrix(f32 x, f32 y, f32 z, nn_math_MTX34* mtx, ActorShape* shape);
 
 #define LOADEDMODELS_MAX 20
