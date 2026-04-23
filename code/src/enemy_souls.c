@@ -478,59 +478,66 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
     // TODO: Restore skelModels
 }
 
-#define MAX_OBJECTS_PER_SOUL 2
+// #define MAX_OBJECTS_PER_SOUL 2
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId) {
-    static u16 sEnemyObjects[SOUL_MAX][MAX_OBJECTS_PER_SOUL] = {
-        [SOUL_POE]           = {},
-        [SOUL_OCTOROK]       = {},
-        [SOUL_KEESE]         = {},
-        [SOUL_TEKTITE]       = { OBJECT_TEKTITE },
-        [SOUL_LEEVER]        = {},
-        [SOUL_PEAHAT]        = {},
-        [SOUL_LIZALFOS]      = {},
-        [SOUL_SHABOM]        = {},
-        [SOUL_BIRI_BARI]     = { OBJECT_BIRI, OBJECT_BARI },
-        [SOUL_TAILPASARAN]   = {},
-        [SOUL_SKULLTULA]     = { OBJECT_SKULLTULA },
-        [SOUL_TORCH_SLUG]    = {},
-        [SOUL_STINGER]       = {},
-        [SOUL_MOBLIN]        = {},
-        [SOUL_ARMOS]         = {},
-        [SOUL_DEKU_BABA]     = {},
-        [SOUL_BUBBLE]        = {},
-        [SOUL_FLYING_TRAP]   = {},
-        [SOUL_BEAMOS]        = {},
-        [SOUL_WALLMASTER]    = {},
-        [SOUL_REDEAD_GIBDO]  = {},
-        [SOUL_SHELL_BLADE]   = {},
-        [SOUL_LIKE_LIKE]     = {},
-        [SOUL_TENTACLE]      = {},
-        [SOUL_ANUBIS]        = {},
-        [SOUL_SPIKE]         = {},
-        [SOUL_SKULL_KID]     = {},
-        [SOUL_FREEZARD]      = {},
-        [SOUL_DEKU_SCRUB]    = {},
-        [SOUL_WOLFOS]        = {},
-        [SOUL_STALCHILD]     = {},
-        [SOUL_GUAY]          = {},
-        [SOUL_DOOR_MIMIC]    = {},
-        [SOUL_STALFOS]       = {},
-        [SOUL_DARK_LINK]     = {},
-        [SOUL_FLARE_DANCER]  = {},
-        [SOUL_DEAD_HAND]     = {},
-        [SOUL_GERUDO]        = {},
-        [SOUL_GOHMA]         = {},
-        [SOUL_DODONGO]       = {},
-        [SOUL_BARINADE]      = {},
-        [SOUL_PHANTOM_GANON] = {},
-        [SOUL_VOLVAGIA]      = {},
-        [SOUL_MORPHA]        = {},
-        [SOUL_BONGO_BONGO]   = {},
-        [SOUL_TWINROVA]      = {},
-        [SOUL_GANON]         = {},
-    };
-    for (s32 i = 0; i < MAX_OBJECTS_PER_SOUL; i++) {
-        SoullessDarkness_RestoreObject(sEnemyObjects[soulId][i]);
+    // static u16 sEnemyObjects[SOUL_MAX][MAX_OBJECTS_PER_SOUL] = {
+    //     [SOUL_POE]           = {},
+    //     [SOUL_OCTOROK]       = {},
+    //     [SOUL_KEESE]         = {},
+    //     [SOUL_TEKTITE]       = { OBJECT_TEKTITE },
+    //     [SOUL_LEEVER]        = {},
+    //     [SOUL_PEAHAT]        = {},
+    //     [SOUL_LIZALFOS]      = {},
+    //     [SOUL_SHABOM]        = {},
+    //     [SOUL_BIRI_BARI]     = { OBJECT_BIRI, OBJECT_BARI },
+    //     [SOUL_TAILPASARAN]   = {},
+    //     [SOUL_SKULLTULA]     = { OBJECT_SKULLTULA },
+    //     [SOUL_TORCH_SLUG]    = {},
+    //     [SOUL_STINGER]       = {},
+    //     [SOUL_MOBLIN]        = {},
+    //     [SOUL_ARMOS]         = {},
+    //     [SOUL_DEKU_BABA]     = {},
+    //     [SOUL_BUBBLE]        = {},
+    //     [SOUL_FLYING_TRAP]   = {},
+    //     [SOUL_BEAMOS]        = {},
+    //     [SOUL_WALLMASTER]    = {},
+    //     [SOUL_REDEAD_GIBDO]  = {},
+    //     [SOUL_SHELL_BLADE]   = {},
+    //     [SOUL_LIKE_LIKE]     = {},
+    //     [SOUL_TENTACLE]      = {},
+    //     [SOUL_ANUBIS]        = {},
+    //     [SOUL_SPIKE]         = {},
+    //     [SOUL_SKULL_KID]     = {},
+    //     [SOUL_FREEZARD]      = {},
+    //     [SOUL_DEKU_SCRUB]    = {},
+    //     [SOUL_WOLFOS]        = {},
+    //     [SOUL_STALCHILD]     = {},
+    //     [SOUL_GUAY]          = {},
+    //     [SOUL_DOOR_MIMIC]    = {},
+    //     [SOUL_STALFOS]       = {},
+    //     [SOUL_DARK_LINK]     = {},
+    //     [SOUL_FLARE_DANCER]  = {},
+    //     [SOUL_DEAD_HAND]     = {},
+    //     [SOUL_GERUDO]        = {},
+    //     [SOUL_GOHMA]         = {},
+    //     [SOUL_DODONGO]       = {},
+    //     [SOUL_BARINADE]      = {},
+    //     [SOUL_PHANTOM_GANON] = {},
+    //     [SOUL_VOLVAGIA]      = {},
+    //     [SOUL_MORPHA]        = {},
+    //     [SOUL_BONGO_BONGO]   = {},
+    //     [SOUL_TWINROVA]      = {},
+    //     [SOUL_GANON]         = {},
+    // };
+    // for (s32 i = 0; i < MAX_OBJECTS_PER_SOUL; i++) {
+    //     SoullessDarkness_RestoreObject(sEnemyObjects[soulId][i]);
+    // }
+
+    for (s32 i = 0; i < ACTOR_MAX; i++) {
+        ActorInit* profile = gActorOverlayTable[i].initInfo;
+        if (profile != NULL && EnemySouls_GetSoulId(profile->id) == soulId) {
+            SoullessDarkness_RestoreObject(profile->objectId);
+        }
     }
 
     static ActorType sActorCats[] = { ACTORTYPE_ENEMY, ACTORTYPE_BOSS };
