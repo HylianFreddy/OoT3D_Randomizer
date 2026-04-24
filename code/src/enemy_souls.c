@@ -338,7 +338,7 @@ static void SoullessDarkness_RestoreObject(u16 objectId) {
     ZAR_SetupZARInfo(zarInfo, obj->buf, obj->size, 0);
 }
 
-static void SoullessDarkness_ReinitializeSkelAnime(SkelAnime* anime, Actor* actor) {
+static void SoullessDarkness_ReinitSkelAnime(SkelAnime* anime, Actor* actor) {
     // Find which cmbIndex this SkelAnime uses
     s32 numCMBs  = anime->zarInfo->fileTypes[anime->zarInfo->fileTypeMap[0]].numFiles;
     s32 cmbIndex = 0;
@@ -375,23 +375,33 @@ typedef struct GenericSkelAnimeActor {
     /* 0x1A4 */ SkelAnime skelAnime;
 } GenericSkelAnimeActor;
 
-// typedef struct EnFirefly {
-//     Actor actor;
-//     Vec3f bodyPartsPos[3];
-//     SkelAnime skelAnime;
-// } EnFirefly;
-
-// typedef struct EnTp {
-//     Actor actor;
-//     s32 actionIndex;
-//     s32 unk;
-//     void* actionFunc;
-//     SkelAnime skelAnime;
-// } EnTp;
+#include "z3D/actors/z_actors_tmp.h"
+/*
+#define REINIT_SKELANIME(anime) SoullessDarkness_ReinitSkelAnime(anime, actor)
+#define REINIT_1_MODEL(model1, index1)            \
+    Actor_DestroySkelModels(actor, model1, NULL); \
+    Actor_CreateSkelModels(actor, gGlobalContext, model1, index1, NULL)
+#define REINIT_2_MODELS(model1, index1, model2, index2)   \
+    Actor_DestroySkelModels(actor, model1, model2, NULL); \
+    Actor_CreateSkelModels(actor, gGlobalContext, model1, index1, model2, index2, NULL)
+*/
 
 static void SoullessDarkness_RestoreActor(Actor* actor) {
     switch (actor->id) {
-        case ACTOR_POE:     // doesnt fade in, lantern colored
+        case ACTOR_POE: // doesnt fade in, lantern colored
+            EnPoh* this = (EnPoh*)actor;
+            Actor_DestroySkelModels(actor, &this->saModel_1, &this->saModel_2, NULL);
+            ZARInfo* zarInfo =
+                Actor_CreateSkelModels(actor, gGlobalContext, &this->saModel_1, 1, &this->saModel_2, 2, NULL);
+            void* cmabMan = ZAR_GetCMABByIndex(zarInfo, 0);
+            TexAnim_Spawn(this->saModel_2->unk_0C, cmabMan);
+            this->saModel_2->unk_0C->animMode  = 1;
+            this->saModel_2->unk_0C->animSpeed = 2.0;
+            this->saModel_94C                  = this->saModel_1;
+            this->saModel_950                  = this->saModel_2;
+
+            SoullessDarkness_ReinitSkelAnime(&this->anime, actor);
+            break;
         case ACTOR_BIG_POE: // doesnt fade in
         case ACTOR_POE_SISTER:
         case ACTOR_OCTOROK: // OK
@@ -438,49 +448,49 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_VOLVAGIA_HOLE:
         case ACTOR_BONGO_BONGO:
         case ACTOR_GANON:
-            SoullessDarkness_ReinitializeSkelAnime(&((GenericSkelAnimeActor*)actor)->skelAnime, actor);
+            SoullessDarkness_ReinitSkelAnime(&((GenericSkelAnimeActor*)actor)->skelAnime, actor);
             break;
         case ACTOR_KEESE:
-            SoullessDarkness_ReinitializeSkelAnime((SkelAnime*)(((u32)actor) + 0x1C8), actor);
+            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1C8), actor);
             break;
             // return &((EnFirefly*)actor)->skelAnime;
         case ACTOR_TAILPASARAN:
-            SoullessDarkness_ReinitializeSkelAnime((SkelAnime*)(((u32)actor) + 0x1B0), actor);
+            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1B0), actor);
             break;
             // return &((EnTp*)actor)->skelAnime;
         case ACTOR_MOBLIN:
-            SoullessDarkness_ReinitializeSkelAnime((SkelAnime*)(((u32)actor) + 0x1E4), actor);
+            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1E4), actor);
             break;
         case ACTOR_DEKU_BABA:
         case ACTOR_GUAY:
-            SoullessDarkness_ReinitializeSkelAnime((SkelAnime*)(((u32)actor) + 0x1D4), actor);
+            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1D4), actor);
             break;
         case ACTOR_REDEAD:
         case ACTOR_WOLFOS:
         case ACTOR_STALFOS:
         case ACTOR_GERUDO_FIGHTER:
-            SoullessDarkness_ReinitializeSkelAnime((SkelAnime*)(((u32)actor) + 0x1E0), actor);
+            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1E0), actor);
             break;
         case ACTOR_LIKE_LIKE:
-            SoullessDarkness_ReinitializeSkelAnime((SkelAnime*)(((u32)actor) + 0x2438), actor);
+            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x2438), actor);
             break;
         case ACTOR_DARK_LINK:
-            SoullessDarkness_ReinitializeSkelAnime((SkelAnime*)(((u32)actor) + 0x254), actor);
+            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x254), actor);
             break;
         case ACTOR_GERUDO_GUARD:
-            SoullessDarkness_ReinitializeSkelAnime((SkelAnime*)(((u32)actor) + 0x1FC), actor);
+            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1FC), actor);
             break;
         case ACTOR_PG_HORSE:
-            SoullessDarkness_ReinitializeSkelAnime((SkelAnime*)(((u32)actor) + 0x26C), actor);
+            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x26C), actor);
             break;
         case ACTOR_MORPHA:
-            SoullessDarkness_ReinitializeSkelAnime((SkelAnime*)(((u32)actor) + 0x16E0), actor);
+            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x16E0), actor);
             break;
         case ACTOR_TWINROVA:
-            SoullessDarkness_ReinitializeSkelAnime((SkelAnime*)(((u32)actor) + 0x5C0), actor);
+            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x5C0), actor);
             break;
         case ACTOR_GANONDORF:
-            SoullessDarkness_ReinitializeSkelAnime((SkelAnime*)(((u32)actor) + 0x1A8), actor);
+            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1A8), actor);
             break;
 
         case ACTOR_SHABOM:
@@ -496,10 +506,14 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
 }
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId) {
-    for (s32 i = 0; i < ACTOR_MAX; i++) {
-        ActorInit* profile = gActorOverlayTable[i].initInfo;
-        if (profile != NULL && EnemySouls_GetSoulId(profile->id) == soulId) {
-            SoullessDarkness_RestoreObject(profile->objectId);
+    if (soulId == SOUL_POE) {
+        SoullessDarkness_RestoreObject(OBJECT_POE);
+    } else {
+        for (s32 i = 0; i < ACTOR_MAX; i++) {
+            ActorInit* profile = gActorOverlayTable[i].initInfo;
+            if (profile != NULL && EnemySouls_GetSoulId(profile->id) == soulId) {
+                SoullessDarkness_RestoreObject(profile->objectId);
+            }
         }
     }
 
