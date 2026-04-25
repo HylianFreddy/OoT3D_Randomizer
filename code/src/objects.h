@@ -15,6 +15,7 @@ typedef enum ObjectId {
     OBJECT_SKULLTULA                 = 0x0024,
     OBJECT_CUSTOM_SMALL_KEY_FIRE     = 0x003A,
     OBJECT_BARI                      = 0X0056,
+    OBJECT_POE_COMPOSER              = 0x006E,
     OBJECT_CUSTOM_SMALL_KEY_WATER    = 0x0078,
     OBJECT_CUSTOM_SMALL_KEY_SHADOW   = 0x0079,
     OBJECT_CUSTOM_SMALL_KEY_BOTW     = 0x007A,

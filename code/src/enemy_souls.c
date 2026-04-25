@@ -127,6 +127,10 @@ u8 EnemySouls_CheckSoulForActor(Actor* actor) {
 }
 
 void EnemySouls_OnCollect(EnemySoulId soulId) {
+    if (EnemySouls_GetSoulFlag(soulId)) {
+        return;
+    }
+
     EnemySouls_SetSoulFlag(soulId);
 
     if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
@@ -257,9 +261,9 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan) {
         if (origDataBuf->status != CMBSTATUS_MODIFIED) {
             origDataBuf->status = CMBSTATUS_MODIFIED;
             CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
+            CitraPrint("BeforeCmbManagerInit %X", cmbMats->materialCount);
             for (s32 i = 0; i < cmbMats->materialCount; i++) {
-                Material* mat = &cmbMats->materials[i];
-                CitraPrint("BeforeCmbManagerInit %X", mat->textureMappersUsed, mat->alphaTestEnabled, mat->blendMode);
+                Material* mat                           = &cmbMats->materials[i];
                 origDataBuf->mats[i].textureMappersUsed = mat->textureMappersUsed;
                 origDataBuf->mats[i].alphaTestEnabled   = mat->alphaTestEnabled;
                 origDataBuf->mats[i].blendMode          = mat->blendMode;
@@ -388,12 +392,14 @@ typedef struct GenericSkelAnimeActor {
 
 static void SoullessDarkness_RestoreActor(Actor* actor) {
     switch (actor->id) {
-        case ACTOR_POE: // doesnt fade in, lantern colored
+        case ACTOR_POE: // doesnt fade in
             EnPoh* this = (EnPoh*)actor;
             Actor_DestroySkelModels(actor, &this->saModel_1, &this->saModel_2, NULL);
-            ZARInfo* zarInfo =
-                Actor_CreateSkelModels(actor, gGlobalContext, &this->saModel_1, 1, &this->saModel_2, 2, NULL);
-            void* cmabMan = ZAR_GetCMABByIndex(zarInfo, 0);
+            u32 cmb1Index    = this->infoIdx == 0 ? 1 : this->composerLanternCmbIndex;
+            u32 cmb2Index    = this->infoIdx == 0 ? 2 : 1;
+            ZARInfo* zarInfo = Actor_CreateSkelModels(actor, gGlobalContext, &this->saModel_1, cmb1Index,
+                                                      &this->saModel_2, cmb2Index, NULL);
+            void* cmabMan    = ZAR_GetCMABByIndex(zarInfo, 0);
             TexAnim_Spawn(this->saModel_2->unk_0C, cmabMan);
             this->saModel_2->unk_0C->animMode  = 1;
             this->saModel_2->unk_0C->animSpeed = 2.0;
@@ -508,6 +514,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId) {
     if (soulId == SOUL_POE) {
         SoullessDarkness_RestoreObject(OBJECT_POE);
+        SoullessDarkness_RestoreObject(OBJECT_POE_COMPOSER);
     } else {
         for (s32 i = 0; i < ACTOR_MAX; i++) {
             ActorInit* profile = gActorOverlayTable[i].initInfo;
