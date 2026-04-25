@@ -8,16 +8,7 @@
 #include "flying_traps.h"
 #include "objects.h"
 #include "shabom.h"
-
-// Variadic arguments are pairs of a model and a CMB index; last argument must always be NULL.
-struct ZARInfo* Actor_CreateSkelModels(Actor* actor, struct GlobalContext* globalCtx,
-                                       SkeletonAnimationModel** firstSAModel, u32 firstCmbIndex, ...);
-// Variadic arguments are models; last argument must always be NULL.
-struct ZARInfo* Actor_DestroySkelModels(Actor* actor, SkeletonAnimationModel** firstSAModel, ...);
-struct ZARInfo* Actor_CreateSkelModelsArray(Actor* actor, struct GlobalContext* globalCtx, s32 modelCount,
-                                            SkeletonAnimationModel** models, s32* cmbIndices);
-struct ZARInfo* Actor_DestroySkelModelsArray(Actor* actor, s32 modelCount, SkeletonAnimationModel** models,
-                                             s32* cmbIndices);
+#include "poe.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -295,16 +286,6 @@ void EnemySouls_BeforeSkelModelCtor(CmbManager* cmbMan) {
     // }
 }
 
-#define ZAR_SetupZARInfo ((void (*)(ZARInfo * zarInfo, void* buf, s32 size, s8 param_4))0x31B124)
-#define SkelAnime_Destroy ((void (*)(SkelAnime * anime))0x350be0)
-// limbCount param is ignored, the function takes the value from the cmb
-#define SkelAnime_Init                                                                                       \
-    ((void (*)(Actor * actor, GlobalContext * globalCtx, SkelAnime * skelAnime, s32 cmbIndex, s32 csabIndex, \
-               void* jointTable, void* morphTable, s32 limbCount))0x353c9c)
-typedef void (*Foo)(SkelAnime* anime, s32 animation_index, f32 play_speed, f32 start_frame, f32 end_frame, s32 mode,
-                    f32 morph_frames, s32 taper) __attribute__((pcs("aapcs-vfp")));
-#define Animation_ChangeImpl ((Foo)0x35302c)
-
 static void SoullessDarkness_RestoreObject(u16 objectId) {
     if (objectId == OBJECT_INVALID) {
         return;
@@ -339,39 +320,7 @@ static void SoullessDarkness_RestoreObject(u16 objectId) {
 
     // Reinitialize ZarInfo, keeping same buffer and size. This destroys all CmbManagers.
     ZAR_Destroy(zarInfo);
-    ZAR_SetupZARInfo(zarInfo, obj->buf, obj->size, 0);
-}
-
-static void SoullessDarkness_ReinitSkelAnime(SkelAnime* anime, Actor* actor) {
-    // Find which cmbIndex this SkelAnime uses
-    s32 numCMBs  = anime->zarInfo->fileTypes[anime->zarInfo->fileTypeMap[0]].numFiles;
-    s32 cmbIndex = 0;
-    for (s32 i = 0; i < numCMBs; i++) {
-        if (anime->zarInfo->cmbMans[i] == anime->cmbMan) {
-            cmbIndex = i;
-            break;
-        }
-    }
-
-    // Temporarily store animation values
-    s32 animIndex    = anime->animIndex;
-    f32 curFrame     = anime->curFrame;
-    f32 playSpeed    = anime->playSpeed;
-    f32 startFrame   = anime->startFrame;
-    f32 endFrame     = anime->endFrame;
-    f32 animMode     = anime->animMode;
-    void* jointTable = NULL;
-    void* morphTable = NULL;
-    if (!anime->dynamicTables) {
-        jointTable = anime->jointTable;
-        morphTable = anime->morphTable;
-    }
-
-    // Reinitialize SkelAnime and reload the same animation at the same frame.
-    SkelAnime_Destroy(anime);
-    SkelAnime_Init(actor, gGlobalContext, anime, cmbIndex, animIndex, jointTable, morphTable, 0);
-    Animation_ChangeImpl(anime, animIndex, playSpeed, startFrame, endFrame, animMode, 0.0, 0);
-    anime->curFrame = curFrame;
+    ZAR_Init(zarInfo, obj->buf, obj->size, 0);
 }
 
 typedef struct GenericSkelAnimeActor {
@@ -381,7 +330,7 @@ typedef struct GenericSkelAnimeActor {
 
 #include "z3D/actors/z_actors_tmp.h"
 /*
-#define REINIT_SKELANIME(anime) SoullessDarkness_ReinitSkelAnime(anime, actor)
+#define REINIT_SKELANIME(anime) Actor_ReinitSkelAnime(anime, actor)
 #define REINIT_1_MODEL(model1, index1)            \
     Actor_DestroySkelModels(actor, model1, NULL); \
     Actor_CreateSkelModels(actor, gGlobalContext, model1, index1, NULL)
@@ -393,20 +342,7 @@ typedef struct GenericSkelAnimeActor {
 static void SoullessDarkness_RestoreActor(Actor* actor) {
     switch (actor->id) {
         case ACTOR_POE: // doesnt fade in
-            EnPoh* this = (EnPoh*)actor;
-            Actor_DestroySkelModels(actor, &this->saModel_1, &this->saModel_2, NULL);
-            u32 cmb1Index    = this->infoIdx == 0 ? 1 : this->composerLanternCmbIndex;
-            u32 cmb2Index    = this->infoIdx == 0 ? 2 : 1;
-            ZARInfo* zarInfo = Actor_CreateSkelModels(actor, gGlobalContext, &this->saModel_1, cmb1Index,
-                                                      &this->saModel_2, cmb2Index, NULL);
-            void* cmabMan    = ZAR_GetCMABByIndex(zarInfo, 0);
-            TexAnim_Spawn(this->saModel_2->matAnim, cmabMan);
-            this->saModel_2->matAnim->animMode  = 1;
-            this->saModel_2->matAnim->animSpeed = 2.0;
-            this->saModel_94C                  = this->saModel_1;
-            this->saModel_950                  = this->saModel_2;
-
-            SoullessDarkness_ReinitSkelAnime(&this->anime, actor);
+            Poe_ReinitModels((EnPoh*)actor);
             break;
         case ACTOR_BIG_POE: // doesnt fade in
         case ACTOR_POE_SISTER:
@@ -454,49 +390,49 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_VOLVAGIA_HOLE:
         case ACTOR_BONGO_BONGO:
         case ACTOR_GANON:
-            SoullessDarkness_ReinitSkelAnime(&((GenericSkelAnimeActor*)actor)->skelAnime, actor);
+            Actor_ReinitSkelAnime(&((GenericSkelAnimeActor*)actor)->skelAnime, actor);
             break;
         case ACTOR_KEESE:
-            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1C8), actor);
+            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1C8), actor);
             break;
             // return &((EnFirefly*)actor)->skelAnime;
         case ACTOR_TAILPASARAN:
-            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1B0), actor);
+            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1B0), actor);
             break;
             // return &((EnTp*)actor)->skelAnime;
         case ACTOR_MOBLIN:
-            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1E4), actor);
+            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1E4), actor);
             break;
         case ACTOR_DEKU_BABA:
         case ACTOR_GUAY:
-            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1D4), actor);
+            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1D4), actor);
             break;
         case ACTOR_REDEAD:
         case ACTOR_WOLFOS:
         case ACTOR_STALFOS:
         case ACTOR_GERUDO_FIGHTER:
-            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1E0), actor);
+            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1E0), actor);
             break;
         case ACTOR_LIKE_LIKE:
-            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x2438), actor);
+            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x2438), actor);
             break;
         case ACTOR_DARK_LINK:
-            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x254), actor);
+            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x254), actor);
             break;
         case ACTOR_GERUDO_GUARD:
-            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1FC), actor);
+            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1FC), actor);
             break;
         case ACTOR_PG_HORSE:
-            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x26C), actor);
+            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x26C), actor);
             break;
         case ACTOR_MORPHA:
-            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x16E0), actor);
+            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x16E0), actor);
             break;
         case ACTOR_TWINROVA:
-            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x5C0), actor);
+            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x5C0), actor);
             break;
         case ACTOR_GANONDORF:
-            SoullessDarkness_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1A8), actor);
+            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1A8), actor);
             break;
 
         case ACTOR_SHABOM:

@@ -1,6 +1,7 @@
 #include "poe.h"
 #include "settings.h"
 #include "enemizer.h"
+#include "actor.h"
 
 void EnPoh_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnPoh_Update(Actor* thisx, GlobalContext* globalCtx);
@@ -55,4 +56,20 @@ void EnPoh_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     if (thisx->update == EnPoh_UpdateLiving) {
         thisx->update = EnPoh_rUpdateLiving;
     }
+}
+
+void Poe_ReinitModels(EnPoh* this) {
+    Actor_DestroySkelModels(&this->actor, &this->saModel_1, &this->saModel_2, NULL);
+    u32 cmb1Index    = this->infoIdx == 0 ? 1 : this->composerLanternCmbIndex;
+    u32 cmb2Index    = this->infoIdx == 0 ? 2 : 1;
+    ZARInfo* zarInfo = Actor_CreateSkelModels(&this->actor, gGlobalContext, &this->saModel_1, cmb1Index,
+                                              &this->saModel_2, cmb2Index, NULL);
+    void* cmabMan    = ZAR_GetCMABByIndex(zarInfo, 0);
+    TexAnim_Spawn(this->saModel_2->matAnim, cmabMan);
+    this->saModel_2->matAnim->animMode  = 1;
+    this->saModel_2->matAnim->animSpeed = 2.0;
+    this->saModel_94C                   = this->saModel_1;
+    this->saModel_950                   = this->saModel_2;
+
+    Actor_ReinitSkelAnime(&this->anime, &this->actor);
 }

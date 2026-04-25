@@ -402,5 +402,25 @@ void Actor_UpdateBgCheckInfo(struct GlobalContext* globalCtx, Actor* actor, f32 
 s32 Player_InCsMode(struct GlobalContext* globalCtx);
 Actor* Actor_FindNearby(struct GlobalContext* globalCtx, Actor* ref_actor, s16 actorId, u8 actor_category, f32 range);
 void ActorShadow_DrawFeet(Actor* actor, void* lights, struct GlobalContext* globalCtx);
+// limbCount param is ignored, the function takes the value from the cmb
+void SkelAnime_Init(Actor* actor, struct GlobalContext* globalCtx, SkelAnime* skelAnime, s32 cmbIndex, s32 csabIndex,
+                    void* jointTable, void* morphTable, s32 limbCount);
+void SkelAnime_Destroy(SkelAnime* anime);
+void Animation_ChangeImpl(SkelAnime* anime, s32 animationIndex, f32 playSpeed, f32 startFrame, f32 endFrame, s32 mode,
+                          f32 morphFrames, s32 taper) __attribute__((pcs("aapcs-vfp")));
+// Variadic arguments are pairs of a model and a CMB index; last argument must always be NULL.
+struct ZARInfo* Actor_CreateSkelModels(Actor* actor, struct GlobalContext* globalCtx,
+                                       SkeletonAnimationModel** firstSAModel, u32 firstCmbIndex, ...);
+// Variadic arguments are models; last argument must always be NULL.
+struct ZARInfo* Actor_DestroySkelModels(Actor* actor, SkeletonAnimationModel** firstSAModel, ...);
+struct ZARInfo* Actor_CreateSkelModelsArray(Actor* actor, struct GlobalContext* globalCtx, s32 modelCount,
+                                            SkeletonAnimationModel** models, s32* cmbIndices);
+struct ZARInfo* Actor_DestroySkelModelsArray(Actor* actor, s32 modelCount, SkeletonAnimationModel** models,
+                                             s32* cmbIndices);
+void ZAR_Init(struct ZARInfo* zarInfo, void* buf, s32 size, s8 unkParam);
+void ZAR_Destroy(struct ZARInfo* zarInfo);
+void* ZAR_GetCMBByIndex(struct ZARInfo* zarInfo, u32 index);
+void* ZAR_GetCMABByIndex(struct ZARInfo* zarInfo, u32 index);
+void TexAnim_Spawn(MaterialAnimation* matAnim, void* cmabMan);
 
 #endif

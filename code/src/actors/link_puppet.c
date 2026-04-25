@@ -93,12 +93,10 @@ void EnLinkPuppet_Init(Actor* thisx, GlobalContext* globalCtx) {
     ActorShape_Init(&this->base.shape, 0.0f, ActorShadow_DrawFeet, feetShadowScale);
 }
 
-void SkelAnime_Free2(SkelAnime* anime);
-
 void EnLinkPuppet_Destroy(Actor* thisx, GlobalContext* globalCtx) {
     EnLinkPuppet* this = (EnLinkPuppet*)thisx;
 
-    SkelAnime_Free2(&this->skelAnime);
+    SkelAnime_Destroy(&this->skelAnime);
 }
 
 void EnLinkPuppet_Update(Actor* thisx, GlobalContext* globalCtx) {

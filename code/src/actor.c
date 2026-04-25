@@ -536,7 +536,7 @@ void Actor_rInit(Actor* actor, GlobalContext* globalCtx) {
 
 void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
     u8 tempHammerQuakeFlag = globalCtx->actorCtx.hammerQuakeFlag;
-    gIsForSoullessActor = !EnemySouls_CheckSoulForActor(actor);
+    gIsForSoullessActor    = !EnemySouls_CheckSoulForActor(actor);
 
     if (!EnemySouls_CheckSoulForActor(actor)) {
         globalCtx->actorCtx.hammerQuakeFlag = 0;
@@ -572,9 +572,9 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
     RedIce_CheckIceArrow(at, ac);
 
     if (ac->actor != NULL &&
-        (//!EnemySouls_CheckSoulForActor(ac->actor) ||
-         // randomized enemy touching Iron Knuckle's thrones and pillars
-         (ac->actor->id == ACTOR_BG_JYA_IRONOBJ && at->actor != NULL && at->actor->id != ACTOR_IRON_KNUCKLE))) {
+        ( //! EnemySouls_CheckSoulForActor(ac->actor) ||
+          // randomized enemy touching Iron Knuckle's thrones and pillars
+            (ac->actor->id == ACTOR_BG_JYA_IRONOBJ && at->actor != NULL && at->actor->id != ACTOR_IRON_KNUCKLE))) {
         return 0; // ignore this collision
     }
 
@@ -589,4 +589,36 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
 
 s32 Actor_IsKilled(Actor* actor) {
     return actor->update == NULL && actor->draw == NULL;
+}
+
+void Actor_ReinitSkelAnime(SkelAnime* anime, Actor* actor) {
+    // Find which cmbIndex this SkelAnime uses
+    s32 numCMBs  = anime->zarInfo->fileTypes[anime->zarInfo->fileTypeMap[0]].numFiles;
+    s32 cmbIndex = 0;
+    for (s32 i = 0; i < numCMBs; i++) {
+        if (anime->zarInfo->cmbMans[i] == anime->cmbMan) {
+            cmbIndex = i;
+            break;
+        }
+    }
+
+    // Temporarily store animation values
+    s32 animIndex    = anime->animIndex;
+    f32 curFrame     = anime->curFrame;
+    f32 playSpeed    = anime->playSpeed;
+    f32 startFrame   = anime->startFrame;
+    f32 endFrame     = anime->endFrame;
+    f32 animMode     = anime->animMode;
+    void* jointTable = NULL;
+    void* morphTable = NULL;
+    if (!anime->dynamicTables) {
+        jointTable = anime->jointTable;
+        morphTable = anime->morphTable;
+    }
+
+    // Reinitialize SkelAnime and reload the same animation at the same frame.
+    SkelAnime_Destroy(anime);
+    SkelAnime_Init(actor, gGlobalContext, anime, cmbIndex, animIndex, jointTable, morphTable, 0);
+    Animation_ChangeImpl(anime, animIndex, playSpeed, startFrame, endFrame, animMode, 0.0, 0);
+    anime->curFrame = curFrame;
 }

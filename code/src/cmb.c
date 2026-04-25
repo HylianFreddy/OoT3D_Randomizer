@@ -43,18 +43,18 @@ void BeforeSAMCreate() {
 
 void Print_SkelAnime_InitImpl(u32 func) {
     if (valiFlag) {
-        CitraPrint("func=%X",func);
+        CitraPrint("func=%X", func);
     }
 }
 
 void whatLog(u32 logFunc) {
     if (valiFlag) {
-        CitraPrint("logFunc=%X",logFunc);
+        CitraPrint("logFunc=%X", logFunc);
     }
 }
 
 void CmbManager_BeforeInit(CmbManager* cmbMan) {
-    void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan);
+    void EnemySouls_BeforeCmbManagerInit(CmbManager * cmbMan);
     EnemySouls_BeforeCmbManagerInit(cmbMan);
     // if (Object_FindEntryOrSpawn(0x56)->zarInfo.cmbMans[1] == cmbMan) {
     //     CitraPrint("mkkmkmk");
@@ -88,7 +88,7 @@ typedef struct EnTite {
 
 #define FUN_002da0e4 ((void* (*)(CmbManager * cmbMan))0x2da0e4)
 #define EnTite_Init ((void (*)(EnTite * this, GlobalContext * global_ctx))0x1BBC0C)
-#define ZAR_SetupZARInfo ((void (*)(ZARInfo * zarInfo, void* buf, s32 size, s8 param_4))0x31B124)
+#define ZAR_Init ((void (*)(ZARInfo * zarInfo, void* buf, s32 size, s8 param_4))0x31B124)
 #define SkelAnime_Destroy ((void (*)(SkelAnime * anime))0x350be0)
 // limbCount param is ignored, the function takes the value from the cmb
 #define SkelAnime_Init                                                                                       \

@@ -428,6 +428,7 @@ SECTIONS
 	.patch_OoBBombchuThree 0x315150 + _LD_OFF : { *(.patch_OoBBombchuThree) }
 	Inventory_ReplaceItem = 0x316CEC + _LD_OFF;
 	.patch_CollisionATvsAC 0x3191B0 + _LD_OFF : { *(.patch_CollisionATvsAC) }
+	ZAR_Init = 0x31B124 + _LD_OFF;
 	ElfMessage_GetSariaText = 0x31C698 + _LD_OFF;
 	.patch_Before_CmbManagerInit 0x31FF68 + _LD_OFF : { *(.patch_Before_CmbManagerInit) }
 	.patch_After_CmbManagerInit 0x320454 + _LD_OFF : { *(.patch_After_CmbManagerInit) }
@@ -471,7 +472,7 @@ SECTIONS
 	Actor_DestroySkelModelsArray = 0x34FDA8 + _LD_OFF;
 	.patch_GetObjectEntry_34FE68 0x34FE68 + _LD_OFF : { *(.patch_GetObjectEntry_34FE68) }
 	SystemArena_Malloc = 0x35010C + _LD_OFF;
-	SkelAnime_Free2 = 0x350BE0 + _LD_OFF;
+	SkelAnime_Destroy = 0x350BE0 + _LD_OFF;
 	EventCheck = 0x350CF4 + _LD_OFF;
 	Actor_DestroySkelModels = 0x350F34 + _LD_OFF;
 	.patch_FWGetSet 0x3519CC + _LD_OFF : { *(.patch_FWGetSet) }
@@ -479,6 +480,8 @@ SECTIONS
 	.patch_ApplyDamageMultiplier 0x352DC0 + _LD_OFF : { *(.patch_ApplyDamageMultiplier) }
 	Actor_CreateSkelModelsArray = 0x352EE0 + _LD_OFF;
 	.patch_GetObjectEntry_352F28 0x352F28 + _LD_OFF : { *(.patch_GetObjectEntry_352F28) } /* Used for: Flare Dancer */
+	Animation_ChangeImpl = 0x35302C + _LD_OFF;
+	SkelAnime_Init = 0x353C9C + _LD_OFF;
 	.patch_GetObjectEntry_353CE4 0x353CE4 + _LD_OFF : { *(.patch_GetObjectEntry_353CE4) }
 	.patch_SkelAnimeInit 0x353D0C + _LD_OFF : { *(.patch_SkelAnimeInit) }
 	Collider_SetCylinder = 0x353D24 + _LD_OFF;

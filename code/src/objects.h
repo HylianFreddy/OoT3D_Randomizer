@@ -46,10 +46,6 @@ s32 Object_Spawn(ObjectContext* objectCtx, s16 objectId);
 s32 Object_GetSlot(ObjectContext* objectCtx, s16 objectId);
 void Object_UpdateEntries(ObjectContext* objectCtx);
 void Object_Clear(GlobalContext* globalCtx, ObjectContext* objectCtx);
-void* ZAR_GetCMBByIndex(ZARInfo* zarInfo, u32 index);
-void* ZAR_GetCMABByIndex(ZARInfo* zarInfo, u32 index);
-void ZAR_Destroy(ZARInfo* zarInfo);
-void TexAnim_Spawn(void*, void*);
 
 // Get an object entry given the slot.
 ObjectEntry* Object_GetEntry(s16 slot);
