@@ -52,14 +52,14 @@ typedef struct SkeletonAnimationModel_unk_10 {
     /* 0x10 */ s32 unk_10;
 } SkeletonAnimationModel_unk_10; // size = 0x14
 
-typedef struct SkeletonAnimationModel_unk_0C {
+typedef struct MaterialAnimation {
     /* 0x00 */ SkeletonAnimationModel_unk_10* unk_00;
     /* 0x04 */ void* cmabManager;
     /* 0x08 */ f32 curFrame;
     /* 0x0C */ f32 animSpeed;
     /* 0x10 */ s8 animMode;
     /* 0x11 */ char unk_11[0x87];
-} SkeletonAnimationModel_unk_0C; // size = 0x98
+} MaterialAnimation; // size = 0x98
 
 typedef struct SkeletonAnimationModel_unk_14 {
     void* vtable_4EBD98;
@@ -72,7 +72,7 @@ typedef struct SkeletonAnimationModel_unk_14 {
 typedef struct SkeletonAnimationModel {
     /* 0x00 */ SkeletonAnimationModel_VTable* vtbl;
     /* 0x04 */ char unk_04[0x08];
-    /* 0x0C */ SkeletonAnimationModel_unk_0C* unk_0C;
+    /* 0x0C */ MaterialAnimation* matAnim;
     /* 0x10 */ SkeletonAnimationModel_unk_10* unk_10;
     /* 0x14 */ SkeletonAnimationModel_unk_14* unk_14;
     /* 0x18 */ char unk_18[0x64];
@@ -354,9 +354,9 @@ typedef struct Player {
     /* 0x24DC */ void* cmbMan;
     /* 0x24E0 */ void* zarInfo;
     /* 0x24E4 */ char unk_24E4[0x0220];
-    /* 0x2704 */ SkeletonAnimationModel_unk_0C tunicTexAnim;
-    /* 0x279C */ SkeletonAnimationModel_unk_0C fireMirroShieldTexAnim;
-    /* 0x2834 */ SkeletonAnimationModel_unk_0C iceMirroShieldTexAnim;
+    /* 0x2704 */ MaterialAnimation tunicTexAnim;
+    /* 0x279C */ MaterialAnimation fireMirroShieldTexAnim;
+    /* 0x2834 */ MaterialAnimation iceMirroShieldTexAnim;
     /* 0x28CC */ char unk_28CC[0x180];
 } Player; // total size (from init vars): 2A4C
 _Static_assert(sizeof(Player) == 0x2A4C, "Player size");

@@ -400,9 +400,9 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             ZARInfo* zarInfo = Actor_CreateSkelModels(actor, gGlobalContext, &this->saModel_1, cmb1Index,
                                                       &this->saModel_2, cmb2Index, NULL);
             void* cmabMan    = ZAR_GetCMABByIndex(zarInfo, 0);
-            TexAnim_Spawn(this->saModel_2->unk_0C, cmabMan);
-            this->saModel_2->unk_0C->animMode  = 1;
-            this->saModel_2->unk_0C->animSpeed = 2.0;
+            TexAnim_Spawn(this->saModel_2->matAnim, cmabMan);
+            this->saModel_2->matAnim->animMode  = 1;
+            this->saModel_2->matAnim->animSpeed = 2.0;
             this->saModel_94C                  = this->saModel_1;
             this->saModel_950                  = this->saModel_2;
 

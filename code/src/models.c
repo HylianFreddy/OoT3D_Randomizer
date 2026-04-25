@@ -17,7 +17,7 @@ Model ModelContext[LOADEDMODELS_MAX] = { 0 };
 
 void Model_SetAnim(SkeletonAnimationModel* model, s16 objectId, u32 objectAnimIdx) {
     void* cmabMan = Object_GetCMABByIndex(objectId, objectAnimIdx);
-    TexAnim_Spawn(model->unk_0C, cmabMan);
+    TexAnim_Spawn(model->matAnim, cmabMan);
 }
 
 void Model_Init(Model* model, GlobalContext* globalCtx) {
@@ -38,8 +38,8 @@ void Model_Init(Model* model, GlobalContext* globalCtx) {
 
     if (model->itemRow->cmabIndex >= 0) {
         Model_SetAnim(model->saModel, model->itemRow->objectId, model->itemRow->cmabIndex);
-        model->saModel->unk_0C->animSpeed = 2.0f;
-        model->saModel->unk_0C->animMode  = 1;
+        model->saModel->matAnim->animSpeed = 2.0f;
+        model->saModel->matAnim->animMode  = 1;
     }
 
     if (model->itemRow->objectModelIdx2 >= 0) {
@@ -47,8 +47,8 @@ void Model_Init(Model* model, GlobalContext* globalCtx) {
                                                        model->itemRow->objectModelIdx2);
         if (model->itemRow->cmabIndex2 >= 0) {
             Model_SetAnim(model->saModel2, model->itemRow->objectId, model->itemRow->cmabIndex2);
-            model->saModel2->unk_0C->animSpeed = 2.0f;
-            model->saModel2->unk_0C->animMode  = 1;
+            model->saModel2->matAnim->animSpeed = 2.0f;
+            model->saModel2->matAnim->animMode  = 1;
         }
     }
 
