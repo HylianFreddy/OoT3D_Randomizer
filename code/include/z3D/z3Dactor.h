@@ -410,9 +410,11 @@ void Animation_ChangeImpl(SkelAnime* anime, s32 animationIndex, f32 playSpeed, f
                           f32 morphFrames, s32 taper) __attribute__((pcs("aapcs-vfp")));
 // Variadic arguments are pairs of a model and a CMB index; last argument must always be NULL.
 struct ZARInfo* Actor_CreateSkelModels(Actor* actor, struct GlobalContext* globalCtx,
-                                       SkeletonAnimationModel** firstSAModel, u32 firstCmbIndex, ...);
+                                       SkeletonAnimationModel** firstSAModel, u32 firstCmbIndex, ...)
+    __attribute__((sentinel));
 // Variadic arguments are models; last argument must always be NULL.
-struct ZARInfo* Actor_DestroySkelModels(Actor* actor, SkeletonAnimationModel** firstSAModel, ...);
+struct ZARInfo* Actor_DestroySkelModels(Actor* actor, SkeletonAnimationModel** firstSAModel, ...)
+    __attribute__((sentinel));
 struct ZARInfo* Actor_CreateSkelModelsArray(Actor* actor, struct GlobalContext* globalCtx, s32 modelCount,
                                             SkeletonAnimationModel** models, s32* cmbIndices);
 struct ZARInfo* Actor_DestroySkelModelsArray(Actor* actor, s32 modelCount, SkeletonAnimationModel** models,
