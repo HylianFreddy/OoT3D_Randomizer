@@ -9,6 +9,7 @@
 #include "objects.h"
 #include "shabom.h"
 #include "poe.h"
+#include "octorok.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -331,6 +332,8 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             EnPoSisters_ReinitModels((EnPoSisters*)actor);
             break;
         case ACTOR_OCTOROK: // OK
+            EnOkuta_ReinitModels((EnOkuta*)actor);
+            break;
         case ACTOR_BIG_OCTO:
         case ACTOR_TEKTITE:  // cmab
         case ACTOR_LEEVER:   // OK
@@ -444,9 +447,8 @@ static void SoullessDarkness_RestoreSoul(EnemySoulId soulId) {
         }
     }
 
-    static ActorType sActorCats[] = { ACTORTYPE_ENEMY, ACTORTYPE_BOSS };
-    for (s32 i = 0; i < ARRAY_SIZE(sActorCats); i++) {
-        Actor* actor = gGlobalContext->actorCtx.actorList[sActorCats[i]].first;
+    for (s32 catIdx = 0; catIdx < ACTORTYPE_MAX; catIdx++) {
+        Actor* actor = gGlobalContext->actorCtx.actorList[catIdx].first;
         while (actor != NULL) {
             if (EnemySouls_GetSoulId(actor->id) == soulId) {
                 SoullessDarkness_RestoreActor(actor);
