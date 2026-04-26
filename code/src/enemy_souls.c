@@ -334,7 +334,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_OCTOROK: // OK
             EnOkuta_ReinitModels((EnOkuta*)actor);
             break;
-        case ACTOR_BIG_OCTO:
+        case ACTOR_BIG_OCTO: // OK
         case ACTOR_TEKTITE:  // cmab
         case ACTOR_LEEVER:   // OK
         case ACTOR_PEAHAT:   // larva has colored tip
