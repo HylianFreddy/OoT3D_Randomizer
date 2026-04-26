@@ -334,8 +334,16 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_OCTOROK: // OK
             EnOkuta_ReinitModels((EnOkuta*)actor);
             break;
-        case ACTOR_BIG_OCTO: // OK
-        case ACTOR_TEKTITE:  // cmab
+        case ACTOR_TEKTITE: // cmab
+            SkelAnime* anime = &((GenericSkelAnimeActor*)actor)->skelAnime;
+            Actor_ReinitSkelAnime(anime, actor);
+            if (actor->params == -1) { // red tektite
+                void* cmabMan = ZAR_GetCMABByIndex(anime->zarInfo, 0);
+                TexAnim_Spawn(anime->saModel->matAnim, cmabMan);
+                anime->saModel->matAnim->animSpeed = 0.0f;
+                anime->saModel->matAnim->curFrame  = 1.0f;
+            }
+            break;
         case ACTOR_LEEVER:   // OK
         case ACTOR_PEAHAT:   // larva has colored tip
         case ACTOR_LIZALFOS: // OK
@@ -377,8 +385,11 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_VOLVAGIA_HOLE:
         case ACTOR_BONGO_BONGO:
         case ACTOR_GANON:
+
+        case ACTOR_BIG_OCTO: // OK
             Actor_ReinitSkelAnime(&((GenericSkelAnimeActor*)actor)->skelAnime, actor);
             break;
+
         case ACTOR_KEESE:
             Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1C8), actor);
             break;
