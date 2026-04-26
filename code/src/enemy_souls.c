@@ -10,6 +10,7 @@
 #include "shabom.h"
 #include "poe.h"
 #include "octorok.h"
+#include "peahat.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -344,8 +345,9 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
                 anime->saModel->matAnim->curFrame  = 1.0f;
             }
             break;
-        case ACTOR_LEEVER:   // OK
-        case ACTOR_PEAHAT:   // larva has colored tip
+        case ACTOR_PEAHAT:
+            EnPeehat_ReinitModels((EnPeehat*)actor);
+            break;
         case ACTOR_LIZALFOS: // OK
         case ACTOR_BIRI:
         case ACTOR_BARI:
@@ -387,6 +389,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_GANON:
 
         case ACTOR_BIG_OCTO: // OK
+        case ACTOR_LEEVER:   // OK
             Actor_ReinitSkelAnime(&((GenericSkelAnimeActor*)actor)->skelAnime, actor);
             break;
 

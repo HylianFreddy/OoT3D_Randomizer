@@ -2,6 +2,7 @@
 #include "settings.h"
 #include "enemizer.h"
 #include "enemy_souls.h"
+#include "actor.h"
 
 void EnPeehat_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -54,4 +55,11 @@ void EnPeehat_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
             thisx->world.pos.y = yGroundIntersect + 10;
         }
     }
+}
+
+void EnPeehat_ReinitModels(EnPeehat* this) {
+    Actor_DestroySkelModels(&this->actor, &this->rootModel, NULL);
+    Actor_CreateSkelModels(&this->actor, gGlobalContext, &this->rootModel, 1, NULL);
+
+    Actor_ReinitSkelAnime(&this->anime, &this->actor);
 }
