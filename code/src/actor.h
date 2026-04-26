@@ -3,7 +3,7 @@
 
 #include "z3D/z3D.h"
 
-extern u8 gIsForSoullessActor;
+extern Actor* gRunningActor;
 
 void Actor_Init();
 void ActorSetup_Extra();

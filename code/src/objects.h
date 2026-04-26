@@ -5,6 +5,9 @@
 
 typedef enum ObjectId {
     OBJECT_INVALID                   = 0x0000,
+    OBJECT_GAMEPLAY_KEEP             = 0x0001,
+    OBJECT_GAMEPLAY_FIELD_KEEP       = 0x0002,
+    OBJECT_GAMEPLAY_DUNGEON_KEEP     = 0x0003,
     OBJECT_CUSTOM_DOUBLE_DEFENSE     = 0x0004,
     OBJECT_CUSTOM_CHILD_SONGS        = 0x0005,
     OBJECT_POE                       = 0x0009,
@@ -51,8 +54,10 @@ void Object_Clear(GlobalContext* globalCtx, ObjectContext* objectCtx);
 ObjectEntry* Object_GetEntry(s16 slot);
 // Find an object entry for the specified objectId, or spawn it if it's not found.
 ObjectEntry* Object_FindEntryOrSpawn(s16 objectId);
-// Same as Object_FindEntryOrSpawn but return the object slot
+// Same as Object_FindEntryOrSpawn but return the object slot.
 s32 Object_FindSlotOrSpawn(s16 objectId);
+// Find the object entry this ZarInfo comes from.
+ObjectEntry* Object_FindEntryByZarInfo(ZARInfo* zarInfo);
 // Check if the object in the given slot is loaded.
 s32 Object_IsLoaded(ObjectContext* objectCtx, s16 slot);
 // Get the CMAB manager from this object, loading it if it's not present.

@@ -97,7 +97,7 @@ void Actor_Kill(Actor* actor) {
 
 void TitleCard_Update(GlobalContext* globalCtx, TitleCardContext* titleCtx);
 
-u8 gIsForSoullessActor;
+Actor* gRunningActor;
 
 void Actor_Init() {
     // Some actors have the wrong ID saved in their "initInfo".
@@ -529,14 +529,14 @@ void HyperActors_Main(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void Actor_rInit(Actor* actor, GlobalContext* globalCtx) {
-    gIsForSoullessActor = !EnemySouls_CheckSoulForActor(actor);
+    gRunningActor = actor;
     actor->init(actor, globalCtx);
-    gIsForSoullessActor = FALSE;
+    gRunningActor = NULL;
 }
 
 void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
     u8 tempHammerQuakeFlag = globalCtx->actorCtx.hammerQuakeFlag;
-    gIsForSoullessActor    = !EnemySouls_CheckSoulForActor(actor);
+    gRunningActor          = actor;
 
     if (!EnemySouls_CheckSoulForActor(actor)) {
         globalCtx->actorCtx.hammerQuakeFlag = 0;
@@ -550,7 +550,7 @@ void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
     if (tempHammerQuakeFlag != 0) {
         globalCtx->actorCtx.hammerQuakeFlag = tempHammerQuakeFlag;
     }
-    gIsForSoullessActor = FALSE;
+    gRunningActor = NULL;
 }
 
 void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {

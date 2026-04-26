@@ -3,6 +3,10 @@
 #include "enemizer.h"
 #include "actor.h"
 
+/*-------------------------------
+|             EnPoh             |
+-------------------------------*/
+
 void EnPoh_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnPoh_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnPoh_UpdateLiving(Actor* thisx, GlobalContext* globalCtx);
@@ -58,7 +62,7 @@ void EnPoh_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-void Poe_ReinitModels(EnPoh* this) {
+void EnPoh_ReinitModels(EnPoh* this) {
     Actor_DestroySkelModels(&this->actor, &this->saModel_1, &this->saModel_2, NULL);
     u32 cmb1Index    = this->infoIdx == 0 ? 1 : this->composerLanternCmbIndex;
     u32 cmb2Index    = this->infoIdx == 0 ? 2 : 1;
@@ -70,6 +74,26 @@ void Poe_ReinitModels(EnPoh* this) {
     this->saModel_2->matAnim->animSpeed = 2.0;
     this->saModel_94C                   = this->saModel_1;
     this->saModel_950                   = this->saModel_2;
+
+    Actor_ReinitSkelAnime(&this->anime, &this->actor);
+}
+
+/*-------------------------------
+|           EnPoField           |
+-------------------------------*/
+
+void EnPoField_WaitForSpawn(EnPoField* this, GlobalContext* globalCtx);
+
+void EnPoField_ReinitModels(EnPoField* this) {
+    Actor_DestroySkelModels(&this->actor, &this->saModel_1, &this->saModel_2, NULL);
+    ZARInfo* zarInfo =
+        Actor_CreateSkelModels(&this->actor, gGlobalContext, &this->saModel_1, 1, &this->saModel_2, 3, NULL);
+    if (this->actionFunc != EnPoField_WaitForSpawn) {
+        void* cmabMan = ZAR_GetCMABByIndex(zarInfo, this->actor.params == EN_PO_FIELD_BIG ? 0 : 1);
+        TexAnim_Spawn(this->saModel_2->matAnim, cmabMan);
+        this->saModel_2->matAnim->animMode  = 1;
+        this->saModel_2->matAnim->animSpeed = 2.0;
+    }
 
     Actor_ReinitSkelAnime(&this->anime, &this->actor);
 }

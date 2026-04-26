@@ -16,7 +16,7 @@ static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
     switch (actorId) {
         case ACTOR_POE:                    return SOUL_POE;
-        case ACTOR_BIG_POE:                return SOUL_POE;
+        case ACTOR_FIELD_POE:              return SOUL_POE;
         case ACTOR_POE_SISTER:             return SOUL_POE;
         case ACTOR_OCTOROK:                return SOUL_OCTOROK;
         case ACTOR_BIG_OCTO:               return SOUL_OCTOROK;
@@ -104,7 +104,7 @@ static void EnemySouls_SetSoulFlag(EnemySoulId soulId) {
 }
 
 u8 EnemySouls_CheckSoulForActor(Actor* actor) {
-    if ((gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_OFF) ||
+    if (actor == NULL || (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_OFF) ||
         (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_BOSSES && !Actor_IsBoss(actor)) ||
         // Armos statues and asleep Armos enemies, included so it can be hit and woken up even while soulless
         (actor->id == ACTOR_ARMOS && ((EnAm*)actor)->textureBlend == 0) ||
@@ -228,62 +228,37 @@ static CmbOriginalData* Cmb_GetOrigDataBuffer(CmbManager* cmbMan) {
 
 void EnemySouls_BeforeSkelAnimeInit(CmbManager* cmbMan, Actor* actor) {
     CitraPrint("BeforeSkelAnimeInit %X", actor->id);
-    // return;
-    // if (!EnemySouls_CheckSoulForActor(actor) && gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
-    //     CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
-    //     if (origDataBuf->status != CMBSTATUS_MODIFIED) {
-    //         origDataBuf->status = CMBSTATUS_MODIFIED;
-    //         CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
-    //         for (s32 i = 0; i < cmbMats->materialCount; i++) {
-    //             Material* mat                           = &cmbMats->materials[i];
-    //             origDataBuf->mats[i].textureMappersUsed = mat->textureMappersUsed;
-    //             origDataBuf->mats[i].alphaTestEnabled   = mat->alphaTestEnabled;
-    //             origDataBuf->mats[i].blendMode          = mat->blendMode;
-    //             mat->textureMappersUsed                 = 0;
-    //             mat->alphaTestEnabled                   = 0;
-    //             mat->blendMode                          = 0;
-    //         }
-    //     }
-    // }
 }
-void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan) {
-    if (gIsForSoullessActor && gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
-        CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
-        if (origDataBuf->status != CMBSTATUS_MODIFIED) {
-            origDataBuf->status = CMBSTATUS_MODIFIED;
-            CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
-            CitraPrint("BeforeCmbManagerInit %X", cmbMats->materialCount);
-            for (s32 i = 0; i < cmbMats->materialCount; i++) {
-                Material* mat                           = &cmbMats->materials[i];
-                origDataBuf->mats[i].textureMappersUsed = mat->textureMappersUsed;
-                origDataBuf->mats[i].alphaTestEnabled   = mat->alphaTestEnabled;
-                origDataBuf->mats[i].blendMode          = mat->blendMode;
-                mat->textureMappersUsed                 = 0;
-                mat->alphaTestEnabled                   = 0;
-                mat->blendMode                          = 0;
-            }
+void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 cmbIndex) {
+    if (gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_BLACK || EnemySouls_CheckSoulForActor(gRunningActor)) {
+        return;
+    }
+
+    // Ignore CmbManagers from global "keep" objects, even if this actor is the first one to request them (thus causing
+    // them to initialize).
+    ObjectEntry* obj = Object_FindEntryByZarInfo(zarInfo);
+    if (obj == NULL || obj->id <= OBJECT_GAMEPLAY_DUNGEON_KEEP) {
+        return;
+    }
+
+    CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
+    if (origDataBuf->status != CMBSTATUS_MODIFIED) {
+        origDataBuf->status = CMBSTATUS_MODIFIED;
+        CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
+        CitraPrint("BeforeCmbManagerInit %X", cmbMats->materialCount);
+        for (s32 i = 0; i < cmbMats->materialCount; i++) {
+            Material* mat                           = &cmbMats->materials[i];
+            origDataBuf->mats[i].textureMappersUsed = mat->textureMappersUsed;
+            origDataBuf->mats[i].alphaTestEnabled   = mat->alphaTestEnabled;
+            origDataBuf->mats[i].blendMode          = mat->blendMode;
+            mat->textureMappersUsed                 = 0;
+            mat->alphaTestEnabled                   = 0;
+            mat->blendMode                          = 0;
         }
     }
 }
 
 void EnemySouls_BeforeSkelModelCtor(CmbManager* cmbMan) {
-    // if (gIsForSoullessActor && gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
-    //     CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
-    //     if (origDataBuf->status != CMBSTATUS_MODIFIED) {
-    //         origDataBuf->status = CMBSTATUS_MODIFIED;
-    //         CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
-    //         for (s32 i = 0; i < cmbMats->materialCount; i++) {
-    //             CitraPrint("BeforeSkelModelCtor %X", i);
-    //             Material* mat                           = &cmbMats->materials[i];
-    //             origDataBuf->mats[i].textureMappersUsed = mat->textureMappersUsed;
-    //             origDataBuf->mats[i].alphaTestEnabled   = mat->alphaTestEnabled;
-    //             origDataBuf->mats[i].blendMode          = mat->blendMode;
-    //             mat->textureMappersUsed                 = 0;
-    //             mat->alphaTestEnabled                   = 0;
-    //             mat->blendMode                          = 0;
-    //         }
-    //     }
-    // }
 }
 
 static void SoullessDarkness_RestoreObject(u16 objectId) {
@@ -295,8 +270,9 @@ static void SoullessDarkness_RestoreObject(u16 objectId) {
         return;
     }
 
-    ObjectEntry* obj = Object_GetEntry(slot);
-    ZARInfo* zarInfo = &obj->zarInfo;
+    ObjectEntry* obj    = Object_GetEntry(slot);
+    ZARInfo* zarInfo    = &obj->zarInfo;
+    u8 restoredMaterial = FALSE;
 
     // Restore original values for each CMB that was modified.
     s32 numCMBs = zarInfo->fileTypes[zarInfo->fileTypeMap[0]].numFiles;
@@ -314,13 +290,16 @@ static void SoullessDarkness_RestoreObject(u16 objectId) {
                 mat->textureMappersUsed = origDataBuf->mats[i].textureMappersUsed;
                 mat->alphaTestEnabled   = origDataBuf->mats[i].alphaTestEnabled;
                 mat->blendMode          = origDataBuf->mats[i].blendMode;
+                restoredMaterial        = TRUE;
             }
         }
     }
 
     // Reinitialize ZarInfo, keeping same buffer and size. This destroys all CmbManagers.
-    ZAR_Destroy(zarInfo);
-    ZAR_Init(zarInfo, obj->buf, obj->size, 0);
+    if (restoredMaterial) {
+        ZAR_Destroy(zarInfo);
+        ZAR_Init(zarInfo, obj->buf, obj->size, 0);
+    }
 }
 
 typedef struct GenericSkelAnimeActor {
@@ -342,9 +321,11 @@ typedef struct GenericSkelAnimeActor {
 static void SoullessDarkness_RestoreActor(Actor* actor) {
     switch (actor->id) {
         case ACTOR_POE: // doesnt fade in
-            Poe_ReinitModels((EnPoh*)actor);
+            EnPoh_ReinitModels((EnPoh*)actor);
             break;
-        case ACTOR_BIG_POE: // doesnt fade in
+        case ACTOR_FIELD_POE: // doesnt fade in
+            EnPoField_ReinitModels((EnPoField*)actor);
+            break;
         case ACTOR_POE_SISTER:
         case ACTOR_OCTOROK: // OK
         case ACTOR_BIG_OCTO:
@@ -448,13 +429,13 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
 }
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId) {
-    if (soulId == SOUL_POE) {
-        SoullessDarkness_RestoreObject(OBJECT_POE);
-        SoullessDarkness_RestoreObject(OBJECT_POE_COMPOSER);
-    } else {
-        for (s32 i = 0; i < ACTOR_MAX; i++) {
-            ActorInit* profile = gActorOverlayTable[i].initInfo;
-            if (profile != NULL && EnemySouls_GetSoulId(profile->id) == soulId) {
+    for (s32 i = 0; i < ACTOR_MAX; i++) {
+        ActorInit* profile = gActorOverlayTable[i].initInfo;
+        if (profile != NULL && EnemySouls_GetSoulId(profile->id) == soulId) {
+            if (profile->id == ACTOR_POE) {
+                SoullessDarkness_RestoreObject(OBJECT_POE);
+                SoullessDarkness_RestoreObject(OBJECT_POE_COMPOSER);
+            } else if (profile->objectId > OBJECT_GAMEPLAY_DUNGEON_KEEP) {
                 SoullessDarkness_RestoreObject(profile->objectId);
             }
         }

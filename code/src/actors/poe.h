@@ -3,6 +3,10 @@
 
 #include "z3D/z3D.h"
 
+/*-------------------------------
+|             EnPoh             |
+-------------------------------*/
+
 typedef struct EnPoh {
     /* 0x000 */ Actor actor;
     /* 0x1A4 */ SkelAnime anime;
@@ -22,6 +26,33 @@ _Static_assert(sizeof(EnPoh) == 0xA6C, "EnPoh size");
 void EnPoh_rInit(Actor* thisx, GlobalContext* globalCtx);
 void EnPoh_rUpdate(Actor* thisx, GlobalContext* globalCtx);
 
-void Poe_ReinitModels(EnPoh* this);
+void EnPoh_ReinitModels(EnPoh* this);
+
+/*-------------------------------
+|           EnPoField           |
+-------------------------------*/
+
+struct EnPoField;
+
+typedef void (*EnPoFieldActionFunc)(struct EnPoField* this, GlobalContext* globalCtx);
+
+typedef enum EnPoFieldSize {
+    EN_PO_FIELD_SMALL,
+    EN_PO_FIELD_BIG
+} EnPoFieldSize;
+
+typedef struct EnPoField {
+    /* 0x000 */ Actor actor;
+    /* 0x1A4 */ SkelAnime anime;
+    /* 0x228 */ char unk_228[0x680];
+    /* 0x8A8 */ SkeletonAnimationModel* saModel_1;
+    /* 0x8AC */ SkeletonAnimationModel* saModel_2;
+    /* 0x8B0 */ char unk_8B0[0x044];
+    /* 0x8F4 */ EnPoFieldActionFunc actionFunc;
+    /* 0x8F8 */ char unk_8F8[0x0F8];
+} EnPoField;
+_Static_assert(sizeof(EnPoField) == 0x9F0, "EnPoField size");
+
+void EnPoField_ReinitModels(EnPoField* this);
 
 #endif //_POE_H_

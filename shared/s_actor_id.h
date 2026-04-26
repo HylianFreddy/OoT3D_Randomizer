@@ -66,7 +66,7 @@ enum ActorId {
     ACTOR_FLYING_POT         = 0x11D,
     ACTOR_FREEZARD           = 0x121,
     ACTOR_BG_JYA_IRONOBJ     = 0x169,
-    ACTOR_BIG_POE            = 0x175,
+    ACTOR_FIELD_POE          = 0x175,
     ACTOR_GANON              = 0x17A,
     ACTOR_GERUDO_GUARD       = 0x186,
     ACTOR_STINGER_WATER      = 0x18C,

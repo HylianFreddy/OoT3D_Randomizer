@@ -2228,11 +2228,14 @@ HOOK PlayerBonk
     pop {r0-r12, lr}
     bx lr
 
-HOOK Before_CmbManagerInit
+HOOK CmbManagerInit
     push {r0-r12, lr}
-    bl CmbManager_BeforeInit
+    @ r0 = cmbManager
+    cpy r1,r4 @ zarInfo
+    cpy r2,r5 @ cmbIndex
+    bl EnemySouls_BeforeCmbManagerInit
     pop {r0-r12, lr}
-    cpy r5,r0
+    ldr r1,[r4,#0x4C]
     bx lr
 
 HOOK After_CmbManagerInit

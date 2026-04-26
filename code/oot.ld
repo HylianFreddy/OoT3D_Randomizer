@@ -14,6 +14,7 @@ SECTIONS
 	EnZf_Update = 0x101C48 + _LD_OFF;
 	.patch_GrogSetTradedCojiroFlag 0x104C50 + _LD_OFF : { *(.patch_GrogSetTradedCojiroFlag) }
 	.patch_MidoCheckDekuTreeClearTwo 0x105CD4 + _LD_OFF : { *(.patch_MidoCheckDekuTreeClearTwo) }
+	EnPoField_WaitForSpawn = 0x108F6C + _LD_OFF;
 	.patch_ArmosCooldownTimer 0x10B41C + _LD_OFF : { *(.patch_ArmosCooldownTimer) }
 	.patch_ArmosPushSpeed 0x10B5C4 + _LD_OFF : { *(.patch_ArmosPushSpeed) }
 	EnMb_ClubWaitPlayerNear = 0x10B5D0 + _LD_OFF;
@@ -430,7 +431,6 @@ SECTIONS
 	.patch_CollisionATvsAC 0x3191B0 + _LD_OFF : { *(.patch_CollisionATvsAC) }
 	ZAR_Init = 0x31B124 + _LD_OFF;
 	ElfMessage_GetSariaText = 0x31C698 + _LD_OFF;
-	.patch_Before_CmbManagerInit 0x31FF68 + _LD_OFF : { *(.patch_Before_CmbManagerInit) }
 	.patch_After_CmbManagerInit 0x320454 + _LD_OFF : { *(.patch_After_CmbManagerInit) }
 	SkelAnime_InitImpl = 0x3220F4 + _LD_OFF;
 	.patch_SkelAnime_InitImpl 0x32218C + _LD_OFF : { *(.patch_SkelAnime_InitImpl) }
@@ -496,6 +496,7 @@ SECTIONS
 	DeleteModel_At = 0x357248 + _LD_OFF;
 	Collider_UpdateSpheres = 0x357750 + _LD_OFF;
 	ZAR_GetCMBByIndex = 0x358EF8 + _LD_OFF;
+	.patch_CmbManagerInit 0x358F8C + _LD_OFF : { *(.patch_CmbManagerInit) }
 	BossChallenge_IsActive = 0x35B164 + _LD_OFF;
 	.patch_Audio_PlayFanfare 0x35C528 + _LD_OFF : { *(.patch_Audio_PlayFanfare) }
 	Audio_PlayFanfare = 0x35C528 + _LD_OFF;

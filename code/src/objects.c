@@ -145,6 +145,20 @@ s32 Object_FindSlotOrSpawn(s16 objectId) {
     return objectSlot;
 }
 
+ObjectEntry* Object_FindEntryByZarInfo(ZARInfo* zarInfo) {
+    for (s32 i = 0; i < gGlobalContext->objectCtx.numEntries; i++) {
+        if (&gGlobalContext->objectCtx.slots[i].zarInfo == zarInfo) {
+            return &gGlobalContext->objectCtx.slots[i];
+        }
+    }
+    for (s32 i = 0; i < rExtendedObjectCtx.numEntries; i++) {
+        if (&rExtendedObjectCtx.slots[i].zarInfo == zarInfo) {
+            return &rExtendedObjectCtx.slots[i];
+        }
+    }
+    return NULL;
+}
+
 static s16 Object_GetIdFromSlot(ObjectContext* objectCtx, s16 slot) {
     if (slot < OBJECT_SLOT_MAX) {
         return objectCtx->slots[slot].id;
