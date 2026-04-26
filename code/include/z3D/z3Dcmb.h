@@ -157,4 +157,31 @@ typedef struct CmbManager {
     /* 0x44 */ u32 field_0x44;
 } CmbManager;
 
+struct SubStaticClass_55A19C_44;
+typedef void (*VTable_4ECA6C_Func)(struct SubStaticClass_55A19C_44* this, CmbManager* cmbMan);
+typedef struct VTable_4ECA6C {
+    VTable_4ECA6C_Func func0;
+    VTable_4ECA6C_Func func1;
+    VTable_4ECA6C_Func func2;
+    VTable_4ECA6C_Func func3;
+    VTable_4ECA6C_Func destroyCmb;
+    VTable_4ECA6C_Func func5;
+    VTable_4ECA6C_Func func6;
+} VTable_4ECA6C;
+
+typedef struct SubStaticClass_55A19C_44 {
+    /* 0x010 */ VTable_4ECA6C* vTable;
+    /* ... size unknown*/
+} SubStaticClass_55A19C_44;
+
+typedef struct StaticClass_55A19C {
+    /* 0x000 */ char unk_000[0x044];
+    /* 0x044 */ SubStaticClass_55A19C_44* sub44;
+    /* ... size unknown*/
+} StaticClass_55A19C;
+
+extern StaticClass_55A19C gStaticClass_55A19C;
+
+CmbManager* CmbManager_Destroy(CmbManager* cmbMan);
+
 #endif //_Z3DCMB_H_

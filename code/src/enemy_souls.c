@@ -227,7 +227,7 @@ static CmbOriginalData* Cmb_GetOrigDataBuffer(CmbManager* cmbMan) {
 }
 
 void EnemySouls_BeforeSkelAnimeInit(CmbManager* cmbMan, Actor* actor) {
-    CitraPrint("BeforeSkelAnimeInit %X", actor->id);
+    CitraPrint("BeforeSkelAnimeInit actorID=%X", actor->id);
 }
 void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 cmbIndex) {
     if (gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_BLACK || EnemySouls_CheckSoulForActor(gRunningActor)) {
@@ -245,7 +245,8 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
     if (origDataBuf->status != CMBSTATUS_MODIFIED) {
         origDataBuf->status = CMBSTATUS_MODIFIED;
         CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
-        CitraPrint("BeforeCmbManagerInit %X", cmbMats->materialCount);
+        // poe sisters: 11 mats
+        CitraPrint("BeforeCmbManagerInit materialCount=%X", cmbMats->materialCount);
         for (s32 i = 0; i < cmbMats->materialCount; i++) {
             Material* mat                           = &cmbMats->materials[i];
             origDataBuf->mats[i].textureMappersUsed = mat->textureMappersUsed;
@@ -270,35 +271,35 @@ static void SoullessDarkness_RestoreObject(u16 objectId) {
         return;
     }
 
-    ObjectEntry* obj    = Object_GetEntry(slot);
-    ZARInfo* zarInfo    = &obj->zarInfo;
-    u8 restoredMaterial = FALSE;
+    ObjectEntry* obj = Object_GetEntry(slot);
+    ZARInfo* zarInfo = &obj->zarInfo;
 
-    // Restore original values for each CMB that was modified.
     s32 numCMBs = zarInfo->fileTypes[zarInfo->fileTypeMap[0]].numFiles;
-    for (s32 i = 0; i < numCMBs; i++) {
-        CmbManager* cmbMan = zarInfo->cmbMans[i];
+    for (s32 cmbIdx = 0; cmbIdx < numCMBs; cmbIdx++) {
+        u8 restoredMaterial = FALSE;
+        CmbManager* cmbMan  = zarInfo->cmbMans[cmbIdx];
         if (cmbMan == NULL) {
             continue;
         }
+        // Restore original values for each CMB that was modified.
         CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
         if (origDataBuf->status == CMBSTATUS_MODIFIED) {
             origDataBuf->status = CMBSTATUS_RESTORED;
             CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
-            for (s32 i = 0; i < cmbMats->materialCount; i++) {
-                Material* mat           = &cmbMats->materials[i];
-                mat->textureMappersUsed = origDataBuf->mats[i].textureMappersUsed;
-                mat->alphaTestEnabled   = origDataBuf->mats[i].alphaTestEnabled;
-                mat->blendMode          = origDataBuf->mats[i].blendMode;
+            for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
+                Material* mat           = &cmbMats->materials[matIdx];
+                mat->textureMappersUsed = origDataBuf->mats[matIdx].textureMappersUsed;
+                mat->alphaTestEnabled   = origDataBuf->mats[matIdx].alphaTestEnabled;
+                mat->blendMode          = origDataBuf->mats[matIdx].blendMode;
                 restoredMaterial        = TRUE;
             }
         }
-    }
-
-    // Reinitialize ZarInfo, keeping same buffer and size. This destroys all CmbManagers.
-    if (restoredMaterial) {
-        ZAR_Destroy(zarInfo);
-        ZAR_Init(zarInfo, obj->buf, obj->size, 0);
+        // Destroy CMB Manager so it will be reinitialized the next time it's needed.
+        if (restoredMaterial) {
+            CmbManager_Destroy(cmbMan);
+            gStaticClass_55A19C.sub44->vTable->destroyCmb(gStaticClass_55A19C.sub44, cmbMan);
+            zarInfo->cmbMans[cmbIdx] = NULL;
+        }
     }
 }
 

@@ -402,6 +402,7 @@ SECTIONS
 	EffectSs_Delete = 0x2D6A50 + _LD_OFF;
 	.patch_CamUpdate 0x2D84C8 + _LD_OFF : { *(.patch_CamUpdate) }
 	.patch_CamRoll 0x2D88E4 + _LD_OFF : { *(.patch_CamRoll) }
+	CmbManager_Destroy = 0x2DA0E4 + _LD_OFF;
 	Message_GetText = 0x2DF4B0 + _LD_OFF;
 	Message_GetEntry = 0x2DF4C4 + _LD_OFF;
 	.patch_CheckForTextControlCode 0x2E0490 + _LD_OFF : { *(.patch_CheckForTextControlCode) }
@@ -917,6 +918,7 @@ SECTIONS
 	sPrevMainBgmSeqId = 0x54ACB8 + _LD_OFF;
 	gOcarinaSongNotes = 0x54B5F2 + _LD_OFF;
 	gOcarinaSongButtons = 0x54C222 + _LD_OFF;
+	gStaticClass_55A19C = 0x55A19C + _LD_OFF;
 	ControlStick_X = 0x5655C0 + _LD_OFF;
 	ControlStick_Y = 0x5655C4 + _LD_OFF;
 	gSaveContext = 0x587958 + _LD_OFF;
