@@ -328,6 +328,8 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             EnPoField_ReinitModels((EnPoField*)actor);
             break;
         case ACTOR_POE_SISTER:
+            EnPoSisters_ReinitModels((EnPoSisters*)actor);
+            break;
         case ACTOR_OCTOROK: // OK
         case ACTOR_BIG_OCTO:
         case ACTOR_TEKTITE:  // cmab

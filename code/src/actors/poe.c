@@ -97,3 +97,14 @@ void EnPoField_ReinitModels(EnPoField* this) {
 
     Actor_ReinitSkelAnime(&this->anime, &this->actor);
 }
+
+/*-------------------------------
+|           EnPoSister          |
+-------------------------------*/
+
+void EnPoSisters_ReinitModels(EnPoSisters* this) {
+    Actor_DestroySkelModels(&this->actor, &this->saModel_death, NULL);
+    Actor_CreateSkelModels(&this->actor, gGlobalContext, &this->saModel_death, 6, NULL);
+
+    Actor_ReinitSkelAnime(&this->anime, &this->actor);
+}

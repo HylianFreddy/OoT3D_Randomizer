@@ -55,4 +55,19 @@ _Static_assert(sizeof(EnPoField) == 0x9F0, "EnPoField size");
 
 void EnPoField_ReinitModels(EnPoField* this);
 
+/*-------------------------------
+|           EnPoSister          |
+-------------------------------*/
+
+typedef struct EnPoSisters {
+    /* 0x000 */ Actor actor;
+    /* 0x1A4 */ SkelAnime anime;
+    /* 0x228 */ char unk_228[0x750];
+    /* 0x978 */ SkeletonAnimationModel* saModel_death;
+    /* 0x97C */ char unk_97C[0x17C];
+} EnPoSisters;
+_Static_assert(sizeof(EnPoSisters) == 0xAF8, "EnPoSisters size");
+
+void EnPoSisters_ReinitModels(EnPoSisters* this);
+
 #endif //_POE_H_
