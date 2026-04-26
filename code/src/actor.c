@@ -591,20 +591,10 @@ s32 Actor_IsKilled(Actor* actor) {
     return actor->update == NULL && actor->draw == NULL;
 }
 
-void Actor_ReinitSkelAnime(SkelAnime* anime, Actor* actor) {
+void Actor_ReinitSkelAnime(Actor* actor, SkelAnime* anime, s32 cmbIndex) {
     if (anime->cmbMan == NULL) {
         // SkelAnime is not initialized
         return;
-    }
-
-    // Find which cmbIndex this SkelAnime uses
-    s32 numCMBs  = anime->zarInfo->fileTypes[anime->zarInfo->fileTypeMap[0]].numFiles;
-    s32 cmbIndex = 0;
-    for (s32 i = 0; i < numCMBs; i++) {
-        if (anime->zarInfo->cmbMans[i] == anime->cmbMan) {
-            cmbIndex = i;
-            break;
-        }
     }
 
     // Temporarily store animation values
@@ -614,12 +604,8 @@ void Actor_ReinitSkelAnime(SkelAnime* anime, Actor* actor) {
     f32 startFrame   = anime->startFrame;
     f32 endFrame     = anime->endFrame;
     f32 animMode     = anime->animMode;
-    void* jointTable = NULL;
-    void* morphTable = NULL;
-    if (!anime->dynamicTables) {
-        jointTable = anime->jointTable;
-        morphTable = anime->morphTable;
-    }
+    void* jointTable = anime->dynamicTables ? NULL : anime->jointTable;
+    void* morphTable = anime->dynamicTables ? NULL : anime->morphTable;
 
     // Reinitialize SkelAnime and reload the same animation at the same frame.
     SkelAnime_Destroy(anime);

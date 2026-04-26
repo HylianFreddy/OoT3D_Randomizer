@@ -9,6 +9,6 @@ void Actor_Init();
 void ActorSetup_Extra();
 s32 Actor_CollisionATvsAC(Collider* at, Collider* ac);
 s32 Actor_IsBoss(Actor* actor);
-void Actor_ReinitSkelAnime(SkelAnime* anime, Actor* actor);
+void Actor_ReinitSkelAnime(Actor* actor, SkelAnime* anime, s32 cmbIndex);
 
 #endif //_ACTOR_H_

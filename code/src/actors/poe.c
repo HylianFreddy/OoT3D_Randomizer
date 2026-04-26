@@ -75,7 +75,7 @@ void EnPoh_ReinitModels(EnPoh* this) {
     this->saModel_94C                   = this->saModel_1;
     this->saModel_950                   = this->saModel_2;
 
-    Actor_ReinitSkelAnime(&this->anime, &this->actor);
+    Actor_ReinitSkelAnime(&this->actor, &this->anime, 0);
 }
 
 /*-------------------------------
@@ -95,7 +95,7 @@ void EnPoField_ReinitModels(EnPoField* this) {
         this->saModel_2->matAnim->animSpeed = 2.0;
     }
 
-    Actor_ReinitSkelAnime(&this->anime, &this->actor);
+    Actor_ReinitSkelAnime(&this->actor, &this->anime, 0);
 }
 
 /*-------------------------------
@@ -106,5 +106,5 @@ void EnPoSisters_ReinitModels(EnPoSisters* this) {
     Actor_DestroySkelModels(&this->actor, &this->saModel_death, NULL);
     Actor_CreateSkelModels(&this->actor, gGlobalContext, &this->saModel_death, 6, NULL);
 
-    Actor_ReinitSkelAnime(&this->anime, &this->actor);
+    Actor_ReinitSkelAnime(&this->actor, &this->anime, 0);
 }

@@ -337,7 +337,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             break;
         case ACTOR_TEKTITE: // cmab
             SkelAnime* anime = &((GenericSkelAnimeActor*)actor)->skelAnime;
-            Actor_ReinitSkelAnime(anime, actor);
+            Actor_ReinitSkelAnime(actor, anime, 0);
             if (actor->params == -1) { // red tektite
                 void* cmabMan = ZAR_GetCMABByIndex(anime->zarInfo, 0);
                 TexAnim_Spawn(anime->saModel->matAnim, cmabMan);
@@ -349,6 +349,8 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             EnPeehat_ReinitModels((EnPeehat*)actor);
             break;
         case ACTOR_LIZALFOS: // OK
+            Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->skelAnime, actor->params == -2 ? 1 : 0);
+            break;
         case ACTOR_BIRI:
         case ACTOR_BARI:
         case ACTOR_SKULLTULA:
@@ -390,50 +392,50 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
 
         case ACTOR_BIG_OCTO: // OK
         case ACTOR_LEEVER:   // OK
-            Actor_ReinitSkelAnime(&((GenericSkelAnimeActor*)actor)->skelAnime, actor);
+            Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->skelAnime, 0);
             break;
 
         case ACTOR_KEESE:
-            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1C8), actor);
+            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1C8), 0);
             break;
             // return &((EnFirefly*)actor)->skelAnime;
         case ACTOR_TAILPASARAN:
-            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1B0), actor);
+            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1B0), 0);
             break;
             // return &((EnTp*)actor)->skelAnime;
         case ACTOR_MOBLIN:
-            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1E4), actor);
+            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1E4), 0);
             break;
         case ACTOR_DEKU_BABA:
         case ACTOR_GUAY:
-            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1D4), actor);
+            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1D4), 0);
             break;
         case ACTOR_REDEAD:
         case ACTOR_WOLFOS:
         case ACTOR_STALFOS:
         case ACTOR_GERUDO_FIGHTER:
-            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1E0), actor);
+            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1E0), 0);
             break;
         case ACTOR_LIKE_LIKE:
-            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x2438), actor);
+            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x2438), 0);
             break;
         case ACTOR_DARK_LINK:
-            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x254), actor);
+            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x254), 0);
             break;
         case ACTOR_GERUDO_GUARD:
-            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1FC), actor);
+            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1FC), 0);
             break;
         case ACTOR_PG_HORSE:
-            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x26C), actor);
+            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x26C), 0);
             break;
         case ACTOR_MORPHA:
-            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x16E0), actor);
+            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x16E0), 0);
             break;
         case ACTOR_TWINROVA:
-            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x5C0), actor);
+            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x5C0), 0);
             break;
         case ACTOR_GANONDORF:
-            Actor_ReinitSkelAnime((SkelAnime*)(((u32)actor) + 0x1A8), actor);
+            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1A8), 0);
             break;
 
         case ACTOR_SHABOM:
