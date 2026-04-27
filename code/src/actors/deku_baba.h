@@ -4,6 +4,25 @@
 #include "z3D/z3D.h"
 
 /*-------------------------------
+|           EnDekubaba          |
+-------------------------------*/
+
+typedef struct EnDekubaba {
+    /* 0x000 */ Actor actor;
+    /* 0x1A4 */ char unk_1A4[0x030];
+    /* 0x1D4 */ SkelAnime anime;
+    /* 0x258 */ char unk_258[0x3A0];
+    /* 0x5F8 */ SkeletonAnimationModel* stalkModel_1;
+    /* 0x5FC */ SkeletonAnimationModel* stalkModel_2;
+    /* 0x600 */ SkeletonAnimationModel* stalkModel_3;
+    /* 0x604 */ SkeletonAnimationModel* leavesModel;
+    /* 0x608 */ SkeletonAnimationModel* stickModel;
+} EnDekubaba;
+_Static_assert(sizeof(EnDekubaba) == 0x60C, "EnDekubaba size");
+
+void EnDekubaba_ReinitModels(EnDekubaba* this);
+
+/*-------------------------------
 |           EnKarebaba          |
 -------------------------------*/
 

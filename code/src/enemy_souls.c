@@ -384,6 +384,8 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_ARMOS:
             Actor_ReinitSkelAnime(actor, &((EnAm*)actor)->anime, 0);
             break;
+        case ACTOR_DEKU_BABA:
+            return EnDekubaba_ReinitModels((EnDekubaba*)actor);
         case ACTOR_WITHERED_DEKU_BABA:
             return EnKarebaba_ReinitModels((EnKarebaba*)actor);
         case ACTOR_BUBBLE:
@@ -434,7 +436,6 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_MOBLIN:
             Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1E4), 0);
             break;
-        case ACTOR_DEKU_BABA:
         case ACTOR_GUAY:
             Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1D4), 0);
             break;
