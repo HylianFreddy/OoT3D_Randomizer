@@ -529,6 +529,7 @@ SECTIONS
 	Flags_SetEnv = 0x366704 + _LD_OFF;
 	Actor_SetModelMatrix = 0x3679D0 + _LD_OFF;
 	DisplayTextbox = 0x367C7C + _LD_OFF;
+	MatAnim_Destroy = 0x3685A0 + _LD_OFF;
 	SkeletonAnimationModel_SetMesh = 0x369178 + _LD_OFF;
 	Model_DisableMeshGroupByIndex = 0x36932C + _LD_OFF;
 	Actor_FindNearby = 0x369334 + _LD_OFF;

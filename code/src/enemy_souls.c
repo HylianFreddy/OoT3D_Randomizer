@@ -350,6 +350,8 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             EnBili_ReinitModels((EnBili*)actor);
             break;
         case ACTOR_BARI:
+            EnVali_ReinitModels((EnVali*)actor);
+            break;
         case ACTOR_SKULLTULA:
         case ACTOR_SKULLWALLTULA:
         case ACTOR_TORCH_SLUG:

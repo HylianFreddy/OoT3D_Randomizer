@@ -429,6 +429,7 @@ void ZAR_Destroy(struct ZARInfo* zarInfo);
 void* ZAR_GetCMBByIndex(struct ZARInfo* zarInfo, u32 index);
 void* ZAR_GetCMABByIndex(struct ZARInfo* zarInfo, u32 index);
 void TexAnim_Spawn(MaterialAnimation* matAnim, void* cmabMan);
+void MatAnim_Destroy(MaterialAnimation *matAnim);
 void FaceAnim_Init(FaceAnimation* faceAnim, SkelAnime* skelAnime, s32 cmabIdx1, s32 cmabIdx2, s32 cmabIdx3);
 void FaceAnim_Destroy(FaceAnimation* faceAnim);
 
