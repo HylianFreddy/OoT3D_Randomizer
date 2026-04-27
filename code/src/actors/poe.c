@@ -69,7 +69,7 @@ void EnPoh_ReinitModels(EnPoh* this) {
     ZARInfo* zarInfo = Actor_CreateSkelModels(&this->actor, gGlobalContext, &this->saModel_1, cmb1Index,
                                               &this->saModel_2, cmb2Index, NULL);
     void* cmabMan    = ZAR_GetCMABByIndex(zarInfo, 0);
-    TexAnim_Spawn(this->saModel_2->matAnim, cmabMan);
+    MatAnim_Init(this->saModel_2->matAnim, cmabMan);
     this->saModel_2->matAnim->animMode  = 1;
     this->saModel_2->matAnim->animSpeed = 2.0;
     this->saModel_94C                   = this->saModel_1;
@@ -90,7 +90,7 @@ void EnPoField_ReinitModels(EnPoField* this) {
         Actor_CreateSkelModels(&this->actor, gGlobalContext, &this->saModel_1, 1, &this->saModel_2, 3, NULL);
     if (this->actionFunc != EnPoField_WaitForSpawn) {
         void* cmabMan = ZAR_GetCMABByIndex(zarInfo, this->actor.params == EN_PO_FIELD_BIG ? 0 : 1);
-        TexAnim_Spawn(this->saModel_2->matAnim, cmabMan);
+        MatAnim_Init(this->saModel_2->matAnim, cmabMan);
         this->saModel_2->matAnim->animMode  = 1;
         this->saModel_2->matAnim->animSpeed = 2.0;
     }

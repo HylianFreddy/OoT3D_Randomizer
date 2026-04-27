@@ -20,12 +20,12 @@ void EnMag_rInit(Actor* thisx, GlobalContext* globalCtx) {
     EnMag_Init(thisx, globalCtx);
 
     cmabMan = ZAR_GetCMABByIndex(customAssetsZAR, TEXANIM_TITLE_LOGO_US);
-    TexAnim_Spawn(this->logoModel->matAnim, cmabMan);
+    MatAnim_Init(this->logoModel->matAnim, cmabMan);
     this->logoModel->matAnim->animSpeed = 0.0f;
     this->logoModel->matAnim->animMode  = 0;
 
     cmabMan = ZAR_GetCMABByIndex(customAssetsZAR, TEXANIM_COPY_NINTENDO);
-    TexAnim_Spawn(this->copyrightModel->matAnim, cmabMan);
+    MatAnim_Init(this->copyrightModel->matAnim, cmabMan);
     this->copyrightModel->matAnim->animSpeed = 0.0f;
     this->copyrightModel->matAnim->animMode  = 0;
 

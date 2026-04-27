@@ -71,7 +71,7 @@ void EnLinkPuppet_Init(Actor* thisx, GlobalContext* globalCtx) {
         cmabMan = ZAR_GetCMABByIndex(PLAYER->zarInfo, 2);
     }
     if (cmabMan != NULL) {
-        TexAnim_Spawn(this->skelAnime.saModel->matAnim, cmabMan);
+        MatAnim_Init(this->skelAnime.saModel->matAnim, cmabMan);
     }
     this->skelAnime.saModel->matAnim->animSpeed = 0.0f;
     this->skelAnime.saModel->matAnim->animMode  = 0;

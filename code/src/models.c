@@ -17,7 +17,7 @@ Model ModelContext[LOADEDMODELS_MAX] = { 0 };
 
 void Model_SetAnim(SkeletonAnimationModel* model, s16 objectId, u32 objectAnimIdx) {
     void* cmabMan = Object_GetCMABByIndex(objectId, objectAnimIdx);
-    TexAnim_Spawn(model->matAnim, cmabMan);
+    MatAnim_Init(model->matAnim, cmabMan);
 }
 
 void Model_Init(Model* model, GlobalContext* globalCtx) {

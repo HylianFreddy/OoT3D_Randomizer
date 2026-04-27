@@ -77,7 +77,7 @@ void Player_SetChildCustomTunicCMAB(void) {
         return;
     }
     void* cmabMan = Object_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_CHILD_LINK_BODY);
-    TexAnim_Spawn(PLAYER->skelAnime.saModel->matAnim, cmabMan);
+    MatAnim_Init(PLAYER->skelAnime.saModel->matAnim, cmabMan);
 }
 
 void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {

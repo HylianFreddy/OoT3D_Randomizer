@@ -6,7 +6,7 @@ void EnTite_ReinitModels(EnTite* this) {
     Actor_ReinitSkelAnime(&this->actor, anime, 0);
     if (this->actor.params == -1) { // red tektite
         void* cmabMan = ZAR_GetCMABByIndex(anime->zarInfo, 0);
-        TexAnim_Spawn(anime->saModel->matAnim, cmabMan);
+        MatAnim_Init(anime->saModel->matAnim, cmabMan);
         anime->saModel->matAnim->animSpeed = 0.0f;
         anime->saModel->matAnim->curFrame  = 1.0f;
     }

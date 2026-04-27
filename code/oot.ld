@@ -566,7 +566,7 @@ SECTIONS
 	.patch_MaskSalesmanCheckNoMaskTwo 0x372B70 + _LD_OFF : { *(.patch_MaskSalesmanCheckNoMaskTwo) }
 	ActorShape_Init = 0x372D4C + _LD_OFF;
 	Actor_Find = 0x372D64 + _LD_OFF;
-	TexAnim_Spawn = 0x372D94 + _LD_OFF;
+	MatAnim_Init = 0x372D94 + _LD_OFF;
 	ZAR_GetCMABByIndex = 0x372F0C + _LD_OFF;
 	Actor_CreateSkelModels = 0x372F38 + _LD_OFF;
 	.patch_GetObjectEntry_372F7C 0x372F7C + _LD_OFF : { *(.patch_GetObjectEntry_372F7C) }

@@ -28,7 +28,7 @@ void EnVali_ReinitModels(EnVali* this) {
     MatAnim_Destroy(&this->matAnim);
     void* cmabMan        = ZAR_GetCMABByIndex(zarInfo, 0);
     this->matAnim.unk_00 = this->innerBellModel->unk_10;
-    TexAnim_Spawn(&this->matAnim, cmabMan);
+    MatAnim_Init(&this->matAnim, cmabMan);
     this->matAnim.animMode  = 1;
     this->matAnim.animSpeed = 1.0;
 }

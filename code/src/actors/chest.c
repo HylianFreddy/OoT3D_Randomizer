@@ -124,7 +124,7 @@ void Chest_ChangeAppearance(Actor* thisx, GlobalContext* globalCtx) {
         u32 assetIndex = chestType_to_assetIndex[type];
         if (assetIndex != 0) {
             void* cmabMan = Object_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, assetIndex);
-            TexAnim_Spawn(this->skelAnime.saModel->matAnim, cmabMan);
+            MatAnim_Init(this->skelAnime.saModel->matAnim, cmabMan);
         }
     }
 

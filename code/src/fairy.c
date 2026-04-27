@@ -105,8 +105,8 @@ s32 Fairy_SetTargetPointerColor(TargetContext* targetCtx, Actor* targetActor) {
     Fairy_ApplyColorToTargetCMAB(*cmabManager, NaviColorsArray[targetActor->type * 2]); // get inner color
     staticRainbowPointerCMAB = Fairy_IsNaviInnerRainbowForActorType(targetActor->type) ? *cmabManager : 0;
 
-    TexAnim_Spawn(targetCtx->visibleTargetIndicators.pointer->matAnim, cmabManager);
-    TexAnim_Spawn(targetCtx->hiddenTargetIndicators.pointer->matAnim, cmabManager);
+    MatAnim_Init(targetCtx->visibleTargetIndicators.pointer->matAnim, cmabManager);
+    MatAnim_Init(targetCtx->hiddenTargetIndicators.pointer->matAnim, cmabManager);
     targetCtx->pointerActorType = targetActor->type;
 
     return 1;
@@ -122,12 +122,12 @@ s32 Fairy_SetTargetReticleColor(TargetContext* targetCtx) {
     staticRainbowReticleCMAB = Fairy_IsNaviInnerRainbowForActorType(targetCtx->reticleActorType) ? *cmabManager : 0;
 
     for (s32 i = 0; i < 4; i++) {
-        TexAnim_Spawn(targetCtx->visibleTargetIndicators.reticle[i]->matAnim, cmabManager);
-        TexAnim_Spawn(targetCtx->visibleTargetIndicators.reticleAfterimageOne[i]->matAnim, cmabManager);
-        TexAnim_Spawn(targetCtx->visibleTargetIndicators.reticleAfterimageTwo[i]->matAnim, cmabManager);
-        TexAnim_Spawn(targetCtx->hiddenTargetIndicators.reticle[i]->matAnim, cmabManager);
-        TexAnim_Spawn(targetCtx->hiddenTargetIndicators.reticleAfterimageOne[i]->matAnim, cmabManager);
-        TexAnim_Spawn(targetCtx->hiddenTargetIndicators.reticleAfterimageTwo[i]->matAnim, cmabManager);
+        MatAnim_Init(targetCtx->visibleTargetIndicators.reticle[i]->matAnim, cmabManager);
+        MatAnim_Init(targetCtx->visibleTargetIndicators.reticleAfterimageOne[i]->matAnim, cmabManager);
+        MatAnim_Init(targetCtx->visibleTargetIndicators.reticleAfterimageTwo[i]->matAnim, cmabManager);
+        MatAnim_Init(targetCtx->hiddenTargetIndicators.reticle[i]->matAnim, cmabManager);
+        MatAnim_Init(targetCtx->hiddenTargetIndicators.reticleAfterimageOne[i]->matAnim, cmabManager);
+        MatAnim_Init(targetCtx->hiddenTargetIndicators.reticleAfterimageTwo[i]->matAnim, cmabManager);
     }
 
     return 1;
