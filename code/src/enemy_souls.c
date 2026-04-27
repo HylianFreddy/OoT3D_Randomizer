@@ -346,44 +346,32 @@ typedef struct GenericSkelAnimeActor {
 static void SoullessDarkness_RestoreActor(Actor* actor) {
     switch (actor->id) {
         case ACTOR_POE: // doesnt fade in
-            EnPoh_ReinitModels((EnPoh*)actor);
-            break;
+            return EnPoh_ReinitModels((EnPoh*)actor);
         case ACTOR_FIELD_POE: // doesnt fade in
-            EnPoField_ReinitModels((EnPoField*)actor);
-            break;
+            return EnPoField_ReinitModels((EnPoField*)actor);
         case ACTOR_POE_SISTER:
-            EnPoSisters_ReinitModels((EnPoSisters*)actor);
-            break;
-        case ACTOR_OCTOROK: // OK
-            EnOkuta_ReinitModels((EnOkuta*)actor);
-            break;
+            return EnPoSisters_ReinitModels((EnPoSisters*)actor);
+        case ACTOR_OCTOROK:
+            return EnOkuta_ReinitModels((EnOkuta*)actor);
         case ACTOR_TEKTITE:
-            EnTite_ReinitModels((EnTite*)actor);
-            break;
+            return EnTite_ReinitModels((EnTite*)actor);
         case ACTOR_PEAHAT:
-            EnPeehat_ReinitModels((EnPeehat*)actor);
-            break;
-        case ACTOR_LIZALFOS: // OK
-            Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, actor->params == -2 ? 1 : 0);
-            break;
+            return EnPeehat_ReinitModels((EnPeehat*)actor);
+        case ACTOR_LIZALFOS:
+            return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, actor->params == -2 ? 1 : 0);
         case ACTOR_BIRI:
-            EnBili_ReinitModels((EnBili*)actor);
-            break;
+            return EnBili_ReinitModels((EnBili*)actor);
         case ACTOR_BARI:
-            EnVali_ReinitModels((EnVali*)actor);
-            break;
+            return EnVali_ReinitModels((EnVali*)actor);
         case ACTOR_SKULLWALLTULA:
-            Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, actor->params & 0xE000 ? 1 : 0);
-            break;
+            return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime,
+                                         actor->params & 0xE000 ? 1 : 0);
         case ACTOR_TORCH_SLUG:
-            EnBw_ReinitModels((EnBw*)actor);
-            break;
+            return EnBw_ReinitModels((EnBw*)actor);
         case ACTOR_STINGER_FLOOR:
-            EnEiyer_ReinitModels((EnEiyer*)actor);
-            break;
+            return EnEiyer_ReinitModels((EnEiyer*)actor);
         case ACTOR_ARMOS:
-            Actor_ReinitSkelAnime(actor, &((EnAm*)actor)->anime, 0);
-            break;
+            return Actor_ReinitSkelAnime(actor, &((EnAm*)actor)->anime, 0);
         case ACTOR_DEKU_BABA:
             return EnDekubaba_ReinitModels((EnDekubaba*)actor);
         case ACTOR_WITHERED_DEKU_BABA:
@@ -422,60 +410,46 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_SKULLTULA:     // OK
         case ACTOR_STINGER_WATER: // OK
         case ACTOR_BUBBLE:        // OK
-            Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, 0);
-            break;
+            return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, 0);
 
         case ACTOR_KEESE:
-            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1C8), 0);
-            break;
+            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1C8), 0);
             // return &((EnFirefly*)actor)->skelAnime;
         case ACTOR_TAILPASARAN:
-            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1B0), 0);
-            break;
+            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1B0), 0);
             // return &((EnTp*)actor)->skelAnime;
         case ACTOR_MOBLIN:
-            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1E4), 0);
-            break;
+            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1E4), 0);
         case ACTOR_GUAY:
-            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1D4), 0);
-            break;
+            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1D4), 0);
         case ACTOR_REDEAD:
         case ACTOR_WOLFOS:
         case ACTOR_STALFOS:
         case ACTOR_GERUDO_FIGHTER:
-            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1E0), 0);
-            break;
+            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1E0), 0);
         case ACTOR_LIKE_LIKE:
-            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x2438), 0);
-            break;
+            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x2438), 0);
         case ACTOR_DARK_LINK:
-            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x254), 0);
-            break;
+            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x254), 0);
         case ACTOR_GERUDO_GUARD:
-            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1FC), 0);
-            break;
+            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1FC), 0);
         case ACTOR_PG_HORSE:
-            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x26C), 0);
-            break;
+            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x26C), 0);
         case ACTOR_MORPHA:
-            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x16E0), 0);
-            break;
+            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x16E0), 0);
         case ACTOR_TWINROVA:
-            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x5C0), 0);
-            break;
+            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x5C0), 0);
         case ACTOR_GANONDORF:
-            Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1A8), 0);
-            break;
+            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1A8), 0);
 
         case ACTOR_SHABOM:
             Actor_DestroySkelModels(actor, &((EnBubble*)actor)->saModel, NULL);
-            Actor_CreateSkelModels(actor, gGlobalContext, &((EnBubble*)actor)->saModel, 0, NULL);
-            break;
+            return Actor_CreateSkelModels(actor, gGlobalContext, &((EnBubble*)actor)->saModel, 0, NULL);
         case ACTOR_FLYING_POT:
         case ACTOR_FLYING_FLOOR_TILE:
         case ACTOR_SPIKE:
         case ACTOR_FREEZARD:
-            break;
+            return;
     }
 }
 
