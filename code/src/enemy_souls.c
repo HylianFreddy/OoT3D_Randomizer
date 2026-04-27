@@ -13,6 +13,7 @@
 #include "peahat.h"
 #include "tektite.h"
 #include "biri.h"
+#include "torch_slug.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -356,6 +357,8 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->skelAnime, actor->params & 0xE000 ? 1 : 0);
             break;
         case ACTOR_TORCH_SLUG:
+            EnBw_ReinitModels((EnBw*)actor);
+            break;
         case ACTOR_STINGER_FLOOR:
         case ACTOR_STINGER_WATER:
         case ACTOR_ARMOS:
