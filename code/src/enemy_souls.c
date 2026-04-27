@@ -11,6 +11,7 @@
 #include "poe.h"
 #include "octorok.h"
 #include "peahat.h"
+#include "tektite.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -335,15 +336,8 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_OCTOROK: // OK
             EnOkuta_ReinitModels((EnOkuta*)actor);
             break;
-        case ACTOR_TEKTITE: // cmab
-            SkelAnime* anime = &((GenericSkelAnimeActor*)actor)->skelAnime;
-            Actor_ReinitSkelAnime(actor, anime, 0);
-            if (actor->params == -1) { // red tektite
-                void* cmabMan = ZAR_GetCMABByIndex(anime->zarInfo, 0);
-                TexAnim_Spawn(anime->saModel->matAnim, cmabMan);
-                anime->saModel->matAnim->animSpeed = 0.0f;
-                anime->saModel->matAnim->curFrame  = 1.0f;
-            }
+        case ACTOR_TEKTITE:
+            EnTite_ReinitModels((EnTite*)actor);
             break;
         case ACTOR_PEAHAT:
             EnPeehat_ReinitModels((EnPeehat*)actor);
