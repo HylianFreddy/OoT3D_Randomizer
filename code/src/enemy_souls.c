@@ -109,18 +109,27 @@ static void EnemySouls_SetSoulFlag(EnemySoulId soulId) {
     gExtSaveData.extInf.enemySouls[(soulId >> 3)] |= (1 << (soulId & 0b111));
 }
 
-u8 EnemySouls_CheckSoulForActor(Actor* actor) {
+static u8 EnemySouls_CheckSoulForActorImpl(Actor* actor, u8 checkState) {
     if (actor == NULL || (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_OFF) ||
         (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_BOSSES && !Actor_IsBoss(actor)) ||
-        // Armos statues and asleep Armos enemies, included so it can be hit and woken up even while soulless
-        (actor->id == ACTOR_ARMOS && ((EnAm*)actor)->textureBlend == 0) ||
-        // Hidden flying traps will appear normal; in this state they already ignore collider hits
-        FlyingTraps_IsHiddenTrap(actor)) {
+        (checkState &&
+         // Armos statues and asleep Armos enemies, included so they can be hit and woken up even while soulless
+         ((actor->id == ACTOR_ARMOS && ((EnAm*)actor)->textureBlend == 0) ||
+          // Hidden flying traps will appear normal; in this state they already ignore collider hits
+          FlyingTraps_IsHiddenTrap(actor)))) {
         return TRUE;
     }
 
     EnemySoulId soulId = EnemySouls_GetSoulId(actor->id);
     return soulId == SOUL_NONE || EnemySouls_GetSoulFlag(soulId);
+}
+
+u8 EnemySouls_CheckSoulForActor(Actor* actor) {
+    return EnemySouls_CheckSoulForActorImpl(actor, TRUE);
+}
+
+static u8 EnemySouls_CheckSoulForActor_IgnoreState(Actor* actor) {
+    return EnemySouls_CheckSoulForActorImpl(actor, FALSE);
 }
 
 void EnemySouls_OnCollect(EnemySoulId soulId) {
@@ -235,8 +244,10 @@ static CmbOriginalData* Cmb_GetOrigDataBuffer(CmbManager* cmbMan) {
 void EnemySouls_BeforeSkelAnimeInit(CmbManager* cmbMan, Actor* actor) {
     CitraPrint("BeforeSkelAnimeInit actorID=%X", actor->id);
 }
+
 void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 cmbIndex) {
-    if (gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_BLACK || EnemySouls_CheckSoulForActor(gRunningActor)) {
+    if (gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_BLACK ||
+        EnemySouls_CheckSoulForActor_IgnoreState(gRunningActor)) {
         return;
     }
 
@@ -253,14 +264,18 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
         CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
         // poe sisters: 11 mats
         CitraPrint("BeforeCmbManagerInit materialCount=%X", cmbMats->materialCount);
-        for (s32 i = 0; i < cmbMats->materialCount; i++) {
-            Material* mat                           = &cmbMats->materials[i];
-            origDataBuf->mats[i].textureMappersUsed = mat->textureMappersUsed;
-            origDataBuf->mats[i].alphaTestEnabled   = mat->alphaTestEnabled;
-            origDataBuf->mats[i].blendMode          = mat->blendMode;
-            mat->textureMappersUsed                 = 0;
-            mat->alphaTestEnabled                   = 0;
-            mat->blendMode                          = 0;
+        // For Armos, only remove texture mapper for "awoken" state, and leave eye material untouched.
+        u32 firstMatIdx = gRunningActor->id == ACTOR_ARMOS ? 1 : 0;
+        u32 texMapOvr   = gRunningActor->id == ACTOR_ARMOS ? 1 : 0;
+        for (s32 matIdx = firstMatIdx; matIdx < cmbMats->materialCount; matIdx++) {
+            Material* mat                                = &cmbMats->materials[matIdx];
+            origDataBuf->mats[matIdx].textureMappersUsed = mat->textureMappersUsed;
+            origDataBuf->mats[matIdx].alphaTestEnabled   = mat->alphaTestEnabled;
+            origDataBuf->mats[matIdx].blendMode          = mat->blendMode;
+
+            mat->textureMappersUsed = texMapOvr;
+            mat->alphaTestEnabled   = 0;
+            mat->blendMode          = 0;
         }
     }
 }
@@ -292,7 +307,9 @@ static void SoullessDarkness_RestoreObject(u16 objectId) {
         if (origDataBuf->status == CMBSTATUS_MODIFIED) {
             origDataBuf->status = CMBSTATUS_RESTORED;
             CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
-            for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
+            // For Armos, only second material is overridden.
+            u32 firstMatIdx = objectId == OBJECT_ARMOS ? 1 : 0;
+            for (s32 matIdx = firstMatIdx; matIdx < cmbMats->materialCount; matIdx++) {
                 Material* mat           = &cmbMats->materials[matIdx];
                 mat->textureMappersUsed = origDataBuf->mats[matIdx].textureMappersUsed;
                 mat->alphaTestEnabled   = origDataBuf->mats[matIdx].alphaTestEnabled;
@@ -311,7 +328,7 @@ static void SoullessDarkness_RestoreObject(u16 objectId) {
 
 typedef struct GenericSkelAnimeActor {
     /* 0x000 */ Actor actor;
-    /* 0x1A4 */ SkelAnime skelAnime;
+    /* 0x1A4 */ SkelAnime anime;
 } GenericSkelAnimeActor;
 
 #include "z3D/actors/z_actors_tmp.h"
@@ -346,7 +363,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             EnPeehat_ReinitModels((EnPeehat*)actor);
             break;
         case ACTOR_LIZALFOS: // OK
-            Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->skelAnime, actor->params == -2 ? 1 : 0);
+            Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, actor->params == -2 ? 1 : 0);
             break;
         case ACTOR_BIRI:
             EnBili_ReinitModels((EnBili*)actor);
@@ -355,7 +372,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             EnVali_ReinitModels((EnVali*)actor);
             break;
         case ACTOR_SKULLWALLTULA:
-            Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->skelAnime, actor->params & 0xE000 ? 1 : 0);
+            Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, actor->params & 0xE000 ? 1 : 0);
             break;
         case ACTOR_TORCH_SLUG:
             EnBw_ReinitModels((EnBw*)actor);
@@ -364,6 +381,8 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             EnEiyer_ReinitModels((EnEiyer*)actor);
             break;
         case ACTOR_ARMOS:
+            Actor_ReinitSkelAnime(actor, &((EnAm*)actor)->anime, 0);
+            break;
         case ACTOR_WITHERED_DEKU_BABA:
         case ACTOR_BUBBLE:
         case ACTOR_BEAMOS:
@@ -399,7 +418,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_LEEVER:        // OK
         case ACTOR_SKULLTULA:     // OK
         case ACTOR_STINGER_WATER: // OK
-            Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->skelAnime, 0);
+            Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, 0);
             break;
 
         case ACTOR_KEESE:

@@ -16,6 +16,7 @@ typedef enum ObjectId {
     OBJECT_TEKTITE                   = 0x0016,
     OBJECT_BIRI                      = 0x0021,
     OBJECT_SKULLTULA                 = 0x0024,
+    OBJECT_ARMOS                     = 0x0038,
     OBJECT_CUSTOM_SMALL_KEY_FIRE     = 0x003A,
     OBJECT_BARI                      = 0X0056,
     OBJECT_POE_COMPOSER              = 0x006E,
