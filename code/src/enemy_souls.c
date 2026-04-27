@@ -14,6 +14,7 @@
 #include "tektite.h"
 #include "biri.h"
 #include "torch_slug.h"
+#include "stinger.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -360,7 +361,8 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             EnBw_ReinitModels((EnBw*)actor);
             break;
         case ACTOR_STINGER_FLOOR:
-        case ACTOR_STINGER_WATER:
+            EnEiyer_ReinitModels((EnEiyer*)actor);
+            break;
         case ACTOR_ARMOS:
         case ACTOR_WITHERED_DEKU_BABA:
         case ACTOR_BUBBLE:
@@ -393,9 +395,10 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_BONGO_BONGO:
         case ACTOR_GANON:
 
-        case ACTOR_BIG_OCTO:  // OK
-        case ACTOR_LEEVER:    // OK
-        case ACTOR_SKULLTULA: // OK
+        case ACTOR_BIG_OCTO:      // OK
+        case ACTOR_LEEVER:        // OK
+        case ACTOR_SKULLTULA:     // OK
+        case ACTOR_STINGER_WATER: // OK
             Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->skelAnime, 0);
             break;
 

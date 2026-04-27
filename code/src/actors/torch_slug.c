@@ -2,11 +2,10 @@
 #include "actor.h"
 
 void EnBw_ReinitModels(EnBw* this) {
-    SkelAnime* anime = &this->anime;
-    Actor_ReinitSkelAnime(&this->actor, anime, 0);
+    Actor_ReinitSkelAnime(&this->actor, &this->anime, 0);
 
     this->matAnim = this->anime.saModel->matAnim;
-    void* cmabMan = ZAR_GetCMABByIndex(anime->zarInfo, 0);
+    void* cmabMan = ZAR_GetCMABByIndex(this->anime.zarInfo, 0);
     MatAnim_Init(this->matAnim, cmabMan);
     this->matAnim->animMode = 1;
 }
