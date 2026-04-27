@@ -352,8 +352,9 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_BARI:
             EnVali_ReinitModels((EnVali*)actor);
             break;
-        case ACTOR_SKULLTULA:
         case ACTOR_SKULLWALLTULA:
+            Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->skelAnime, actor->params & 0xE000 ? 1 : 0);
+            break;
         case ACTOR_TORCH_SLUG:
         case ACTOR_STINGER_FLOOR:
         case ACTOR_STINGER_WATER:
@@ -389,8 +390,9 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_BONGO_BONGO:
         case ACTOR_GANON:
 
-        case ACTOR_BIG_OCTO: // OK
-        case ACTOR_LEEVER:   // OK
+        case ACTOR_BIG_OCTO:  // OK
+        case ACTOR_LEEVER:    // OK
+        case ACTOR_SKULLTULA: // OK
             Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->skelAnime, 0);
             break;
 
