@@ -473,6 +473,7 @@ SECTIONS
 	Actor_DestroySkelModelsArray = 0x34FDA8 + _LD_OFF;
 	.patch_GetObjectEntry_34FE68 0x34FE68 + _LD_OFF : { *(.patch_GetObjectEntry_34FE68) }
 	SystemArena_Malloc = 0x35010C + _LD_OFF;
+	FaceAnim_Destroy = 0x3501B8 + _LD_OFF;
 	SkelAnime_Destroy = 0x350BE0 + _LD_OFF;
 	EventCheck = 0x350CF4 + _LD_OFF;
 	Actor_DestroySkelModels = 0x350F34 + _LD_OFF;
@@ -499,6 +500,7 @@ SECTIONS
 	ZAR_GetCMBByIndex = 0x358EF8 + _LD_OFF;
 	.patch_CmbManagerInit 0x358F8C + _LD_OFF : { *(.patch_CmbManagerInit) }
 	BossChallenge_IsActive = 0x35B164 + _LD_OFF;
+	FaceAnim_Init = 0x35C358 + _LD_OFF;
 	.patch_Audio_PlayFanfare 0x35C528 + _LD_OFF : { *(.patch_Audio_PlayFanfare) }
 	Audio_PlayFanfare = 0x35C528 + _LD_OFF;
 	.patch_DeleteEquipment 0x35D1F8 + _LD_OFF : { *(.patch_DeleteEquipment) }

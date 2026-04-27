@@ -12,6 +12,7 @@
 #include "octorok.h"
 #include "peahat.h"
 #include "tektite.h"
+#include "biri.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -346,6 +347,8 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->skelAnime, actor->params == -2 ? 1 : 0);
             break;
         case ACTOR_BIRI:
+            EnBili_ReinitModels((EnBili*)actor);
+            break;
         case ACTOR_BARI:
         case ACTOR_SKULLTULA:
         case ACTOR_SKULLWALLTULA:

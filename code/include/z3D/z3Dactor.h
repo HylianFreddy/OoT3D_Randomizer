@@ -81,6 +81,11 @@ typedef struct SkeletonAnimationModel {
     /* 0xAD */ char unk_AD[0x03];
 } SkeletonAnimationModel; // size = 0xB0
 
+typedef struct FaceAnimation {
+    /* 0x00 */ s8 flags[3];
+    /* 0x04 */ MaterialAnimation matAnims[3];
+} FaceAnimation;
+
 typedef struct UnkSubSkelAnime_20 {
     /* 0x00 */ char unk_00[0x04];
     /* 0x04 */ struct Actor* actor;
@@ -424,5 +429,7 @@ void ZAR_Destroy(struct ZARInfo* zarInfo);
 void* ZAR_GetCMBByIndex(struct ZARInfo* zarInfo, u32 index);
 void* ZAR_GetCMABByIndex(struct ZARInfo* zarInfo, u32 index);
 void TexAnim_Spawn(MaterialAnimation* matAnim, void* cmabMan);
+void FaceAnim_Init(FaceAnimation* faceAnim, SkelAnime* skelAnime, s32 cmabIdx1, s32 cmabIdx2, s32 cmabIdx3);
+void FaceAnim_Destroy(FaceAnimation* faceAnim);
 
 #endif
