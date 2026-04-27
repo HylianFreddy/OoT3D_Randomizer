@@ -15,6 +15,7 @@
 #include "biri.h"
 #include "torch_slug.h"
 #include "stinger.h"
+#include "deku_baba.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -384,6 +385,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             Actor_ReinitSkelAnime(actor, &((EnAm*)actor)->anime, 0);
             break;
         case ACTOR_WITHERED_DEKU_BABA:
+            return EnKarebaba_ReinitModels((EnKarebaba*)actor);
         case ACTOR_BUBBLE:
         case ACTOR_BEAMOS:
         case ACTOR_WALLMASTER:
