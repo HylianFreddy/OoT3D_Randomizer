@@ -1,16 +1,17 @@
 #include "deku_scrubs.h"
 #include "settings.h"
 #include "enemizer.h"
+#include "actor.h"
+
+/*-------------------------------
+|           EnDntNomal          |
+-------------------------------*/
 
 void EnDntNomal_Update(Actor* thisx, GlobalContext* globalCtx);
 
 void EnDntNomal_SetupTargetWalk(EnDntNomal* this, GlobalContext* globalCtx);
 void EnDntNomal_SetupTargetGivePrize(EnDntNomal* this, GlobalContext* globalCtx);
 void EnDntNomal_SetupTargetUnburrow(EnDntNomal* this, GlobalContext* globalCtx);
-
-void EnHintnuts_Init(Actor* thisx, GlobalContext* globalCtx);
-
-void EnNutsball_Update(Actor* thisx, GlobalContext* globalCtx);
 
 #define NUTSBALL_TYPE_DEKUNUTS 0
 #define NUTSBALL_TYPE_HINTNUTS 1
@@ -28,6 +29,12 @@ void EnDntNomal_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
+/*-------------------------------
+|           EnHintnuts          |
+-------------------------------*/
+
+void EnHintnuts_Init(Actor* thisx, GlobalContext* globalCtx);
+
 void EnHintnuts_rInit(Actor* thisx, GlobalContext* globalCtx) {
     EnHintnuts* this = (EnHintnuts*)thisx;
 
@@ -37,6 +44,21 @@ void EnHintnuts_rInit(Actor* thisx, GlobalContext* globalCtx) {
         thisx->textId = this->textIdCopy = 0x3033; // "B-b-b-boooo hooooo!"
     }
 }
+
+void EnHintnuts_ReinitModels(EnHintnuts* this) {
+    if (this->actor.params == 10) {
+        Actor_DestroySkelModels(&this->actor, &this->flowerModel, NULL);
+        Actor_CreateSkelModels(&this->actor, gGlobalContext, &this->flowerModel, 2, NULL);
+    } else {
+        Actor_ReinitSkelAnime(&this->actor, &this->anime, 0);
+    }
+}
+
+/*-------------------------------
+|           EnNutsball          |
+-------------------------------*/
+
+void EnNutsball_Update(Actor* thisx, GlobalContext* globalCtx);
 
 void EnNutsball_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     EnNutsball* this = (EnNutsball*)thisx;

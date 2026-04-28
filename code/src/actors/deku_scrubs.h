@@ -3,6 +3,10 @@
 
 #include "z3D/z3D.h"
 
+/*-------------------------------
+|           EnDntNomal          |
+-------------------------------*/
+
 struct EnDntNomal;
 
 typedef void (*EnDntNomalActionFunc)(struct EnDntNomal* this, GlobalContext* globalCtx);
@@ -22,13 +26,28 @@ typedef struct EnDntNomal {
 } EnDntNomal;
 _Static_assert(sizeof(EnDntNomal) == 0x8F8, "EnDntNomal size");
 
+void EnDntNomal_rUpdate(Actor* thisx, GlobalContext* globalCtx);
+
+/*-------------------------------
+|           EnHintnuts          |
+-------------------------------*/
+
 typedef struct EnHintnuts {
     /* 0x0000 */ Actor actor;
     /* 0x01A4 */ char unk_1A4[0x08];
     /* 0x01AC */ u16 textIdCopy;
-    /* 0x01B0 */ char unk_1B0[0x488];
+    /* 0x01B0 */ char unk_1B0[0x400];
+    /* 0x05B0 */ SkelAnime anime;
+    /* 0x0634 */ SkeletonAnimationModel* flowerModel;
 } EnHintnuts;
 _Static_assert(sizeof(EnHintnuts) == 0x638, "EnHintnuts size");
+
+void EnHintnuts_rInit(Actor* thisx, GlobalContext* globalCtx);
+void EnHintnuts_ReinitModels(EnHintnuts* this);
+
+/*-------------------------------
+|           EnNutsball          |
+-------------------------------*/
 
 typedef struct EnNutsball {
     /* 0x0000 */ Actor actor;
@@ -39,10 +58,6 @@ typedef struct EnNutsball {
     /* 0x0204 */ SkeletonAnimationModel* saModel;
 } EnNutsball;
 _Static_assert(sizeof(EnNutsball) == 0x208, "EnNutsball size");
-
-void EnDntNomal_rUpdate(Actor* thisx, GlobalContext* globalCtx);
-
-void EnHintnuts_rInit(Actor* thisx, GlobalContext* globalCtx);
 
 void EnNutsball_rUpdate(Actor* thisx, GlobalContext* globalCtx);
 
