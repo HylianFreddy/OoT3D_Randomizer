@@ -276,16 +276,30 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
         CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
         // poe sisters: 11 mats
         CitraPrint("BeforeCmbManagerInit materialCount=%X", cmbMats->materialCount);
-        // For Armos, only remove texture mapper for "awoken" state, and leave eye material untouched.
-        u32 firstMatIdx = gRunningActor->id == ACTOR_ARMOS ? 1 : 0;
-        u32 texMapOvr   = gRunningActor->id == ACTOR_ARMOS ? 1 : 0;
-        for (s32 matIdx = firstMatIdx; matIdx < cmbMats->materialCount; matIdx++) {
+        for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
+            u8 shouldSkipMaterial = FALSE;
+            switch (gRunningActor->id) {
+                case ACTOR_ARMOS:
+                    // Keep eye texture
+                    shouldSkipMaterial = matIdx == 0;
+                    break;
+                case ACTOR_PARASITIC_TENTACLE:
+                case ACTOR_SLIMY_THING:
+                    // Keep electric field texture
+                    shouldSkipMaterial = matIdx == 1;
+                    break;
+            }
+            if (shouldSkipMaterial) {
+                continue;
+            }
+
             Material* mat                                = &cmbMats->materials[matIdx];
             origDataBuf->mats[matIdx].textureMappersUsed = mat->textureMappersUsed;
             origDataBuf->mats[matIdx].alphaTestEnabled   = mat->alphaTestEnabled;
             origDataBuf->mats[matIdx].blendMode          = mat->blendMode;
 
-            mat->textureMappersUsed = texMapOvr;
+            // For Armos, only remove texture mapper for "awoken" state
+            mat->textureMappersUsed = gRunningActor->id == ACTOR_ARMOS ? 1 : 0;
             mat->alphaTestEnabled   = 0;
             mat->blendMode          = 0;
         }
@@ -319,9 +333,20 @@ static void SoullessDarkness_RestoreObject(u16 objectId) {
         if (origDataBuf->status == CMBSTATUS_MODIFIED) {
             origDataBuf->status = CMBSTATUS_RESTORED;
             CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
-            // For Armos, only second material is overridden.
-            u32 firstMatIdx = objectId == OBJECT_ARMOS ? 1 : 0;
-            for (s32 matIdx = firstMatIdx; matIdx < cmbMats->materialCount; matIdx++) {
+            for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
+                u8 shouldSkipMaterial = FALSE;
+                switch (objectId) {
+                    case OBJECT_ARMOS:
+                        shouldSkipMaterial = matIdx == 0;
+                        break;
+                    case OBJECT_TENTACLE:
+                        shouldSkipMaterial = matIdx == 1;
+                        break;
+                }
+                if (shouldSkipMaterial) {
+                    continue;
+                }
+
                 Material* mat           = &cmbMats->materials[matIdx];
                 mat->textureMappersUsed = origDataBuf->mats[matIdx].textureMappersUsed;
                 mat->alphaTestEnabled   = origDataBuf->mats[matIdx].alphaTestEnabled;

@@ -34,6 +34,7 @@ typedef enum ObjectId {
     OBJECT_CUSTOM_GENERAL_ASSETS     = 0x00B6,
     OBJECT_GI_BOSSKEY                = 0x00B9,
     OBJECT_GI_HEARTS                 = 0x00BD,
+    OBJECT_TENTACLE                  = 0x00D5,
     OBJECT_ANUBIS                    = 0x00D6,
     OBJECT_GI_OCARINA_TIME           = 0x00DE,
     OBJECT_CUSTOM_ENEMY_SOUL         = 0x00E4,
