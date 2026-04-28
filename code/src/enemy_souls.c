@@ -25,6 +25,7 @@
 #include "skull_kid.h"
 #include "deku_scrubs.h"
 #include "business_scrubs.h"
+#include "door.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -433,6 +434,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_BUSINESS_SCRUB:
             return EnShopnuts_ReinitModels((EnShopnuts*)actor);
         case ACTOR_DOOR_MIMIC:
+            return DoorKiller_ReinitModels((DoorKiller*)actor);
         case ACTOR_FLARE_DANCER:
         case ACTOR_FLARE_DANCER_CORE:
         case ACTOR_DEAD_HAND:

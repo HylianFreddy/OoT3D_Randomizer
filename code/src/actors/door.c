@@ -3,6 +3,7 @@
 #include "settings.h"
 #include "enemizer.h"
 #include "multiplayer.h"
+#include "actor.h"
 
 // Certain doors can cause a crash depending on a freestanding
 // model in the room that is being transitioned out of. We can
@@ -18,7 +19,7 @@ void Door_CheckToDeleteCustomModels(Actor* door) {
 }
 
 /*------------------------------
-|           EN_DOOR            |
+|            EnDoor            |
 ------------------------------*/
 
 void EnDoor_Update(Actor* thisx, GlobalContext* globalCtx);
@@ -58,7 +59,7 @@ void EnDoor_Unlocking(EnDoor* this, GlobalContext* globalCtx) {
 }
 
 /*------------------------------
-|         DOOR_SHUTTER         |
+|          DoorShutter         |
 ------------------------------*/
 
 void DoorShutter_Init(Actor* thisx, GlobalContext* globalCtx);
@@ -125,7 +126,7 @@ void DoorShutter_Unlocking(DoorShutter* this, GlobalContext* globalCtx) {
 }
 
 /*------------------------------
-|         DOOR_GERUDO          |
+|          DoorGerudo          |
 ------------------------------*/
 
 void DoorGerudo_Update(Actor* thisx, GlobalContext* globalCtx);
@@ -153,4 +154,19 @@ void DoorGerudo_Unlock(DoorGerudo* this) {
     this->action_fn = DoorGerudo_Unlocking;
     Audio_PlaySfxGeneral(NA_SE_EV_CHAIN_KEY_UNLOCK, &this->base.world.pos, 4, &gSfxDefaultFreqAndVolScale,
                          &gSfxDefaultFreqAndVolScale, &gSfxDefaultReverb);
+}
+
+/*------------------------------
+|          DoorKiller          |
+------------------------------*/
+
+void DoorKiller_ReinitModels(DoorKiller* this) {
+    if ((this->actor.params & 0xFF) == 0) {
+        Actor_ReinitSkelAnime(&this->actor, &this->anime, 4);
+
+        FaceAnim_Destroy(&this->doorFaceAnim);
+        FaceAnim_Init(&this->doorFaceAnim, &this->anime, 0, -1, -1);
+    } else {
+        // should never get here (can't destroy door without soul)
+    }
 }
