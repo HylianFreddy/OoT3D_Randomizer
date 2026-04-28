@@ -388,7 +388,6 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             return EnVm_ReinitModels((EnVm*)actor);
         case ACTOR_WALLMASTER:
             return EnWallmas_ReinitModels((EnWallmas*)actor);
-        case ACTOR_SHELL_BLADE:
         case ACTOR_PARASITIC_TENTACLE:
         case ACTOR_ANUBIS:
         case ACTOR_SKULL_KID:
@@ -420,6 +419,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_STINGER_WATER: // OK
         case ACTOR_BUBBLE:        // OK
         case ACTOR_FLOORMASTER:   // OK
+        case ACTOR_SHELL_BLADE:   // OK
             return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, 0);
 
         case ACTOR_KEESE:

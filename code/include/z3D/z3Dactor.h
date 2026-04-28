@@ -411,6 +411,7 @@ void ActorShadow_DrawFeet(Actor* actor, void* lights, struct GlobalContext* glob
 void SkelAnime_Init(Actor* actor, struct GlobalContext* globalCtx, SkelAnime* skelAnime, s32 cmbIndex, s32 csabIndex,
                     void* jointTable, void* morphTable, s32 limbCount);
 void SkelAnime_Destroy(SkelAnime* anime);
+s32 SkelAnime_Update(SkelAnime* skelAnime);
 void Animation_ChangeImpl(SkelAnime* anime, s32 animationIndex, f32 playSpeed, f32 startFrame, f32 endFrame, s32 mode,
                           f32 morphFrames, s32 taper) __attribute__((pcs("aapcs-vfp")));
 // Variadic arguments are pairs of a model and a CMB index; last argument must always be NULL.

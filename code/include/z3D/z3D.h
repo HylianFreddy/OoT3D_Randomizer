@@ -777,7 +777,6 @@ s16 Camera_GetCamDataId(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId)
 s32 Animation_GetLastFrame(SkelAnime* anime, s32 animation_index);
 void Animation_Change(SkelAnime* anime, s32 animation_index, f32 play_speed, f32 start_frame, f32 end_frame, s32 mode,
                       f32 morph_frames) __attribute__((pcs("aapcs-vfp")));
-s32 SkelAnime_Update(SkelAnime* skelAnime);
 void SaveGame(GlobalContext* globalCtx, u8 isSaveFileCreation);
 s32 Message_GetState(void);
 void SetEventBGM(u32 seqPlayerIndex, u32 seqId);

@@ -612,4 +612,5 @@ void Actor_ReinitSkelAnime(Actor* actor, SkelAnime* anime, s32 cmbIndex) {
     SkelAnime_Init(actor, gGlobalContext, anime, cmbIndex, animIndex, jointTable, morphTable, 0);
     Animation_ChangeImpl(anime, animIndex, playSpeed, startFrame, endFrame, animMode, 0.0, 0);
     anime->curFrame = curFrame;
+    SkelAnime_Update(anime);
 }

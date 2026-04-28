@@ -14,7 +14,7 @@
 #define SKIP_ACTOR_ENTRY TRUE
 #define KEEP_ACTOR_ENTRY FALSE
 
-const u32 sBaseTestEnemyId       = ENEMY_FLOORMASTER;
+const u32 sBaseTestEnemyId       = ENEMY_SHELL_BLADE;
 static u32 sTestEnemyId          = sBaseTestEnemyId;
 static u32 sTestEnemyParamsIndex = 0;
 static u32 sTestToggle           = ENEMYMODE_RANDOMIZED;
