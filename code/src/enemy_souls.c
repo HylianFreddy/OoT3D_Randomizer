@@ -19,6 +19,7 @@
 #include "beamos.h"
 #include "shabom.h"
 #include "wallmaster.h"
+#include "tentacle.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -255,8 +256,9 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
         return;
     }
 
-    // Don't modify model for Wallmaster shadow
-    if (gRunningActor->id == ACTOR_WALLMASTER && cmbIndex == 2) {
+    // Don't modify model for Wallmaster shadow and tentacle dead blob
+    if ((gRunningActor->id == ACTOR_WALLMASTER && cmbIndex == 2) ||
+        (gRunningActor->id == ACTOR_PARASITIC_TENTACLE && cmbIndex == 1)) {
         return;
     }
 
@@ -389,6 +391,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_WALLMASTER:
             return EnWallmas_ReinitModels((EnWallmas*)actor);
         case ACTOR_PARASITIC_TENTACLE:
+            return EnBa_ReinitModels((EnBa*)actor);
         case ACTOR_ANUBIS:
         case ACTOR_SKULL_KID:
         case ACTOR_HINT_DEKU_SCRUB:

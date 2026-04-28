@@ -509,6 +509,8 @@ SECTIONS
 	Player_InBlockingCsMode = 0x35DB20 + _LD_OFF;
 	SkelAnime_DrawOpa = 0x35E240 + _LD_OFF;
 	.patch_SkelAnime_DrawOpa 0x35E2B0 + _LD_OFF : { *(.patch_SkelAnime_DrawOpa) }
+	FaceAnimation_35E330 = 0x35E330 + _LD_OFF;
+	FaceAnim_SetFrame = 0x35E3A4 + _LD_OFF;
 	.patch_ConvertBombDropOne 0x35E46C + _LD_OFF : { *(.patch_ConvertBombDropOne) }
 	WaterBox_GetSurfaceImpl = 0x35E8A0 + _LD_OFF;
 	.patch_SkullwalltulaAttack_35F328 0x35F328 + _LD_OFF : { *(.patch_SkullwalltulaAttack_35F328) }

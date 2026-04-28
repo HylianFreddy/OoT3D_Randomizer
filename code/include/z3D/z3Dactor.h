@@ -433,5 +433,7 @@ void MatAnim_Init(MaterialAnimation* matAnim, void* cmabMan);
 void MatAnim_Destroy(MaterialAnimation* matAnim);
 void FaceAnim_Init(FaceAnimation* faceAnim, SkelAnime* skelAnime, s32 cmabIdx1, s32 cmabIdx2, s32 cmabIdx3);
 void FaceAnim_Destroy(FaceAnimation* faceAnim);
+void FaceAnim_SetFrame(FaceAnimation* faceAnim, s32 matAnimIdx, s32 animFrame);
+void FaceAnimation_35E330(FaceAnimation* faceAnim);
 
 #endif
