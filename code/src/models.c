@@ -271,7 +271,7 @@ u32 Model_OverrideMesh(void* unk, u32 meshGroupIndex) {
     if (IsInGameOrBossChallenge() && gSaveContext.linkAge == AGE_ADULT && gSettingsContext.stickAsAdult &&
         PLAYER->heldItemActionParam == 6 && // holding a deku stick
         meshGroupIndex == 23 &&             // meshGroupIndex for deku stick in child object and shield in adult object
-        unk == PLAYER->skelAnime.saModel->unk_14 // check that this is for the player model
+        unk == PLAYER->skelAnime.saModel->subSAM14 // check that this is for the player model
     ) {
         return 44; // meshGroupIndex for unused deku stick in adult object
     }

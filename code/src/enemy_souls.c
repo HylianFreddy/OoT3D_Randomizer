@@ -16,6 +16,8 @@
 #include "torch_slug.h"
 #include "stinger.h"
 #include "deku_baba.h"
+#include "beamos.h"
+#include "shabom.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -377,6 +379,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_WITHERED_DEKU_BABA:
             return EnKarebaba_ReinitModels((EnKarebaba*)actor);
         case ACTOR_BEAMOS:
+            return EnVm_ReinitModels((EnVm*)actor);
         case ACTOR_WALLMASTER:
         case ACTOR_FLOORMASTER:
         case ACTOR_SHELL_BLADE:
@@ -443,8 +446,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1A8), 0);
 
         case ACTOR_SHABOM:
-            Actor_DestroySkelModels(actor, &((EnBubble*)actor)->saModel, NULL);
-            return Actor_CreateSkelModels(actor, gGlobalContext, &((EnBubble*)actor)->saModel, 0, NULL);
+            return EnBubble_ReinitModels((EnBubble*)actor);
         case ACTOR_FLYING_POT:
         case ACTOR_FLYING_FLOOR_TILE:
         case ACTOR_SPIKE:

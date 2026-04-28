@@ -26,8 +26,8 @@ void EnVali_ReinitModels(EnVali* this) {
     Actor_ReinitSkelAnime(&this->actor, &this->anime, 0);
 
     MatAnim_Destroy(&this->matAnim);
-    void* cmabMan        = ZAR_GetCMABByIndex(zarInfo, 0);
-    this->matAnim.unk_00 = this->innerBellModel->unk_10;
+    void* cmabMan          = ZAR_GetCMABByIndex(zarInfo, 0);
+    this->matAnim.subSAM10 = this->innerBellModel->subSAM10;
     MatAnim_Init(&this->matAnim, cmabMan);
     this->matAnim.animMode  = 1;
     this->matAnim.animSpeed = 1.0;

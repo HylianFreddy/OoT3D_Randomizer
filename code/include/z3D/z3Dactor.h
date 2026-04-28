@@ -53,7 +53,7 @@ typedef struct SkeletonAnimationModel_unk_10 {
 } SkeletonAnimationModel_unk_10; // size = 0x14
 
 typedef struct MaterialAnimation {
-    /* 0x00 */ SkeletonAnimationModel_unk_10* unk_00;
+    /* 0x00 */ SkeletonAnimationModel_unk_10* subSAM10;
     /* 0x04 */ void* cmabManager;
     /* 0x08 */ f32 curFrame;
     /* 0x0C */ f32 animSpeed;
@@ -73,8 +73,8 @@ typedef struct SkeletonAnimationModel {
     /* 0x00 */ SkeletonAnimationModel_VTable* vtbl;
     /* 0x04 */ char unk_04[0x08];
     /* 0x0C */ MaterialAnimation* matAnim;
-    /* 0x10 */ SkeletonAnimationModel_unk_10* unk_10;
-    /* 0x14 */ SkeletonAnimationModel_unk_14* unk_14;
+    /* 0x10 */ SkeletonAnimationModel_unk_10* subSAM10;
+    /* 0x14 */ SkeletonAnimationModel_unk_14* subSAM14;
     /* 0x18 */ char unk_18[0x64];
     /* 0x7C */ nn_math_MTX34 mtx;
     /* 0xAC */ s8 unk_AC;

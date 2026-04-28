@@ -8,7 +8,7 @@ struct EnBubble;
 typedef void (*EnBubbleActionFunc)(struct EnBubble*, GlobalContext*);
 
 typedef struct EnBubble {
-    /* 0x0000 */ Actor base;
+    /* 0x0000 */ Actor actor;
     /* 0x01A4 */ EnBubbleActionFunc actionFunc;
     /* 0x01A8 */ Collider collider; // part of ColliderJntSph colliderSphere;
     /* 0x01C0 */ char unk_1C0[0x114];
@@ -22,5 +22,7 @@ void EnBubble_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void EnBubble_Disappear(EnBubble* this, GlobalContext* globalCtx);
 void EnBubble_Pop(EnBubble* this, GlobalContext* globalCtx);
+
+void EnBubble_ReinitModels(EnBubble* this);
 
 #endif //_SHABOM_H_
