@@ -22,6 +22,7 @@
 #include "tentacle.h"
 #include "skull_kid.h"
 #include "deku_scrubs.h"
+#include "business_scrubs.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -429,6 +430,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_MAD_SCRUB:
             return EnDekunuts_ReinitModels((EnDekunuts*)actor);
         case ACTOR_BUSINESS_SCRUB:
+            return EnShopnuts_ReinitModels((EnShopnuts*)actor);
         case ACTOR_STALCHILD:
         case ACTOR_DOOR_MIMIC:
         case ACTOR_FLARE_DANCER:
