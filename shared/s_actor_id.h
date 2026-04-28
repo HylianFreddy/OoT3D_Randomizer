@@ -56,6 +56,7 @@ enum ActorId {
     ACTOR_TWINROVA           = 0x0DC,
     ACTOR_LIKE_LIKE          = 0x0DD,
     ACTOR_PARASITIC_TENTACLE = 0x0DE,
+    ACTOR_SLIMY_THING        = 0x0DF,
     ACTOR_ANUBIS             = 0x0E0,
     ACTOR_GANONDORF          = 0x0E8,
     ACTOR_BONGO_BONGO        = 0x0E9,

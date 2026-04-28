@@ -3,6 +3,10 @@
 
 #include "z3D/z3D.h"
 
+/*-------------------------------
+|         Enemy Tentacle        |
+-------------------------------*/
+
 typedef struct EnBa {
     /* 0x000 */ Actor actor;
     /* 0x1A4 */ SkelAnime anime;
@@ -16,5 +20,21 @@ typedef struct EnBa {
 _Static_assert(sizeof(EnBa) == 0xC4C, "EnBa size");
 
 void EnBa_ReinitModels(EnBa* this);
+
+/*-------------------------------
+|     Path Blocking Tentacle    |
+-------------------------------*/
+
+typedef struct EnBx {
+    /* 0x000 */ Actor actor;
+    /* 0x1A4 */ SkelAnime anime;
+    /* 0x228 */ char unk_228[0x1A0];
+    /* 0x3C8 */ MaterialAnimation matAnim;
+    /* 0x460 */ FaceAnimation faceAnim;
+    /* 0x62C */ char unk_62C[0x158];
+} EnBx;
+_Static_assert(sizeof(EnBx) == 0x784, "EnBx size");
+
+void EnBx_ReinitModels(EnBx* this);
 
 #endif //_TENTACLE_H_

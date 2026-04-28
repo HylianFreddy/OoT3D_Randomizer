@@ -59,6 +59,7 @@ EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
         case ACTOR_SHELL_BLADE:            return SOUL_SHELL_BLADE;
         case ACTOR_LIKE_LIKE:              return SOUL_LIKE_LIKE;
         case ACTOR_PARASITIC_TENTACLE:     return SOUL_TENTACLE;
+        case ACTOR_SLIMY_THING:            return SOUL_TENTACLE;
         case ACTOR_ANUBIS:                 return SOUL_ANUBIS;
         case ACTOR_SPIKE:                  return SOUL_SPIKE;
         case ACTOR_SKULL_KID:              return SOUL_SKULL_KID;
@@ -392,6 +393,8 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             return EnWallmas_ReinitModels((EnWallmas*)actor);
         case ACTOR_PARASITIC_TENTACLE:
             return EnBa_ReinitModels((EnBa*)actor);
+        case ACTOR_SLIMY_THING:
+            return EnBx_ReinitModels((EnBx*)actor);
         case ACTOR_ANUBIS:
         case ACTOR_SKULL_KID:
         case ACTOR_HINT_DEKU_SCRUB:
