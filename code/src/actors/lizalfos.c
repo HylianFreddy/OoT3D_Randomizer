@@ -1,6 +1,7 @@
 #include "lizalfos.h"
 #include "settings.h"
 #include "enemizer.h"
+#include "actor.h"
 
 void EnZf_Update(Actor* thisx, GlobalContext* globalCtx);
 
@@ -18,4 +19,8 @@ void EnZf_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         f32 yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &floorCheckPos);
         thisx->world.pos.y   = yGroundIntersect + 150.0f;
     }
+}
+
+void EnZf_ReinitModels(EnZf* this) {
+    Actor_ReinitSkelAnime(&this->actor, &this->anime, this->actor.params == -2 ? 1 : 0);
 }

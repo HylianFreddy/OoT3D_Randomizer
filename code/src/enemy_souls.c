@@ -12,7 +12,9 @@
 #include "octorok.h"
 #include "peahat.h"
 #include "tektite.h"
+#include "lizalfos.h"
 #include "biri.h"
+#include "skulltula.h"
 #include "torch_slug.h"
 #include "stinger.h"
 #include "deku_baba.h"
@@ -397,14 +399,13 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_PEAHAT:
             return EnPeehat_ReinitModels((EnPeehat*)actor);
         case ACTOR_LIZALFOS:
-            return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, actor->params == -2 ? 1 : 0);
+            return EnZf_ReinitModels((EnZf*)actor);
         case ACTOR_BIRI:
             return EnBili_ReinitModels((EnBili*)actor);
         case ACTOR_BARI:
             return EnVali_ReinitModels((EnVali*)actor);
         case ACTOR_SKULLWALLTULA:
-            return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime,
-                                         actor->params & 0xE000 ? 1 : 0);
+            return EnSw_ReinitModels((EnSw*)actor);
         case ACTOR_TORCH_SLUG:
             return EnBw_ReinitModels((EnBw*)actor);
         case ACTOR_STINGER_FLOOR:
