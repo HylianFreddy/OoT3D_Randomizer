@@ -18,6 +18,7 @@
 #include "deku_baba.h"
 #include "beamos.h"
 #include "shabom.h"
+#include "wallmaster.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -254,6 +255,11 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
         return;
     }
 
+    // Don't modify model for Wallmaster shadow
+    if (gRunningActor->id == ACTOR_WALLMASTER && cmbIndex == 2) {
+        return;
+    }
+
     // Ignore CmbManagers from global "keep" objects, even if this actor is the first one to request them (thus causing
     // them to initialize).
     ObjectEntry* obj = Object_FindEntryByZarInfo(zarInfo);
@@ -381,6 +387,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_BEAMOS:
             return EnVm_ReinitModels((EnVm*)actor);
         case ACTOR_WALLMASTER:
+            return EnWallmas_ReinitModels((EnWallmas*)actor);
         case ACTOR_FLOORMASTER:
         case ACTOR_SHELL_BLADE:
         case ACTOR_PARASITIC_TENTACLE:
