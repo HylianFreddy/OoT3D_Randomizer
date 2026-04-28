@@ -25,8 +25,8 @@ u32 SetSFX(u32 original) {
         return SEQ_AUDIO_BLANK;
     }
     // Hack for hookshot as child (adult voice -> child voice)
-    if (original == 0x100050D && gSaveContext.linkAge == 1) {
-        original = 0x100050B;
+    if (original == NA_SE_VO_LI_LASH_KID && gSaveContext.linkAge == 1) {
+        original = NA_SE_VO_LI_SWORD_N_KID;
     }
     u16 sfxID    = original - SFX_BASE;
     SeqType type = rSfxData.rSeqTypesSFX[sfxID];

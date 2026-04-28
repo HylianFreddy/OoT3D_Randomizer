@@ -1,16 +1,11 @@
 #ifndef _BGM_H_
 #define _BGM_H_
 
-#define BGM_BASE 0x1000585
-#define BGM_GET_ITEM 0x1000590
-#define BGM_GET_HEART_CONTAINER 0x1000592
-#define BGM_GET_SPIRITUAL_STONE 0x100059F
-#define BGM_MINI_BOSS 0x10005A5
-#define BGM_GET_SKULLTULA_TOKEN 0x10005A6
-#define BGM_GET_MEDALLION 0x10005B0
-#define BGM_OPENING_DOOR_OF_TIME 0x10005C6
+#define BGM_BASE NA_BGM_FIELD
 #define BGM_COUNT 85
 
-extern u16 BGM_ItemObtained;
+extern u8 Bgm_FanfareModEnabled;
+
+void Bgm_ApplyFanfareMod(void);
 
 #endif // _BGM_H_

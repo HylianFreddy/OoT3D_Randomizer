@@ -4,26 +4,15 @@
 #include "common.h"
 #include "settings.h"
 
+u8 Bgm_FanfareModEnabled = FALSE;
+
 static u32 rBGMOverrides[128] = { 0 };
 
-u16 BGM_ItemObtained = GI_INVALID;
-
 u32 SetBGM(u32 original) {
-    if (BGM_ItemObtained != GI_INVALID) {
-        // Override fanfare for certain items
-        if (BGM_ItemObtained >= GI_FOREST_MEDALLION && BGM_ItemObtained <= GI_LIGHT_MEDALLION) {
-            original = BGM_GET_MEDALLION;
-        } else if (BGM_ItemObtained >= GI_KOKIRI_EMERALD && BGM_ItemObtained <= GI_ZORA_SAPPHIRE) {
-            original = BGM_GET_SPIRITUAL_STONE;
-        }
-        BGM_ItemObtained = GI_INVALID;
-    }
-
-    u8 shouldSkip =
-        gExtSaveData.option_EnableBGM == 0 ||  // "Off"
-        (gExtSaveData.option_EnableBGM == 2 && // "Partial"
-         original != BGM_GET_ITEM && original != BGM_GET_HEART_CONTAINER && original != BGM_GET_SKULLTULA_TOKEN &&
-         original != BGM_GET_SPIRITUAL_STONE && original != BGM_GET_MEDALLION && original != BGM_OPENING_DOOR_OF_TIME);
+    u8 shouldSkip = gExtSaveData.option_EnableBGM == 0 ||  // "Off"
+                    (gExtSaveData.option_EnableBGM == 2 && // "Partial"
+                     original != NA_BGM_ITEM_GET && original != NA_BGM_HEART_GET && original != NA_BGM_S_ITEM_GET &&
+                     original != NA_BGM_SPIRIT_STONE && original != NA_BGM_MEDAL_GET && original != NA_BGM_GATE_OPEN);
 
     if (shouldSkip && IsInGameOrBossChallenge()) {
         return SEQ_AUDIO_BLANK;
@@ -44,4 +33,22 @@ u32 SetBGM(u32 original) {
     }
 
     return rBGMOverrides[i];
+}
+
+u32 Bgm_OverrideFanfare(u32 original) {
+    Bgm_FanfareModEnabled = FALSE;
+    return SetBGM(original);
+}
+
+void Bgm_ApplyFanfareMod(void) {
+    if (!Bgm_FanfareModEnabled) {
+        return;
+    }
+    if (gUnkSequencePlayerData[SEQ_PLAYER_FANFARE] == NULL) {
+        Bgm_FanfareModEnabled = FALSE;
+        return;
+    }
+
+    // Linearly decrease pitch
+    gUnkSequencePlayerData[SEQ_PLAYER_FANFARE]->freq -= 0.009;
 }

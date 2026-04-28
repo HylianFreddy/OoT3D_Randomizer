@@ -9,18 +9,16 @@
 #include "savefile.h"
 #include "common.h"
 #include "item_effect.h"
+#include "chest.h"
 #include "bgm.h"
 #include "actors/obj_mure3.h"
 
 #include <stddef.h>
-#include "chest.h"
 
 #include "z3D/z3D.h"
 #include "z3D/actors/z_en_box.h"
 #include "z3D/actors/z_en_item00.h"
 #include "z3D/actors/z_obj_mure3.h"
-
-#include "bgm.h"
 
 #define READY_ON_LAND 1
 #define READY_IN_WATER 2
@@ -539,44 +537,68 @@ void ItemOverride_GetItem(Actor* fromActor, Player* player, s8 incomingItemId) {
     player->getItemId = incomingNegative ? -baseItemId : baseItemId;
 }
 
-s32 ItemOverride_GetItemTextAndItemID(Actor* actor) {
+/**
+ * @return true if fanfare is played, false otherwise
+ */
+static s8 ItemOverride_PlayFanfare(u16 itemId) {
+    // Override fanfare for certain items
+    if (itemId >= GI_FOREST_MEDALLION && itemId <= GI_LIGHT_MEDALLION) {
+        Audio_PlayFanfare(NA_BGM_MEDAL_GET);
+    } else if (itemId >= GI_KOKIRI_EMERALD && itemId <= GI_ZORA_SAPPHIRE) {
+        Audio_PlayFanfare(NA_BGM_SPIRIT_STONE);
+    } else if (itemId == GI_ICE_TRAP || itemId == GI_RUPOOR) {
+        Audio_PlayFanfare(NA_BGM_ITEM_GET);
+        Bgm_FanfareModEnabled = TRUE;
+    } else {
+        return FALSE;
+    }
+    return TRUE;
+}
+
+/**
+ * @return
+ * -1: no override
+ *  0: override for item and text, vanilla code for fanfare
+ *  1: override for item, text and fanfare
+ */
+s8 ItemOverride_GetOverheadItem(GlobalContext* globalCtx, Player* player) {
     if (rActiveItemRow != NULL) {
+        u16 itemId  = rActiveItemOverride.value.itemId;
         u16 textId  = rActiveItemRow->textId;
         u8 actionId = rActiveItemRow->actionId;
 
         ItemTable_CallEffect(rActiveItemRow);
         if (actionId == ITEM_SKULL_TOKEN) {
-            Item_Give(gGlobalContext, actionId);
-            DisplayTextbox(gGlobalContext, textId, actor);
+            Item_Give(globalCtx, actionId);
+            DisplayTextbox(globalCtx, textId, &player->actor);
         } else {
-            DisplayTextbox(gGlobalContext, textId, actor);
-            Item_Give(gGlobalContext, actionId);
+            DisplayTextbox(globalCtx, textId, &player->actor);
+            Item_Give(globalCtx, actionId);
         }
         ItemOverride_AfterItemReceived();
-    } else { // No override
-        switch (PLAYER->getItemId) {
-            case GI_SHIELD_DEKU:
-            case GI_SHIELD_HYLIAN:
-                ItemTable_CallEffect(ItemTable_GetItemRow(PLAYER->getItemId));
-                break;
-        };
+
+        return ItemOverride_PlayFanfare(itemId);
     }
 
-    BGM_ItemObtained = rActiveItemOverride.value.itemId;
-    return rActiveItemRow != NULL;
+    // No override
+    switch (PLAYER->getItemId) {
+        case GI_SHIELD_DEKU:
+        case GI_SHIELD_HYLIAN:
+            ItemTable_CallEffect(ItemTable_GetItemRow(PLAYER->getItemId));
+            break;
+    };
+    return -1;
 }
 
-void ItemOverride_GetSkulltulaToken(Actor* tokenActor) {
+/**
+ * @return true if fanfare is overridden, false otherwise
+ */
+s8 ItemOverride_GetSkulltulaToken(Actor* tokenActor) {
     ItemOverride override = ItemOverride_Lookup(tokenActor, 0, 0);
     IceTrap_UpdateOverride(&override, FALSE);
 
-    u16 itemId;
-    if (override.key.all == 0) {
-        // Give a skulltula token if there is no override
-        itemId = 0x5B;
-    } else {
-        itemId = override.value.itemId;
-    }
+    // Give a skulltula token if there is no override
+    u16 itemId = override.key.all ? override.value.itemId : GI_SKULL_TOKEN;
 
     u16 resolvedItemId = ItemTable_ResolveUpgrades(itemId);
     ItemRow* itemRow   = ItemTable_GetItemRow(resolvedItemId);
@@ -591,7 +613,8 @@ void ItemOverride_GetSkulltulaToken(Actor* tokenActor) {
         DisplayTextbox(gGlobalContext, itemRow->textId, 0);
         Item_Give(gGlobalContext, itemRow->actionId);
     }
-    BGM_ItemObtained = resolvedItemId;
+
+    return ItemOverride_PlayFanfare(itemId);
 }
 
 u8 ItemOverride_GetItemDrop(EnItem00* this) {
