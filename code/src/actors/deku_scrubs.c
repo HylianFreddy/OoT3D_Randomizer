@@ -55,6 +55,19 @@ void EnHintnuts_ReinitModels(EnHintnuts* this) {
 }
 
 /*-------------------------------
+|           EnDekunuts          |
+-------------------------------*/
+
+void EnDekunuts_ReinitModels(EnDekunuts* this) {
+    if (this->actor.params == 10) {
+        Actor_DestroySkelModels(&this->actor, &this->flowerModel, NULL);
+        Actor_CreateSkelModels(&this->actor, gGlobalContext, &this->flowerModel, 2, NULL);
+    } else {
+        Actor_ReinitSkelAnime(&this->actor, &this->anime, 0);
+    }
+}
+
+/*-------------------------------
 |           EnNutsball          |
 -------------------------------*/
 

@@ -427,6 +427,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_HINT_DEKU_SCRUB:
             return EnHintnuts_ReinitModels((EnHintnuts*)actor);
         case ACTOR_MAD_SCRUB:
+            return EnDekunuts_ReinitModels((EnDekunuts*)actor);
         case ACTOR_BUSINESS_SCRUB:
         case ACTOR_STALCHILD:
         case ACTOR_DOOR_MIMIC:
