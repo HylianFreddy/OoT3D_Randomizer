@@ -420,7 +420,6 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             return EnBa_ReinitModels((EnBa*)actor);
         case ACTOR_SLIMY_THING:
             return EnBx_ReinitModels((EnBx*)actor);
-        case ACTOR_ANUBIS:
         case ACTOR_SKULL_KID:
         case ACTOR_HINT_DEKU_SCRUB:
         case ACTOR_MAD_SCRUB:
@@ -451,6 +450,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_BUBBLE:        // OK
         case ACTOR_FLOORMASTER:   // OK
         case ACTOR_SHELL_BLADE:   // OK
+        case ACTOR_ANUBIS:        // OK
             return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, 0);
 
         case ACTOR_KEESE:
