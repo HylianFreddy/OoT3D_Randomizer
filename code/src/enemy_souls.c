@@ -20,6 +20,7 @@
 #include "shabom.h"
 #include "wallmaster.h"
 #include "tentacle.h"
+#include "skull_kid.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -421,6 +422,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_SLIMY_THING:
             return EnBx_ReinitModels((EnBx*)actor);
         case ACTOR_SKULL_KID:
+            return EnSkj_ReinitModels((EnSkj*)actor);
         case ACTOR_HINT_DEKU_SCRUB:
         case ACTOR_MAD_SCRUB:
         case ACTOR_BUSINESS_SCRUB:
