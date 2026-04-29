@@ -38,6 +38,7 @@
 #include "guay.h"
 
 #include "z3D/actors/z_en_firefly.h"
+#include "z3D/actors/z_en_rd.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -487,6 +488,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_GUAY:
             return Actor_ReinitSkelAnime(actor, &((EnCrow*)actor)->skelAnime, 0);
         case ACTOR_REDEAD:
+            return Actor_ReinitSkelAnime(actor, &((EnRd*)actor)->skelAnime, actor->params >= -1 ? 0 : 1);
         case ACTOR_WOLFOS:
         case ACTOR_STALFOS:
         case ACTOR_GERUDO_FIGHTER:
