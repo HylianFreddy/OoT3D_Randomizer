@@ -265,16 +265,19 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
         return;
     }
 
-    // Don't modify model for Wallmaster shadow and tentacle dead blob
-    if ((gRunningActor->id == ACTOR_WALLMASTER && cmbIndex == 2) ||
-        (gRunningActor->id == ACTOR_PARASITIC_TENTACLE && cmbIndex == 1)) {
-        return;
-    }
+    ObjectEntry* obj = Object_FindEntryByZarInfo(zarInfo);
 
     // Ignore CmbManagers from global "keep" objects, even if this actor is the first one to request them (thus causing
     // them to initialize).
-    ObjectEntry* obj = Object_FindEntryByZarInfo(zarInfo);
     if (obj == NULL || obj->id <= OBJECT_GAMEPLAY_DUNGEON_KEEP) {
+        return;
+    }
+
+    // Don't modify certain models
+    if ((obj->id == OBJECT_WALLMASTER && cmbIndex == 2) || // hand shadow
+        (obj->id == OBJECT_TENTACLE && cmbIndex == 1) ||   // dead blob
+        (obj->id == OBJECT_DEAD_HAND && cmbIndex == 2)     // dirt wave
+    ) {
         return;
     }
 
@@ -285,19 +288,10 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
         // poe sisters: 11 mats
         CitraPrint("BeforeCmbManagerInit materialCount=%X", cmbMats->materialCount);
         for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
-            u8 shouldSkipMaterial = FALSE;
-            switch (gRunningActor->id) {
-                case ACTOR_ARMOS:
-                    // Keep eye texture
-                    shouldSkipMaterial = matIdx == 0;
-                    break;
-                case ACTOR_PARASITIC_TENTACLE:
-                case ACTOR_SLIMY_THING:
-                    // Keep electric field texture
-                    shouldSkipMaterial = matIdx == 1;
-                    break;
-            }
-            if (shouldSkipMaterial) {
+            // Don't modify certain materials
+            if ((obj->id == OBJECT_ARMOS && matIdx == 0) || // eyes
+                (obj->id == OBJECT_TENTACLE && matIdx == 1) // electric field (for both models)
+            ) {
                 continue;
             }
 
@@ -343,16 +337,8 @@ static void SoullessDarkness_RestoreObject(u16 objectId) {
             origDataBuf->status = CMBSTATUS_RESTORED;
             CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
             for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
-                u8 shouldSkipMaterial = FALSE;
-                switch (objectId) {
-                    case OBJECT_ARMOS:
-                        shouldSkipMaterial = matIdx == 0;
-                        break;
-                    case OBJECT_TENTACLE:
-                        shouldSkipMaterial = matIdx == 1;
-                        break;
-                }
-                if (shouldSkipMaterial) {
+                // Skip materials that weren't modified
+                if ((obj->id == OBJECT_ARMOS && matIdx == 0) || (obj->id == OBJECT_TENTACLE && matIdx == 1)) {
                     continue;
                 }
 
