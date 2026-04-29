@@ -430,7 +430,6 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         // No need to handle this as it can't spawn if the player doesn't have the Flare Dancer Soul
         case ACTOR_DEAD_HAND:
             return EnDh_ReinitModels((EnDh*)actor);
-        case ACTOR_IRON_KNUCKLE:
         case ACTOR_GOHMA:
         case ACTOR_GOHMA_LARVA:
         case ACTOR_DODONGO:
@@ -453,6 +452,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_ANUBIS:         // OK
         case ACTOR_STALCHILD:      // OK
         case ACTOR_DEAD_HAND_HAND: // OK
+        case ACTOR_IRON_KNUCKLE:   // OK
             return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, 0);
 
         case ACTOR_KEESE:
