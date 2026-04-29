@@ -430,7 +430,6 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         // No need to handle this as it can't spawn if the player doesn't have the Flare Dancer Soul
         case ACTOR_DEAD_HAND:
             return EnDh_ReinitModels((EnDh*)actor);
-        case ACTOR_GOHMA:
         case ACTOR_KING_DODONGO:
         case ACTOR_BARINADE:
         case ACTOR_PHANTOM_GANON:
@@ -450,6 +449,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_STALCHILD:      // OK
         case ACTOR_DEAD_HAND_HAND: // OK
         case ACTOR_IRON_KNUCKLE:   // OK
+        case ACTOR_GOHMA:          // OK
         case ACTOR_GOHMA_LARVA:    // OK
         case ACTOR_BABY_DODONGO:   // OK
         case ACTOR_DODONGO:        // OK

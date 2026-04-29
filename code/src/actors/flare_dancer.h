@@ -41,7 +41,7 @@ typedef struct EnFd {
     /* 0x0E58 */ EnFdEffect effects[EN_FD_EFFECT_COUNT];
     /* 0x25C8 */ SkeletonAnimationModel* saModels[EN_FD_EFFECT_COUNT];
     /* 0x2758 */ s32 cmbIndices[EN_FD_EFFECT_COUNT];
-    /* 0x28E8 */ void* unkCtxbRelated;
+    /* 0x28E8 */ void* unk_28E8;
 } EnFd;
 _Static_assert(sizeof(EnFd) == 0x28EC, "EnFd size");
 
