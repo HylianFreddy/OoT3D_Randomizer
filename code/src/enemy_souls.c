@@ -33,6 +33,9 @@
 #include "ganondorf.h"
 #include "volvagia.h"
 #include "bongo_bongo.h"
+#include "tailpasaran.h"
+
+#include "z3D/actors/z_en_firefly.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -372,7 +375,6 @@ typedef struct GenericSkelAnimeActor {
     /* 0x1A4 */ SkelAnime anime;
 } GenericSkelAnimeActor;
 
-#include "z3D/actors/z_actors_tmp.h"
 /*
 #define REINIT_SKELANIME(anime) Actor_ReinitSkelAnime(anime, actor)
 #define REINIT_1_MODEL(model1, index1)            \
@@ -475,32 +477,31 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, 0);
 
         case ACTOR_KEESE:
-            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1C8), 0);
-            // return &((EnFirefly*)actor)->skelAnime;
+            return Actor_ReinitSkelAnime(actor, &((EnFirefly*)actor)->skelAnime, 0);
         case ACTOR_TAILPASARAN:
-            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1B0), 0);
-            // return &((EnTp*)actor)->skelAnime;
+            return EnTp_ReinitModels((EnTp*)actor);
         case ACTOR_MOBLIN:
-            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1E4), 0);
+            // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1E4), 0);
         case ACTOR_GUAY:
-            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1D4), 0);
+            // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1D4), 0);
         case ACTOR_REDEAD:
         case ACTOR_WOLFOS:
         case ACTOR_STALFOS:
         case ACTOR_GERUDO_FIGHTER:
-            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1E0), 0);
+            // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1E0), 0);
         case ACTOR_LIKE_LIKE:
-            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x2438), 0);
+            // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x2438), 0);
         case ACTOR_DARK_LINK:
-            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x254), 0);
+            // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x254), 0);
         case ACTOR_GERUDO_GUARD:
-            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1FC), 0);
+            // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1FC), 0);
         case ACTOR_MORPHA:
-            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x16E0), 0);
+            // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x16E0), 0);
         case ACTOR_TWINROVA:
-            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x5C0), 0);
+            // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x5C0), 0);
         case ACTOR_GANONDORF:
-            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1A8), 0);
+            // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1A8), 0);
+            break;
 
         case ACTOR_SHABOM:
             return EnBubble_ReinitModels((EnBubble*)actor);
