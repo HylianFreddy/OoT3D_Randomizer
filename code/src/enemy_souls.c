@@ -35,6 +35,7 @@
 #include "bongo_bongo.h"
 #include "tailpasaran.h"
 #include "moblin.h"
+#include "guay.h"
 
 #include "z3D/actors/z_en_firefly.h"
 
@@ -484,7 +485,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_MOBLIN:
             return EnMb_ReinitModels((EnMb*)actor);
         case ACTOR_GUAY:
-            // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1D4), 0);
+            return Actor_ReinitSkelAnime(actor, &((EnCrow*)actor)->skelAnime, 0);
         case ACTOR_REDEAD:
         case ACTOR_WOLFOS:
         case ACTOR_STALFOS:
