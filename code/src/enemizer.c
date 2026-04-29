@@ -14,9 +14,9 @@
 #define SKIP_ACTOR_ENTRY TRUE
 #define KEEP_ACTOR_ENTRY FALSE
 
-const u32 sBaseTestEnemyId       = ENEMY_IRON_KNUCKLE;
+const u32 sBaseTestEnemyId       = ENEMY_GOHMA_LARVA;
 static u32 sTestEnemyId          = sBaseTestEnemyId;
-static u32 sTestEnemyParamsIndex = 0;
+static u32 sTestEnemyParamsIndex = 1;
 static u32 sTestToggle           = ENEMYMODE_RANDOMIZED;
 
 static EnemyOverride rEnemyOverrides[ENEMY_OVERRIDES_MAX];
