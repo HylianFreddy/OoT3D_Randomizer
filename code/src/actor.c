@@ -70,7 +70,7 @@
 #include "moblin.h"
 #include "iron_knuckle.h"
 #include "guay.h"
-#include "dead_hand_hand.h"
+#include "dead_hand.h"
 #include "flare_dancer.h"
 #include "poe.h"
 #include "dark_link.h"

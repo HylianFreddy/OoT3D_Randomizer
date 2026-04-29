@@ -27,6 +27,7 @@
 #include "business_scrubs.h"
 #include "door.h"
 #include "flare_dancer.h"
+#include "dead_hand.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -442,7 +443,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         // case ACTOR_FLARE_DANCER_CORE:
         // No need to handle this as it can't spawn if the player doesn't have the Flare Dancer Soul
         case ACTOR_DEAD_HAND:
-        case ACTOR_DEAD_HAND_HAND:
+            return EnDh_ReinitModels((EnDh*)actor);
         case ACTOR_IRON_KNUCKLE:
         case ACTOR_GOHMA:
         case ACTOR_GOHMA_LARVA:
@@ -456,15 +457,16 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_BONGO_BONGO:
         case ACTOR_GANON:
 
-        case ACTOR_BIG_OCTO:      // OK
-        case ACTOR_LEEVER:        // OK
-        case ACTOR_SKULLTULA:     // OK
-        case ACTOR_STINGER_WATER: // OK
-        case ACTOR_BUBBLE:        // OK
-        case ACTOR_FLOORMASTER:   // OK
-        case ACTOR_SHELL_BLADE:   // OK
-        case ACTOR_ANUBIS:        // OK
-        case ACTOR_STALCHILD:     // OK
+        case ACTOR_BIG_OCTO:       // OK
+        case ACTOR_LEEVER:         // OK
+        case ACTOR_SKULLTULA:      // OK
+        case ACTOR_STINGER_WATER:  // OK
+        case ACTOR_BUBBLE:         // OK
+        case ACTOR_FLOORMASTER:    // OK
+        case ACTOR_SHELL_BLADE:    // OK
+        case ACTOR_ANUBIS:         // OK
+        case ACTOR_STALCHILD:      // OK
+        case ACTOR_DEAD_HAND_HAND: // OK
             return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, 0);
 
         case ACTOR_KEESE:
