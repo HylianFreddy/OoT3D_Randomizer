@@ -36,6 +36,7 @@
 #include "tailpasaran.h"
 #include "moblin.h"
 #include "guay.h"
+#include "wolfos.h"
 
 #include "z3D/actors/z_en_firefly.h"
 #include "z3D/actors/z_en_rd.h"
@@ -490,6 +491,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_REDEAD:
             return Actor_ReinitSkelAnime(actor, &((EnRd*)actor)->skelAnime, actor->params >= -1 ? 0 : 1);
         case ACTOR_WOLFOS:
+            return EnWf_ReinitModels((EnWf*)actor);
         case ACTOR_STALFOS:
         case ACTOR_GERUDO_FIGHTER:
             // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1E0), 0);
