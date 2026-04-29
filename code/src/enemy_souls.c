@@ -42,6 +42,7 @@
 
 #include "z3D/actors/z_en_firefly.h"
 #include "z3D/actors/z_en_rd.h"
+#include "z3D/actors/z_en_rr.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -499,7 +500,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_GERUDO_FIGHTER:
             return EnGeldB_ReinitModels((EnGeldB*)actor);
         case ACTOR_LIKE_LIKE:
-            // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x2438), 0);
+            return Actor_ReinitSkelAnime(actor, &((EnRr*)actor)->skelAnime, 0);
         case ACTOR_DARK_LINK:
             // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x254), 0);
         case ACTOR_GERUDO_GUARD:
