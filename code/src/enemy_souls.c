@@ -32,6 +32,7 @@
 #include "barinade.h"
 #include "ganondorf.h"
 #include "volvagia.h"
+#include "bongo_bongo.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -446,13 +447,15 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             return BossGanondrof_ReinitModels((BossGanondrof*)actor);
         case ACTOR_PG_HORSE:
             return EnFHG_ReinitModels((EnFHG*)actor);
-        case ACTOR_VOLVAGIA_FLYING:   // broken, transparent
+        case ACTOR_VOLVAGIA_FLYING: // broken, transparent
             // return BossFd_ReinitModels((BossFd*)actor);
-            return Actor_Kill(actor); // TODO;
+            return Actor_Kill(actor); // TODO
         case ACTOR_VOLVAGIA_HOLE:
             return Actor_Kill(actor); // TODO
-        case ACTOR_BONGO_BONGO:
+        case ACTOR_BONGO_BONGO:       // hands become transparent?
+            return BossSst_ReinitModels((BossSst*)actor);
         case ACTOR_GANON:
+            break; // TODO
 
         case ACTOR_BIG_OCTO:       // OK
         case ACTOR_LEEVER:         // OK
