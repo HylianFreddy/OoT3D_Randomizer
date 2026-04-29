@@ -31,6 +31,7 @@
 #include "dodongos.h"
 #include "barinade.h"
 #include "ganondorf.h"
+#include "volvagia.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -281,8 +282,8 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
         (obj->id == OBJECT_TENTACLE && cmbIdx == 1) ||     // dead blob
         (obj->id == OBJECT_DEAD_HAND && cmbIdx == 2) ||    // dirt wave
         (obj->id == OBJECT_KING_DODONGO && cmbIdx != 2) || // KD body
-        (obj->id == OBJECT_BARINADE && cmbIdx != 0 && cmbIdx != 3 && cmbIdx != 4 &&
-         cmbIdx != 7 && cmbIdx != 12) // arms, body and jellyfish
+        (obj->id == OBJECT_BARINADE && cmbIdx != 0 && cmbIdx != 3 && cmbIdx != 4 && cmbIdx != 7 &&
+         cmbIdx != 12) // arms, body and jellyfish
     ) {
         return;
     }
@@ -292,7 +293,8 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
         origDataBuf->status = CMBSTATUS_MODIFIED;
         CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
         // poe sisters: 11 mats
-        CitraPrint("BeforeCmbManagerInit materialCount=%X", cmbMats->materialCount);
+        CitraPrint("BeforeCmbManagerInit obj->id=%X cmbIdx=%X materialCount=%X", obj->id, cmbIdx,
+                   cmbMats->materialCount);
         for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
             // Don't modify certain materials
             if ((obj->id == OBJECT_ARMOS && matIdx == 0) || // eyes
@@ -307,7 +309,7 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
             origDataBuf->mats[matIdx].blendMode          = mat->blendMode;
 
             // For Armos, only remove texture mapper for "awoken" state
-            mat->textureMappersUsed = gRunningActor->id == ACTOR_ARMOS ? 1 : 0;
+            mat->textureMappersUsed = obj->id == OBJECT_ARMOS ? 1 : 0;
             mat->alphaTestEnabled   = 0;
             mat->blendMode          = 0;
         }
@@ -444,8 +446,11 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             return BossGanondrof_ReinitModels((BossGanondrof*)actor);
         case ACTOR_PG_HORSE:
             return EnFHG_ReinitModels((EnFHG*)actor);
-        case ACTOR_VOLVAGIA_FLYING: // missing arms
+        case ACTOR_VOLVAGIA_FLYING:   // broken, transparent
+            // return BossFd_ReinitModels((BossFd*)actor);
+            return Actor_Kill(actor); // TODO;
         case ACTOR_VOLVAGIA_HOLE:
+            return Actor_Kill(actor); // TODO
         case ACTOR_BONGO_BONGO:
         case ACTOR_GANON:
 
