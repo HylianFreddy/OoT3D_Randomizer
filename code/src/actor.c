@@ -98,6 +98,8 @@ void Actor_Kill(Actor* actor) {
 void TitleCard_Update(GlobalContext* globalCtx, TitleCardContext* titleCtx);
 
 Actor* gRunningActor;
+#define MAX_RUNNING_ACTORS 5
+Actor* prevRunningActors[MAX_RUNNING_ACTORS] = { 0 };
 
 void Actor_Init() {
     // Some actors have the wrong ID saved in their "initInfo".
@@ -528,15 +530,35 @@ void HyperActors_Main(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
-void Actor_rInit(Actor* actor, GlobalContext* globalCtx) {
+static void SetRunningActor(Actor* actor) {
+    if (gRunningActor != NULL) {
+        for (s32 i = MAX_RUNNING_ACTORS - 1; i > 0; i--) {
+            prevRunningActors[i] = prevRunningActors[i - 1];
+        }
+        prevRunningActors[0] = gRunningActor;
+    }
     gRunningActor = actor;
-    actor->init(actor, globalCtx);
+}
+
+static void RemoveRunningActor(void) {
     gRunningActor = NULL;
+    if (prevRunningActors[0] != NULL) {
+        gRunningActor = prevRunningActors[0];
+        for (s32 i = 0; i < MAX_RUNNING_ACTORS - 1; i++) {
+            prevRunningActors[i] = prevRunningActors[i + 1];
+        }
+    }
+}
+
+void Actor_rInit(Actor* actor, GlobalContext* globalCtx) {
+    SetRunningActor(actor);
+    actor->init(actor, globalCtx);
+    RemoveRunningActor();
 }
 
 void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
+    SetRunningActor(actor);
     u8 tempHammerQuakeFlag = globalCtx->actorCtx.hammerQuakeFlag;
-    gRunningActor          = actor;
 
     if (!EnemySouls_CheckSoulForActor(actor)) {
         globalCtx->actorCtx.hammerQuakeFlag = 0;
@@ -550,7 +572,7 @@ void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
     if (tempHammerQuakeFlag != 0) {
         globalCtx->actorCtx.hammerQuakeFlag = tempHammerQuakeFlag;
     }
-    gRunningActor = NULL;
+    RemoveRunningActor();
 }
 
 void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
