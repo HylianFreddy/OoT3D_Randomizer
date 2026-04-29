@@ -431,7 +431,6 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_DEAD_HAND:
             return EnDh_ReinitModels((EnDh*)actor);
         case ACTOR_GOHMA:
-        case ACTOR_DODONGO:
         case ACTOR_KING_DODONGO:
         case ACTOR_BARINADE:
         case ACTOR_PHANTOM_GANON:
@@ -453,6 +452,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_IRON_KNUCKLE:   // OK
         case ACTOR_GOHMA_LARVA:    // OK
         case ACTOR_BABY_DODONGO:   // OK
+        case ACTOR_DODONGO:        // OK
             return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, 0);
 
         case ACTOR_KEESE:
