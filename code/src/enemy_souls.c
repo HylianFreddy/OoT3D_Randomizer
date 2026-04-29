@@ -28,6 +28,7 @@
 #include "door.h"
 #include "flare_dancer.h"
 #include "dead_hand.h"
+#include "dodongos.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -276,7 +277,8 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
     // Don't modify certain models
     if ((obj->id == OBJECT_WALLMASTER && cmbIndex == 2) || // hand shadow
         (obj->id == OBJECT_TENTACLE && cmbIndex == 1) ||   // dead blob
-        (obj->id == OBJECT_DEAD_HAND && cmbIndex == 2)     // dirt wave
+        (obj->id == OBJECT_DEAD_HAND && cmbIndex == 2) ||  // dirt wave
+        (obj->id == OBJECT_KING_DODONGO && cmbIndex != 2)  // everything except KD (flames and bombable floor)
     ) {
         return;
     }
@@ -431,6 +433,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_DEAD_HAND:
             return EnDh_ReinitModels((EnDh*)actor);
         case ACTOR_KING_DODONGO:
+            return BossDodongo_ReinitModels((BossDodongo*)actor);
         case ACTOR_BARINADE:
         case ACTOR_PHANTOM_GANON:
         case ACTOR_VOLVAGIA_FLYING: // missing arms

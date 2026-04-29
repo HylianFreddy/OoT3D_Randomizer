@@ -15,6 +15,7 @@ typedef enum ObjectId {
     OBJECT_CUSTOM_ADULT_SONGS        = 0x0010,
     OBJECT_CUSTOM_SMALL_KEY_FOREST   = 0x0011,
     OBJECT_TEKTITE                   = 0x0016,
+    OBJECT_KING_DODONGO              = 0x0019,
     OBJECT_BIRI                      = 0x0021,
     OBJECT_SKULLTULA                 = 0x0024,
     OBJECT_ARMOS                     = 0x0038,
