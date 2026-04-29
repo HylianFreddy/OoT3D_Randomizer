@@ -29,6 +29,7 @@
 #include "flare_dancer.h"
 #include "dead_hand.h"
 #include "dodongos.h"
+#include "barinade.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -260,7 +261,7 @@ void EnemySouls_BeforeSkelAnimeInit(CmbManager* cmbMan, Actor* actor) {
     CitraPrint("BeforeSkelAnimeInit actorID=%X", actor->id);
 }
 
-void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 cmbIndex) {
+void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 cmbIdx) {
     if (gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_BLACK ||
         EnemySouls_CheckSoulForActor_IgnoreState(gRunningActor)) {
         return;
@@ -275,10 +276,12 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
     }
 
     // Don't modify certain models
-    if ((obj->id == OBJECT_WALLMASTER && cmbIndex == 2) || // hand shadow
-        (obj->id == OBJECT_TENTACLE && cmbIndex == 1) ||   // dead blob
-        (obj->id == OBJECT_DEAD_HAND && cmbIndex == 2) ||  // dirt wave
-        (obj->id == OBJECT_KING_DODONGO && cmbIndex != 2)  // everything except KD (flames and bombable floor)
+    if ((obj->id == OBJECT_WALLMASTER && cmbIdx == 2) ||   // hand shadow
+        (obj->id == OBJECT_TENTACLE && cmbIdx == 1) ||     // dead blob
+        (obj->id == OBJECT_DEAD_HAND && cmbIdx == 2) ||    // dirt wave
+        (obj->id == OBJECT_KING_DODONGO && cmbIdx != 2) || // KD body
+        (obj->id == OBJECT_BARINADE && cmbIdx != 0 && cmbIdx != 3 && cmbIdx != 4 &&
+         cmbIdx != 7 && cmbIdx != 12) // arms, body and jellyfish
     ) {
         return;
     }
@@ -435,6 +438,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_KING_DODONGO:
             return BossDodongo_ReinitModels((BossDodongo*)actor);
         case ACTOR_BARINADE:
+            return BossVa_ReinitModels((BossVa*)actor);
         case ACTOR_PHANTOM_GANON:
         case ACTOR_VOLVAGIA_FLYING: // missing arms
         case ACTOR_VOLVAGIA_HOLE:

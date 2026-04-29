@@ -31,6 +31,7 @@ typedef enum ObjectId {
     OBJECT_CUSTOM_SMALL_KEY_GANON    = 0x007F,
     OBJECT_CUSTOM_BOSS_KEYS          = 0x0080,
     OBJECT_CUSTOM_RUPOOR             = 0x0083,
+    OBJECT_BARINADE                  = 0x008C,
     OBJECT_TRIFORCE                  = 0x0095,
     OBJECT_DEAD_HAND                 = 0x00A6,
     OBJECT_GI_KEY                    = 0x00AA,
