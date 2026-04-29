@@ -423,8 +423,7 @@ struct ZARInfo* Actor_DestroySkelModels(Actor* actor, SkeletonAnimationModel** f
     __attribute__((sentinel));
 struct ZARInfo* Actor_CreateSkelModelsArray(Actor* actor, struct GlobalContext* globalCtx, s32 modelCount,
                                             SkeletonAnimationModel** models, s32* cmbIndices);
-struct ZARInfo* Actor_DestroySkelModelsArray(Actor* actor, s32 modelCount, SkeletonAnimationModel** models,
-                                             s32* cmbIndices);
+struct ZARInfo* Actor_DestroySkelModelsArray(Actor* actor, s32 modelCount, SkeletonAnimationModel** models);
 void ZAR_Init(struct ZARInfo* zarInfo, void* buf, s32 size, s8 unkParam);
 void ZAR_Destroy(struct ZARInfo* zarInfo);
 void* ZAR_GetCMBByIndex(struct ZARInfo* zarInfo, u32 index);

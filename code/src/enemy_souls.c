@@ -26,6 +26,7 @@
 #include "deku_scrubs.h"
 #include "business_scrubs.h"
 #include "door.h"
+#include "flare_dancer.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -316,6 +317,7 @@ void EnemySouls_BeforeSkelModelCtor(CmbManager* cmbMan) {
 }
 
 static void SoullessDarkness_RestoreObject(u16 objectId) {
+    CitraPrint("RestoreObject objectId=%X", objectId);
     if (objectId == OBJECT_INVALID) {
         return;
     }
@@ -436,7 +438,9 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_DOOR_MIMIC:
             return DoorKiller_ReinitModels((DoorKiller*)actor);
         case ACTOR_FLARE_DANCER:
-        case ACTOR_FLARE_DANCER_CORE:
+            return EnFd_ReinitModels((EnFd*)actor);
+        // case ACTOR_FLARE_DANCER_CORE:
+        // No need to handle this as it can't spawn if the player doesn't have the Flare Dancer Soul
         case ACTOR_DEAD_HAND:
         case ACTOR_DEAD_HAND_HAND:
         case ACTOR_IRON_KNUCKLE:
@@ -460,7 +464,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_FLOORMASTER:   // OK
         case ACTOR_SHELL_BLADE:   // OK
         case ACTOR_ANUBIS:        // OK
-        case ACTOR_STALCHILD:// OK
+        case ACTOR_STALCHILD:     // OK
             return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, 0);
 
         case ACTOR_KEESE:
