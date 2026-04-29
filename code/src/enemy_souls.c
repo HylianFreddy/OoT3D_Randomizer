@@ -38,6 +38,7 @@
 #include "guay.h"
 #include "wolfos.h"
 #include "stalfos.h"
+#include "gerudos.h"
 
 #include "z3D/actors/z_en_firefly.h"
 #include "z3D/actors/z_en_rd.h"
@@ -496,13 +497,13 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_STALFOS:
             return EnTest_ReinitModels((EnTest*)actor);
         case ACTOR_GERUDO_FIGHTER:
-            // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1E0), 0);
+            return EnGeldB_ReinitModels((EnGeldB*)actor);
         case ACTOR_LIKE_LIKE:
             // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x2438), 0);
         case ACTOR_DARK_LINK:
             // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x254), 0);
         case ACTOR_GERUDO_GUARD:
-            // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1FC), 0);
+            return EnGe2_ReinitModels((EnGe2*)actor);
         case ACTOR_MORPHA:
             // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x16E0), 0);
         case ACTOR_TWINROVA:
