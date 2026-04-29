@@ -30,6 +30,7 @@
 #include "dead_hand.h"
 #include "dodongos.h"
 #include "barinade.h"
+#include "ganondorf.h"
 
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
 
@@ -440,6 +441,9 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_BARINADE:
             return BossVa_ReinitModels((BossVa*)actor);
         case ACTOR_PHANTOM_GANON:
+            return BossGanondrof_ReinitModels((BossGanondrof*)actor);
+        case ACTOR_PG_HORSE:
+            return EnFHG_ReinitModels((EnFHG*)actor);
         case ACTOR_VOLVAGIA_FLYING: // missing arms
         case ACTOR_VOLVAGIA_HOLE:
         case ACTOR_BONGO_BONGO:
@@ -483,8 +487,6 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x254), 0);
         case ACTOR_GERUDO_GUARD:
             return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1FC), 0);
-        case ACTOR_PG_HORSE:
-            return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x26C), 0);
         case ACTOR_MORPHA:
             return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x16E0), 0);
         case ACTOR_TWINROVA:
