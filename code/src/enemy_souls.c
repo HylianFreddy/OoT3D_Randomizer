@@ -40,6 +40,7 @@
 #include "stalfos.h"
 #include "gerudos.h"
 #include "dark_link.h"
+#include "spike.h"
 
 #include "z3D/actors/z_en_firefly.h"
 #include "z3D/actors/z_en_rd.h"
@@ -520,6 +521,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_FLYING_POT:
         case ACTOR_FLYING_FLOOR_TILE:
         case ACTOR_SPIKE:
+            return EnNy_ReinitModels((EnNy*)actor);
         case ACTOR_FREEZARD:
             return;
     }
