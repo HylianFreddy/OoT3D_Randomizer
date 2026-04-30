@@ -140,14 +140,31 @@ static void EnemySouls_SetSoulFlag(EnemySoulId soulId) {
     gExtSaveData.extInf.enemySouls[(soulId >> 3)] |= (1 << (soulId & 0b111));
 }
 
-static u8 EnemySouls_CheckSoulForActorImpl(Actor* actor, u8 checkState) {
+typedef enum SoulCheck {
+    SOULCHECK_BASE,
+    SOULCHECK_COLLISION,
+    SOULCHECK_DRAW,
+} SoulCheck;
+
+static u8 EnemySouls_CheckSoul_Impl(Actor* actor, SoulCheck soulCheck) {
     if (actor == NULL || (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_OFF) ||
-        (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_BOSSES && !Actor_IsBoss(actor)) ||
-        (checkState &&
-         // Armos statues and asleep Armos enemies, included so they can be hit and woken up even while soulless
-         ((actor->id == ACTOR_ARMOS && ((EnAm*)actor)->textureBlend == 0) ||
-          // Hidden flying traps will appear normal; in this state they already ignore collider hits
-          FlyingTraps_IsHiddenTrap(actor)))) {
+        (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_BOSSES && !Actor_IsBoss(actor))) {
+        return TRUE;
+    }
+
+    if (soulCheck >= SOULCHECK_COLLISION &&
+        // Armos statues and asleep Armos enemies, included so they can be hit and woken up even while soulless
+        actor->id == ACTOR_ARMOS && ((EnAm*)actor)->textureBlend == 0) {
+        return TRUE;
+    }
+
+    if (soulCheck >= SOULCHECK_DRAW &&
+        // If enemy is culled, don't draw soulless effects
+        (!(actor->flags & ACTOR_FLAG_INSIDE_CULLING_VOLUME) ||
+         // If scale is zero, enemy is invisible
+         (actor->scale.x == 0 && actor->scale.y == 0 && actor->scale.z == 0) ||
+         // Hidden flying traps will appear normal
+         FlyingTraps_IsHiddenTrap(actor))) {
         return TRUE;
     }
 
@@ -156,11 +173,11 @@ static u8 EnemySouls_CheckSoulForActorImpl(Actor* actor, u8 checkState) {
 }
 
 u8 EnemySouls_CheckSoulForActor(Actor* actor) {
-    return EnemySouls_CheckSoulForActorImpl(actor, TRUE);
+    return EnemySouls_CheckSoul_Impl(actor, SOULCHECK_COLLISION);
 }
 
-static u8 EnemySouls_CheckSoulForActor_IgnoreState(Actor* actor) {
-    return EnemySouls_CheckSoulForActorImpl(actor, FALSE);
+u8 EnemySouls_ShouldDrawSoulless(Actor* actor) {
+    return EnemySouls_CheckSoul_Impl(actor, SOULCHECK_DRAW);
 }
 
 void EnemySouls_OnCollect(EnemySoulId soulId) {
@@ -204,9 +221,7 @@ static void SoullessFlames_Draw(Vec3f pos, f32 xRange, f32 yRange, f32 zRange, s
 }
 
 static void SoullessFlames_ParseCollider(Collider* collider) {
-    if (collider == NULL || collider->actor == NULL || !(collider->actor->flags & ACTOR_FLAG_INSIDE_CULLING_VOLUME) ||
-        (collider->actor->scale.x == 0 && collider->actor->scale.y == 0 && collider->actor->scale.z == 0) ||
-        EnemySouls_CheckSoulForActor(collider->actor)) {
+    if (collider == NULL || EnemySouls_ShouldDrawSoulless(collider->actor)) {
         return;
     }
 
@@ -278,7 +293,7 @@ void EnemySouls_BeforeSkelAnimeInit(CmbManager* cmbMan, Actor* actor) {
 
 void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 cmbIdx) {
     if (gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_BLACK ||
-        EnemySouls_CheckSoulForActor_IgnoreState(gRunningActor)) {
+        EnemySouls_CheckSoul_Impl(gRunningActor, SOULCHECK_BASE)) {
         return;
     }
 

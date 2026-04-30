@@ -581,7 +581,7 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
 
     actor->draw(actor, globalCtx);
 
-    if (!EnemySouls_CheckSoulForActor(actor) &&
+    if (!EnemySouls_ShouldDrawSoulless(actor) &&
         (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_PURPLE_FLAMES ||
          (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_FLASHING && rGameplayFrames % 2 == 0))) {
         // make enemy invisible
