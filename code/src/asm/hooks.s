@@ -1761,7 +1761,7 @@ HOOK FlyingPotCollision
     strh r0,[r4,#0xBE]
     push {r0-r12, lr}
     cpy r0,r4 @ Actor
-    bl FlyingTraps_Pot_OnImpact
+    bl EnTuboTrap_OnImpact
     cmp r0,#0x1
     pop {r0-r12, lr}
     bne 0x11DEE4 @ Skip collision checks and return
@@ -1771,7 +1771,7 @@ HOOK FlyingTileCollision
     cpy r0,r5
     push {r0-r12, lr}
     cpy r0,r4 @ Actor
-    bl FlyingTraps_Tile_OnImpact
+    bl EnYukabyun_OnImpact
     cmp r0,#0x1
     pop {r0-r12, lr}
     addne lr,lr,#0x8 @ Skip setting actionFunc

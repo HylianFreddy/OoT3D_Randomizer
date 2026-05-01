@@ -42,10 +42,11 @@ typedef void (*SkeletonAnimationModelFunc)(struct SkeletonAnimationModel*);
 typedef struct {
     /* 0x00 */ char unk_00[0x4];
     /* 0x04 */ SkeletonAnimationModelFunc destroy;
+    /* 0x04 */ SkeletonAnimationModelFunc draw;
 } SkeletonAnimationModel_VTable;
 
 typedef struct SkeletonAnimationModel_unk_10 {
-    /* 0x00 */ void* unk_00;
+    /* 0x00 */ struct CmbManager* cmbMan;
     /* 0x04 */ void* unk_04;
     /* 0x08 */ s32 unk_08;
     /* 0x0C */ s32 unk_0C;

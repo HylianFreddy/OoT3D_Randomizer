@@ -307,6 +307,8 @@ SECTIONS
 	EnMThunder_Init = 0x24C910 + _LD_OFF;
 	EnPoh_Update = 0x24D368 + _LD_OFF;
 	.patch_RedeadCanFreezePlayer 0x24DC2C + _LD_OFF : { *(.patch_RedeadCanFreezePlayer) }
+	EnTuboTrap_Init = 0x24E434 + _LD_OFF;
+	EnTuboTrap_Destroy = 0x24E4C0 + _LD_OFF;
 	.patch_SwordTrailDurationGrezzoFix 0x2507D0 + _LD_OFF : { *(.patch_SwordTrailDurationGrezzoFix) } /*duration is set to 6 due to framerate increase. NOP to allow custom duration*/
 	.patch_MultiplyPlayerSpeed 0x251D34 + _LD_OFF : { *(.patch_MultiplyPlayerSpeed) }
 	.patch_GameOverStart 0x252424 + _LD_OFF : { *(.patch_GameOverStart) }

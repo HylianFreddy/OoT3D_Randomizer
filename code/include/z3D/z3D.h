@@ -16,6 +16,7 @@
 #include "z3Deffect.h"
 #include "z3Daudio.h"
 #include "z3Denvironment.h"
+#include "z3Dcmb.h"
 
 #include "hid.h"
 
