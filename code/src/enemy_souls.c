@@ -290,37 +290,7 @@ void EnemySouls_BeforeSkelAnimeInit(CmbManager* cmbMan, Actor* actor) {
     CitraPrint("BeforeSkelAnimeInit actorID=%X", actor->id);
 }
 
-// u8 EnemySouls_GlobalObjectModEnabled = FALSE;
-
-void SoullessDarkness_ModifyCmb(CmbManager* cmbMan, s16 objectId, s32 cmbIdx /*to delete*/) {
-    CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
-    if (origDataBuf->status != CMBSTATUS_MODIFIED) {
-        origDataBuf->status = CMBSTATUS_MODIFIED;
-        CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
-        // poe sisters: 11 mats
-        CitraPrint("BeforeCmbManagerInit objectId =%X cmbIdx=%X materialCount=%X", objectId, cmbIdx,
-                   cmbMats->materialCount);
-        for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
-            // Don't modify certain materials
-            if ((objectId == OBJECT_ARMOS && matIdx == 0) || // eyes
-                (objectId == OBJECT_TENTACLE && matIdx == 1) // electric field (for both models)
-            ) {
-                continue;
-            }
-
-            Material* mat                                = &cmbMats->materials[matIdx];
-            origDataBuf->mats[matIdx].textureMappersUsed = mat->textureMappersUsed;
-            origDataBuf->mats[matIdx].alphaTestEnabled   = mat->alphaTestEnabled;
-            origDataBuf->mats[matIdx].blendMode          = mat->blendMode;
-
-            // For Armos, only remove texture mapper for "awoken" state
-            mat->textureMappersUsed = objectId == OBJECT_ARMOS ? 1 : 0;
-            mat->alphaTestEnabled   = 0;
-            mat->blendMode          = 0;
-        }
-    }
-};
-
+u8 EnemySouls_GlobalObjectModEnabled = FALSE;
 void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 cmbIdx) {
     if (gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_BLACK ||
         EnemySouls_CheckSoul_Impl(gRunningActor, SOULCHECK_BASE)) {
@@ -331,7 +301,7 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
 
     // Ignore CmbManagers from global "keep" objects, even if this actor is the first one to request them (thus causing
     // them to initialize).
-    if (obj == NULL || obj->id <= OBJECT_GAMEPLAY_DUNGEON_KEEP) {
+    if (obj == NULL || (obj->id <= OBJECT_GAMEPLAY_DUNGEON_KEEP && !EnemySouls_GlobalObjectModEnabled)) {
         return;
     }
 
@@ -346,35 +316,38 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
         return;
     }
 
-    SoullessDarkness_ModifyCmb(cmbMan, obj->id, cmbIdx);
+    CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
+    if (origDataBuf->status != CMBSTATUS_MODIFIED) {
+        origDataBuf->status = CMBSTATUS_MODIFIED;
+        CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
+        // poe sisters: 11 mats
+        CitraPrint("BeforeCmbManagerInit obj->id=%X cmbIdx=%X materialCount=%X", obj->id, cmbIdx,
+                   cmbMats->materialCount);
+        for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
+            // Don't modify certain materials
+            if ((obj->id == OBJECT_ARMOS && matIdx == 0) || // eyes
+                (obj->id == OBJECT_TENTACLE && matIdx == 1) // electric field (for both models)
+            ) {
+                continue;
+            }
+
+            Material* mat                                = &cmbMats->materials[matIdx];
+            origDataBuf->mats[matIdx].textureMappersUsed = mat->textureMappersUsed;
+            origDataBuf->mats[matIdx].alphaTestEnabled   = mat->alphaTestEnabled;
+            origDataBuf->mats[matIdx].blendMode          = mat->blendMode;
+
+            // For Armos, only remove texture mapper for "awoken" state
+            mat->textureMappersUsed = obj->id == OBJECT_ARMOS ? 1 : 0;
+            mat->alphaTestEnabled   = 0;
+            mat->blendMode          = 0;
+        }
+    }
 }
 
 void EnemySouls_BeforeSkelModelCtor(CmbManager* cmbMan) {
 }
 
-u8 SoullessDarkness_RestoreCmb(CmbManager* cmbMan, s16 objectId) {
-    u8 materialRestored          = FALSE;
-    CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
-    if (origDataBuf->status == CMBSTATUS_MODIFIED) {
-        origDataBuf->status = CMBSTATUS_RESTORED;
-        CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
-        for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
-            // Skip materials that weren't modified
-            if ((objectId == OBJECT_ARMOS && matIdx == 0) || (objectId == OBJECT_TENTACLE && matIdx == 1)) {
-                continue;
-            }
-
-            Material* mat           = &cmbMats->materials[matIdx];
-            mat->textureMappersUsed = origDataBuf->mats[matIdx].textureMappersUsed;
-            mat->alphaTestEnabled   = origDataBuf->mats[matIdx].alphaTestEnabled;
-            mat->blendMode          = origDataBuf->mats[matIdx].blendMode;
-            materialRestored        = TRUE;
-        }
-    }
-    return materialRestored;
-}
-
-static void SoullessDarkness_RestoreObject(u16 objectId) {
+void SoullessDarkness_RestoreObject(u16 objectId) {
     if (objectId == OBJECT_INVALID) {
         return;
     }
@@ -388,18 +361,35 @@ static void SoullessDarkness_RestoreObject(u16 objectId) {
 
     s32 numCMBs = zarInfo->fileTypes[zarInfo->fileTypeMap[0]].numFiles;
     for (s32 cmbIdx = 0; cmbIdx < numCMBs; cmbIdx++) {
-        CmbManager* cmbMan = zarInfo->cmbMans[cmbIdx];
+        u8 restoredMaterial = FALSE;
+        CmbManager* cmbMan  = zarInfo->cmbMans[cmbIdx];
         if (cmbMan == NULL) {
             continue;
         }
         // Restore original values for each CMB that was modified.
-        u8 modified = SoullessDarkness_RestoreCmb(cmbMan, objectId);
-        if (modified) {
-            // Destroy CMB Manager so it will be reinitialized the next time it's needed.
-            CitraPrint("Restored CMB %X for object %X", cmbIdx, objectId);
-            CmbManager_Destroy(cmbMan);
-            gStaticClass_55A19C.sub44->vTable->destroyCmb(gStaticClass_55A19C.sub44, cmbMan);
-            zarInfo->cmbMans[cmbIdx] = NULL;
+        CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
+        if (origDataBuf->status == CMBSTATUS_MODIFIED) {
+            origDataBuf->status = CMBSTATUS_RESTORED;
+            CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
+            for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
+                // Skip materials that weren't modified
+                if ((obj->id == OBJECT_ARMOS && matIdx == 0) || (obj->id == OBJECT_TENTACLE && matIdx == 1)) {
+                    continue;
+                }
+
+                Material* mat           = &cmbMats->materials[matIdx];
+                mat->textureMappersUsed = origDataBuf->mats[matIdx].textureMappersUsed;
+                mat->alphaTestEnabled   = origDataBuf->mats[matIdx].alphaTestEnabled;
+                mat->blendMode          = origDataBuf->mats[matIdx].blendMode;
+                restoredMaterial        = TRUE;
+            }
+        }
+        // Destroy CMB Manager so it will be reinitialized the next time it's needed.
+        if (restoredMaterial) {
+            CitraPrint("RestoreObject objectId=%X", objectId);
+            // CmbManager_Destroy(cmbMan);
+            // gStaticClass_55A19C.sub44->vTable->destroyCmb(gStaticClass_55A19C.sub44, cmbMan);
+            // zarInfo->cmbMans[cmbIdx] = NULL;
         }
     }
 }

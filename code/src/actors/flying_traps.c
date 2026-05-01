@@ -12,6 +12,8 @@
 |           EnTuboTrap          |
 -------------------------------*/
 
+#define THIS ((EnTuboTrap*)thisx)
+
 #define POT_CMB_INDEX 13
 
 void EnTuboTrap_Init(Actor* thisx, GlobalContext* globalCtx);
@@ -31,35 +33,33 @@ s32 EnTuboTrap_OnImpact(EnTuboTrap* this) {
     return EnemySouls_CheckSoulForActor(&this->base);
 }
 
-static CmbManager* sDarkPotCmbMan = NULL;
+static CmbManager* sCmbMan = NULL;
 
-// extern u8 EnemySouls_GlobalObjectModEnabled;
+extern u8 EnemySouls_GlobalObjectModEnabled;
 void SoullessDarkness_RestoreObject(u16 objectId);
 void SkeletonAnimationModel_Draw(SkeletonAnimationModel* glModel, s32 param_2);
-void SoullessDarkness_ModifyCmb(CmbManager* cmbMan, s16 objectId, s32 cmbIdx /*to delete*/);
-u8 SoullessDarkness_RestoreCmb(CmbManager* cmbMan, s16 objectId);
 
 void EnTuboTrap_rInit(Actor* thisx, GlobalContext* globalCtx) {
-    // if (sDarkPotCmbMan == NULL) {
-    //     ObjectEntry* obj = Object_FindEntryOrSpawn(OBJECT_GAMEPLAY_DUNGEON_KEEP);
-    //     // Init normally
-    //     ZAR_GetCMBByIndex(&obj->zarInfo, POT_CMB_INDEX);
-    //     CmbManager* origCmbMan              = obj->zarInfo.cmbMans[POT_CMB_INDEX];
-    //     obj->zarInfo.cmbMans[POT_CMB_INDEX] = NULL;
-    //     EnemySouls_GlobalObjectModEnabled   = TRUE;
-    //     // Init modded
-    //     ZAR_GetCMBByIndex(&obj->zarInfo, POT_CMB_INDEX);
-    //     EnemySouls_GlobalObjectModEnabled   = FALSE;
-    //     sDarkPotCmbMan                             = obj->zarInfo.cmbMans[POT_CMB_INDEX];
-    //     obj->zarInfo.cmbMans[POT_CMB_INDEX] = origCmbMan;
+    if (sCmbMan == NULL) {
+        ObjectEntry* obj = Object_FindEntryOrSpawn(OBJECT_GAMEPLAY_DUNGEON_KEEP);
+        // Init normally
+        ZAR_GetCMBByIndex(&obj->zarInfo, POT_CMB_INDEX);
+        CmbManager* origCmbMan              = obj->zarInfo.cmbMans[POT_CMB_INDEX];
+        obj->zarInfo.cmbMans[POT_CMB_INDEX] = NULL;
+        EnemySouls_GlobalObjectModEnabled   = TRUE;
+        // Init modded
+        ZAR_GetCMBByIndex(&obj->zarInfo, POT_CMB_INDEX);
+        EnemySouls_GlobalObjectModEnabled   = FALSE;
+        sCmbMan                             = obj->zarInfo.cmbMans[POT_CMB_INDEX];
+        obj->zarInfo.cmbMans[POT_CMB_INDEX] = origCmbMan;
 
-    //     CitraPrint("pot %X %X", obj->zarInfo.cmbMans[POT_CMB_INDEX], sDarkPotCmbMan);
-    //     // SoullessDarkness_RestoreObject(OBJECT_GAMEPLAY_DUNGEON_KEEP);
-    // }
+        CitraPrint("pot %X %X", obj->zarInfo.cmbMans[POT_CMB_INDEX], sCmbMan);
+        SoullessDarkness_RestoreObject(OBJECT_GAMEPLAY_DUNGEON_KEEP);
+    }
 
     // ObjectEntry* obj                    = Object_FindEntryOrSpawn(OBJECT_GAMEPLAY_DUNGEON_KEEP);
     // CmbManager* origCmbMan              = obj->zarInfo.cmbMans[POT_CMB_INDEX];
-    // obj->zarInfo.cmbMans[POT_CMB_INDEX] = sDarkPotCmbMan;
+    // obj->zarInfo.cmbMans[POT_CMB_INDEX] = sCmbMan;
 
     EnTuboTrap_Init(thisx, globalCtx);
 
@@ -70,38 +70,21 @@ void EnTuboTrap_rInit(Actor* thisx, GlobalContext* globalCtx) {
     // ((ActorFunc)0x28488c)(thisx, globalCtx);
 }
 
+void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 cmbIdx);
 void EnTuboTrap_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
-    EnTuboTrap* this = (EnTuboTrap*)thisx;
-    if (!EnemySouls_GetSoulFlag(SOUL_FLYING_TRAP) && this->actionFunc != EnTuboTrap_WaitForProximity &&
-        this->saModel->subSAM10->cmbMan != sDarkPotCmbMan) {
+    if (rInputCtx.pressed.zr) {
+        ObjectEntry* obj                    = Object_FindEntryOrSpawn(OBJECT_GAMEPLAY_DUNGEON_KEEP);
+        CmbManager* origCmbMan              = obj->zarInfo.cmbMans[POT_CMB_INDEX];
+        obj->zarInfo.cmbMans[POT_CMB_INDEX] = sCmbMan;
 
-        ObjectEntry* obj       = Object_FindEntryOrSpawn(OBJECT_GAMEPLAY_DUNGEON_KEEP);
-        CmbManager* origCmbMan = obj->zarInfo.cmbMans[POT_CMB_INDEX];
-
-        if (sDarkPotCmbMan == NULL) {
-            // Init modded CMB Manager
-            SoullessDarkness_ModifyCmb(origCmbMan, OBJECT_GAMEPLAY_DUNGEON_KEEP, POT_CMB_INDEX);
-            obj->zarInfo.cmbMans[POT_CMB_INDEX] = NULL;
-            ZAR_GetCMBByIndex(&obj->zarInfo, POT_CMB_INDEX);
-            sDarkPotCmbMan                      = obj->zarInfo.cmbMans[POT_CMB_INDEX];
-            // Restore original CMB Manager
-            obj->zarInfo.cmbMans[POT_CMB_INDEX] = origCmbMan;
-            SoullessDarkness_RestoreCmb(origCmbMan, OBJECT_GAMEPLAY_DUNGEON_KEEP);
-
-            // CitraPrint("pot %X %X", obj->zarInfo.cmbMans[POT_CMB_INDEX], sDarkPotCmbMan);
-            // SoullessDarkness_RestoreObject(OBJECT_GAMEPLAY_DUNGEON_KEEP);
-        }
-
-        obj->zarInfo.cmbMans[POT_CMB_INDEX] = sDarkPotCmbMan;
-
-        // EnemySouls_GlobalObjectModEnabled = TRUE;
-        // EnemySouls_BeforeCmbManagerInit(sDarkPotCmbMan, &obj->zarInfo, POT_CMB_INDEX);
-        // EnemySouls_GlobalObjectModEnabled = FALSE;
+        EnemySouls_GlobalObjectModEnabled = TRUE;
+        EnemySouls_BeforeCmbManagerInit(sCmbMan, &obj->zarInfo, POT_CMB_INDEX);
+        EnemySouls_GlobalObjectModEnabled = FALSE;
         CitraPrint("reiniting pot model");
-        Actor_DestroySkelModels(thisx, &this->saModel, NULL);
-        Actor_CreateSkelModels(thisx, gGlobalContext, &this->saModel, POT_CMB_INDEX, NULL);
+        Actor_DestroySkelModels(thisx, &THIS->saModel, NULL);
+        Actor_CreateSkelModels(thisx, gGlobalContext, &THIS->saModel, POT_CMB_INDEX, NULL);
 
-        // obj->zarInfo.cmbMans[POT_CMB_INDEX] = origCmbMan;
+        obj->zarInfo.cmbMans[POT_CMB_INDEX] = origCmbMan;
     }
 
     ((ActorFunc)0x2848d8)(thisx, globalCtx);
@@ -110,8 +93,10 @@ void EnTuboTrap_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 void EnTuboTrap_rDestroy(Actor* thisx, GlobalContext* globalCtx) {
     EnTuboTrap_Destroy(thisx, globalCtx);
     // ObjectEntry* obj                    = Object_FindEntryOrSpawn(OBJECT_GAMEPLAY_DUNGEON_KEEP);
-    // obj->zarInfo.cmbMans[POT_CMB_INDEX] = sDarkPotCmbMan;
+    // obj->zarInfo.cmbMans[POT_CMB_INDEX] = sCmbMan;
 }
+
+#undef THIS
 
 /*-------------------------------
 |           EnYukabyun          |
