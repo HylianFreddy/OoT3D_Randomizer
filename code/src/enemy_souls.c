@@ -340,8 +340,9 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
         (obj->id == OBJECT_TENTACLE && cmbIdx == 1) ||     // dead blob
         (obj->id == OBJECT_DEAD_HAND && cmbIdx == 2) ||    // dirt wave
         (obj->id == OBJECT_KING_DODONGO && cmbIdx != 2) || // KD body
-        (obj->id == OBJECT_BARINADE && cmbIdx != 0 && cmbIdx != 3 && cmbIdx != 4 && cmbIdx != 7 &&
-         cmbIdx != 12) // arms, body and jellyfish
+        (obj->id == OBJECT_BARINADE &&                     // arms, body and jellyfish
+         cmbIdx != 0 && cmbIdx != 3 && cmbIdx != 4 && cmbIdx != 7 && cmbIdx != 12) ||
+        obj->id == OBJECT_FLYING_FLOOR_TILE // handled in own update function
     ) {
         return;
     }
@@ -544,8 +545,8 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_SHABOM:
             return EnBubble_ReinitModels((EnBubble*)actor);
         case ACTOR_FLYING_POT:
-            return;
         case ACTOR_FLYING_FLOOR_TILE:
+            return; // handled in own update function
         case ACTOR_SPIKE:
             return EnNy_ReinitModels((EnNy*)actor);
         case ACTOR_FREEZARD:

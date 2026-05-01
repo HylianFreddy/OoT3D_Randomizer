@@ -36,14 +36,20 @@ void EnTuboTrap_rUpdate(Actor* thisx, GlobalContext* globalCtx);
 struct EnYukabyun;
 
 typedef void (*EnYukabyunActionFunc)(struct EnYukabyun* this, GlobalContext* globalCtx);
+
+typedef struct EnYukabyunExtension {
+    u8 usingModifiedModel;
+} EnYukabyunExtension;
+
 typedef struct EnYukabyun {
     /* 0x000 */ Actor actor;
     /* 0x1A4 */ EnYukabyunActionFunc actionFunc;
     /* 0x1A8 */ s16 waitCounter;
     /* 0x1AC */ ColliderCylinder collider;
     /* 0x204 */ SkeletonAnimationModel* saModel;
+    EnYukabyunExtension rExt;
 } EnYukabyun;
-_Static_assert(sizeof(EnYukabyun) == 0x208, "EnYukabyun size");
+_Static_assert(offsetof(EnYukabyun, rExt) == 0x208, "EnYukabyun size");
 
 void EnYukabyun_rUpdate(Actor* thisx, GlobalContext* globalCtx);
 

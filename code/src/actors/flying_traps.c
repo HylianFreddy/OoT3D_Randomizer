@@ -42,7 +42,7 @@ void EnTuboTrap_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK && EnemySouls_ShouldDrawSoulless(thisx) &&
         !this->rExt.usingModifiedModel) {
         // Modify CMB data and reinit model.
-        ObjectEntry* obj = Object_FindEntryOrSpawn(OBJECT_GAMEPLAY_DUNGEON_KEEP);
+        ObjectEntry* obj = Object_FindEntry(OBJECT_GAMEPLAY_DUNGEON_KEEP);
         SoullessDarkness_ModifyCmb(obj->zarInfo.cmbMans[POT_CMB_INDEX], OBJECT_GAMEPLAY_DUNGEON_KEEP, POT_CMB_INDEX);
         EnTuboTrap_ReinitModels(this);
         // Request restoring the CMB so other pots will draw normally when spawning (e.g. when another room is loaded).
@@ -61,6 +61,8 @@ void EnTuboTrap_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 |           EnYukabyun          |
 -------------------------------*/
 
+#define TILE_CMB_INDEX 1
+
 void EnYukabyun_Update(Actor* thisx, GlobalContext* globalCtx);
 
 void EnYukabyun_Levitate(EnYukabyun* this, GlobalContext* globalCtx);
@@ -74,6 +76,11 @@ s32 EnYukabyun_OnImpact(EnYukabyun* this) {
         return 0;
     }
     return 1;
+}
+
+static void EnYukabyun_ReinitModels(EnYukabyun* this) {
+    Actor_DestroySkelModels(&this->actor, &this->saModel, NULL);
+    Actor_CreateSkelModels(&this->actor, gGlobalContext, &this->saModel, TILE_CMB_INDEX, NULL);
 }
 
 void EnYukabyun_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
@@ -101,6 +108,20 @@ void EnYukabyun_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         }
     }
 
+    if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK && EnemySouls_ShouldDrawSoulless(thisx) &&
+        !this->rExt.usingModifiedModel) {
+        // Modify CMB data and reinit model.
+        ObjectEntry* obj = Object_FindEntry(OBJECT_FLYING_FLOOR_TILE);
+        SoullessDarkness_ModifyCmb(obj->zarInfo.cmbMans[TILE_CMB_INDEX], OBJECT_FLYING_FLOOR_TILE, TILE_CMB_INDEX);
+        EnYukabyun_ReinitModels(this);
+        sCmbRestoreRequest            = TRUE;
+        this->rExt.usingModifiedModel = TRUE;
+    } else if (!EnemySouls_ShouldDrawSoulless(thisx) && this->rExt.usingModifiedModel) {
+        // Reinit model with the normal data in the CMB, so it will look normal again.
+        EnYukabyun_ReinitModels(this);
+        this->rExt.usingModifiedModel = FALSE;
+    }
+
     EnYukabyun_Update(thisx, globalCtx);
 }
 
@@ -120,9 +141,16 @@ u8 FlyingTraps_IsHiddenTrap(Actor* actor) {
 }
 
 void FlyingTraps_HandleCmbRestoration(void) {
+    ObjectEntry* obj;
     if (sCmbRestoreRequest) {
-        ObjectEntry* obj = Object_FindEntryOrSpawn(OBJECT_GAMEPLAY_DUNGEON_KEEP);
-        SoullessDarkness_RestoreCmb(obj->zarInfo.cmbMans[POT_CMB_INDEX], OBJECT_GAMEPLAY_DUNGEON_KEEP);
+        obj = Object_FindEntry(OBJECT_GAMEPLAY_DUNGEON_KEEP);
+        if (obj != NULL && obj->zarInfo.cmbMans[POT_CMB_INDEX] != NULL) {
+            SoullessDarkness_RestoreCmb(obj->zarInfo.cmbMans[POT_CMB_INDEX], OBJECT_GAMEPLAY_DUNGEON_KEEP);
+        }
+        obj = Object_FindEntry(OBJECT_FLYING_FLOOR_TILE);
+        if (obj != NULL && obj->zarInfo.cmbMans[TILE_CMB_INDEX] != NULL) {
+            SoullessDarkness_RestoreCmb(obj->zarInfo.cmbMans[TILE_CMB_INDEX], OBJECT_FLYING_FLOOR_TILE);
+        }
         sCmbRestoreRequest = FALSE;
     }
 }

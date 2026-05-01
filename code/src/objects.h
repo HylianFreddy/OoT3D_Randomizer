@@ -21,6 +21,7 @@ typedef enum ObjectId {
     OBJECT_ARMOS                     = 0x0038,
     OBJECT_CUSTOM_SMALL_KEY_FIRE     = 0x003A,
     OBJECT_BARI                      = 0X0056,
+    OBJECT_FLYING_FLOOR_TILE         = 0X005F,
     OBJECT_POE_COMPOSER              = 0x006E,
     OBJECT_CUSTOM_SMALL_KEY_WATER    = 0x0078,
     OBJECT_CUSTOM_SMALL_KEY_SHADOW   = 0x0079,
@@ -58,6 +59,8 @@ void Object_Clear(GlobalContext* globalCtx, ObjectContext* objectCtx);
 
 // Get an object entry given the slot.
 ObjectEntry* Object_GetEntry(s16 slot);
+// Find an object entry for the specified objectId, if there is one.
+ObjectEntry* Object_FindEntry(s16 objectId);
 // Find an object entry for the specified objectId, or spawn it if it's not found.
 ObjectEntry* Object_FindEntryOrSpawn(s16 objectId);
 // Same as Object_FindEntryOrSpawn but return the object slot.

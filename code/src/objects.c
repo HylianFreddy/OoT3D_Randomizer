@@ -110,29 +110,24 @@ ObjectEntry* Object_GetEntry(s16 slot) {
     return NULL;
 }
 
-ObjectEntry* Object_FindEntryOrSpawn(s16 objectId) {
-    LOG(L_OBJECTS, L_TRACE, "Object_FindEntryOrSpawn %X", objectId);
-    ObjectEntry* obj;
+ObjectEntry* Object_FindEntry(s16 objectId) {
     s32 slot = Object_GetSlot(&gGlobalContext->objectCtx, objectId);
-    if (slot >= 0) {
-        if (slot >= OBJECT_SLOT_MAX) {
-            obj = &rExtendedObjectCtx.slots[slot - OBJECT_SLOT_MAX];
-        } else {
-            obj = &gGlobalContext->objectCtx.slots[slot];
-        }
-        // Wait for the object to be loaded. TODO: this gets stuck infinitely, find another way?
-        // while (obj->id <= 0) {
-        //     LOG(L_OBJECTS, L_DEBUG, "Object_FindEntryOrSpawn: waiting for object 0x%X...", objectId);
-        //     svcSleepThread(1000 * 1000LL); // Sleep 1 ms
-        // }
-        return obj;
-    } else {
-        LOG(L_OBJECTS, L_TRACE, "did not find object 0x%X, trying to spawn it...", objectId);
-        slot = Object_Spawn((ObjectContext*)&rExtendedObjectCtx, objectId);
-        LOG(L_OBJECTS, L_DEBUG, "spawned %X, obj count %d, persistent count %d", objectId,
-            rExtendedObjectCtx.numEntries, rExtendedObjectCtx.numPersistentEntries);
-        return &rExtendedObjectCtx.slots[slot];
+    if (slot >= OBJECT_SLOT_MAX) {
+        return &rExtendedObjectCtx.slots[slot - OBJECT_SLOT_MAX];
     }
+    if (slot >= 0) {
+        return &gGlobalContext->objectCtx.slots[slot];
+    }
+    return NULL;
+}
+
+ObjectEntry* Object_FindEntryOrSpawn(s16 objectId) {
+    ObjectEntry* obj = Object_FindEntry(objectId);
+    if (obj != NULL) {
+        return obj;
+    }
+    s32 slot = Object_Spawn((ObjectContext*)&rExtendedObjectCtx, objectId);
+    return &rExtendedObjectCtx.slots[slot];
 }
 
 s32 Object_FindSlotOrSpawn(s16 objectId) {
