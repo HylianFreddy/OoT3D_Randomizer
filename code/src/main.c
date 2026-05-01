@@ -22,6 +22,7 @@
 #include "icetrap.h"
 #include "enemy_souls.h"
 #include "bgm.h"
+#include "flying_traps.h"
 
 #include "z3D/z3D.h"
 #include "3ds/extdata.h"
@@ -110,6 +111,7 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
     Triforce_HandleCreditsWarp();
     Enemizer_Update();
     Bgm_ApplyFanfareMod();
+    FlyingTraps_HandleCmbRestoration();
 }
 
 void autoLoadSaveFile() {

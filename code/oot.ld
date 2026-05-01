@@ -361,6 +361,7 @@ SECTIONS
 	EnGanonOrgan_Init = 0x280E0C + _LD_OFF;
 	EnPoh_UpdateDead = 0x282E88 + _LD_OFF;
 	EnSyatekiMan_Init = 0x283F94 + _LD_OFF;
+	EnTuboTrap_Update = 0x2848D8 + _LD_OFF;
 	ItemBHeart_Draw = 0x285BEC + _LD_OFF;
 	ItemBHeart_Update = 0x285C18 + _LD_OFF;
 	ItemOcarina_Draw = 0x285D48 + _LD_OFF;
