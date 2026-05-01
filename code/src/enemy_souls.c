@@ -40,6 +40,7 @@
 #include "gerudos.h"
 #include "dark_link.h"
 #include "spike.h"
+#include "freezard.h"
 
 #include "z3D/actors/z_en_firefly.h"
 #include "z3D/actors/z_en_rd.h"
@@ -271,9 +272,10 @@ void EnemySouls_DrawEffects(void) {
 typedef struct CmbOriginalData {
     char status;
     struct {
-        u8 textureMappersUsed : 5;
-        u8 alphaTestEnabled : 1; // boolean
-        u8 blendMode : 2;        // values 0-3
+        u8 textureMappersUsed : 4;
+        u8 alphaTestEnabled : 1;          // boolean
+        u8 blendMode : 2;                 // values 0-3
+        u8 isFragmentLightingEnabled : 1; // boolean
     } mats[15];
 } CmbOriginalData;
 _Static_assert(sizeof(CmbOriginalData) == sizeof(((CMB_HEAD*)0)->name), "CmbOriginalData size");
@@ -308,15 +310,21 @@ void SoullessDarkness_ModifyCmb(CmbManager* cmbMan, s16 objectId, s32 cmbIdx /*t
                 continue;
             }
 
-            Material* mat                                = &cmbMats->materials[matIdx];
-            origDataBuf->mats[matIdx].textureMappersUsed = mat->textureMappersUsed;
-            origDataBuf->mats[matIdx].alphaTestEnabled   = mat->alphaTestEnabled;
-            origDataBuf->mats[matIdx].blendMode          = mat->blendMode;
+            Material* mat                                       = &cmbMats->materials[matIdx];
+            origDataBuf->mats[matIdx].textureMappersUsed        = mat->textureMappersUsed;
+            origDataBuf->mats[matIdx].alphaTestEnabled          = mat->alphaTestEnabled;
+            origDataBuf->mats[matIdx].blendMode                 = mat->blendMode;
+            origDataBuf->mats[matIdx].isFragmentLightingEnabled = mat->isFragmentLightingEnabled;
+
+            if (mat->textureMappersUsed > 15) {
+                CitraPrint("!!!!!!!!!!!! textureMappersUsed > 15 !!!!!!!!!!!!!!!!");
+            }
 
             // For Armos, only remove texture mapper for "awoken" state
-            mat->textureMappersUsed = objectId == OBJECT_ARMOS ? 1 : 0;
-            mat->alphaTestEnabled   = 0;
-            mat->blendMode          = 0;
+            mat->textureMappersUsed        = objectId == OBJECT_ARMOS ? 1 : 0;
+            mat->alphaTestEnabled          = 0;
+            mat->blendMode                 = 0;
+            mat->isFragmentLightingEnabled = 0;
         }
     }
 };
@@ -342,7 +350,8 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
         (obj->id == OBJECT_KING_DODONGO && cmbIdx != 2) || // KD body
         (obj->id == OBJECT_BARINADE &&                     // arms, body and jellyfish
          cmbIdx != 0 && cmbIdx != 3 && cmbIdx != 4 && cmbIdx != 7 && cmbIdx != 12) ||
-        obj->id == OBJECT_FLYING_FLOOR_TILE // handled in own update function
+        obj->id == OBJECT_FLYING_FLOOR_TILE ||      // handled in own update function
+        (obj->id == OBJECT_FREEZARD && cmbIdx == 1) // ice breath
     ) {
         return;
     }
@@ -365,11 +374,12 @@ u8 SoullessDarkness_RestoreCmb(CmbManager* cmbMan, s16 objectId) {
                 continue;
             }
 
-            Material* mat           = &cmbMats->materials[matIdx];
-            mat->textureMappersUsed = origDataBuf->mats[matIdx].textureMappersUsed;
-            mat->alphaTestEnabled   = origDataBuf->mats[matIdx].alphaTestEnabled;
-            mat->blendMode          = origDataBuf->mats[matIdx].blendMode;
-            materialRestored        = TRUE;
+            Material* mat                  = &cmbMats->materials[matIdx];
+            mat->textureMappersUsed        = origDataBuf->mats[matIdx].textureMappersUsed;
+            mat->alphaTestEnabled          = origDataBuf->mats[matIdx].alphaTestEnabled;
+            mat->blendMode                 = origDataBuf->mats[matIdx].blendMode;
+            mat->isFragmentLightingEnabled = origDataBuf->mats[matIdx].isFragmentLightingEnabled;
+            materialRestored               = TRUE;
         }
     }
     return materialRestored;
@@ -550,7 +560,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_SPIKE:
             return EnNy_ReinitModels((EnNy*)actor);
         case ACTOR_FREEZARD:
-            return;
+            return EnFz_ReinitModels((EnFz*)actor);
     }
 }
 

@@ -69,7 +69,7 @@ void ExtendedObject_AfterObjectListCommand(void) {
         // spawned in the extended context will also be marked as persistent here.
         LOG(L_OBJECTS, L_DEBUG, "_ persistent start %d", rExtendedObjectCtx.numEntries);
         Object_FindSlotOrSpawn(OBJECT_CUSTOM_GENERAL_ASSETS);
-        Object_FindSlotOrSpawn(3); // zelda_dangeon_keep (main dungeon object)
+        Object_FindSlotOrSpawn(OBJECT_GAMEPLAY_DUNGEON_KEEP);
         LOG(L_OBJECTS, L_DEBUG, "_ persistent end %d", rExtendedObjectCtx.numEntries);
         rExtendedObjectCtx.numPersistentEntries = rExtendedObjectCtx.numEntries;
     }

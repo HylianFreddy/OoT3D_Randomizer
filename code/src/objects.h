@@ -44,6 +44,7 @@ typedef enum ObjectId {
     OBJECT_GI_OCARINA_TIME           = 0x00DE,
     OBJECT_CUSTOM_ENEMY_SOUL         = 0x00E4,
     OBJECT_GI_OCARINA_FAIRY          = 0x010E,
+    OBJECT_FREEZARD                  = 0x0114,
     OBJECT_CUSTOM_OCARINA_BUTTON     = 0x0123,
     OBJECT_GI_SOLD_OUT               = 0x0148,
     OBJECT_CUSTOM_TRIFORCE_PIECE     = 0x016E,

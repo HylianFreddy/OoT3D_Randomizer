@@ -55,8 +55,8 @@ void EnBox_rInit(Actor* thisx, GlobalContext* globalCtx) {
     ItemOverride thisOverride = ItemOverride_Lookup(thisx, globalCtx->sceneNum, 0);
     if (thisOverride.value.itemId == GI_ICE_TRAP) {
         // Make sure zelda_dangeon_keep and object_fz are loaded
-        Object_FindEntryOrSpawn(0x3);
-        Object_FindEntryOrSpawn(0x114);
+        Object_FindEntryOrSpawn(OBJECT_GAMEPLAY_DUNGEON_KEEP);
+        Object_FindEntryOrSpawn(OBJECT_FREEZARD);
 
         this->rExt.isTrapChest = TRUE;
         // Set up collider to make the trap chest breakable
