@@ -540,8 +540,7 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_LIKE_LIKE:
             return Actor_ReinitSkelAnime(actor, &((EnRr*)actor)->skelAnime, 0);
         case ACTOR_DARK_LINK:
-            // TODO, broken
-            return Actor_ReinitSkelAnime(actor, &((EnTorch2*)actor)->darkPlayer.skelAnime, 0);
+            return EnTorch2_ReinitActor((EnTorch2*)actor);
         case ACTOR_GERUDO_GUARD:
             return EnGe2_ReinitModels((EnGe2*)actor);
         case ACTOR_MORPHA:

@@ -237,6 +237,7 @@ SECTIONS
 	EnItem00_Destroy = 0x1F706C + _LD_OFF;
 	EnTorch2_Init = 0x1F853C + _LD_OFF;
 	.patch_GetObjectEntry_1F85B0 0x1F85B0 + _LD_OFF : { *(.patch_GetObjectEntry_1F85B0) }
+	EnTorch2_Destroy = 0x1F8764 + _LD_OFF;
 	Fishing_DrawFish = 0x1F98B4 + _LD_OFF;
 	Fishing_UpdateFish = 0x1F9ACC + _LD_OFF;
 	BgSpot02Objects_Explode = 0x205EDC + _LD_OFF;
@@ -289,6 +290,7 @@ SECTIONS
 	.patch_GetObjectEntry_EnNutsballInit 0x22DEC4 + _LD_OFF : { *(.patch_GetObjectEntry_EnNutsballInit) }
 	EnShopnuts_Init = 0x22ED2C + _LD_OFF;
 	.patch_BusinessScrubCheckFlags 0x22EE64 + _LD_OFF : { *(.patch_BusinessScrubCheckFlags) }
+	EnTorch2_Draw = 0x22EFF8 + _LD_OFF;
 	EnTorch2_Update = 0x22F0C8 + _LD_OFF;
 	.patch_DarkLinkPlayerRecoil 0x22F838 + _LD_OFF : { *(.patch_DarkLinkPlayerRecoil) }
 	ObjMure3_Update = 0x2318AC + _LD_OFF;

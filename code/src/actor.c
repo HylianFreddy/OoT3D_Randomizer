@@ -158,6 +158,7 @@ void Actor_Init() {
     gActorOverlayTable[0x33].initInfo->type   = ACTORTYPE_ENEMY;
     gActorOverlayTable[0x33].initInfo->init   = EnTorch2_rInit;
     gActorOverlayTable[0x33].initInfo->update = EnTorch2_rUpdate;
+    gActorOverlayTable[0x33].initInfo->draw   = EnTorch2_rDraw;
 
     gActorOverlayTable[0x3A].initInfo->update = EnEiyer_rUpdate;
 
