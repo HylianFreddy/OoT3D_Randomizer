@@ -11,5 +11,7 @@ void EnemySouls_OnCollect(EnemySoulId soulId);
 u8 EnemySouls_CheckSoulForActor(Actor* actor);
 u8 EnemySouls_ShouldDrawSoulless(Actor* actor);
 void EnemySouls_DrawEffects(void);
+void SoullessDarkness_ModifyCmb(CmbManager* cmbMan, s16 objectId, s32 cmbIdx /*to delete*/);
+u8 SoullessDarkness_RestoreCmb(CmbManager* cmbMan, s16 objectId);
 
 #endif //_ENEMYSOULS_H_

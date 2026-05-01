@@ -254,8 +254,6 @@ void Actor_Init() {
     gActorOverlayTable[0x11B].initInfo->update = NULL;
 
     gActorOverlayTable[0x11D].initInfo->type         = ACTORTYPE_ENEMY; // Flying Pot
-    gActorOverlayTable[0x11D].initInfo->init         = EnTuboTrap_rInit;
-    gActorOverlayTable[0x11D].initInfo->destroy      = EnTuboTrap_rDestroy;
     gActorOverlayTable[0x11D].initInfo->update       = EnTuboTrap_rUpdate;
     gActorOverlayTable[0x11D].initInfo->instanceSize = sizeof(EnTuboTrap);
 

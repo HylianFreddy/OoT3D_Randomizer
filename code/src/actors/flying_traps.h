@@ -27,10 +27,7 @@ typedef struct EnTuboTrap {
 } EnTuboTrap;
 _Static_assert(offsetof(EnTuboTrap, rExt) == 0x214, "EnTuboTrap size");
 
-void EnTuboTrap_rInit(Actor* thisx, GlobalContext* globalCtx);
-void EnTuboTrap_rDestroy(Actor* thisx, GlobalContext* globalCtx);
 void EnTuboTrap_rUpdate(Actor* thisx, GlobalContext* globalCtx);
-void EnTuboTrap_ReinitModels(EnTuboTrap* this);
 
 /*-------------------------------
 |           EnYukabyun          |

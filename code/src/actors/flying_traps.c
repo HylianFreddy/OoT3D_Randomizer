@@ -18,10 +18,7 @@
 // process after the GameState update
 static u8 sCmbRestoreRequest = FALSE;
 
-void EnTuboTrap_Init(Actor* thisx, GlobalContext* globalCtx);
-void EnTuboTrap_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnTuboTrap_Update(Actor* thisx, GlobalContext* globalCtx);
-
 void EnTuboTrap_WaitForProximity(EnTuboTrap* this, GlobalContext* globalCtx);
 
 s32 EnTuboTrap_OnImpact(EnTuboTrap* this) {
@@ -33,13 +30,6 @@ s32 EnTuboTrap_OnImpact(EnTuboTrap* this) {
     }
 
     return EnemySouls_CheckSoulForActor(&this->actor);
-}
-
-void SoullessDarkness_ModifyCmb(CmbManager* cmbMan, s16 objectId, s32 cmbIdx /*to delete*/);
-u8 SoullessDarkness_RestoreCmb(CmbManager* cmbMan, s16 objectId);
-
-void EnTuboTrap_rInit(Actor* thisx, GlobalContext* globalCtx) {
-    EnTuboTrap_Init(thisx, globalCtx);
 }
 
 static void EnTuboTrap_ReinitModels(EnTuboTrap* this) {
@@ -65,10 +55,6 @@ void EnTuboTrap_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     }
 
     EnTuboTrap_Update(thisx, globalCtx);
-}
-
-void EnTuboTrap_rDestroy(Actor* thisx, GlobalContext* globalCtx) {
-    EnTuboTrap_Destroy(thisx, globalCtx);
 }
 
 /*-------------------------------
