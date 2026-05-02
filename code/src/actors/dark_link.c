@@ -110,7 +110,8 @@ void EnTorch2_rDraw(Actor* thisx, GlobalContext* globalCtx) {
     this->alpha = prevAlpha;
 }
 
-void EnTorch2_ReinitActor(EnTorch2* this) {
+void EnTorch2_ReinitModels(EnTorch2* this) {
+    // Reinit whole actor because it looks good enough and reiniting player models/animations is too complex.
     u8 prevActionState = this->actionState;
     EnTorch2_Destroy(&this->darkPlayer.actor, gGlobalContext);
     EnTorch2_rInit(&this->darkPlayer.actor, gGlobalContext);

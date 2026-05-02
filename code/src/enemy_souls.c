@@ -344,14 +344,16 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
     }
 
     // Don't modify certain models
-    if ((obj->id == OBJECT_WALLMASTER && cmbIdx == 2) ||   // hand shadow
-        (obj->id == OBJECT_TENTACLE && cmbIdx == 1) ||     // dead blob
-        (obj->id == OBJECT_DEAD_HAND && cmbIdx == 2) ||    // dirt wave
-        (obj->id == OBJECT_KING_DODONGO && cmbIdx != 2) || // KD body
-        (obj->id == OBJECT_BARINADE &&                     // arms, body and jellyfish
-         cmbIdx != 0 && cmbIdx != 3 && cmbIdx != 4 && cmbIdx != 7 && cmbIdx != 12) ||
-        obj->id == OBJECT_FLYING_FLOOR_TILE ||      // handled in own update function
-        (obj->id == OBJECT_FREEZARD && cmbIdx == 1) // ice breath
+    if ((obj->id == OBJECT_WALLMASTER && cmbIdx == 2)      // hand shadow
+        || (obj->id == OBJECT_TENTACLE && cmbIdx == 1)     // dead blob
+        || (obj->id == OBJECT_DEAD_HAND && cmbIdx == 2)    // dirt wave
+        || (obj->id == OBJECT_KING_DODONGO && cmbIdx != 2) // KD body
+        || (obj->id == OBJECT_BARINADE && cmbIdx != 0 && cmbIdx != 3 && cmbIdx != 4 && cmbIdx != 7 &&
+            cmbIdx != 12)                               // arms, body and jellyfish
+        || obj->id == OBJECT_FLYING_FLOOR_TILE          // handled in own update function
+        || (obj->id == OBJECT_FREEZARD && cmbIdx == 1)  // ice breath
+        || (obj->id == OBJECT_GANONDORF && cmbIdx != 2) // main body
+        || (obj->id == OBJECT_GANON && cmbIdx != 0)     // main body
     ) {
         return;
     }
@@ -386,9 +388,6 @@ u8 SoullessDarkness_RestoreCmb(CmbManager* cmbMan, s16 objectId) {
 }
 
 static void SoullessDarkness_RestoreObject(u16 objectId) {
-    if (objectId == OBJECT_INVALID) {
-        return;
-    }
     s32 slot = Object_GetSlot(&gGlobalContext->objectCtx, objectId);
     if (slot < 0 || !Object_IsLoaded(&gGlobalContext->objectCtx, slot)) {
         return;
@@ -419,16 +418,6 @@ typedef struct GenericSkelAnimeActor {
     /* 0x000 */ Actor actor;
     /* 0x1A4 */ SkelAnime anime;
 } GenericSkelAnimeActor;
-
-/*
-#define REINIT_SKELANIME(anime) Actor_ReinitSkelAnime(anime, actor)
-#define REINIT_1_MODEL(model1, index1)            \
-    Actor_DestroySkelModels(actor, model1, NULL); \
-    Actor_CreateSkelModels(actor, gGlobalContext, model1, index1, NULL)
-#define REINIT_2_MODELS(model1, index1, model2, index2)   \
-    Actor_DestroySkelModels(actor, model1, model2, NULL); \
-    Actor_CreateSkelModels(actor, gGlobalContext, model1, index1, model2, index2, NULL)
-*/
 
 static void SoullessDarkness_RestoreActor(Actor* actor) {
     switch (actor->id) {
@@ -482,45 +471,10 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
             return DoorKiller_ReinitModels((DoorKiller*)actor);
         case ACTOR_FLARE_DANCER:
             return EnFd_ReinitModels((EnFd*)actor);
-        // case ACTOR_FLARE_DANCER_CORE:
-        // No need to handle this as it can't spawn if the player doesn't have the Flare Dancer Soul
         case ACTOR_DEAD_HAND:
             return EnDh_ReinitModels((EnDh*)actor);
         case ACTOR_KING_DODONGO:
             return BossDodongo_ReinitModels((BossDodongo*)actor);
-        case ACTOR_BARINADE:
-            return BossVa_ReinitModels((BossVa*)actor);
-        case ACTOR_PHANTOM_GANON:
-            return BossGanondrof_ReinitModels((BossGanondrof*)actor);
-        case ACTOR_PG_HORSE:
-            return EnFHG_ReinitModels((EnFHG*)actor);
-        case ACTOR_VOLVAGIA_FLYING: // broken, transparent
-            // return BossFd_ReinitModels((BossFd*)actor);
-            return Actor_Kill(actor); // TODO
-        case ACTOR_VOLVAGIA_HOLE:
-            return Actor_Kill(actor); // TODO
-        case ACTOR_BONGO_BONGO:       // hands become transparent?
-            return BossSst_ReinitModels((BossSst*)actor);
-        case ACTOR_GANON:
-            break; // TODO
-
-        case ACTOR_BIG_OCTO:       // OK
-        case ACTOR_LEEVER:         // OK
-        case ACTOR_SKULLTULA:      // OK
-        case ACTOR_STINGER_WATER:  // OK
-        case ACTOR_BUBBLE:         // OK
-        case ACTOR_FLOORMASTER:    // OK
-        case ACTOR_SHELL_BLADE:    // OK
-        case ACTOR_ANUBIS:         // OK
-        case ACTOR_STALCHILD:      // OK
-        case ACTOR_DEAD_HAND_HAND: // OK
-        case ACTOR_IRON_KNUCKLE:   // OK
-        case ACTOR_GOHMA:          // OK
-        case ACTOR_GOHMA_LARVA:    // OK
-        case ACTOR_BABY_DODONGO:   // OK
-        case ACTOR_DODONGO:        // OK
-            return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, 0);
-
         case ACTOR_KEESE:
             return Actor_ReinitSkelAnime(actor, &((EnFirefly*)actor)->skelAnime, 0);
         case ACTOR_TAILPASARAN:
@@ -540,26 +494,57 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_LIKE_LIKE:
             return Actor_ReinitSkelAnime(actor, &((EnRr*)actor)->skelAnime, 0);
         case ACTOR_DARK_LINK:
-            return EnTorch2_ReinitActor((EnTorch2*)actor);
+            return EnTorch2_ReinitModels((EnTorch2*)actor);
         case ACTOR_GERUDO_GUARD:
             return EnGe2_ReinitModels((EnGe2*)actor);
-        case ACTOR_MORPHA:
-            // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x16E0), 0);
-        case ACTOR_TWINROVA:
-            // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x5C0), 0);
-        case ACTOR_GANONDORF:
-            // return Actor_ReinitSkelAnime(actor, (SkelAnime*)(((u32)actor) + 0x1A8), 0);
-            break;
-
         case ACTOR_SHABOM:
             return EnBubble_ReinitModels((EnBubble*)actor);
-        case ACTOR_FLYING_POT:
-        case ACTOR_FLYING_FLOOR_TILE:
-            return; // handled in own update function
         case ACTOR_SPIKE:
             return EnNy_ReinitModels((EnNy*)actor);
         case ACTOR_FREEZARD:
             return EnFz_ReinitModels((EnFz*)actor);
+        case ACTOR_BIG_OCTO:
+        case ACTOR_LEEVER:
+        case ACTOR_SKULLTULA:
+        case ACTOR_STINGER_WATER:
+        case ACTOR_BUBBLE:
+        case ACTOR_FLOORMASTER:
+        case ACTOR_SHELL_BLADE:
+        case ACTOR_ANUBIS:
+        case ACTOR_STALCHILD:
+        case ACTOR_DEAD_HAND_HAND:
+        case ACTOR_IRON_KNUCKLE:
+        case ACTOR_GOHMA:
+        case ACTOR_GOHMA_LARVA:
+        case ACTOR_BABY_DODONGO:
+        case ACTOR_DODONGO:
+            return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, 0);
+
+        case ACTOR_FLARE_DANCER_CORE:
+            // This is ignored because it can't spawn if the player doesn't have the Flare Dancer Soul.
+
+        case ACTOR_FLYING_POT:
+        case ACTOR_FLYING_FLOOR_TILE:
+            // These are handled in their own update function.
+
+        case ACTOR_BARINADE:
+            // return BossVa_ReinitModels((BossVa*)actor);
+        case ACTOR_PHANTOM_GANON:
+            // return BossGanondrof_ReinitModels((BossGanondrof*)actor);
+        case ACTOR_PG_HORSE:
+            // return EnFHG_ReinitModels((EnFHG*)actor);
+        case ACTOR_VOLVAGIA_FLYING: // broken, transparent
+                                    // return BossFd_ReinitModels((BossFd*)actor);
+                                    // return Actor_Kill(actor); // TODO
+        case ACTOR_VOLVAGIA_HOLE:
+            // return Actor_Kill(actor); // TODO
+        case ACTOR_MORPHA:
+        case ACTOR_BONGO_BONGO: // hands become transparent?
+                                // return BossSst_ReinitModels((BossSst*)actor);
+        case ACTOR_TWINROVA:
+        case ACTOR_GANONDORF:
+        case ACTOR_GANON:
+            // These are ignored because the player can't get items while they're loaded.
     }
 }
 

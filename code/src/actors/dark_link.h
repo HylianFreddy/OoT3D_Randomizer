@@ -25,6 +25,6 @@ void EnTorch2_rInit(Actor* thisx, GlobalContext* globalCtx);
 void EnTorch2_rUpdate(Actor* thisx, GlobalContext* globalCtx);
 void EnTorch2_rDraw(Actor* thisx, GlobalContext* globalCtx);
 
-void EnTorch2_ReinitActor(EnTorch2* this);
+void EnTorch2_ReinitModels(EnTorch2* this);
 
 #endif //_DARK_LINK_H_
