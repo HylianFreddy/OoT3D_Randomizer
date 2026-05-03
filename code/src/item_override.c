@@ -39,7 +39,20 @@ static u16 rActiveItemObjectId          = 0;
 static u8 rSatisfiedPendingFrames      = 0;
 static u8 rSatisfiedPendingFramesWater = 0;
 
+#include "enemizer.h"
+#include "enemy_souls.h"
+extern TestEnemyData sTestEnemyData[];
+extern const u32 sBaseTestEnemyId;
+ItemOverride sTestOverride;
 void ItemOverride_Init(void) {
+    sTestOverride = (ItemOverride){
+        .key = {
+            .type = OVR_COLLECTABLE, // random value for non-zero key
+        },
+        .value = {
+            .itemId = GI_SOUL_POE + EnemySouls_GetSoulId(sTestEnemyData[sBaseTestEnemyId].actorId),
+        }
+    };
     while (rItemOverrides[rItemOverrides_Count].key.all != 0) {
         rItemOverrides_Count++;
     }
@@ -228,15 +241,6 @@ ItemOverride ItemOverride_Lookup(Actor* actor, u8 scene, u8 itemId) {
 
     return ItemOverride_LookupByKey(key);
 }
-
-ItemOverride sTestOverride = {
-    .key = {
-        .type = OVR_COLLECTABLE, // random value for non-zero key
-    },
-    .value = {
-        .itemId = GI_ARROW_LIGHT,
-    }
-};
 
 static void ItemOverride_Activate(ItemOverride override) {
     u16 resolvedItemId = ItemTable_ResolveUpgrades(override.value.itemId);

@@ -60,9 +60,9 @@ void Randomizer_Init() {
     gSettingsContext.faroresWindAnywhere = ON;
     gSettingsContext.freeCamera          = ON;
     gSettingsContext.extraArrowEffects   = ON;
-    // gSettingsContext.enemizer            = ON;
-    // gSettingsContext.shuffleEnemySouls   = SHUFFLEENEMYSOULS_ALL;
-    gSettingsContext.soullessEnemiesLook = SOULLESSLOOK_FLASHING;
+    gSettingsContext.enemizer            = ON;
+    gSettingsContext.shuffleEnemySouls   = SHUFFLEENEMYSOULS_ALL;
+    gSettingsContext.soullessEnemiesLook = SOULLESSLOOK_BLACK;
     gSettingsContext.gerudoFortress      = GERUDOFORTRESS_FAST;
 
     rHeap_Init();

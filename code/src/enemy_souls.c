@@ -326,6 +326,10 @@ void SoullessModels_ModifyCmb(CmbManager* cmbMan, s32 newTexMapCount, s32 matToS
             origDataBuf->mats[matIdx].blendMode                 = mat->blendMode;
             origDataBuf->mats[matIdx].isFragmentLightingEnabled = mat->isFragmentLightingEnabled;
 
+            if (mat->textureMappersUsed > 15) {
+                CitraPrint("!!!!!!!!!!!! textureMappersUsed > 15 !!!!!!!!!!!!!!!!");
+            }
+
             mat->textureMappersUsed        = newTexMapCount;
             mat->alphaTestEnabled          = 0;
             mat->blendMode                 = 0;
@@ -373,6 +377,13 @@ void SoullessModels_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s
         || (obj->id == OBJECT_POE_COMPOSER && cmbIdx != 0) // main body
     ) {
         return;
+    }
+
+    { // to delete
+        CMB_MATS* cmbMats = Cmb_GetMatsChunk(cmbMan->cmbChunk);
+        // poe sisters: 11 mats
+        CitraPrint("BeforeCmbManagerInit objectId =%X cmbIdx=%X materialCount=%X", obj->id, cmbIdx,
+                   cmbMats->materialCount);
     }
 
     // Don't modify certain materials
@@ -428,6 +439,7 @@ static void SoullessModels_RestoreObject(u16 objectId) {
         u8 modified   = SoullessModels_RestoreCmb(cmbMan, matToSkip);
         if (modified) {
             // Destroy CMB Manager so it will be reinitialized the next time it's needed.
+            CitraPrint("Restored CMB %X for object %X", cmbIdx, objectId);
             CmbManager_Destroy(cmbMan);
             gStaticClass_55A19C.sub44->vTable->destroyCmb(gStaticClass_55A19C.sub44, cmbMan);
             zarInfo->cmbMans[cmbIdx] = NULL;
