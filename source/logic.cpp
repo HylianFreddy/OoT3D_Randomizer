@@ -252,7 +252,6 @@ bool SoulWallmaster        = false;
 bool SoulRedeadGibdo       = false;
 bool SoulShellBlade        = false;
 bool SoulLikeLike          = false;
-bool SoulParasiticTentacle = false;
 bool SoulAnubis            = false;
 bool SoulSpike             = false;
 bool SoulSkullKid          = false;
@@ -1265,7 +1264,6 @@ void LogicReset() {
     SoulRedeadGibdo       = ShuffleEnemySouls.IsNot(SHUFFLEENEMYSOULS_ALL);
     SoulShellBlade        = ShuffleEnemySouls.IsNot(SHUFFLEENEMYSOULS_ALL);
     SoulLikeLike          = ShuffleEnemySouls.IsNot(SHUFFLEENEMYSOULS_ALL);
-    SoulParasiticTentacle = ShuffleEnemySouls.IsNot(SHUFFLEENEMYSOULS_ALL);
     SoulAnubis            = ShuffleEnemySouls.IsNot(SHUFFLEENEMYSOULS_ALL);
     SoulSpike             = ShuffleEnemySouls.IsNot(SHUFFLEENEMYSOULS_ALL);
     SoulSkullKid          = ShuffleEnemySouls.IsNot(SHUFFLEENEMYSOULS_ALL);
