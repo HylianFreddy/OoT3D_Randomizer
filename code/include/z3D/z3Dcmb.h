@@ -119,6 +119,10 @@ typedef struct CMB_TEX {
     /* 0x10 */ TextureEntry entries[];
 } CMB_TEX;
 
+static inline CMB_TEX* Cmb_GetTexChunk(void* cmb) {
+    return (CMB_TEX*)(((u32)cmb) + ((CMB_HEAD*)cmb)->TEXOffset);
+}
+
 enum TextureFormatGL {
     ETC1     = 0x0000675A,
     ETC1A4   = 0x0000675B,
