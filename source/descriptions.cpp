@@ -1301,6 +1301,8 @@ string_view betaSoldOutDesc           = "The game contains an unused model for s
 |    SOULLESS ENEMIES LOOK     |                                                           //
 ------------------------------*/                                                           //
 string_view soullessVanillaDesc       = "Soulless enemies will appear normal.";            //
+string_view soullessDarknessDesc      = "Soulless enemies will appear with their textures\n"
+                                        "turned solid black.";                             //
 string_view soullessPurpleFlamesDesc  = "Soulless enemies will appear with purple flames\n"//
                                         "around them, and their body will be invisible.";  //
 string_view soullessFlashingDesc      = "Soulless enemies will flash between visible and\n"//

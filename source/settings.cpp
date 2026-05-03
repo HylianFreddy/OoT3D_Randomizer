@@ -1315,7 +1315,8 @@ Option ColoredKeys         = Option::Bool("Colored Small Keys",     {"Off", "On"
 Option ColoredBossKeys     = Option::Bool("Colored Boss Keys",      {"Off", "On"},                                {coloredBossKeysDesc},                                                                                                                              OptionCategory::Cosmetic);
 Option MirrorWorld         = Option::U8  ("Mirror World",           {"Off", "On", "Scene", "Entrance", "Random"}, {mirrorWorldOffDesc, mirrorWorldOnDesc, mirrorWorldSceneDesc, mirrorWorldEntranceDesc, mirrorWorldRandomDesc},                                      OptionCategory::Cosmetic);
 Option BetaSoldOut         = Option::Bool("Beta Sold-Out Model",    {"Off", "On"},                                {betaSoldOutDesc},                                                                                                                                  OptionCategory::Cosmetic);
-Option SoullessEnemiesLook = Option::U8  ("Soulless Enemies Look",  {"Vanilla", "Purple Flames", "Flashing"},     {soullessVanillaDesc, soullessPurpleFlamesDesc, soullessFlashingDesc},                                                                              OptionCategory::Cosmetic,     SOULLESSLOOK_PURPLE_FLAMES);
+Option SoullessEnemiesLook = Option::U8  ("Soulless Enemies Look",  {"Vanilla", "Darkness", "Purple Flames",
+                                                                     "Flashing"},                                 {soullessVanillaDesc, soullessDarknessDesc, soullessPurpleFlamesDesc, soullessFlashingDesc},                                                        OptionCategory::Cosmetic,     SOULLESSLOOK_BLACK);
 
 std::vector<Option *> cosmeticOptions = {
     &CustomTunicColors,
