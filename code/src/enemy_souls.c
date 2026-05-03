@@ -47,8 +47,8 @@
 #include "z3D/actors/z_en_rr.h"
 
 static void SoullessFlames_Draw(void);
-static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
-static void SoullessDarkness_HandleRestoreRequest(void);
+static void SoullessModels_RestoreSoul(EnemySoulId soulId);
+static void SoullessModels_HandleRestoreRequest(void);
 
 // clang-format off
 EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
@@ -192,7 +192,7 @@ void EnemySouls_OnCollect(EnemySoulId soulId) {
     EnemySouls_SetSoulFlag(soulId);
 
     if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
-        SoullessDarkness_RestoreSoul(soulId);
+        SoullessModels_RestoreSoul(soulId);
     }
 }
 
@@ -205,7 +205,7 @@ void EnemySouls_Update(void) {
         case SOULLESSLOOK_PURPLE_FLAMES:
             return SoullessFlames_Draw();
         case SOULLESSLOOK_BLACK:
-            return SoullessDarkness_HandleRestoreRequest();
+            return SoullessModels_HandleRestoreRequest();
     }
 }
 
@@ -288,7 +288,7 @@ static void SoullessFlames_Draw(void) {
 
 // Used to delay restoring CMB data to the next frame, because some unknown things get initialized during the drawing
 // process after the GameState update
-u8 SoullessDarkness_CmbRestoreRequest = FALSE;
+u8 SoullessModels_CmbRestoreRequest = FALSE;
 
 typedef struct CmbOriginalData {
     char status;
@@ -313,7 +313,7 @@ void EnemySouls_BeforeSkelAnimeInit(CmbManager* cmbMan, Actor* actor) {
     CitraPrint("BeforeSkelAnimeInit actorID=%X", actor->id);
 }
 
-void SoullessDarkness_ModifyCmb(CmbManager* cmbMan, s32 newTexMapCount, s32 matToSkip) {
+void SoullessModels_ModifyCmb(CmbManager* cmbMan, s32 newTexMapCount, s32 matToSkip) {
     CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
     if (origDataBuf->status != CMBSTATUS_MODIFIED) {
         origDataBuf->status = CMBSTATUS_MODIFIED;
@@ -341,7 +341,7 @@ void SoullessDarkness_ModifyCmb(CmbManager* cmbMan, s32 newTexMapCount, s32 matT
     }
 };
 
-static s32 SoullessDarkness_GetMatToSkip(s16 objectId) {
+static s32 SoullessModels_GetMatToSkip(s16 objectId) {
     switch (objectId) {
         case OBJECT_ARMOS:
             return 0; // eyes
@@ -390,19 +390,19 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
     }
 
     // Don't modify certain materials
-    s32 matToSkip      = SoullessDarkness_GetMatToSkip(obj->id);
+    s32 matToSkip      = SoullessModels_GetMatToSkip(obj->id);
     s32 newTexMapCount = 0;
     if (obj->id == OBJECT_ARMOS) {
         newTexMapCount = 1; // remove texture only for "awoken" state
     }
 
-    SoullessDarkness_ModifyCmb(cmbMan, newTexMapCount, matToSkip);
+    SoullessModels_ModifyCmb(cmbMan, newTexMapCount, matToSkip);
 }
 
 void EnemySouls_BeforeSkelModelCtor(CmbManager* cmbMan) {
 }
 
-u8 SoullessDarkness_RestoreCmb(CmbManager* cmbMan, s32 matToSkip) {
+u8 SoullessModels_RestoreCmb(CmbManager* cmbMan, s32 matToSkip) {
     u8 materialRestored          = FALSE;
     CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
     if (origDataBuf->status == CMBSTATUS_MODIFIED) {
@@ -425,7 +425,7 @@ u8 SoullessDarkness_RestoreCmb(CmbManager* cmbMan, s32 matToSkip) {
     return materialRestored;
 }
 
-static void SoullessDarkness_RestoreObject(u16 objectId) {
+static void SoullessModels_RestoreObject(u16 objectId) {
     s32 slot = Object_GetSlot(&gGlobalContext->objectCtx, objectId);
     if (slot < 0 || !Object_IsLoaded(&gGlobalContext->objectCtx, slot)) {
         return;
@@ -441,8 +441,8 @@ static void SoullessDarkness_RestoreObject(u16 objectId) {
             continue;
         }
         // Restore original values for each CMB that was modified.
-        s32 matToSkip = SoullessDarkness_GetMatToSkip(objectId);
-        u8 modified   = SoullessDarkness_RestoreCmb(cmbMan, matToSkip);
+        s32 matToSkip = SoullessModels_GetMatToSkip(objectId);
+        u8 modified   = SoullessModels_RestoreCmb(cmbMan, matToSkip);
         if (modified) {
             // Destroy CMB Manager so it will be reinitialized the next time it's needed.
             CitraPrint("Restored CMB %X for object %X", cmbIdx, objectId);
@@ -453,7 +453,7 @@ static void SoullessDarkness_RestoreObject(u16 objectId) {
     }
 }
 
-static void SoullessDarkness_RestoreActor(Actor* actor) {
+static void SoullessModels_RestoreActor(Actor* actor) {
     switch (actor->id) {
         case ACTOR_POE: // doesnt fade in
             return EnPoh_ReinitModels((EnPoh*)actor);
@@ -586,15 +586,15 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
     }
 }
 
-static void SoullessDarkness_RestoreSoul(EnemySoulId soulId) {
+static void SoullessModels_RestoreSoul(EnemySoulId soulId) {
     for (s32 i = 0; i < ACTOR_MAX; i++) {
         ActorInit* profile = gActorOverlayTable[i].initInfo;
         if (profile != NULL && EnemySouls_GetSoulId(profile->id) == soulId) {
             if (profile->id == ACTOR_POE) {
-                SoullessDarkness_RestoreObject(OBJECT_POE);
-                SoullessDarkness_RestoreObject(OBJECT_POE_COMPOSER);
+                SoullessModels_RestoreObject(OBJECT_POE);
+                SoullessModels_RestoreObject(OBJECT_POE_COMPOSER);
             } else if (profile->objectId > OBJECT_GAMEPLAY_DUNGEON_KEEP) {
-                SoullessDarkness_RestoreObject(profile->objectId);
+                SoullessModels_RestoreObject(profile->objectId);
             }
         }
     }
@@ -603,24 +603,24 @@ static void SoullessDarkness_RestoreSoul(EnemySoulId soulId) {
         Actor* actor = gGlobalContext->actorCtx.actorList[catIdx].first;
         while (actor != NULL) {
             if (EnemySouls_GetSoulId(actor->id) == soulId) {
-                SoullessDarkness_RestoreActor(actor);
+                SoullessModels_RestoreActor(actor);
             }
             actor = actor->next;
         }
     }
 }
 
-static void SoullessDarkness_HandleRestoreRequest(void) {
+static void SoullessModels_HandleRestoreRequest(void) {
     ObjectEntry* obj;
-    if (SoullessDarkness_CmbRestoreRequest) {
+    if (SoullessModels_CmbRestoreRequest) {
         obj = Object_FindEntry(OBJECT_GAMEPLAY_DUNGEON_KEEP);
         if (obj != NULL && obj->zarInfo.cmbMans[POT_CMB_INDEX] != NULL) {
-            SoullessDarkness_RestoreCmb(obj->zarInfo.cmbMans[POT_CMB_INDEX], -1);
+            SoullessModels_RestoreCmb(obj->zarInfo.cmbMans[POT_CMB_INDEX], -1);
         }
         obj = Object_FindEntry(OBJECT_FLYING_FLOOR_TILE);
         if (obj != NULL && obj->zarInfo.cmbMans[FLYING_TILE_CMB_INDEX] != NULL) {
-            SoullessDarkness_RestoreCmb(obj->zarInfo.cmbMans[FLYING_TILE_CMB_INDEX], -1);
+            SoullessModels_RestoreCmb(obj->zarInfo.cmbMans[FLYING_TILE_CMB_INDEX], -1);
         }
-        SoullessDarkness_CmbRestoreRequest = FALSE;
+        SoullessModels_CmbRestoreRequest = FALSE;
     }
 }
