@@ -43,7 +43,7 @@ void EnTuboTrap_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         !this->rExt.usingModifiedModel) {
         // Modify CMB data and reinit model.
         ObjectEntry* obj = Object_FindEntry(OBJECT_GAMEPLAY_DUNGEON_KEEP);
-        SoullessDarkness_ModifyCmb(obj->zarInfo.cmbMans[POT_CMB_INDEX], OBJECT_GAMEPLAY_DUNGEON_KEEP, POT_CMB_INDEX);
+        SoullessDarkness_ModifyCmb(obj->zarInfo.cmbMans[POT_CMB_INDEX], 0, -1);
         EnTuboTrap_ReinitModels(this);
         // Request restoring the CMB so other pots will draw normally when spawning (e.g. when another room is loaded).
         sCmbRestoreRequest            = TRUE;
@@ -112,7 +112,7 @@ void EnYukabyun_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         !this->rExt.usingModifiedModel) {
         // Modify CMB data and reinit model.
         ObjectEntry* obj = Object_FindEntry(OBJECT_FLYING_FLOOR_TILE);
-        SoullessDarkness_ModifyCmb(obj->zarInfo.cmbMans[TILE_CMB_INDEX], OBJECT_FLYING_FLOOR_TILE, TILE_CMB_INDEX);
+        SoullessDarkness_ModifyCmb(obj->zarInfo.cmbMans[TILE_CMB_INDEX], 0, -1);
         EnYukabyun_ReinitModels(this);
         sCmbRestoreRequest            = TRUE;
         this->rExt.usingModifiedModel = TRUE;

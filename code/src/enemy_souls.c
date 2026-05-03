@@ -292,21 +292,13 @@ void EnemySouls_BeforeSkelAnimeInit(CmbManager* cmbMan, Actor* actor) {
     CitraPrint("BeforeSkelAnimeInit actorID=%X", actor->id);
 }
 
-// u8 EnemySouls_GlobalObjectModEnabled = FALSE;
-
-void SoullessDarkness_ModifyCmb(CmbManager* cmbMan, s16 objectId, s32 cmbIdx /*to delete*/) {
+void SoullessDarkness_ModifyCmb(CmbManager* cmbMan, s32 newTexMapCount, s32 matToSkip) {
     CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
     if (origDataBuf->status != CMBSTATUS_MODIFIED) {
         origDataBuf->status = CMBSTATUS_MODIFIED;
         CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
-        // poe sisters: 11 mats
-        CitraPrint("BeforeCmbManagerInit objectId =%X cmbIdx=%X materialCount=%X", objectId, cmbIdx,
-                   cmbMats->materialCount);
         for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
-            // Don't modify certain materials
-            if ((objectId == OBJECT_ARMOS && matIdx == 0) || // eyes
-                (objectId == OBJECT_TENTACLE && matIdx == 1) // electric field (for both models)
-            ) {
+            if (matIdx == matToSkip) {
                 continue;
             }
 
@@ -320,14 +312,23 @@ void SoullessDarkness_ModifyCmb(CmbManager* cmbMan, s16 objectId, s32 cmbIdx /*t
                 CitraPrint("!!!!!!!!!!!! textureMappersUsed > 15 !!!!!!!!!!!!!!!!");
             }
 
-            // For Armos, only remove texture mapper for "awoken" state
-            mat->textureMappersUsed        = objectId == OBJECT_ARMOS ? 1 : 0;
+            mat->textureMappersUsed        = newTexMapCount;
             mat->alphaTestEnabled          = 0;
             mat->blendMode                 = 0;
             mat->isFragmentLightingEnabled = 0;
         }
     }
 };
+
+static s32 SoullessDarkness_GetMatToSkip(s16 objectId) {
+    switch (objectId) {
+        case OBJECT_ARMOS:
+            return 0; // eyes
+        case OBJECT_TENTACLE:
+            return 1; // electric field (for both models)
+    }
+    return -1;
+}
 
 void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 cmbIdx) {
     if (gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_BLACK ||
@@ -349,22 +350,38 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
         || (obj->id == OBJECT_DEAD_HAND && cmbIdx == 2)    // dirt wave
         || (obj->id == OBJECT_KING_DODONGO && cmbIdx != 2) // KD body
         || (obj->id == OBJECT_BARINADE && cmbIdx != 0 && cmbIdx != 3 && cmbIdx != 4 && cmbIdx != 7 &&
-            cmbIdx != 12)                               // arms, body and jellyfish
-        || obj->id == OBJECT_FLYING_FLOOR_TILE          // handled in own update function
-        || (obj->id == OBJECT_FREEZARD && cmbIdx == 1)  // ice breath
-        || (obj->id == OBJECT_GANONDORF && cmbIdx != 2) // main body
-        || (obj->id == OBJECT_GANON && cmbIdx != 0)     // main body
+            cmbIdx != 12)                                  // arms, body and jellyfish
+        || obj->id == OBJECT_FLYING_FLOOR_TILE             // handled in own update function
+        || (obj->id == OBJECT_FREEZARD && cmbIdx == 1)     // ice breath
+        || (obj->id == OBJECT_GANONDORF && cmbIdx != 2)    // main body
+        || (obj->id == OBJECT_GANON && cmbIdx != 0)        // main body
+        || (obj->id == OBJECT_POE && cmbIdx != 0)          // main body
+        || (obj->id == OBJECT_POE_COMPOSER && cmbIdx != 0) // main body
     ) {
         return;
     }
 
-    SoullessDarkness_ModifyCmb(cmbMan, obj->id, cmbIdx);
+    { // to delete
+        CMB_MATS* cmbMats = Cmb_GetMatsChunk(cmbMan->cmbChunk);
+        // poe sisters: 11 mats
+        CitraPrint("BeforeCmbManagerInit objectId =%X cmbIdx=%X materialCount=%X", obj->id, cmbIdx,
+                   cmbMats->materialCount);
+    }
+
+    // Don't modify certain materials
+    s32 matToSkip      = SoullessDarkness_GetMatToSkip(obj->id);
+    s32 newTexMapCount = 0;
+    if (obj->id == OBJECT_ARMOS) {
+        newTexMapCount = 1; // remove texture only for "awoken" state
+    }
+
+    SoullessDarkness_ModifyCmb(cmbMan, newTexMapCount, matToSkip);
 }
 
 void EnemySouls_BeforeSkelModelCtor(CmbManager* cmbMan) {
 }
 
-u8 SoullessDarkness_RestoreCmb(CmbManager* cmbMan, s16 objectId) {
+u8 SoullessDarkness_RestoreCmb(CmbManager* cmbMan, s32 matToSkip) {
     u8 materialRestored          = FALSE;
     CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
     if (origDataBuf->status == CMBSTATUS_MODIFIED) {
@@ -372,7 +389,7 @@ u8 SoullessDarkness_RestoreCmb(CmbManager* cmbMan, s16 objectId) {
         CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
         for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
             // Skip materials that weren't modified
-            if ((objectId == OBJECT_ARMOS && matIdx == 0) || (objectId == OBJECT_TENTACLE && matIdx == 1)) {
+            if (matIdx == matToSkip) {
                 continue;
             }
 
@@ -403,7 +420,8 @@ static void SoullessDarkness_RestoreObject(u16 objectId) {
             continue;
         }
         // Restore original values for each CMB that was modified.
-        u8 modified = SoullessDarkness_RestoreCmb(cmbMan, objectId);
+        s32 matToSkip = SoullessDarkness_GetMatToSkip(objectId);
+        u8 modified   = SoullessDarkness_RestoreCmb(cmbMan, matToSkip);
         if (modified) {
             // Destroy CMB Manager so it will be reinitialized the next time it's needed.
             CitraPrint("Restored CMB %X for object %X", cmbIdx, objectId);
