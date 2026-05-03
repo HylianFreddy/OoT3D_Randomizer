@@ -1638,9 +1638,6 @@ PATCH PlayerBonk
 PATCH CmbManagerInit
     bl hook_CmbManagerInit
 
-PATCH After_CmbManagerInit
-    bl hook_After_CmbManagerInit
-
 PATCH ActorInit1
     bl hook_ActorInit
 
@@ -1649,33 +1646,3 @@ PATCH ActorInit2
 
 PATCH ActorInit3
     bl hook_ActorInit
-
-PATCH SkelAnimeInit
-    bl hook_SkelAnimeInit
-
-PATCH SkelAnime_DrawOpa
-    bl SkelAnime_rDrawOpaImpl
-
-PATCH SkeletonAnimationModelDraw
-    b SkeletonAnimationModel_rDraw
-
-PATCH SkeletonAnimationModel_Init_3fefec
-    bl hook_SkeletonAnimationModel_Init_3fefec
-
-PATCH EnVali_Init_1
-    bl hook_EnVali_Init_1
-
-PATCH CheckStack
-    bl hook_CheckStack
-
-PATCH EnVali_Init_2
-    bl hook_EnVali_Init_2
-
-PATCH SkeletonAnimationModel_Constructor
-    bl hook_SkeletonAnimationModel_Constructor
-
-PATCH SkelAnime_InitImpl
-    bl hook_SkelAnime_InitImpl
-
-PATCH whatLog
-    bl hook_whatLog

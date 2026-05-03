@@ -309,10 +309,6 @@ static CmbOriginalData* Cmb_GetOrigDataBuffer(CmbManager* cmbMan) {
     return (CmbOriginalData*)&((CMB_HEAD*)cmbMan->cmbChunk)->name;
 }
 
-void EnemySouls_BeforeSkelAnimeInit(CmbManager* cmbMan, Actor* actor) {
-    CitraPrint("BeforeSkelAnimeInit actorID=%X", actor->id);
-}
-
 void SoullessModels_ModifyCmb(CmbManager* cmbMan, s32 newTexMapCount, s32 matToSkip) {
     CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
     if (origDataBuf->status != CMBSTATUS_MODIFIED) {
@@ -351,7 +347,7 @@ static s32 SoullessModels_GetMatToSkip(s16 objectId) {
     return -1;
 }
 
-void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 cmbIdx) {
+void SoullessModels_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 cmbIdx) {
     if (gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_BLACK ||
         EnemySouls_CheckSoul_Impl(gRunningActor, SOULCHECK_BASE)) {
         return;
@@ -397,9 +393,6 @@ void EnemySouls_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 c
     }
 
     SoullessModels_ModifyCmb(cmbMan, newTexMapCount, matToSkip);
-}
-
-void EnemySouls_BeforeSkelModelCtor(CmbManager* cmbMan) {
 }
 
 u8 SoullessModels_RestoreCmb(CmbManager* cmbMan, s32 matToSkip) {

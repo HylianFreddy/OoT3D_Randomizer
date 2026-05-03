@@ -184,8 +184,6 @@ SECTIONS
 	EnSw_Update = 0x1BB110 + _LD_OFF;
 	.patch_GetObjectEntry_EnTiteInit 0x1BBC9C + _LD_OFF : { *(.patch_GetObjectEntry_EnTiteInit) }
 	EnTk_Update = 0x1BC088 + _LD_OFF;
-	.patch_EnVali_Init_1 0x1BC540 + _LD_OFF : { *(.patch_EnVali_Init_1) }
-	.patch_EnVali_Init_2 0x1bc584 + _LD_OFF : { *(.patch_EnVali_Init_2) }
 	Fishing_Init = 0x1C0AD8 + _LD_OFF;
 	.patch_FishingNewRecord 0x1C3AA4 + _LD_OFF : { *(.patch_FishingNewRecord) }
 	.patch_FishingSizeIgnoreChild 0x1C3DFC + _LD_OFF : { *(.patch_FishingSizeIgnoreChild) }
@@ -434,9 +432,6 @@ SECTIONS
 	.patch_CollisionATvsAC 0x3191B0 + _LD_OFF : { *(.patch_CollisionATvsAC) }
 	ZAR_Init = 0x31B124 + _LD_OFF;
 	ElfMessage_GetSariaText = 0x31C698 + _LD_OFF;
-	.patch_After_CmbManagerInit 0x320454 + _LD_OFF : { *(.patch_After_CmbManagerInit) }
-	SkelAnime_InitImpl = 0x3220F4 + _LD_OFF;
-	.patch_SkelAnime_InitImpl 0x32218C + _LD_OFF : { *(.patch_SkelAnime_InitImpl) }
 	.patch_ISGPutaway 0x32B4AC + _LD_OFF : { *(.patch_ISGPutaway) }
 	Object_Spawn = 0x32E21C + _LD_OFF;
 	Actor_WorldDistXYZToActor = 0x3306C4 + _LD_OFF;
@@ -487,7 +482,6 @@ SECTIONS
 	Animation_ChangeImpl = 0x35302C + _LD_OFF;
 	SkelAnime_Init = 0x353C9C + _LD_OFF;
 	.patch_GetObjectEntry_353CE4 0x353CE4 + _LD_OFF : { *(.patch_GetObjectEntry_353CE4) }
-	.patch_SkelAnimeInit 0x353D0C + _LD_OFF : { *(.patch_SkelAnimeInit) }
 	Collider_SetCylinder = 0x353D24 + _LD_OFF;
 	Collider_InitCylinder = 0x353DD0 + _LD_OFF;
 	SetupItemInWater = 0x354894 + _LD_OFF;
@@ -510,7 +504,6 @@ SECTIONS
 	FireDamage = 0x35D8D8 + _LD_OFF;
 	Player_InBlockingCsMode = 0x35DB20 + _LD_OFF;
 	SkelAnime_DrawOpa = 0x35E240 + _LD_OFF;
-	.patch_SkelAnime_DrawOpa 0x35E2B0 + _LD_OFF : { *(.patch_SkelAnime_DrawOpa) }
 	FaceAnimation_35E330 = 0x35E330 + _LD_OFF;
 	FaceAnim_SetFrame = 0x35E3A4 + _LD_OFF;
 	.patch_ConvertBombDropOne 0x35E46C + _LD_OFF : { *(.patch_ConvertBombDropOne) }
@@ -574,7 +567,6 @@ SECTIONS
 	ZAR_GetCMABByIndex = 0x372F0C + _LD_OFF;
 	Actor_CreateSkelModels = 0x372F38 + _LD_OFF;
 	.patch_GetObjectEntry_372F7C 0x372F7C + _LD_OFF : { *(.patch_GetObjectEntry_372F7C) }
-	.patch_CheckStack 0x372FDC + _LD_OFF : { *(.patch_CheckStack) }
 	.patch_OverrideObjectIsLoaded 0x373074 + _LD_OFF : { *(.patch_OverrideObjectIsLoaded) }
 	SkelAnime_Update = 0x3731E0 + _LD_OFF;
 	EnWonderTalk_Update = 0x3731F4 + _LD_OFF;
@@ -718,9 +710,6 @@ SECTIONS
 	.patch_PreSwapBuffers 0x3FD384 + _LD_OFF : { *(.patch_PreSwapBuffers) }
 	.patch_AwakeCallback 0x3FD43C + _LD_OFF : { *(.patch_AwakeCallback) }
 	.patch_SleepQueryCallback 0x3FD6C4 + _LD_OFF : { *(.patch_SleepQueryCallback) }
-	.patch_SkeletonAnimationModel_Init_3fefec 0x3FEFF0 + _LD_OFF : { *(.patch_SkeletonAnimationModel_Init_3fefec) }
-	.patch_SkeletonAnimationModel_Constructor 0x3FF540 + _LD_OFF : { *(.patch_SkeletonAnimationModel_Constructor) }
-	.patch_whatLog 0x3FF564 + _LD_OFF : { *(.patch_whatLog) }
 	Message_SetInstantText = 0x40B608 + _LD_OFF;
 	.patch_DrawScreen 0x416398 + _LD_OFF : { *(.patch_DrawScreen) }
 
@@ -865,8 +854,6 @@ SECTIONS
 	.patch_EditDrawGetItemAfterMatrixUpdate 0x4C4D14 + _LD_OFF : { *(.patch_EditDrawGetItemAfterMatrixUpdate) }
 	.patch_EditDrawGetItemAfterModelSpawn 0x4C61A4 + _LD_OFF : { *(.patch_EditDrawGetItemAfterModelSpawn) }
 	Model_IsMeshGroupUsed = 0x4C6880 + _LD_OFF;
-	SkelAnime_DrawOpaImpl = 0x4C7AB0 + _LD_OFF;
-	.patch_SkeletonAnimationModelDraw 0x4C7B80 + _LD_OFF : { *(.patch_SkeletonAnimationModelDraw) }
 	.patch_CrouchStabHitbox 0x4C85D4 + _LD_OFF : { *(.patch_CrouchStabHitbox) }
 
 	/* 0x4C99A7: End of vanilla code in .text section */
