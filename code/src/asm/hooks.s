@@ -2181,3 +2181,11 @@ HOOK PlayerBonk
     bl Player_OnBonk
     pop {r0-r12, lr}
     bx lr
+
+HOOK SetupDoorShutter
+    push {r0-r12, lr}
+    cpy r0,r4 @ actor
+    bl DoorShutter_CheckSoullessEnemies
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    bx lr
