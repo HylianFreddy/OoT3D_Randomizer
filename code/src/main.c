@@ -3,6 +3,7 @@
 #include "actor.h"
 #include "input.h"
 #include "models.h"
+#include "effects.h"
 #include "entrance.h"
 #include "settings.h"
 #include "title_screen.h"
@@ -20,6 +21,7 @@
 #include "ocarina_notes.h"
 #include "icetrap.h"
 #include "enemy_souls.h"
+#include "bgm.h"
 
 #include "z3D/z3D.h"
 #include "3ds/extdata.h"
@@ -40,6 +42,7 @@ void Randomizer_Init() {
     IceTrap_Init();
     extDataInit();
     irrstInit();
+    Effects_Init();
 
     s64 output = 0;
     svcGetSystemInfo(&output, 0x20000, 0);
@@ -68,6 +71,7 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
     ItemEffect_RupeeAmmo(&gSaveContext);
     Triforce_HandleCreditsWarp();
     Enemizer_Update();
+    Bgm_ApplyFanfareMod();
 }
 
 void after_GlobalContext_Update() {
