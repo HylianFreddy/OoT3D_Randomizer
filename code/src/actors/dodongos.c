@@ -2,14 +2,13 @@
 #include "dodongos.h"
 #include "enemy_souls.h"
 #include "settings.h"
+#include "actor.h"
+
+/*-------------------------------
+|           EnDodongo           |
+-------------------------------*/
 
 void EnDodongo_Idle(EnDodongo* this, GlobalContext* globalCtx);
-
-void EnDodojr_Init(Actor* thisx, GlobalContext* globalCtx);
-void EnDodojr_JumpAttackBounce(EnDodojr* this, GlobalContext* globalCtx);
-
-void BossDodongo_Update(Actor* thisx, GlobalContext* globalCtx);
-void BossDodongo_DeathCutscene(BossDodongo* this, GlobalContext* globalCtx);
 
 static s16 BossDodongo_PrevNumWallCollisions = 0;
 
@@ -21,6 +20,13 @@ s32 Dodongos_AfterSwallowBomb_Normal(EnDodongo* this) {
 
     return 0;
 }
+
+/*-------------------------------
+|            EnDodojr           |
+-------------------------------*/
+
+void EnDodojr_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnDodojr_JumpAttackBounce(EnDodojr* this, GlobalContext* globalCtx);
 
 s32 Dodongos_AfterSwallowBomb_Baby(EnDodojr* this) {
     if (!EnemySouls_CheckSoulForActor(&this->base)) {
@@ -38,6 +44,13 @@ void EnDodojr_rInit(Actor* thisx, GlobalContext* globalCtx) {
     // Fix vanilla bug that causes dust to be consistently drawn at y=0 when the Baby Dodongo emerges from the ground.
     thisx->floorHeight = thisx->home.pos.y;
 }
+
+/*-------------------------------
+|          BossDodongo          |
+-------------------------------*/
+
+void BossDodongo_Update(Actor* thisx, GlobalContext* globalCtx);
+void BossDodongo_DeathCutscene(BossDodongo* this, GlobalContext* globalCtx);
 
 void BossDodongo_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     BossDodongo* this = (BossDodongo*)thisx;
@@ -59,4 +72,8 @@ void BossDodongo_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         }
     }
     BossDodongo_PrevNumWallCollisions = this->numWallCollisions;
+}
+
+void BossDodongo_ReinitModels(BossDodongo* this) {
+    Actor_ReinitSkelAnime(&this->actor, &this->anime, 2);
 }
