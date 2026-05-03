@@ -164,7 +164,9 @@ static u8 EnemySouls_CheckSoul_Impl(Actor* actor, SoulCheck soulCheck) {
          // If scale is zero, enemy is invisible
          (actor->scale.x == 0 && actor->scale.y == 0 && actor->scale.z == 0) ||
          // Hidden flying traps will appear normal
-         FlyingTraps_IsHiddenTrap(actor))) {
+         FlyingTraps_IsHiddenTrap(actor) ||
+         // These will just look normal because the flames appear in the wrong place
+         (actor->id == ACTOR_SLIMY_THING && gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_PURPLE_FLAMES))) {
         return TRUE;
     }
 
