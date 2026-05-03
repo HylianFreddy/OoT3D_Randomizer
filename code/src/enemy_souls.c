@@ -28,6 +28,10 @@
 #include "flare_dancer.h"
 #include "dead_hand.h"
 #include "dodongos.h"
+#include "barinade.h"
+#include "ganondorf.h"
+#include "volvagia.h"
+#include "bongo_bongo.h"
 #include "tailpasaran.h"
 #include "moblin.h"
 #include "guay.h"
@@ -544,12 +548,19 @@ static void SoullessModels_RestoreActor(Actor* actor) {
             // These are handled in their own update function.
 
         case ACTOR_BARINADE:
+            // return BossVa_ReinitModels((BossVa*)actor);
         case ACTOR_PHANTOM_GANON:
+            // return BossGanondrof_ReinitModels((BossGanondrof*)actor);
         case ACTOR_PG_HORSE:
-        case ACTOR_VOLVAGIA_FLYING:
+            // return EnFHG_ReinitModels((EnFHG*)actor);
+        case ACTOR_VOLVAGIA_FLYING: // broken, transparent
+                                    // return BossFd_ReinitModels((BossFd*)actor);
+                                    // return Actor_Kill(actor); // TODO
         case ACTOR_VOLVAGIA_HOLE:
+            // return Actor_Kill(actor); // TODO
         case ACTOR_MORPHA:
-        case ACTOR_BONGO_BONGO:
+        case ACTOR_BONGO_BONGO: // hands become transparent?
+                                // return BossSst_ReinitModels((BossSst*)actor);
         case ACTOR_TWINROVA:
         case ACTOR_GANONDORF:
         case ACTOR_GANON:
