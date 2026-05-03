@@ -145,11 +145,11 @@ void FlyingTraps_HandleCmbRestoration(void) {
     if (sCmbRestoreRequest) {
         obj = Object_FindEntry(OBJECT_GAMEPLAY_DUNGEON_KEEP);
         if (obj != NULL && obj->zarInfo.cmbMans[POT_CMB_INDEX] != NULL) {
-            SoullessDarkness_RestoreCmb(obj->zarInfo.cmbMans[POT_CMB_INDEX], OBJECT_GAMEPLAY_DUNGEON_KEEP);
+            SoullessDarkness_RestoreCmb(obj->zarInfo.cmbMans[POT_CMB_INDEX], -1);
         }
         obj = Object_FindEntry(OBJECT_FLYING_FLOOR_TILE);
         if (obj != NULL && obj->zarInfo.cmbMans[TILE_CMB_INDEX] != NULL) {
-            SoullessDarkness_RestoreCmb(obj->zarInfo.cmbMans[TILE_CMB_INDEX], OBJECT_FLYING_FLOOR_TILE);
+            SoullessDarkness_RestoreCmb(obj->zarInfo.cmbMans[TILE_CMB_INDEX], -1);
         }
         sCmbRestoreRequest = FALSE;
     }
