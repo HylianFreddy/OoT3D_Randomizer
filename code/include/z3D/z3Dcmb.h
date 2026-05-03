@@ -131,8 +131,8 @@ enum TextureFormatGL {
     RGBA4444 = 0x80336752,
     RGBA5551 = 0x80346752,
     RGB565   = 0x83636754,
-    A8       = 0x14016756, // black
-    A4       = 0x67616756, // black
+    A8       = 0x14016756,
+    A4       = 0x67616756,
     L8       = 0x14016757,
     L4       = 0x67616757,
     LA8      = 0x14016758,
@@ -175,13 +175,13 @@ typedef struct VTable_4ECA6C {
 
 typedef struct SubStaticClass_55A19C_44 {
     /* 0x010 */ VTable_4ECA6C* vTable;
-    /* ... size unknown*/
+    // ... size unknown
 } SubStaticClass_55A19C_44;
 
 typedef struct StaticClass_55A19C {
     /* 0x000 */ char unk_000[0x044];
     /* 0x044 */ SubStaticClass_55A19C_44* sub44;
-    /* ... size unknown*/
+    // ... size unknown
 } StaticClass_55A19C;
 
 extern StaticClass_55A19C gStaticClass_55A19C;

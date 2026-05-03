@@ -86,7 +86,7 @@ EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
         case ACTOR_SHELL_BLADE:            return SOUL_SHELL_BLADE;
         case ACTOR_LIKE_LIKE:              return SOUL_LIKE_LIKE;
         case ACTOR_PARASITIC_TENTACLE:     return SOUL_TENTACLE;
-        case ACTOR_SLIMY_THING:            return SOUL_TENTACLE;
+        case ACTOR_OBSTACLE_TENTACLE:      return SOUL_TENTACLE;
         case ACTOR_ANUBIS:                 return SOUL_ANUBIS;
         case ACTOR_SPIKE:                  return SOUL_SPIKE;
         case ACTOR_SKULL_KID:              return SOUL_SKULL_KID;
@@ -168,7 +168,8 @@ static u8 EnemySouls_CheckSoul_Impl(Actor* actor, SoulCheck soulCheck) {
          // Hidden flying traps will appear normal
          FlyingTraps_IsHiddenTrap(actor) ||
          // These will just look normal because the flames appear in the wrong place
-         (actor->id == ACTOR_SLIMY_THING && gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_PURPLE_FLAMES))) {
+         (actor->id == ACTOR_OBSTACLE_TENTACLE &&
+          gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_PURPLE_FLAMES))) {
         return TRUE;
     }
 
@@ -283,7 +284,7 @@ static void SoullessFlames_Draw(void) {
 }
 
 /*-------------------------------
-|   Soulless Darkness effect    |
+|     Soulless Model edits      |
 -------------------------------*/
 
 // Used to delay restoring CMB data to the next frame, because some unknown things get initialized during the drawing
@@ -484,7 +485,7 @@ static void SoullessModels_RestoreActor(Actor* actor) {
             return EnWallmas_ReinitModels((EnWallmas*)actor);
         case ACTOR_PARASITIC_TENTACLE:
             return EnBa_ReinitModels((EnBa*)actor);
-        case ACTOR_SLIMY_THING:
+        case ACTOR_OBSTACLE_TENTACLE:
             return EnBx_ReinitModels((EnBx*)actor);
         case ACTOR_SKULL_KID:
             return EnSkj_ReinitModels((EnSkj*)actor);

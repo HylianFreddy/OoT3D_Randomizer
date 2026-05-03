@@ -6,8 +6,6 @@
 #include "common.h"
 #include "objects.h"
 
-#include "input.h"
-
 /*-------------------------------
 |           EnTuboTrap          |
 -------------------------------*/
