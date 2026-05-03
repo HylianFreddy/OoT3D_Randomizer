@@ -539,6 +539,14 @@ s8 ItemOverride_GetOverheadItem(GlobalContext* globalCtx, Player* player) {
 
         return ItemOverride_PlayFanfare(itemId);
     }
+
+    // No override
+    switch (PLAYER->getItemId) {
+        case GI_SHIELD_DEKU:
+        case GI_SHIELD_HYLIAN:
+            ItemTable_CallEffect(ItemTable_GetItemRow(PLAYER->getItemId));
+            break;
+    };
     return -1;
 }
 

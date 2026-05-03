@@ -70,7 +70,7 @@
 #include "moblin.h"
 #include "iron_knuckle.h"
 #include "guay.h"
-#include "dead_hand_hand.h"
+#include "dead_hand.h"
 #include "flare_dancer.h"
 #include "poe.h"
 #include "dark_link.h"
@@ -94,6 +94,10 @@ void Actor_Kill(Actor* actor) {
 }
 
 void TitleCard_Update(GlobalContext* globalCtx, TitleCardContext* titleCtx);
+
+Actor* gRunningActor;
+#define MAX_RUNNING_ACTORS 5
+Actor* prevRunningActors[MAX_RUNNING_ACTORS] = { 0 };
 
 void Actor_Init() {
     // Some actors have the wrong ID saved in their "initInfo".
@@ -148,6 +152,7 @@ void Actor_Init() {
     gActorOverlayTable[0x33].initInfo->type   = ACTORTYPE_ENEMY;
     gActorOverlayTable[0x33].initInfo->init   = EnTorch2_rInit;
     gActorOverlayTable[0x33].initInfo->update = EnTorch2_rUpdate;
+    gActorOverlayTable[0x33].initInfo->draw   = EnTorch2_rDraw;
 
     gActorOverlayTable[0x3A].initInfo->update = EnEiyer_rUpdate;
 
@@ -243,7 +248,9 @@ void Actor_Init() {
 
     gActorOverlayTable[0x11B].initInfo->update = NULL;
 
-    gActorOverlayTable[0x11D].initInfo->type = ACTORTYPE_ENEMY; // Flying Pot
+    gActorOverlayTable[0x11D].initInfo->type         = ACTORTYPE_ENEMY; // Flying Pot
+    gActorOverlayTable[0x11D].initInfo->update       = EnTuboTrap_rUpdate;
+    gActorOverlayTable[0x11D].initInfo->instanceSize = sizeof(EnTuboTrap);
 
     gActorOverlayTable[0x126].initInfo->init   = ObjBean_rInit;
     gActorOverlayTable[0x126].initInfo->update = ObjBean_rUpdate;
@@ -520,7 +527,34 @@ void HyperActors_Main(Actor* thisx, GlobalContext* globalCtx) {
     }
 }
 
+static void SetRunningActor(Actor* actor) {
+    if (gRunningActor != NULL) {
+        for (s32 i = MAX_RUNNING_ACTORS - 1; i > 0; i--) {
+            prevRunningActors[i] = prevRunningActors[i - 1];
+        }
+        prevRunningActors[0] = gRunningActor;
+    }
+    gRunningActor = actor;
+}
+
+static void RemoveRunningActor(void) {
+    gRunningActor = NULL;
+    if (prevRunningActors[0] != NULL) {
+        gRunningActor = prevRunningActors[0];
+        for (s32 i = 0; i < MAX_RUNNING_ACTORS - 1; i++) {
+            prevRunningActors[i] = prevRunningActors[i + 1];
+        }
+    }
+}
+
+void Actor_rInit(Actor* actor, GlobalContext* globalCtx) {
+    SetRunningActor(actor);
+    actor->init(actor, globalCtx);
+    RemoveRunningActor();
+}
+
 void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
+    SetRunningActor(actor);
     u8 tempHammerQuakeFlag = globalCtx->actorCtx.hammerQuakeFlag;
 
     if (!EnemySouls_CheckSoulForActor(actor)) {
@@ -533,11 +567,12 @@ void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
     if (tempHammerQuakeFlag != 0) {
         globalCtx->actorCtx.hammerQuakeFlag = tempHammerQuakeFlag;
     }
+    RemoveRunningActor();
 }
 
 void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
-    s32 origSaModelsCount1 = gMainClass.sub180.saModelsCount1;
-    s32 origSaModelsCount2 = gMainClass.sub180.saModelsCount2;
+    s32 origSaModelsCount1 = gMainClass.sub180.count_08;
+    s32 origSaModelsCount2 = gMainClass.sub180.count_0C;
 
     actor->draw(actor, globalCtx);
 
@@ -545,8 +580,8 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
         (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_PURPLE_FLAMES ||
          (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_FLASHING && rGameplayFrames % 2 == 0))) {
         // make enemy invisible
-        gMainClass.sub180.saModelsCount1 = origSaModelsCount1; // 3D models
-        gMainClass.sub180.saModelsCount2 = origSaModelsCount2; // 2D billboards
+        gMainClass.sub180.count_08 = origSaModelsCount1; // 3D models
+        gMainClass.sub180.count_0C = origSaModelsCount2; // 2D billboards
     }
 }
 
@@ -571,4 +606,28 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
 
 s32 Actor_IsKilled(Actor* actor) {
     return actor->update == NULL && actor->draw == NULL;
+}
+
+void Actor_ReinitSkelAnime(Actor* actor, SkelAnime* anime, s32 cmbIndex) {
+    if (anime->cmbMan == NULL) {
+        // SkelAnime is not initialized
+        return;
+    }
+
+    // Temporarily store animation values
+    s32 animIndex    = anime->animIndex;
+    f32 curFrame     = anime->curFrame;
+    f32 playSpeed    = anime->playSpeed;
+    f32 startFrame   = anime->startFrame;
+    f32 endFrame     = anime->endFrame;
+    f32 animMode     = anime->animMode;
+    void* jointTable = anime->dynamicTables ? NULL : anime->jointTable;
+    void* morphTable = anime->dynamicTables ? NULL : anime->morphTable;
+
+    // Reinitialize SkelAnime and reload the same animation at the same frame.
+    SkelAnime_Destroy(anime);
+    SkelAnime_Init(actor, gGlobalContext, anime, cmbIndex, animIndex, jointTable, morphTable, 0);
+    Animation_ChangeImpl(anime, animIndex, playSpeed, startFrame, endFrame, animMode, 0.0, 0);
+    anime->curFrame = curFrame < 1.0 ? 0.0 : curFrame - 1.0;
+    SkelAnime_Update(anime);
 }

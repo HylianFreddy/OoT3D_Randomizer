@@ -5,78 +5,119 @@
 #include "actor.h"
 #include "common.h"
 #include "flying_traps.h"
+#include "objects.h"
+#include "shabom.h"
+#include "poe.h"
+#include "octorok.h"
+#include "peahat.h"
+#include "tektite.h"
+#include "lizalfos.h"
+#include "biri.h"
+#include "skulltula.h"
+#include "torch_slug.h"
+#include "stinger.h"
+#include "deku_baba.h"
+#include "beamos.h"
+#include "shabom.h"
+#include "wallmaster.h"
+#include "tentacle.h"
+#include "skull_kid.h"
+#include "deku_scrubs.h"
+#include "business_scrubs.h"
+#include "door.h"
+#include "flare_dancer.h"
+#include "dead_hand.h"
+#include "dodongos.h"
+#include "tailpasaran.h"
+#include "moblin.h"
+#include "guay.h"
+#include "wolfos.h"
+#include "stalfos.h"
+#include "gerudos.h"
+#include "dark_link.h"
+#include "spike.h"
+#include "freezard.h"
+
+#include "z3D/actors/z_en_firefly.h"
+#include "z3D/actors/z_en_rd.h"
+#include "z3D/actors/z_en_rr.h"
+
+static void SoullessFlames_Draw(void);
+static void SoullessModels_RestoreSoul(EnemySoulId soulId);
+static void SoullessModels_HandleRestoreRequest(void);
 
 // clang-format off
-static EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
+EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
     switch (actorId) {
-        case 0x00D: return SOUL_POE; // Small Poe
-        case 0x175: return SOUL_POE; // Big Poe
-        case 0x091: return SOUL_POE; // Poe Sisters
-        case 0x00E: return SOUL_OCTOROK; // Octorok
-        case 0x0C6: return SOUL_OCTOROK; // Big Octo
-        case 0x013: return SOUL_KEESE;
-        case 0x01B: return SOUL_TEKTITE;
-        case 0x01C: return SOUL_LEEVER;
-        case 0x01D: return SOUL_PEAHAT;
-        case 0x025: return SOUL_LIZALFOS;
-        case 0x02D: return SOUL_SHABOM;
-        case 0x034: return SOUL_BIRI_BARI; // Biri
-        case 0x063: return SOUL_BIRI_BARI; // Bari
-        case 0x035: return SOUL_TAILPASARAN;
-        case 0x037: return SOUL_SKULLTULA; // Normal
-        case 0x095: return SOUL_SKULLTULA; // Walltula/Gold
-        case 0x038: return SOUL_TORCH_SLUG;
-        case 0x03A: return SOUL_STINGER; // Land
-        case 0x18C: return SOUL_STINGER; // Water
-        case 0x04B: return SOUL_MOBLIN;
-        case 0x054: return SOUL_ARMOS;
-        case 0x055: return SOUL_DEKU_BABA; // Normal
-        case 0x0C7: return SOUL_DEKU_BABA; // Withered
-        case 0x069: return SOUL_BUBBLE;
-        case 0x11D: return SOUL_FLYING_TRAP; // Flying Pot
-        case 0x06B: return SOUL_FLYING_TRAP; // Flying Tile
-        case 0x08A: return SOUL_BEAMOS;
-        case 0x011: return SOUL_WALLMASTER; // Wallmaster
-        case 0x08E: return SOUL_WALLMASTER; // Floormaster
-        case 0x090: return SOUL_REDEAD_GIBDO;
-        case 0x0C5: return SOUL_SHELL_BLADE;
-        case 0x0DD: return SOUL_LIKE_LIKE;
-        case 0x0DE: return SOUL_TENTACLE;
-        case 0x0E0: return SOUL_ANUBIS;
-        case 0x0EC: return SOUL_SPIKE;
-        case 0x115: return SOUL_SKULL_KID;
-        case 0x121: return SOUL_FREEZARD;
-        case 0x192: return SOUL_DEKU_SCRUB; // Normal (green)
-        case 0x060: return SOUL_DEKU_SCRUB; // Mad (red)
-        case 0x195: return SOUL_DEKU_SCRUB; // Business
-        case 0x1AF: return SOUL_WOLFOS;
-        case 0x1B0: return SOUL_STALCHILD;
-        case 0x1C0: return SOUL_GUAY;
-        case 0x1C1: return SOUL_DOOR_MIMIC;
-        case 0x002: return SOUL_STALFOS;
-        case 0x033: return SOUL_DARK_LINK;
-        case 0x099: return SOUL_FLARE_DANCER; // Normal
-        case 0x0AB: return SOUL_FLARE_DANCER; // Core
-        case 0x0A4: return SOUL_DEAD_HAND; // Body
-        case 0x0A5: return SOUL_DEAD_HAND; // Hands
-        case 0x186: return SOUL_GERUDO; // Purple Gerudo guards
-        case 0x197: return SOUL_GERUDO; // Gerudo fighters
-        case 0x113: return SOUL_GERUDO; // Iron Knuckles
-        case 0x028: return SOUL_GOHMA; // Queen Gohma
-        case 0x02B: return SOUL_GOHMA; // Gohma Larva/Egg
-        case 0x012: return SOUL_DODONGO; // Dodongo
-        case 0x02F: return SOUL_DODONGO; // Baby Dodongo
-        case 0x027: return SOUL_DODONGO; // King Dodongo
-        case 0x0BA: return SOUL_BARINADE;
-        case 0x052: return SOUL_PHANTOM_GANON; // PG
-        case 0x067: return SOUL_PHANTOM_GANON; // Horse
-        case 0x096: return SOUL_VOLVAGIA; // Flying
-        case 0x0A2: return SOUL_VOLVAGIA; // Hole
-        case 0x0C4: return SOUL_MORPHA;
-        case 0x0E9: return SOUL_BONGO_BONGO;
-        case 0x0DC: return SOUL_TWINROVA;
-        case 0x0E8: return SOUL_GANON; // Ganondorf
-        case 0x17A: return SOUL_GANON; // Ganon
+        case ACTOR_POE:                    return SOUL_POE;
+        case ACTOR_FIELD_POE:              return SOUL_POE;
+        case ACTOR_POE_SISTER:             return SOUL_POE;
+        case ACTOR_OCTOROK:                return SOUL_OCTOROK;
+        case ACTOR_BIG_OCTO:               return SOUL_OCTOROK;
+        case ACTOR_KEESE:                  return SOUL_KEESE;
+        case ACTOR_TEKTITE:                return SOUL_TEKTITE;
+        case ACTOR_LEEVER:                 return SOUL_LEEVER;
+        case ACTOR_PEAHAT:                 return SOUL_PEAHAT;
+        case ACTOR_LIZALFOS:               return SOUL_LIZALFOS;
+        case ACTOR_SHABOM:                 return SOUL_SHABOM;
+        case ACTOR_BIRI:                   return SOUL_BIRI_BARI;
+        case ACTOR_BARI:                   return SOUL_BIRI_BARI;
+        case ACTOR_TAILPASARAN:            return SOUL_TAILPASARAN;
+        case ACTOR_SKULLTULA:              return SOUL_SKULLTULA;
+        case ACTOR_SKULLWALLTULA:          return SOUL_SKULLTULA;
+        case ACTOR_TORCH_SLUG:             return SOUL_TORCH_SLUG;
+        case ACTOR_STINGER_FLOOR:          return SOUL_STINGER;
+        case ACTOR_STINGER_WATER:          return SOUL_STINGER;
+        case ACTOR_MOBLIN:                 return SOUL_MOBLIN;
+        case ACTOR_ARMOS:                  return SOUL_ARMOS;
+        case ACTOR_DEKU_BABA:              return SOUL_DEKU_BABA;
+        case ACTOR_WITHERED_DEKU_BABA:     return SOUL_DEKU_BABA;
+        case ACTOR_BUBBLE:                 return SOUL_BUBBLE;
+        case ACTOR_FLYING_POT:             return SOUL_FLYING_TRAP;
+        case ACTOR_FLYING_FLOOR_TILE:      return SOUL_FLYING_TRAP;
+        case ACTOR_BEAMOS:                 return SOUL_BEAMOS;
+        case ACTOR_WALLMASTER:             return SOUL_WALLMASTER;
+        case ACTOR_FLOORMASTER:            return SOUL_WALLMASTER;
+        case ACTOR_REDEAD:                 return SOUL_REDEAD_GIBDO;
+        case ACTOR_SHELL_BLADE:            return SOUL_SHELL_BLADE;
+        case ACTOR_LIKE_LIKE:              return SOUL_LIKE_LIKE;
+        case ACTOR_PARASITIC_TENTACLE:     return SOUL_TENTACLE;
+        case ACTOR_OBSTACLE_TENTACLE:      return SOUL_TENTACLE;
+        case ACTOR_ANUBIS:                 return SOUL_ANUBIS;
+        case ACTOR_SPIKE:                  return SOUL_SPIKE;
+        case ACTOR_SKULL_KID:              return SOUL_SKULL_KID;
+        case ACTOR_FREEZARD:               return SOUL_FREEZARD;
+        case ACTOR_HINT_DEKU_SCRUB:        return SOUL_DEKU_SCRUB;
+        case ACTOR_MAD_SCRUB:              return SOUL_DEKU_SCRUB;
+        case ACTOR_BUSINESS_SCRUB:         return SOUL_DEKU_SCRUB;
+        case ACTOR_WOLFOS:                 return SOUL_WOLFOS;
+        case ACTOR_STALCHILD:              return SOUL_STALCHILD;
+        case ACTOR_GUAY:                   return SOUL_GUAY;
+        case ACTOR_DOOR_MIMIC:             return SOUL_DOOR_MIMIC;
+        case ACTOR_STALFOS:                return SOUL_STALFOS;
+        case ACTOR_DARK_LINK:              return SOUL_DARK_LINK;
+        case ACTOR_FLARE_DANCER:           return SOUL_FLARE_DANCER;
+        case ACTOR_FLARE_DANCER_CORE:      return SOUL_FLARE_DANCER;
+        case ACTOR_DEAD_HAND:              return SOUL_DEAD_HAND;
+        case ACTOR_DEAD_HAND_HAND:         return SOUL_DEAD_HAND;
+        case ACTOR_GERUDO_GUARD:           return SOUL_GERUDO;
+        case ACTOR_GERUDO_FIGHTER:         return SOUL_GERUDO;
+        case ACTOR_IRON_KNUCKLE:           return SOUL_GERUDO;
+        case ACTOR_GOHMA:                  return SOUL_GOHMA;
+        case ACTOR_GOHMA_LARVA:            return SOUL_GOHMA;
+        case ACTOR_DODONGO:                return SOUL_DODONGO;
+        case ACTOR_BABY_DODONGO:           return SOUL_DODONGO;
+        case ACTOR_KING_DODONGO:           return SOUL_DODONGO;
+        case ACTOR_BARINADE:               return SOUL_BARINADE;
+        case ACTOR_PHANTOM_GANON:          return SOUL_PHANTOM_GANON;
+        case ACTOR_PG_HORSE:               return SOUL_PHANTOM_GANON;
+        case ACTOR_VOLVAGIA_FLYING:        return SOUL_VOLVAGIA;
+        case ACTOR_VOLVAGIA_HOLE:          return SOUL_VOLVAGIA;
+        case ACTOR_MORPHA:                 return SOUL_MORPHA;
+        case ACTOR_BONGO_BONGO:            return SOUL_BONGO_BONGO;
+        case ACTOR_TWINROVA:               return SOUL_TWINROVA;
+        case ACTOR_GANONDORF:              return SOUL_GANON;
+        case ACTOR_GANON:                  return SOUL_GANON;
     }
 
     return SOUL_NONE;
@@ -90,17 +131,41 @@ u8 EnemySouls_GetSoulFlag(EnemySoulId soulId) {
     return gExtSaveData.extInf.enemySouls[(soulId >> 3)] & (1 << (soulId & 0b111));
 }
 
-void EnemySouls_SetSoulFlag(EnemySoulId soulId) {
+static void EnemySouls_SetSoulFlag(EnemySoulId soulId) {
     if (soulId == SOUL_NONE) {
         return;
     }
     gExtSaveData.extInf.enemySouls[(soulId >> 3)] |= (1 << (soulId & 0b111));
 }
 
-u8 EnemySouls_CheckSoulForActor(Actor* actor) {
-    if ((gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_OFF) ||
-        (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_BOSSES && !Actor_IsBoss(actor)) ||
-        (actor->id == 0x054 && ((EnAm*)actor)->textureBlend == 0 /* Armos, statue or asleep */)) {
+typedef enum SoulCheck {
+    SOULCHECK_BASE,
+    SOULCHECK_COLLISION,
+    SOULCHECK_DRAW,
+} SoulCheck;
+
+static u8 EnemySouls_CheckSoul_Impl(Actor* actor, SoulCheck soulCheck) {
+    if (actor == NULL || (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_OFF) ||
+        (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_BOSSES && !Actor_IsBoss(actor))) {
+        return TRUE;
+    }
+
+    if (soulCheck >= SOULCHECK_COLLISION &&
+        // Armos statues and asleep Armos enemies, included so they can be hit and woken up even while soulless
+        actor->id == ACTOR_ARMOS && ((EnAm*)actor)->textureBlend == 0) {
+        return TRUE;
+    }
+
+    if (soulCheck >= SOULCHECK_DRAW &&
+        // If enemy is culled, don't draw soulless effects
+        (!(actor->flags & ACTOR_FLAG_INSIDE_CULLING_VOLUME) ||
+         // If scale is zero, enemy is invisible
+         (actor->scale.x == 0 && actor->scale.y == 0 && actor->scale.z == 0) ||
+         // Hidden flying traps will appear normal
+         FlyingTraps_IsHiddenTrap(actor) ||
+         // These will just look normal because the flames appear in the wrong place
+         (actor->id == ACTOR_OBSTACLE_TENTACLE &&
+          gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_PURPLE_FLAMES))) {
         return TRUE;
     }
 
@@ -108,16 +173,47 @@ u8 EnemySouls_CheckSoulForActor(Actor* actor) {
     return soulId == SOUL_NONE || EnemySouls_GetSoulFlag(soulId);
 }
 
-u8 EnemySouls_ShouldDrawSoulless(Actor* actor) {
-    return !EnemySouls_CheckSoulForActor(actor) && // soul not owned;
-           actor->scale.x != 0 &&                  // if scale is 0, enemy is invisible;
-           !FlyingTraps_IsHiddenTrap(actor);       // hidden flying traps will appear normal.
+u8 EnemySouls_CheckSoulForActor(Actor* actor) {
+    return EnemySouls_CheckSoul_Impl(actor, SOULCHECK_COLLISION);
 }
+
+u8 EnemySouls_ShouldDrawSoulless(Actor* actor) {
+    return !EnemySouls_CheckSoul_Impl(actor, SOULCHECK_DRAW);
+}
+
+void EnemySouls_OnCollect(EnemySoulId soulId) {
+    if (EnemySouls_GetSoulFlag(soulId)) {
+        return;
+    }
+
+    EnemySouls_SetSoulFlag(soulId);
+
+    if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_BLACK) {
+        SoullessModels_RestoreSoul(soulId);
+    }
+}
+
+void EnemySouls_Update(void) {
+    if (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_OFF) {
+        return;
+    }
+
+    switch (gSettingsContext.soullessEnemiesLook) {
+        case SOULLESSLOOK_PURPLE_FLAMES:
+            return SoullessFlames_Draw();
+        case SOULLESSLOOK_BLACK:
+            return SoullessModels_HandleRestoreRequest();
+    }
+}
+
+/*-------------------------------
+|    Soulless Flames effect     |
+-------------------------------*/
 
 #define SOULLESS_EFFECT_DURATION 8
 #define SOULLESS_EFFECT_INTERVAL 3
 
-static void SoullessEffect_Draw(Vec3f pos, f32 xRange, f32 yRange, f32 zRange, s16 scale) {
+static void SoullessFlames_SpawnFlame(Vec3f pos, f32 xRange, f32 yRange, f32 zRange, s16 scale) {
     pos.x += xRange * (Rand_ZeroOne() - 0.5);
     pos.y += yRange * (Rand_ZeroOne() - 0.5) + scale / 10;
     pos.z += zRange * (Rand_ZeroOne() - 0.5);
@@ -138,35 +234,33 @@ static void SoullessEffect_Draw(Vec3f pos, f32 xRange, f32 yRange, f32 zRange, s
                          primColor.a, envColor.r, envColor.g, envColor.b, 1, SOULLESS_EFFECT_DURATION, 0);
 }
 
-static void SoullessEffect_ParseCollider(Collider* collider) {
-    if (collider == NULL || collider->actor == NULL) {
+static void SoullessFlames_ParseCollider(Collider* collider) {
+    if (collider == NULL || !EnemySouls_ShouldDrawSoulless(collider->actor)) {
         return;
     }
 
-    if (collider->actor->flags & ACTOR_FLAG_INSIDE_CULLING_VOLUME && EnemySouls_ShouldDrawSoulless(collider->actor)) {
-        u8 isBoss = collider->actor->type == ACTORTYPE_BOSS;
-        switch (collider->shape) {
-            case COLSHAPE_JNTSPH:
-                ColliderJntSph* jntSphCol = (ColliderJntSph*)collider;
-                for (s32 j = 0; j < jntSphCol->count; j++) {
-                    ColliderJntSphElement* elem = &jntSphCol->elements[j];
-                    Spheref worldSphere         = elem->dim.worldSphere;
-                    s16 scale                   = isBoss ? 150 : worldSphere.radius > 10.0f ? 100 : 50;
-                    SoullessEffect_Draw(worldSphere.center, worldSphere.radius, worldSphere.radius, worldSphere.radius,
-                                        scale);
-                }
-                break;
-            case COLSHAPE_CYLINDER:
-                ColliderCylinder* cylCol = (ColliderCylinder*)collider;
-                s16 scale                = isBoss ? 150 : cylCol->dim.radius > 10.0f ? 100 : 50;
-                SoullessEffect_Draw(cylCol->dim.position, cylCol->dim.radius, cylCol->dim.height, cylCol->dim.radius,
-                                    scale);
-                break;
-        }
+    u8 isBoss = collider->actor->type == ACTORTYPE_BOSS;
+    switch (collider->shape) {
+        case COLSHAPE_JNTSPH:
+            ColliderJntSph* jntSphCol = (ColliderJntSph*)collider;
+            for (s32 j = 0; j < jntSphCol->count; j++) {
+                ColliderJntSphElement* elem = &jntSphCol->elements[j];
+                Spheref worldSphere         = elem->dim.worldSphere;
+                s16 scale                   = isBoss ? 150 : worldSphere.radius > 10.0f ? 100 : 50;
+                SoullessFlames_SpawnFlame(worldSphere.center, worldSphere.radius, worldSphere.radius,
+                                          worldSphere.radius, scale);
+            }
+            break;
+        case COLSHAPE_CYLINDER:
+            ColliderCylinder* cylCol = (ColliderCylinder*)collider;
+            s16 scale                = isBoss ? 150 : cylCol->dim.radius > 10.0f ? 100 : 50;
+            SoullessFlames_SpawnFlame(cylCol->dim.position, cylCol->dim.radius, cylCol->dim.height, cylCol->dim.radius,
+                                      scale);
+            break;
     }
 }
 
-void EnemySouls_DrawEffects(void) {
+static void SoullessFlames_Draw(void) {
     if ((gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_PURPLE_FLAMES || PauseContext_GetState() != 0) ||
         rGameplayFrames % SOULLESS_EFFECT_INTERVAL != 0) {
         return;
@@ -175,12 +269,329 @@ void EnemySouls_DrawEffects(void) {
     // Parse all colliders subscribed to AC
     for (s32 i = 0; i < gGlobalContext->colChkCtx.colAcCount; i++) {
         Collider* collider = gGlobalContext->colChkCtx.colAc[i];
-        SoullessEffect_ParseCollider(collider);
+        SoullessFlames_ParseCollider(collider);
     }
 
     // Parse all colliders subscribed to OC
     for (s32 i = 0; i < gGlobalContext->colChkCtx.colOcCount; i++) {
         Collider* collider = gGlobalContext->colChkCtx.colOc[i];
-        SoullessEffect_ParseCollider(collider);
+        SoullessFlames_ParseCollider(collider);
+    }
+}
+
+/*-------------------------------
+|     Soulless Model edits      |
+-------------------------------*/
+
+// Used to delay restoring CMB data to the next frame, because some unknown things get initialized during the drawing
+// process after the GameState update
+u8 SoullessModels_CmbRestoreRequest = FALSE;
+
+typedef struct CmbOriginalData {
+    char status;
+    struct {
+        u8 textureMappersUsed : 4;
+        u8 alphaTestEnabled : 1;          // boolean
+        u8 blendMode : 2;                 // values 0-3
+        u8 isFragmentLightingEnabled : 1; // boolean
+    } mats[15];
+} CmbOriginalData;
+_Static_assert(sizeof(CmbOriginalData) == sizeof(((CMB_HEAD*)0)->name), "CmbOriginalData size");
+
+#define CMBSTATUS_MODIFIED '-'
+#define CMBSTATUS_RESTORED '^'
+
+// Use CMB name field as a buffer to store original values for overwritten data
+static CmbOriginalData* Cmb_GetOrigDataBuffer(CmbManager* cmbMan) {
+    return (CmbOriginalData*)&((CMB_HEAD*)cmbMan->cmbChunk)->name;
+}
+
+void SoullessModels_ModifyCmb(CmbManager* cmbMan, s32 newTexMapCount, s32 matToSkip) {
+    CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
+    if (origDataBuf->status != CMBSTATUS_MODIFIED) {
+        origDataBuf->status = CMBSTATUS_MODIFIED;
+        CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
+        for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
+            if (matIdx == matToSkip) {
+                continue;
+            }
+
+            Material* mat                                       = &cmbMats->materials[matIdx];
+            origDataBuf->mats[matIdx].textureMappersUsed        = mat->textureMappersUsed;
+            origDataBuf->mats[matIdx].alphaTestEnabled          = mat->alphaTestEnabled;
+            origDataBuf->mats[matIdx].blendMode                 = mat->blendMode;
+            origDataBuf->mats[matIdx].isFragmentLightingEnabled = mat->isFragmentLightingEnabled;
+
+            mat->textureMappersUsed        = newTexMapCount;
+            mat->alphaTestEnabled          = 0;
+            mat->blendMode                 = 0;
+            mat->isFragmentLightingEnabled = 0;
+        }
+    }
+};
+
+static s32 SoullessModels_GetMatToSkip(s16 objectId) {
+    switch (objectId) {
+        case OBJECT_ARMOS:
+            return 0; // eyes
+        case OBJECT_TENTACLE:
+            return 1; // electric field (for both models)
+    }
+    return -1;
+}
+
+void SoullessModels_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 cmbIdx) {
+    if (gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_BLACK ||
+        EnemySouls_CheckSoul_Impl(gRunningActor, SOULCHECK_BASE)) {
+        return;
+    }
+
+    ObjectEntry* obj = Object_FindEntryByZarInfo(zarInfo);
+
+    // Ignore CmbManagers from global "keep" objects, even if this actor is the first one to request them (thus causing
+    // them to initialize).
+    if (obj == NULL || obj->id <= OBJECT_GAMEPLAY_DUNGEON_KEEP) {
+        return;
+    }
+
+    // Don't modify certain models
+    if ((obj->id == OBJECT_WALLMASTER && cmbIdx == 2)      // hand shadow
+        || (obj->id == OBJECT_TENTACLE && cmbIdx == 1)     // dead blob
+        || (obj->id == OBJECT_DEAD_HAND && cmbIdx == 2)    // dirt wave
+        || (obj->id == OBJECT_KING_DODONGO && cmbIdx != 2) // KD body
+        || (obj->id == OBJECT_BARINADE && cmbIdx != 0 && cmbIdx != 3 && cmbIdx != 4 && cmbIdx != 7 &&
+            cmbIdx != 12)                                  // arms, body and jellyfish
+        || obj->id == OBJECT_FLYING_FLOOR_TILE             // handled in own update function
+        || (obj->id == OBJECT_FREEZARD && cmbIdx == 1)     // ice breath
+        || (obj->id == OBJECT_GANONDORF && cmbIdx != 2)    // main body
+        || (obj->id == OBJECT_GANON && cmbIdx != 0)        // main body
+        || (obj->id == OBJECT_POE && cmbIdx != 0)          // main body
+        || (obj->id == OBJECT_POE_COMPOSER && cmbIdx != 0) // main body
+    ) {
+        return;
+    }
+
+    // Don't modify certain materials
+    s32 matToSkip      = SoullessModels_GetMatToSkip(obj->id);
+    s32 newTexMapCount = 0;
+    if (obj->id == OBJECT_ARMOS) {
+        newTexMapCount = 1; // remove texture only for "awoken" state
+    }
+
+    SoullessModels_ModifyCmb(cmbMan, newTexMapCount, matToSkip);
+}
+
+u8 SoullessModels_RestoreCmb(CmbManager* cmbMan, s32 matToSkip) {
+    u8 materialRestored          = FALSE;
+    CmbOriginalData* origDataBuf = Cmb_GetOrigDataBuffer(cmbMan);
+    if (origDataBuf->status == CMBSTATUS_MODIFIED) {
+        origDataBuf->status = CMBSTATUS_RESTORED;
+        CMB_MATS* cmbMats   = Cmb_GetMatsChunk(cmbMan->cmbChunk);
+        for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
+            // Skip materials that weren't modified
+            if (matIdx == matToSkip) {
+                continue;
+            }
+
+            Material* mat                  = &cmbMats->materials[matIdx];
+            mat->textureMappersUsed        = origDataBuf->mats[matIdx].textureMappersUsed;
+            mat->alphaTestEnabled          = origDataBuf->mats[matIdx].alphaTestEnabled;
+            mat->blendMode                 = origDataBuf->mats[matIdx].blendMode;
+            mat->isFragmentLightingEnabled = origDataBuf->mats[matIdx].isFragmentLightingEnabled;
+            materialRestored               = TRUE;
+        }
+    }
+    return materialRestored;
+}
+
+static void SoullessModels_RestoreObject(u16 objectId) {
+    s32 slot = Object_GetSlot(&gGlobalContext->objectCtx, objectId);
+    if (slot < 0 || !Object_IsLoaded(&gGlobalContext->objectCtx, slot)) {
+        return;
+    }
+
+    ObjectEntry* obj = Object_GetEntry(slot);
+    ZARInfo* zarInfo = &obj->zarInfo;
+
+    s32 numCMBs = zarInfo->fileTypes[zarInfo->fileTypeMap[0]].numFiles;
+    for (s32 cmbIdx = 0; cmbIdx < numCMBs; cmbIdx++) {
+        CmbManager* cmbMan = zarInfo->cmbMans[cmbIdx];
+        if (cmbMan == NULL) {
+            continue;
+        }
+        // Restore original values for each CMB that was modified.
+        s32 matToSkip = SoullessModels_GetMatToSkip(objectId);
+        u8 modified   = SoullessModels_RestoreCmb(cmbMan, matToSkip);
+        if (modified) {
+            // Destroy CMB Manager so it will be reinitialized the next time it's needed.
+            CmbManager_Destroy(cmbMan);
+            gStaticClass_55A19C.sub44->vTable->destroyCmb(gStaticClass_55A19C.sub44, cmbMan);
+            zarInfo->cmbMans[cmbIdx] = NULL;
+        }
+    }
+}
+
+static void SoullessModels_RestoreActor(Actor* actor) {
+    switch (actor->id) {
+        case ACTOR_POE: // doesnt fade in
+            return EnPoh_ReinitModels((EnPoh*)actor);
+        case ACTOR_FIELD_POE: // doesnt fade in
+            return EnPoField_ReinitModels((EnPoField*)actor);
+        case ACTOR_POE_SISTER:
+            return EnPoSisters_ReinitModels((EnPoSisters*)actor);
+        case ACTOR_OCTOROK:
+            return EnOkuta_ReinitModels((EnOkuta*)actor);
+        case ACTOR_TEKTITE:
+            return EnTite_ReinitModels((EnTite*)actor);
+        case ACTOR_PEAHAT:
+            return EnPeehat_ReinitModels((EnPeehat*)actor);
+        case ACTOR_LIZALFOS:
+            return EnZf_ReinitModels((EnZf*)actor);
+        case ACTOR_BIRI:
+            return EnBili_ReinitModels((EnBili*)actor);
+        case ACTOR_BARI:
+            return EnVali_ReinitModels((EnVali*)actor);
+        case ACTOR_SKULLWALLTULA:
+            return EnSw_ReinitModels((EnSw*)actor);
+        case ACTOR_TORCH_SLUG:
+            return EnBw_ReinitModels((EnBw*)actor);
+        case ACTOR_STINGER_FLOOR:
+            return EnEiyer_ReinitModels((EnEiyer*)actor);
+        case ACTOR_ARMOS:
+            return Actor_ReinitSkelAnime(actor, &((EnAm*)actor)->anime, 0);
+        case ACTOR_DEKU_BABA:
+            return EnDekubaba_ReinitModels((EnDekubaba*)actor);
+        case ACTOR_WITHERED_DEKU_BABA:
+            return EnKarebaba_ReinitModels((EnKarebaba*)actor);
+        case ACTOR_BEAMOS:
+            return EnVm_ReinitModels((EnVm*)actor);
+        case ACTOR_WALLMASTER:
+            return EnWallmas_ReinitModels((EnWallmas*)actor);
+        case ACTOR_PARASITIC_TENTACLE:
+            return EnBa_ReinitModels((EnBa*)actor);
+        case ACTOR_OBSTACLE_TENTACLE:
+            return EnBx_ReinitModels((EnBx*)actor);
+        case ACTOR_SKULL_KID:
+            return EnSkj_ReinitModels((EnSkj*)actor);
+        case ACTOR_HINT_DEKU_SCRUB:
+            return EnHintnuts_ReinitModels((EnHintnuts*)actor);
+        case ACTOR_MAD_SCRUB:
+            return EnDekunuts_ReinitModels((EnDekunuts*)actor);
+        case ACTOR_BUSINESS_SCRUB:
+            return EnShopnuts_ReinitModels((EnShopnuts*)actor);
+        case ACTOR_DOOR_MIMIC:
+            return DoorKiller_ReinitModels((DoorKiller*)actor);
+        case ACTOR_FLARE_DANCER:
+            return EnFd_ReinitModels((EnFd*)actor);
+        case ACTOR_DEAD_HAND:
+            return EnDh_ReinitModels((EnDh*)actor);
+        case ACTOR_KING_DODONGO:
+            return BossDodongo_ReinitModels((BossDodongo*)actor);
+        case ACTOR_KEESE:
+            return Actor_ReinitSkelAnime(actor, &((EnFirefly*)actor)->skelAnime, 0);
+        case ACTOR_TAILPASARAN:
+            return EnTp_ReinitModels((EnTp*)actor);
+        case ACTOR_MOBLIN:
+            return EnMb_ReinitModels((EnMb*)actor);
+        case ACTOR_GUAY:
+            return Actor_ReinitSkelAnime(actor, &((EnCrow*)actor)->skelAnime, 0);
+        case ACTOR_REDEAD:
+            return Actor_ReinitSkelAnime(actor, &((EnRd*)actor)->skelAnime, actor->params >= -1 ? 0 : 1);
+        case ACTOR_WOLFOS:
+            return EnWf_ReinitModels((EnWf*)actor);
+        case ACTOR_STALFOS:
+            return EnTest_ReinitModels((EnTest*)actor);
+        case ACTOR_GERUDO_FIGHTER:
+            return EnGeldB_ReinitModels((EnGeldB*)actor);
+        case ACTOR_LIKE_LIKE:
+            return Actor_ReinitSkelAnime(actor, &((EnRr*)actor)->skelAnime, 0);
+        case ACTOR_DARK_LINK:
+            return EnTorch2_ReinitModels((EnTorch2*)actor);
+        case ACTOR_GERUDO_GUARD:
+            return EnGe2_ReinitModels((EnGe2*)actor);
+        case ACTOR_SHABOM:
+            return EnBubble_ReinitModels((EnBubble*)actor);
+        case ACTOR_SPIKE:
+            return EnNy_ReinitModels((EnNy*)actor);
+        case ACTOR_FREEZARD:
+            return EnFz_ReinitModels((EnFz*)actor);
+        case ACTOR_BIG_OCTO:
+        case ACTOR_LEEVER:
+        case ACTOR_SKULLTULA:
+        case ACTOR_STINGER_WATER:
+        case ACTOR_BUBBLE:
+        case ACTOR_FLOORMASTER:
+        case ACTOR_SHELL_BLADE:
+        case ACTOR_ANUBIS:
+        case ACTOR_STALCHILD:
+        case ACTOR_DEAD_HAND_HAND:
+        case ACTOR_IRON_KNUCKLE:
+        case ACTOR_GOHMA:
+        case ACTOR_GOHMA_LARVA:
+        case ACTOR_BABY_DODONGO:
+        case ACTOR_DODONGO:
+            typedef struct GenericSkelAnimeActor {
+                /* 0x000 */ Actor actor;
+                /* 0x1A4 */ SkelAnime anime;
+            } GenericSkelAnimeActor;
+            return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, 0);
+
+        case ACTOR_FLARE_DANCER_CORE:
+            // This is ignored because it can't spawn if the player doesn't have the Flare Dancer Soul.
+
+        case ACTOR_FLYING_POT:
+        case ACTOR_FLYING_FLOOR_TILE:
+            // These are handled in their own update function.
+
+        case ACTOR_BARINADE:
+        case ACTOR_PHANTOM_GANON:
+        case ACTOR_PG_HORSE:
+        case ACTOR_VOLVAGIA_FLYING:
+        case ACTOR_VOLVAGIA_HOLE:
+        case ACTOR_MORPHA:
+        case ACTOR_BONGO_BONGO:
+        case ACTOR_TWINROVA:
+        case ACTOR_GANONDORF:
+        case ACTOR_GANON:
+            // These are ignored because the player can't get items while they're loaded.
+    }
+}
+
+static void SoullessModels_RestoreSoul(EnemySoulId soulId) {
+    for (s32 i = 0; i < ACTOR_MAX; i++) {
+        ActorInit* profile = gActorOverlayTable[i].initInfo;
+        if (profile != NULL && EnemySouls_GetSoulId(profile->id) == soulId) {
+            if (profile->id == ACTOR_POE) {
+                SoullessModels_RestoreObject(OBJECT_POE);
+                SoullessModels_RestoreObject(OBJECT_POE_COMPOSER);
+            } else if (profile->objectId > OBJECT_GAMEPLAY_DUNGEON_KEEP) {
+                SoullessModels_RestoreObject(profile->objectId);
+            }
+        }
+    }
+
+    for (s32 catIdx = 0; catIdx < ACTORTYPE_MAX; catIdx++) {
+        Actor* actor = gGlobalContext->actorCtx.actorList[catIdx].first;
+        while (actor != NULL) {
+            if (EnemySouls_GetSoulId(actor->id) == soulId) {
+                SoullessModels_RestoreActor(actor);
+            }
+            actor = actor->next;
+        }
+    }
+}
+
+static void SoullessModels_HandleRestoreRequest(void) {
+    ObjectEntry* obj;
+    if (SoullessModels_CmbRestoreRequest) {
+        obj = Object_FindEntry(OBJECT_GAMEPLAY_DUNGEON_KEEP);
+        if (obj != NULL && obj->zarInfo.cmbMans[POT_CMB_INDEX] != NULL) {
+            SoullessModels_RestoreCmb(obj->zarInfo.cmbMans[POT_CMB_INDEX], -1);
+        }
+        obj = Object_FindEntry(OBJECT_FLYING_FLOOR_TILE);
+        if (obj != NULL && obj->zarInfo.cmbMans[FLYING_TILE_CMB_INDEX] != NULL) {
+            SoullessModels_RestoreCmb(obj->zarInfo.cmbMans[FLYING_TILE_CMB_INDEX], -1);
+        }
+        SoullessModels_CmbRestoreRequest = FALSE;
     }
 }

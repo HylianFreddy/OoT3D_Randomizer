@@ -1627,3 +1627,15 @@ PATCH GanonFinalBlow
 
 PATCH PlayerBonk
     bl hook_PlayerBonk
+
+PATCH CmbManagerInit
+    bl hook_CmbManagerInit
+
+PATCH ActorInit1
+    bl hook_ActorInit
+
+PATCH ActorInit2
+    bl hook_ActorInit
+
+PATCH ActorInit3
+    bl hook_ActorInit
