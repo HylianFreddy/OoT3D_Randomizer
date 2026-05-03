@@ -46,7 +46,9 @@
 #include "z3D/actors/z_en_rd.h"
 #include "z3D/actors/z_en_rr.h"
 
+static void SoullessFlames_Draw(void);
 static void SoullessDarkness_RestoreSoul(EnemySoulId soulId);
+static void SoullessDarkness_HandleRestoreRequest(void);
 
 // clang-format off
 EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
@@ -194,6 +196,19 @@ void EnemySouls_OnCollect(EnemySoulId soulId) {
     }
 }
 
+void EnemySouls_Update(void) {
+    if (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_OFF) {
+        return;
+    }
+
+    switch (gSettingsContext.soullessEnemiesLook) {
+        case SOULLESSLOOK_PURPLE_FLAMES:
+            return SoullessFlames_Draw();
+        case SOULLESSLOOK_BLACK:
+            return SoullessDarkness_HandleRestoreRequest();
+    }
+}
+
 /*-------------------------------
 |    Soulless Flames effect     |
 -------------------------------*/
@@ -201,7 +216,7 @@ void EnemySouls_OnCollect(EnemySoulId soulId) {
 #define SOULLESS_EFFECT_DURATION 8
 #define SOULLESS_EFFECT_INTERVAL 3
 
-static void SoullessFlames_Draw(Vec3f pos, f32 xRange, f32 yRange, f32 zRange, s16 scale) {
+static void SoullessFlames_SpawnFlame(Vec3f pos, f32 xRange, f32 yRange, f32 zRange, s16 scale) {
     pos.x += xRange * (Rand_ZeroOne() - 0.5);
     pos.y += yRange * (Rand_ZeroOne() - 0.5) + scale / 10;
     pos.z += zRange * (Rand_ZeroOne() - 0.5);
@@ -235,20 +250,20 @@ static void SoullessFlames_ParseCollider(Collider* collider) {
                 ColliderJntSphElement* elem = &jntSphCol->elements[j];
                 Spheref worldSphere         = elem->dim.worldSphere;
                 s16 scale                   = isBoss ? 150 : worldSphere.radius > 10.0f ? 100 : 50;
-                SoullessFlames_Draw(worldSphere.center, worldSphere.radius, worldSphere.radius, worldSphere.radius,
-                                    scale);
+                SoullessFlames_SpawnFlame(worldSphere.center, worldSphere.radius, worldSphere.radius,
+                                          worldSphere.radius, scale);
             }
             break;
         case COLSHAPE_CYLINDER:
             ColliderCylinder* cylCol = (ColliderCylinder*)collider;
             s16 scale                = isBoss ? 150 : cylCol->dim.radius > 10.0f ? 100 : 50;
-            SoullessFlames_Draw(cylCol->dim.position, cylCol->dim.radius, cylCol->dim.height, cylCol->dim.radius,
-                                scale);
+            SoullessFlames_SpawnFlame(cylCol->dim.position, cylCol->dim.radius, cylCol->dim.height, cylCol->dim.radius,
+                                      scale);
             break;
     }
 }
 
-void EnemySouls_DrawEffects(void) {
+static void SoullessFlames_Draw(void) {
     if ((gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_PURPLE_FLAMES || PauseContext_GetState() != 0) ||
         rGameplayFrames % SOULLESS_EFFECT_INTERVAL != 0) {
         return;
@@ -270,6 +285,10 @@ void EnemySouls_DrawEffects(void) {
 /*-------------------------------
 |   Soulless Darkness effect    |
 -------------------------------*/
+
+// Used to delay restoring CMB data to the next frame, because some unknown things get initialized during the drawing
+// process after the GameState update
+u8 SoullessDarkness_CmbRestoreRequest = FALSE;
 
 typedef struct CmbOriginalData {
     char status;
@@ -434,11 +453,6 @@ static void SoullessDarkness_RestoreObject(u16 objectId) {
     }
 }
 
-typedef struct GenericSkelAnimeActor {
-    /* 0x000 */ Actor actor;
-    /* 0x1A4 */ SkelAnime anime;
-} GenericSkelAnimeActor;
-
 static void SoullessDarkness_RestoreActor(Actor* actor) {
     switch (actor->id) {
         case ACTOR_POE: // doesnt fade in
@@ -538,6 +552,10 @@ static void SoullessDarkness_RestoreActor(Actor* actor) {
         case ACTOR_GOHMA_LARVA:
         case ACTOR_BABY_DODONGO:
         case ACTOR_DODONGO:
+            typedef struct GenericSkelAnimeActor {
+                /* 0x000 */ Actor actor;
+                /* 0x1A4 */ SkelAnime anime;
+            } GenericSkelAnimeActor;
             return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, 0);
 
         case ACTOR_FLARE_DANCER_CORE:
@@ -589,5 +607,20 @@ static void SoullessDarkness_RestoreSoul(EnemySoulId soulId) {
             }
             actor = actor->next;
         }
+    }
+}
+
+static void SoullessDarkness_HandleRestoreRequest(void) {
+    ObjectEntry* obj;
+    if (SoullessDarkness_CmbRestoreRequest) {
+        obj = Object_FindEntry(OBJECT_GAMEPLAY_DUNGEON_KEEP);
+        if (obj != NULL && obj->zarInfo.cmbMans[POT_CMB_INDEX] != NULL) {
+            SoullessDarkness_RestoreCmb(obj->zarInfo.cmbMans[POT_CMB_INDEX], -1);
+        }
+        obj = Object_FindEntry(OBJECT_FLYING_FLOOR_TILE);
+        if (obj != NULL && obj->zarInfo.cmbMans[FLYING_TILE_CMB_INDEX] != NULL) {
+            SoullessDarkness_RestoreCmb(obj->zarInfo.cmbMans[FLYING_TILE_CMB_INDEX], -1);
+        }
+        SoullessDarkness_CmbRestoreRequest = FALSE;
     }
 }

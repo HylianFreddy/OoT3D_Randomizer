@@ -111,7 +111,7 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
     Triforce_HandleCreditsWarp();
     Enemizer_Update();
     Bgm_ApplyFanfareMod();
-    FlyingTraps_HandleCmbRestoration();
+    EnemySouls_Update();
 }
 
 void autoLoadSaveFile() {
@@ -151,7 +151,6 @@ void after_GlobalContext_Update() {
     }
 
     Multiplayer_Sync_Update();
-    EnemySouls_DrawEffects();
 
     if (gGlobalContext->state.running == 0) {
         LOG(L_MAIN, L_DEBUG, "state.running == 0");

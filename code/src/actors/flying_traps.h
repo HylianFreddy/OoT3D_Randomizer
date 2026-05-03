@@ -7,6 +7,8 @@
 |           EnTuboTrap          |
 -------------------------------*/
 
+#define POT_CMB_INDEX 13
+
 struct EnTuboTrap;
 
 typedef void (*EnTuboTrapActionFunc)(struct EnTuboTrap* this, GlobalContext* globalCtx);
@@ -33,6 +35,8 @@ void EnTuboTrap_rUpdate(Actor* thisx, GlobalContext* globalCtx);
 |           EnYukabyun          |
 -------------------------------*/
 
+#define FLYING_TILE_CMB_INDEX 1
+
 struct EnYukabyun;
 
 typedef void (*EnYukabyunActionFunc)(struct EnYukabyun* this, GlobalContext* globalCtx);
@@ -58,6 +62,5 @@ void EnYukabyun_rUpdate(Actor* thisx, GlobalContext* globalCtx);
 -------------------------------*/
 
 u8 FlyingTraps_IsHiddenTrap(Actor* actor);
-void FlyingTraps_HandleCmbRestoration(void);
 
 #endif //_FLYING_TRAPS_H_
