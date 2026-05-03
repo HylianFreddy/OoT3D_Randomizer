@@ -679,13 +679,13 @@ typedef struct SubMainClass_180 {
     /* 0x020 */ SAModelListEntry* list_1C;
     /* 0x020 */ SAModelListEntry* list_20; // 3D models
     /* 0x024 */ SAModelListEntry* list_24; // 2D billboards
-    /* ... size unknown*/
+    // ... size unknown
 } SubMainClass_180;
 
 typedef struct MainClass {
     /* 0x000 */ char unk_00[0x180];
     /* 0x180 */ SubMainClass_180 sub180;
-    /* ... size unknown*/
+    // ... size unknown
 } MainClass;
 
 extern GlobalContext* gGlobalContext;
