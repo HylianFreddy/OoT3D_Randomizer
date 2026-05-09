@@ -2,6 +2,7 @@
 #define _Z3DCMB_H_
 
 #include "s_types.h"
+#include "s_colors.h"
 
 typedef struct CMB_HEAD {
     /* 0x00 */ char magic[4];
@@ -19,24 +20,6 @@ typedef struct CMB_HEAD {
     /* 0x3C */ u32 indicesOffset;
     /* 0x40 */ u32 textureDataOffset;
 } CMB_HEAD;
-
-typedef struct TextureEntry {
-    /* 0x00 */ u32 dataLength;
-    /* 0x04 */ u16 mipMapCount;
-    /* 0x06 */ u8 isETC1;
-    /* 0x07 */ u8 isCubeMap;
-    /* 0x08 */ u16 width;
-    /* 0x0A */ u16 height;
-    /* 0x0C */ union {
-        u32 textureFormatGL;
-        struct {
-            u16 imageFormat;
-            u16 dataType;
-        };
-    };
-    /* 0x10 */ u32 dataOffset;
-    /* 0x14 */ char name[16];
-} TextureEntry;
 
 typedef struct TextureMappers {
     char unk_00[0x18];
@@ -62,18 +45,18 @@ typedef struct Material {
     u32 textureCoordsUsed;
     TextureMappers textureMapper[3];
     TextureCoords textureCoord[3];
-    Vec4b emissionColor;
-    Vec4b ambientColor;
-    Vec4b diffuse;
-    Vec4b specular0;
-    Vec4b specular1;
-    Vec4b constant0;
-    Vec4b constant1;
-    Vec4b constant2;
-    Vec4b constant3;
-    Vec4b constant4;
-    Vec4b constant5;
-    Vec4i bufferColor;
+    Color_RGBA8 emissionColor;
+    Color_RGBA8 ambientColor;
+    Color_RGBA8 diffuse;
+    Color_RGBA8 specular0;
+    Color_RGBA8 specular1;
+    Color_RGBA8 constant0;
+    Color_RGBA8 constant1;
+    Color_RGBA8 constant2;
+    Color_RGBA8 constant3;
+    Color_RGBA8 constant4;
+    Color_RGBA8 constant5;
+    Color_RGBAf bufferColor;
     u16 bumpTexture;
     u16 bumpMode;
     u8 isBumpRenormalize;
@@ -93,12 +76,62 @@ typedef struct Material {
     u16 colorSrcFunc;
     u16 colorDstFunc;
     u32 colorEquation;
-    Vec4i BlendColor;
+    Color_RGBAf BlendColor;
 } Material;
 
+typedef enum CombinerMode : u16 {
+    COMBINERMODE_REPLACE         = 0x1E01,
+    COMBINERMODE_MODULATE        = 0x2100,
+    COMBINERMODE_ADD             = 0x0104,
+    COMBINERMODE_ADDSIGNED       = 0x8574,
+    COMBINERMODE_INTERPOLATE     = 0x8575,
+    COMBINERMODE_SUBTRACT        = 0x84E7,
+    COMBINERMODE_DOTPRODUCT3RGB  = 0x86AE,
+    COMBINERMODE_DOTPRODUCT3RGBA = 0x86AF,
+    COMBINERMODE_MULTADD         = 0x6401,
+    COMBINERMODE_ADDMULT         = 0x6402,
+} CombinerMode;
+
+typedef enum CombinerSrc : u16 {
+    COMBINERSRC_PRIMARYCOLOR           = 0x8577,
+    COMBINERSRC_FRAGMENTPRIMARYCOLOR   = 0x6210,
+    COMBINERSRC_FRAGMENTSECONDARYCOLOR = 0x6211,
+    COMBINERSRC_TEXTURE_0              = 0x84C0,
+    COMBINERSRC_TEXTURE_1              = 0x84C1,
+    COMBINERSRC_TEXTURE_2              = 0x84C2,
+    COMBINERSRC_TEXTURE_3              = 0x84C3,
+    COMBINERSRC_PREVIOUSBUFFER         = 0x8579,
+    COMBINERSRC_CONSTANTCOL            = 0x8576,
+    COMBINERSRC_PREVIOUS               = 0x8578,
+} CombinerSrc;
+
+typedef enum CombinerOp : u16 {
+    COMBINEROP_COLOR         = 0x0300,
+    COMBINEROP_ONEMINUSCOLOR = 0x0301,
+    COMBINEROP_ALPHA         = 0x0302,
+    COMBINEROP_ONEMINUSALPHA = 0x0303,
+    COMBINEROP_RED           = 0x8580,
+    COMBINEROP_ONEMINUSRED   = 0x8583,
+    COMBINEROP_GREEN         = 0x8581,
+    COMBINEROP_ONEMINUSGREEN = 0x8584,
+    COMBINEROP_BLUE          = 0x8582,
+    COMBINEROP_ONEMINUSBLUE  = 0x8585,
+} CombinerOp;
+
 typedef struct Combiner {
-    char unk_00[0x28];
+    CombinerMode combinerModeColor;
+    CombinerMode combinerModeAlpha;
+    s16 scaleColor;
+    s16 scaleAlpha;
+    CombinerSrc bufferColor;
+    CombinerSrc bufferAlpha;
+    CombinerSrc sourceColors[3];
+    CombinerOp operandColors[3];
+    CombinerSrc sourceAlphas[3];
+    CombinerOp operandAlphas[3];
+    u32 constantColorIndex;
 } Combiner;
+_Static_assert(sizeof(Combiner) == 0x28, "Combiner size");
 
 typedef struct CMB_MATS {
     /* 0x00 */ char magic[4];
@@ -112,18 +145,11 @@ static inline CMB_MATS* Cmb_GetMatsChunk(void* cmb) {
     return (CMB_MATS*)(((u32)cmb) + ((CMB_HEAD*)cmb)->MATSOffset);
 }
 
-typedef struct CMB_TEX {
-    /* 0x00 */ char magic[4];
-    /* 0x04 */ u32 size;
-    /* 0x08 */ u32 textureCount;
-    /* 0x10 */ TextureEntry entries[];
-} CMB_TEX;
-
-static inline CMB_TEX* Cmb_GetTexChunk(void* cmb) {
-    return (CMB_TEX*)(((u32)cmb) + ((CMB_HEAD*)cmb)->TEXOffset);
+static inline Combiner* Cmb_GetCombiners(CMB_MATS* cmbMats) {
+    return (Combiner*)&cmbMats->materials[cmbMats->materialCount];
 }
 
-enum TextureFormatGL {
+typedef enum TextureFormatGL : u32 {
     ETC1     = 0x0000675A,
     ETC1A4   = 0x0000675B,
     RGB8     = 0x14016754,
@@ -138,7 +164,36 @@ enum TextureFormatGL {
     LA8      = 0x14016758,
     LA4      = 0x67606758,
     HILO8    = 0x14016759,
-};
+} TextureFormatGL;
+
+typedef struct TextureEntry {
+    /* 0x00 */ u32 dataLength;
+    /* 0x04 */ u16 mipMapCount;
+    /* 0x06 */ u8 isETC1;
+    /* 0x07 */ u8 isCubeMap;
+    /* 0x08 */ u16 width;
+    /* 0x0A */ u16 height;
+    /* 0x0C */ union {
+        TextureFormatGL textureFormatGL;
+        struct {
+            u16 imageFormat;
+            u16 dataType;
+        };
+    };
+    /* 0x10 */ u32 dataOffset;
+    /* 0x14 */ char name[16];
+} TextureEntry;
+
+typedef struct CMB_TEX {
+    /* 0x00 */ char magic[4];
+    /* 0x04 */ u32 size;
+    /* 0x08 */ u32 textureCount;
+    /* 0x10 */ TextureEntry entries[];
+} CMB_TEX;
+
+static inline CMB_TEX* Cmb_GetTexChunk(void* cmb) {
+    return (CMB_TEX*)(((u32)cmb) + ((CMB_HEAD*)cmb)->TEXOffset);
+}
 
 typedef struct CmbManager {
     /* 0x00 */ void* cmbChunk;

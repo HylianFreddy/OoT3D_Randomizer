@@ -4,6 +4,7 @@
 #include "s_enemy_souls.h"
 
 #include "z3D/z3D.h"
+#include "z3D/z3Dcmb.h"
 
 extern u8 SoullessModels_CmbRestoreRequest;
 
@@ -13,7 +14,6 @@ void EnemySouls_OnCollect(EnemySoulId soulId);
 u8 EnemySouls_CheckSoulForActor(Actor* actor);
 u8 EnemySouls_ShouldDrawSoulless(Actor* actor);
 void EnemySouls_Update(void);
-void SoullessModels_ModifyCmb(CmbManager* cmbMan, s32 newTexMapCount, s32 matToSkip);
-u8 SoullessModels_RestoreCmb(CmbManager* cmbMan, s32 matToSkip);
+void SoullessModels_ModifyCmb(CmbManager* cmbMan);
 
 #endif //_ENEMYSOULS_H_

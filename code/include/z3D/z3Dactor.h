@@ -125,6 +125,13 @@ typedef struct SkelAnime {
 } SkelAnime;
 _Static_assert(sizeof(SkelAnime) == 0x84, "SkelAnime size");
 
+typedef struct FlameModelData {
+    SkeletonAnimationModel* saModel;
+    struct CMBManager* cmbMan;
+    MaterialAnimation* matAnim;
+} FlameModelData;
+_Static_assert(sizeof(FlameModelData) == 0xC, "FlameModelData size");
+
 typedef void (*ActorFunc)(struct Actor*, struct GlobalContext*);
 
 typedef struct {
@@ -435,5 +442,7 @@ void FaceAnim_Init(FaceAnimation* faceAnim, SkelAnime* skelAnime, s32 cmabIdx1, 
 void FaceAnim_Destroy(FaceAnimation* faceAnim);
 void FaceAnim_SetFrame(FaceAnimation* faceAnim, s32 matAnimIdx, s32 animFrame);
 void FaceAnimation_35E330(FaceAnimation* faceAnim);
+void FlameModel_Init(FlameModelData* modelData, struct GlobalContext* globalCtx, s32 unk, u32 cmabIndex);
+void FlameModel_Destroy(FlameModelData* model);
 
 #endif

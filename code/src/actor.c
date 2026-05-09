@@ -178,7 +178,9 @@ void Actor_Init() {
     gActorOverlayTable[0x69].initInfo->update  = EnBb_rUpdate;
     gActorOverlayTable[0x69].initInfo->destroy = EnBb_rDestroy;
 
-    gActorOverlayTable[0x6B].initInfo->update = EnYukabyun_rUpdate;
+    gActorOverlayTable[0x6B].initInfo->update       = EnYukabyun_rUpdate;
+    gActorOverlayTable[0x6B].initInfo->draw         = EnYukabyun_rDraw;
+    gActorOverlayTable[0x6B].initInfo->instanceSize = sizeof(EnYukabyun);
 
     gActorOverlayTable[0x85].initInfo->update = EnTk_rUpdate;
 
@@ -249,7 +251,7 @@ void Actor_Init() {
     gActorOverlayTable[0x11B].initInfo->update = NULL;
 
     gActorOverlayTable[0x11D].initInfo->type         = ACTORTYPE_ENEMY; // Flying Pot
-    gActorOverlayTable[0x11D].initInfo->update       = EnTuboTrap_rUpdate;
+    gActorOverlayTable[0x11D].initInfo->draw         = EnTuboTrap_rDraw;
     gActorOverlayTable[0x11D].initInfo->instanceSize = sizeof(EnTuboTrap);
 
     gActorOverlayTable[0x126].initInfo->init   = ObjBean_rInit;

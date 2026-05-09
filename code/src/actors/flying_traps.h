@@ -29,7 +29,7 @@ typedef struct EnTuboTrap {
 } EnTuboTrap;
 _Static_assert(offsetof(EnTuboTrap, rExt) == 0x214, "EnTuboTrap size");
 
-void EnTuboTrap_rUpdate(Actor* thisx, GlobalContext* globalCtx);
+void EnTuboTrap_rDraw(Actor* thisx, GlobalContext* globalCtx);
 
 /*-------------------------------
 |           EnYukabyun          |
@@ -56,6 +56,7 @@ typedef struct EnYukabyun {
 _Static_assert(offsetof(EnYukabyun, rExt) == 0x208, "EnYukabyun size");
 
 void EnYukabyun_rUpdate(Actor* thisx, GlobalContext* globalCtx);
+void EnYukabyun_rDraw(Actor* thisx, GlobalContext* globalCtx);
 
 /*-------------------------------
 |            Generic            |

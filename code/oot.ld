@@ -334,6 +334,7 @@ SECTIONS
 	.patch_MinuetLocation 0x26C388 + _LD_OFF : { *(.patch_MinuetLocation) }
 	.patch_BoleroLocation 0x26C448 + _LD_OFF : { *(.patch_BoleroLocation) }
 	EnTakaraMan_Init = 0x26DEB8 + _LD_OFF;
+	EnYukabyun_Draw = 0x26E5F0 + _LD_OFF;
 	EnYukabyun_Update = 0x26E628 + _LD_OFF;
 	.patch_FlyingTileCollision 0x26E730 + _LD_OFF : { *(.patch_FlyingTileCollision) }
 	.patch_DeadHandHandCanGrabPlayer 0x26EB58 + _LD_OFF : { *(.patch_DeadHandHandCanGrabPlayer) }
@@ -358,7 +359,7 @@ SECTIONS
 	EnGanonOrgan_Init = 0x280E0C + _LD_OFF;
 	EnPoh_UpdateDead = 0x282E88 + _LD_OFF;
 	EnSyatekiMan_Init = 0x283F94 + _LD_OFF;
-	EnTuboTrap_Update = 0x2848D8 + _LD_OFF;
+	EnTuboTrap_Draw = 0x28488C + _LD_OFF;
 	ItemBHeart_Draw = 0x285BEC + _LD_OFF;
 	ItemBHeart_Update = 0x285C18 + _LD_OFF;
 	ItemOcarina_Draw = 0x285D48 + _LD_OFF;
@@ -469,6 +470,8 @@ SECTIONS
 	.patch_GetObjectEntry_34FE68 0x34FE68 + _LD_OFF : { *(.patch_GetObjectEntry_34FE68) }
 	SystemArena_Malloc = 0x35010C + _LD_OFF;
 	FaceAnim_Destroy = 0x3501B8 + _LD_OFF;
+	FlameModel_Destroy = 0x35046C + _LD_OFF;
+	FlameModel_Init = 0x350508 + _LD_OFF;
 	SkelAnime_Destroy = 0x350BE0 + _LD_OFF;
 	EventCheck = 0x350CF4 + _LD_OFF;
 	Actor_DestroySkelModels = 0x350F34 + _LD_OFF;

@@ -406,7 +406,7 @@ extern string_view mirrorWorldRandomDesc;
 extern string_view betaSoldOutDesc;
 
 extern string_view soullessVanillaDesc;
-extern string_view soullessDarknessDesc;
+extern string_view soullessGrayscaleDesc;
 extern string_view soullessPurpleFlamesDesc;
 extern string_view soullessFlashingDesc;
 
