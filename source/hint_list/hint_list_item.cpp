@@ -2164,15 +2164,6 @@ void HintTable_Init_Item() {
                      }
     );
 
-    hintTable[SOUL_ITEM_TENTACLE] = HintText::Item({
-                       // obscure text
-                       Text{"the Parasitic Tentacle Soul", /*french*/"l'Essence de Tentacule Parasite", /*spanish*/"el alma de Tentáculo Parásito", /*italian*/"l'anima di Tentacolo", /*german*/"die Seele von Parasiten-Tentakeln"},
-                     }, {
-                       // ambiguous text
-                       Text{"a Soul", /*french*/"une Essence", /*spanish*/"un alma", /*italian*/"un'anima", /*german*/"eine Seele"},
-                     }
-    );
-
     hintTable[SOUL_ITEM_ANUBIS] = HintText::Item({
                        // obscure text
                        Text{"the Anubis Soul", /*french*/"l'Essence d'Anubis", /*spanish*/"el alma de Anubis", /*italian*/"l'anima di Anubi", /*german*/"die Seele von Anubis"},

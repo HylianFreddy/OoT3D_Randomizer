@@ -46,7 +46,6 @@ SoulMenuInfo SoulMenuNames[SOUL_MAX] = {
     { SOUL_LIZALFOS, "Lizalfos, Dinolfos" },
     { SOUL_MOBLIN, "Moblin, Club Moblin" },
     { SOUL_OCTOROK, "Octorok, Big Octo" },
-    { SOUL_TENTACLE, "Parasitic Tentacle" },
     { SOUL_PEAHAT, "Peahat" },
     { SOUL_POE, "Poe (all)" },
     { SOUL_REDEAD_GIBDO, "ReDead, Gibdo" },

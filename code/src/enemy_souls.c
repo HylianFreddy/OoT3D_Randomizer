@@ -41,7 +41,7 @@ static EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
         case 0x090: return SOUL_REDEAD_GIBDO;
         case 0x0C5: return SOUL_SHELL_BLADE;
         case 0x0DD: return SOUL_LIKE_LIKE;
-        case 0x0DE: return SOUL_TENTACLE;
+        case 0x0DE: return SOUL_BARINADE;
         case 0x0E0: return SOUL_ANUBIS;
         case 0x0EC: return SOUL_SPIKE;
         case 0x115: return SOUL_SKULL_KID;
