@@ -189,21 +189,20 @@ void EnemySouls_OnCollect(EnemySoulId soulId) {
 
     EnemySouls_SetSoulFlag(soulId);
 
-    if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_GRAYSCALE) {
+    if (SoullessModels_Enabled) {
         SoullessModels_RestoreSoul(soulId);
     }
 }
 
 void EnemySouls_Update(void) {
-    if (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_OFF) {
-        return;
-    }
-
     switch (gSettingsContext.soullessEnemiesLook) {
         case SOULLESSLOOK_PURPLE_FLAMES:
             return SoullessFlames_Draw();
+        case SOULLESSLOOK_TEXTURELESS:
         case SOULLESSLOOK_GRAYSCALE:
             return SoullessModels_HandleRestoreRequest();
+        default:
+            return;
     }
 }
 
@@ -262,8 +261,7 @@ static void SoullessFlames_ParseCollider(Collider* collider) {
 }
 
 static void SoullessFlames_Draw(void) {
-    if ((gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_PURPLE_FLAMES || PauseContext_GetState() != 0) ||
-        rGameplayFrames % SOULLESS_EFFECT_INTERVAL != 0) {
+    if (PauseContext_GetState() != 0 || rGameplayFrames % SOULLESS_EFFECT_INTERVAL != 0) {
         return;
     }
 
@@ -293,7 +291,30 @@ u8 SoullessModels_CmbRestoreRequest = FALSE;
 #define CMBSTATUS_MODIFIED '-'
 #define CMBSTATUS_RESTORED '^'
 
-void SoullessModels_ModifyCmb(CmbManager* cmbMan) {
+typedef struct CmbMatOriginalData {
+    Color_RGBA8 ambient;
+    Color_RGBA8 diffuse;
+    u8 blendMode;
+    u8 texEnvStageUsed;
+    u8 texEnvStage0;
+} CmbMatOriginalData;
+_Static_assert(sizeof(CmbMatOriginalData) <= sizeof(((CMB_HEAD*)0)->name) - 1, "CmbMatOriginalData size");
+
+// Store original values for overwritten data in the material's unused Fragment struct.
+// If the material does use the Fragment (like in the Freezard model) use the remaining 15 bytes in the CMB's name
+// field, but remember to manually check that the model only has 1 material being modified.
+static CmbMatOriginalData* CmbMat_GetOrigDataBuffer(Material* mat, CmbManager* cmbMan) {
+    void* buf;
+    if (mat->isFragmentLightingEnabled) {
+        buf = &((CMB_HEAD*)cmbMan->cmbChunk)->name[1];
+    } else {
+        buf = &mat->fragLighting;
+    }
+
+    return (CmbMatOriginalData*)buf;
+}
+
+static void SoullessModels_ModifyCmb(CmbManager* cmbMan, s16 objId, s32 cmbIdx) {
     if (GET_CMB_STATUS(cmbMan) == CMBSTATUS_MODIFIED) {
         return;
     }
@@ -302,19 +323,107 @@ void SoullessModels_ModifyCmb(CmbManager* cmbMan) {
     CMB_MATS* cmbMats      = Cmb_GetMatsChunk(cmbMan->cmbChunk);
     CMB_TEX* cmbTex        = Cmb_GetTexChunk(cmbMan->cmbChunk);
 
-    // Modify all combiners to use operand `green` instead of `color`, making the texture draw in grayscale
-    for (Combiner* combiner = Cmb_GetCombiners(cmbMats); (u32)combiner < (u32)cmbTex; combiner++) {
-        for (s32 opIdx = 0; opIdx < ARRAY_SIZE(combiner->operandColors); opIdx++) {
-            if (combiner->operandColors[opIdx] == COMBINEROP_COLOR) {
-                combiner->operandColors[opIdx] = COMBINEROP_GREEN;
+    if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_TEXTURELESS) {
+        // Modify materials to apply the chosen color and skip drawing the textures.
+        for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
+            if (objId == OBJECT_TENTACLE && matIdx == 1) {
+                continue; // Don't modify electric field (for both models)
+            }
+
+            Material* mat = &cmbMats->materials[matIdx];
+
+            CmbMatOriginalData* origData = CmbMat_GetOrigDataBuffer(mat, cmbMan);
+            origData->blendMode          = mat->blendMode;
+            origData->ambient            = mat->ambient;
+            origData->diffuse            = mat->diffuse;
+            origData->texEnvStageUsed    = mat->texEnvStageUsed;
+            origData->texEnvStage0       = mat->texEnvStagesIndices[0];
+
+            // This removes transparency (for things like shaboms or biri) but it's needed to display correct colors.
+            mat->blendMode = 0;
+
+            // Set both ambient and diffuse colors to the chosen value.
+            mat->ambient = mat->diffuse = gSettingsContext.soullessColor;
+
+            // Remove all combiner stages to show only a shaded textureless color, but keep some special stages.
+            s16 keptStageIdx = -1;
+            switch (objId) {
+                case OBJECT_POE: // fading effect
+                case OBJECT_POE_COMPOSER:
+                case OBJECT_POE_SISTER:
+                case OBJECT_FIELD_POE:
+                case OBJECT_WALLMASTER: // color during attack
+                    keptStageIdx = 1;
+                    break;
+                case OBJECT_SKULLTULA: // color during attack, only for normal walltula
+                    keptStageIdx = cmbIdx == 0 && matIdx == 1 ? 1 : -1;
+                    break;
+                case OBJECT_REDEAD: // color while frozen by Sun's Song
+                    keptStageIdx = 2;
+                    break;
+            }
+            if (keptStageIdx > -1 && mat->texEnvStagesIndices[keptStageIdx] > -1) {
+                mat->texEnvStageUsed        = 1;
+                mat->texEnvStagesIndices[0] = mat->texEnvStagesIndices[keptStageIdx];
+            } else {
+                mat->texEnvStageUsed = 0;
+            }
+        }
+    } else if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_GRAYSCALE) {
+        // Modify all combiners to use operand `green` instead of `color`, making the texture draw in grayscale.
+        for (Combiner* combiner = Cmb_GetCombiners(cmbMats); (u32)combiner < (u32)cmbTex; combiner++) {
+            for (s32 opIdx = 0; opIdx < ARRAY_SIZE(combiner->operandColors); opIdx++) {
+                if (combiner->operandColors[opIdx] == COMBINEROP_COLOR) {
+                    combiner->operandColors[opIdx] = COMBINEROP_GREEN;
+                }
             }
         }
     }
 };
 
+void SoullessModels_ModifyGenericCmb(CmbManager* cmbMan) {
+    SoullessModels_ModifyCmb(cmbMan, -1, -1);
+}
+
+static u8 SoullessModels_RestoreCmb(CmbManager* cmbMan, s16 objId) {
+    if (GET_CMB_STATUS(cmbMan) != CMBSTATUS_MODIFIED) {
+        return FALSE;
+    }
+
+    GET_CMB_STATUS(cmbMan) = CMBSTATUS_RESTORED;
+    CMB_MATS* cmbMats      = Cmb_GetMatsChunk(cmbMan->cmbChunk);
+    CMB_TEX* cmbTex        = Cmb_GetTexChunk(cmbMan->cmbChunk);
+
+    if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_TEXTURELESS) {
+        for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
+            if (objId == OBJECT_TENTACLE && matIdx == 1) {
+                continue;
+            }
+            Material* mat                = &cmbMats->materials[matIdx];
+            CmbMatOriginalData* origData = CmbMat_GetOrigDataBuffer(mat, cmbMan);
+            mat->blendMode               = origData->blendMode;
+            mat->ambient                 = origData->ambient;
+            mat->diffuse                 = origData->diffuse;
+            mat->texEnvStageUsed         = origData->texEnvStageUsed;
+            mat->texEnvStagesIndices[0]  = origData->texEnvStage0;
+        }
+    } else if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_GRAYSCALE) {
+        u8 combinerRestored = FALSE;
+        for (Combiner* combiner = Cmb_GetCombiners(cmbMats); (u32)combiner < (u32)cmbTex; combiner++) {
+            for (s32 opIdx = 0; opIdx < ARRAY_SIZE(combiner->operandColors); opIdx++) {
+                if (combiner->operandColors[opIdx] == COMBINEROP_GREEN) {
+                    combiner->operandColors[opIdx] = COMBINEROP_COLOR;
+                    combinerRestored               = TRUE;
+                }
+            }
+        }
+        return combinerRestored;
+    }
+    return TRUE;
+}
+
 void SoullessModels_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 cmbIdx) {
-    if (gSettingsContext.soullessEnemiesLook != SOULLESSLOOK_GRAYSCALE ||
-        EnemySouls_CheckSoul_Impl(gRunningActor, SOULCHECK_BASE)) {
+    if (!SoullessModels_Enabled || EnemySouls_CheckSoul_Impl(gRunningActor, SOULCHECK_BASE)) {
         return;
     }
 
@@ -327,48 +436,31 @@ void SoullessModels_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s
     }
 
     // Don't modify certain models
-    if ((obj->id == OBJECT_WALLMASTER && cmbIdx == 2)      // hand shadow
-        || (obj->id == OBJECT_TENTACLE && cmbIdx == 1)     // dead blob
-        || (obj->id == OBJECT_DEAD_HAND && cmbIdx == 2)    // dirt wave
-        || (obj->id == OBJECT_KING_DODONGO && cmbIdx != 2) // KD body
+    if ((obj->id == OBJECT_WALLMASTER && cmbIdx == 2)      // skip hand shadow
+        || (obj->id == OBJECT_TENTACLE && cmbIdx == 1)     // skip dead blob
+        || (obj->id == OBJECT_DEAD_HAND && cmbIdx == 2)    // skip dirt wave
+        || (obj->id == OBJECT_FREEZARD && cmbIdx == 1)     // skip ice breath
+        || (obj->id == OBJECT_POE && cmbIdx != 0)          // only main body
+        || (obj->id == OBJECT_POE_COMPOSER && cmbIdx != 0) // only main body
+        || (obj->id == OBJECT_KING_DODONGO && cmbIdx != 2) // only KD body
         || (obj->id == OBJECT_BARINADE && cmbIdx != 0 && cmbIdx != 3 && cmbIdx != 4 && cmbIdx != 7 &&
-            cmbIdx != 12)                                  // arms, body and jellyfish
-        || obj->id == OBJECT_FLYING_FLOOR_TILE             // handled in own update function
-        || (obj->id == OBJECT_FREEZARD && cmbIdx == 1)     // ice breath
-        || (obj->id == OBJECT_GANONDORF && cmbIdx != 2)    // main body
-        || (obj->id == OBJECT_GANON && cmbIdx != 0)        // main body
-        || (obj->id == OBJECT_POE && cmbIdx != 0)          // main body
-        || (obj->id == OBJECT_POE_COMPOSER && cmbIdx != 0) // main body
+            cmbIdx != 12)                                                // only arms, body and jellyfish
+        || (obj->id == OBJECT_VOLVAGIA && (cmbIdx < 1 || cmbIdx > 6))    // only body parts
+        || (obj->id == OBJECT_BONGO_BONGO && (cmbIdx < 1 || cmbIdx > 3)) // only body & hands
+        || (obj->id == OBJECT_GANONDORF && cmbIdx != 2)                  // only main body
+        || (obj->id == OBJECT_GANON && cmbIdx != 0)                      // only main body
+        // These are handled in their own update function
+        || obj->id == OBJECT_FLYING_FLOOR_TILE //
+        || obj->id == OBJECT_ARMOS             //
     ) {
         return;
     }
 
-    SoullessModels_ModifyCmb(cmbMan);
+    SoullessModels_ModifyCmb(cmbMan, obj->id, cmbIdx);
 }
 
-static u8 SoullessModels_RestoreCmb(CmbManager* cmbMan) {
-    if (GET_CMB_STATUS(cmbMan) != CMBSTATUS_MODIFIED) {
-        return FALSE;
-    }
-
-    GET_CMB_STATUS(cmbMan) = CMBSTATUS_RESTORED;
-    CMB_MATS* cmbMats      = Cmb_GetMatsChunk(cmbMan->cmbChunk);
-    CMB_TEX* cmbTex        = Cmb_GetTexChunk(cmbMan->cmbChunk);
-    u8 combinerRestored    = FALSE;
-
-    for (Combiner* combiner = Cmb_GetCombiners(cmbMats); (u32)combiner < (u32)cmbTex; combiner++) {
-        for (s32 opIdx = 0; opIdx < ARRAY_SIZE(combiner->operandColors); opIdx++) {
-            if (combiner->operandColors[opIdx] == COMBINEROP_GREEN) {
-                combiner->operandColors[opIdx] = COMBINEROP_COLOR;
-                combinerRestored               = TRUE;
-            }
-        }
-    }
-    return combinerRestored;
-}
-
-static void SoullessModels_RestoreObject(u16 objectId) {
-    s32 slot = Object_GetSlot(&gGlobalContext->objectCtx, objectId);
+static void SoullessModels_RestoreObject(s16 objId) {
+    s32 slot = Object_GetSlot(&gGlobalContext->objectCtx, objId);
     if (slot < 0 || !Object_IsLoaded(&gGlobalContext->objectCtx, slot)) {
         return;
     }
@@ -383,7 +475,7 @@ static void SoullessModels_RestoreObject(u16 objectId) {
             continue;
         }
         // Restore original values for each CMB that was modified.
-        u8 modified = SoullessModels_RestoreCmb(cmbMan);
+        u8 modified = SoullessModels_RestoreCmb(cmbMan, objId);
         if (modified) {
             // Destroy CMB Manager so it will be reinitialized the next time it's needed.
             CmbManager_Destroy(cmbMan);
@@ -419,8 +511,6 @@ static void SoullessModels_RestoreActor(Actor* actor) {
             return EnBw_ReinitModels((EnBw*)actor);
         case ACTOR_STINGER_FLOOR:
             return EnEiyer_ReinitModels((EnEiyer*)actor);
-        case ACTOR_ARMOS:
-            return Actor_ReinitSkelAnime(actor, &((EnAm*)actor)->anime, 0);
         case ACTOR_DEKU_BABA:
             return EnDekubaba_ReinitModels((EnDekubaba*)actor);
         case ACTOR_WITHERED_DEKU_BABA:
@@ -504,6 +594,7 @@ static void SoullessModels_RestoreActor(Actor* actor) {
 
         case ACTOR_FLYING_POT:
         case ACTOR_FLYING_FLOOR_TILE:
+        case ACTOR_ARMOS:
             // These are handled in their own update function.
 
         case ACTOR_BARINADE:
@@ -549,11 +640,15 @@ static void SoullessModels_HandleRestoreRequest(void) {
     if (SoullessModels_CmbRestoreRequest) {
         obj = Object_FindEntry(OBJECT_GAMEPLAY_DUNGEON_KEEP);
         if (obj != NULL && obj->zarInfo.cmbMans[POT_CMB_INDEX] != NULL) {
-            SoullessModels_RestoreCmb(obj->zarInfo.cmbMans[POT_CMB_INDEX]);
+            SoullessModels_RestoreCmb(obj->zarInfo.cmbMans[POT_CMB_INDEX], -1);
         }
         obj = Object_FindEntry(OBJECT_FLYING_FLOOR_TILE);
         if (obj != NULL && obj->zarInfo.cmbMans[FLYING_TILE_CMB_INDEX] != NULL) {
-            SoullessModels_RestoreCmb(obj->zarInfo.cmbMans[FLYING_TILE_CMB_INDEX]);
+            SoullessModels_RestoreCmb(obj->zarInfo.cmbMans[FLYING_TILE_CMB_INDEX], -1);
+        }
+        obj = Object_FindEntry(OBJECT_ARMOS);
+        if (obj != NULL && obj->zarInfo.cmbMans[ARMOS_CMB_INDEX] != NULL) {
+            SoullessModels_RestoreCmb(obj->zarInfo.cmbMans[ARMOS_CMB_INDEX], -1);
         }
         SoullessModels_CmbRestoreRequest = FALSE;
     }

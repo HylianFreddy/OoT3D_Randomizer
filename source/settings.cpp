@@ -1255,6 +1255,24 @@ static std::vector<std::string> ganonBloodOptionNames = {
     "Pink",
 };
 
+static std::vector<std::string> soullessColorOptionNames = {
+    std::string(RANDOM_CHOICE_STR),
+    std::string(RANDOM_COLOR_STR),
+    std::string(CUSTOM_COLOR_STR),
+    "Black",
+    "White",
+    "Red",
+    "Green",
+    "Blue",
+    "Yellow",
+    "Cyan",
+    "Magenta",
+    "Orange",
+    "Gold",
+    "Purple",
+    "Pink",
+};
+
 static std::vector<std::string_view> cosmeticDescriptions = {
     RANDOM_CHOICE_DESC,
     RANDOM_COLOR_DESC,
@@ -1315,8 +1333,10 @@ Option ColoredKeys         = Option::Bool("Colored Small Keys",     {"Off", "On"
 Option ColoredBossKeys     = Option::Bool("Colored Boss Keys",      {"Off", "On"},                                {coloredBossKeysDesc},                                                                                                                              OptionCategory::Cosmetic);
 Option MirrorWorld         = Option::U8  ("Mirror World",           {"Off", "On", "Scene", "Entrance", "Random"}, {mirrorWorldOffDesc, mirrorWorldOnDesc, mirrorWorldSceneDesc, mirrorWorldEntranceDesc, mirrorWorldRandomDesc},                                      OptionCategory::Cosmetic);
 Option BetaSoldOut         = Option::Bool("Beta Sold-Out Model",    {"Off", "On"},                                {betaSoldOutDesc},                                                                                                                                  OptionCategory::Cosmetic);
-Option SoullessEnemiesLook = Option::U8  ("Soulless Enemies Look",  {"Vanilla", "Grayscale", "Purple Flames",
-                                                                     "Flashing"},                                 {soullessVanillaDesc, soullessGrayscaleDesc, soullessPurpleFlamesDesc, soullessFlashingDesc},                                                       OptionCategory::Cosmetic,     SOULLESSLOOK_GRAYSCALE);
+Option SoullessEnemiesLook = Option::U8  ("Soulless Enemies Look",  {"Vanilla", "Textureless", "Grayscale",
+                                                                     "Purple Flames", "Flashing"},                {soullessVanillaDesc, soullessTexturelessDesc, soullessGrayscaleDesc, soullessPurpleFlamesDesc, soullessFlashingDesc},                              OptionCategory::Cosmetic,     SOULLESSLOOK_TEXTURELESS);
+Option SoullessColor       = Option::U8  (2, "Soulless Color",      soullessColorOptionNames,                     {RANDOM_CHOICE_DESC, RANDOM_COLOR_DESC, CUSTOM_COLOR_DESC, "Select the color of soulless enemies."},                                                OptionCategory::Cosmetic,                            3); // Black
+Color_RGBA8 finalSoullessColor;
 
 std::vector<Option *> cosmeticOptions = {
     &CustomTunicColors,
@@ -1351,6 +1371,7 @@ std::vector<Option *> cosmeticOptions = {
     &MirrorWorld,
     &BetaSoldOut,
     &SoullessEnemiesLook,
+    &SoullessColor,
 };
 
 static std::vector<std::string> musicOptions = {"Off", "On (Mixed)", "On (Grouped)", "On (Own)"};
@@ -1713,6 +1734,7 @@ SettingsContext FillContext() {
     ctx.coloredKeys                 = (ColoredKeys) ? 1 : 0;
     ctx.coloredBossKeys             = (ColoredBossKeys) ? 1 : 0;
     ctx.soullessEnemiesLook         = SoullessEnemiesLook.Value<u8>();
+    ctx.soullessColor               = finalSoullessColor;
     ctx.shuffleSFX                  = ShuffleSFX.Value<u8>();
     ctx.shuffleSFXFootsteps         = (ShuffleSFXFootsteps) ? 1 : 0;
     ctx.shuffleSFXLinkVoice         = (ShuffleSFXLinkVoice) ? 1 : 0;
@@ -2824,6 +2846,13 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         BombchuTrailDuration.SetSelectedIndex(2); // Vanilla
     }
 
+    if (SoullessEnemiesLook.Is(SOULLESSLOOK_TEXTURELESS)) {
+        SoullessColor.Unhide();
+    } else {
+        SoullessColor.Hide();
+        SoullessColor.SetSelectedIndex(3); // Black
+    }
+
     // Audio
     if (ShuffleMusic) {
         ShuffleBGM.Unhide();
@@ -3113,6 +3142,9 @@ static void UpdateCosmetics() {
     // Ganon/dorf Blood
     ChooseFinalColor(GanonBloodColor, tempString, ganonBloodColors);
     finalGanonBloodColor = Cosmetics::HexStrToColorRGBA8(tempString);
+    // Soulless enemies
+    ChooseFinalColor(SoullessColor, tempString, soullessColors);
+    finalSoullessColor = Cosmetics::HexStrToColorRGBA8(tempString);
 }
 
 // Function to set flags depending on settings

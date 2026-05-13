@@ -86,6 +86,7 @@
 #include "bubble.h"
 #include "ganondorf.h"
 #include "obj_mure3.h"
+#include "armos.h"
 
 void Actor_Kill(Actor* actor) {
     actor->draw   = NULL;
@@ -164,6 +165,9 @@ void Actor_Init() {
 
     gActorOverlayTable[0x4B].initInfo->init   = EnMb_rInit;
     gActorOverlayTable[0x4B].initInfo->update = EnMb_rUpdate;
+
+    gActorOverlayTable[0x54].initInfo->draw         = EnAm_rDraw;
+    gActorOverlayTable[0x54].initInfo->instanceSize = sizeof(EnAm);
 
     gActorOverlayTable[0x57].initInfo->init = EnMThunder_rInit;
 

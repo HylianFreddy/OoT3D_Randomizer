@@ -45,8 +45,8 @@ typedef struct Material {
     u32 textureCoordsUsed;
     TextureMappers textureMapper[3];
     TextureCoords textureCoord[3];
-    Color_RGBA8 emissionColor;
-    Color_RGBA8 ambientColor;
+    Color_RGBA8 emission;
+    Color_RGBA8 ambient;
     Color_RGBA8 diffuse;
     Color_RGBA8 specular0;
     Color_RGBA8 specular1;
@@ -62,7 +62,7 @@ typedef struct Material {
     u8 isBumpRenormalize;
     Fragment fragLighting;
     u32 texEnvStageUsed;
-    s16 texEnvStagesIndices[6];
+    s16 texEnvStagesIndices[6]; // indices for the combiner list
     u8 alphaTestEnabled;
     u8 alphaTestReferenceValue;
     u16 alphaTestFunction;
@@ -76,7 +76,7 @@ typedef struct Material {
     u16 colorSrcFunc;
     u16 colorDstFunc;
     u32 colorEquation;
-    Color_RGBAf BlendColor;
+    Color_RGBAf blendColor;
 } Material;
 
 typedef enum CombinerMode : u16 {
@@ -137,7 +137,7 @@ typedef struct CMB_MATS {
     /* 0x00 */ char magic[4];
     /* 0x04 */ u32 size;
     /* 0x08 */ u32 materialCount;
-    /* 0x10 */ Material materials[];
+    /* 0x0C */ Material materials[];
     //         Combiner combiners[];
 } CMB_MATS;
 
@@ -188,32 +188,69 @@ typedef struct CMB_TEX {
     /* 0x00 */ char magic[4];
     /* 0x04 */ u32 size;
     /* 0x08 */ u32 textureCount;
-    /* 0x10 */ TextureEntry entries[];
+    /* 0x0C */ TextureEntry entries[];
 } CMB_TEX;
 
 static inline CMB_TEX* Cmb_GetTexChunk(void* cmb) {
     return (CMB_TEX*)(((u32)cmb) + ((CMB_HEAD*)cmb)->TEXOffset);
 }
 
+typedef struct Mesh {
+    u16 sepdIndex;
+    u8 materialIndex;
+    u8 id;
+} Mesh;
+
+typedef struct CMB_MSHS {
+    /* 0x00 */ char magic[4];
+    /* 0x04 */ u32 size;
+    /* 0x08 */ u32 meshCount;
+    /* 0x0C */ u16 opaqueMeshCount; // The remainder of "OpaqueMeshCount" are transparent meshes
+    /* 0x0E */ u16 idCount;
+    /* 0x10 */ Mesh meshes[];
+} CMB_MSHS;
+
+typedef struct CMB_SHP {
+    /* 0x00 */ char magic[4];
+    /* 0x04 */ u32 size;
+    /* 0x08 */ u32 sepdCount;
+    /* 0x0C */ u32 flags;
+    //         SEPD chunks of variable size
+} CMB_SHP;
+
+typedef struct CMB_SKLM {
+    /* 0x00 */ char magic[4];
+    /* 0x04 */ u32 size;
+    /* 0x08 */ u32 mshsOffset;
+    /* 0x0C */ u32 shpOffset;
+    /* 0x10 */ CMB_MSHS mshs;
+    //         CMB_SHP shp;
+} CMB_SKLM;
+
+static inline CMB_MSHS* Cmb_GetMeshesChunk(void* cmb) {
+    CMB_SKLM* sklmChunk = (CMB_SKLM*)(((u32)cmb) + ((CMB_HEAD*)cmb)->SKLMOffset);
+    return &sklmChunk->mshs;
+}
+
 typedef struct CmbManager {
     /* 0x00 */ void* cmbChunk;
-    /* 0x04 */ u32 field_0x4;
-    /* 0x08 */ u32 field_0x8;
-    /* 0x0C */ u32 field_0xC;
-    /* 0x10 */ u32 field_0x10;
-    /* 0x14 */ u32 field_0x14;
-    /* 0x18 */ u32 field_0x18;
-    /* 0x1C */ u32 field_0x1C;
-    /* 0x20 */ u32 field_0x20;
-    /* 0x24 */ u32 field_0x24;
-    /* 0x28 */ u32 field_0x28;
-    /* 0x2C */ u32 field_0x2C;
-    /* 0x30 */ u32 field_0x30;
-    /* 0x34 */ u32 field_0x34;
-    /* 0x38 */ u32 field_0x38;
+    /* 0x04 */ u32 unk_04;
+    /* 0x08 */ u32 unk_08;
+    /* 0x0C */ u32 unk_0C;
+    /* 0x10 */ u32 unk_10;
+    /* 0x14 */ u32 unk_14;
+    /* 0x18 */ u32 unk_18;
+    /* 0x1C */ u32 unk_1C;
+    /* 0x20 */ u32 unk_20;
+    /* 0x24 */ u32 unk_24;
+    /* 0x28 */ u32 unk_28;
+    /* 0x2C */ u32 unk_2C;
+    /* 0x30 */ u32 unk_30;
+    /* 0x34 */ u32 unk_34;
+    /* 0x38 */ u32 unk_38;
     /* 0x3C */ u32 cmbChunkSize;
-    /* 0x40 */ u32 field_0x40;
-    /* 0x44 */ u32 field_0x44;
+    /* 0x40 */ u32 unk_40;
+    /* 0x44 */ u32 unk_44;
 } CmbManager;
 
 struct SubStaticClass_55A19C_44;

@@ -101,7 +101,7 @@ void EnTorch2_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 void EnTorch2_rDraw(Actor* thisx, GlobalContext* globalCtx) {
     EnTorch2* this = (EnTorch2*)thisx;
     u8 prevAlpha   = this->alpha;
-    if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_GRAYSCALE && !EnemySouls_CheckSoulForActor(thisx)) {
+    if (SoullessModels_Enabled && !EnemySouls_CheckSoulForActor(thisx)) {
         this->alpha = 0xFF;
     }
 

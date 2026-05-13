@@ -164,6 +164,7 @@ SECTIONS
 	Boss_Tw_Init = 0x1A7E18 + _LD_OFF;
 	.patch_KotakeDontPlayBattleMusic 0x1A8218 + _LD_OFF : { *(.patch_KotakeDontPlayBattleMusic) }
 	Boss_Tw_Destroy = 0x1A88E8 + _LD_OFF;
+	EnAm_Draw = 0x1ACD4C + _LD_OFF;
 	EnFd_Update = 0x1B004C + _LD_OFF;
 	EnFu_Update = 0x1B1328 + _LD_OFF;
 	EnGeldB_Draw = 0x1B2B00 + _LD_OFF;

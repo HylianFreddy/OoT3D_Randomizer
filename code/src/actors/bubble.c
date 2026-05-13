@@ -94,7 +94,7 @@ void EnBb_rInit(Actor* thisx, GlobalContext* globalCtx) {
 
     Bubble_CallActorFunc(EnBb_Init, thisx, globalCtx);
 
-    if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_GRAYSCALE && !EnemySouls_CheckSoulForActor(thisx)) {
+    if (SoullessModels_Enabled && !EnemySouls_CheckSoulForActor(thisx)) {
         FlameModel_Destroy(&this->flameModel_1);
         FlameModel_Init(&this->flameModel_1, globalCtx, 0, FLAMEMATANIM_BLACK);
         if (this->hasSecondFlameModel != 0) {
