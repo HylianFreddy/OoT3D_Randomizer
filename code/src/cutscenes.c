@@ -3,6 +3,7 @@
 #include "settings.h"
 #include "savefile.h"
 #include "entrance.h"
+#include "z3D/actors/z_bg_dy_yoseizo.h"
 #include <stddef.h>
 
 u32 LACS_ConditionVanilla(void) {
@@ -164,6 +165,25 @@ void Cutscene_OverrideSongOfStorms(void) {
     gSaveContext.eventChkInf[5] |= 0x800;
     ItemOverride_PushDelayedOverride(0x2B);
     gGlobalContext->ocarinaMode = 4;
+}
+
+void Cutscene_OverrideFairyReward(BgDyYoseizo* fairy) {
+    s16 fairyIdx = fairy->fountainType;
+
+    if (gGlobalContext->sceneNum == SCENE_GREAT_FAIRYS_FOUNTAIN_SPELLS) {
+        if (!(gSaveContext.itemGetInf[1] & (0x100 << fairyIdx))) {
+            ItemOverride_PushDelayedOverride(0x10 + fairyIdx);
+            gSaveContext.itemGetInf[1] |= (0x100 << fairyIdx);
+        }
+    } else if (gGlobalContext->sceneNum == SCENE_GREAT_FAIRYS_FOUNTAIN_MAGIC) {
+        if (!(gGlobalContext->actorCtx.flags.chest & (0x1 << fairyIdx))) {
+            ItemOverride_PushDelayedOverride(0x13 + fairyIdx);
+            gGlobalContext->actorCtx.flags.chest |= (0x1 << fairyIdx);
+        }
+    }
+
+    gSaveContext.healthAccumulator = 0x140;
+    gSaveContext.magic             = gSaveContext.magicLevel * 0x30;
 }
 
 // skip dungeon exit cutscenes
