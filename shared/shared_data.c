@@ -65,7 +65,7 @@ SoulMenuInfo SoulMenuNames[SOUL_MAX] = {
     // Bosses
     { SOUL_GOHMA, "Gohma, Gohma Larva", "Queen Gohma" },
     { SOUL_DODONGO, "Dodongo (all)", "King Dodongo" },
-    { SOUL_BARINADE, "Barinade" },
+    { SOUL_BARINADE, "Barinade and Tentacles", "Barinade" },
     { SOUL_PHANTOM_GANON, "Phantom Ganon" },
     { SOUL_VOLVAGIA, "Volvagia" },
     { SOUL_MORPHA, "Morpha" },
