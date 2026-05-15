@@ -165,9 +165,9 @@ void Chest_ChangeAppearance(Actor* thisx, GlobalContext* globalCtx) {
 static void Chest_Break(EnBox* this, GlobalContext* globalCtx) {
     for (s32 i = 0; i < 30; i++) {
         Vec3f pos = {
-            .x = ((Rand_ZeroOne() - 0.5f) * 10.0f) + this->dyna.actor.home.pos.x,
-            .y = ((Rand_ZeroOne() * 5.0f) + this->dyna.actor.home.pos.y) + 8.0f,
-            .z = ((Rand_ZeroOne() - 0.5f) * 10.0f) + this->dyna.actor.home.pos.z,
+            .x = ((Rand_ZeroOne() - 0.5f) * 10.0f) + this->dyna.actor.world.pos.x,
+            .y = ((Rand_ZeroOne() * 5.0f) + this->dyna.actor.world.pos.y) + 8.0f,
+            .z = ((Rand_ZeroOne() - 0.5f) * 10.0f) + this->dyna.actor.world.pos.z,
         };
         Vec3f velocity = {
             .x = (Rand_ZeroOne() - 0.5f) * 15.0f,
