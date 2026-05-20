@@ -21,7 +21,7 @@ s32 EnTuboTrap_OnImpact(EnTuboTrap* this) {
         this->actor.flags &= ~1; // remove targetable flag
     }
 
-    return EnemySouls_CheckSoulForActor(&this->actor);
+    return !EnemySouls_IsInvulnerable(&this->actor);
 }
 
 static void EnTuboTrap_ReinitModels(EnTuboTrap* this) {
@@ -59,7 +59,7 @@ void EnYukabyun_Levitate(EnYukabyun* this, GlobalContext* globalCtx);
 void EnYukabyun_Wait(EnYukabyun* this, GlobalContext* globalCtx);
 
 s32 EnYukabyun_OnImpact(EnYukabyun* this) {
-    if (!EnemySouls_CheckSoulForActor(&this->actor)) {
+    if (EnemySouls_IsInvulnerable(&this->actor)) {
         this->actionFunc  = EnYukabyun_Levitate;
         this->waitCounter = 0;
         this->actor.flags |= 0b101; // keep targetable and hostile flags

@@ -563,7 +563,7 @@ void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
     SetRunningActor(actor);
     u8 tempHammerQuakeFlag = globalCtx->actorCtx.hammerQuakeFlag;
 
-    if (!EnemySouls_CheckSoulForActor(actor)) {
+    if (EnemySouls_IsInvulnerable(actor)) {
         globalCtx->actorCtx.hammerQuakeFlag = 0;
     }
 
@@ -595,7 +595,7 @@ s32 Actor_CollisionATvsAC(Collider* at, Collider* ac) {
     RedIce_CheckIceArrow(at, ac);
 
     if (ac->actor != NULL &&
-        (!EnemySouls_CheckSoulForActor(ac->actor) ||
+        (EnemySouls_IsInvulnerable(ac->actor) ||
          // randomized enemy touching Iron Knuckle's thrones and pillars
          (ac->actor->id == ACTOR_BG_JYA_IRONOBJ && at->actor != NULL && at->actor->id != ACTOR_IRON_KNUCKLE))) {
         return 0; // ignore this collision

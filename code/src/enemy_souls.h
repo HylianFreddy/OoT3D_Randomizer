@@ -14,10 +14,10 @@
 extern u8 SoullessModels_CmbRestoreRequest;
 
 EnemySoulId EnemySouls_GetSoulId(s16 actorId);
-u8 EnemySouls_GetSoulFlag(EnemySoulId soulId);
+BOOL EnemySouls_GetSoulFlag(EnemySoulId soulId);
 void EnemySouls_OnCollect(EnemySoulId soulId);
-u8 EnemySouls_CheckSoulForActor(Actor* actor);
-u8 EnemySouls_ShouldDrawSoulless(Actor* actor);
+BOOL EnemySouls_IsInvulnerable(Actor* actor);
+BOOL EnemySouls_ShouldDrawSoulless(Actor* actor);
 void EnemySouls_Update(void);
 void SoullessModels_ModifyGenericCmb(CmbManager* cmbMan);
 

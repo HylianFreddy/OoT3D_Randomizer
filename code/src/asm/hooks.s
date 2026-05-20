@@ -2050,8 +2050,8 @@ HOOK BabyDodongoWallCheck
     push {r0-r12, lr}
     @ Prevent burrowing for soulless baby dodongos.
     cpy r0,r4
-    bl EnemySouls_CheckSoulForActor
-    cmp r0,#0x0
+    bl EnemySouls_IsInvulnerable
+    cmp r0,#0x1
     pop {r0-r12, lr}
     bx lr
 
@@ -2060,8 +2060,8 @@ HOOK PeahatLarvaGroundCheck
     bxeq lr @ did not hit ground
     push {r0-r12, lr}
     cpy r0,r4 @ actor
-    bl EnemySouls_CheckSoulForActor
-    cmp r0,#0x0
+    bl EnemySouls_IsInvulnerable
+    cmp r0,#0x1
     pop {r0-r12, lr}
     @ Prevent death when hitting ground without soul.
     bx lr

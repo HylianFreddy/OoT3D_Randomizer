@@ -11,7 +11,7 @@ void EnSkj_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 
     EnSkj_Update(thisx, globalCtx);
 
-    if (!EnemySouls_CheckSoulForActor(thisx) && thisx->type == ACTORTYPE_ENEMY) {
+    if (EnemySouls_IsInvulnerable(thisx) && thisx->type == ACTORTYPE_ENEMY) {
         // When a soulless enemy skull kid backflips, don't let it fade away and despawn.
         this->backflipFlag = 0;
     }

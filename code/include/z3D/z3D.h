@@ -18,8 +18,10 @@
 
 #include "hid.h"
 
-#define TRUE 1
-#define FALSE 0
+typedef enum BOOL : u8 {
+    FALSE = 0,
+    TRUE  = 1,
+} BOOL;
 
 typedef struct {
     /* 0x00 */ u8 buttonItems[5]; // B,Y,X,I,II

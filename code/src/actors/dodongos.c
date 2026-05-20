@@ -13,7 +13,7 @@ void EnDodongo_Idle(EnDodongo* this, GlobalContext* globalCtx);
 static s16 BossDodongo_PrevNumWallCollisions = 0;
 
 s32 Dodongos_AfterSwallowBomb_Normal(EnDodongo* this) {
-    if (!EnemySouls_CheckSoulForActor(&this->base)) {
+    if (EnemySouls_IsInvulnerable(&this->base)) {
         this->actionFunc = EnDodongo_Idle;
         return 1;
     }
@@ -29,7 +29,7 @@ void EnDodojr_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnDodojr_JumpAttackBounce(EnDodojr* this, GlobalContext* globalCtx);
 
 s32 Dodongos_AfterSwallowBomb_Baby(EnDodojr* this) {
-    if (!EnemySouls_CheckSoulForActor(&this->base)) {
+    if (EnemySouls_IsInvulnerable(&this->base)) {
         this->counter    = 3;
         this->actionFunc = EnDodojr_JumpAttackBounce;
         return 1;
@@ -55,7 +55,7 @@ void BossDodongo_DeathCutscene(BossDodongo* this, GlobalContext* globalCtx);
 void BossDodongo_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     BossDodongo* this = (BossDodongo*)thisx;
     BossDodongo_Update(thisx, globalCtx);
-    if (this->numWallCollisions > BossDodongo_PrevNumWallCollisions && EnemySouls_CheckSoulForActor(thisx)) {
+    if (this->numWallCollisions > BossDodongo_PrevNumWallCollisions && !EnemySouls_IsInvulnerable(thisx)) {
         static const s8 bonkDamageValues[] = {
             [BONKDAMAGE_NONE]    = 0,  //
             [BONKDAMAGE_QUARTER] = 0,  //

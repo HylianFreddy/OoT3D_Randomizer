@@ -37,7 +37,7 @@ void EnPeehat_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
                                 UPDBGCHECKINFO_WALL | UPDBGCHECKINFO_CEILING | UPDBGCHECKINFO_FLOOR_WATER);
     }
 
-    if (!EnemySouls_CheckSoulForActor(thisx) && thisx->params == 1) { // Peahat Larva
+    if (EnemySouls_IsInvulnerable(thisx) && thisx->params == 1) { // Peahat Larva
         // Prevent death when hitting player's shield.
         if (this->actionFunc == EnPeehat_StateAttackRecoil && thisx->speedXZ > -1.0) {
             this->actionFunc = EnPeehat_Larva_StateSeekPlayer;

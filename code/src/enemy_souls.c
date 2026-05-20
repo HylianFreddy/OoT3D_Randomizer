@@ -43,6 +43,8 @@
 #include "z3D/actors/z_en_rd.h"
 #include "z3D/actors/z_en_rr.h"
 
+#include <string.h>
+
 static void SoullessFlames_Draw(void);
 static void SoullessModels_RestoreSoul(EnemySoulId soulId);
 static void SoullessModels_HandleRestoreRequest(void);
@@ -125,11 +127,11 @@ EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
 }
 // clang-format on
 
-u8 EnemySouls_GetSoulFlag(EnemySoulId soulId) {
+BOOL EnemySouls_GetSoulFlag(EnemySoulId soulId) {
     if (soulId == SOUL_NONE) {
-        return 1;
+        return TRUE;
     }
-    return gExtSaveData.extInf.enemySouls[(soulId >> 3)] & (1 << (soulId & 0b111));
+    return (gExtSaveData.extInf.enemySouls[(soulId >> 3)] >> (soulId & 0b111)) & 1;
 }
 
 static void EnemySouls_SetSoulFlag(EnemySoulId soulId) {
@@ -139,13 +141,13 @@ static void EnemySouls_SetSoulFlag(EnemySoulId soulId) {
     gExtSaveData.extInf.enemySouls[(soulId >> 3)] |= (1 << (soulId & 0b111));
 }
 
-typedef enum SoulCheck {
-    SOULCHECK_BASE,
-    SOULCHECK_COLLISION,
-    SOULCHECK_DRAW,
-} SoulCheck;
+typedef enum SoulCheckType {
+    SOULCHECK_BASE,      // Check only if soul is owned
+    SOULCHECK_COLLISION, // Check if enemy can be hit
+    SOULCHECK_DRAW,      // Check if enemy should be drawn soulless
+} SoulCheckType;
 
-static u8 EnemySouls_CheckSoul_Impl(Actor* actor, SoulCheck soulCheck) {
+static BOOL EnemySouls_CheckSoul(Actor* actor, SoulCheckType soulCheck) {
     if (actor == NULL || (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_OFF) ||
         (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_BOSSES && !Actor_IsBoss(actor))) {
         return TRUE;
@@ -174,12 +176,12 @@ static u8 EnemySouls_CheckSoul_Impl(Actor* actor, SoulCheck soulCheck) {
     return soulId == SOUL_NONE || EnemySouls_GetSoulFlag(soulId);
 }
 
-u8 EnemySouls_CheckSoulForActor(Actor* actor) {
-    return EnemySouls_CheckSoul_Impl(actor, SOULCHECK_COLLISION);
+BOOL EnemySouls_IsInvulnerable(Actor* actor) {
+    return !EnemySouls_CheckSoul(actor, SOULCHECK_COLLISION);
 }
 
-u8 EnemySouls_ShouldDrawSoulless(Actor* actor) {
-    return !EnemySouls_CheckSoul_Impl(actor, SOULCHECK_DRAW);
+BOOL EnemySouls_ShouldDrawSoulless(Actor* actor) {
+    return !EnemySouls_CheckSoul(actor, SOULCHECK_DRAW);
 }
 
 void EnemySouls_OnCollect(EnemySoulId soulId) {
@@ -296,7 +298,6 @@ typedef struct CmbMatOriginalData {
     Color_RGBA8 diffuse;
     u8 blendMode;
     u8 texEnvStageUsed;
-    u8 texEnvStage0;
 } CmbMatOriginalData;
 _Static_assert(sizeof(CmbMatOriginalData) <= sizeof(((CMB_HEAD*)0)->name) - 1, "CmbMatOriginalData size");
 
@@ -312,6 +313,56 @@ static CmbMatOriginalData* CmbMat_GetOrigDataBuffer(Material* mat, CmbManager* c
     }
 
     return (CmbMatOriginalData*)buf;
+}
+
+static void SwapBuffers(void* first, void* second, s32 size) {
+    char buf[8] = { 0 };
+    memcpy(&buf, first, size);
+    memcpy(first, second, size);
+    memcpy(second, &buf, size);
+}
+#define SwapFields(first, second) (SwapBuffers(first, second, sizeof(*first)))
+
+// This function applies combiner edits for some special materials. It swaps certain values between combiners in such a
+// way that it can be called again to restore the original values.
+static BOOL HandleSpecialCombiner(CMB_MATS* cmbMats, s16 objId, s32 cmbIdx, s32 matIdx) {
+    Material* mat = &cmbMats->materials[matIdx];
+
+    s16 specialStageIdx = -1;
+    switch (objId) {
+        case OBJECT_POE:          // fading effect
+        case OBJECT_POE_COMPOSER: // fading effect
+        case OBJECT_POE_SISTER:   // fading effect
+        case OBJECT_WALLMASTER:   // color during Floormaster attack
+            specialStageIdx = 1;
+            break;
+        case OBJECT_SKULLTULA: // color during attack, only for normal walltula
+            if (cmbIdx == 0 && matIdx == 1) {
+                specialStageIdx = 1;
+            }
+            break;
+        case OBJECT_REDEAD: // color while frozen by Sun's Song
+            specialStageIdx = 2;
+            break;
+    }
+
+    if (specialStageIdx > -1 && mat->texEnvStagesIndices[specialStageIdx] > -1) {
+        Combiner* combiners = Cmb_GetCombiners(cmbMats);
+
+        Combiner* firstComb = &combiners[mat->texEnvStagesIndices[0]];
+        Combiner* otherComb = &combiners[mat->texEnvStagesIndices[specialStageIdx]];
+
+        SwapFields(&firstComb->combinerModeColor, &otherComb->combinerModeColor);
+        SwapFields(&firstComb->scaleColor, &otherComb->scaleColor);
+        SwapFields(&firstComb->sourceColors[1], &otherComb->sourceColors[1]);
+        SwapFields(&firstComb->operandColors[1], &otherComb->operandColors[1]);
+        SwapFields(&firstComb->sourceAlphas[1], &otherComb->sourceAlphas[1]);
+        SwapFields(&firstComb->operandAlphas[1], &otherComb->operandAlphas[1]);
+        SwapFields(&firstComb->constantColorIndex, &otherComb->constantColorIndex);
+
+        return TRUE;
+    }
+    return FALSE;
 }
 
 static void SoullessModels_ModifyCmb(CmbManager* cmbMan, s16 objId, s32 cmbIdx) {
@@ -337,7 +388,6 @@ static void SoullessModels_ModifyCmb(CmbManager* cmbMan, s16 objId, s32 cmbIdx) 
             origData->ambient            = mat->ambient;
             origData->diffuse            = mat->diffuse;
             origData->texEnvStageUsed    = mat->texEnvStageUsed;
-            origData->texEnvStage0       = mat->texEnvStagesIndices[0];
 
             // This removes transparency (for things like shaboms or biri) but it's needed to display correct colors.
             mat->blendMode = 0;
@@ -345,26 +395,10 @@ static void SoullessModels_ModifyCmb(CmbManager* cmbMan, s16 objId, s32 cmbIdx) 
             // Set both ambient and diffuse colors to the chosen value.
             mat->ambient = mat->diffuse = gSettingsContext.soullessColor;
 
-            // Remove all combiner stages to show only a shaded textureless color, but keep some special stages.
-            s16 keptStageIdx = -1;
-            switch (objId) {
-                case OBJECT_POE: // fading effect
-                case OBJECT_POE_COMPOSER:
-                case OBJECT_POE_SISTER:
-                case OBJECT_FIELD_POE:
-                case OBJECT_WALLMASTER: // color during attack
-                    keptStageIdx = 1;
-                    break;
-                case OBJECT_SKULLTULA: // color during attack, only for normal walltula
-                    keptStageIdx = cmbIdx == 0 && matIdx == 1 ? 1 : -1;
-                    break;
-                case OBJECT_REDEAD: // color while frozen by Sun's Song
-                    keptStageIdx = 2;
-                    break;
-            }
-            if (keptStageIdx > -1 && mat->texEnvStagesIndices[keptStageIdx] > -1) {
-                mat->texEnvStageUsed        = 1;
-                mat->texEnvStagesIndices[0] = mat->texEnvStagesIndices[keptStageIdx];
+            // Remove all combiner stages to show only a shaded textureless color, except for some cases where 1
+            // combiner is kept and modified.
+            if (HandleSpecialCombiner(cmbMats, objId, cmbIdx, matIdx)) {
+                mat->texEnvStageUsed = 1;
             } else {
                 mat->texEnvStageUsed = 0;
             }
@@ -385,7 +419,7 @@ void SoullessModels_ModifyGenericCmb(CmbManager* cmbMan) {
     SoullessModels_ModifyCmb(cmbMan, -1, -1);
 }
 
-static u8 SoullessModels_RestoreCmb(CmbManager* cmbMan, s16 objId) {
+static u8 SoullessModels_RestoreCmb(CmbManager* cmbMan, s16 objId, s32 cmbIdx) {
     if (GET_CMB_STATUS(cmbMan) != CMBSTATUS_MODIFIED) {
         return FALSE;
     }
@@ -405,7 +439,8 @@ static u8 SoullessModels_RestoreCmb(CmbManager* cmbMan, s16 objId) {
             mat->ambient                 = origData->ambient;
             mat->diffuse                 = origData->diffuse;
             mat->texEnvStageUsed         = origData->texEnvStageUsed;
-            mat->texEnvStagesIndices[0]  = origData->texEnvStage0;
+
+            HandleSpecialCombiner(cmbMats, objId, cmbIdx, matIdx);
         }
     } else if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_GRAYSCALE) {
         u8 combinerRestored = FALSE;
@@ -422,8 +457,12 @@ static u8 SoullessModels_RestoreCmb(CmbManager* cmbMan, s16 objId) {
     return TRUE;
 }
 
+static u8 SoullessModels_RestoreGenericCmb(CmbManager* cmbMan) {
+    return SoullessModels_RestoreCmb(cmbMan, -1, -1);
+}
+
 void SoullessModels_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s32 cmbIdx) {
-    if (!SoullessModels_Enabled || EnemySouls_CheckSoul_Impl(gRunningActor, SOULCHECK_BASE)) {
+    if (!SoullessModels_Enabled || EnemySouls_CheckSoul(gRunningActor, SOULCHECK_BASE)) {
         return;
     }
 
@@ -475,7 +514,7 @@ static void SoullessModels_RestoreObject(s16 objId) {
             continue;
         }
         // Restore original values for each CMB that was modified.
-        u8 modified = SoullessModels_RestoreCmb(cmbMan, objId);
+        u8 modified = SoullessModels_RestoreCmb(cmbMan, objId, cmbIdx);
         if (modified) {
             // Destroy CMB Manager so it will be reinitialized the next time it's needed.
             CmbManager_Destroy(cmbMan);
@@ -626,11 +665,10 @@ static void SoullessModels_RestoreSoul(EnemySoulId soulId) {
 
     for (s32 catIdx = 0; catIdx < ACTORTYPE_MAX; catIdx++) {
         Actor* actor = gGlobalContext->actorCtx.actorList[catIdx].first;
-        while (actor != NULL) {
+        for (; actor != NULL; actor = actor->next) {
             if (EnemySouls_GetSoulId(actor->id) == soulId) {
                 SoullessModels_RestoreActor(actor);
             }
-            actor = actor->next;
         }
     }
 }
@@ -640,15 +678,15 @@ static void SoullessModels_HandleRestoreRequest(void) {
     if (SoullessModels_CmbRestoreRequest) {
         obj = Object_FindEntry(OBJECT_GAMEPLAY_DUNGEON_KEEP);
         if (obj != NULL && obj->zarInfo.cmbMans[POT_CMB_INDEX] != NULL) {
-            SoullessModels_RestoreCmb(obj->zarInfo.cmbMans[POT_CMB_INDEX], -1);
+            SoullessModels_RestoreGenericCmb(obj->zarInfo.cmbMans[POT_CMB_INDEX]);
         }
         obj = Object_FindEntry(OBJECT_FLYING_FLOOR_TILE);
         if (obj != NULL && obj->zarInfo.cmbMans[FLYING_TILE_CMB_INDEX] != NULL) {
-            SoullessModels_RestoreCmb(obj->zarInfo.cmbMans[FLYING_TILE_CMB_INDEX], -1);
+            SoullessModels_RestoreGenericCmb(obj->zarInfo.cmbMans[FLYING_TILE_CMB_INDEX]);
         }
         obj = Object_FindEntry(OBJECT_ARMOS);
         if (obj != NULL && obj->zarInfo.cmbMans[ARMOS_CMB_INDEX] != NULL) {
-            SoullessModels_RestoreCmb(obj->zarInfo.cmbMans[ARMOS_CMB_INDEX], -1);
+            SoullessModels_RestoreGenericCmb(obj->zarInfo.cmbMans[ARMOS_CMB_INDEX]);
         }
         SoullessModels_CmbRestoreRequest = FALSE;
     }
