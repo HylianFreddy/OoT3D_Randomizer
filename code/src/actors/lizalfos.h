@@ -21,6 +21,8 @@ typedef struct EnZf {
 _Static_assert(sizeof(EnZf) == 0xBE8, "EnZf size");
 
 void EnZf_rUpdate(Actor* thisx, GlobalContext* globalCtx);
+void EnZf_rDraw(Actor* thisx, GlobalContext* globalCtx);
+
 void EnZf_ReinitModels(EnZf* this);
 
 #endif //_LIZALFOS_H_

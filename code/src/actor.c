@@ -88,6 +88,10 @@
 #include "obj_mure3.h"
 #include "armos.h"
 
+Actor* gRunningActor;
+#define MAX_RUNNING_ACTORS 5
+Actor* prevRunningActors[MAX_RUNNING_ACTORS] = { 0 };
+
 void Actor_Kill(Actor* actor) {
     actor->draw   = NULL;
     actor->update = NULL;
@@ -95,10 +99,6 @@ void Actor_Kill(Actor* actor) {
 }
 
 void TitleCard_Update(GlobalContext* globalCtx, TitleCardContext* titleCtx);
-
-Actor* gRunningActor;
-#define MAX_RUNNING_ACTORS 5
-Actor* prevRunningActors[MAX_RUNNING_ACTORS] = { 0 };
 
 void Actor_Init() {
     // Some actors have the wrong ID saved in their "initInfo".
@@ -142,6 +142,7 @@ void Actor_Init() {
     gActorOverlayTable[0x1D].initInfo->update = EnPeehat_rUpdate;
 
     gActorOverlayTable[0x25].initInfo->update = EnZf_rUpdate;
+    gActorOverlayTable[0x25].initInfo->draw   = EnZf_rDraw;
 
     gActorOverlayTable[0x27].initInfo->update = BossDodongo_rUpdate;
 

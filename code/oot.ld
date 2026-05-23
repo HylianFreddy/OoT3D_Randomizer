@@ -56,6 +56,7 @@ SECTIONS
 	.patch_JabuSwitchRutoCheck 0x143AC8 + _LD_OFF : { *(.patch_JabuSwitchRutoCheck) }
 	.patch_OwlMagicCheck 0x144B44 + _LD_OFF : { *(.patch_OwlMagicCheck) }
 	EnGeldB_Update = 0x14A04C + _LD_OFF;
+	EnZf_Draw = 0x14C864 + _LD_OFF;
 	EnGirlA_InitializeItemAction = 0x14D5C8 + _LD_OFF;
 	.patch_MedigoronItemOverrideOne 0x14D95C + _LD_OFF : { *(.patch_MedigoronItemOverrideOne) }
 	.patch_BeanDaddyPurchase 0x14EDA8 + _LD_OFF : { *(.patch_BeanDaddyPurchase) }

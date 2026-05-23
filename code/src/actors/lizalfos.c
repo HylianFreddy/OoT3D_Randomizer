@@ -4,6 +4,7 @@
 #include "actor.h"
 
 void EnZf_Update(Actor* thisx, GlobalContext* globalCtx);
+void EnZf_Draw(Actor* thisx, GlobalContext* globalCtx);
 
 void EnZf_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     EnZf* this = (EnZf*)thisx;
@@ -18,6 +19,14 @@ void EnZf_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         CollisionPoly floorPoly;
         f32 yGroundIntersect = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &floorCheckPos);
         thisx->world.pos.y   = yGroundIntersect + 150.0f;
+    }
+}
+
+void EnZf_rDraw(Actor* thisx, GlobalContext* globalCtx) {
+    EnZf* this = (EnZf*)thisx;
+    // Skip draw function when invisible because the textureless soulless look would draw the model anyway.
+    if (this->alpha != 0) {
+        EnZf_Draw(thisx, globalCtx);
     }
 }
 
