@@ -456,11 +456,11 @@ void ItemOverride_Update(void) {
     ItemOverride_CheckZeldasLetter();
     IceTrap_Update();
     CustomModel_Update();
+    if (rInputCtx.cur.zr && rInputCtx.pressed.a) {
+        ItemOverride_PushPendingOverride(sTestOverride);
+    }
     u8 readyStatus = ItemOverride_PlayerIsReady();
     if (readyStatus) {
-        if (rInputCtx.cur.zr && rInputCtx.cur.a) {
-            ItemOverride_PushPendingOverride(sTestOverride);
-        }
         IceTrap_UpdateOverride(&rPendingOverrideQueue[0], FALSE);
         if (readyStatus == READY_ON_LAND) { // Ice traps effects only work on land
             ItemOverride_PopIceTrap();
