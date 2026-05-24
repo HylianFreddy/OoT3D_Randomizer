@@ -20,8 +20,6 @@
 #include "z3D/actors/z_en_item00.h"
 #include "z3D/actors/z_obj_mure3.h"
 
-#include "bgm.h"
-
 #define READY_ON_LAND 1
 #define READY_IN_WATER 2
 
