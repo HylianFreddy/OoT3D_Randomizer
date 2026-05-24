@@ -132,7 +132,7 @@ u8 DoorShutter_CheckSoullessEnemies(DoorShutter* this) {
         (this->actionFunc == DoorShutter_Close || this->actionFunc == DoorShutter_Open)) {
         Actor* enemy = gGlobalContext->actorCtx.actorList[ACTORTYPE_ENEMY].first;
         for (; enemy != NULL; enemy = enemy->next) {
-            if (enemy->room == gGlobalContext->roomNum && !EnemySouls_CheckSoulForActor(enemy)) {
+            if (enemy->room == gGlobalContext->roomNum && EnemySouls_IsInvulnerable(enemy)) {
                 this->barsClosedAmount = 0.0;
                 return TRUE;
             }

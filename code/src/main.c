@@ -23,7 +23,6 @@
 #include "enemy_souls.h"
 #include "bgm.h"
 #include "business_scrubs.h"
-#include "flying_traps.h"
 
 #include "z3D/z3D.h"
 #include "3ds/extdata.h"
