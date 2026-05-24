@@ -2,6 +2,7 @@
 #include "settings.h"
 #include "multiplayer.h"
 #include "common.h"
+#include "actor.h"
 
 void EnDns_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnShopnuts_Init(Actor* thisx, GlobalContext* globalCtx);
@@ -135,4 +136,8 @@ void EnDns_StartBurrow(EnDns* this) {
     this->actor.flags &= ~(0x1);
     EnDns_ChangeAnim(this, 1);
     this->action_fn = EnDns_Burrow;
+}
+
+void EnShopnuts_ReinitModels(EnShopnuts* this) {
+    Actor_ReinitSkelAnime(&this->actor, &this->anime, 0);
 }

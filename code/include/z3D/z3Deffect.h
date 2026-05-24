@@ -153,4 +153,13 @@ extern EffectSsInfo gEffectSsInfo;
 
 void EffectSs_Delete(EffectSs* effectSs);
 
+// typedef void (*EffectSsKiraKira_SpawnDispersed_proc)(struct GlobalContext* play, Vec3f* pos, Vec3f* velocity,
+//                                                      Vec3f* accel, Color_RGBA8* primColor, Color_RGBA8* envColor,
+//                                                      s16 scale, s32 life);
+// #define EffectSsKiraKira_SpawnDispersed ((EffectSsKiraKira_SpawnDispersed_proc)GAME_ADDR(0x36EA98))
+
+void EffectSsDeadDb_Spawn(struct GlobalContext* globalCtx, Vec3f* position, Vec3f* velocity, Vec3f* acceleration,
+                          s16 scale, s16 scale_step, s16 prim_r, s16 prim_g, s16 prim_b, s16 prim_a, s16 env_r,
+                          s16 env_g, s16 env_b, s16 unused, s32 frame_duration, s16 play_sound);
+
 #endif //_Z3DEFFECT_H_
