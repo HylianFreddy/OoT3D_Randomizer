@@ -74,6 +74,7 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
     Triforce_HandleCreditsWarp();
     Enemizer_Update();
     Bgm_ApplyFanfareMod();
+    EnemySouls_Update();
 }
 
 s32 checkFastForward(void) {
@@ -93,7 +94,6 @@ void after_GlobalContext_Update() {
     }
 
     Multiplayer_Sync_Update();
-    EnemySouls_DrawEffects();
 
     if (gGlobalContext->state.running == 0) {
         Model_DestroyAll();
