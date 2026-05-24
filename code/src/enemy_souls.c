@@ -155,7 +155,9 @@ static BOOL EnemySouls_CheckSoul(Actor* actor, SoulCheckType soulCheck) {
 
     if (soulCheck >= SOULCHECK_COLLISION &&
         // Armos statues and asleep Armos enemies, included so they can be hit and woken up even while soulless
-        actor->id == ACTOR_ARMOS && ((EnAm*)actor)->textureBlend == 0) {
+        ((actor->id == ACTOR_ARMOS && ((EnAm*)actor)->textureBlend == 0) ||
+         // Dead Hand waiting underground can detect explosions and come out
+         (actor->id == ACTOR_DEAD_HAND && actor->shape.yOffset <= -15000.0))) {
         return TRUE;
     }
 

@@ -259,6 +259,8 @@ void Actor_Init() {
     gActorOverlayTable[0x11D].initInfo->draw         = EnTuboTrap_rDraw;
     gActorOverlayTable[0x11D].initInfo->instanceSize = sizeof(EnTuboTrap);
 
+    gActorOverlayTable[0x122].initInfo->destroy = EnPoRelay_rDestroy;
+
     gActorOverlayTable[0x126].initInfo->init   = ObjBean_rInit;
     gActorOverlayTable[0x126].initInfo->update = ObjBean_rUpdate;
 

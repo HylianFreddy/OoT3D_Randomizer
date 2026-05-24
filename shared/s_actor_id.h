@@ -68,6 +68,7 @@ enum ActorId {
     ACTOR_SKULL_KID          = 0x115,
     ACTOR_FLYING_POT         = 0x11D,
     ACTOR_FREEZARD           = 0x121,
+    ACTOR_WINDMILL_OBJECTS   = 0x123,
     ACTOR_BG_JYA_IRONOBJ     = 0x169,
     ACTOR_FIELD_POE          = 0x175,
     ACTOR_GANON              = 0x17A,

@@ -410,12 +410,7 @@ PATCH FireArrowRequirement
     tst r2,#0x400
 
 PATCH BusinessScrubCheckFlags
-    cpy r0,r4
-    bl EnShopnnuts_rCheckFlags
-    cmp r0,#0x0
-
-PATCH BusinessScrubTable
-    .word rScrubTable
+    bl hook_BusinessScrubCheckFlags
 
 PATCH KakarikoGateCheck
     bl hook_KakarikoGateCheck
@@ -1431,6 +1426,12 @@ PATCH PlayInit
 PATCH TitleLinkObject
     .word 0xFFFF0014
 
+PATCH DeleteEquipment
+    bl hook_DeleteEquipment
+
+PATCH GetQuickItem
+    bl hook_GetQuickItem
+
 PATCH ExtendObjectGetSlot
     b hook_ExtendObjectGetSlot
 
@@ -1639,3 +1640,6 @@ PATCH ActorInit2
 
 PATCH ActorInit3
     bl hook_ActorInit
+
+PATCH SetupDoorShutter
+    bleq hook_SetupDoorShutter

@@ -518,6 +518,16 @@ void SaveFile_SetStartingInventory(void) {
     gSaveContext.equipment |= gSettingsContext.startingEquipment;
     gSaveContext.upgrades |= gSettingsContext.startingUpgrades;
 
+    if (gSettingsContext.extraShields != EXTRASHIELDS_NEVER) {
+        u8 startingShields = gSettingsContext.startingEquipment >> (4 * EQUIP_TYPE_SHIELD);
+        if (startingShields & EQUIP_VALUE_SHIELD_DEKU) {
+            gExtSaveData.dekuShieldsCount = 1;
+        }
+        if (startingShields & EQUIP_VALUE_SHIELD_HYLIAN) {
+            gExtSaveData.hylianShieldsCount = 1;
+        }
+    }
+
     // max rupees
     if (gSettingsContext.startingMaxRupees) {
         u8 wallet = (gSaveContext.upgrades >> 12) & 0x3;
@@ -836,7 +846,7 @@ void SaveFile_LoadFileSwordless(void) {
     if (gSaveContext.linkAge == 0) {
         // Push pedestal item if adult and haven't received yet
         if (gSettingsContext.shuffleMasterSword && !(gExtSaveData.extInf.masterSwordFlags & 2)) {
-            ItemOverride_PushDelayedOverride(0x00);
+            ItemOverride_PushDelayedOverride(DLYOVR_MASTER_SWORD);
         }
 
         // Mark pedestal item collected

@@ -19,6 +19,7 @@ SECTIONS
 	.patch_ArmosPushSpeed 0x10B5C4 + _LD_OFF : { *(.patch_ArmosPushSpeed) }
 	EnMb_ClubWaitPlayerNear = 0x10B5D0 + _LD_OFF;
 	.patch_ShortenRainbowBridgeCS 0x10B904 + _LD_OFF : { *(.patch_ShortenRainbowBridgeCS) }
+	DoorShutter_Close = 0x10D030 + _LD_OFF;
 	.patch_GrannyTextID 0x10DCD0 + _LD_OFF : { *(.patch_GrannyTextID) }
 	OceffSpot_End = 0x10FBD0 + _LD_OFF;
 	ObjLift_Shake = 0x110E98 + _LD_OFF;
@@ -118,7 +119,6 @@ SECTIONS
 	EnBox_Init = 0x1899EC + _LD_OFF;
 	EnCow_Init = 0x189FD4 + _LD_OFF;
 	EnCow_Destroy = 0x18A3E4 + _LD_OFF;
-	.patch_BusinessScrubTable 0x18A634 + _LD_OFF : { *(.patch_BusinessScrubTable) }
 	EnGe1_Init = 0x18B218 + _LD_OFF;
 	.patch_CheckGerudoToken_18B368 0x18B368 + _LD_OFF : { *(.patch_CheckGerudoToken_18B368) }
 	.patch_CheckGerudoToken_18B3A0 0x18B3A0 + _LD_OFF : { *(.patch_CheckGerudoToken_18B3A0) }
@@ -288,8 +288,9 @@ SECTIONS
 	.patch_Item00GiveCollectedItemDrop 0x22B974 + _LD_OFF : { *(.patch_Item00GiveCollectedItemDrop) }
 	.patch_patch_ItemGiveBombchuDropTwo 0x22BAE4 + _LD_OFF : { *(.patch_ItemGiveBombchuDropTwo) }
 	.patch_GetObjectEntry_EnNutsballInit 0x22DEC4 + _LD_OFF : { *(.patch_GetObjectEntry_EnNutsballInit) }
+	EnPoRelay_Destroy = 0x22E438 + _LD_OFF;
 	EnShopnuts_Init = 0x22ED2C + _LD_OFF;
-	.patch_BusinessScrubCheckFlags 0x22EE64 + _LD_OFF : { *(.patch_BusinessScrubCheckFlags) }
+	.patch_BusinessScrubCheckFlags 0x22EE60 + _LD_OFF : { *(.patch_BusinessScrubCheckFlags) }
 	EnTorch2_Draw = 0x22EFF8 + _LD_OFF;
 	EnTorch2_Update = 0x22F0C8 + _LD_OFF;
 	.patch_DarkLinkPlayerRecoil 0x22F838 + _LD_OFF : { *(.patch_DarkLinkPlayerRecoil) }
@@ -488,6 +489,7 @@ SECTIONS
 	Collider_SetCylinder = 0x353D24 + _LD_OFF;
 	Collider_InitCylinder = 0x353DD0 + _LD_OFF;
 	SetupItemInWater = 0x354894 + _LD_OFF;
+	.patch_GetQuickItem 0x354AB0 + _LD_OFF : { *(.patch_GetQuickItem) }
 	.patch_FastChests 0x354CD4 + _LD_OFF : { *(.patch_FastChests) }
 	.patch_AboutToPickUpActor 0x354DD8 + _LD_OFF : { *(.patch_AboutToPickUpActor) }
 	.patch_MasterSwordTimerCheck 0x354DFC + _LD_OFF : { *(.patch_MasterSwordTimerCheck) }
@@ -500,6 +502,7 @@ SECTIONS
 	FaceAnim_Init = 0x35C358 + _LD_OFF;
 	.patch_Audio_PlayFanfare 0x35C528 + _LD_OFF : { *(.patch_Audio_PlayFanfare) }
 	Audio_PlayFanfare = 0x35C528 + _LD_OFF;
+	.patch_DeleteEquipment 0x35D1F8 + _LD_OFF : { *(.patch_DeleteEquipment) }
 	LinkDamage = 0x35D304 + _LD_OFF;
 	FireDamage = 0x35D8D8 + _LD_OFF;
 	Player_InBlockingCsMode = 0x35DB20 + _LD_OFF;
@@ -511,6 +514,7 @@ SECTIONS
 	.patch_SkullwalltulaAttack_35F328 0x35F328 + _LD_OFF : { *(.patch_SkullwalltulaAttack_35F328) }
 	.patch_SkullwalltulaTargetRotation 0x35F828 + _LD_OFF : { *(.patch_SkullwalltulaTargetRotation) }
 	.patch_SkullwalltulaAttack_35F834 0x35F834 + _LD_OFF : { *(.patch_SkullwalltulaAttack_35F834) }
+	LinkAnimation_Change = 0x360190 + _LD_OFF;
 	LinkAnimation_PlayOnce = 0x3604F0 + _LD_OFF;
 	.patch_ISGCrouchStab 0x360690 + _LD_OFF : { *(.patch_ISGCrouchStab) }
 	.patch_ForceTrailEffectUpdate 0x362108 + _LD_OFF : { *(.patch_ForceTrailEffectUpdate) } /*EffectBlure_AddVertex*/
@@ -538,6 +542,7 @@ SECTIONS
 	.patch_IgnoreMaskReaction 0x36BBC4 + _LD_OFF : { *(.patch_IgnoreMaskReaction) }
 	Flags_UnsetSwitch = 0x36BEAC + _LD_OFF;
 	Matrix_Multiply = 0x36C174 + _LD_OFF;
+	.patch_SetupDoorShutter 0x36C3BC + _LD_OFF : { *(.patch_SetupDoorShutter) }
 	Flags_GetClear = 0x36CF6C + _LD_OFF;
 	Math_Vec3f_DistXZ = 0x36D260 + _LD_OFF;
 	Math_SmoothStepToF = 0x36E168 + _LD_OFF;
@@ -685,7 +690,7 @@ SECTIONS
 	EnDoor_Open = 0x3EC04C + _LD_OFF;
 	.patch_CowItemOverride 0x3EE378 + _LD_OFF : { *(.patch_CowItemOverride) }
 	DoorGerudo_Unlocking = 0x3EEE38 + _LD_OFF;
-	DoorShutter_SlidingDoor_Open = 0x3EEE7C + _LD_OFF;
+	DoorShutter_Open = 0x3EEE7C + _LD_OFF;
 	.patch_CowBottleCheck 0x3F065C + _LD_OFF : { *(.patch_CowBottleCheck) }
 	.patch_CarpetSalesmanCheckFlagOne 0x3F0A18 + _LD_OFF : { *(.patch_CarpetSalesmanCheckFlagOne) }
 	.patch_CarpetSalesmanCheckFlagTwo 0x3F0A64 + _LD_OFF : { *(.patch_CarpetSalesmanCheckFlagTwo) }
@@ -699,7 +704,7 @@ SECTIONS
 	.patch_FireArrowCheckChestFlagTwo 0x3F2448 + _LD_OFF : { *(.patch_FireArrowCheckChestFlagTwo) }
 	.patch_LinkReflection 0x3F2F0C + _LD_OFF : { *(.patch_LinkReflection) }
 	DoorGerudo_Idle = 0x3F3FA0 + _LD_OFF;
-	DoorShutter_SlidingDoor_Idle = 0x3F4A3C + _LD_OFF;
+	DoorShutter_Idle = 0x3F4A3C + _LD_OFF;
 	.patch_SlidingDoorDestroyCustomModels 0x3F4A70 + _LD_OFF : { *(.patch_SlidingDoorDestroyCustomModels) }
 	.patch_ChildBlueWarpOverride 0x3F5774 + _LD_OFF : { *(.patch_ChildBlueWarpOverride) }
 	BgIceShelter_Melt = 0x3F5F00 + _LD_OFF;
@@ -880,7 +885,7 @@ SECTIONS
 	gGanondorfBlood = 0x514F78 + _LD_OFF;
 	gGanonBlood = 0x515194 + _LD_OFF;
 	EnChanger_LoserGetItemIds = 0x521774 + _LD_OFF;
-	VanillaScrubTable = 0x522384 + _LD_OFF;
+	EnDns_ItemEntries = 0x522384 + _LD_OFF;
 	EnGirlA_ShopItemEntries = 0x524F50 + _LD_OFF;
 	.patch_BombchuCheapestPriceOne 0x525348 + _LD_OFF : { *(.patch_BombchuCheapestPriceOne) }
 	.patch_BombchuCheapestPriceTwo 0x5253D8 + _LD_OFF : { *(.patch_BombchuCheapestPriceTwo) }
