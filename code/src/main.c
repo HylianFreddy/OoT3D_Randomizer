@@ -22,6 +22,7 @@
 #include "icetrap.h"
 #include "enemy_souls.h"
 #include "bgm.h"
+#include "business_scrubs.h"
 
 #include "z3D/z3D.h"
 #include "3ds/extdata.h"
@@ -43,6 +44,7 @@ void Randomizer_Init() {
     extDataInit();
     irrstInit();
     Effects_Init();
+    BusinessScrubs_Init();
 
     s64 output = 0;
     svcGetSystemInfo(&output, 0x20000, 0);

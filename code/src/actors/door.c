@@ -84,7 +84,6 @@ void DoorShutter_Update(Actor* thisx, GlobalContext* globalCtx);
 void DoorShutter_Idle(DoorShutter* this, GlobalContext* globalCtx);
 void DoorShutter_Open(DoorShutter* this, GlobalContext* globalCtx);
 void DoorShutter_Close(DoorShutter* this, GlobalContext* globalCtx);
-void DoorShutter_WaitClear(DoorShutter* this, GlobalContext* globalCtx);
 
 void DoorShutter_Unlocking(DoorShutter* this, GlobalContext* globalCtx);
 

@@ -382,11 +382,16 @@ void ItemEffect_GiveChildKokiriSword(SaveContext* saveCtx, s16 arg1, s16 arg2) {
     }
 }
 
-void ItemEffect_Shield(SaveContext* saveCtx, s16 shield, s16 arg2) {
-    if (shield == EQUIP_VALUE_SHIELD_DEKU) {
-        gExtSaveData.dekuShieldsCount++;
-    } else if (shield == EQUIP_VALUE_SHIELD_HYLIAN) {
-        gExtSaveData.hylianShieldsCount++;
+void ItemEffect_Shield(SaveContext* saveCtx, s16 shieldEquipValue, s16 arg2) {
+    if (gSettingsContext.extraShields != EXTRASHIELDS_NEVER) {
+        switch (shieldEquipValue) {
+            case EQUIP_VALUE_SHIELD_DEKU:
+                gExtSaveData.dekuShieldsCount++;
+                break;
+            case EQUIP_VALUE_SHIELD_HYLIAN:
+                gExtSaveData.hylianShieldsCount++;
+                break;
+        }
     }
 }
 

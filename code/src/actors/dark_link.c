@@ -62,8 +62,9 @@ void EnTorch2_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
                 this->darkPlayer.fallStartHeight = thisx->world.pos.y;
 
                 // Sometimes during the first update cycle the animation changes to the falling one, so we need to
-                // restore it.
-                if (this->darkPlayer.skelAnime.animIndex != IDLE_STANDING_ANIM_IDX) {
+                // restore it. Check water level in case it can raise and submerge Dark Link while idle.
+                if (this->darkPlayer.skelAnime.animIndex != IDLE_STANDING_ANIM_IDX &&
+                    this->darkPlayer.actor.depthInWater <= 0) {
                     LinkAnimation_Change(&this->darkPlayer.skelAnime, globalCtx, IDLE_STANDING_ANIM_IDX, 1.0, 0.0, 0.0,
                                          0, 0.0);
                 }

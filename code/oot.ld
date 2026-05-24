@@ -117,7 +117,6 @@ SECTIONS
 	EnBox_Init = 0x1899EC + _LD_OFF;
 	EnCow_Init = 0x189FD4 + _LD_OFF;
 	EnCow_Destroy = 0x18A3E4 + _LD_OFF;
-	.patch_BusinessScrubTable 0x18A634 + _LD_OFF : { *(.patch_BusinessScrubTable) }
 	EnGe1_Init = 0x18B218 + _LD_OFF;
 	.patch_CheckGerudoToken_18B368 0x18B368 + _LD_OFF : { *(.patch_CheckGerudoToken_18B368) }
 	.patch_CheckGerudoToken_18B3A0 0x18B3A0 + _LD_OFF : { *(.patch_CheckGerudoToken_18B3A0) }
@@ -285,8 +284,9 @@ SECTIONS
 	.patch_Item00GiveCollectedItemDrop 0x22B974 + _LD_OFF : { *(.patch_Item00GiveCollectedItemDrop) }
 	.patch_patch_ItemGiveBombchuDropTwo 0x22BAE4 + _LD_OFF : { *(.patch_ItemGiveBombchuDropTwo) }
 	.patch_GetObjectEntry_EnNutsballInit 0x22DEC4 + _LD_OFF : { *(.patch_GetObjectEntry_EnNutsballInit) }
+	EnPoRelay_Destroy = 0x22E438 + _LD_OFF;
 	EnShopnuts_Init = 0x22ED2C + _LD_OFF;
-	.patch_BusinessScrubCheckFlags 0x22EE64 + _LD_OFF : { *(.patch_BusinessScrubCheckFlags) }
+	.patch_BusinessScrubCheckFlags 0x22EE60 + _LD_OFF : { *(.patch_BusinessScrubCheckFlags) }
 	EnTorch2_Update = 0x22F0C8 + _LD_OFF;
 	.patch_DarkLinkPlayerRecoil 0x22F838 + _LD_OFF : { *(.patch_DarkLinkPlayerRecoil) }
 	ObjMure3_Update = 0x2318AC + _LD_OFF;
@@ -475,7 +475,7 @@ SECTIONS
 	Collider_SetCylinder = 0x353D24 + _LD_OFF;
 	Collider_InitCylinder = 0x353DD0 + _LD_OFF;
 	SetupItemInWater = 0x354894 + _LD_OFF;
-	.patch_PickupItemDrop 0x354AB0 + _LD_OFF : { *(.patch_PickupItemDrop) }
+	.patch_GetQuickItem 0x354AB0 + _LD_OFF : { *(.patch_GetQuickItem) }
 	.patch_FastChests 0x354CD4 + _LD_OFF : { *(.patch_FastChests) }
 	.patch_AboutToPickUpActor 0x354DD8 + _LD_OFF : { *(.patch_AboutToPickUpActor) }
 	.patch_MasterSwordTimerCheck 0x354DFC + _LD_OFF : { *(.patch_MasterSwordTimerCheck) }
@@ -873,7 +873,7 @@ SECTIONS
 	gGanondorfBlood = 0x514F78 + _LD_OFF;
 	gGanonBlood = 0x515194 + _LD_OFF;
 	EnChanger_LoserGetItemIds = 0x521774 + _LD_OFF;
-	VanillaScrubTable = 0x522384 + _LD_OFF;
+	EnDns_ItemEntries = 0x522384 + _LD_OFF;
 	EnGirlA_ShopItemEntries = 0x524F50 + _LD_OFF;
 	.patch_BombchuCheapestPriceOne 0x525348 + _LD_OFF : { *(.patch_BombchuCheapestPriceOne) }
 	.patch_BombchuCheapestPriceTwo 0x5253D8 + _LD_OFF : { *(.patch_BombchuCheapestPriceTwo) }

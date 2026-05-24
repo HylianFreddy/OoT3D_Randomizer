@@ -413,12 +413,7 @@ PATCH FireArrowRequirement
     tst r2,#0x400
 
 PATCH BusinessScrubCheckFlags
-    cpy r0,r4
-    bl EnShopnnuts_rCheckFlags
-    cmp r0,#0x0
-
-PATCH BusinessScrubTable
-    .word rScrubTable
+    bl hook_BusinessScrubCheckFlags
 
 PATCH KakarikoGateCheck
     bl hook_KakarikoGateCheck
@@ -1435,8 +1430,8 @@ PATCH TitleLinkObject
 PATCH DeleteEquipment
     bl hook_DeleteEquipment
 
-PATCH PickupItemDrop
-    bl hook_PickupItemDrop
+PATCH GetQuickItem
+    bl hook_GetQuickItem
 
 PATCH ExtendObjectGetSlot
     b hook_ExtendObjectGetSlot

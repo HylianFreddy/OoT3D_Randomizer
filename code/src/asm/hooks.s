@@ -1852,17 +1852,17 @@ HOOK DeleteEquipment
     push {r0-r12, lr}
     cpy r0,r1 @ equipment type
     cpy r1,r4 @ equipment value
-    bl Equipment_OverrideDelete
+    bl Equipment_OverrideDeletion
     cmp r0,#0x0
     pop {r0-r12, lr}
     strheq r2,[r12,#0xB6]
     bx lr
 
-HOOK PickupItemDrop
+HOOK GetQuickItem
     ldrb r1,[r6,#0x0]
     push {r0-r12, lr}
     cpy r0,r1 @ item id
-    bl ItemOverride_OnPickupItemDrop
+    bl ItemOverride_GetQuickItem
     pop {r0-r12, lr}
     bx lr
 
@@ -2214,6 +2214,17 @@ HOOK PlayerBonk
     push {r0-r12, lr}
     bl Player_OnBonk
     pop {r0-r12, lr}
+    bx lr
+
+HOOK BusinessScrubCheckFlags
+    push {r0-r12, lr}
+    cpy r0,r4 @ scrub actor
+    bl EnShopnnuts_rCheckFlags
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    addeq lr,lr,#0x0C @  0: skip checks, don't kill actor
+    addgt lr,lr,#0x10 @  1: kill actor
+    cmplt r1,#0x2     @ -1: resume vanilla checks
     bx lr
 
 HOOK SetupDoorShutter

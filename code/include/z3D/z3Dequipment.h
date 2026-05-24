@@ -17,4 +17,4 @@ typedef enum EquipValueShield {
     EQUIP_VALUE_SHIELD_MAX,
 } EquipValueShield;
 
-#endif
+#endif //_Z3DEQUIPMENT_H_
