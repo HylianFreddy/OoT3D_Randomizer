@@ -1,5 +1,5 @@
-#ifndef _EN_RR_H_
-#define _EN_RR_H_
+#ifndef _LIKE_LIKE_H_
+#define _LIKE_LIKE_H_
 
 #include "z3D/z3D.h"
 
@@ -13,4 +13,6 @@ typedef struct EnRr {
 } EnRr;
 _Static_assert(sizeof(EnRr) == 0x2850, "EnRr size");
 
-#endif //_EN_RR_H_
+void EnRr_ReinitModels(EnRr* this);
+
+#endif //_LIKE_LIKE_H_

@@ -17,7 +17,7 @@ void EnBa_ReinitModels(EnBa* this) {
     FaceAnim_Destroy(&this->faceAnim);
     FaceAnim_Init(&this->faceAnim, &this->anime, 2, -1, -1);
     FaceAnim_SetFrame(&this->faceAnim, 0, this->actor.params);
-    FaceAnimation_35E330(&this->faceAnim);
+    FaceAnim_35E330(&this->faceAnim);
 }
 
 /*-------------------------------
@@ -37,5 +37,5 @@ void EnBx_ReinitModels(EnBx* this) {
     FaceAnim_Destroy(&this->faceAnim);
     FaceAnim_Init(&this->faceAnim, &this->anime, 0, -1, -1);
     FaceAnim_SetFrame(&this->faceAnim, 0, this->actor.params & 0x7F);
-    FaceAnimation_35E330(&this->faceAnim);
+    FaceAnim_35E330(&this->faceAnim);
 }

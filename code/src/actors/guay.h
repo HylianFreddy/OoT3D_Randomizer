@@ -21,4 +21,6 @@ _Static_assert(sizeof(EnCrow) == 0x618, "EnCrow size");
 
 void EnCrow_rUpdate(Actor* thisx, GlobalContext* globalCtx);
 
+void EnCrow_ReinitModels(EnCrow* this);
+
 #endif //_GUAY_H_

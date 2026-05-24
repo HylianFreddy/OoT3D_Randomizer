@@ -38,94 +38,115 @@
 #include "spike.h"
 #include "freezard.h"
 #include "bubble.h"
-
-#include "z3D/actors/z_en_firefly.h"
-#include "z3D/actors/z_en_rd.h"
-#include "z3D/actors/z_en_rr.h"
+#include "keese.h"
+#include "redead.h"
+#include "like_like.h"
 
 #include <string.h>
 
+typedef void (*ReinitModelsFunc)(Actor* actor);
+
+typedef struct ActorSoulData {
+    EnemySoulId soulId;
+    ReinitModelsFunc reinitModelsFunc;
+} ActorSoulData;
+
 static void SoullessFlames_Draw(void);
 static void SoullessModels_RestoreSoul(EnemySoulId soulId);
+static void SoullessModels_ReinitGenericSkelAnime(Actor* actor);
 static void SoullessModels_HandleRestoreRequest(void);
 
-// clang-format off
-EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
+#define CASE(actorId, soulId, reinitModelsFunc)        \
+    case actorId:                                      \
+        return (ActorSoulData) {                       \
+            soulId, (ReinitModelsFunc)reinitModelsFunc \
+        }
+static ActorSoulData EnemySouls_GetActorSoulData(s16 actorId) {
+    // Some actors don't have a function to reinit models for various reasons:
+    // - Flare Dancer Core can't spawn if the player doesn't have the Flare Dancer Soul;
+    // - Flying Traps and Armos are handled in their own update function;
+    // - Bosses (except KD) are ignored because the player can't get items while they're loaded.
     switch (actorId) {
-        case ACTOR_POE:                    return SOUL_POE;
-        case ACTOR_FIELD_POE:              return SOUL_POE;
-        case ACTOR_POE_SISTER:             return SOUL_POE;
-        case ACTOR_OCTOROK:                return SOUL_OCTOROK;
-        case ACTOR_BIG_OCTO:               return SOUL_OCTOROK;
-        case ACTOR_KEESE:                  return SOUL_KEESE;
-        case ACTOR_TEKTITE:                return SOUL_TEKTITE;
-        case ACTOR_LEEVER:                 return SOUL_LEEVER;
-        case ACTOR_PEAHAT:                 return SOUL_PEAHAT;
-        case ACTOR_LIZALFOS:               return SOUL_LIZALFOS;
-        case ACTOR_SHABOM:                 return SOUL_SHABOM;
-        case ACTOR_BIRI:                   return SOUL_BIRI_BARI;
-        case ACTOR_BARI:                   return SOUL_BIRI_BARI;
-        case ACTOR_TAILPASARAN:            return SOUL_TAILPASARAN;
-        case ACTOR_SKULLTULA:              return SOUL_SKULLTULA;
-        case ACTOR_SKULLWALLTULA:          return SOUL_SKULLTULA;
-        case ACTOR_TORCH_SLUG:             return SOUL_TORCH_SLUG;
-        case ACTOR_STINGER_FLOOR:          return SOUL_STINGER;
-        case ACTOR_STINGER_WATER:          return SOUL_STINGER;
-        case ACTOR_MOBLIN:                 return SOUL_MOBLIN;
-        case ACTOR_ARMOS:                  return SOUL_ARMOS;
-        case ACTOR_DEKU_BABA:              return SOUL_DEKU_BABA;
-        case ACTOR_WITHERED_DEKU_BABA:     return SOUL_DEKU_BABA;
-        case ACTOR_BUBBLE:                 return SOUL_BUBBLE;
-        case ACTOR_FLYING_POT:             return SOUL_FLYING_TRAP;
-        case ACTOR_FLYING_FLOOR_TILE:      return SOUL_FLYING_TRAP;
-        case ACTOR_BEAMOS:                 return SOUL_BEAMOS;
-        case ACTOR_WALLMASTER:             return SOUL_WALLMASTER;
-        case ACTOR_FLOORMASTER:            return SOUL_WALLMASTER;
-        case ACTOR_REDEAD:                 return SOUL_REDEAD_GIBDO;
-        case ACTOR_SHELL_BLADE:            return SOUL_SHELL_BLADE;
-        case ACTOR_LIKE_LIKE:              return SOUL_LIKE_LIKE;
-        case ACTOR_PARASITIC_TENTACLE:     return SOUL_TENTACLE;
-        case ACTOR_OBSTACLE_TENTACLE:      return SOUL_TENTACLE;
-        case ACTOR_ANUBIS:                 return SOUL_ANUBIS;
-        case ACTOR_SPIKE:                  return SOUL_SPIKE;
-        case ACTOR_SKULL_KID:              return SOUL_SKULL_KID;
-        case ACTOR_FREEZARD:               return SOUL_FREEZARD;
-        case ACTOR_HINT_DEKU_SCRUB:        return SOUL_DEKU_SCRUB;
-        case ACTOR_MAD_SCRUB:              return SOUL_DEKU_SCRUB;
-        case ACTOR_BUSINESS_SCRUB:         return SOUL_DEKU_SCRUB;
-        case ACTOR_WOLFOS:                 return SOUL_WOLFOS;
-        case ACTOR_STALCHILD:              return SOUL_STALCHILD;
-        case ACTOR_GUAY:                   return SOUL_GUAY;
-        case ACTOR_DOOR_MIMIC:             return SOUL_DOOR_MIMIC;
-        case ACTOR_STALFOS:                return SOUL_STALFOS;
-        case ACTOR_DARK_LINK:              return SOUL_DARK_LINK;
-        case ACTOR_FLARE_DANCER:           return SOUL_FLARE_DANCER;
-        case ACTOR_FLARE_DANCER_CORE:      return SOUL_FLARE_DANCER;
-        case ACTOR_DEAD_HAND:              return SOUL_DEAD_HAND;
-        case ACTOR_DEAD_HAND_HAND:         return SOUL_DEAD_HAND;
-        case ACTOR_GERUDO_GUARD:           return SOUL_GERUDO;
-        case ACTOR_GERUDO_FIGHTER:         return SOUL_GERUDO;
-        case ACTOR_IRON_KNUCKLE:           return SOUL_GERUDO;
-        case ACTOR_GOHMA:                  return SOUL_GOHMA;
-        case ACTOR_GOHMA_LARVA:            return SOUL_GOHMA;
-        case ACTOR_DODONGO:                return SOUL_DODONGO;
-        case ACTOR_BABY_DODONGO:           return SOUL_DODONGO;
-        case ACTOR_KING_DODONGO:           return SOUL_DODONGO;
-        case ACTOR_BARINADE:               return SOUL_BARINADE;
-        case ACTOR_PHANTOM_GANON:          return SOUL_PHANTOM_GANON;
-        case ACTOR_PG_HORSE:               return SOUL_PHANTOM_GANON;
-        case ACTOR_VOLVAGIA_FLYING:        return SOUL_VOLVAGIA;
-        case ACTOR_VOLVAGIA_HOLE:          return SOUL_VOLVAGIA;
-        case ACTOR_MORPHA:                 return SOUL_MORPHA;
-        case ACTOR_BONGO_BONGO:            return SOUL_BONGO_BONGO;
-        case ACTOR_TWINROVA:               return SOUL_TWINROVA;
-        case ACTOR_GANONDORF:              return SOUL_GANON;
-        case ACTOR_GANON:                  return SOUL_GANON;
+        // clang-format off
+        CASE(ACTOR_POE,                     SOUL_POE,                  EnPoh_ReinitModels);
+        CASE(ACTOR_FIELD_POE,               SOUL_POE,                  EnPoField_ReinitModels);
+        CASE(ACTOR_POE_SISTER,              SOUL_POE,                  EnPoSisters_ReinitModels);
+        CASE(ACTOR_OCTOROK,                 SOUL_OCTOROK,              EnOkuta_ReinitModels);
+        CASE(ACTOR_BIG_OCTO,                SOUL_OCTOROK,              SoullessModels_ReinitGenericSkelAnime);
+        CASE(ACTOR_KEESE,                   SOUL_KEESE,                EnFirefly_ReinitModels);
+        CASE(ACTOR_TEKTITE,                 SOUL_TEKTITE,              EnTite_ReinitModels);
+        CASE(ACTOR_LEEVER,                  SOUL_LEEVER,               SoullessModels_ReinitGenericSkelAnime);
+        CASE(ACTOR_PEAHAT,                  SOUL_PEAHAT,               EnPeehat_ReinitModels);
+        CASE(ACTOR_LIZALFOS,                SOUL_LIZALFOS,             EnZf_ReinitModels);
+        CASE(ACTOR_SHABOM,                  SOUL_SHABOM,               EnBubble_ReinitModels);
+        CASE(ACTOR_BIRI,                    SOUL_BIRI_BARI,            EnBili_ReinitModels);
+        CASE(ACTOR_BARI,                    SOUL_BIRI_BARI,            EnVali_ReinitModels);
+        CASE(ACTOR_TAILPASARAN,             SOUL_TAILPASARAN,          EnTp_ReinitModels);
+        CASE(ACTOR_SKULLTULA,               SOUL_SKULLTULA,            SoullessModels_ReinitGenericSkelAnime);
+        CASE(ACTOR_SKULLWALLTULA,           SOUL_SKULLTULA,            EnSw_ReinitModels);
+        CASE(ACTOR_TORCH_SLUG,              SOUL_TORCH_SLUG,           EnBw_ReinitModels);
+        CASE(ACTOR_STINGER_FLOOR,           SOUL_STINGER,              EnEiyer_ReinitModels);
+        CASE(ACTOR_STINGER_WATER,           SOUL_STINGER,              SoullessModels_ReinitGenericSkelAnime);
+        CASE(ACTOR_MOBLIN,                  SOUL_MOBLIN,               EnMb_ReinitModels);
+        CASE(ACTOR_ARMOS,                   SOUL_ARMOS,                NULL);
+        CASE(ACTOR_DEKU_BABA,               SOUL_DEKU_BABA,            EnDekubaba_ReinitModels);
+        CASE(ACTOR_WITHERED_DEKU_BABA,      SOUL_DEKU_BABA,            EnKarebaba_ReinitModels);
+        CASE(ACTOR_BUBBLE,                  SOUL_BUBBLE,               EnBb_ReinitModels);
+        CASE(ACTOR_FLYING_POT,              SOUL_FLYING_TRAP,          NULL);
+        CASE(ACTOR_FLYING_FLOOR_TILE,       SOUL_FLYING_TRAP,          NULL);
+        CASE(ACTOR_BEAMOS,                  SOUL_BEAMOS,               EnVm_ReinitModels);
+        CASE(ACTOR_WALLMASTER,              SOUL_WALLMASTER,           EnWallmas_ReinitModels);
+        CASE(ACTOR_FLOORMASTER,             SOUL_WALLMASTER,           SoullessModels_ReinitGenericSkelAnime);
+        CASE(ACTOR_REDEAD,                  SOUL_REDEAD_GIBDO,         EnRd_ReinitModels);
+        CASE(ACTOR_SHELL_BLADE,             SOUL_SHELL_BLADE,          SoullessModels_ReinitGenericSkelAnime);
+        CASE(ACTOR_LIKE_LIKE,               SOUL_LIKE_LIKE,            EnRr_ReinitModels);
+        CASE(ACTOR_PARASITIC_TENTACLE,      SOUL_TENTACLE,             EnBa_ReinitModels);
+        CASE(ACTOR_OBSTACLE_TENTACLE,       SOUL_TENTACLE,             EnBx_ReinitModels);
+        CASE(ACTOR_ANUBIS,                  SOUL_ANUBIS,               SoullessModels_ReinitGenericSkelAnime);
+        CASE(ACTOR_SPIKE,                   SOUL_SPIKE,                EnNy_ReinitModels);
+        CASE(ACTOR_SKULL_KID,               SOUL_SKULL_KID,            EnSkj_ReinitModels);
+        CASE(ACTOR_FREEZARD,                SOUL_FREEZARD,             EnFz_ReinitModels);
+        CASE(ACTOR_HINT_DEKU_SCRUB,         SOUL_DEKU_SCRUB,           EnHintnuts_ReinitModels);
+        CASE(ACTOR_MAD_SCRUB,               SOUL_DEKU_SCRUB,           EnDekunuts_ReinitModels);
+        CASE(ACTOR_BUSINESS_SCRUB,          SOUL_DEKU_SCRUB,           EnShopnuts_ReinitModels);
+        CASE(ACTOR_WOLFOS,                  SOUL_WOLFOS,               EnWf_ReinitModels);
+        CASE(ACTOR_STALCHILD,               SOUL_STALCHILD,            SoullessModels_ReinitGenericSkelAnime);
+        CASE(ACTOR_GUAY,                    SOUL_GUAY,                 EnCrow_ReinitModels);
+        CASE(ACTOR_DOOR_MIMIC,              SOUL_DOOR_MIMIC,           DoorKiller_ReinitModels);
+        CASE(ACTOR_STALFOS,                 SOUL_STALFOS,              EnTest_ReinitModels);
+        CASE(ACTOR_DARK_LINK,               SOUL_DARK_LINK,            EnTorch2_ReinitModels);
+        CASE(ACTOR_FLARE_DANCER,            SOUL_FLARE_DANCER,         EnFd_ReinitModels);
+        CASE(ACTOR_FLARE_DANCER_CORE,       SOUL_FLARE_DANCER,         NULL);
+        CASE(ACTOR_DEAD_HAND,               SOUL_DEAD_HAND,            EnDh_ReinitModels);
+        CASE(ACTOR_DEAD_HAND_HAND,          SOUL_DEAD_HAND,            SoullessModels_ReinitGenericSkelAnime);
+        CASE(ACTOR_GERUDO_GUARD,            SOUL_GERUDO,               EnGe2_ReinitModels);
+        CASE(ACTOR_GERUDO_FIGHTER,          SOUL_GERUDO,               EnGeldB_ReinitModels);
+        CASE(ACTOR_IRON_KNUCKLE,            SOUL_GERUDO,               SoullessModels_ReinitGenericSkelAnime);
+        CASE(ACTOR_GOHMA,                   SOUL_GOHMA,                SoullessModels_ReinitGenericSkelAnime);
+        CASE(ACTOR_GOHMA_LARVA,             SOUL_GOHMA,                SoullessModels_ReinitGenericSkelAnime);
+        CASE(ACTOR_DODONGO,                 SOUL_DODONGO,              SoullessModels_ReinitGenericSkelAnime);
+        CASE(ACTOR_BABY_DODONGO,            SOUL_DODONGO,              SoullessModels_ReinitGenericSkelAnime);
+        CASE(ACTOR_KING_DODONGO,            SOUL_DODONGO,              BossDodongo_ReinitModels);
+        CASE(ACTOR_BARINADE,                SOUL_BARINADE,             NULL);
+        CASE(ACTOR_PHANTOM_GANON,           SOUL_PHANTOM_GANON,        NULL);
+        CASE(ACTOR_PG_HORSE,                SOUL_PHANTOM_GANON,        NULL);
+        CASE(ACTOR_VOLVAGIA_FLYING,         SOUL_VOLVAGIA,             NULL);
+        CASE(ACTOR_VOLVAGIA_HOLE,           SOUL_VOLVAGIA,             NULL);
+        CASE(ACTOR_MORPHA,                  SOUL_MORPHA,               NULL);
+        CASE(ACTOR_BONGO_BONGO,             SOUL_BONGO_BONGO,          NULL);
+        CASE(ACTOR_TWINROVA,                SOUL_TWINROVA,             NULL);
+        CASE(ACTOR_GANONDORF,               SOUL_GANON,                NULL);
+        CASE(ACTOR_GANON,                   SOUL_GANON,                NULL);
+        // clang-format on
     }
 
-    return SOUL_NONE;
+    return (ActorSoulData){ SOUL_NONE, NULL };
 }
-// clang-format on
+#undef CASE
+
+EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
+    return EnemySouls_GetActorSoulData(actorId).soulId;
+}
 
 BOOL EnemySouls_GetSoulFlag(EnemySoulId soulId) {
     if (soulId == SOUL_NONE) {
@@ -317,6 +338,10 @@ static CmbMatOriginalData* CmbMat_GetOrigDataBuffer(Material* mat, CmbManager* c
     return (CmbMatOriginalData*)buf;
 }
 
+static BOOL SoullessModels_ShouldSkipMaterial(s16 objId, s32 cmbIdx, s32 matIdx) {
+    return objId == OBJECT_TENTACLE && matIdx == 1; // Don't modify electric field (for both models)
+}
+
 static void SwapBuffers(void* first, void* second, s32 size) {
     char buf[8] = { 0 };
     memcpy(&buf, first, size);
@@ -327,7 +352,7 @@ static void SwapBuffers(void* first, void* second, s32 size) {
 
 // This function applies combiner edits for some special materials. It swaps certain values between combiners in such a
 // way that it can be called again to restore the original values.
-static BOOL HandleSpecialCombiner(CMB_MATS* cmbMats, s16 objId, s32 cmbIdx, s32 matIdx) {
+static BOOL SoullessModels_HandleSpecialCombiner(CMB_MATS* cmbMats, s16 objId, s32 cmbIdx, s32 matIdx) {
     Material* mat = &cmbMats->materials[matIdx];
 
     s16 specialStageIdx = -1;
@@ -379,8 +404,8 @@ static void SoullessModels_ModifyCmb(CmbManager* cmbMan, s16 objId, s32 cmbIdx) 
     if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_TEXTURELESS) {
         // Modify materials to apply the chosen color and skip drawing the textures.
         for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
-            if (objId == OBJECT_TENTACLE && matIdx == 1) {
-                continue; // Don't modify electric field (for both models)
+            if (SoullessModels_ShouldSkipMaterial(objId, cmbIdx, matIdx)) {
+                continue;
             }
 
             Material* mat = &cmbMats->materials[matIdx];
@@ -399,7 +424,7 @@ static void SoullessModels_ModifyCmb(CmbManager* cmbMan, s16 objId, s32 cmbIdx) 
 
             // Remove all combiner stages to show only a shaded textureless color, except for some cases where 1
             // combiner is kept and modified.
-            if (HandleSpecialCombiner(cmbMats, objId, cmbIdx, matIdx)) {
+            if (SoullessModels_HandleSpecialCombiner(cmbMats, objId, cmbIdx, matIdx)) {
                 mat->texEnvStageUsed = 1;
             } else {
                 mat->texEnvStageUsed = 0;
@@ -432,7 +457,7 @@ static u8 SoullessModels_RestoreCmb(CmbManager* cmbMan, s16 objId, s32 cmbIdx) {
 
     if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_TEXTURELESS) {
         for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
-            if (objId == OBJECT_TENTACLE && matIdx == 1) {
+            if (SoullessModels_ShouldSkipMaterial(objId, cmbIdx, matIdx)) {
                 continue;
             }
             Material* mat                = &cmbMats->materials[matIdx];
@@ -442,7 +467,7 @@ static u8 SoullessModels_RestoreCmb(CmbManager* cmbMan, s16 objId, s32 cmbIdx) {
             mat->diffuse                 = origData->diffuse;
             mat->texEnvStageUsed         = origData->texEnvStageUsed;
 
-            HandleSpecialCombiner(cmbMats, objId, cmbIdx, matIdx);
+            SoullessModels_HandleSpecialCombiner(cmbMats, objId, cmbIdx, matIdx);
         }
     } else if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_GRAYSCALE) {
         u8 combinerRestored = FALSE;
@@ -526,129 +551,18 @@ static void SoullessModels_RestoreObject(s16 objId) {
     }
 }
 
+static void SoullessModels_ReinitGenericSkelAnime(Actor* actor) {
+    struct GenericSkelAnimeActor {
+        /* 0x000 */ Actor actor;
+        /* 0x1A4 */ SkelAnime anime;
+    };
+    return Actor_ReinitSkelAnime(actor, &((struct GenericSkelAnimeActor*)actor)->anime, 0);
+}
+
 static void SoullessModels_RestoreActor(Actor* actor) {
-    switch (actor->id) {
-        case ACTOR_POE:
-            return EnPoh_ReinitModels((EnPoh*)actor);
-        case ACTOR_FIELD_POE:
-            return EnPoField_ReinitModels((EnPoField*)actor);
-        case ACTOR_POE_SISTER:
-            return EnPoSisters_ReinitModels((EnPoSisters*)actor);
-        case ACTOR_OCTOROK:
-            return EnOkuta_ReinitModels((EnOkuta*)actor);
-        case ACTOR_TEKTITE:
-            return EnTite_ReinitModels((EnTite*)actor);
-        case ACTOR_PEAHAT:
-            return EnPeehat_ReinitModels((EnPeehat*)actor);
-        case ACTOR_LIZALFOS:
-            return EnZf_ReinitModels((EnZf*)actor);
-        case ACTOR_BIRI:
-            return EnBili_ReinitModels((EnBili*)actor);
-        case ACTOR_BARI:
-            return EnVali_ReinitModels((EnVali*)actor);
-        case ACTOR_SKULLWALLTULA:
-            return EnSw_ReinitModels((EnSw*)actor);
-        case ACTOR_TORCH_SLUG:
-            return EnBw_ReinitModels((EnBw*)actor);
-        case ACTOR_STINGER_FLOOR:
-            return EnEiyer_ReinitModels((EnEiyer*)actor);
-        case ACTOR_DEKU_BABA:
-            return EnDekubaba_ReinitModels((EnDekubaba*)actor);
-        case ACTOR_WITHERED_DEKU_BABA:
-            return EnKarebaba_ReinitModels((EnKarebaba*)actor);
-        case ACTOR_BEAMOS:
-            return EnVm_ReinitModels((EnVm*)actor);
-        case ACTOR_WALLMASTER:
-            return EnWallmas_ReinitModels((EnWallmas*)actor);
-        case ACTOR_PARASITIC_TENTACLE:
-            return EnBa_ReinitModels((EnBa*)actor);
-        case ACTOR_OBSTACLE_TENTACLE:
-            return EnBx_ReinitModels((EnBx*)actor);
-        case ACTOR_SKULL_KID:
-            return EnSkj_ReinitModels((EnSkj*)actor);
-        case ACTOR_HINT_DEKU_SCRUB:
-            return EnHintnuts_ReinitModels((EnHintnuts*)actor);
-        case ACTOR_MAD_SCRUB:
-            return EnDekunuts_ReinitModels((EnDekunuts*)actor);
-        case ACTOR_BUSINESS_SCRUB:
-            return EnShopnuts_ReinitModels((EnShopnuts*)actor);
-        case ACTOR_DOOR_MIMIC:
-            return DoorKiller_ReinitModels((DoorKiller*)actor);
-        case ACTOR_FLARE_DANCER:
-            return EnFd_ReinitModels((EnFd*)actor);
-        case ACTOR_DEAD_HAND:
-            return EnDh_ReinitModels((EnDh*)actor);
-        case ACTOR_KING_DODONGO:
-            return BossDodongo_ReinitModels((BossDodongo*)actor);
-        case ACTOR_KEESE:
-            return Actor_ReinitSkelAnime(actor, &((EnFirefly*)actor)->skelAnime, 0);
-        case ACTOR_TAILPASARAN:
-            return EnTp_ReinitModels((EnTp*)actor);
-        case ACTOR_MOBLIN:
-            return EnMb_ReinitModels((EnMb*)actor);
-        case ACTOR_GUAY:
-            return Actor_ReinitSkelAnime(actor, &((EnCrow*)actor)->skelAnime, 0);
-        case ACTOR_REDEAD:
-            return Actor_ReinitSkelAnime(actor, &((EnRd*)actor)->skelAnime, actor->params >= -1 ? 0 : 1);
-        case ACTOR_WOLFOS:
-            return EnWf_ReinitModels((EnWf*)actor);
-        case ACTOR_STALFOS:
-            return EnTest_ReinitModels((EnTest*)actor);
-        case ACTOR_GERUDO_FIGHTER:
-            return EnGeldB_ReinitModels((EnGeldB*)actor);
-        case ACTOR_LIKE_LIKE:
-            return Actor_ReinitSkelAnime(actor, &((EnRr*)actor)->skelAnime, 0);
-        case ACTOR_DARK_LINK:
-            return EnTorch2_ReinitModels((EnTorch2*)actor);
-        case ACTOR_GERUDO_GUARD:
-            return EnGe2_ReinitModels((EnGe2*)actor);
-        case ACTOR_SHABOM:
-            return EnBubble_ReinitModels((EnBubble*)actor);
-        case ACTOR_SPIKE:
-            return EnNy_ReinitModels((EnNy*)actor);
-        case ACTOR_FREEZARD:
-            return EnFz_ReinitModels((EnFz*)actor);
-        case ACTOR_BUBBLE:
-            return EnBb_ReinitModels((EnBb*)actor);
-        case ACTOR_BIG_OCTO:
-        case ACTOR_LEEVER:
-        case ACTOR_SKULLTULA:
-        case ACTOR_STINGER_WATER:
-        case ACTOR_FLOORMASTER:
-        case ACTOR_SHELL_BLADE:
-        case ACTOR_ANUBIS:
-        case ACTOR_STALCHILD:
-        case ACTOR_DEAD_HAND_HAND:
-        case ACTOR_IRON_KNUCKLE:
-        case ACTOR_GOHMA:
-        case ACTOR_GOHMA_LARVA:
-        case ACTOR_BABY_DODONGO:
-        case ACTOR_DODONGO:
-            typedef struct GenericSkelAnimeActor {
-                /* 0x000 */ Actor actor;
-                /* 0x1A4 */ SkelAnime anime;
-            } GenericSkelAnimeActor;
-            return Actor_ReinitSkelAnime(actor, &((GenericSkelAnimeActor*)actor)->anime, 0);
-
-        case ACTOR_FLARE_DANCER_CORE:
-            // This is ignored because it can't spawn if the player doesn't have the Flare Dancer Soul.
-
-        case ACTOR_FLYING_POT:
-        case ACTOR_FLYING_FLOOR_TILE:
-        case ACTOR_ARMOS:
-            // These are handled in their own update function.
-
-        case ACTOR_BARINADE:
-        case ACTOR_PHANTOM_GANON:
-        case ACTOR_PG_HORSE:
-        case ACTOR_VOLVAGIA_FLYING:
-        case ACTOR_VOLVAGIA_HOLE:
-        case ACTOR_MORPHA:
-        case ACTOR_BONGO_BONGO:
-        case ACTOR_TWINROVA:
-        case ACTOR_GANONDORF:
-        case ACTOR_GANON:
-            // These are ignored because the player can't get items while they're loaded.
+    ReinitModelsFunc reinitModelsFunc = EnemySouls_GetActorSoulData(actor->id).reinitModelsFunc;
+    if (reinitModelsFunc != NULL) {
+        reinitModelsFunc(actor);
     }
 }
 

@@ -507,7 +507,7 @@ SECTIONS
 	FireDamage = 0x35D8D8 + _LD_OFF;
 	Player_InBlockingCsMode = 0x35DB20 + _LD_OFF;
 	SkelAnime_DrawOpa = 0x35E240 + _LD_OFF;
-	FaceAnimation_35E330 = 0x35E330 + _LD_OFF;
+	FaceAnim_35E330 = 0x35E330 + _LD_OFF;
 	FaceAnim_SetFrame = 0x35E3A4 + _LD_OFF;
 	.patch_ConvertBombDropOne 0x35E46C + _LD_OFF : { *(.patch_ConvertBombDropOne) }
 	WaterBox_GetSurfaceImpl = 0x35E8A0 + _LD_OFF;
