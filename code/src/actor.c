@@ -88,16 +88,21 @@
 #include "obj_mure3.h"
 #include "armos.h"
 
+#include "fairy.h"
+
 Actor* gRunningActor;
 #define MAX_RUNNING_ACTORS 5
 Actor* prevRunningActors[MAX_RUNNING_ACTORS] = { 0 };
 
-#include "fairy.h"
+BOOL gActorsHidden = FALSE;
 
 void Actor_Kill(Actor* actor) {
     actor->draw   = NULL;
     actor->update = NULL;
     actor->flags &= ~0x1;
+}
+
+void Actor_DoNothing(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void TitleCard_Update(GlobalContext* globalCtx, TitleCardContext* titleCtx);
@@ -593,9 +598,10 @@ void Actor_rDraw(Actor* actor, GlobalContext* globalCtx) {
 
     actor->draw(actor, globalCtx);
 
-    if (EnemySouls_ShouldDrawSoulless(actor) &&
-        (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_PURPLE_FLAMES ||
-         (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_FLASHING && rGameplayFrames % 2 == 0))) {
+    if (gActorsHidden ||
+        (EnemySouls_ShouldDrawSoulless(actor) &&
+         (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_PURPLE_FLAMES ||
+          (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_FLASHING && rGameplayFrames % 2 == 0)))) {
         // make enemy invisible
         gMainClass.sub180.count_08 = origSaModelsCount1; // 3D models
         gMainClass.sub180.count_0C = origSaModelsCount2; // 2D billboards

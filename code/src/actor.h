@@ -4,6 +4,7 @@
 #include "z3D/z3D.h"
 
 extern Actor* gRunningActor;
+extern BOOL gActorsHidden;
 
 void Actor_Init();
 void ActorSetup_Extra();

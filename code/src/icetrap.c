@@ -8,6 +8,7 @@
 #include "input.h"
 #include "player.h"
 #include "item_override.h"
+#include "actor.h"
 
 extern s16 TimerFrameCounter; // Used to decrease the timer every 30 frames
 extern float ControlStick_X;
@@ -62,13 +63,17 @@ void IceTrap_Init(void) {
         possibleChestTraps[possibleChestTrapsAmount++] = ICETRAP_CURSE_SWORD;
         possibleChestTraps[possibleChestTrapsAmount++] = ICETRAP_CURSE_SHIELD;
         possibleChestTraps[possibleChestTrapsAmount++] = ICETRAP_CURSE_DIZZY;
-        possibleChestTraps[possibleChestTrapsAmount++] = ICETRAP_CURSE_BLIND;
+        possibleChestTraps[possibleChestTrapsAmount++] = ICETRAP_CURSE_INVISIBLE_TERRAIN;
+        possibleChestTraps[possibleChestTrapsAmount++] = ICETRAP_CURSE_INVISIBLE_ACTORS;
         possibleChestTraps[possibleChestTrapsAmount++] = ICETRAP_CURSE_SLOW;
+        possibleChestTraps[possibleChestTrapsAmount++] = ICETRAP_CURSE_NAVI;
         possibleItemTraps[possibleItemTrapsAmount++]   = ICETRAP_CURSE_SWORD;
         possibleItemTraps[possibleItemTrapsAmount++]   = ICETRAP_CURSE_SHIELD;
         possibleItemTraps[possibleItemTrapsAmount++]   = ICETRAP_CURSE_DIZZY;
-        possibleItemTraps[possibleItemTrapsAmount++]   = ICETRAP_CURSE_BLIND;
+        possibleItemTraps[possibleItemTrapsAmount++]   = ICETRAP_CURSE_INVISIBLE_TERRAIN;
+        possibleItemTraps[possibleItemTrapsAmount++]   = ICETRAP_CURSE_INVISIBLE_ACTORS;
         possibleItemTraps[possibleItemTrapsAmount++]   = ICETRAP_CURSE_SLOW;
+        possibleItemTraps[possibleItemTrapsAmount++]   = ICETRAP_CURSE_NAVI;
     }
     if (gSettingsContext.screenTraps) {
         possibleChestTraps[possibleChestTrapsAmount++] = ICETRAP_CURSE_CROOKED;
@@ -127,10 +132,8 @@ void IceTrap_Give(void) {
         pendingFreezes--;
 
         if (trapType >= ICETRAP_CURSE_SHIELD) {
-            if (IceTrap_ActivateCurseTrap(trapType))
-                return;
-            else
-                trapType = ICETRAP_SCALE; // if the curse can't trigger, use a scale trap
+            IceTrap_ActivateCurseTrap(trapType);
+            return;
         }
 
         modifyScale = (trapType == ICETRAP_SCALE);
@@ -174,9 +177,11 @@ void IceTrap_Give(void) {
     }
 }
 
-u8 IceTrap_ActivateCurseTrap(u8 curseType) {
-    if (IceTrap_ActiveCurse >= 0 || gSaveContext.timer2State != 0)
-        return 0;
+void IceTrap_ActivateCurseTrap(u8 curseType) {
+    if (IceTrap_ActiveCurse >= 0 || gSaveContext.timer2State != 0) {
+        // Dispel previous curse when activating a new one.
+        IceTrap_DispelCurses();
+    }
 
     do {
         switch (curseType) {
@@ -199,11 +204,16 @@ u8 IceTrap_ActivateCurseTrap(u8 curseType) {
                 break;
             case ICETRAP_CURSE_DIZZY:
                 break;
-            case ICETRAP_CURSE_BLIND:
-                gStaticContext.dekuNutFlash          = -1;
-                gStaticContext.renderGeometryDisable = 1;
+            case ICETRAP_CURSE_INVISIBLE_TERRAIN:
+                gStaticContext.dekuNutFlash    = -1;
+                gStaticContext.disableRoomDraw = TRUE;
+                break;
+            case ICETRAP_CURSE_INVISIBLE_ACTORS:
+                gStaticContext.dekuNutFlash = -1;
+                gActorsHidden               = TRUE;
                 break;
             case ICETRAP_CURSE_SLOW:
+            case ICETRAP_CURSE_NAVI:
                 break;
             case ICETRAP_CURSE_CROOKED:
                 targetOffset = dizzyCurseSeed % 0xC001 + 0x2000;
@@ -212,7 +222,7 @@ u8 IceTrap_ActivateCurseTrap(u8 curseType) {
                 targetOffset = dizzyCurseSeed % 0x4001 - 0x2000;
                 break;
             default:
-                return 0;
+                return;
         }
         break;
     } while (1);
@@ -223,15 +233,19 @@ u8 IceTrap_ActivateCurseTrap(u8 curseType) {
     DisplayTextbox(gGlobalContext, CURSETRAP_TEXT_BASE_INDEX + curseType - ICETRAP_CURSE_SHIELD, 0);
     Audio_PlayFanfare(NA_SE_EN_PO_LAUGH);
     IceTrap_ActiveCurse = (s8)curseType;
-    return 1;
 }
 
 void IceTrap_DispelCurses(void) {
     if (IceTrap_ActiveCurse >= 0) {
+        if (IceTrap_ActiveCurse == ICETRAP_CURSE_INVISIBLE_TERRAIN ||
+            IceTrap_ActiveCurse == ICETRAP_CURSE_INVISIBLE_ACTORS) {
+            gStaticContext.dekuNutFlash = -1;
+        }
         gGearUsabilityTable[GearSlot(ITEM_SHIELD_DEKU)]   = gSettingsContext.dekuShieldAsAdult ? 0x09 : 0x01;
         gGearUsabilityTable[GearSlot(ITEM_SHIELD_HYLIAN)] = 0x09;
         gGearUsabilityTable[GearSlot(ITEM_SHIELD_MIRROR)] = gSettingsContext.mirrorShieldAsChild ? 0x09 : 0x00;
-        gStaticContext.renderGeometryDisable              = 0;
+        gStaticContext.disableRoomDraw                    = FALSE;
+        gActorsHidden                                     = FALSE;
         previousTimer2Value                               = 60;
         gSaveContext.timer2State                          = 0;
         IceTrap_ActiveCurse                               = -1;
@@ -270,17 +284,25 @@ void IceTrap_HandleCurses(void) {
     }
     previousTimer1Value = gSaveContext.timer1Value;
 
-    // During the blindness curse, show geometry for 1 second every 20
-    if (IceTrap_ActiveCurse == ICETRAP_CURSE_BLIND) {
+    // During the invisibility curses, show hidden entities for 1 second every 20.
+    if (IceTrap_ActiveCurse == ICETRAP_CURSE_INVISIBLE_TERRAIN ||
+        IceTrap_ActiveCurse == ICETRAP_CURSE_INVISIBLE_ACTORS) {
+        s8 invisibilityStatus = -1;
         if (gSaveContext.timer2Value != previousTimer2Value && gSaveContext.timer2Value % 20 == 0) {
-            gStaticContext.dekuNutFlash          = -1;
-            gStaticContext.renderGeometryDisable = 0;
+            invisibilityStatus = FALSE;
         } else if (gSaveContext.timer2Value != previousTimer2Value && gSaveContext.timer2Value % 20 == 19 &&
                    gSaveContext.timer2Value < 59) {
-            gStaticContext.dekuNutFlash          = -1;
-            gStaticContext.renderGeometryDisable = 1;
+            invisibilityStatus = TRUE;
         }
         previousTimer2Value = gSaveContext.timer2Value;
+        if (invisibilityStatus > -1) {
+            gStaticContext.dekuNutFlash = -1;
+            if (IceTrap_ActiveCurse == ICETRAP_CURSE_INVISIBLE_TERRAIN) {
+                gStaticContext.disableRoomDraw = invisibilityStatus;
+            } else if (IceTrap_ActiveCurse == ICETRAP_CURSE_INVISIBLE_ACTORS) {
+                gActorsHidden = invisibilityStatus;
+            }
+        }
     }
 
     if (IceTrap_ActiveCurse == ICETRAP_CURSE_UNSTABLE && gSaveContext.timer2Value != previousTimer2Value) {
