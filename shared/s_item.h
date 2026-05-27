@@ -457,4 +457,5 @@ typedef enum GetItemID {
     GI_OCARINA_BUTTON_A,
 
     GI_RUPOOR,
+    GI_UNBOTTLED_BIG_POE,
 } GetItemID;

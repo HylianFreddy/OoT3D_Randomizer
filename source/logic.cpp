@@ -276,6 +276,8 @@ bool SoulBongoBongo       = false;
 bool SoulTwinrova         = false;
 bool SoulGanon            = false;
 
+u8 BigPoes = 0;
+
 /* --- HELPERS, EVENTS, AND LOCATION ACCESS --- */
 /* These are used to simplify reading the logic, but need to be updated
 /  every time a base value is updated.                       */
@@ -1287,6 +1289,8 @@ void LogicReset() {
     SoulBongoBongo       = ShuffleEnemySouls.Is(OFF);
     SoulTwinrova         = ShuffleEnemySouls.Is(OFF);
     SoulGanon            = ShuffleEnemySouls.Is(OFF);
+
+    BigPoes = 0;
 
     /* --- HELPERS, EVENTS, AND LOCATION ACCESS --- */
     /* These are used to simplify reading the logic, but need to be updated

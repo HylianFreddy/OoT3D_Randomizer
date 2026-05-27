@@ -51,6 +51,7 @@ std::string ITEM_OBTAINED(u8 x);
 std::string SET_SPEED(u8 x);
 std::string SKULLTULAS_DESTROYED();
 std::string CURRENT_TIME();
+std::string BIG_POE_POINTS();
 std::string UNSKIPPABLE();
 std::string TWO_WAY_CHOICE();
 std::string NEWLINE();
@@ -71,4 +72,5 @@ std::string DEATH_COUNT();
 std::string HIT_COUNT();
 std::string DAMAGE_RECEIVED();
 std::string BONK_COUNT();
+std::string REQUIRED_BIG_POE_POINTS();
 } // namespace CustomMessages

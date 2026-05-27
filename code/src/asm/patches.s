@@ -226,9 +226,6 @@ PATCH DekuTheaterMaskOfTruth
     mov r0,#0x7A
     nop
 
-PATCH PoeCollectorCheckPoints
-    bl hook_PoeCollectorCheckPoints
-
 PATCH LACSConditionOne
     nop
 
@@ -417,9 +414,6 @@ PATCH BusinessScrubCheckFlags
 
 PATCH KakarikoGateCheck
     bl hook_KakarikoGateCheck
-
-PATCH PoeCollectorGetFirstTextbox
-    bl hook_PoeCollectorGetFirstTextbox
 
 PATCH OcarinaMinigameRewardsOrder
     .word 0x76
