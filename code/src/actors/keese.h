@@ -1,5 +1,5 @@
-#ifndef _EN_FIREFLY_H_
-#define _EN_FIREFLY_H_
+#ifndef _KEESE_H_
+#define _KEESE_H_
 
 #include "z3D/z3D.h"
 
@@ -11,4 +11,6 @@ typedef struct EnFirefly {
 } EnFirefly;
 _Static_assert(sizeof(EnFirefly) == 0x7B4, "EnFirefly size");
 
-#endif //_EN_FIREFLY_H_
+void EnFirefly_ReinitModels(EnFirefly* this);
+
+#endif //_KEESE_H_

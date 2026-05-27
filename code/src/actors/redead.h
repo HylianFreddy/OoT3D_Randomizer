@@ -1,5 +1,5 @@
-#ifndef _EN_RD_H_
-#define _EN_RD_H_
+#ifndef _REDEAD_H_
+#define _REDEAD_H_
 
 #include "z3D/z3D.h"
 
@@ -11,4 +11,6 @@ typedef struct EnRd {
 } EnRd;
 _Static_assert(sizeof(EnRd) == 0x9CC, "EnRd size");
 
-#endif //_EN_RD_H_
+void EnRd_ReinitModels(EnRd* this);
+
+#endif //_REDEAD_H_
