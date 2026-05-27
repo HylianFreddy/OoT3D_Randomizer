@@ -114,10 +114,12 @@ void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         PLAYER->meleeWeaponState = -1;     // slash effect with no hitbox (same as "damageless death ISG")
     }
     if (PLAYER->itemActionParam == 38) { // Blue Potion
-        if (IceTrap_ActiveCurse == ICETRAP_CURSE_BLIND)
-            gStaticContext.dekuNutFlash = -1;
-
-        IceTrap_DispelCurses();
+        static s8 potionAnimFrames = 0;
+        potionAnimFrames++;
+        if (potionAnimFrames > 70) { // delay until Link drinks
+            IceTrap_DispelCurses();
+            potionAnimFrames = 0;
+        }
     }
 
     if (healthDecrement > 0) {
@@ -150,6 +152,26 @@ void PlayerActor_rDestroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
+    Player* this = (Player*)thisx;
+
+    if (IceTrap_ActiveCurse == ICETRAP_CURSE_NAVI) {
+        this->focusActor                              = NULL;
+        globalCtx->actorCtx.attention.arrowHoverActor = NULL;
+        globalCtx->actorCtx.attention.reticleActor    = NULL;
+        globalCtx->actorCtx.attention.naviHoverActor  = NULL;
+
+        EnElf* navi = (EnElf*)this->naviActor;
+        if (navi != NULL) {
+            navi->actor.update                        = Actor_DoNothing;
+            navi->actor.draw                          = Actor_DoNothing;
+            navi->lightInfoGlow.params.point.radius   = 0;
+            navi->lightInfoNoGlow.params.point.radius = 0;
+        }
+    } else if (this->naviActor != NULL && this->naviActor->update == Actor_DoNothing) {
+        this->naviActor->update = EnElf_UpdateNavi;
+        this->naviActor->draw   = EnElf_Draw;
+    }
+
     // Draw empty scabbard if no sword is equipped.
     // For child, do this only with certain shields, because the game already handles the other cases.
     if (!(gSaveContext.equips.equipment & 0x000F)) {

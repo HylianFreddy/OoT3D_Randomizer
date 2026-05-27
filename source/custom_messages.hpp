@@ -17,6 +17,9 @@
 #define QM_BLACK 0x47
 
 namespace CustomMessages {
+
+constexpr bool MANUAL_NEWLINES = true;
+
 void CreateMessage(u32 textId, u32 unk_04, u32 textBoxType, u32 textBoxPosition, std::string englishText,
                    std::string frenchText, std::string spanishText, std::string italianText, std::string germanText);
 void CreateMessageFromTextObject(u32 textId, u32 unk_04, u32 textBoxType, u32 textBoxPosition, const Text& text);
@@ -28,7 +31,7 @@ std::pair<const char*, u32> RawMessageData();
 
 void CreateAlwaysIncludedMessages();
 std::vector<Text> CreateBaseCompassTexts();
-Text AddColorsAndFormat(Text text, const std::vector<u8>& colors = {});
+Text AddColorsAndFormat(Text text, const std::vector<u8>& colors = {}, bool manualNewLines = false);
 void ClearMessages();
 
 std::string MESSAGE_END();
