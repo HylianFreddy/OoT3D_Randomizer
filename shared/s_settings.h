@@ -212,6 +212,8 @@ typedef enum ShuffleEnemySoulsSetting {
 
 typedef enum SoullessEnemiesLookSetting {
     SOULLESSLOOK_VANILLA,
+    SOULLESSLOOK_TEXTURELESS,
+    SOULLESSLOOK_GRAYSCALE,
     SOULLESSLOOK_PURPLE_FLAMES,
     SOULLESSLOOK_FLASHING,
 } SoullessEnemiesLookSetting;
@@ -379,6 +381,12 @@ typedef enum ChestAppearanceSetting {
     CHESTAPPEARANCE_SIZE_AND_TEXTURE,
     CHESTAPPEARANCE_CLASSIC,
 } ChestAppearanceSetting;
+
+typedef enum ExtraShieldsSetting {
+    EXTRASHIELDS_NEVER,       // Vanilla
+    EXTRASHIELDS_RANDOM_ONLY, // Only randomized items can give extra shields
+    EXTRASHIELDS_ALWAYS,      // Shops will allow buying shields while having one
+} ExtraShieldsSetting;
 
 typedef enum RandomTrapDamageSetting {
     RANDOMTRAPS_OFF,
@@ -572,6 +580,7 @@ typedef struct SettingsContext {
     u8 shuffleChestMinigame;
     u8 shuffleEnemySouls;
     u8 shuffleOcarinaButtons;
+    u8 shuffleBigPoes;
 
     u8 mapsAndCompasses;
     u8 keysanity;
@@ -631,6 +640,7 @@ typedef struct SettingsContext {
     u8 chestAnimations;
     u8 chestAppearance;
     u8 chestAgony;
+    u8 extraShields;
     u8 generateSpoilerLog;
     u8 ingameSpoilers;
     u8 menuOpeningButton;
@@ -715,11 +725,11 @@ typedef struct SettingsContext {
     u8 rainbowChuTrailOuterColor;
     u8 bombchuTrailDuration;
     Color_RGBA8 ganonBloodColor;
-
     u8 coloredKeys;
     u8 coloredBossKeys;
     u8 mirrorWorld;
     u8 soullessEnemiesLook;
+    Color_RGBA8 soullessColor;
 
     u8 shuffleSFX;
     u8 shuffleSFXFootsteps;

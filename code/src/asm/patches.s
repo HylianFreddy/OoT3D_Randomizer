@@ -226,9 +226,6 @@ PATCH DekuTheaterMaskOfTruth
     mov r0,#0x7A
     nop
 
-PATCH PoeCollectorCheckPoints
-    bl hook_PoeCollectorCheckPoints
-
 PATCH LACSConditionOne
     nop
 
@@ -413,18 +410,10 @@ PATCH FireArrowRequirement
     tst r2,#0x400
 
 PATCH BusinessScrubCheckFlags
-    cpy r0,r4
-    bl EnShopnnuts_rCheckFlags
-    cmp r0,#0x0
-
-PATCH BusinessScrubTable
-    .word rScrubTable
+    bl hook_BusinessScrubCheckFlags
 
 PATCH KakarikoGateCheck
     bl hook_KakarikoGateCheck
-
-PATCH PoeCollectorGetFirstTextbox
-    bl hook_PoeCollectorGetFirstTextbox
 
 PATCH OcarinaMinigameRewardsOrder
     .word 0x76
@@ -1435,8 +1424,8 @@ PATCH TitleLinkObject
 PATCH DeleteEquipment
     bl hook_DeleteEquipment
 
-PATCH PickupItemDrop
-    bl hook_PickupItemDrop
+PATCH GetQuickItem
+    bl hook_GetQuickItem
 
 PATCH ExtendObjectGetSlot
     b hook_ExtendObjectGetSlot
@@ -1634,3 +1623,18 @@ PATCH GanonFinalBlow
 
 PATCH PlayerBonk
     bl hook_PlayerBonk
+
+PATCH CmbManagerInit
+    bl hook_CmbManagerInit
+
+PATCH ActorInit1
+    bl hook_ActorInit
+
+PATCH ActorInit2
+    bl hook_ActorInit
+
+PATCH ActorInit3
+    bl hook_ActorInit
+
+PATCH SetupDoorShutter
+    bleq hook_SetupDoorShutter

@@ -22,6 +22,7 @@
 #include "icetrap.h"
 #include "enemy_souls.h"
 #include "bgm.h"
+#include "business_scrubs.h"
 
 #include "z3D/z3D.h"
 #include "3ds/extdata.h"
@@ -74,6 +75,7 @@ void Randomizer_Init() {
     extDataInit();
     irrstInit();
     Effects_Init();
+    BusinessScrubs_Init();
 
     s64 output = 0;
     svcGetSystemInfo(&output, 0x20000, 0);
@@ -110,6 +112,7 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
     Triforce_HandleCreditsWarp();
     Enemizer_Update();
     Bgm_ApplyFanfareMod();
+    EnemySouls_Update();
 }
 
 void autoLoadSaveFile() {
@@ -149,7 +152,6 @@ void after_GlobalContext_Update() {
     }
 
     Multiplayer_Sync_Update();
-    EnemySouls_DrawEffects();
 
     if (gGlobalContext->state.running == 0) {
         LOG(L_MAIN, L_DEBUG, "state.running == 0");

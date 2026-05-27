@@ -77,7 +77,7 @@ void Player_SetChildCustomTunicCMAB(void) {
         return;
     }
     void* cmabMan = Object_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, TEXANIM_CHILD_LINK_BODY);
-    TexAnim_Spawn(PLAYER->skelAnime.unk_28->unk_0C, cmabMan);
+    MatAnim_Init(PLAYER->skelAnime.saModel->matAnim, cmabMan);
 }
 
 void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
@@ -142,10 +142,12 @@ void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         PLAYER->meleeWeaponState = -1;     // slash effect with no hitbox (same as "damageless death ISG")
     }
     if (PLAYER->itemActionParam == 38) { // Blue Potion
-        if (IceTrap_ActiveCurse == ICETRAP_CURSE_BLIND)
-            gStaticContext.dekuNutFlash = -1;
-
-        IceTrap_DispelCurses();
+        static s8 potionAnimFrames = 0;
+        potionAnimFrames++;
+        if (potionAnimFrames > 70) { // delay until Link drinks
+            IceTrap_DispelCurses();
+            potionAnimFrames = 0;
+        }
     }
 
     if (healthDecrement > 0) {
@@ -178,6 +180,26 @@ void PlayerActor_rDestroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
+    Player* this = (Player*)thisx;
+
+    if (IceTrap_ActiveCurse == ICETRAP_CURSE_NAVI) {
+        this->focusActor                              = NULL;
+        globalCtx->actorCtx.attention.arrowHoverActor = NULL;
+        globalCtx->actorCtx.attention.reticleActor    = NULL;
+        globalCtx->actorCtx.attention.naviHoverActor  = NULL;
+
+        EnElf* navi = (EnElf*)this->naviActor;
+        if (navi != NULL) {
+            navi->actor.update                        = Actor_DoNothing;
+            navi->actor.draw                          = Actor_DoNothing;
+            navi->lightInfoGlow.params.point.radius   = 0;
+            navi->lightInfoNoGlow.params.point.radius = 0;
+        }
+    } else if (this->naviActor != NULL && this->naviActor->update == Actor_DoNothing) {
+        this->naviActor->update = EnElf_UpdateNavi;
+        this->naviActor->draw   = EnElf_Draw;
+    }
+
     // Draw empty scabbard if no sword is equipped.
     // For child, do this only with certain shields, because the game already handles the other cases.
     if (!(gSaveContext.equips.equipment & 0x000F)) {
@@ -193,9 +215,8 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
     static Vec3f vecAcc = { 0 };
     static Vec3f vecVel = { 0 };
     static Vec3f vecPos = { 0 };
-    Player* this        = (Player*)thisx;
 
-    s32 prevSaModelsCount1 = gMainClass.sub180.saModelsCount1;
+    s32 prevSaModelsCount1 = gMainClass.sub180.count_08;
 
     PlayerActor_Draw(thisx, globalCtx);
 
@@ -203,9 +224,9 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
         return;
     }
 
-    if (gMainClass.sub180.saModelsCount1 > prevSaModelsCount1) {
+    if (gMainClass.sub180.count_08 > prevSaModelsCount1) {
         // Make player model invisible
-        gMainClass.sub180.saModelsList1[prevSaModelsCount1] = (SAModelListEntry){ 0 };
+        gMainClass.sub180.list_20[prevSaModelsCount1] = (SAModelListEntry){ 0 };
     }
 
     thisx->shape.shadowDrawFunc = NULL;
@@ -354,7 +375,7 @@ void Player_UpdateRainbowTunic(void) {
         if (gSettingsContext.rainbowChildTunic == OFF) {
             return;
         }
-        cmabManager = PLAYER->skelAnime.unk_28->unk_0C->cmabManager;
+        cmabManager = PLAYER->skelAnime.saModel->matAnim->cmabManager;
         redOffset   = 0x70;
         greenOffset = 0x88;
         blueOffset  = 0xA0;

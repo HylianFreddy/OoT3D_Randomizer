@@ -382,11 +382,16 @@ void ItemEffect_GiveChildKokiriSword(SaveContext* saveCtx, s16 arg1, s16 arg2) {
     }
 }
 
-void ItemEffect_Shield(SaveContext* saveCtx, s16 shield, s16 arg2) {
-    if (shield == EQUIP_VALUE_SHIELD_DEKU) {
-        gExtSaveData.dekuShieldsCount++;
-    } else if (shield == EQUIP_VALUE_SHIELD_HYLIAN) {
-        gExtSaveData.hylianShieldsCount++;
+void ItemEffect_Shield(SaveContext* saveCtx, s16 shieldEquipValue, s16 arg2) {
+    if (gSettingsContext.extraShields != EXTRASHIELDS_NEVER) {
+        switch (shieldEquipValue) {
+            case EQUIP_VALUE_SHIELD_DEKU:
+                gExtSaveData.dekuShieldsCount++;
+                break;
+            case EQUIP_VALUE_SHIELD_HYLIAN:
+                gExtSaveData.hylianShieldsCount++;
+                break;
+        }
     }
 }
 
@@ -394,7 +399,7 @@ void ItemEffect_GiveStone(SaveContext* saveCtx, s16 mask, s16 arg2) {
     s32 trueMask = mask << 16;
     saveCtx->questItems |= trueMask;
     u8 hasAllStones = (saveCtx->questItems >> 18 & 0b111) == 0b111;
-    if (hasAllStones) {
+    if (hasAllStones && (gGlobalContext->sceneNum != SCENE_HYRULE_FIELD || gSaveContext.linkAge == AGE_ADULT)) {
         gSaveContext.eventChkInf[8] |= 0x0001; // watched zelda escape cutscene
     }
 }
@@ -433,7 +438,7 @@ void ItemEffect_ShardOfAgony(SaveContext* saveCtx, s16 arg1, s16 arg2) {
 }
 
 void ItemEffect_EnemySoul(SaveContext* saveCtx, s16 soulId, s16 arg2) {
-    EnemySouls_SetSoulFlag(soulId);
+    EnemySouls_OnCollect(soulId);
 }
 
 void ItemEffect_OcarinaNote(SaveContext* saveCtx, s16 buttonId, s16 arg2) {
@@ -458,4 +463,8 @@ void ItemEffect_Rupoor(SaveContext* saveCtx, s16 arg1, s16 arg2) {
             break;
     }
     Rupees_ChangeBy(-rupeesToDeduct);
+}
+
+void ItemEffect_UnbottledBigPoe(SaveContext* saveCtx, s16 arg1, s16 arg2) {
+    saveCtx->bigPoePoints += 100;
 }

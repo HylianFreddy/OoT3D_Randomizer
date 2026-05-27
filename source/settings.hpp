@@ -425,6 +425,7 @@ extern Option ShuffleChestMinigame;
 extern Option ShuffleEnemySouls;
 extern Option ShuffleOcarinaButtons;
 extern Option ShuffleRupees;
+extern Option ShuffleBigPoes;
 
 extern Option MapsAndCompasses;
 extern Option Keysanity;
@@ -488,6 +489,7 @@ extern Option StartingTime;
 extern Option ChestAnimations;
 extern Option ChestAppearance;
 extern Option ChestAgony;
+extern Option ExtraShields;
 extern Option GenerateSpoilerLog;
 extern Option IngameSpoilers;
 extern Option MenuOpeningButton;

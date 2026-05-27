@@ -16,11 +16,15 @@
 #include "z3Deffect.h"
 #include "z3Daudio.h"
 #include "z3Denvironment.h"
+#include "z3Dlight.h"
+#include "z3Dcmb.h"
 
 #include "hid.h"
 
-#define TRUE 1
-#define FALSE 0
+typedef enum BOOL : u8 {
+    FALSE = 0,
+    TRUE  = 1,
+} BOOL;
 
 typedef struct {
     /* 0x00 */ u8 buttonItems[5]; // B,Y,X,I,II
@@ -365,7 +369,7 @@ typedef struct {
     /* 0x20 */ u32 tempCollect;
 } ActorFlags; // size = 0x24
 
-typedef struct {
+typedef struct ActorContext {
     /* 0x0000 */ u8 unk_00;
     /* 0x0001 */ char unk_01[0x01];
     /* 0x0002 */ u8 hammerQuakeFlag;
@@ -374,11 +378,12 @@ typedef struct {
     /* 0x0008 */ u8 total; // total number of actors loaded
     /* 0x0009 */ char unk_09[0x03];
     /* 0x000C */ ActorListEntry actorList[12];
-    // /* 0x006C */ TargetContext targetCtx;
-    /* 0x006C */ char unk_6C[0x130];
+    /* 0x006C */ Attention attention;
     /* 0x019C */ ActorFlags flags;
     /* 0x01C0 */ TitleCardContext titleCtx;
-} ActorContext; // TODO: size = 0x1D8
+    /* 0x01D8 */ char unk_1D8[0x034];
+} ActorContext;
+_Static_assert(sizeof(ActorContext) == 0x20C, "ActorContext size");
 
 typedef struct CutsceneContext {
     /* 0x00 */ char unk_00[0x4];
@@ -441,16 +446,42 @@ typedef struct {
 
 #define OBJECT_SLOT_MAX 19
 
+typedef struct ZAR {
+    /* 0x00 */ char magic[4]; //"ZAR\1"
+    /* 0x04 */ u32 size;
+    /* 0x08 */ u16 numTypes;
+    /* 0x0A */ u16 numFiles;
+    /* 0x0C */ u32 fileTypesOffset;
+    /* 0x10 */ u32 fileMetadataOffset;
+    /* 0x14 */ u32 dataOffset;
+    /* 0x18 */ char magic2[8]; // "queen"
+    /* 0x20 */ char data[1];
+} ZAR;
+
+typedef struct ZARFileTypeEntry {
+    /* 0x00 */ u32 numFiles;
+    /* 0x04 */ u32 filesListOffset;
+    /* 0x08 */ u32 typeNameOffset;
+    /* 0x0C */ u32 unk_0C; // always -1?
+} ZARFileTypeEntry;
+
 typedef struct ZARInfo {
     /* 0x00 */ void* buf;
-    /* 0x04 */ char unk_04[0x48];
-    /* 0x4C */ void*** cmbPtrs;  /* Really, this is a pointer to an array of pointers to CMB managers,
-                                    the first member of which is a pointer to the CMB data */
-    /* 0x50 */ void*** csabPtrs; /* Same as above but for CSAB */
+    /* 0x04 */ s32 size;
+    /* 0x08 */ ZAR* buf2;
+    /* 0x0C */ ZARFileTypeEntry* fileTypes;
+    /* 0x10 */ void* fileMetadata;
+    /* 0x14 */ void* data;
+    /* 0x18 */ ZAR* buf3;
+    /* 0x1C */ s32 fileTypeMap[11];
+    /* 0x48 */ s32 unk_48;
+    /* 0x4C */ struct CmbManager** cmbMans;
+    /* 0x50 */ void** csabMans;
     /* 0x54 */ char unk_54[0x04];
-    /* 0x58 */ void*** cmabPtrs; /* Same as above but for CMAB */
+    /* 0x58 */ void** cmabMans;
     /* 0x5C */ char unk_5C[0x14];
-} ZARInfo; // size = 0x70
+} ZARInfo;
+_Static_assert(sizeof(ZARInfo) == 0x70, "ZARInfo size");
 
 typedef struct ObjectEntry {
     /* 0x00 */ s16 id;
@@ -537,7 +568,6 @@ typedef struct GlobalContext {
     /* 0x0A66 */ char unk_A66[0x0032];
     /* 0x0A98 */ CollisionContext colCtx;
     /* 0x208C */ ActorContext actorCtx;
-    /* 0x2264 */ char unk_2264[0x0034];
     /* 0x2298 */ CutsceneContext csCtx; // "demo_play"
     /* 0x2304 */ char unk_2304[0x078C];
     /* 0x2A90 */ u8 msgMode; // seems to be used primarily for the ocarina
@@ -582,7 +612,7 @@ typedef struct StaticContext {
     /* 0x0E62 */ char unk_E72[0x0010];
     /* 0x0E72 */ u16 collisionDisplay;
     /* 0x0E74 */ char unk_E74[0x015C];
-    /* 0x0FD0 */ u16 renderGeometryDisable;
+    /* 0x0FD0 */ u16 disableRoomDraw;
     /* 0x0FD2 */ char unk_FD2[0x0602];
 } StaticContext; // size 0x15D4
 // _Static_assert(sizeof(StaticContext) == 0x15D4, "Static Context size");
@@ -616,45 +646,29 @@ typedef struct {
     /* 0x03 */ u8 flags3;
 } RestrictionFlags;
 
-typedef struct TargetIndicatorModels {
-    /* 0x00 */ SkeletonAnimationModel* pointer;                 // arrow above targetable actor
-    /* 0x04 */ SkeletonAnimationModel* reticle[4];              // four arrows circling around target
-    /* 0x14 */ SkeletonAnimationModel* reticleAfterimageOne[4]; // four arrows trailing behind `reticle`
-    /* 0x24 */ SkeletonAnimationModel* reticleAfterimageTwo[4]; // four arrows trailing behind `reticleAfterimageOne`
-} TargetIndicatorModels;
-
-typedef struct TargetContext {
-    /* 0x000 */ char unk_000[0x4E];
-    /* 0x04E */ u8 reticleActorType;
-    /* 0x04F */ char unk_04F[0x61];
-    /* 0x0B0 */ TargetIndicatorModels visibleTargetIndicators; // culled when behind a wall
-    /* 0x0E4 */ TargetIndicatorModels hiddenTargetIndicators;  // drawn even when behind walls
-    /* 0x118 */ char unk_118[0x08];
-    /* 0x120 */ ZARInfo* zarInfo;
-    /* 0x124 */ char unk_120[0x04];
-    /* 0x128 */ u32 pointerActorType;
-    // ... size unknown
-} TargetContext;
-
 typedef struct SAModelListEntry {
     SkeletonAnimationModel* saModel;
     u32 unk;
 } SAModelListEntry;
 
 typedef struct SubMainClass_180 {
-    /* 0x000 */ char unk_00[0x8];
-    /* 0x008 */ s32 saModelsCount1;
-    /* 0x00C */ s32 saModelsCount2;
-    /* 0x010 */ char unk_10[0x10];
-    /* 0x020 */ SAModelListEntry* saModelsList1; // 3D models
-    /* 0x024 */ SAModelListEntry* saModelsList2; // 2D billboards
-    /* ... size unknown*/
+    /* 0x000 */ char unk_00[0x4];
+    /* 0x004 */ s32 unk_04;
+    /* 0x008 */ s32 count_08; // 3D models
+    /* 0x00C */ s32 count_0C; // 2D billboards
+    /* 0x010 */ char unk_10[0x04];
+    /* 0x014 */ s32 count_14;
+    /* 0x018 */ s32* countPointer_18;
+    /* 0x01C */ SAModelListEntry* list_1C;
+    /* 0x020 */ SAModelListEntry* list_20; // 3D models
+    /* 0x024 */ SAModelListEntry* list_24; // 2D billboards
+    // ... size unknown
 } SubMainClass_180;
 
 typedef struct MainClass {
     /* 0x000 */ char unk_00[0x180];
     /* 0x180 */ SubMainClass_180 sub180;
-    /* ... size unknown*/
+    // ... size unknown
 } MainClass;
 
 extern GlobalContext* gGlobalContext;

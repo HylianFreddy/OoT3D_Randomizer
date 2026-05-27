@@ -242,7 +242,6 @@ extern bool SoulWallmaster;
 extern bool SoulRedeadGibdo;
 extern bool SoulShellBlade;
 extern bool SoulLikeLike;
-extern bool SoulParasiticTentacle;
 extern bool SoulAnubis;
 extern bool SoulSpike;
 extern bool SoulSkullKid;
@@ -266,6 +265,8 @@ extern bool SoulMorpha;
 extern bool SoulBongoBongo;
 extern bool SoulTwinrova;
 extern bool SoulGanon;
+
+extern u8 BigPoes;
 
 /* --- HELPERS --- */
 /* These are used to simplify reading the logic, but need to be updated

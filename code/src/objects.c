@@ -69,7 +69,7 @@ void ExtendedObject_AfterObjectListCommand(void) {
         // spawned in the extended context will also be marked as persistent here.
         LOG(L_OBJECTS, L_DEBUG, "_ persistent start %d", rExtendedObjectCtx.numEntries);
         Object_FindSlotOrSpawn(OBJECT_CUSTOM_GENERAL_ASSETS);
-        Object_FindSlotOrSpawn(3); // zelda_dangeon_keep (main dungeon object)
+        Object_FindSlotOrSpawn(OBJECT_GAMEPLAY_DUNGEON_KEEP);
         LOG(L_OBJECTS, L_DEBUG, "_ persistent end %d", rExtendedObjectCtx.numEntries);
         rExtendedObjectCtx.numPersistentEntries = rExtendedObjectCtx.numEntries;
     }
@@ -110,29 +110,28 @@ ObjectEntry* Object_GetEntry(s16 slot) {
     return NULL;
 }
 
+ObjectEntry* Object_FindEntry(s16 objectId) {
+    s32 slot = Object_GetSlot(&gGlobalContext->objectCtx, objectId);
+    if (slot >= OBJECT_SLOT_MAX) {
+        return &rExtendedObjectCtx.slots[slot - OBJECT_SLOT_MAX];
+    }
+    if (slot >= 0) {
+        return &gGlobalContext->objectCtx.slots[slot];
+    }
+    return NULL;
+}
+
 ObjectEntry* Object_FindEntryOrSpawn(s16 objectId) {
     LOG(L_OBJECTS, L_TRACE, "Object_FindEntryOrSpawn %X", objectId);
-    ObjectEntry* obj;
-    s32 slot = Object_GetSlot(&gGlobalContext->objectCtx, objectId);
-    if (slot >= 0) {
-        if (slot >= OBJECT_SLOT_MAX) {
-            obj = &rExtendedObjectCtx.slots[slot - OBJECT_SLOT_MAX];
-        } else {
-            obj = &gGlobalContext->objectCtx.slots[slot];
-        }
-        // Wait for the object to be loaded. TODO: this gets stuck infinitely, find another way?
-        // while (obj->id <= 0) {
-        //     LOG(L_OBJECTS, L_DEBUG, "Object_FindEntryOrSpawn: waiting for object 0x%X...", objectId);
-        //     svcSleepThread(1000 * 1000LL); // Sleep 1 ms
-        // }
+    ObjectEntry* obj = Object_FindEntry(objectId);
+    if (obj != NULL) {
         return obj;
-    } else {
-        LOG(L_OBJECTS, L_TRACE, "did not find object 0x%X, trying to spawn it...", objectId);
-        slot = Object_Spawn((ObjectContext*)&rExtendedObjectCtx, objectId);
-        LOG(L_OBJECTS, L_DEBUG, "spawned %X, obj count %d, persistent count %d", objectId,
-            rExtendedObjectCtx.numEntries, rExtendedObjectCtx.numPersistentEntries);
-        return &rExtendedObjectCtx.slots[slot];
     }
+    LOG(L_OBJECTS, L_TRACE, "did not find object 0x%X, trying to spawn it...", objectId);
+    s32 slot = Object_Spawn((ObjectContext*)&rExtendedObjectCtx, objectId);
+    LOG(L_OBJECTS, L_DEBUG, "spawned %X, obj count %d, persistent count %d", objectId, rExtendedObjectCtx.numEntries,
+        rExtendedObjectCtx.numPersistentEntries);
+    return &rExtendedObjectCtx.slots[slot];
 }
 
 s32 Object_FindSlotOrSpawn(s16 objectId) {
@@ -143,6 +142,20 @@ s32 Object_FindSlotOrSpawn(s16 objectId) {
             rExtendedObjectCtx.numEntries, rExtendedObjectCtx.numPersistentEntries);
     }
     return objectSlot;
+}
+
+ObjectEntry* Object_FindEntryByZarInfo(ZARInfo* zarInfo) {
+    for (s32 i = 0; i < gGlobalContext->objectCtx.numEntries; i++) {
+        if (&gGlobalContext->objectCtx.slots[i].zarInfo == zarInfo) {
+            return &gGlobalContext->objectCtx.slots[i];
+        }
+    }
+    for (s32 i = 0; i < rExtendedObjectCtx.numEntries; i++) {
+        if (&rExtendedObjectCtx.slots[i].zarInfo == zarInfo) {
+            return &rExtendedObjectCtx.slots[i];
+        }
+    }
+    return NULL;
 }
 
 static s16 Object_GetIdFromSlot(ObjectContext* objectCtx, s16 slot) {

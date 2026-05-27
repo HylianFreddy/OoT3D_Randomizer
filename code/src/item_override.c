@@ -1,6 +1,7 @@
 #include "item_override.h"
 #include "rHeap.h"
 #include "item_table.h"
+#include "item_effect.h"
 #include "icetrap.h"
 #include "settings.h"
 #include "custom_models.h"
@@ -11,7 +12,6 @@
 #include "item_effect.h"
 #include "chest.h"
 #include "bgm.h"
-#include "actors/obj_mure3.h"
 
 #include <stddef.h>
 
@@ -500,21 +500,10 @@ void ItemOverride_GetItem(Actor* fromActor, Player* player, s8 incomingItemId) {
     }
 
     if (override.key.all == 0) {
-        // Hack for Scrubsanity Off
-        // The game will spawn different scrub actors in grottos depending on if
-        // Link is child or adult (one for deku seeds and another for arrows
-        // respectively). Since we only override the child deku scrubs when
-        // scrubsanity is off, the adult ones will return the Gold Scale getItemID
-        // and not find an override in the overrid table. This is where we fix that
-        // so adult Link will receive arrows properly.
-        if (incomingItemId == GI_SCALE_GOLD && gSettingsContext.scrubsanity == SCRUBSANITY_OFF) {
-            override.value.itemId = GI_ARROWS_LARGE;
-        } else {
-            // No override, use base game's item code
-            ItemOverride_Clear();
-            player->getItemId = incomingItemId;
-            return;
-        }
+        // No override, use base game's item code
+        ItemOverride_Clear();
+        player->getItemId = incomingItemId;
+        return;
     }
 
     IceTrap_UpdateOverride(&override, fromActor->id == ACTOR_CHEST);
@@ -581,7 +570,25 @@ s8 ItemOverride_GetOverheadItem(GlobalContext* globalCtx, Player* player) {
                 break;
         };
     }
+
+    // No override
+    switch (PLAYER->getItemId) {
+        case GI_SHIELD_DEKU:
+        case GI_SHIELD_HYLIAN:
+            ItemEffect_Shield(&gSaveContext, PLAYER->getItemId - GI_SHIELD_DEKU + EQUIP_VALUE_SHIELD_DEKU, -1);
+            break;
+    };
     return -1;
+}
+
+/**
+ * Called when Link accepts a GetItem offer without the overhead mini-cutscene (e.g. deku seeds after the first time or
+ * shields that are already owned).
+ */
+void ItemOverride_GetQuickItem(u8 item) {
+    if (item == ITEM_SHIELD_DEKU || item == ITEM_SHIELD_HYLIAN) {
+        ItemEffect_Shield(&gSaveContext, item - ITEM_SHIELD_DEKU + EQUIP_VALUE_SHIELD_DEKU, -1);
+    }
 }
 
 /**
@@ -705,14 +712,14 @@ void ItemOverride_EditDrawGetItemAfterMatrixUpdate(SkeletonAnimationModel* model
         return;
     }
 
-    CustomModels_UpdateMatrix(&model->mtx, rActiveItemObjectId);
+    CustomModels_UpdateMatrix(&model->mtx, rActiveItemRow);
 }
 
 s32 ItemOverride_GiveSariasGift(void) {
     u32 receivedGift = EventCheck(0xC1);
     if (receivedGift == 0 &&
         Entrance_SceneAndSpawnAre(0x5B, 0x09)) { // Kokiri Forest -> LW Bridge, index 05E0 in the entrance table
-        ItemOverride_PushDelayedOverride(0x02);
+        ItemOverride_PushDelayedOverride(DLYOVR_SARIA_GIFT);
         EventSet(0xC1);
     }
 
@@ -722,13 +729,8 @@ s32 ItemOverride_GiveSariasGift(void) {
 
 // If we haven't obtained Zelda's Letter and are in the castle courtyard, push it
 void ItemOverride_CheckZeldasLetter() {
-    if (EventCheck(0x40) == 0 && gGlobalContext->sceneNum == 0x4A) {
-        ItemOverride_Key key  = { .all = 0 };
-        key.scene             = 0x4A;
-        key.type              = OVR_BASE_ITEM;
-        key.flag              = 0x0B;
-        ItemOverride override = ItemOverride_LookupByKey(key);
-        ItemOverride_PushPendingOverride(override);
+    if (!EventCheck(0x40) && gGlobalContext->sceneNum == SCENE_CASTLE_COURTYARD_ZELDA) {
+        ItemOverride_PushDelayedOverride(DLYOVR_ZELDA_LETTER);
         EventSet(0x40);
     }
 }

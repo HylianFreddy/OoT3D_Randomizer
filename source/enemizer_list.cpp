@@ -112,7 +112,7 @@ void InitEnemyTypes(void) {
         { LocType::ABOVE_GROUND, LocType::NARROW_GROUND, LocType::SHALLOW_WATER });
     enemyTypes[ENEMY_LIKE_LIKE] = EnemyType("Like Like", &SoulLikeLike, ACTOR_LIKE_LIKE, { 0x0000 },
         { LocType::ABOVE_GROUND, LocType::SHALLOW_WATER });
-    enemyTypes[ENEMY_PARASITIC_TENTACLE] = EnemyType("Parasitic Tentacle", &SoulParasiticTentacle, ACTOR_PARASITIC_TENTACLE, { 0x0000 },
+    enemyTypes[ENEMY_PARASITIC_TENTACLE] = EnemyType("Parasitic Tentacle", &SoulBarinade, ACTOR_PARASITIC_TENTACLE, { 0x0000 },
         { /* Unimplemented */ });
     enemyTypes[ENEMY_SPIKE] = EnemyType("Spike", &SoulSpike, ACTOR_SPIKE, { 0x0000 },
         { LocType::ABOVE_GROUND, LocType::UNDERWATER, LocType::SHALLOW_WATER });

@@ -55,8 +55,8 @@ void EnBox_rInit(Actor* thisx, GlobalContext* globalCtx) {
     ItemOverride thisOverride = ItemOverride_Lookup(thisx, globalCtx->sceneNum, 0);
     if (thisOverride.value.itemId == GI_ICE_TRAP) {
         // Make sure zelda_dangeon_keep and object_fz are loaded
-        Object_FindEntryOrSpawn(0x3);
-        Object_FindEntryOrSpawn(0x114);
+        Object_FindEntryOrSpawn(OBJECT_GAMEPLAY_DUNGEON_KEEP);
+        Object_FindEntryOrSpawn(OBJECT_FREEZARD);
 
         this->rExt.isTrapChest = TRUE;
         // Set up collider to make the trap chest breakable
@@ -103,15 +103,15 @@ void Chest_ChangeAppearance(Actor* thisx, GlobalContext* globalCtx) {
     // Change Chest Model
     if (type == CHEST_BOSS_KEY || type == CHEST_SMALL_KEY) {
         // 0: Fancy Chest   1: Wooden Chest   2: Fancy Lid   3: Wooden Lid
-        Model_EnableMeshGroupByIndex(this->skelAnime.unk_28, 0);
-        Model_EnableMeshGroupByIndex(this->skelAnime.unk_28, 2);
-        Model_DisableMeshGroupByIndex(this->skelAnime.unk_28, 1);
-        Model_DisableMeshGroupByIndex(this->skelAnime.unk_28, 3);
+        Model_EnableMeshGroupByIndex(this->skelAnime.saModel, 0);
+        Model_EnableMeshGroupByIndex(this->skelAnime.saModel, 2);
+        Model_DisableMeshGroupByIndex(this->skelAnime.saModel, 1);
+        Model_DisableMeshGroupByIndex(this->skelAnime.saModel, 3);
     } else {
-        Model_EnableMeshGroupByIndex(this->skelAnime.unk_28, 1);
-        Model_EnableMeshGroupByIndex(this->skelAnime.unk_28, 3);
-        Model_DisableMeshGroupByIndex(this->skelAnime.unk_28, 0);
-        Model_DisableMeshGroupByIndex(this->skelAnime.unk_28, 2);
+        Model_EnableMeshGroupByIndex(this->skelAnime.saModel, 1);
+        Model_EnableMeshGroupByIndex(this->skelAnime.saModel, 3);
+        Model_DisableMeshGroupByIndex(this->skelAnime.saModel, 0);
+        Model_DisableMeshGroupByIndex(this->skelAnime.saModel, 2);
     }
 
     // Change Chest Texture
@@ -124,7 +124,7 @@ void Chest_ChangeAppearance(Actor* thisx, GlobalContext* globalCtx) {
         u32 assetIndex = chestType_to_assetIndex[type];
         if (assetIndex != 0) {
             void* cmabMan = Object_GetCMABByIndex(OBJECT_CUSTOM_GENERAL_ASSETS, assetIndex);
-            TexAnim_Spawn(this->skelAnime.unk_28->unk_0C, cmabMan);
+            MatAnim_Init(this->skelAnime.saModel->matAnim, cmabMan);
         }
     }
 
@@ -165,9 +165,9 @@ void Chest_ChangeAppearance(Actor* thisx, GlobalContext* globalCtx) {
 static void Chest_Break(EnBox* this, GlobalContext* globalCtx) {
     for (s32 i = 0; i < 30; i++) {
         Vec3f pos = {
-            .x = ((Rand_ZeroOne() - 0.5f) * 10.0f) + this->dyna.actor.home.pos.x,
-            .y = ((Rand_ZeroOne() * 5.0f) + this->dyna.actor.home.pos.y) + 8.0f,
-            .z = ((Rand_ZeroOne() - 0.5f) * 10.0f) + this->dyna.actor.home.pos.z,
+            .x = ((Rand_ZeroOne() - 0.5f) * 10.0f) + this->dyna.actor.world.pos.x,
+            .y = ((Rand_ZeroOne() * 5.0f) + this->dyna.actor.world.pos.y) + 8.0f,
+            .z = ((Rand_ZeroOne() - 0.5f) * 10.0f) + this->dyna.actor.world.pos.z,
         };
         Vec3f velocity = {
             .x = (Rand_ZeroOne() - 0.5f) * 15.0f,
@@ -276,14 +276,11 @@ u8 Chest_OverrideIceSmoke(Actor* thisx) {
 
         // Curses
         if (trapType >= ICETRAP_CURSE_SHIELD) {
-            if (IceTrap_ActivateCurseTrap(trapType)) {
-                PLAYER->getItemId = 0;
-                PLAYER->stateFlags1 &= ~0x20000C00;
-                PLAYER->actor.home.pos.y = -5000; // Make Link airborne for a frame to cancel the get item event
-                return 1;
-            } else {
-                trapType = ICETRAP_BOMB_KNOCKDOWN; // if the curse can't trigger, use a bomb trap
-            }
+            IceTrap_ActivateCurseTrap(trapType);
+            PLAYER->getItemId = 0;
+            PLAYER->stateFlags1 &= ~0x20000C00;
+            PLAYER->actor.home.pos.y = -5000; // Make Link airborne for a frame to cancel the get item event
+            return TRUE;
         }
 
         if (trapType == ICETRAP_VANILLA) {

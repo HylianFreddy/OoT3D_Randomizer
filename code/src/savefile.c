@@ -53,6 +53,7 @@ void SaveFile_Init(u32 fileBaseIndex) {
     gSaveContext.infTable[0x19] |= 0x0100;   // Picked up Magic Container
     gSaveContext.infTable[0x19] |= 0x0020;   // Talked to owl in Lake Hylia
     gSaveContext.infTable[0x8] |= 0x0810;    // Met Malon in Market/Castle Grounds and talked to her once
+    gSaveContext.infTable[0xB] |= 0x40;      // Spoke to Poe Collector
     gSaveContext.itemGetInf[0x1] |= 0x0008;  // Picked up Deku Seeds
     gSaveContext.eventChkInf[0x3] |= 0x0800; // began Nabooru Battle
     gSaveContext.eventChkInf[0x7] |= 0x01FF; // began boss battles
@@ -518,12 +519,14 @@ void SaveFile_SetStartingInventory(void) {
     gSaveContext.equipment |= gSettingsContext.startingEquipment;
     gSaveContext.upgrades |= gSettingsContext.startingUpgrades;
 
-    u8 startingShields = gSettingsContext.startingEquipment >> (4 * EQUIP_TYPE_SHIELD);
-    if (startingShields & EQUIP_VALUE_SHIELD_DEKU) {
-        gExtSaveData.dekuShieldsCount = 1;
-    }
-    if (startingShields & EQUIP_VALUE_SHIELD_HYLIAN) {
-        gExtSaveData.hylianShieldsCount = 1;
+    if (gSettingsContext.extraShields != EXTRASHIELDS_NEVER) {
+        u8 startingShields = gSettingsContext.startingEquipment >> (4 * EQUIP_TYPE_SHIELD);
+        if (startingShields & EQUIP_VALUE_SHIELD_DEKU) {
+            gExtSaveData.dekuShieldsCount = 1;
+        }
+        if (startingShields & EQUIP_VALUE_SHIELD_HYLIAN) {
+            gExtSaveData.hylianShieldsCount = 1;
+        }
     }
 
     // max rupees
@@ -844,7 +847,7 @@ void SaveFile_LoadFileSwordless(void) {
     if (gSaveContext.linkAge == 0) {
         // Push pedestal item if adult and haven't received yet
         if (gSettingsContext.shuffleMasterSword && !(gExtSaveData.extInf.masterSwordFlags & 2)) {
-            ItemOverride_PushDelayedOverride(0x00);
+            ItemOverride_PushDelayedOverride(DLYOVR_MASTER_SWORD);
         }
 
         // Mark pedestal item collected

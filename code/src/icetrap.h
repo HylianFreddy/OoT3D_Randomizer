@@ -16,7 +16,7 @@ void IceTrap_Give(void);
 u32 IceTrap_IsPending(void);
 void IceTrap_Update(void);
 void IceTrap_Init(void);
-u8 IceTrap_ActivateCurseTrap(u8 curseType);
+void IceTrap_ActivateCurseTrap(u8 curseType);
 void IceTrap_DispelCurses(void);
 u16 IceTrap_CamRoll(u16 roll);
 
@@ -35,8 +35,10 @@ typedef enum {
     ICETRAP_CURSE_SHIELD,
     ICETRAP_CURSE_SWORD,
     ICETRAP_CURSE_DIZZY,
-    ICETRAP_CURSE_BLIND,
+    ICETRAP_CURSE_INVISIBLE_TERRAIN,
+    ICETRAP_CURSE_INVISIBLE_ACTORS,
     ICETRAP_CURSE_SLOW,
+    ICETRAP_CURSE_NAVI,
     ICETRAP_CURSE_CROOKED,
     ICETRAP_CURSE_UNSTABLE,
 } IceTrapTypes;

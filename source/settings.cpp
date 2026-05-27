@@ -231,6 +231,7 @@ Option ShuffleFrogSongRupees  = Option::Bool("Shuffle Frog Rupees",    {"Off", "
 Option ShuffleEnemySouls      = Option::U8  ("Shuffle Enemy Souls",    {"Off", "All enemies", "Bosses only"},                             {enemySoulDesc});
 Option ShuffleOcarinaButtons  = Option::Bool("Shuffle Ocarina Buttons",{"Off", "On"},                                                     {ocarinaButtonsDesc});
 Option ShuffleRupees          = Option::Bool("Shuffle Standing Rupees",{"Off", "On"},                                                     {shuffleRupeesDesc});
+Option ShuffleBigPoes         = Option::Bool("Shuffle Big Poes",       {"Off", "On"},                                                     {shuffleBigPoesDesc});
 std::vector<Option *> shuffleOptions = {
     &RandomizeShuffle,
     &ShuffleRewards,
@@ -255,6 +256,7 @@ std::vector<Option *> shuffleOptions = {
     &ShuffleEnemySouls,
     &ShuffleOcarinaButtons,
     &ShuffleRupees,
+    &ShuffleBigPoes,
 };
 
 // Shuffle Dungeon Items
@@ -369,8 +371,9 @@ Option CompassesShowWotH   = Option::U8  ("Compasses Show WotH",    {"No", "Yes"
 Option MapsShowDungeonMode = Option::U8  ("Maps Show Dungeon Modes",{"No", "Yes"},                                                          {mapsShowDungeonModesDesc},                                                                                       OptionCategory::Setting,    ON);
 Option StartingTime        = Option::U8  ("Starting Time",          {"Day", "Night"},                                                       {startingTimeDesc});
 Option ChestAnimations     = Option::Bool("Chest Animations",       {"Always Fast", "Match Contents"},                                      {chestAnimDesc});
-Option ChestAppearance     = Option::U8  ("Chest Appearance Mod",   {"Vanilla", "Texture", "Size + Texture", "Classic CSMC"},             {chestVanillaDesc, chestTextureDesc, chestSizeTextureDesc, chestClassicDesc});
+Option ChestAppearance     = Option::U8  ("Chest Appearance Mod",   {"Vanilla", "Texture", "Size + Texture", "Classic CSMC"},               {chestVanillaDesc, chestTextureDesc, chestSizeTextureDesc, chestClassicDesc});
 Option ChestAgony          = Option::Bool(2, "Need Shard of Agony", {"No", "Yes"},                                                          {chestAgonyDesc});
+Option ExtraShields        = Option::U8  ("Keep Extra Shields",     {"Never (Vanilla)", "Only if random", "Always allowed"},                {extraShieldsDesc},                                                                                               OptionCategory::Setting,    EXTRASHIELDS_RANDOM_ONLY);
 Option GenerateSpoilerLog  = Option::Bool("Generate Spoiler Log",   {"No", "Yes"},                                                          {""},                                                                                                             OptionCategory::Setting,    ON);
 Option IngameSpoilers      = Option::Bool("Ingame Spoilers",        {"Hide", "Show"},                                                       {ingameSpoilersHideDesc, ingameSpoilersShowDesc });
 bool HasNightStart         = false;
@@ -393,6 +396,7 @@ std::vector<Option *> miscOptions = {
     &ChestAnimations,
     &ChestAppearance,
     &ChestAgony,
+    &ExtraShields,
     &GenerateSpoilerLog,
     &IngameSpoilers,
 };
@@ -1255,6 +1259,24 @@ static std::vector<std::string> ganonBloodOptionNames = {
     "Pink",
 };
 
+static std::vector<std::string> soullessColorOptionNames = {
+    std::string(RANDOM_CHOICE_STR),
+    std::string(RANDOM_COLOR_STR),
+    std::string(CUSTOM_COLOR_STR),
+    "Black",
+    "White",
+    "Red",
+    "Green",
+    "Blue",
+    "Yellow",
+    "Cyan",
+    "Magenta",
+    "Orange",
+    "Gold",
+    "Purple",
+    "Pink",
+};
+
 static std::vector<std::string_view> cosmeticDescriptions = {
     RANDOM_CHOICE_DESC,
     RANDOM_COLOR_DESC,
@@ -1315,7 +1337,10 @@ Option ColoredKeys         = Option::Bool("Colored Small Keys",     {"Off", "On"
 Option ColoredBossKeys     = Option::Bool("Colored Boss Keys",      {"Off", "On"},                                {coloredBossKeysDesc},                                                                                                                              OptionCategory::Cosmetic);
 Option MirrorWorld         = Option::U8  ("Mirror World",           {"Off", "On", "Scene", "Entrance", "Random"}, {mirrorWorldOffDesc, mirrorWorldOnDesc, mirrorWorldSceneDesc, mirrorWorldEntranceDesc, mirrorWorldRandomDesc},                                      OptionCategory::Cosmetic);
 Option BetaSoldOut         = Option::Bool("Beta Sold-Out Model",    {"Off", "On"},                                {betaSoldOutDesc},                                                                                                                                  OptionCategory::Cosmetic);
-Option SoullessEnemiesLook = Option::U8  ("Soulless Enemies Look",  {"Vanilla", "Purple Flames", "Flashing"},     {soullessVanillaDesc, soullessPurpleFlamesDesc, soullessFlashingDesc},                                                                              OptionCategory::Cosmetic,     SOULLESSLOOK_PURPLE_FLAMES);
+Option SoullessEnemiesLook = Option::U8  ("Soulless Enemies Look",  {"Vanilla", "Textureless", "Grayscale",
+                                                                     "Purple Flames", "Flashing"},                {soullessVanillaDesc, soullessTexturelessDesc, soullessGrayscaleDesc, soullessPurpleFlamesDesc, soullessFlashingDesc},                              OptionCategory::Cosmetic,     SOULLESSLOOK_TEXTURELESS);
+Option SoullessColor       = Option::U8  (2, "Soulless Color",      soullessColorOptionNames,                     {RANDOM_CHOICE_DESC, RANDOM_COLOR_DESC, CUSTOM_COLOR_DESC, "Select the color of soulless enemies."},                                                OptionCategory::Cosmetic,                            3); // Black
+Color_RGBA8 finalSoullessColor;
 
 std::vector<Option *> cosmeticOptions = {
     &CustomTunicColors,
@@ -1350,6 +1375,7 @@ std::vector<Option *> cosmeticOptions = {
     &MirrorWorld,
     &BetaSoldOut,
     &SoullessEnemiesLook,
+    &SoullessColor,
 };
 
 static std::vector<std::string> musicOptions = {"Off", "On (Mixed)", "On (Grouped)", "On (Own)"};
@@ -1561,6 +1587,7 @@ SettingsContext FillContext() {
     ctx.shuffleChestMinigame   = ShuffleChestMinigame.Value<u8>();
     ctx.shuffleEnemySouls      = ShuffleEnemySouls.Value<u8>();
     ctx.shuffleOcarinaButtons  = (ShuffleOcarinaButtons) ? 1 : 0;
+    ctx.shuffleBigPoes         = (ShuffleBigPoes) ? 1 : 0;
 
     ctx.mapsAndCompasses   = MapsAndCompasses.Value<u8>();
     ctx.keysanity          = Keysanity.Value<u8>();
@@ -1621,6 +1648,7 @@ SettingsContext FillContext() {
     ctx.chestAnimations     = (ChestAnimations) ? 1 : 0;
     ctx.chestAppearance     = ChestAppearance.Value<u8>();
     ctx.chestAgony          = (ChestAgony) ? 1 : 0;
+    ctx.extraShields        = ExtraShields.Value<u8>();
     ctx.generateSpoilerLog  = (GenerateSpoilerLog) ? 1 : 0;
     ctx.ingameSpoilers      = (IngameSpoilers) ? 1 : 0;
     ctx.menuOpeningButton   = MenuOpeningButton.Value<u8>();
@@ -1712,6 +1740,7 @@ SettingsContext FillContext() {
     ctx.coloredKeys                 = (ColoredKeys) ? 1 : 0;
     ctx.coloredBossKeys             = (ColoredBossKeys) ? 1 : 0;
     ctx.soullessEnemiesLook         = SoullessEnemiesLook.Value<u8>();
+    ctx.soullessColor               = finalSoullessColor;
     ctx.shuffleSFX                  = ShuffleSFX.Value<u8>();
     ctx.shuffleSFXFootsteps         = (ShuffleSFXFootsteps) ? 1 : 0;
     ctx.shuffleSFXLinkVoice         = (ShuffleSFXLinkVoice) ? 1 : 0;
@@ -2430,6 +2459,26 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         startingInventory.ResetMenuIndex();
     }
 
+    if (ShuffleBigPoes) {
+        // If Big Poes are shuffled, prevent selecting Big Poe Bottles in the starting inventory.
+        std::vector<Option*> startingBottleOptions = {
+            &StartingBottle1,
+            &StartingBottle2,
+            &StartingBottle3,
+            &StartingBottle4,
+        };
+        for (Option* opt : startingBottleOptions) {
+            if (opt->Is(STARTINGBOTTLE_BIG_POE)) {
+                if (currentSetting == opt) {
+                    opt->ScrollOptionIndex(kDown);
+                } else {
+                    opt->SetSelectedIndex(STARTINGBOTTLE_POE);
+                }
+                opt->SetVariable();
+            }
+        }
+    }
+
     if (!RandomizeDungeon) {
         // Only show Medallion Count if setting Ganons Boss Key to LACS Medallions
         if (GanonsBossKey.Is(GANONSBOSSKEY_LACS_MEDALLIONS)) {
@@ -2823,6 +2872,13 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         BombchuTrailDuration.SetSelectedIndex(2); // Vanilla
     }
 
+    if (SoullessEnemiesLook.Is(SOULLESSLOOK_TEXTURELESS)) {
+        SoullessColor.Unhide();
+    } else {
+        SoullessColor.Hide();
+        SoullessColor.SetSelectedIndex(3); // Black
+    }
+
     // Audio
     if (ShuffleMusic) {
         ShuffleBGM.Unhide();
@@ -2898,6 +2954,7 @@ std::vector<std::pair<Option*, u8>> vanillaLogicOverrides = {
     { &ShuffleFrogSongRupees, SHUFFLEFROGSONGRUPEES_OFF },
     { &ShuffleEnemySouls, OFF },
     { &ShuffleOcarinaButtons, OFF },
+    { &ShuffleBigPoes, OFF },
     { &Keysanity, KEYSANITY_ANY_DUNGEON }, // Set small keys to any dungeon so FiT basement door will be locked
     { &GossipStoneHints, HINTS_NO_HINTS },
 };
@@ -3112,6 +3169,9 @@ static void UpdateCosmetics() {
     // Ganon/dorf Blood
     ChooseFinalColor(GanonBloodColor, tempString, ganonBloodColors);
     finalGanonBloodColor = Cosmetics::HexStrToColorRGBA8(tempString);
+    // Soulless enemies
+    ChooseFinalColor(SoullessColor, tempString, soullessColors);
+    finalSoullessColor = Cosmetics::HexStrToColorRGBA8(tempString);
 }
 
 // Function to set flags depending on settings

@@ -96,38 +96,40 @@ void Fairy_UpdateRainbowNaviColors(EnElf* navi) {
     }
 }
 
-s32 Fairy_SetTargetPointerColor(TargetContext* targetCtx, Actor* targetActor) {
+s32 Fairy_SetTargetPointerColor(Attention* attention, Actor* targetActor) {
     if (gSettingsContext.customNaviColors == OFF) {
         return 0;
     }
 
-    void** cmabManager = ZAR_GetCMABByIndex(targetCtx->zarInfo, 37); // mark_model_white.cmab as base for all colors
+    void** cmabManager = ZAR_GetCMABByIndex(attention->zarInfo, 37); // mark_model_white.cmab as base for all colors
     Fairy_ApplyColorToTargetCMAB(*cmabManager, NaviColorsArray[targetActor->type * 2]); // get inner color
     staticRainbowPointerCMAB = Fairy_IsNaviInnerRainbowForActorType(targetActor->type) ? *cmabManager : 0;
 
-    TexAnim_Spawn(targetCtx->visibleTargetIndicators.pointer->unk_0C, cmabManager);
-    TexAnim_Spawn(targetCtx->hiddenTargetIndicators.pointer->unk_0C, cmabManager);
-    targetCtx->pointerActorType = targetActor->type;
+    MatAnim_Init(attention->visibleTargetIndicators.pointer->matAnim, cmabManager);
+    MatAnim_Init(attention->hiddenTargetIndicators.pointer->matAnim, cmabManager);
+    attention->pointerActorType = targetActor->type;
 
     return 1;
 }
 
-s32 Fairy_SetTargetReticleColor(TargetContext* targetCtx) {
+s32 Fairy_SetTargetReticleColor(Attention* attention) {
     if (gSettingsContext.customNaviColors == OFF) {
         return 0;
     }
 
-    void** cmabManager = ZAR_GetCMABByIndex(targetCtx->zarInfo, 41); // target_model_white.cmab as base for all colors
-    Fairy_ApplyColorToTargetCMAB(*cmabManager, NaviColorsArray[targetCtx->reticleActorType * 2]); // get inner color
-    staticRainbowReticleCMAB = Fairy_IsNaviInnerRainbowForActorType(targetCtx->reticleActorType) ? *cmabManager : 0;
+    void** cmabManager = ZAR_GetCMABByIndex(attention->zarInfo, 41); // target_model_white.cmab as base for all colors
+    Fairy_ApplyColorToTargetCMAB(*cmabManager,
+                                 NaviColorsArray[attention->naviHoverActorCategory * 2]); // get inner color
+    staticRainbowReticleCMAB =
+        Fairy_IsNaviInnerRainbowForActorType(attention->naviHoverActorCategory) ? *cmabManager : 0;
 
     for (s32 i = 0; i < 4; i++) {
-        TexAnim_Spawn(targetCtx->visibleTargetIndicators.reticle[i]->unk_0C, cmabManager);
-        TexAnim_Spawn(targetCtx->visibleTargetIndicators.reticleAfterimageOne[i]->unk_0C, cmabManager);
-        TexAnim_Spawn(targetCtx->visibleTargetIndicators.reticleAfterimageTwo[i]->unk_0C, cmabManager);
-        TexAnim_Spawn(targetCtx->hiddenTargetIndicators.reticle[i]->unk_0C, cmabManager);
-        TexAnim_Spawn(targetCtx->hiddenTargetIndicators.reticleAfterimageOne[i]->unk_0C, cmabManager);
-        TexAnim_Spawn(targetCtx->hiddenTargetIndicators.reticleAfterimageTwo[i]->unk_0C, cmabManager);
+        MatAnim_Init(attention->visibleTargetIndicators.reticle[i]->matAnim, cmabManager);
+        MatAnim_Init(attention->visibleTargetIndicators.reticleAfterimageOne[i]->matAnim, cmabManager);
+        MatAnim_Init(attention->visibleTargetIndicators.reticleAfterimageTwo[i]->matAnim, cmabManager);
+        MatAnim_Init(attention->hiddenTargetIndicators.reticle[i]->matAnim, cmabManager);
+        MatAnim_Init(attention->hiddenTargetIndicators.reticleAfterimageOne[i]->matAnim, cmabManager);
+        MatAnim_Init(attention->hiddenTargetIndicators.reticleAfterimageTwo[i]->matAnim, cmabManager);
     }
 
     return 1;
@@ -143,23 +145,9 @@ void Fairy_ResetRainbowCMABs(void) {
 void BgDyYoseizo_Init(Actor* thisx, GlobalContext* globalCtx);
 void BgDyYoseizo_Draw(Actor* thisx, GlobalContext* globalCtx);
 
+void Cutscene_OverrideFairyReward(BgDyYoseizo* fairy);
 static void GreatFairy_OverrideReward(BgDyYoseizo* fairy) {
-    s16 fairyIdx = fairy->fountainType;
-
-    if (gGlobalContext->sceneNum == SCENE_GREAT_FAIRYS_FOUNTAIN_SPELLS) {
-        if (!(gSaveContext.itemGetInf[1] & (0x100 << fairyIdx))) {
-            ItemOverride_PushDelayedOverride(0x10 + fairyIdx);
-            gSaveContext.itemGetInf[1] |= (0x100 << fairyIdx);
-        }
-    } else if (gGlobalContext->sceneNum == SCENE_GREAT_FAIRYS_FOUNTAIN_MAGIC) {
-        if (!(gGlobalContext->actorCtx.flags.chest & (0x1 << fairyIdx))) {
-            ItemOverride_PushDelayedOverride(0x13 + fairyIdx);
-            gGlobalContext->actorCtx.flags.chest |= (0x1 << fairyIdx);
-        }
-    }
-
-    gSaveContext.healthAccumulator = 0x140;
-    gSaveContext.magic             = gSaveContext.magicLevel * 0x30;
+    Cutscene_OverrideFairyReward(fairy);
 }
 
 static void GreatFairy_Action_WaitForSong(BgDyYoseizo* this, GlobalContext* globalCtx) {

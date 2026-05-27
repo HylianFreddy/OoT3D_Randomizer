@@ -600,6 +600,15 @@ string_view shuffleRupeesDesc         = "Shuffles all freestanding visible rupee
                                         "from the Goron City spinning pot or the pots in\n"//
                                         "Shadow Temple.";                                  //
 /*------------------------------                                                           //
+|       SHUFFLE BIG POES       |                                                           //
+------------------------------*/                                                           //
+string_view shuffleBigPoesDesc        = "The 10 Big Poes in Hyrule Field will drop random\n"
+                                        "items.\n"                                         //
+                                        "Their bottled spirits will be added to the item\n"//
+                                        "pool, and won't require a bottle to be obtained.\n"
+                                        "Speak to the Poe Collector to get his reward after"
+                                        "finding the required amount.";                    //
+/*------------------------------                                                           //
 |      MAPS AND COMPASSES      |                                                           //
 ------------------------------*/                                                           //
 string_view mapCompassStartWith       = "Maps and Compasses are given to you from the\n"   //
@@ -760,8 +769,8 @@ string_view lakeHyliaOwlDesc          = "The owl flight cutscene in Lake Hylia w
 /*------------------------------                                                           //
 |     BIG POE TARGET COUNT     |                                                           //
 ------------------------------*/                                                           //
-string_view bigPoeTargetCountDesc     = "The Poe buyer will give a reward for turning in\n"//
-                                        "the chosen number of Big Poes.";                  //
+string_view bigPoeTargetCountDesc     = "The Poe Collector will give a reward for turning\n"
+                                        "in the chosen number of Big Poes.";               //
 /*------------------------------                                                           //
 |     NUM REQUIRED CUCCOS      |                                                           //
 ------------------------------*/                                                           //
@@ -1006,6 +1015,16 @@ string_view chestClassicDesc          = "This is the behavior of CSMC in previou
 string_view chestAgonyDesc            = "The Chest Appearance Mod will only apply\n"       //
                                         "after obtaining the Shard of Agony.\n";           //
                                                                                            //
+/*------------------------------                                                           //
+|         EXTRA SHIELDS        |                                                           //
+------------------------------*/                                                           //
+string_view extraShieldsDesc          = "Allow keeping more than 1 Deku and Hylian shield\n"
+                                        "in the inventory, so if you lose one you can then\n"
+                                        "re-equip it immediately. The shield count will be\n"
+                                        "displayed next to the item name.\n\n"             //
+                                        "You can choose if extra shields should only be\n" //
+                                        "obtainable from randomized items or if they should"
+                                        "also be repeatedly buyable from shops.";          //
 /*------------------------------                                                           //
 |        INGAME SPOILERS       |                                                           //
 ------------------------------*/                                                           //
@@ -1301,9 +1320,12 @@ string_view betaSoldOutDesc           = "The game contains an unused model for s
 |    SOULLESS ENEMIES LOOK     |                                                           //
 ------------------------------*/                                                           //
 string_view soullessVanillaDesc       = "Soulless enemies will appear normal.";            //
+string_view soullessTexturelessDesc   = "Soulless enemies will appear with no textures and\n"
+                                        "a shaded selectable color applied to their bodies.";
+string_view soullessGrayscaleDesc     = "Soulless enemies will appear in black and white.";//
 string_view soullessPurpleFlamesDesc  = "Soulless enemies will appear with purple flames\n"//
-                                        "around them.";                                    //
-string_view soullessFlashingDesc      = "Soulless enemies will flash between visible and\n"
+                                        "around them, and their bodies will be invisible.";//
+string_view soullessFlashingDesc      = "Soulless enemies will flash between visible and\n"//
                                         "invisible on every frame.";                       //
 /*------------------------------                                                           //
 |        SHUFFLE MUSIC         |                                                           //
