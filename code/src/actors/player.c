@@ -215,7 +215,6 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
     static Vec3f vecAcc = { 0 };
     static Vec3f vecVel = { 0 };
     static Vec3f vecPos = { 0 };
-    Player* this        = (Player*)thisx;
 
     s32 prevSaModelsCount1 = gMainClass.sub180.count_08;
 
