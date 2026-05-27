@@ -670,7 +670,7 @@ void ItemOverride_EditDrawGetItemAfterMatrixUpdate(SkeletonAnimationModel* model
         return;
     }
 
-    CustomModels_UpdateMatrix(&model->mtx, rActiveItemObjectId);
+    CustomModels_UpdateMatrix(&model->mtx, rActiveItemRow);
 }
 
 s32 ItemOverride_GiveSariasGift(void) {

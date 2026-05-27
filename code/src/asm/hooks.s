@@ -158,13 +158,6 @@ HOOK GetToken
     addne lr,lr,#0x20 @ skip playing fanfare
     bx lr
 
-HOOK PoeCollectorCheckPoints
-    push {r0-r12, lr}
-    bl EnGb_CheckPoints
-    cmp r0,#0x1
-    pop {r0-r12, lr}
-    bx lr
-
 HOOK ItemEtceteraModelDraw
     push {r0-r12, lr}
     bl Model_DrawByActor
@@ -252,12 +245,6 @@ HOOK SariasSongCheckFlag
     bl Cutscene_CheckSariasSongFlag
     cmp r0,#0x0
     pop {r0-r12, lr}
-    bx lr
-
-HOOK PoeCollectorGetFirstTextbox
-    push {r1-r12, lr}
-    bl EnGb_GetFirstTextbox
-    pop {r1-r12, lr}
     bx lr
 
 HOOK ApplyDamageMultiplier

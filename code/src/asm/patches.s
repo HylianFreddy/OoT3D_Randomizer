@@ -223,9 +223,6 @@ PATCH DekuTheaterMaskOfTruth
     mov r0,#0x7A
     nop
 
-PATCH PoeCollectorCheckPoints
-    bl hook_PoeCollectorCheckPoints
-
 PATCH LACSConditionOne
     nop
 
@@ -419,9 +416,6 @@ PATCH FairyReward
     cpy r0,r4
     bl Cutscene_OverrideFairyReward
     b 0x3E75F8
-
-PATCH PoeCollectorGetFirstTextbox
-    bl hook_PoeCollectorGetFirstTextbox
 
 PATCH OcarinaMinigameRewardsOrder
     .word 0x76

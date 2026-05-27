@@ -348,7 +348,7 @@ void ShopsanityItem_Draw(Actor* itemx, GlobalContext* globalCtx) {
     ItemOverride override = ItemOverride_Lookup(&item->super.actor, globalCtx->sceneNum, item->getItemId);
 
     u16 itemId = override.value.looksLikeItemId ? override.value.looksLikeItemId : override.value.itemId;
-    CustomModels_UpdateMatrix(&item->super.actor.modelMtx, ItemTable_GetItemRow(itemId)->objectId);
+    CustomModels_UpdateMatrix(&item->super.actor.modelMtx, ItemTable_GetItemRow(itemId));
 
     EnGirlA_Draw(itemx, globalCtx);
 }
