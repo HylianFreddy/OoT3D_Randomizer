@@ -26,22 +26,20 @@ void Model_Init(Model* model, GlobalContext* globalCtx) {
     // edit the cmbs for custom models
     CustomModels_EditItemCMB(ZARBuf, model->itemRow->objectId, model->itemRow->special);
 
-    if (model->itemRow->objectModelIdx >= 0) {
-        model->saModel = SkeletonAnimationModel_Spawn(model->actor, globalCtx, model->itemRow->objectId,
-                                                      model->itemRow->objectModelIdx);
+    model->saModel =
+        SkeletonAnimationModel_Spawn(model->actor, globalCtx, model->itemRow->objectId, model->itemRow->objectModelIdx);
 
-        if (Object_IsRupeeObject(model->itemRow->objectId)) {
-            // Set the mesh for rupees
-            SkeletonAnimationModel_SetMesh(model->saModel, model->itemRow->special);
-        }
+    if (Object_IsRupeeObject(model->itemRow->objectId)) {
+        // Set the mesh for rupees
+        SkeletonAnimationModel_SetMesh(model->saModel, model->itemRow->special);
+    }
 
-        CustomModels_ApplyItemCMAB(model->saModel, model->itemRow->objectId, model->itemRow->special);
+    CustomModels_ApplyItemCMAB(model->saModel, model->itemRow->objectId, model->itemRow->special);
 
-        if (model->itemRow->cmabIndex >= 0) {
-            Model_SetAnim(model->saModel, model->itemRow->objectId, model->itemRow->cmabIndex);
-            model->saModel->matAnim->animSpeed = 2.0f;
-            model->saModel->matAnim->animMode  = 1;
-        }
+    if (model->itemRow->cmabIndex >= 0) {
+        Model_SetAnim(model->saModel, model->itemRow->objectId, model->itemRow->cmabIndex);
+        model->saModel->matAnim->animSpeed = 2.0f;
+        model->saModel->matAnim->animMode  = 1;
     }
 
     if (model->itemRow->objectModelIdx2 >= 0) {
@@ -122,11 +120,10 @@ void Model_UpdateMatrix(Model* model) {
     scaleMtx.data[2][2]    = model->scale;
     scaleMtx.data[3][3]    = 1.0f;
 
-    if (model->saModel != NULL) {
-        Actor_SetModelMatrixWrapper(model->actor, &model->saModel->mtx);
-        Matrix_Multiply(&model->saModel->mtx, &model->saModel->mtx, &scaleMtx);
-        Matrix_UpdatePosition(&model->saModel->mtx, &model->saModel->mtx, &model->posOffset);
-    }
+    Actor_SetModelMatrixWrapper(model->actor, &model->saModel->mtx);
+    Matrix_Multiply(&model->saModel->mtx, &model->saModel->mtx, &scaleMtx);
+    Matrix_UpdatePosition(&model->saModel->mtx, &model->saModel->mtx, &model->posOffset);
+
     if (model->saModel2 != NULL) {
         f32 tempRotY = model->actor->shape.rot.y;
         // The second model should always face the camera, except for Skull Token
@@ -197,8 +194,7 @@ void Model_Create(Model* model, GlobalContext* globalCtx) {
     Model* newModel = NULL;
 
     for (s32 i = 0; i < LOADEDMODELS_MAX; ++i) {
-        if ((ModelContext[i].actor == NULL) && (ModelContext[i].saModel == NULL) &&
-            (ModelContext[i].saModel2 == NULL)) {
+        if ((ModelContext[i].actor == NULL) && (ModelContext[i].saModel == NULL)) {
             newModel = &ModelContext[i];
             break;
         }
