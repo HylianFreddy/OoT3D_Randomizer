@@ -10,7 +10,7 @@
 
 void SkeletonAnimationModel_MatrixCopy(SkeletonAnimationModel* glModel, nn_math_MTX34* mtx);
 void SkeletonAnimationModel_Draw(SkeletonAnimationModel* glModel, s32 param_2);
-void Actor_SetModelMatrix(f32 x, f32 y, f32 z, nn_math_MTX34* mtx, ActorShape* shape);
+void Actor_SetModelMatrix(f32 x, f32 y, f32 z, nn_math_MTX34* mtx, ActorShape* shape) __attribute__((pcs("aapcs-vfp")));
 
 #define LOADEDMODELS_MAX 20
 Model ModelContext[LOADEDMODELS_MAX] = { 0 };
@@ -96,30 +96,17 @@ void Model_UpdateAll(GlobalContext* globalCtx) {
     }
 }
 
-void Actor_SetModelMatrixWrapper(Actor* actor, nn_math_MTX34* mtx) {
-    asm volatile("push {r0-r12, lr}\n"
-                 "vldr s1,[r0,#0x2C]\n"
-                 "vldr s0,[r0,#0xC4]\n"
-                 "vldr s2,[r0,#0x58]\n"
-                 "vmla.f32 s1,s0,s2\n"  // y coord calc
-                 "vldr s0,[r0,#0x28]\n" // x coord
-                 "vldr s2,[r0,#0x30]\n" // z coord
-                 "add r2,r0,#0xBC\n"
-                 "mov r0,r1\n" // mtx
-                 "mov r1,r2\n" // shape
-                 "push {r0-r12, lr}\n"
-                 "bl Actor_SetModelMatrix\n"
-                 "pop {r0-r12, lr}\n"
-                 "pop {r0-r12, lr}\n");
-}
-
 void Model_DrawSAM(Model* model, SkeletonAnimationModel* saModel, BOOL mustFaceCamera) {
-    f32 realShapeYaw = model->actor->shape.rot.y;
+    Actor* actor     = model->actor;
+    f32 realShapeYaw = actor->shape.rot.y;
     if (mustFaceCamera) {
-        model->actor->shape.rot.y = gGlobalContext->mainCamera.camDir.y;
+        actor->shape.rot.y = gGlobalContext->mainCamera.camDir.y;
     }
     // Update matrix
-    Actor_SetModelMatrixWrapper(model->actor, &saModel->mtx);
+    f32 x = actor->world.pos.x;
+    f32 y = actor->world.pos.y + actor->shape.yOffset * actor->scale.y;
+    f32 z = actor->world.pos.z;
+    Actor_SetModelMatrix(x, y, z, &saModel->mtx, &actor->shape);
     const f32 MODEL_SCALE  = 0.3f;
     nn_math_MTX44 scaleMtx = { 0 };
     scaleMtx.data[0][0]    = MODEL_SCALE;
@@ -133,7 +120,7 @@ void Model_DrawSAM(Model* model, SkeletonAnimationModel* saModel, BOOL mustFaceC
     saModel->unk_AC = 1;
     SkeletonAnimationModel_Draw(saModel, 0);
 
-    model->actor->shape.rot.y = realShapeYaw;
+    actor->shape.rot.y = realShapeYaw;
 }
 
 void Model_Draw(Model* model) {
