@@ -10,7 +10,7 @@
 
 void SkeletonAnimationModel_MatrixCopy(SkeletonAnimationModel* glModel, nn_math_MTX34* mtx);
 void SkeletonAnimationModel_Draw(SkeletonAnimationModel* glModel, s32 param_2);
-void Actor_SetModelMatrix(f32 x, f32 y, f32 z, nn_math_MTX34* mtx, ActorShape* shape);
+void Actor_SetModelMatrix(f32 x, f32 y, f32 z, nn_math_MTX34* mtx, ActorShape* shape) __attribute__((pcs("aapcs-vfp")));
 
 #define LOADEDMODELS_MAX 20
 Model ModelContext[LOADEDMODELS_MAX] = { 0 };
@@ -26,22 +26,20 @@ void Model_Init(Model* model, GlobalContext* globalCtx) {
     // edit the cmbs for custom models
     CustomModels_EditItemCMB(ZARBuf, model->itemRow->objectId, model->itemRow->special);
 
-    if (model->itemRow->objectModelIdx >= 0) {
-        model->saModel = SkeletonAnimationModel_Spawn(model->actor, globalCtx, model->itemRow->objectId,
-                                                      model->itemRow->objectModelIdx);
+    model->saModel =
+        SkeletonAnimationModel_Spawn(model->actor, globalCtx, model->itemRow->objectId, model->itemRow->objectModelIdx);
 
-        if (Object_IsRupeeObject(model->itemRow->objectId)) {
-            // Set the mesh for rupees
-            SkeletonAnimationModel_SetMesh(model->saModel, model->itemRow->special);
-        }
+    if (Object_IsRupeeObject(model->itemRow->objectId)) {
+        // Set the mesh for rupees
+        SkeletonAnimationModel_SetMesh(model->saModel, model->itemRow->special);
+    }
 
-        CustomModels_ApplyItemCMAB(model->saModel, model->itemRow->objectId, model->itemRow->special);
+    CustomModels_ApplyItemCMAB(model->saModel, model->itemRow->objectId, model->itemRow->special);
 
-        if (model->itemRow->cmabIndex >= 0) {
-            Model_SetAnim(model->saModel, model->itemRow->objectId, model->itemRow->cmabIndex);
-            model->saModel->matAnim->animSpeed = 2.0f;
-            model->saModel->matAnim->animMode  = 1;
-        }
+    if (model->itemRow->cmabIndex >= 0) {
+        Model_SetAnim(model->saModel, model->itemRow->objectId, model->itemRow->cmabIndex);
+        model->saModel->matAnim->animSpeed = 2.0f;
+        model->saModel->matAnim->animMode  = 1;
     }
 
     if (model->itemRow->objectModelIdx2 >= 0) {
@@ -98,58 +96,39 @@ void Model_UpdateAll(GlobalContext* globalCtx) {
     }
 }
 
-void Actor_SetModelMatrixWrapper(Actor* actor, nn_math_MTX34* mtx) {
-    asm volatile("push {r0-r12, lr}\n"
-                 "vldr s1,[r0,#0x2C]\n"
-                 "vldr s0,[r0,#0xC4]\n"
-                 "vldr s2,[r0,#0x58]\n"
-                 "vmla.f32 s1,s0,s2\n"  // y coord calc
-                 "vldr s0,[r0,#0x28]\n" // x coord
-                 "vldr s2,[r0,#0x30]\n" // z coord
-                 "add r2,r0,#0xBC\n"
-                 "mov r0,r1\n" // mtx
-                 "mov r1,r2\n" // shape
-                 "push {r0-r12, lr}\n"
-                 "bl Actor_SetModelMatrix\n"
-                 "pop {r0-r12, lr}\n"
-                 "pop {r0-r12, lr}\n");
-}
-
-void Model_UpdateMatrix(Model* model) {
+void Model_DrawSAM(Model* model, SkeletonAnimationModel* saModel, BOOL mustFaceCamera) {
+    Actor* actor     = model->actor;
+    f32 realShapeYaw = actor->shape.rot.y;
+    if (mustFaceCamera) {
+        actor->shape.rot.y = gGlobalContext->mainCamera.camDir.y;
+    }
+    // Update matrix
+    f32 x = actor->world.pos.x;
+    f32 y = actor->world.pos.y + actor->shape.yOffset * actor->scale.y;
+    f32 z = actor->world.pos.z;
+    Actor_SetModelMatrix(x, y, z, &saModel->mtx, &actor->shape);
+    const f32 MODEL_SCALE  = 0.3f;
     nn_math_MTX44 scaleMtx = { 0 };
-    scaleMtx.data[0][0]    = model->scale;
-    scaleMtx.data[1][1]    = model->scale;
-    scaleMtx.data[2][2]    = model->scale;
+    scaleMtx.data[0][0]    = MODEL_SCALE;
+    scaleMtx.data[1][1]    = MODEL_SCALE;
+    scaleMtx.data[2][2]    = MODEL_SCALE;
     scaleMtx.data[3][3]    = 1.0f;
+    Matrix_Multiply(&saModel->mtx, &saModel->mtx, &scaleMtx);
+    CustomModels_UpdateMatrix(&saModel->mtx, model->itemRow);
 
-    if (model->saModel != NULL) {
-        Actor_SetModelMatrixWrapper(model->actor, &model->saModel->mtx);
-        Matrix_Multiply(&model->saModel->mtx, &model->saModel->mtx, &scaleMtx);
-        Matrix_UpdatePosition(&model->saModel->mtx, &model->saModel->mtx, &model->posOffset);
-    }
-    if (model->saModel2 != NULL) {
-        f32 tempRotY = model->actor->shape.rot.y;
-        // The second model should always face the camera, except for Skull Token
-        if (model->itemRow->objectId != 0x015C) {
-            model->actor->shape.rot.y = gGlobalContext->mainCamera.camDir.y;
-        }
-        Actor_SetModelMatrixWrapper(model->actor, &model->saModel2->mtx);
-        model->actor->shape.rot.y = tempRotY;
-        Matrix_Multiply(&model->saModel2->mtx, &model->saModel2->mtx, &scaleMtx);
-        Matrix_UpdatePosition(&model->saModel2->mtx, &model->saModel2->mtx, &model->posOffset);
-    }
+    // Draw model
+    saModel->unk_AC = 1;
+    SkeletonAnimationModel_Draw(saModel, 0);
+
+    actor->shape.rot.y = realShapeYaw;
 }
 
 void Model_Draw(Model* model) {
     if (model->loaded) {
-        Model_UpdateMatrix(model);
-        if (model->saModel != NULL) {
-            model->saModel->unk_AC = 1;
-            SkeletonAnimationModel_Draw(model->saModel, 0); // TODO is 0 always okay?
-        }
+        Model_DrawSAM(model, model->saModel, CustomModels_MustFaceCamera(model->itemRow));
         if (model->saModel2 != NULL) {
-            model->saModel2->unk_AC = 1;
-            SkeletonAnimationModel_Draw(model->saModel2, 0);
+            // The second model should always face the camera, except for Skull Token
+            Model_DrawSAM(model, model->saModel2, model->itemRow->objectId != OBJECT_SKULL_TOKEN);
         }
     }
 }
@@ -197,8 +176,7 @@ void Model_Create(Model* model, GlobalContext* globalCtx) {
     Model* newModel = NULL;
 
     for (s32 i = 0; i < LOADEDMODELS_MAX; ++i) {
-        if ((ModelContext[i].actor == NULL) && (ModelContext[i].saModel == NULL) &&
-            (ModelContext[i].saModel2 == NULL)) {
+        if ((ModelContext[i].actor == NULL) && (ModelContext[i].saModel == NULL)) {
             newModel = &ModelContext[i];
             break;
         }
@@ -211,24 +189,6 @@ void Model_Create(Model* model, GlobalContext* globalCtx) {
         newModel->loaded     = 0;
         newModel->saModel    = NULL;
         newModel->saModel2   = NULL;
-        newModel->scale      = 0.3f;
-        newModel->posOffset  = (Vec3f){ 0 };
-        switch (newModel->itemRow->objectId) {
-            case OBJECT_GI_MEDALLION:
-            case OBJECT_GI_KOKIRI_EMERALD:
-            case OBJECT_GI_GORON_RUBY:
-            case OBJECT_GI_ZORA_SAPPHIRE:
-                newModel->scale = 0.2f;
-                break;
-            case OBJECT_CUSTOM_TRIFORCE_PIECE:
-                newModel->scale     = 0.025f;
-                newModel->posOffset = (Vec3f){ 0.0f, -800.0f, 0.0f };
-                break;
-            case OBJECT_CUSTOM_UNBOTTLED_BIG_POE:
-                newModel->scale     = 1.0f;
-                newModel->posOffset = (Vec3f){ 0.0f, 10.0f, 0.0f };
-                break;
-        }
     }
 }
 

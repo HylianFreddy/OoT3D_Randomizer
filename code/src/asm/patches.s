@@ -55,6 +55,9 @@ PATCH EditDrawGetItemAfterModelSpawn
 PATCH EditDrawGetItemAfterMatrixUpdate
     bl hook_EditDrawGetItemAfterMatrixUpdate
 
+PATCH DrawGetItem_ShouldRotate
+    bl hook_DrawGetItem_ShouldRotate
+
 PATCH NoLensOfTruthNaviText
     nop
 
