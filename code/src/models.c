@@ -119,14 +119,15 @@ void Model_DrawSAM(Model* model, SkeletonAnimationModel* saModel, BOOL mustFaceC
         model->actor->shape.rot.y = gGlobalContext->mainCamera.camDir.y;
     }
     // Update matrix
-    nn_math_MTX44 scaleMtx = { 0 };
-    scaleMtx.data[0][0]    = model->scale;
-    scaleMtx.data[1][1]    = model->scale;
-    scaleMtx.data[2][2]    = model->scale;
-    scaleMtx.data[3][3]    = 1.0f;
     Actor_SetModelMatrixWrapper(model->actor, &saModel->mtx);
+    const f32 MODEL_SCALE  = 0.3f;
+    nn_math_MTX44 scaleMtx = { 0 };
+    scaleMtx.data[0][0]    = MODEL_SCALE;
+    scaleMtx.data[1][1]    = MODEL_SCALE;
+    scaleMtx.data[2][2]    = MODEL_SCALE;
+    scaleMtx.data[3][3]    = 1.0f;
     Matrix_Multiply(&saModel->mtx, &saModel->mtx, &scaleMtx);
-    Matrix_UpdatePosition(&saModel->mtx, &saModel->mtx, &model->posOffset);
+    CustomModels_UpdateMatrix(&saModel->mtx, model->itemRow);
 
     // Draw model
     saModel->unk_AC = 1;
@@ -201,18 +202,6 @@ void Model_Create(Model* model, GlobalContext* globalCtx) {
         newModel->loaded     = 0;
         newModel->saModel    = NULL;
         newModel->saModel2   = NULL;
-        newModel->scale      = 0.3f;
-        newModel->posOffset  = (Vec3f){ 0 };
-        switch (newModel->itemRow->objectId) {
-            case OBJECT_CUSTOM_TRIFORCE_PIECE:
-                newModel->scale     = 0.025f;
-                newModel->posOffset = (Vec3f){ 0.0f, -800.0f, 0.0f };
-                break;
-            case OBJECT_CUSTOM_UNBOTTLED_BIG_POE:
-                newModel->scale     = 1.0f;
-                newModel->posOffset = (Vec3f){ 0.0f, 10.0f, 0.0f };
-                break;
-        }
     }
 }
 
