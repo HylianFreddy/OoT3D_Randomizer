@@ -673,6 +673,14 @@ void ItemOverride_EditDrawGetItemAfterMatrixUpdate(SkeletonAnimationModel* model
     CustomModels_UpdateMatrix(&model->mtx, rActiveItemRow);
 }
 
+BOOL ItemOverride_DrawGetItem_ShouldSkipRotation() {
+    if (ItemOverride_IsDrawItemVanilla()) {
+        return FALSE;
+    }
+
+    return CustomModels_MustFaceCamera(rActiveItemRow);
+}
+
 s32 ItemOverride_GiveSariasGift(void) {
     u32 receivedGift = EventCheck(0xC1);
     if (receivedGift == 0 &&

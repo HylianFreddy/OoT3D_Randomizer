@@ -13,6 +13,7 @@ void CustomModel_Update(void);
 void CustomModels_EditItemCMB(void* ZARBuf, u16 objectId, s8 special);
 void CustomModels_ApplyItemCMAB(SkeletonAnimationModel* model, u16 objectId, s8 special);
 void CustomModels_UpdateMatrix(nn_math_MTX34* modelMtx, ItemRow* itemRow);
+BOOL CustomModels_MustFaceCamera(ItemRow* itemRow);
 
 typedef enum {
     TEXANIMFRAME_ZELDAS_LULLABY,

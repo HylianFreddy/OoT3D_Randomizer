@@ -127,6 +127,14 @@ HOOK EditDrawDetItemAfterModelSpawn
     str r0,[r6,#0x78]
     bx lr
 
+HOOK DrawGetItem_ShouldRotate
+    push {r0-r12, lr}
+    bl ItemOverride_DrawGetItem_ShouldSkipRotation
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    cmpeq r4,#0x0
+    bx lr
+
 HOOK EditDrawGetItemAfterMatrixUpdate
     push {r0-r12, lr}
     cpy r0,r1 @ SkeletonAnimationModel

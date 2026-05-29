@@ -394,3 +394,7 @@ void CustomModels_UpdateMatrix(nn_math_MTX34* modelMtx, ItemRow* itemRow) {
     Matrix_Multiply(modelMtx, modelMtx, &scaleMtx);
     Matrix_UpdatePosition(modelMtx, modelMtx, &posOffset);
 }
+
+BOOL CustomModels_MustFaceCamera(ItemRow* itemRow) {
+    return itemRow->objectId == OBJECT_CUSTOM_UNBOTTLED_BIG_POE;
+}

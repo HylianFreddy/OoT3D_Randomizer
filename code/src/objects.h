@@ -57,6 +57,7 @@ typedef enum ObjectId {
     OBJECT_CUSTOM_OCARINA_BUTTON     = 0x0123,
     OBJECT_GI_SOLD_OUT               = 0x0148,
     OBJECT_GANON                     = 0x0153,
+    OBJECT_SKULL_TOKEN               = 0x015C,
     OBJECT_CUSTOM_TRIFORCE_PIECE     = 0x016E,
     OBJECT_GI_SHOP_FAIRY             = 0x0177,
     OBJECT_GI_RUPEE                  = 0x017F,

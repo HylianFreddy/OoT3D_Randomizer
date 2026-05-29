@@ -855,6 +855,7 @@ SECTIONS
 	.patch_EditDrawGetItemBeforeModelSpawn 0x4C0FD0 + _LD_OFF : { *(.patch_EditDrawGetItemBeforeModelSpawn) }
 	.patch_HookshotRotation 0x4C2524 + _LD_OFF : { *(.patch_HookshotRotation) }
 	HookshotRotation = 0x4C257C + _LD_OFF;
+	.patch_DrawGetItem_ShouldRotate 0x4C4B1C + _LD_OFF : { *(.patch_DrawGetItem_ShouldRotate) }
 	.patch_EditDrawGetItemAfterMatrixUpdate 0x4C4D14 + _LD_OFF : { *(.patch_EditDrawGetItemAfterMatrixUpdate) }
 	.patch_EditDrawGetItemAfterModelSpawn 0x4C61A4 + _LD_OFF : { *(.patch_EditDrawGetItemAfterModelSpawn) }
 	Model_IsMeshGroupUsed = 0x4C6880 + _LD_OFF;
