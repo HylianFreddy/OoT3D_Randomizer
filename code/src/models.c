@@ -204,12 +204,6 @@ void Model_Create(Model* model, GlobalContext* globalCtx) {
         newModel->scale      = 0.3f;
         newModel->posOffset  = (Vec3f){ 0 };
         switch (newModel->itemRow->objectId) {
-            case OBJECT_GI_MEDALLION:
-            case OBJECT_GI_KOKIRI_EMERALD:
-            case OBJECT_GI_GORON_RUBY:
-            case OBJECT_GI_ZORA_SAPPHIRE:
-                newModel->scale = 0.2f;
-                break;
             case OBJECT_CUSTOM_TRIFORCE_PIECE:
                 newModel->scale     = 0.025f;
                 newModel->posOffset = (Vec3f){ 0.0f, -800.0f, 0.0f };
