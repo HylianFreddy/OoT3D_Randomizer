@@ -3,6 +3,11 @@
 
 #include "z3D/z3D.h"
 
+typedef enum EnTiteType {
+    /* -2 */ TEKTITE_BLUE = -2,
+    /* -1 */ TEKTITE_RED,
+} EnTiteType;
+
 typedef struct EnTite {
     /* 0x000 */ Actor actor;
     /* 0x1A4 */ SkelAnime anime;

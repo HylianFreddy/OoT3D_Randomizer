@@ -2,7 +2,6 @@
 #include "fairy.h"
 #include "settings.h"
 #include "objects.h"
-#include "common.h"
 #include "colors.h"
 #include "item_override.h"
 

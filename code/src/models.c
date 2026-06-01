@@ -96,7 +96,7 @@ void Model_UpdateAll(GlobalContext* globalCtx) {
     }
 }
 
-void Model_DrawSAM(Model* model, SkeletonAnimationModel* saModel, BOOL mustFaceCamera) {
+void Model_DrawSAM(Model* model, SkeletonAnimationModel* saModel, Bool mustFaceCamera) {
     Actor* actor     = model->actor;
     f32 realShapeYaw = actor->shape.rot.y;
     if (mustFaceCamera) {

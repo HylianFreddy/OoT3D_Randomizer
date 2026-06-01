@@ -2931,10 +2931,8 @@ bool IsMQOption(Option *option) {
 // Options that should be overridden and then restored after generating when racing is enabled
 std::vector<std::pair<Option*, u8>> racingOverrides = {
     { &QuickText, QUICKTEXT_TURBO },
-    { &SkipSongReplays, SONGREPLAYS_SKIP_NO_SFX },
     { &ColoredKeys, ON },
     { &ColoredBossKeys, ON },
-    { &SoullessEnemiesLook, SOULLESSLOOK_PURPLE_FLAMES },
 };
 // clang-format on
 

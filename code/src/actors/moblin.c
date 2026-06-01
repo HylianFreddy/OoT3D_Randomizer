@@ -2,7 +2,6 @@
 #include "moblin.h"
 #include "settings.h"
 #include "enemizer.h"
-#include "common.h"
 #include "actor.h"
 
 void EnMb_Init(Actor* thisx, GlobalContext* globalCtx);

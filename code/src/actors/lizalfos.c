@@ -24,6 +24,7 @@ void EnZf_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 
 void EnZf_rDraw(Actor* thisx, GlobalContext* globalCtx) {
     EnZf* this = (EnZf*)thisx;
+
     // Skip draw function when invisible because the textureless soulless look would draw the model anyway.
     if (this->alpha != 0) {
         EnZf_Draw(thisx, globalCtx);

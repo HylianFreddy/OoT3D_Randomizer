@@ -34,6 +34,7 @@ struct ZARInfo;
 #define UPDBGCHECKINFO_FLAG_6 (1 << 6) // disable water ripples
 #define UPDBGCHECKINFO_FLAG_7 (1 << 7) // alternate wall check?
 
+#define ACTOR_FLAG_ATTENTION_ENABLED (1 << 0)
 #define ACTOR_FLAG_INSIDE_CULLING_VOLUME (1 << 6)
 
 struct SkeletonAnimationModel;
@@ -51,7 +52,8 @@ typedef struct SkeletonAnimationModel_unk_10 {
     /* 0x08 */ s32 unk_08;
     /* 0x0C */ s32 unk_0C;
     /* 0x10 */ s32 unk_10;
-} SkeletonAnimationModel_unk_10; // size = 0x14
+} SkeletonAnimationModel_unk_10;
+_Static_assert(sizeof(SkeletonAnimationModel_unk_10) == 0x14, "SkeletonAnimationModel_unk_10 size");
 
 typedef struct MaterialAnimation {
     /* 0x00 */ SkeletonAnimationModel_unk_10* subSAM10;
@@ -60,7 +62,8 @@ typedef struct MaterialAnimation {
     /* 0x0C */ f32 animSpeed;
     /* 0x10 */ s8 animMode;
     /* 0x11 */ char unk_11[0x87];
-} MaterialAnimation; // size = 0x98
+} MaterialAnimation;
+_Static_assert(sizeof(MaterialAnimation) == 0x98, "MaterialAnimation size");
 
 typedef struct SkeletonAnimationModel_unk_14 {
     void* vtable_4EBD98;
@@ -80,7 +83,8 @@ typedef struct SkeletonAnimationModel {
     /* 0x7C */ nn_math_MTX34 mtx;
     /* 0xAC */ s8 unk_AC;
     /* 0xAD */ char unk_AD[0x03];
-} SkeletonAnimationModel; // size = 0xB0
+} SkeletonAnimationModel;
+_Static_assert(sizeof(SkeletonAnimationModel) == 0xB0, "SkeletonAnimationModel size");
 
 typedef struct FaceAnimation {
     /* 0x00 */ s8 flags[3];
@@ -463,8 +467,9 @@ void SkelAnime_Init(Actor* actor, struct GlobalContext* globalCtx, SkelAnime* sk
                     void* jointTable, void* morphTable, s32 limbCount);
 void SkelAnime_Destroy(SkelAnime* anime);
 s32 SkelAnime_Update(SkelAnime* skelAnime);
-void Animation_ChangeImpl(SkelAnime* anime, s32 animationIndex, f32 playSpeed, f32 startFrame, f32 endFrame, s32 mode,
-                          f32 morphFrames, s32 taper) __attribute__((pcs("aapcs-vfp")));
+s32 Animation_GetLastFrame(SkelAnime* anime, s32 animation_index);
+void Animation_Change(SkelAnime* anime, s32 animationIndex, f32 playSpeed, f32 startFrame, f32 endFrame, s32 mode,
+                      f32 morphFrames) __attribute__((pcs("aapcs-vfp")));
 void LinkAnimation_Change(SkelAnime* skelAnime, struct GlobalContext* play, u32 animation, f32 playSpeed,
                           f32 startFrame, f32 endFrame, u8 mode, f32 morphFrames) __attribute__((pcs("aapcs-vfp")));
 // Variadic arguments are pairs of a model and a CMB index; last argument must always be NULL.

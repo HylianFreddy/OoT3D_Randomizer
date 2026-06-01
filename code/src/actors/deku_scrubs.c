@@ -13,9 +13,6 @@ void EnDntNomal_SetupTargetWalk(EnDntNomal* this, GlobalContext* globalCtx);
 void EnDntNomal_SetupTargetGivePrize(EnDntNomal* this, GlobalContext* globalCtx);
 void EnDntNomal_SetupTargetUnburrow(EnDntNomal* this, GlobalContext* globalCtx);
 
-#define NUTSBALL_TYPE_DEKUNUTS 0
-#define NUTSBALL_TYPE_HINTNUTS 1
-
 void EnDntNomal_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     EnDntNomal* this = (EnDntNomal*)thisx;
 
@@ -33,6 +30,8 @@ void EnDntNomal_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 |           EnHintnuts          |
 -------------------------------*/
 
+#define HINTNUTS_FLOWER 10
+
 void EnHintnuts_Init(Actor* thisx, GlobalContext* globalCtx);
 
 void EnHintnuts_rInit(Actor* thisx, GlobalContext* globalCtx) {
@@ -46,7 +45,7 @@ void EnHintnuts_rInit(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void EnHintnuts_ReinitModels(EnHintnuts* this) {
-    if (this->actor.params == 10) {
+    if (this->actor.params == HINTNUTS_FLOWER) {
         Actor_DestroySkelModels(&this->actor, &this->flowerModel, NULL);
         Actor_CreateSkelModels(&this->actor, gGlobalContext, &this->flowerModel, 2, NULL);
     } else {
@@ -58,8 +57,10 @@ void EnHintnuts_ReinitModels(EnHintnuts* this) {
 |           EnDekunuts          |
 -------------------------------*/
 
+#define DEKUNUTS_FLOWER 10
+
 void EnDekunuts_ReinitModels(EnDekunuts* this) {
-    if (this->actor.params == 10) {
+    if (this->actor.params == DEKUNUTS_FLOWER) {
         Actor_DestroySkelModels(&this->actor, &this->flowerModel, NULL);
         Actor_CreateSkelModels(&this->actor, gGlobalContext, &this->flowerModel, 2, NULL);
     } else {
@@ -70,6 +71,9 @@ void EnDekunuts_ReinitModels(EnDekunuts* this) {
 /*-------------------------------
 |           EnNutsball          |
 -------------------------------*/
+
+#define NUTSBALL_TYPE_DEKUNUTS 0
+#define NUTSBALL_TYPE_HINTNUTS 1
 
 void EnNutsball_Update(Actor* thisx, GlobalContext* globalCtx);
 

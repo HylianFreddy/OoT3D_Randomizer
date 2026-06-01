@@ -680,7 +680,7 @@ void ItemOverride_EditDrawGetItemAfterMatrixUpdate(SkeletonAnimationModel* model
     CustomModels_UpdateMatrix(&model->mtx, rActiveItemRow);
 }
 
-BOOL ItemOverride_DrawGetItem_ShouldSkipRotation() {
+Bool ItemOverride_DrawGetItem_ShouldSkipRotation() {
     if (ItemOverride_IsDrawItemVanilla()) {
         return FALSE;
     }

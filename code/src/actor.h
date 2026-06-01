@@ -3,8 +3,9 @@
 
 #include "z3D/z3D.h"
 
+// Actor whose init or update function is currently running
 extern Actor* gRunningActor;
-extern BOOL gActorsHidden;
+extern Bool gActorsHidden;
 
 void Actor_Init();
 void ActorSetup_Extra();

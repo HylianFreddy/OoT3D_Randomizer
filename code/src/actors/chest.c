@@ -5,7 +5,6 @@
 #include "item_table.h"
 #include "settings.h"
 #include "player.h"
-#include "common.h"
 #include "fairy.h"
 #include "icetrap.h"
 #include "objects.h"

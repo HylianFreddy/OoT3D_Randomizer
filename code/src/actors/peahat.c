@@ -16,7 +16,7 @@ void EnPeehat_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 
     EnPeehat_Update(thisx, globalCtx);
 
-    if (Enemizer_IsEnemyRandomized(ENEMY_PEAHAT) && thisx->params == (s16)0xFFFF) { // Grounded Peahat
+    if (Enemizer_IsEnemyRandomized(ENEMY_PEAHAT) && thisx->params == PEAHAT_TYPE_GROUNDED) {
         f32 yWaterSurface;
         void* waterBox;
         s32 waterBoxFound = WaterBox_GetSurfaceImpl(gGlobalContext, &gGlobalContext->colCtx, thisx->world.pos.x,
@@ -37,12 +37,12 @@ void EnPeehat_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
                                 UPDBGCHECKINFO_WALL | UPDBGCHECKINFO_CEILING | UPDBGCHECKINFO_FLOOR_WATER);
     }
 
-    if (EnemySouls_IsInvulnerable(thisx) && thisx->params == 1) { // Peahat Larva
+    if (EnemySouls_IsInvulnerable(thisx) && thisx->params == PEAHAT_TYPE_LARVA) {
         // Prevent death when hitting player's shield.
         if (this->actionFunc == EnPeehat_StateAttackRecoil && thisx->speedXZ > -1.0) {
             this->actionFunc = EnPeehat_Larva_StateSeekPlayer;
             this->state      = STATE_SEEK_PLAYER;
-            this->colliderQuadBase.atFlags &= ~(1 << 2); // AT_BOUNCED
+            this->colliderQuadBase.atFlags &= ~AT_BOUNCED;
         }
 
         CollisionPoly floorPoly;

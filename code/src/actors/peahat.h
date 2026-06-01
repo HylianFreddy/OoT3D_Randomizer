@@ -3,6 +3,12 @@
 
 #include "z3D/z3D.h"
 
+typedef enum PeahatType {
+    /* -1 */ PEAHAT_TYPE_GROUNDED = -1,
+    /*  0 */ PEAHAT_TYPE_FLYING,
+    /*  1 */ PEAHAT_TYPE_LARVA,
+} PeahatType;
+
 struct EnPeehat;
 
 typedef void (*EnPeehatActionFunc)(struct EnPeehat*, GlobalContext*);

@@ -11,6 +11,6 @@ void EnTp_ReinitModels(EnTp* this) {
         ZARInfo* zarInfo       = Actor_CreateSkelModels(&this->actor, gGlobalContext, &this->model, 1, NULL);
         this->matAnim.subSAM10 = this->model->subSAM10;
         MatAnim_Init(&this->matAnim, ZAR_GetCMABByIndex(zarInfo, 0));
-        (this->matAnim).animMode = 1;
+        this->matAnim.animMode = 1;
     }
 }

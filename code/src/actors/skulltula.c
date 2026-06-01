@@ -2,7 +2,6 @@
 #include "multiplayer.h"
 #include "settings.h"
 #include "enemizer.h"
-#include "common.h"
 #include "objects.h"
 #include "actor.h"
 

@@ -6,6 +6,8 @@
 #include "s_scene_id.h"
 #include "s_dungeon.h"
 
+#include "common.h"
+
 #include <sys/cdefs.h>
 #include "z3Dactor.h"
 #include "z3Dequipment.h"
@@ -20,11 +22,6 @@
 #include "z3Dlight.h"
 
 #include "hid.h"
-
-typedef enum BOOL : u8 {
-    FALSE = 0,
-    TRUE  = 1,
-} BOOL;
 
 typedef struct {
     /* 0x00 */ u8 buttonItems[5]; // B,Y,X,I,II
@@ -742,10 +739,6 @@ void Camera_UpdateInterface(u32 flags);
 f32 Camera_BGCheckInfo(Camera* camera, Vec3f* from, CamColChk* to);
 s32 Quake_Update(Camera* camera, ShakeInfo* camShake);
 s16 Camera_GetCamDataId(CollisionContext* colCtx, CollisionPoly* poly, s32 bgId);
-s32 Animation_GetLastFrame(SkelAnime* anime, s32 animation_index);
-void Animation_Change(SkelAnime* anime, s32 animation_index, f32 play_speed, f32 start_frame, f32 end_frame, s32 mode,
-                      f32 morph_frames) __attribute__((pcs("aapcs-vfp")));
-s32 SkelAnime_Update(SkelAnime* skelAnime);
 void SaveGame(GlobalContext* globalCtx, u8 isSaveFileCreation);
 s32 Message_GetState(void);
 

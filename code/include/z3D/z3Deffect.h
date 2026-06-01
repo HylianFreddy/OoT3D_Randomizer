@@ -159,8 +159,8 @@ void EffectSsKakera_Spawn(struct GlobalContext* globalCtx, Vec3f* pos, Vec3f* ve
                           s16 colorIdx, s16 objId, u32 cmbIndex);
 void EffectSsKiraKira_SpawnDispersed(struct GlobalContext* play, Vec3f* pos, Vec3f* velocity, Vec3f* accel,
                                      Color_RGBA8* primColor, Color_RGBA8* envColor, s16 scale, s32 life);
-void EffectSsDeadDb_Spawn(struct GlobalContext* globalCtx, Vec3f* position, Vec3f* velocity, Vec3f* acceleration,
-                          s16 scale, s16 scale_step, s16 prim_r, s16 prim_g, s16 prim_b, s16 prim_a, s16 env_r,
-                          s16 env_g, s16 env_b, s16 unused, s32 frame_duration, s16 play_sound);
+void EffectSsDeadDb_Spawn(struct GlobalContext* globalCtx, Vec3f* pos, Vec3f* velocity, Vec3f* accel, s16 scale,
+                          s16 scaleStep, s16 primR, s16 primG, s16 primB, s16 primA, s16 envR, s16 envG, s16 envB,
+                          s16 unused, s32 frameDuration, s16 playSfx);
 
 #endif //_Z3DEFFECT_H_

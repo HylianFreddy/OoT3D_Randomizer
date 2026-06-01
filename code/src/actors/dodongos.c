@@ -12,13 +12,13 @@ void EnDodongo_Idle(EnDodongo* this, GlobalContext* globalCtx);
 
 static s16 BossDodongo_PrevNumWallCollisions = 0;
 
-s32 Dodongos_AfterSwallowBomb_Normal(EnDodongo* this) {
+Bool Dodongos_AfterSwallowBomb_Normal(EnDodongo* this) {
     if (EnemySouls_IsInvulnerable(&this->base)) {
         this->actionFunc = EnDodongo_Idle;
-        return 1;
+        return TRUE;
     }
 
-    return 0;
+    return FALSE;
 }
 
 /*-------------------------------
@@ -28,14 +28,14 @@ s32 Dodongos_AfterSwallowBomb_Normal(EnDodongo* this) {
 void EnDodojr_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnDodojr_JumpAttackBounce(EnDodojr* this, GlobalContext* globalCtx);
 
-s32 Dodongos_AfterSwallowBomb_Baby(EnDodojr* this) {
+Bool Dodongos_AfterSwallowBomb_Baby(EnDodojr* this) {
     if (EnemySouls_IsInvulnerable(&this->base)) {
         this->counter    = 3;
         this->actionFunc = EnDodojr_JumpAttackBounce;
-        return 1;
+        return TRUE;
     }
 
-    return 0;
+    return FALSE;
 }
 
 void EnDodojr_rInit(Actor* thisx, GlobalContext* globalCtx) {

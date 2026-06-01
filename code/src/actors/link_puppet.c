@@ -5,7 +5,6 @@
 #include "objects.h"
 #include "custom_models.h"
 #include "settings.h"
-#include "common.h"
 
 // Draw at most three extra Links. More can cause graphical issues that persist until game restart.
 #define MAX_PUPPETS_AT_ONCE 3

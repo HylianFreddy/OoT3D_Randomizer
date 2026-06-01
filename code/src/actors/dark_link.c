@@ -1,7 +1,6 @@
 #include "dark_link.h"
 #include "settings.h"
 #include "enemizer.h"
-#include "common.h"
 #include "enemy_souls.h"
 
 void EnTorch2_Init(Actor* thisx, GlobalContext* globalCtx);

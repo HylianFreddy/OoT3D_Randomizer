@@ -11,7 +11,6 @@
 #include "item_override.h"
 #include "input.h"
 #include "colors.h"
-#include "common.h"
 #include "gloom.h"
 #include "savefile.h"
 

@@ -3,7 +3,6 @@
 #include "enemy_souls.h"
 #include "settings.h"
 #include "enemizer.h"
-#include "common.h"
 #include "objects.h"
 
 /*-------------------------------
@@ -14,11 +13,11 @@ void EnTuboTrap_Draw(Actor* thisx, GlobalContext* globalCtx);
 void EnTuboTrap_WaitForProximity(EnTuboTrap* this, GlobalContext* globalCtx);
 
 s32 EnTuboTrap_OnImpact(EnTuboTrap* this) {
-    if (this->actor.bgCheckFlags & 0x1) { // Standing on the ground
+    if (this->actor.bgCheckFlags & BGCHECKFLAG_GROUND) { // Standing on the ground
         this->actionFunc    = EnTuboTrap_WaitForProximity;
         this->actor.gravity = 0;
         this->actor.speedXZ = 0;
-        this->actor.flags &= ~1; // remove targetable flag
+        this->actor.flags &= ~ACTOR_FLAG_ATTENTION_ENABLED;
     }
 
     return !EnemySouls_IsInvulnerable(&this->actor);

@@ -1,7 +1,6 @@
 #include "bubble.h"
 #include "enemizer.h"
 #include "enemy_souls.h"
-#include "common.h"
 #include "settings.h"
 #include "actor.h"
 

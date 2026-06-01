@@ -95,7 +95,7 @@ Actor* gRunningActor;
 #define MAX_RUNNING_ACTORS 5
 Actor* prevRunningActors[MAX_RUNNING_ACTORS] = { 0 };
 
-BOOL gActorsHidden = FALSE;
+Bool gActorsHidden = FALSE;
 
 void Actor_Kill(Actor* actor) {
     actor->draw   = NULL;
@@ -650,14 +650,14 @@ void Actor_ReinitSkelAnime(Actor* actor, SkelAnime* anime, s32 cmbIndex) {
     f32 playSpeed    = anime->playSpeed;
     f32 startFrame   = anime->startFrame;
     f32 endFrame     = anime->endFrame;
-    f32 animMode     = anime->animMode;
+    s32 animMode     = anime->animMode;
     void* jointTable = anime->dynamicTables ? NULL : anime->jointTable;
     void* morphTable = anime->dynamicTables ? NULL : anime->morphTable;
 
     // Reinitialize SkelAnime and reload the same animation at the same frame.
     SkelAnime_Destroy(anime);
     SkelAnime_Init(actor, gGlobalContext, anime, cmbIndex, animIndex, jointTable, morphTable, 0);
-    Animation_ChangeImpl(anime, animIndex, playSpeed, startFrame, endFrame, animMode, 0.0, 0);
+    Animation_Change(anime, animIndex, playSpeed, startFrame, endFrame, animMode, 0.0);
     anime->curFrame = curFrame < 1.0 ? 0.0 : curFrame - 1.0;
     SkelAnime_Update(anime);
 }

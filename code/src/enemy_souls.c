@@ -3,7 +3,6 @@
 #include "settings.h"
 #include "armos.h"
 #include "actor.h"
-#include "common.h"
 #include "flying_traps.h"
 #include "objects.h"
 #include "shabom.h"
@@ -148,7 +147,7 @@ EnemySoulId EnemySouls_GetSoulId(s16 actorId) {
     return EnemySouls_GetActorSoulData(actorId).soulId;
 }
 
-BOOL EnemySouls_GetSoulFlag(EnemySoulId soulId) {
+Bool EnemySouls_GetSoulFlag(EnemySoulId soulId) {
     if (soulId == SOUL_NONE) {
         return TRUE;
     }
@@ -168,7 +167,7 @@ typedef enum SoulCheckType {
     SOULCHECK_DRAW,      // Check if enemy should be drawn soulless
 } SoulCheckType;
 
-static BOOL EnemySouls_CheckSoul(Actor* actor, SoulCheckType soulCheck) {
+static Bool EnemySouls_CheckSoul(Actor* actor, SoulCheckType soulCheck) {
     if (actor == NULL || (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_OFF) ||
         (gSettingsContext.shuffleEnemySouls == SHUFFLEENEMYSOULS_BOSSES && !Actor_IsBoss(actor))) {
         return TRUE;
@@ -199,11 +198,11 @@ static BOOL EnemySouls_CheckSoul(Actor* actor, SoulCheckType soulCheck) {
     return soulId == SOUL_NONE || EnemySouls_GetSoulFlag(soulId);
 }
 
-BOOL EnemySouls_IsInvulnerable(Actor* actor) {
+Bool EnemySouls_IsInvulnerable(Actor* actor) {
     return !EnemySouls_CheckSoul(actor, SOULCHECK_COLLISION);
 }
 
-BOOL EnemySouls_ShouldDrawSoulless(Actor* actor) {
+Bool EnemySouls_ShouldDrawSoulless(Actor* actor) {
     return !EnemySouls_CheckSoul(actor, SOULCHECK_DRAW);
 }
 
@@ -338,7 +337,42 @@ static CmbMatOriginalData* CmbMat_GetOrigDataBuffer(Material* mat, CmbManager* c
     return (CmbMatOriginalData*)buf;
 }
 
-static BOOL SoullessModels_ShouldSkipMaterial(s16 objId, s32 cmbIdx, s32 matIdx) {
+// Don't modify certain models
+static Bool SoullessModels_ShouldIgnoreCmb(s16 objId, s32 cmbIdx) {
+    switch (objId) {
+        case OBJECT_WALLMASTER: // skip hand shadow
+            return cmbIdx == 2;
+        case OBJECT_TENTACLE: // skip dead blob
+            return cmbIdx == 1;
+        case OBJECT_DEAD_HAND: // skip dirt wave
+            return cmbIdx == 2;
+        case OBJECT_FREEZARD: // skip ice breath
+            return cmbIdx == 1;
+        case OBJECT_POE: // only main body
+            return cmbIdx != 0;
+        case OBJECT_POE_COMPOSER: // only main body
+            return cmbIdx != 0;
+        case OBJECT_KING_DODONGO: // only KD body
+            return cmbIdx != 2;
+        case OBJECT_BARINADE: // only arms, body and jellyfish
+            return cmbIdx != 0 && cmbIdx != 3 && cmbIdx != 4 && cmbIdx != 7 && cmbIdx != 12;
+        case OBJECT_VOLVAGIA: // only body parts
+            return cmbIdx < 1 || cmbIdx > 6;
+        case OBJECT_BONGO_BONGO: // only body & hands
+            return cmbIdx < 1 || cmbIdx > 3;
+        case OBJECT_GANONDORF: // only main body
+            return cmbIdx != 2;
+        case OBJECT_GANON: // only main body
+            return cmbIdx != 0;
+        case OBJECT_FLYING_FLOOR_TILE: // handled in own update function
+            return TRUE;
+        case OBJECT_ARMOS: // handled in own update function
+            return TRUE;
+    }
+    return FALSE;
+}
+
+static Bool SoullessModels_ShouldIgnoreMaterial(s16 objId, s32 cmbIdx, s32 matIdx) {
     return objId == OBJECT_TENTACLE && matIdx == 1; // Don't modify electric field (for both models)
 }
 
@@ -348,20 +382,24 @@ static void SwapBuffers(void* first, void* second, s32 size) {
     memcpy(first, second, size);
     memcpy(second, &buf, size);
 }
-#define SwapFields(first, second) (SwapBuffers(first, second, sizeof(*first)))
+#define SwapFields(field) (SwapBuffers(&SWAP_BASE[0]->field, &SWAP_BASE[1]->field, sizeof(SWAP_BASE[0]->field)))
 
 // This function applies combiner edits for some special materials. It swaps certain values between combiners in such a
 // way that it can be called again to restore the original values.
-static BOOL SoullessModels_HandleSpecialCombiner(CMB_MATS* cmbMats, s16 objId, s32 cmbIdx, s32 matIdx) {
+static Bool SoullessModels_HandleSpecialCombiner(CMB_MATS* cmbMats, s16 objId, s32 cmbIdx, s32 matIdx) {
     Material* mat = &cmbMats->materials[matIdx];
 
     s16 specialStageIdx = -1;
     switch (objId) {
-        case OBJECT_POE:          // fading effect
-        case OBJECT_POE_COMPOSER: // fading effect
-        case OBJECT_POE_SISTER:   // fading effect
-        case OBJECT_WALLMASTER:   // color during Floormaster attack
+        case OBJECT_POE:        // fading effect
+        case OBJECT_POE_SISTER: // fading effect
+        case OBJECT_WALLMASTER: // color during Floormaster attack
             specialStageIdx = 1;
+            break;
+        case OBJECT_POE_COMPOSER: // fading effect, only for main body
+            if (matIdx == 0 || matIdx == 3) {
+                specialStageIdx = 1;
+            }
             break;
         case OBJECT_SKULLTULA: // color during attack, only for normal walltula
             if (cmbIdx == 0 && matIdx == 1) {
@@ -374,18 +412,16 @@ static BOOL SoullessModels_HandleSpecialCombiner(CMB_MATS* cmbMats, s16 objId, s
     }
 
     if (specialStageIdx > -1 && mat->texEnvStagesIndices[specialStageIdx] > -1) {
-        Combiner* combiners = Cmb_GetCombiners(cmbMats);
-
-        Combiner* firstComb = &combiners[mat->texEnvStagesIndices[0]];
-        Combiner* otherComb = &combiners[mat->texEnvStagesIndices[specialStageIdx]];
-
-        SwapFields(&firstComb->combinerModeColor, &otherComb->combinerModeColor);
-        SwapFields(&firstComb->scaleColor, &otherComb->scaleColor);
-        SwapFields(&firstComb->sourceColors[1], &otherComb->sourceColors[1]);
-        SwapFields(&firstComb->operandColors[1], &otherComb->operandColors[1]);
-        SwapFields(&firstComb->sourceAlphas[1], &otherComb->sourceAlphas[1]);
-        SwapFields(&firstComb->operandAlphas[1], &otherComb->operandAlphas[1]);
-        SwapFields(&firstComb->constantColorIndex, &otherComb->constantColorIndex);
+        Combiner* combiners    = Cmb_GetCombiners(cmbMats);
+        Combiner* SWAP_BASE[2] = { &combiners[mat->texEnvStagesIndices[0]],
+                                   &combiners[mat->texEnvStagesIndices[specialStageIdx]] };
+        SwapFields(combinerModeColor);
+        SwapFields(scaleColor);
+        SwapFields(sourceColors[1]);
+        SwapFields(operandColors[1]);
+        SwapFields(sourceAlphas[1]);
+        SwapFields(operandAlphas[1]);
+        SwapFields(constantColorIndex);
 
         return TRUE;
     }
@@ -404,7 +440,7 @@ static void SoullessModels_ModifyCmb(CmbManager* cmbMan, s16 objId, s32 cmbIdx) 
     if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_TEXTURELESS) {
         // Modify materials to apply the chosen color and skip drawing the textures.
         for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
-            if (SoullessModels_ShouldSkipMaterial(objId, cmbIdx, matIdx)) {
+            if (SoullessModels_ShouldIgnoreMaterial(objId, cmbIdx, matIdx)) {
                 continue;
             }
 
@@ -422,7 +458,7 @@ static void SoullessModels_ModifyCmb(CmbManager* cmbMan, s16 objId, s32 cmbIdx) 
             // Set both ambient and diffuse colors to the chosen value.
             mat->ambient = mat->diffuse = gSettingsContext.soullessColor;
 
-            // Remove all combiner stages to show only a shaded textureless color, except for some cases where 1
+            // Remove all combiner stages to show only a shaded textureless color, except for some cases where one
             // combiner is kept and modified.
             if (SoullessModels_HandleSpecialCombiner(cmbMats, objId, cmbIdx, matIdx)) {
                 mat->texEnvStageUsed = 1;
@@ -457,7 +493,7 @@ static u8 SoullessModels_RestoreCmb(CmbManager* cmbMan, s16 objId, s32 cmbIdx) {
 
     if (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_TEXTURELESS) {
         for (s32 matIdx = 0; matIdx < cmbMats->materialCount; matIdx++) {
-            if (SoullessModels_ShouldSkipMaterial(objId, cmbIdx, matIdx)) {
+            if (SoullessModels_ShouldIgnoreMaterial(objId, cmbIdx, matIdx)) {
                 continue;
             }
             Material* mat                = &cmbMats->materials[matIdx];
@@ -497,28 +533,7 @@ void SoullessModels_BeforeCmbManagerInit(CmbManager* cmbMan, ZARInfo* zarInfo, s
 
     // Ignore CmbManagers from global "keep" objects, even if this actor is the first one to request them (thus causing
     // them to initialize).
-    if (obj == NULL || obj->id <= OBJECT_GAMEPLAY_DUNGEON_KEEP) {
-        return;
-    }
-
-    // Don't modify certain models
-    if ((obj->id == OBJECT_WALLMASTER && cmbIdx == 2)      // skip hand shadow
-        || (obj->id == OBJECT_TENTACLE && cmbIdx == 1)     // skip dead blob
-        || (obj->id == OBJECT_DEAD_HAND && cmbIdx == 2)    // skip dirt wave
-        || (obj->id == OBJECT_FREEZARD && cmbIdx == 1)     // skip ice breath
-        || (obj->id == OBJECT_POE && cmbIdx != 0)          // only main body
-        || (obj->id == OBJECT_POE_COMPOSER && cmbIdx != 0) // only main body
-        || (obj->id == OBJECT_KING_DODONGO && cmbIdx != 2) // only KD body
-        || (obj->id == OBJECT_BARINADE && cmbIdx != 0 && cmbIdx != 3 && cmbIdx != 4 && cmbIdx != 7 &&
-            cmbIdx != 12)                                                // only arms, body and jellyfish
-        || (obj->id == OBJECT_VOLVAGIA && (cmbIdx < 1 || cmbIdx > 6))    // only body parts
-        || (obj->id == OBJECT_BONGO_BONGO && (cmbIdx < 1 || cmbIdx > 3)) // only body & hands
-        || (obj->id == OBJECT_GANONDORF && cmbIdx != 2)                  // only main body
-        || (obj->id == OBJECT_GANON && cmbIdx != 0)                      // only main body
-        // These are handled in their own update function
-        || obj->id == OBJECT_FLYING_FLOOR_TILE //
-        || obj->id == OBJECT_ARMOS             //
-    ) {
+    if (obj == NULL || obj->id <= OBJECT_GAMEPLAY_DUNGEON_KEEP || SoullessModels_ShouldIgnoreCmb(obj->id, cmbIdx)) {
         return;
     }
 

@@ -493,7 +493,6 @@ SECTIONS
 	.patch_ApplyDamageMultiplier 0x352DC0 + _LD_OFF : { *(.patch_ApplyDamageMultiplier) }
 	Actor_CreateSkelModelsArray = 0x352EE0 + _LD_OFF;
 	.patch_GetObjectEntry_352F28 0x352F28 + _LD_OFF : { *(.patch_GetObjectEntry_352F28) } /* Used for: Flare Dancer */
-	Animation_ChangeImpl = 0x35302C + _LD_OFF;
 	SkelAnime_Init = 0x353C9C + _LD_OFF;
 	.patch_GetObjectEntry_353CE4 0x353CE4 + _LD_OFF : { *(.patch_GetObjectEntry_353CE4) }
 	Collider_SetCylinder = 0x353D24 + _LD_OFF;
