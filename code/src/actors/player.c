@@ -167,6 +167,20 @@ void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     if (lostHealth > 1) {
         Player_OnHit();
     }
+
+    if (gSettingsContext.heartDropRefill != HEARTDROPREFILL_VANILLA) {
+        // Regen health over time (1 heart per minute)
+        static u32 frameCounter = 0;
+        if (gSaveContext.health < gSaveContext.healthCapacity) {
+            frameCounter = (frameCounter + 1) % 450;
+            if (frameCounter == 0) {
+                gSaveContext.health += 4;
+            }
+        } else {
+            frameCounter = 0;
+        }
+    }
+
     sPrevHealth = gSaveContext.health;
 }
 
