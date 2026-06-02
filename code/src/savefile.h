@@ -79,7 +79,6 @@ typedef struct {
     u8 triforcePieces;
     u8 dekuShieldsCount;
     u8 hylianShieldsCount;
-    // u8 obtainedBigPoes;
     // Ingame Options, all need to be s8
     s8 option_EnableBGM;
     s8 option_EnableSFX;
