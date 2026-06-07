@@ -799,7 +799,8 @@ void CreateAlwaysIncludedMessages() {
             "Dies&ist der letzte, den ich dir abnehme.^Ach, du wartest auf das, was ich dir für ein&volles "
             "Punkte-Konto versprochen habe?&Hehehe...^Na, da will ich mal nicht so sein...&Nimm das hier!",
         };
-        CreateMessageFromTextObject(0x70F8, 0, 0, 0, AddColorsAndFormat(poeRewardText, { QM_RED, QM_RED, QM_RED }, MANUAL_NEWLINES));
+        CreateMessageFromTextObject(0x70F8, 0, 0, 0,
+                                    AddColorsAndFormat(poeRewardText, { QM_RED, QM_RED, QM_RED }, MANUAL_NEWLINES));
     }
     // Get Item text for shuffled Big Poes
     {
