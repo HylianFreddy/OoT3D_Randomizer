@@ -1018,10 +1018,7 @@ HOOK NaviNotifications
     # Silenced
     blt 0x267E3C
     # Constant
-    bgt 0x267E14
-    # Normal
-    ldr r0,[r0,#0x4C]
-    bx lr
+    b 0x267E14
 
 HOOK ChestMinigame_KeyChestVisibility
     push {r0-r12, lr}
