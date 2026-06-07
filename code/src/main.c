@@ -84,7 +84,7 @@ void before_GlobalContext_Update(GlobalContext* globalCtx) {
 
 s32 checkFastForward(void) {
     static u32 updateCycleCounter = 0;
-    return gExtSaveData.option_SpeedBoost && rInputCtx.cur.zl && (++updateCycleCounter % 20 != 0);
+    return gExtSaveData.options[OPTION_SPEEDBOOST] && rInputCtx.cur.zl && (++updateCycleCounter % 20 != 0);
 }
 
 void after_GlobalContext_Update() {

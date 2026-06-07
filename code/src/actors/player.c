@@ -233,7 +233,7 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
 
     PlayerActor_Draw(thisx, globalCtx);
 
-    if (!gExtSaveData.option_FireballLink) {
+    if (!gExtSaveData.options[OPTION_FIREBALLLINK]) {
         return;
     }
 
@@ -308,7 +308,7 @@ void Player_ComputeSpeedBoosts(void) {
         sSpeedMultiplier *= 1.5;
     }
 
-    if (gExtSaveData.option_SpeedBoost) {
+    if (gExtSaveData.options[OPTION_SPEEDBOOST]) {
         // Constant speed boost
         if (PLAYER->actionFunc == Player_Action_Running && rInputCtx.touchHeld &&
             (rInputCtx.touchX > 0x40 && rInputCtx.touchX < 0x100) &&

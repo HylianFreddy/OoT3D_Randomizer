@@ -589,7 +589,7 @@ void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
     }
 
     actor->update(actor, globalCtx);
-    if (gExtSaveData.option_HyperActors) {
+    if (gExtSaveData.options[OPTION_HYPERACTORS]) {
         HyperActors_Main(actor, globalCtx);
     }
 

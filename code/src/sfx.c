@@ -17,9 +17,9 @@ u8 SeqTypeIsMovement(SeqType type) {
 u32 SetSFX(u32 original) {
     u8 playerIsInGame = gGlobalContext && PLAYER && IsInGameOrBossChallenge();
     if (playerIsInGame && PLAYER->actionFunc == Player_Action_Rolling &&
-        ((gExtSaveData.option_SilentRolls > 0 &&
+        ((gExtSaveData.options[OPTION_SILENTROLLS] > 0 &&
           (original == 0x10004EB || original == 0x100050B)) || // adult voice and child voice
-         (gExtSaveData.option_SilentRolls == 2 &&
+         (gExtSaveData.options[OPTION_SILENTROLLS] == 2 &&
           (original == 0x100003D || original == 0x10000E2))) // other sound effects
     ) {
         return SEQ_AUDIO_BLANK;
@@ -40,12 +40,12 @@ u32 SetSFX(u32 original) {
     mp_duplicateSendProtection = false;
 
     static const u16 GET_BOXITEM_ID = 1205; // Treat GET_BOXITEM as a fanfare
-    if (IsInGameOrBossChallenge() && ((!gExtSaveData.option_EnableSFX && sfxID != GET_BOXITEM_ID) ||
-                                      (!gExtSaveData.option_EnableBGM && sfxID == GET_BOXITEM_ID))) {
+    if (IsInGameOrBossChallenge() && ((!gExtSaveData.options[OPTION_ENABLESFX] && sfxID != GET_BOXITEM_ID) ||
+                                      (!gExtSaveData.options[OPTION_ENABLEBGM] && sfxID == GET_BOXITEM_ID))) {
         return SEQ_AUDIO_BLANK;
     }
 
-    if (gExtSaveData.option_EnableSFX == 1) {
+    if (gExtSaveData.options[OPTION_ENABLESFX] == 1) {
         return original;
     }
 

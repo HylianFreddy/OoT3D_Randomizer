@@ -7,5 +7,5 @@ u8 Navi_GetNotificationOption(void) {
         return 0;
     }
 
-    return gExtSaveData.option_NaviNotifications;
+    return gExtSaveData.options[OPTION_NAVINOTIFICATIONS];
 }

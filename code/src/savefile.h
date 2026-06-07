@@ -50,6 +50,21 @@ typedef struct ExtInf {
 
 #define EXTINF_SIZE sizeof(ExtInf)
 
+enum InGameOption {
+    OPTION_ENABLEBGM,
+    OPTION_ENABLESFX,
+    OPTION_NAVINOTIFICATIONS,
+    OPTION_IGNOREMASKREACTION,
+    OPTION_SKIPSONGREPLAYS,
+    OPTION_FREECAMCONTROL,
+    OPTION_SPOILERS,
+    OPTION_SPEEDBOOST,
+    OPTION_FIREBALLLINK,
+    OPTION_HYPERACTORS,
+    OPTION_SILENTROLLS,
+    OPTION_MAX,
+};
+
 typedef struct {
     u32 version; // Needs to always be the first field of the structure
     u8 hashIndexes[5];
@@ -80,18 +95,7 @@ typedef struct {
     u8 triforcePieces;
     u8 dekuShieldsCount;
     u8 hylianShieldsCount;
-    // Ingame Options, all need to be s8
-    s8 option_EnableBGM;
-    s8 option_EnableSFX;
-    s8 option_NaviNotifications;
-    s8 option_IgnoreMaskReaction;
-    s8 option_SkipSongReplays;
-    s8 option_FreeCamControl;
-    s8 option_SpeedBoost;
-    s8 option_FireballLink;
-    s8 option_HyperActors;
-    s8 option_SilentRolls;
-    s8 option_Spoilers;
+    s8 options[OPTION_MAX];
 } ExtSaveData;
 
 extern ExtSaveData gExtSaveData;
