@@ -100,7 +100,7 @@ void Gfx_DrawOptions(void) {
     Draw_DrawString(10, DESCRIPTION_ROW, COLOR_WHITE, options[selectedOption].description);
 }
 
-static void scroll(s8* const var, const s8 valCount, const s8 scrollAmount) {
+static void Scroll(s8* const var, const s8 valCount, const s8 scrollAmount) {
     const s8 min = 0;
     const s8 max = valCount - 1;
 
@@ -120,12 +120,12 @@ void Gfx_OptionsUpdate(void) {
     if (pressed & (PAD_DOWN | PAD_UP)) {
         s8 scrollAmount = pressed & PAD_DOWN ? +1 : -1;
         do {
-            scroll(&selectedOption, ARRAY_SIZE(options), scrollAmount);
+            Scroll(&selectedOption, ARRAY_SIZE(options), scrollAmount);
         } while (options[selectedOption].hidden);
         handledInput = true;
     } else if (pressed & (PAD_RIGHT | PAD_LEFT)) {
         s8 scrollAmount = pressed & PAD_RIGHT ? +1 : -1;
-        scroll(options[selectedOption].optionPointer, options[selectedOption].alternativesCount, scrollAmount);
+        Scroll(options[selectedOption].optionPointer, options[selectedOption].alternativesCount, scrollAmount);
         handledInput = true;
     }
 }
