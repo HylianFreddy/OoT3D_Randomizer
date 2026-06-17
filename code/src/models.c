@@ -99,21 +99,29 @@ void Model_UpdateAll(GlobalContext* globalCtx) {
 void Model_DrawSAM(Model* model, SkeletonAnimationModel* saModel, Bool mustFaceCamera) {
     Actor* actor     = model->actor;
     f32 realShapeYaw = actor->shape.rot.y;
-    if (mustFaceCamera) {
-        actor->shape.rot.y = gGlobalContext->mainCamera.camDir.y;
+    Camera* camera   = gGlobalContext->cameraPtrs[gGlobalContext->activeCamera];
+    if (mustFaceCamera && camera != NULL) {
+        actor->shape.rot.y = camera->camDir.y;
     }
-    // Update matrix
+    // Copy matrix from actor
     f32 x = actor->world.pos.x;
     f32 y = actor->world.pos.y + actor->shape.yOffset * actor->scale.y;
     f32 z = actor->world.pos.z;
     Actor_SetModelMatrix(x, y, z, &saModel->mtx, &actor->shape);
-    const f32 MODEL_SCALE  = 0.3f;
+
+    // Update scale for all items
+    f32 modelScale = 0.30f;
+    if (actor->id == ACTOR_DEMO_EFFECT) { // Sapphire in Big Octo room
+        modelScale = 0.15f;
+    }
     nn_math_MTX44 scaleMtx = { 0 };
-    scaleMtx.data[0][0]    = MODEL_SCALE;
-    scaleMtx.data[1][1]    = MODEL_SCALE;
-    scaleMtx.data[2][2]    = MODEL_SCALE;
+    scaleMtx.data[0][0]    = modelScale;
+    scaleMtx.data[1][1]    = modelScale;
+    scaleMtx.data[2][2]    = modelScale;
     scaleMtx.data[3][3]    = 1.0f;
     Matrix_Multiply(&saModel->mtx, &saModel->mtx, &scaleMtx);
+
+    // Update matrix for items that use custom models
     CustomModels_UpdateMatrix(&saModel->mtx, model->itemRow);
 
     // Draw model
