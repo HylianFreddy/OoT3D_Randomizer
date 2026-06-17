@@ -144,5 +144,3 @@
     X(ENEMY_GUAY, "Guay", ACTOR_GUAY, U16_ARR(0x0000 /*normal*/, 0x0001 /*big*/), SoulGuay,                       \
       ({ LocType::ABOVE_GROUND, LocType::NARROW_GROUND, LocType::ABOVE_VOID, LocType::UNDERWATER,                 \
          LocType::ABOVE_WATER, LocType::SHALLOW_WATER }))
-
-// clang-format on
