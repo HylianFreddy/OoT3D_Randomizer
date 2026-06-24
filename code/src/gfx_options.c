@@ -37,7 +37,7 @@ Option options[] = {
            "Off", "On"),
     OPTION(OPTION_ENABLESFX, "Play Sound Effects", //
            "Toggles the sound effects.",           //
-           "Off", "On"),
+           "Off", "On (Vanilla)", "On (Randomized)"),
     OPTION(OPTION_NAVINOTIFICATIONS, "Navi Notifications",      //
            "Determines the frequency of Navi's notifications.", //
            "Silenced", "Normal", "Constant"),

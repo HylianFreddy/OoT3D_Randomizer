@@ -45,6 +45,10 @@ u32 SetSFX(u32 original) {
         return SEQ_AUDIO_BLANK;
     }
 
+    if (gExtSaveData.options[OPTION_ENABLESFX] == 1) {
+        return original;
+    }
+
     // Check for invalid sound effect
     if (original < SFX_BASE || original > SFX_BASE + SFX_COUNT || type >= SEQTYPE_COUNT ||
         (!gSettingsContext.shuffleSFXFootsteps && SeqTypeIsMovement(type)) ||
