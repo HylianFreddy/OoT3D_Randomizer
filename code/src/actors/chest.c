@@ -1,5 +1,6 @@
 #include "chest.h"
 #include "z3D/z3D.h"
+#include "z3D/actors/z_en_bom.h"
 #include "item_override.h"
 #include "item_table.h"
 #include "settings.h"
@@ -13,7 +14,7 @@ void EnBox_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnBox_Update(Actor* thisx, GlobalContext* globalCtx);
 
 static Actor* sLastTrapChest = 0;
-static Actor* sBomb          = 0;
+static EnBom* sBomb          = 0;
 static EnElf* sFairy         = 0;
 
 // Bombchus are a major item if they're in logic and haven't been obtained yet
@@ -128,9 +129,9 @@ void Chest_ChangeAppearance(Actor* thisx, GlobalContext* globalCtx) {
 
 void EnBox_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 
-    if (sBomb != 0 && thisx == sLastTrapChest) {
-        *(((u8*)(sBomb)) + 0x26C) = 2; // bomb timer
-        sBomb                     = 0;
+    if (sBomb != NULL && thisx == sLastTrapChest) {
+        sBomb->timer = 2;
+        sBomb        = NULL;
     }
 
     if (sFairy != 0 && thisx == sLastTrapChest) {
@@ -239,8 +240,8 @@ u8 Chest_OverrideIceSmoke(Actor* thisx) {
                 break;
             case ICETRAP_BOMB_SIMPLE:
             case ICETRAP_BOMB_KNOCKDOWN:
-                sBomb = Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x10, thisx->world.pos.x,
-                                    thisx->world.pos.y, thisx->world.pos.z, 0, 0, 0, 0, FALSE);
+                sBomb = (EnBom*)Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x10, thisx->world.pos.x,
+                                            thisx->world.pos.y, thisx->world.pos.z, 0, 0, 0, 0, FALSE);
                 break;
             case ICETRAP_ANTIFAIRY:
                 sFairy = (EnElf*)Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, 0x18, thisx->world.pos.x,
