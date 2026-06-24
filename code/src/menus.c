@@ -146,3 +146,11 @@ u16 SaveMenu_IgnoreOpen(void) {
            (gSettingsContext.menuOpeningButton == 0 && rInputCtx.cur.sel) ||
            (gSettingsContext.menuOpeningButton == 1 && rInputCtx.cur.strt);
 }
+
+void Menu_CheckAndTriggerSariaHint(void) {
+    if (IsInGameOrBossChallenge() && PauseContext_GetState() && PLAYER->naviActor != NULL &&
+        gGearMenuSelectedSlot == GEARSLOT_OCARINA && rInputCtx.cur.a) {
+        PLAYER->naviTextId = -0xE0;
+        PLAYER->naviActor->flags |= (1 << 16);
+    }
+}
