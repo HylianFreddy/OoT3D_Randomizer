@@ -34,9 +34,9 @@ PYTHON := $(shell command -v python3 > /dev/null 2>&1 && echo python3 || echo py
 #     - icon.png
 #     - <libctru folder>/default_icon.png
 #---------------------------------------------------------------------------------
-APP_TITLE       :=  Ocarina of Time 3D Randomizer
-APP_AUTHOR      :=  Gamestabled
-APP_DESCRIPTION :=  A different Ocarina of Time experience
+APP_TITLE       :=  OoT3DR custom build
+APP_AUTHOR      :=
+APP_DESCRIPTION :=
 TARGET		    :=	$(notdir $(CURDIR))
 BUILD		    :=	build
 SOURCES			:=	$(sort $(dir $(wildcard source/*/ source/ shared/)))
