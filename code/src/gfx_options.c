@@ -56,6 +56,15 @@ Option options[] = {
     OPTION(OPTION_SPEEDBOOST, "Speed Boost", //
            "",                               //
            "Off", "On"),
+    OPTION(OPTION_FIREBALLLINK, "Fireball Link", //
+           "",                                   //
+           "Off", "On"),
+    OPTION(OPTION_HYPERACTORS, "Hyper Actors", //
+           "",                                 //
+           "Off", "On"),
+    OPTION(OPTION_SILENTROLLS, "Silent Rolls", //
+           "",                                 //
+           "Off", "Mute voice", "Mute all"),
 };
 s8 selectedOption;
 

@@ -7,12 +7,23 @@
 
 SFXData rSfxData = { 0 };
 
+void Player_Action_Rolling(Player* player, GlobalContext* globalCtx);
+
 u8 SeqTypeIsMovement(SeqType type) {
     return type == SEQ_WALK || type == SEQ_WALK_LOUD || type == SEQ_JUMP || type == SEQ_LAND || type == SEQ_SLIP ||
            type == SEQ_SLIP_LOOP || type == SEQ_BOUND || type == SEQ_CRAWL;
 }
 
 u32 SetSFX(u32 original) {
+    u8 playerIsInGame = gGlobalContext && PLAYER && IsInGameOrBossChallenge();
+    if (playerIsInGame && PLAYER->actionFunc == Player_Action_Rolling &&
+        ((gExtSaveData.options[OPTION_SILENTROLLS] > 0 &&
+          (original == NA_SE_VO_LI_SWORD_N || original == NA_SE_VO_LI_SWORD_N_KID)) || // adult voice and child voice
+         (gExtSaveData.options[OPTION_SILENTROLLS] == 2 &&
+          (original == NA_SE_PL_ROLL || original == NA_SE_PL_LAND_METAL))) // other sound effects
+    ) {
+        return SEQ_AUDIO_BLANK;
+    }
     // Hack for hookshot as child (adult voice -> child voice)
     if (original == NA_SE_VO_LI_LASH_KID && gSaveContext.linkAge == 1) {
         original = NA_SE_VO_LI_SWORD_N_KID;

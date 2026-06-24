@@ -37,7 +37,9 @@ static u8 sSwimBoostTimer   = 0;
 #define SWIM_BOOST_POWER 3.0f
 #define SWIM_BOOST_DURATION 40
 void Player_Action_Swimming(Player* player, GlobalContext* globalCtx);
+void Player_Action_Rolling(Player* player, GlobalContext* globalCtx);
 
+static void Player_HandleFireballForm(Player* this, s32 prevSaModelsCount);
 static void Player_HandleSpeedBoosts(Player* this);
 
 void** Player_EditAndRetrieveCMB(ZARInfo* zarInfo, u32 objModelIdx) {
@@ -174,7 +176,82 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
 
     Player_UpdateRainbowTunic();
 
+    s32 prevSaModelsCount = gMainClass.sub180.count_08;
+
     PlayerActor_Draw(thisx, globalCtx);
+
+    if (gExtSaveData.options[OPTION_FIREBALLLINK]) {
+        Player_HandleFireballForm((Player*)thisx, prevSaModelsCount);
+    }
+}
+
+static void Player_HandleFireballForm(Player* this, s32 prevSaModelsCount) {
+    static Vec3f vecAcc = { 0 };
+    static Vec3f vecVel = { 0 };
+    static Vec3f vecPos = { 0 };
+
+    if (gMainClass.sub180.count_08 > prevSaModelsCount) {
+        // Make player model invisible
+        gMainClass.sub180.list_20[prevSaModelsCount] = (SAModelListEntry){ 0 };
+    }
+
+    this->actor.shape.shadowDrawFunc = NULL;
+
+    if ((this->stateFlags1 & (1 << 0x14)) || // first person ("return A")
+        PauseContext_GetState()) {
+        return;
+    }
+
+    s32 velFrameIdx = (rGameplayFrames % 16);
+    s32 accFrameIdx = (rGameplayFrames % 4);
+    vecAcc.y        = 0.12f * accFrameIdx;
+    vecVel.x        = 0.5f * Math_SinS(0x1000 * velFrameIdx);
+    vecVel.z        = 0.5f * Math_CosS(0x1000 * velFrameIdx);
+    s16 scale       = 150;
+
+    // clang-format off
+    static s16 colorVals[21][7] = {
+        {0xFF, 0xFF, 0xFF, 0x00,    0x00, 0x00, 0x00,},
+        {0xFF, 0xFF, 0xFF, 0x08,    0x00, 0x00, 0x00,},
+        {0xFF, 0xFF, 0xFF, 0x10,    0x00, 0x00, 0x00,},
+        {0xFF, 0xFF, 0xFF, 0x20,    0x00, 0x00, 0x00,},
+        {0xFF, 0x80, 0x00, 0x20,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x20,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x30,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x40,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0x70,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xA0,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xD0,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0x00, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x00, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x08, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x10, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x18, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x20, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x28, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x30, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x38, 0x00,},
+        {0xFF, 0x40, 0x00, 0xFF,    0xFF, 0x40, 0x00,},
+    };
+    // clang-format on
+
+    s32 index = gSaveContext.health / 16;
+    if (index > 20) {
+        index = 20;
+    }
+    s16* currentColors = colorVals[index];
+
+    if (PLAYER->actionFunc == Player_Action_Rolling) {
+        vecPos   = this->actor.world.pos;
+        vecPos.y = this->actor.focus.pos.y;
+    } else {
+        vecPos = this->actor.focus.pos;
+    }
+
+    EffectSsDeadDb_Spawn(gGlobalContext, &vecPos, &vecVel, &vecAcc, scale, -1,                   //
+                         currentColors[0], currentColors[1], currentColors[2], currentColors[3], //
+                         currentColors[4], currentColors[5], currentColors[6],                   //
+                         1, 8, 0);
 }
 
 static void Player_HandleSpeedBoosts(Player* this) {

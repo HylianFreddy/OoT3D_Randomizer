@@ -836,6 +836,7 @@ SECTIONS
 	.patch_SkipTimeTravelCutsceneTwo 0x4918C8 + _LD_OFF : { *(.patch_SkipTimeTravelCutsceneTwo) }
 	.patch_DMTOwlEntranceOverride 0x492064 + _LD_OFF : { *(.patch_DMTOwlEntranceOverride) }
 	.patch_LHOwlEntranceOverride 0x492080 + _LD_OFF : { *(.patch_LHOwlEntranceOverride) }
+	Player_Action_Rolling = 0x492A3C + _LD_OFF;
 	.patch_PlayerBonk 0x492CD0 + _LD_OFF : { *(.patch_PlayerBonk) }
 	.patch_FairyUseHealAmount 0x4968B4 + _LD_OFF : { *(.patch_FairyUseHealAmount) }
 	.patch_SendDroppedBottleContents 0x496A1C + _LD_OFF : { *(.patch_SendDroppedBottleContents) }
