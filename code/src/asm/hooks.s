@@ -1483,6 +1483,14 @@ HOOK AboutToPickUpActor
     subeq lr,lr,#0x8
     bx lr
 
+HOOK GoronPotGuaranteeReward
+    mov r3,#0x0
+    push {r0-r12, lr}
+    cpy r0,r4
+    bl BgSpot18Basket_SetRotation
+    pop {r0-r12, lr}
+    bx lr
+
 HOOK TargetReticleColor
     mov r4,#0x0
     push {r0-r12,lr}

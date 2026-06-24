@@ -53,6 +53,9 @@ Option options[] = {
     OPTION(OPTION_SPOILERS, "Spoilers",                            //
            "Toggle visibility for spoilers in the in-game\nmenu.", //
            "Hide", "Show"),
+    OPTION(OPTION_SPEEDBOOST, "Speed Boost", //
+           "",                               //
+           "Off", "On"),
 };
 s8 selectedOption;
 

@@ -653,6 +653,7 @@ SECTIONS
 	.patch_RandomGsLoc_BlockSpawn_Soil 0x3BF690 + _LD_OFF : { *(.patch_RandomGsLoc_BlockSpawn_Soil) }
 	.patch_ForestTempleBasementPuzzleDelay 0x3BFA8C + _LD_OFF : { *(.patch_ForestTempleBasementPuzzleDelay) }
 	ObjLift_Wait = 0x3C05B0 + _LD_OFF;
+	.patch_GoronPotGuaranteeReward 0x3C148C + _LD_OFF : { *(.patch_GoronPotGuaranteeReward) }
 	EnSw_SetupGoingHome = 0x3C2A50 + _LD_OFF;
 	.patch_GerudoArcheryTwo 0x3C2D80 + _LD_OFF : { *(.patch_GerudoArcheryTwo) }
 	.patch_DampeCheckCanDig1 0x3C3354 + _LD_OFF : { *(.patch_DampeCheckCanDig1) }
@@ -844,6 +845,7 @@ SECTIONS
 	.patch_GanonRestoreMSOnDeath 0x496CB4 + _LD_OFF : { *(.patch_GanonRestoreMSOnDeath) }
 	.patch_CriticalHealthCheckThree 0x49F294 + _LD_OFF : { *(.patch_CriticalHealthCheckThree) }
 	.patch_ActorInit3 0x4A3318 + _LD_OFF : { *(.patch_ActorInit3) }
+	Player_Action_Swimming = 0x4A3344 + _LD_OFF;
 
 	/* 0x4A5B00 */ _LD_OFF = _LD_EUR ? 0x0 : _LD_OFF;
 

@@ -1311,6 +1311,9 @@ PATCH SetFWPlayerParams
 PATCH AboutToPickUpActor
     bl hook_AboutToPickUpActor
 
+PATCH GoronPotGuaranteeReward
+    bl hook_GoronPotGuaranteeReward
+
 PATCH TargetReticleColor
     bl hook_TargetReticleColor
 

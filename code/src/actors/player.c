@@ -9,6 +9,7 @@
 #include "arrow.h"
 #include "grotto.h"
 #include "item_override.h"
+#include "input.h"
 #include "colors.h"
 #include "gloom.h"
 #include "savefile.h"
@@ -30,6 +31,14 @@ u8 storedMask       = 0;
 
 static u32 sLastHitFrame = 0;
 static s16 sPrevHealth   = INT16_MAX;
+
+static f32 sSpeedMultiplier = 1.0;
+static u8 sSwimBoostTimer   = 0;
+#define SWIM_BOOST_POWER 3.0f
+#define SWIM_BOOST_DURATION 40
+void Player_Action_Swimming(Player* player, GlobalContext* globalCtx);
+
+static void Player_HandleSpeedBoosts(Player* this);
 
 void** Player_EditAndRetrieveCMB(ZARInfo* zarInfo, u32 objModelIdx) {
     void** cmbMan = ZAR_GetCMBByIndex(zarInfo, objModelIdx);
@@ -95,6 +104,9 @@ void PlayerActor_rInit(Actor* thisx, GlobalContext* globalCtx) {
 
 void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
     Player* this = (Player*)thisx;
+
+    Player_HandleSpeedBoosts(this);
+
     PlayerActor_Update(thisx, globalCtx);
 
     // Restore Randomizer draw function in case something (like Farore's Wind) overwrote it
@@ -165,18 +177,65 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
     PlayerActor_Draw(thisx, globalCtx);
 }
 
-f32 Player_GetSpeedMultiplier(void) {
-    f32 speedMultiplier = 1;
+static void Player_HandleSpeedBoosts(Player* this) {
+    sSpeedMultiplier = 1.0f;
 
     if (gSettingsContext.fastBunnyHood && PLAYER->currentMask == 4 && PLAYER->actionFunc == Player_Action_Running) {
-        speedMultiplier *= 1.5;
+        sSpeedMultiplier *= 1.5;
+    }
+
+    if (gExtSaveData.options[OPTION_SPEEDBOOST]) {
+        // Constant speed boost
+        if (PLAYER->actionFunc == Player_Action_Running && rInputCtx.touchHeld &&
+            (rInputCtx.touchX > 0x40 && rInputCtx.touchX < 0x100) &&
+            (rInputCtx.touchY > 0x25 && rInputCtx.touchY < 0xC8)) {
+            if (rInputCtx.touchY > 145) {
+                sSpeedMultiplier *= 1.5;
+            } else if (rInputCtx.touchY > 91) {
+                sSpeedMultiplier *= 3.0;
+            } else {
+                sSpeedMultiplier *= 5.0;
+            }
+        }
+
+        // Swim boost
+        if (PLAYER->actionFunc == Player_Action_Swimming) {
+            if (rInputCtx.pressed.b) {
+                sSwimBoostTimer = SWIM_BOOST_DURATION;
+            }
+
+            sSpeedMultiplier *= 1 + SWIM_BOOST_POWER * ((f32)sSwimBoostTimer / SWIM_BOOST_DURATION);
+
+            if (sSwimBoostTimer > 0) {
+                sSwimBoostTimer--;
+            }
+        } else {
+            sSwimBoostTimer = 0;
+        }
+    } else {
+        sSwimBoostTimer = 0;
     }
 
     if (IceTrap_ActiveCurse == ICETRAP_CURSE_SLOW) {
-        speedMultiplier *= 0.75;
+        sSpeedMultiplier *= 0.75;
     }
 
-    return speedMultiplier;
+    if (this->actionFunc == Player_Action_Running && sSpeedMultiplier > 2.99f) {
+        CollisionPoly floorPoly;
+        Vec3f actorPos = (Vec3f){
+            .x = this->actor.world.pos.x,
+            .y = this->actor.world.pos.y + 100,
+            .z = this->actor.world.pos.z,
+        };
+
+        f32 yGroundIntersect    = BgCheck_RaycastDown1(&gGlobalContext->colCtx, &floorPoly, &actorPos);
+        this->actor.world.pos.y = yGroundIntersect;
+        this->actor.home.pos.y  = yGroundIntersect;
+    }
+}
+
+f32 Player_GetSpeedMultiplier(void) {
+    return sSpeedMultiplier;
 }
 
 s32 Player_IsAdult() {
