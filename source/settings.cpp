@@ -483,6 +483,7 @@ Option FreeCamera          = Option::Bool("Free Camera",            {"Off", "On"
 Option RandomGsLocations   = Option::Bool("Random GS Locations",    {"Off", "On"},                                                          {randomGsLocationsDesc});
 Option GsLocGuaranteeNew   = Option::Bool(2, "Guarantee New",       {"Off", "On"},                                                          {gsLocGuaranteeNewDesc});
 Option RandomSongNotes     = Option::Bool("Random Ocarina Melodies",{"Off", "On"},                                                          {randomSongNotesDesc});
+Option HealthRegen         = Option::Bool("Health Regen",           {"On", "Off"},                                                          {"Health regenerates over time (1 Heart per minute)."});
 std::vector<Option*> gameplayOptions = {
     &FastBunnyHood,
     &KeepFWWarpPoint,
@@ -506,6 +507,7 @@ std::vector<Option*> gameplayOptions = {
     &RandomGsLocations,
     &GsLocGuaranteeNew,
     &RandomSongNotes,
+    &HealthRegen,
 };
 
 // Excluded Locations (Individual definitions made in ItemLocation class)
@@ -1667,6 +1669,7 @@ SettingsContext FillContext() {
     ctx.freeCamera          = (FreeCamera) ? 1 : 0;
     ctx.randomGsLocations   = (RandomGsLocations) ? 1 : 0;
     ctx.randomSongNotes     = (RandomSongNotes) ? 1 : 0;
+    ctx.healthRegen         = (HealthRegen) ? 1 : 0;
 
     ctx.faroresWindAnywhere  = (FaroresWindAnywhere) ? 1 : 0;
     ctx.stickAsAdult         = (StickAsAdult) ? 1 : 0;
