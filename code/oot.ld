@@ -724,6 +724,7 @@ SECTIONS
 	.patch_AwakeCallback 0x3FD43C + _LD_OFF : { *(.patch_AwakeCallback) }
 	.patch_SleepQueryCallback 0x3FD6C4 + _LD_OFF : { *(.patch_SleepQueryCallback) }
 	Message_SetInstantText = 0x40B608 + _LD_OFF;
+	.patch_DrawScreen 0x416398 + _LD_OFF : { *(.patch_DrawScreen) }
 
 	/* 0x419E18 - 0x41A143 : Language related function, don't place anything in this range */
 	/* 0x41A144 */ _LD_OFF = _LD_EUR ? 0x24 : _LD_OFF;
