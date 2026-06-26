@@ -34,7 +34,7 @@ typedef struct {
 Option options[] = {
     OPTION(OPTION_ENABLEBGM, "Play Music",                             //
            "Toggles the music.\nTakes effect once music is switched.", //
-           "Off", "On"),
+           "Off", "On", "Partial"),
     OPTION(OPTION_ENABLESFX, "Play Sound Effects", //
            "Toggles the sound effects.",           //
            "Off", "On (Vanilla)", "On (Randomized)"),

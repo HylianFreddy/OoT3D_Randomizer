@@ -8,7 +8,12 @@ u8 Bgm_FanfareModEnabled = FALSE;
 static u32 rBGMOverrides[128] = { 0 };
 
 u32 SetBGM(u32 original) {
-    if (!gExtSaveData.options[OPTION_ENABLEBGM] && IsInGameOrBossChallenge()) {
+    u8 shouldSkip = gExtSaveData.options[OPTION_ENABLEBGM] == 0 ||  // "Off"
+                    (gExtSaveData.options[OPTION_ENABLEBGM] == 2 && // "Partial"
+                     original != NA_BGM_ITEM_GET && original != NA_BGM_HEART_GET && original != NA_BGM_S_ITEM_GET &&
+                     original != NA_BGM_SPIRIT_STONE && original != NA_BGM_MEDAL_GET && original != NA_BGM_GATE_OPEN);
+
+    if (shouldSkip && IsInGameOrBossChallenge()) {
         return SEQ_AUDIO_BLANK;
     }
 
