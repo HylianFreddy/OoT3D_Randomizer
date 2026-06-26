@@ -329,6 +329,7 @@ SECTIONS
 	.patch_LostWoodsShootingGame 0x259E4C + _LD_OFF : { *(.patch_LostWoodsShootingGame) }
 	.patch_CanPlayBombchuBowlingOne 0x25A744 + _LD_OFF : { *(.patch_CanPlayBombchuBowlingOne) }
 	EnDaiku_InitEscape = 0x25A8E4 + _LD_OFF;
+	BgDyYoseizo_Init = 0x25DD10 + _LD_OFF;
 	.patch_GanonDrawMasterSword 0x26207C + _LD_OFF : { *(.patch_GanonDrawMasterSword) }
 	DemoEffect_Update = 0x262C58 + _LD_OFF;
 	DemoKankyo_Update = 0x262EA4 + _LD_OFF;
@@ -377,6 +378,7 @@ SECTIONS
 	.patch_SunsSongLocation 0x2888C8 + _LD_OFF : { *(.patch_SunsSongLocation) }
 	.patch_PierreSoftlockFixTwo 0x288914 + _LD_OFF : { *(.patch_PierreSoftlockFixTwo) }
 	.patch_PierreSoftlockFixThree 0x2889D4 + _LD_OFF : { *(.patch_PierreSoftlockFixThree) }
+	BgDyYoseizo_Draw = 0x289AEC + _LD_OFF;
 	.patch_KakarikoGateCheck 0x28A678 + _LD_OFF : { *(.patch_KakarikoGateCheck) }
 	.patch_BombchuBowlingAlwaysFirstPrize 0x291924 + _LD_OFF : { *(.patch_BombchuBowlingAlwaysFirstPrize) }
 	ItemEtcetera_Update = 0x298D88 + _LD_OFF;
@@ -692,7 +694,6 @@ SECTIONS
 	.patch_ShadowShip_CSTimer 0x3E6C50 + _LD_OFF : { *(.patch_ShadowShip_CSTimer) }
 	EnTuboTrap_WaitForProximity = 0x3E6F88 + _LD_OFF;
 	.patch_FlyingPotDontChangeCategory 0x3E7008 + _LD_OFF : { *(.patch_FlyingPotDontChangeCategory) }
-	.patch_FairyReward 0x3E7598 + _LD_OFF : { *(.patch_FairyReward) }
 	.patch_RainbowBridge 0x3E7CAC + _LD_OFF : { *(.patch_RainbowBridge) }
 	.patch_RemoveWaterfallCS 0x3E7F64 + _LD_OFF : { *(.patch_RemoveWaterfallCS) }
 	.patch_DekuTheaterSkullMask 0x3EAF38 + _LD_OFF : { *(.patch_DekuTheaterSkullMask) }

@@ -1,5 +1,8 @@
 #include <sys/cdefs.h>
 
+// Custom
+#include "fairy.h"
+
 #include "z3D/z3D.h"
 #include "common.h"
 #include "actor.h"
@@ -128,6 +131,9 @@ void Actor_Init() {
 
     gActorOverlayTable[0xA].initInfo->init   = EnBox_rInit;
     gActorOverlayTable[0xA].initInfo->update = EnBox_rUpdate;
+
+    gActorOverlayTable[0xB].initInfo->init   = BgDyYoseizo_rInit;
+    gActorOverlayTable[0xB].initInfo->update = BgDyYoseizo_rUpdate;
 
     gActorOverlayTable[0xD].initInfo->init   = EnPoh_rInit;
     gActorOverlayTable[0xD].initInfo->update = EnPoh_rUpdate;

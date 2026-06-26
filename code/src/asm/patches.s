@@ -415,11 +415,6 @@ PATCH BusinessScrubCheckFlags
 PATCH KakarikoGateCheck
     bl hook_KakarikoGateCheck
 
-PATCH FairyReward
-    cpy r0,r4
-    bl Cutscene_OverrideFairyReward
-    b 0x3E75F8
-
 PATCH OcarinaMinigameRewardsOrder
     .word 0x76
     .word 0x4D

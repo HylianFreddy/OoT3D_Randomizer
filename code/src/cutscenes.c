@@ -168,7 +168,7 @@ void Cutscene_OverrideSongOfStorms(void) {
 }
 
 void Cutscene_OverrideFairyReward(BgDyYoseizo* fairy) {
-    s16 fairyIdx = fairy->unk_D2C;
+    s16 fairyIdx = fairy->fountainType;
 
     if (gGlobalContext->sceneNum == SCENE_GREAT_FAIRYS_FOUNTAIN_SPELLS) {
         if (!(gSaveContext.itemGetInf[1] & (0x100 << fairyIdx))) {
@@ -184,7 +184,6 @@ void Cutscene_OverrideFairyReward(BgDyYoseizo* fairy) {
 
     gSaveContext.healthAccumulator = 0x140;
     gSaveContext.magic             = gSaveContext.magicLevel * 0x30;
-    Actor_Kill(&fairy->actor);
 }
 
 // skip dungeon exit cutscenes

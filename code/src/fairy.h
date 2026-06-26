@@ -13,4 +13,10 @@ typedef struct EnElf {
 void Fairy_UpdateRainbowNaviColors(EnElf* navi);
 void Fairy_ResetRainbowCMABs(void);
 
+/* Great Fairy */
+#include "z3D/actors/z_bg_dy_yoseizo.h"
+
+void BgDyYoseizo_rInit(Actor* thisx, GlobalContext* globalCtx);
+void BgDyYoseizo_rUpdate(Actor* thisx, GlobalContext* globalCtx);
+
 #endif //_FAIRY_H_
