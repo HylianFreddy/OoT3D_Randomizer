@@ -47,7 +47,6 @@ SoulMenuInfo SoulMenuNames[SOUL_MAX] = {
     { SOUL_LIZALFOS, "Lizalfos, Dinolfos" },
     { SOUL_MOBLIN, "Moblin, Club Moblin" },
     { SOUL_OCTOROK, "Octorok, Big Octo" },
-    { SOUL_TENTACLE, "Parasitic Tentacle" },
     { SOUL_PEAHAT, "Peahat" },
     { SOUL_POE, "Poe (all)" },
     { SOUL_REDEAD_GIBDO, "ReDead, Gibdo" },
@@ -67,7 +66,7 @@ SoulMenuInfo SoulMenuNames[SOUL_MAX] = {
     // Bosses
     { SOUL_GOHMA, "Gohma, Gohma Larva", "Queen Gohma" },
     { SOUL_DODONGO, "Dodongo (all)", "King Dodongo" },
-    { SOUL_BARINADE, "Barinade" },
+    { SOUL_BARINADE, "Barinade and Tentacles", "Barinade" },
     { SOUL_PHANTOM_GANON, "Phantom Ganon" },
     { SOUL_VOLVAGIA, "Volvagia" },
     { SOUL_MORPHA, "Morpha" },

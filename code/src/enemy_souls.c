@@ -99,8 +99,8 @@ static ActorSoulData EnemySouls_GetActorSoulData(s16 actorId) {
         CASE(ACTOR_REDEAD,                  SOUL_REDEAD_GIBDO,         EnRd_ReinitModels);
         CASE(ACTOR_SHELL_BLADE,             SOUL_SHELL_BLADE,          SoullessModels_ReinitGenericSkelAnime);
         CASE(ACTOR_LIKE_LIKE,               SOUL_LIKE_LIKE,            EnRr_ReinitModels);
-        CASE(ACTOR_PARASITIC_TENTACLE,      SOUL_TENTACLE,             EnBa_ReinitModels);
-        CASE(ACTOR_OBSTACLE_TENTACLE,       SOUL_TENTACLE,             EnBx_ReinitModels);
+        CASE(ACTOR_PARASITIC_TENTACLE,      SOUL_BARINADE,             EnBa_ReinitModels);
+        CASE(ACTOR_OBSTACLE_TENTACLE,       SOUL_BARINADE,             EnBx_ReinitModels);
         CASE(ACTOR_ANUBIS,                  SOUL_ANUBIS,               SoullessModels_ReinitGenericSkelAnime);
         CASE(ACTOR_SPIKE,                   SOUL_SPIKE,                EnNy_ReinitModels);
         CASE(ACTOR_SKULL_KID,               SOUL_SKULL_KID,            EnSkj_ReinitModels);

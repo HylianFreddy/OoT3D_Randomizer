@@ -96,7 +96,7 @@ void AreaTable_Init_JabuJabusBelly() {
                      Entrance(JABU_JABUS_BELLY_FORKED_CORRIDOR, { [] { return CanPassEnemy(2, 0, 2, 2); } }),
                      Entrance(JABU_JABUS_BELLY_BIGOCTO_ROOM, { [] {
                                   return Here(JABU_JABUS_BELLY_GREEN_TENTACLE,
-                                              [] { return SoulParasiticTentacle && CanUse(BOOMERANG); });
+                                              [] { return SoulBarinade && CanUse(BOOMERANG); });
                               } }),
                  });
 
@@ -226,18 +226,16 @@ void AreaTable_Init_JabuJabusBelly() {
                              return CanPassEnemies(2, 0, 7, { 0, 3 });
                          } }),
                 Entrance(JABU_JABUS_BELLY_COMPASS_ROOM, { [] {
-                             return CanPassEnemies(2, 0, 7, { 0, 3 }) && Here(JABU_JABUS_BELLY_MAP_ROOM, [] {
-                                        return SoulParasiticTentacle && CanUse(BOOMERANG);
-                                    });
+                             return CanPassEnemies(2, 0, 7, { 0, 3 }) &&
+                                    Here(JABU_JABUS_BELLY_MAP_ROOM, [] { return SoulBarinade && CanUse(BOOMERANG); });
                          } }),
                 Entrance(JABU_JABUS_BELLY_BLUE_TENTACLE, { [] {
-                             return CanPassEnemies(2, 0, 7, { 1, 4 }) && Here(JABU_JABUS_BELLY_MAP_ROOM, [] {
-                                        return SoulParasiticTentacle && CanUse(BOOMERANG);
-                                    });
+                             return CanPassEnemies(2, 0, 7, { 1, 4 }) &&
+                                    Here(JABU_JABUS_BELLY_MAP_ROOM, [] { return SoulBarinade && CanUse(BOOMERANG); });
                          } }),
                 Entrance(JABU_JABUS_BELLY_GREEN_TENTACLE, { [] {
                              return CanPassEnemies(2, 0, 7, { 2 }) && Here(JABU_JABUS_BELLY_BLUE_TENTACLE, [] {
-                                        return SoulParasiticTentacle && CanUse(BOOMERANG);
+                                        return SoulBarinade && CanUse(BOOMERANG);
                                     });
                          } }),
             });
@@ -257,8 +255,7 @@ void AreaTable_Init_JabuJabusBelly() {
             Area("Jabu Jabus Belly Map Room", "Jabu Jabus Belly", JABU_JABUS_BELLY, NO_DAY_NIGHT_CYCLE, {},
                  {
                      // Locations
-                     LocationAccess(JABU_JABUS_BELLY_MAP_CHEST,
-                                    { [] { return SoulParasiticTentacle && CanUse(BOOMERANG); } }),
+                     LocationAccess(JABU_JABUS_BELLY_MAP_CHEST, { [] { return SoulBarinade && CanUse(BOOMERANG); } }),
                  },
                  {
                      // Exits
@@ -282,7 +279,7 @@ void AreaTable_Init_JabuJabusBelly() {
                      // Exits
                      Entrance(JABU_JABUS_BELLY_FORKED_CORRIDOR, { [] {
                                   return Here(JABU_JABUS_BELLY_BLUE_TENTACLE,
-                                              [] { return SoulParasiticTentacle && CanUse(BOOMERANG); });
+                                              [] { return SoulBarinade && CanUse(BOOMERANG); });
                               } }),
                  });
 
@@ -292,7 +289,7 @@ void AreaTable_Init_JabuJabusBelly() {
                      // Exits
                      Entrance(JABU_JABUS_BELLY_FORKED_CORRIDOR, { [] {
                                   return Here(JABU_JABUS_BELLY_GREEN_TENTACLE, [] {
-                                      return CanDefeatEnemies(2, 0, 8) && SoulParasiticTentacle && CanUse(BOOMERANG);
+                                      return CanDefeatEnemies(2, 0, 8) && SoulBarinade && CanUse(BOOMERANG);
                                   });
                               } }),
                  });

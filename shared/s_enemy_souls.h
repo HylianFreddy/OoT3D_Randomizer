@@ -26,7 +26,6 @@ typedef enum EnemySoulId {
     SOUL_REDEAD_GIBDO,
     SOUL_SHELL_BLADE,
     SOUL_LIKE_LIKE,
-    SOUL_TENTACLE,
     SOUL_ANUBIS,
     SOUL_SPIKE,
     SOUL_SKULL_KID,

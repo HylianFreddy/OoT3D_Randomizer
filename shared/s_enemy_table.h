@@ -60,8 +60,8 @@
     X(ENEMY_TAILPASARAN, "Tailpasaran", ACTOR_TAILPASARAN, U16_ARR(0xFFFF), SoulTailpasaran,                      \
       ({ LocType::ABOVE_GROUND, LocType::NARROW_GROUND, LocType::SHALLOW_WATER }))                                \
     X(ENEMY_BIG_OCTO, "Big Octo", ACTOR_BIG_OCTO, U16_ARR(0x0000), SoulOctorok, ({ /* Unimplemented */ }))        \
-    X(ENEMY_PARASITIC_TENTACLE, "Parasitic Tentacle", ACTOR_PARASITIC_TENTACLE, U16_ARR(0x0000),                  \
-      SoulParasiticTentacle, ({ /* Unimplemented */ }))                                                           \
+    X(ENEMY_PARASITIC_TENTACLE, "Parasitic Tentacle", ACTOR_PARASITIC_TENTACLE, U16_ARR(0x0000), SoulBarinade,    \
+      ({ /* Unimplemented */ }))                                                                                  \
     X(ENEMY_STINGER_FLOOR, "Stinger (Floor)", ACTOR_STINGER_FLOOR, U16_ARR(0x000A), SoulStinger,                  \
       ({ LocType::ABOVE_GROUND, LocType::NARROW_GROUND, LocType::UNDERWATER, LocType::SHALLOW_WATER }))           \
     X(ENEMY_STINGER_WATER, "Stinger (Water)", ACTOR_STINGER_WATER, U16_ARR(0x0000), SoulStinger,                  \

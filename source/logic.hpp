@@ -242,7 +242,6 @@ extern bool SoulWallmaster;
 extern bool SoulRedeadGibdo;
 extern bool SoulShellBlade;
 extern bool SoulLikeLike;
-extern bool SoulParasiticTentacle;
 extern bool SoulAnubis;
 extern bool SoulSpike;
 extern bool SoulSkullKid;
