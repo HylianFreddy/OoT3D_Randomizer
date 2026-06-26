@@ -2013,7 +2013,7 @@ void HintTable_Init_Item() {
 
     hintTable[SOUL_ITEM_LIZALFOS] = HintText::Item({
                        // obscure text
-                       Text{"the Lizalfos and Dinolfos Soul", /*french*/"les Essences de Lézalfos et de Dinolfos", /*spanish*/"el alma de Lizalfos y Dinolfos", /*italian*/"l'anima di Lizalfos e Dinolfos", /*german*/"die Seele von Echsalfos und Dinodorus"},
+                       Text{"the Lizalfos Soul", /*french*/"les Essences de Lézalfos et de Dinolfos", /*spanish*/"el alma de Lizalfos y Dinolfos", /*italian*/"l'anima di Lizalfos", /*german*/"die Seele von Echsalfos und Dinodorus"},
                      }, {
                        // ambiguous text
                        Text{"a Soul", /*french*/"une Essence", /*spanish*/"un alma", /*italian*/"un'anima", /*german*/"eine Seele"},
@@ -2031,7 +2031,7 @@ void HintTable_Init_Item() {
 
     hintTable[SOUL_ITEM_BIRI_BARI] = HintText::Item({
                        // obscure text
-                       Text{"the Biri and Bari Soul", /*french*/"l'Essence de Biri et de Bari", /*spanish*/"el alma de Biri y Bari", /*italian*/"l'anima di Cnidiri e Cnidari", /*german*/"die Seele von Zappelquallen"},
+                       Text{"the Biri Soul", /*french*/"l'Essence de Biri et de Bari", /*spanish*/"el alma de Biri y Bari", /*italian*/"l'anima di Cnidiri", /*german*/"die Seele von Zappelquallen"},
                      }, {
                        // ambiguous text
                        Text{"a Soul", /*french*/"une Essence", /*spanish*/"un alma", /*italian*/"un'anima", /*german*/"eine Seele"},
@@ -2112,7 +2112,7 @@ void HintTable_Init_Item() {
 
     hintTable[SOUL_ITEM_FLYING_TRAP] = HintText::Item({
                        // obscure text
-                       Text{"the Flying Pot and Tile Soul", /*french*/"les Essences de jarres et de dalles volantes", /*spanish*/"el alma de Jarrones y Baldosas voladoras", /*italian*/"l'anima di Vasi e Piastrelle volanti", /*german*/"die Seele von fliegenden Krügen und Fliesen"},
+                       Text{"the Flying Trap Soul", /*french*/"les Essences de jarres et de dalles volantes", /*spanish*/"el alma de Jarrones y Baldosas voladoras", /*italian*/"l'anima di trappole volanti", /*german*/"die Seele von fliegenden Krügen und Fliesen"},
                      }, {
                        // ambiguous text
                        Text{"a Soul", /*french*/"une Essence", /*spanish*/"un alma", /*italian*/"un'anima", /*german*/"eine Seele"},
@@ -2130,7 +2130,7 @@ void HintTable_Init_Item() {
 
     hintTable[SOUL_ITEM_WALLMASTER] = HintText::Item({
                        // obscure text
-                       Text{"the Wallmaster and Floormaster Soul", /*french*/"les Essences de Main du mal et de Grossbaffe", /*spanish*/"el alma de Wallmaster y Floormaster", /*European*/"the Wallmaster and Floormaster Soul", /*french*/"les Essences de La Main et de Grossbaffe", /*spanish*/"el alma de Wallmaster y Floormaster", /*italian*/"l'anima di Mano Diabolica e Mano Rapace", /*german*/"die Seele von Todesgrapschern und Terrorgrapschern"},
+                       Text{"the Wallmaster Soul", /*french*/"les Essences de Main du mal et de Grossbaffe", /*spanish*/"el alma de Wallmaster y Floormaster", /*European*/"the Wallmaster Soul", /*french*/"les Essences de La Main et de Grossbaffe", /*spanish*/"el alma de Wallmaster y Floormaster", /*italian*/"l'anima di Mano Diabolica", /*german*/"die Seele von Todesgrapschern und Terrorgrapschern"},
                      }, {
                        // ambiguous text
                        Text{"a Soul", /*french*/"une Essence", /*spanish*/"un alma", /*italian*/"un'anima", /*german*/"eine Seele"},
@@ -2139,7 +2139,7 @@ void HintTable_Init_Item() {
 
     hintTable[SOUL_ITEM_REDEAD_GIBDO] = HintText::Item({
                        // obscure text
-                       Text{"the ReDead and Gibdo Soul", /*french*/"les Essences de Remort et de Gibdo", /*spanish*/"el alma de ReDead y Gibdo", /*European*/"the ReDead and Gibdo Soul", /*french*/"les Essences d'Effroi et de Gibdo", /*spanish*/"el alma de ReDead y Gibdo", /*italian*/"l'anima di Zombie e Ghibdo", /*german*/"die Seele von Zombies und Wickel-Zombies"},
+                       Text{"the ReDead Soul", /*french*/"les Essences de Remort et de Gibdo", /*spanish*/"el alma de ReDead y Gibdo", /*European*/"the ReDead Soul", /*french*/"les Essences d'Effroi et de Gibdo", /*spanish*/"el alma de ReDead y Gibdo", /*italian*/"l'anima di Zombie", /*german*/"die Seele von Zombies und Wickel-Zombies"},
                      }, {
                        // ambiguous text
                        Text{"a Soul", /*french*/"une Essence", /*spanish*/"un alma", /*italian*/"un'anima", /*german*/"eine Seele"},
@@ -2283,7 +2283,7 @@ void HintTable_Init_Item() {
 
     hintTable[SOUL_ITEM_GERUDO] = HintText::Item({
                        // obscure text
-                       Text{"the Gerudo and Iron Knuckle Soul", /*french*/"l'Essence de Voleuse Gerudo et de Poing de fer", /*spanish*/"el alma de Gerudo y Nudillo de hierro", /*European*/"the Gerudo and Iron Knuckle Soul", /*french*/"l'Essence de Voleuse Gerudo et de Hache-Viande", /*spanish*/"el alma de Gerudo y Nudillo de hierro", /*italian*/"l'anima di Gerudo e Guerriero d'acciaio", /*german*/"die Seele von Gerudos und Eisenprinzen"},
+                       Text{"the Gerudo Soul", /*french*/"l'Essence de Voleuse Gerudo et de Poing de fer", /*spanish*/"el alma de Gerudo y Nudillo de hierro", /*European*/"the Gerudo Soul", /*french*/"l'Essence de Voleuse Gerudo et de Hache-Viande", /*spanish*/"el alma de Gerudo y Nudillo de hierro", /*italian*/"l'anima di Gerudo", /*german*/"die Seele von Gerudos und Eisenprinzen"},
                      }, {
                        // ambiguous text
                        Text{"a Soul", /*french*/"une Essence", /*spanish*/"un alma", /*italian*/"un'anima", /*german*/"eine Seele"},
