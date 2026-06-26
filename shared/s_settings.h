@@ -298,7 +298,6 @@ typedef enum SkipSongReplaysSetting {
 
 typedef enum NaviNotificationsSetting {
     NAVINOTIFS_SILENCED,
-    NAVINOTIFS_NORMAL,
     NAVINOTIFS_CONSTANT,
 } NaviNotificationsSetting;
 

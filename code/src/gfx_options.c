@@ -40,7 +40,7 @@ Option options[] = {
            "Off", "On (Vanilla)", "On (Randomized)"),
     OPTION(OPTION_NAVINOTIFICATIONS, "Navi Notifications",      //
            "Determines the frequency of Navi's notifications.", //
-           "Silenced", "Normal", "Constant"),
+           "Silenced", "Constant"),
     OPTION(OPTION_IGNOREMASKREACTION, "Ignore Mask Reaction",
            "Causes NPCs to respond normally when wearing\nmasks. Does not apply to trade quest dialogues.", //
            "Off", "On"),
