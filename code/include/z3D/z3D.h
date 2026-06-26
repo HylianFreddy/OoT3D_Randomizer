@@ -8,6 +8,9 @@
 
 #include "common.h"
 
+// Custom
+#include "z3Denvironment.h"
+
 #include <sys/cdefs.h>
 #include "z3Dactor.h"
 #include "z3Dequipment.h"
@@ -568,9 +571,9 @@ typedef struct GlobalContext {
     /* 0x2A91 */ char unk_2A91[0xEB];
     /* 0x2B7C */ u16 lastPlayedSong;
     /* 0x2B7E */ s16 ocarinaMode; // msgCtx.ocarinaMode in OoT
-    /* 0x2B80 */ char unk_2B80[0x06B0];
-    /* 0x3230 */ u32 lightSettingsList_addr;
-    /* 0x3234 */ char unk_3234[0x0824];
+    /* 0x2B80 */ char unk_2B80[0x0610];
+    /* 0x3190 */ EnvironmentContext envCtx;
+    /* 0x328C */ char unk_328C[0x07CC];
     /* 0x3A58 */ ObjectContext objectCtx;
     /* 0x43DC */ char unk_43DC[0x0854];
     /* 0x4C30 */ s8 roomNum;
