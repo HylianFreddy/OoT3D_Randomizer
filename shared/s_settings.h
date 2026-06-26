@@ -658,6 +658,7 @@ typedef struct SettingsContext {
     u8 freeCamera;
     u8 randomGsLocations;
     u8 randomSongNotes;
+    u8 healthRegen;
 
     u8 faroresWindAnywhere;
     u8 stickAsAdult;
