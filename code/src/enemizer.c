@@ -3,6 +3,7 @@
 #include "enemizer.h"
 #include "objects.h"
 #include "common.h"
+#include "input.h"
 #include "savefile.h"
 #include "settings.h"
 #include "scene.h"
@@ -14,6 +15,11 @@
 
 #define SKIP_ACTOR_ENTRY TRUE
 #define KEEP_ACTOR_ENTRY FALSE
+
+static const u32 sBaseTestEnemyId = ENEMY_BUBBLE_WHITE;
+static u32 sTestEnemyId           = sBaseTestEnemyId;
+static u32 sTestEnemyParamsIndex  = 0;
+static u32 sTestToggle            = ENEMYMODE_RANDOMIZED;
 
 EnemyOverride rEnemyOverrides[ENEMY_OVERRIDES_MAX];
 s32 rEnemyOverrides_Count  = 0;
@@ -33,10 +39,40 @@ u8 Enemizer_IsEnemyRandomized(EnemyId enemyId) {
     return gSettingsContext.enemizer == ON && gSettingsContext.enemizerList[enemyId] == ENEMYMODE_RANDOMIZED;
 }
 
+// Helper macro for mocks; va_args is params index
+#define MOCK(_scene, _layer, _room, _entry, _enemyId, ...)      \
+    rEnemyOverrides[rEnemyOverrides_Count++] = (EnemyOverride){ \
+        .scene      = _scene,                                   \
+        .layer      = _layer,                                   \
+        .room       = _room,                                    \
+        .actorEntry = _entry,                                   \
+        .enemyId    = _enemyId,                                 \
+        .paramsIdx  = 0 __VA_OPT__(+__VA_ARGS__),               \
+    };
+
 void Enemizer_Init(void) {
     if (gSettingsContext.enemizer == OFF) {
         return;
     }
+
+    // Mocks (MUST BE SORTED!)
+    MOCK(85, 2, 0, 1, ENEMY_BUBBLE_WHITE);
+    MOCK(85, 2, 0, 2, ENEMY_SHABOM);
+    MOCK(85, 2, 0, 3, ENEMY_HINT_DEKU_SCRUB);
+    MOCK(85, 2, 0, 4, ENEMY_BUBBLE_GREEN);
+    MOCK(85, 2, 0, 5, ENEMY_DEKU_BABA_SMALL);
+    MOCK(85, 2, 0, 6, ENEMY_GIBDO);
+    MOCK(85, 2, 0, 7, ENEMY_FLARE_DANCER);
+    MOCK(85, 2, 0, 8, ENEMY_KEESE_FIRE);
+    MOCK(85, 2, 0, 9, ENEMY_ANUBIS);
+    MOCK(85, 2, 0, 10, ENEMY_FLYING_FLOOR_TILE);
+
+    MOCK(85, 2, 1, 2, ENEMY_BUBBLE_BLUE);
+    MOCK(85, 2, 1, 3, ENEMY_FLARE_DANCER);
+    MOCK(85, 2, 1, 4, ENEMY_FLYING_FLOOR_TILE);
+    MOCK(85, 2, 1, 5, ENEMY_KEESE_NORMAL);
+    MOCK(85, 2, 1, 6, ENEMY_SPIKE);
+    MOCK(85, 2, 1, 7, ENEMY_KEESE_ICE);
 
     while (rEnemyOverrides[rEnemyOverrides_Count].enemyId != ENEMY_INVALID) {
         rEnemyOverrides_Count++;
@@ -52,7 +88,21 @@ void Enemizer_Init(void) {
     gEnemizerLocationFlags.shadowShipStalfos =
         Enemizer_FindOverride(7, 0, 21, gSettingsContext.shadowTempleDungeonMode == DUNGEONMODE_VANILLA ? 13 : 16)
             .enemyId != ENEMY_INVALID;
+
+    gSettingsContext.enemizerList[sTestEnemyId]             = sTestToggle;
+    gSettingsContext.enemizerList[ENEMY_INVALID]            = ENEMYMODE_VANILLA;
+    gSettingsContext.enemizerList[ENEMY_POE_SISTER]         = ENEMYMODE_VANILLA;
+    gSettingsContext.enemizerList[ENEMY_DEAD_HAND]          = ENEMYMODE_VANILLA;
+    gSettingsContext.enemizerList[ENEMY_BIG_OCTO]           = ENEMYMODE_VANILLA;
+    gSettingsContext.enemizerList[ENEMY_PARASITIC_TENTACLE] = ENEMYMODE_VANILLA;
+
+    gEnemizerLocationFlags.sfmWolfos         = 1;
+    gEnemizerLocationFlags.dcLizalfos        = 1;
+    gEnemizerLocationFlags.gerudoFighters    = 1;
+    gEnemizerLocationFlags.nabooruKnuckle    = 1;
+    gEnemizerLocationFlags.shadowShipStalfos = 1;
 }
+#undef MOCK
 
 static EnemyOverride Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actorEntry) {
     s32 key   = (scene << 24) | (layer << 16) | (room << 8) | actorEntry;
@@ -384,8 +434,27 @@ u8 Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
         return KEEP_ACTOR_ENTRY;
     }
 
+    LOG(L_ENEMIZER, L_TRACE, "%d %d %d %d", gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum,
+        actorEntryIndex);
+
     EnemyOverride enemyOverride =
         Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
+
+    // Mock
+    if (enemyOverride.enemyId == ENEMY_INVALID && Enemizer_IsEnemyRandomized(sTestEnemyId))
+        for (u32 i = 0; i < ENEMY_MAX; i++) {
+            if (actorEntry->id == gEnemyTable[i].actorId &&
+                (actorEntry->id != ACTOR_SKULLWALLTULA || ((actorEntry->params & 0xE000) == 0))) {
+                // if (actorEntryIndex != 3) {
+                //     enemyOverride.actorId = 0x10;
+                //     enemyOverride.params  = 0x0000;
+                //     break;
+                // }
+                enemyOverride.enemyId   = sTestEnemyId;
+                enemyOverride.paramsIdx = sTestEnemyParamsIndex;
+                break;
+            }
+        }
 
     // Do nothing if the override doesn't exist
     if (enemyOverride.enemyId == ENEMY_INVALID) {
@@ -430,7 +499,15 @@ u8 Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
 
 EnemyOverride Enemizer_GetSpawnerOverride(void) {
     // Dynamic enemy spawners are represented by actorEntry=0xFF
-    return Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, 0xFF);
+    EnemyOverride enemyOverride =
+        Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, 0xFF);
+    if (Enemizer_IsEnemyRandomized(sTestEnemyId)) {
+        enemyOverride.enemyId   = sTestEnemyId;
+        enemyOverride.paramsIdx = 0;
+        LOG(L_ENEMIZER, L_DEBUG, "Enemizer_GetSpawnerOverride %X %X %X FF, %X", gGlobalContext->sceneNum, rSceneLayer,
+            enemyOverride.enemyId, enemyOverride.paramsIdx);
+    }
+    return enemyOverride;
 }
 
 u8 Enemizer_IsRoomCleared(void) {
@@ -552,11 +629,27 @@ void Enemizer_AfterActorSetup(void) {
     sRoomLoadSignal  = TRUE;
 }
 
+#include "draw.h"
+void Object_DrawDebugInfo();
 // Run special checks on every frame
 void Enemizer_Update(void) {
     if (gSettingsContext.enemizer == OFF) {
         return;
     }
+
+    if (rInputCtx.pressed.zr) {
+        // gGlobalContext->actorCtx.flags.clear = 0;
+        // gGlobalContext->actorCtx.flags.swch  = 0;
+        // Flags_SetSwitch(gGlobalContext, 5);
+        do {
+            sTestEnemyId = (sTestEnemyId + 1) % ENEMY_MAX;
+        } while (!Enemizer_IsEnemyRandomized(sTestEnemyId) && sTestEnemyId != sBaseTestEnemyId);
+    }
+
+    Draw_DrawFormattedStringTop(10, 0, COLOR_WHITE, "Enemizer ON - Room %d - sTestEnemyId %d", //
+                                gGlobalContext->roomNum, sTestEnemyId);
+
+    // Object_DrawDebugInfo();
 
     Enemizer_HandleClearConditions();
     Enemizer_HandleMiniBossBattleTheme();

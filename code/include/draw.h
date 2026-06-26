@@ -47,7 +47,7 @@
 #define SPACING_SMALL_Y 9
 #define SPACING_SMALL_X 6
 // clang-format off
-#define COLOR_TITLE         RGB8(0x33, 0x33, 0xFF)
+#define COLOR_TITLE         RGB8(0x00, 0x99, 0xFF)
 #define COLOR_WHITE         RGB8(0xFF, 0xFF, 0xFF)
 #define COLOR_RED           RGB8(0xFF, 0x00, 0x00)
 #define COLOR_GREEN         RGB8(0x00, 0x9E, 0x73)

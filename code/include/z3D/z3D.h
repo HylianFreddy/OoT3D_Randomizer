@@ -179,7 +179,8 @@ typedef struct {
     /* 0x14F0 */ RespawnData respawn[3]; // "restart_data"
     /* 0x1544 */ char unk_1544[0x000E];
     /* 0x1552 */ s16 nayrusLoveTimer;
-    /* 0x1554 */ char unk_1554[0x0008];
+    /* 0x1554 */ char unk_1554[0x0004];
+    /* 0x1558 */ u32 seqIndex;
     /* 0x155C */ s16 rupeeAccumulator;
     /* 0x155E */ s16 timer1State;
     /* 0x1560 */ s16 timer1Value;
@@ -700,6 +701,10 @@ extern u8 Z3D_TOP_SCREEN_RIGHT_1[];
 extern u8 Z3D_TOP_SCREEN_RIGHT_2[];
 extern u8 Z3D_BOTTOM_SCREEN_1[];
 extern u8 Z3D_BOTTOM_SCREEN_2[];
+
+void FileSelect_LoadGame(GameState* gameState, s32 fileNum);
+void Load_Savefiles_Buffer(void);
+void Play_Init(GameState* gameState);
 
 void Item_Give(GlobalContext* globalCtx, u8 item);
 void DisplayTextbox(GlobalContext* globalCtx, u16 textId, Actor* actor);

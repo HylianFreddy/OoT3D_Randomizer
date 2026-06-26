@@ -746,6 +746,7 @@ static void WriteHints(tinyxml2::XMLDocument& spoilerLog) {
 // Writes the randomized enemies to the spoiler log.
 static void WriteRandomizedEnemies(tinyxml2::XMLDocument& spoilerLog) {
     using namespace Enemizer;
+    LOG(L_ENEMIZER, L_DEBUG, "Writing enemies to spoiler log...");
 
     if (!Settings::Enemizer) {
         return;
@@ -834,6 +835,7 @@ static void WriteRandomizedEnemies(tinyxml2::XMLDocument& spoilerLog) {
     }
 
     spoilerLog.RootElement()->InsertEndChild(parentNode);
+    LOG(L_ENEMIZER, L_DEBUG, "Enemizer spoiler log done!");
 }
 
 static void WriteAllLocations(tinyxml2::XMLDocument& spoilerLog, const bool collapsible = false) {

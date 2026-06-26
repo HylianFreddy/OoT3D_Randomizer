@@ -738,6 +738,7 @@ SECTIONS
 	.patch_PermadeathSkipMenu 0x41C980 + _LD_OFF : { *(.patch_PermadeathSkipMenu) }
 	.patch_SaveMenuIgnoreOpen 0x42EC00 + _LD_OFF : { *(.patch_SaveMenuIgnoreOpen) }
 	.patch_ItemsMenuDraw 0x434C08 + _LD_OFF : { *(.patch_ItemsMenuDraw) }
+	Play_Init = 0x4352F0 + _LD_OFF;
 	.patch_PlayInit 0x4352F4 + _LD_OFF : { *(.patch_PlayInit) }
 
 	/* 0x436690 */ _LD_OFF = _LD_EUR ? 0x20 : _LD_OFF;
@@ -745,6 +746,8 @@ SECTIONS
 	.patch_GearMenuEmptySlot 0x438C00 + _LD_OFF : { *(.patch_GearMenuEmptySlot) }
 	.patch_DrawHeartIcon 0x444368 + _LD_OFF : { *(.patch_DrawHeartIcon) }
 	SaveFile_Delete = 0x446FC4 + _LD_OFF;
+	Load_Savefiles_Buffer = 0x447150 + _LD_OFF;
+	FileSelect_LoadGame = 0x44735C + _LD_OFF;
 	.patch_BeforeLoadGame 0x447380 + _LD_OFF : { *(.patch_BeforeLoadGame) }
 	ret_BeforeLoadGame = 0x447384 + _LD_OFF;
 	.patch_DontSetMotionSetting 0x447410 + _LD_OFF : { *(.patch_DontSetMotionSetting) }

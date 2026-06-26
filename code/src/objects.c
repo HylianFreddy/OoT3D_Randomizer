@@ -9,6 +9,16 @@
 
 #include <stddef.h>
 
+/* TODO:
+Object_Spawn is already synchronous, it waits for the object to load before returning.
+Find equivalent of func_800982FC from oot and use that to load asynchronously on room change (enemies / ice traps / ...)
+Always keep custom assets object loaded in slot 1: reimplement Object_Clear and only delete other objects
+
+keep track of persistent objects. on room change clear others like in Object_Clear.
+when spawning persistent, shift all non-persistent ones.
+add function to spawn new non-persistent object (adding slot with negative objId).
+*/
+
 #define EXTENDED_OBJECT_SLOT_MAX 30
 
 // Copy of ObjectContext with more object slots.
@@ -27,14 +37,17 @@ void ExtendedObject_UpdateEntries(void) {
 }
 
 void ExtendedObject_Clear(void) {
+    LOG(L_OBJECTS, L_DEBUG, "ExtendedObject_Clear");
     Object_Clear(gGlobalContext, (ObjectContext*)&rExtendedObjectCtx);
 }
 
 // Copy of Object_Clear but only for non-persistent objects.
 void ExtendedObject_ClearNonPersistent(void) {
+    LOG(L_OBJECTS, L_TRACE, "ExtendedObject_ClearNonPersistent, num=%d", rExtendedObjectCtx.numPersistentEntries);
     for (s32 i = rExtendedObjectCtx.numPersistentEntries; i < OBJECT_SLOT_MAX; i++) {
         ObjectEntry* entry = &rExtendedObjectCtx.slots[i];
         if (entry->id > 0) {
+            LOG(L_OBJECTS, L_TRACE, "deleting object %X", entry->id);
             if (entry->size != 0) {
                 ZAR_Destroy(&entry->zarInfo);
                 entry->size = 0;
@@ -48,12 +61,15 @@ void ExtendedObject_ClearNonPersistent(void) {
 }
 
 void ExtendedObject_AfterObjectListCommand(void) {
+    LOG(L_OBJECTS, L_DEBUG, "ExtendedObject_AfterObjectListCommand");
     if (gGlobalContext->state.running == 1) { // Loading scene
         // Spawn objects that will not unload on room transitions.
         // Note: Player_Init has already run by this point, so whatever objects it
         // spawned in the extended context will also be marked as persistent here.
+        LOG(L_OBJECTS, L_DEBUG, "_ persistent start %d", rExtendedObjectCtx.numEntries);
         Object_FindSlotOrSpawn(OBJECT_CUSTOM_GENERAL_ASSETS);
         Object_FindSlotOrSpawn(OBJECT_GAMEPLAY_DUNGEON_KEEP);
+        LOG(L_OBJECTS, L_DEBUG, "_ persistent end %d", rExtendedObjectCtx.numEntries);
         rExtendedObjectCtx.numPersistentEntries = rExtendedObjectCtx.numEntries;
     }
 }
@@ -70,22 +86,26 @@ void ExtendedObject_InvalidateRoomObjects(void) {
 }
 
 s32 ExtendedObject_GetSlot(s16 objectId) {
+    LOG(L_OBJECTS, L_TRACE, "ExtendedObject_GetSlot: %X", objectId);
     for (s32 i = 0; i < rExtendedObjectCtx.numEntries; ++i) {
         s32 id = ABS(rExtendedObjectCtx.slots[i].id);
         if (id == objectId) {
             return i + OBJECT_SLOT_MAX;
         }
     }
+    LOG(L_OBJECTS, L_TRACE, "Searched object not loaded: objectId=%X", objectId);
     return -1;
 }
 
 ObjectEntry* Object_GetEntry(s16 slot) {
+    LOG(L_OBJECTS, L_TRACE, "Object_GetEntry: %X %X", slot, rExtendedObjectCtx.slots[slot - OBJECT_SLOT_MAX].id);
     if (slot >= OBJECT_SLOT_MAX) {
         return &rExtendedObjectCtx.slots[slot - OBJECT_SLOT_MAX];
     }
     if (slot >= 0) {
         return &gGlobalContext->objectCtx.slots[slot];
     }
+    LOG(L_OBJECTS, L_ERROR, "Object_GetEntry failed: %X", slot);
     return NULL;
 }
 
@@ -101,11 +121,15 @@ ObjectEntry* Object_FindEntry(s16 objectId) {
 }
 
 ObjectEntry* Object_FindEntryOrSpawn(s16 objectId) {
+    LOG(L_OBJECTS, L_TRACE, "Object_FindEntryOrSpawn %X", objectId);
     ObjectEntry* obj = Object_FindEntry(objectId);
     if (obj != NULL) {
         return obj;
     }
+    LOG(L_OBJECTS, L_TRACE, "did not find object 0x%X, trying to spawn it...", objectId);
     s32 slot = Object_Spawn((ObjectContext*)&rExtendedObjectCtx, objectId);
+    LOG(L_OBJECTS, L_DEBUG, "spawned %X, obj count %d, persistent count %d", objectId, rExtendedObjectCtx.numEntries,
+        rExtendedObjectCtx.numPersistentEntries);
     return &rExtendedObjectCtx.slots[slot];
 }
 
@@ -113,6 +137,8 @@ s32 Object_FindSlotOrSpawn(s16 objectId) {
     s32 objectSlot = Object_GetSlot(&gGlobalContext->objectCtx, objectId);
     if (objectSlot < 0) {
         objectSlot = Object_Spawn((ObjectContext*)&rExtendedObjectCtx, objectId) + OBJECT_SLOT_MAX;
+        LOG(L_OBJECTS, L_DEBUG, "spawned %X, obj count %d, persistent count %d", objectId,
+            rExtendedObjectCtx.numEntries, rExtendedObjectCtx.numPersistentEntries);
     }
     return objectSlot;
 }
@@ -136,6 +162,7 @@ static s16 Object_GetIdFromSlot(ObjectContext* objectCtx, s16 slot) {
         return objectCtx->slots[slot].id;
     }
 
+    LOG(L_OBJECTS, L_TRACE, "Object_GetIdFromSlot %X", rExtendedObjectCtx.slots[slot - OBJECT_SLOT_MAX].id);
     return rExtendedObjectCtx.slots[slot - OBJECT_SLOT_MAX].id;
 }
 
@@ -156,4 +183,21 @@ void* Object_GetCMABByIndex(s16 objectId, u32 objectAnimIdx) {
 
 u8 Object_IsRupeeObject(u16 objectId) {
     return objectId == OBJECT_GI_RUPEE || objectId == OBJECT_CUSTOM_RUPOOR;
+}
+
+#include "draw.h"
+void Object_DrawDebugInfo(void) {
+    for (u32 i = 0; i < gGlobalContext->objectCtx.numEntries; i++) {
+        s16 id = gGlobalContext->objectCtx.slots[i].id;
+        if (id > 0) {
+            Draw_DrawFormattedStringTop(10, 15 + 10 * i, COLOR_WHITE, "obj slot %d, id 0x%X", i, id);
+        }
+    }
+
+    for (u32 i = 0; i < rExtendedObjectCtx.numEntries; i++) {
+        s16 id = rExtendedObjectCtx.slots[i].id;
+        if (id > 0) {
+            Draw_DrawFormattedStringTop(150, 15 + 10 * i, COLOR_WHITE, "ext obj slot %d, id 0x%X", i, id);
+        }
+    }
 }
