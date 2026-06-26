@@ -31,6 +31,7 @@ _Static_assert(sizeof(Collider) == 0x18, "Collider size");
 #define AT_BOUNCED (1 << 2) // Had an AT collision with an AC_HARD collider
 
 #define AC_ON (1 << 0)      // Can have AC collisions when set as AC
+#define AC_HIT (1 << 1)     // Had an AC collision
 #define AC_BOUNCED (1 << 7) // Caused an AT collider to bounce off it
 
 typedef struct {

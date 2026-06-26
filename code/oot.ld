@@ -531,6 +531,7 @@ SECTIONS
 	Flags_GetCollectible = 0x36405C + _LD_OFF;
 	EffectSsDeadDb_Spawn = 0x3642F4 + _LD_OFF;
 	Audio_StopSequence = 0x3655D0 + _LD_OFF;
+	EffectSsKakera_Spawn = 0x365F98 + _LD_OFF;
 	.patch_StalchildDespawn_366338 0x366338 + _LD_OFF : { *(.patch_StalchildDespawn_366338) }
 	Audio_GetActiveSeqId = 0x366684 + _LD_OFF;
 	Flags_SetEnv = 0x366704 + _LD_OFF;
