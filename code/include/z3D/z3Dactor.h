@@ -290,6 +290,16 @@ typedef struct DynaPolyActor {
     /* 0x1BA */ s16 unk_1BA;
 } DynaPolyActor; // size = 0x1BC
 
+typedef struct PlayerAgeProperties {
+    /* 0x000 */ f32 ceilingCheckHeight;
+    /* 0x004 */ char unk_004[0x02C];
+    /* 0x030 */ f32 idleDepthInWater;
+    /* 0x034 */ char unk_034[0x004];
+    /* 0x038 */ f32 wallCheckRadius;
+    /* 0x03C */ char unk_03C[0x0F8];
+} PlayerAgeProperties;
+_Static_assert(sizeof(PlayerAgeProperties) == 0x134, "PlayerAgeProperties size");
+
 struct Player;
 
 typedef void (*PlayerActionFunc)(struct Player*, struct GlobalContext*);
@@ -340,7 +350,7 @@ typedef struct Player {
     /* 0x15E8 */ Collider unkMeleeWeaponCollider;
     /* 0x1600 */ char unk_1600[0x108];
     /* 0x1708 */ PlayerActionFunc actionFunc;
-    /* 0x170C */ char unk_170C[0x0004];
+    /* 0x170C */ PlayerAgeProperties* ageProperties;
     /* 0x1710 */ u32 stateFlags1;
     /* 0x1714 */ u32 stateFlags2;
     /* 0x1718 */ Actor* unk_1718;
@@ -376,6 +386,11 @@ typedef struct Player {
     /* 0x28CC */ char unk_28CC[0x180];
 } Player; // total size (from init vars): 2A4C
 _Static_assert(sizeof(Player) == 0x2A4C, "Player size");
+
+#define PLAYER_STATE1_GETTING_ITEM (1 << 10)
+#define PLAYER_STATE1_SWIMMING (1 << 27)
+
+#define PLAYER_STATE2_UNDERWATER (1 << 10)
 
 extern s32 sFloorType;
 
