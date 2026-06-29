@@ -151,6 +151,12 @@ void PlayerActor_rDestroy(Actor* thisx, GlobalContext* globalCtx) {
 void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
     Player* this = (Player*)thisx;
 
+    s8 realMeleeWeaponState = this->meleeWeaponState;
+    if (IceTrap_ActiveCurse == ICETRAP_CURSE_SWORD) {
+        // Don't draw slash effect
+        this->meleeWeaponState = 0;
+    }
+
     if (IceTrap_ActiveCurse == ICETRAP_CURSE_NAVI) {
         this->focusActor                              = NULL;
         globalCtx->actorCtx.attention.arrowHoverActor = NULL;
@@ -182,6 +188,8 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
     Player_UpdateRainbowTunic();
 
     PlayerActor_Draw(thisx, globalCtx);
+
+    this->meleeWeaponState = realMeleeWeaponState;
 }
 
 f32 Player_GetSpeedMultiplier(void) {
