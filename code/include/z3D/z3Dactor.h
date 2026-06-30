@@ -290,6 +290,16 @@ typedef struct DynaPolyActor {
     /* 0x1BA */ s16 unk_1BA;
 } DynaPolyActor; // size = 0x1BC
 
+typedef struct PlayerAgeProperties {
+    /* 0x000 */ f32 ceilingCheckHeight;
+    /* 0x004 */ char unk_004[0x02C];
+    /* 0x030 */ f32 idleDepthInWater;
+    /* 0x034 */ char unk_034[0x004];
+    /* 0x038 */ f32 wallCheckRadius;
+    /* 0x03C */ char unk_03C[0x0F8];
+} PlayerAgeProperties;
+_Static_assert(sizeof(PlayerAgeProperties) == 0x134, "PlayerAgeProperties size");
+
 struct Player;
 
 typedef void (*PlayerActionFunc)(struct Player*, struct GlobalContext*);
@@ -338,9 +348,11 @@ typedef struct Player {
     /* 0x1368 */ ColliderQuad meleeWeaponQuads[4];
     /* 0x1568 */ ColliderQuad shieldQuad;
     /* 0x15E8 */ Collider unkMeleeWeaponCollider;
-    /* 0x1600 */ char unk_1600[0x108];
+    /* 0x1600 */ char unk_1600[0x00F8];
+    /* 0x16F8 */ Actor* focusActor;
+    /* 0x16FC */ char unk_16FC[0x000C];
     /* 0x1708 */ PlayerActionFunc actionFunc;
-    /* 0x170C */ char unk_170C[0x0004];
+    /* 0x170C */ PlayerAgeProperties* ageProperties;
     /* 0x1710 */ u32 stateFlags1;
     /* 0x1714 */ u32 stateFlags2;
     /* 0x1718 */ Actor* unk_1718;
@@ -377,6 +389,11 @@ typedef struct Player {
 } Player; // total size (from init vars): 2A4C
 _Static_assert(sizeof(Player) == 0x2A4C, "Player size");
 
+#define PLAYER_STATE1_GETTING_ITEM (1 << 10)
+#define PLAYER_STATE1_SWIMMING (1 << 27)
+
+#define PLAYER_STATE2_UNDERWATER (1 << 10)
+
 extern s32 sFloorType;
 
 typedef enum {
@@ -403,9 +420,51 @@ typedef struct ActorHeapNode {
     struct ActorHeapNode* prev;
 } ActorHeapNode;
 
+typedef struct LockOnReticle {
+    /* 0x00 */ Vec3f pos;
+    /* 0x0C */ f32 radius; // distance towards the center of the locked-on actor
+    /* 0x10 */ Color_RGB8 color;
+} LockOnReticle; // size = 0x14
+
+typedef struct TargetIndicatorModels {
+    /* 0x00 */ SkeletonAnimationModel* pointer;                 // arrow above targetable actor
+    /* 0x04 */ SkeletonAnimationModel* reticle[4];              // four arrows circling around target
+    /* 0x14 */ SkeletonAnimationModel* reticleAfterimageOne[4]; // four arrows trailing behind `reticle`
+    /* 0x24 */ SkeletonAnimationModel* reticleAfterimageTwo[4]; // four arrows trailing behind `reticleAfterimageOne`
+} TargetIndicatorModels;
+
+typedef struct Attention {
+    /* 0x000 */ Vec3f naviHoverPos;
+    /* 0x00C */ Vec3f reticlePos;
+    /* 0x018 */ Color_RGBAf naviInnerColor;
+    /* 0x028 */ Color_RGBAf naviOuterColor;
+    /* 0x038 */ Actor* naviHoverActor;
+    /* 0x03C */ Actor* reticleActor;
+    /* 0x040 */ f32 naviMoveProgressFactor;
+    /* 0x044 */ f32 reticleRadius;
+    /* 0x048 */ f32 extraReticleRadius; // 3D exclusive
+    /* 0x04C */ s16 reticleFadeAlphaControl;
+    /* 0x04E */ u8 naviHoverActorCategory;
+    /* 0x04F */ u8 reticleSpinCounter;
+    /* 0x050 */ s8 curReticle;
+    /* 0x054 */ LockOnReticle lockOnReticles[4]; // 3D has one extra element
+    /* 0x0A4 */ Actor* forcedLockOnActor;
+    /* 0x0A8 */ Actor* bgmEnemy;
+    /* 0x0AC */ Actor* arrowHoverActor;
+    /* 0x0B0 */ TargetIndicatorModels visibleTargetIndicators; // Culled when behind a wall
+    /* 0x0E4 */ TargetIndicatorModels hiddenTargetIndicators;  // Drawn even when behind walls
+    /* 0x118 */ char unk_118[0x08];
+    /* 0x120 */ struct ZARInfo* zarInfo;
+    /* 0x124 */ char unk_120[0x04];
+    /* 0x128 */ u32 pointerActorType;
+    /* 0x12C */ char unk_12C[0x04];
+} Attention;
+_Static_assert(sizeof(Attention) == 0x130, "Attention size");
+
 extern ActorOverlay gActorOverlayTable[];
 
 void Actor_Kill(Actor* actor);
+void Actor_DoNothing(Actor* thisx, struct GlobalContext* globalCtx);
 
 u32 Actor_HasParent(Actor* actor, struct GlobalContext* globalCtx);
 f32 Actor_WorldDistXYZToActor(Actor* a, Actor* b) __attribute__((pcs("aapcs-vfp")));
@@ -416,6 +475,7 @@ void Actor_SetFeetPos(Actor* actor, nn_math_MTX34* mtx, int param_3, int param_4
 void Actor_UpdateBgCheckInfo(struct GlobalContext* globalCtx, Actor* actor, f32 wallCheckHeight, f32 wallCheckRadius,
                              f32 ceilingCheckHeight, s32 flags) __attribute__((pcs("aapcs-vfp")));
 s32 Player_InCsMode(struct GlobalContext* globalCtx);
+void Player_SetupIdleStanding(Player* this, struct GlobalContext* play);
 Actor* Actor_FindNearby(struct GlobalContext* globalCtx, Actor* ref_actor, s16 actorId, u8 actor_category, f32 range);
 void ActorShadow_DrawFeet(Actor* actor, void* lights, struct GlobalContext* globalCtx);
 // limbCount param is ignored, the function takes the value from the cmb

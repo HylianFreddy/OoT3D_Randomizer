@@ -21,9 +21,9 @@ PATCH DrawScreen
 PATCH Gfx_Update
     b hook_Gfx_Update
 
-PATCH IncomingGetItemID
+PATCH ActorGetItemOffer
     str r5,[r4,#0x2B0]
-    bl hook_IncomingGetItemID
+    bl hook_ActorGetItemOffer
 
 PATCH SaveFile_Init
     bl hook_SaveFile_Init
@@ -1012,11 +1012,11 @@ PATCH SaveMenuIgnoreOpen
 PATCH GameOverStart
     bl hook_GameOverStart
 
-PATCH PermadeathSkipMenu
-    bl hook_PermadeathSkipMenu
+PATCH GameOverMenuSkip
+    bl hook_GameOverMenuSkip
 
-PATCH PermadeathForceQuit
-    bl hook_PermadeathForceQuit
+PATCH GameOverActionSelection
+    bl hook_GameOverActionSelection
 
 PATCH OverrideFogDuringGameplayInit
     bl hook_OverrideFogDuringGameplayInit

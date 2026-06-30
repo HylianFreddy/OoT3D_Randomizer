@@ -205,6 +205,7 @@ SECTIONS
 	EnBox_Update = 0x1D5B70 + _LD_OFF;
 	.patch_ChestIceSmoke 0x1D5E5C + _LD_OFF : { *(.patch_ChestIceSmoke) }
 	EnDns_Update = 0x1D67CC + _LD_OFF;
+	EnElf_Draw = 0x1D6EC4 + _LD_OFF;
 	EnGe1_Update = 0x1D742C + _LD_OFF;
 	.patch_CheckGerudoToken_1D7AD4 0x1D7AD4 + _LD_OFF : { *(.patch_CheckGerudoToken_1D7AD4) }
 	EnGeldB_Init = 0x1D7BD8 + _LD_OFF;
@@ -334,6 +335,7 @@ SECTIONS
 	DemoEffect_Update = 0x262C58 + _LD_OFF;
 	DemoKankyo_Update = 0x262EA4 + _LD_OFF;
 	DoorGerudo_Update = 0x263118 + _LD_OFF;
+	EnElf_UpdateNavi = 0x267DC0 + _LD_OFF;
 	.patch_NaviNotifications 0x267E04 + _LD_OFF : { *(.patch_NaviNotifications) }
 	EnEncount1_Update = 0x2682D0 + _LD_OFF;
 	EnExRuppy_Update = 0x2689B8 + _LD_OFF;
@@ -399,6 +401,7 @@ SECTIONS
 	.patch_OverrideItemAndTextID 0x2BC1C8 + _LD_OFF : { *(.patch_OverrideItemAndTextID) }
 	.patch_NoSilverGauntletsCutsceneWarp 0x2BC2A0 + _LD_OFF : { *(.patch_NoSilverGauntletsCutsceneWarp) }
 	.patch_RunAnimationSpeed 0x2BE70C + _LD_OFF : { *(.patch_RunAnimationSpeed) }
+	Player_SetupIdleStanding = 0x2C2224 + _LD_OFF;
 	.patch_FishingIgnoreTempBOne 0x2C3A10 + _LD_OFF : { *(.patch_FishingIgnoreTempBOne) }
 	.patch_DoorOfTimeOpenCutscene 0x2C6218 + _LD_OFF : { *(.patch_DoorOfTimeOpenCutscene) }
 	.patch_NoHealFromHealthUpgrades 0x2CD07C + _LD_OFF : { *(.patch_NoHealFromHealthUpgrades) }
@@ -495,7 +498,7 @@ SECTIONS
 	.patch_GetObjectEntry_353CE4 0x353CE4 + _LD_OFF : { *(.patch_GetObjectEntry_353CE4) }
 	Collider_SetCylinder = 0x353D24 + _LD_OFF;
 	Collider_InitCylinder = 0x353DD0 + _LD_OFF;
-	SetupItemInWater = 0x354894 + _LD_OFF;
+	Player_SetupGetItemOrHoldBehavior = 0x354894 + _LD_OFF;
 	.patch_GetQuickItem 0x354AB0 + _LD_OFF : { *(.patch_GetQuickItem) }
 	.patch_FastChests 0x354CD4 + _LD_OFF : { *(.patch_FastChests) }
 	.patch_AboutToPickUpActor 0x354DD8 + _LD_OFF : { *(.patch_AboutToPickUpActor) }
@@ -567,7 +570,7 @@ SECTIONS
 	SkeletonAnimationModel_Draw = 0x372170 + _LD_OFF;
 	SkeletonAnimationModel_MatrixCopy = 0x3721E0 + _LD_OFF;
 	Actor_OfferGetItem = 0x3724DC + _LD_OFF;
-	.patch_IncomingGetItemID 0x3725AC + _LD_OFF : { *(.patch_IncomingGetItemID) }
+	.patch_ActorGetItemOffer 0x3725AC + _LD_OFF : { *(.patch_ActorGetItemOffer) }
 	Message_CloseTextbox = 0x3725E0 + _LD_OFF;
 	Model_EnableMeshGroupByIndex = 0x37266C + _LD_OFF;
 	.patch_Model_EnableMeshGroupByIndex 0x372670 + _LD_OFF : { *(.patch_Model_EnableMeshGroupByIndex) }
@@ -733,7 +736,7 @@ SECTIONS
 	.patch_OcarinaNoteButtonsPress 0x41AAAC + _LD_OFF : { *(.patch_OcarinaNoteButtonsPress) }
 	.patch_CurseTrapDizzyStick 0x41AB24 + _LD_OFF : { *(.patch_CurseTrapDizzyStick) }
 	.patch_CurseTrapDizzyButtons 0x41ABD0 + _LD_OFF : { *(.patch_CurseTrapDizzyButtons) }
-	.patch_PermadeathSkipMenu 0x41C980 + _LD_OFF : { *(.patch_PermadeathSkipMenu) }
+	.patch_GameOverMenuSkip 0x41C980 + _LD_OFF : { *(.patch_GameOverMenuSkip) }
 	.patch_SaveMenuIgnoreOpen 0x42EC00 + _LD_OFF : { *(.patch_SaveMenuIgnoreOpen) }
 	.patch_ItemsMenuDraw 0x434C08 + _LD_OFF : { *(.patch_ItemsMenuDraw) }
 	.patch_PlayInit 0x4352F4 + _LD_OFF : { *(.patch_PlayInit) }
@@ -786,11 +789,10 @@ SECTIONS
 	.patch_GameOverDontSpoilTradeItems 0x458BE0 + _LD_OFF : { *(.patch_GameOverDontSpoilTradeItems) }
 	ret_GameOverDontSpoilTradeItems = 0x458CA0 + _LD_OFF;
 	.patch_DeathHandleBButton 0x458CA8 + _LD_OFF : { *(.patch_DeathHandleBButton) }
-	.patch_PermadeathForceQuit 0x458E20 + _LD_OFF : { *(.patch_PermadeathForceQuit) }
+	.patch_GameOverActionSelection 0x458E28 + _LD_OFF : { *(.patch_GameOverActionSelection) }
 	.patch_SetGameOverEntrance 0x458E3C + _LD_OFF : { *(.patch_SetGameOverEntrance) }
 	ret_SetGameOverEntrance = 0x458EC8 + _LD_OFF;
 	.patch_SetGameOverRespawnFlag 0x458EF0 + _LD_OFF : { *(.patch_SetGameOverRespawnFlag) }
-	ret_PermadeathForceQuit = 0x458FF4 + _LD_OFF;
 	.patch_InterfaceDrawDontSpoilTradeItems 0x45A17C + _LD_OFF : { *(.patch_InterfaceDrawDontSpoilTradeItems) }
 	ret_InterfaceDrawDontSpoilTradeItems = 0x45A210 + _LD_OFF;
 	.patch_TimerExpiration 0x45A948 + _LD_OFF : { *(.patch_TimerExpiration) }
