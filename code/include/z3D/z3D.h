@@ -734,7 +734,7 @@ void Flags_SetEnv(GlobalContext* globalCtx, s16 flag);
 void Actor_OfferGetItem(Actor* actor, GlobalContext* globalCtx, s32 getItemId, f32 xzRange, f32 yRange)
     __attribute__((pcs("aapcs-vfp")));
 void Message_CloseTextbox(GlobalContext* globalCtx);
-void SetupItemInWater(Player* player, GlobalContext* globalCtx);
+void Player_SetupGetItemOrHoldBehavior(Player* player, GlobalContext* globalCtx);
 void Health_ChangeBy(GlobalContext* arg1, u32 arg2);
 void Flags_SetSwitch(GlobalContext* globalCtx, u32 flag);
 void Flags_UnsetSwitch(GlobalContext* globalCtx, u32 flag);
