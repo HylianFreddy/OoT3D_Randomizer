@@ -1056,6 +1056,22 @@ void LocationTable_Init() {
     // clang-format on
 
     Dungeon::GanonsCastle.AddSharedLocation(GANON);
+
+    // Verify that the max possible location count is less than ITEM_OVERRIDES_MAX
+    u32 maxLocCount = ItemLocation::GetItemLocationCount();
+    // For each dungeon, only consider the quest type with most locations.
+    for (auto dungeon : Dungeon::dungeonList) {
+        u32 mqLocCount      = dungeon->GetMQLocations().size();
+        u32 vanillaLocCount = dungeon->GetVanillaLocations().size();
+        maxLocCount -= std::min(mqLocCount, vanillaLocCount);
+    }
+
+    if (maxLocCount > ITEM_OVERRIDES_MAX) {
+        printf("\x1b[5;12H\x1b[31mERROR!\x1b[37m Max location count: %lu", maxLocCount);
+        while (aptMainLoop()) {
+            // Block application
+        }
+    }
 }
 
 // clang-format off
