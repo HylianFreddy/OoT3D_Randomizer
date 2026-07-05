@@ -18,6 +18,7 @@
 #include "hint_list.hpp"
 #include "settings.hpp"
 #include "keys.hpp"
+#include "dungeon.hpp"
 
 class Entrance;
 
@@ -120,6 +121,10 @@ class ItemLocation {
         : scene(scene_), type(type_), flag(flag_), name(std::move(name_)), hintKey(hintKey_), vanillaItem(vanillaItem_),
           categories(std::move(categories_)), price(price_), collectionCheck(collectionCheck_),
           collectionCheckGroup(collectionCheckGroup_) {
+        if (type < ItemLocationType::HintStone) {
+            InitializedItemLocations++;
+        }
+        Dungeon::AddLocToDungeon(this);
     }
 
     ItemOverride_Key Key() const {
@@ -239,6 +244,10 @@ class ItemLocation {
 
     bool IsCategory(Category category) const {
         return std::any_of(categories.begin(), categories.end(), [category](auto entry) { return entry == category; });
+    }
+
+    const std::vector<Category>& GetCategories() const {
+        return categories;
     }
 
     bool IsDungeon() const {
@@ -424,6 +433,10 @@ class ItemLocation {
                              NONE,  std::move(categories) };
     }
 
+    static u32 GetItemLocationCount() {
+        return InitializedItemLocations;
+    }
+
     void ResetVariables() {
         checked            = false;
         addedToPool        = false;
@@ -437,6 +450,8 @@ class ItemLocation {
     }
 
   private:
+    inline static u32 InitializedItemLocations = 0;
+
     u8 scene;
     ItemLocationType type;
     u8 flag;

@@ -46,6 +46,8 @@ enum class Category {
     cIceCavern,
     cGerudoTrainingGrounds,
     cGanonsCastle,
+    cMasterQuest,
+    cVanillaQuest,
     cSkulltula,
     cBossHeart,
     cTempleOfTime,
