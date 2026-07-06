@@ -10,12 +10,22 @@
 
 #define TICKS_PER_SEC 268123480.0
 
+bool gInitError = false;
+
 int main() {
     GfxInit();
     HintTable_Init();
     ItemTable_Init();
     LocationTable_Init();
     Enemizer::InitEnemyTypes();
+
+    if (gInitError){
+        printf("\x1b[5;13H\x1b[31mERROR!\x1b[37m Init checks failed!");
+        while (aptMainLoop()) {
+            // Block application
+        }
+    }
+
     MenuInit();
 
     u64 initialHoldTime = svcGetSystemTick();

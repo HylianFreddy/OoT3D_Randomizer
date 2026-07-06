@@ -9,6 +9,8 @@
 #include "debug.hpp"
 #include "keys.hpp"
 
+extern bool gInitError;
+
 // Location definitions
 static std::array<ItemLocation, KEY_ENUM_MAX> locationTable;
 
@@ -1067,10 +1069,8 @@ void LocationTable_Init() {
     }
 
     if (maxLocCount > ITEM_OVERRIDES_MAX) {
-        printf("\x1b[5;12H\x1b[31mERROR!\x1b[37m Max location count: %lu", maxLocCount);
-        while (aptMainLoop()) {
-            // Block application
-        }
+        CitraPrint("ERROR! Max location count: " + std::to_string(maxLocCount));
+        gInitError = true;
     }
 }
 
@@ -1704,6 +1704,13 @@ std::vector<LocationKey> childOnlyHotLocations = {
     DMC_LOWER_BLUE_RUPEE_6,
 };
 // clang-format on
+
+void ItemLocation::OnInit(void) {
+    if (type < ItemLocationType::HintStone) {
+        InitializedItemLocations++;
+    }
+    Dungeon::AddLocToDungeon(this);
+}
 
 ItemLocation* Location(LocationKey locKey) {
     return &(locationTable[locKey]);
