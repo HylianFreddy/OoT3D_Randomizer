@@ -124,6 +124,4 @@ using DungeonArray = std::array<DungeonInfo*, 12>;
 
 extern const DungeonArray dungeonList;
 
-void AddLocToDungeon(const ItemLocation* loc);
-
 } // namespace Dungeon

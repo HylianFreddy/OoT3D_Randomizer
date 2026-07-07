@@ -48,6 +48,7 @@ enum class Category {
     cGanonsCastle,
     cMasterQuest,
     cVanillaQuest,
+    cNotInOverworld,
     cSkulltula,
     cBossHeart,
     cTempleOfTime,

@@ -17,9 +17,9 @@ static std::array<ItemLocation, KEY_ENUM_MAX> locationTable;
 void LocationTable_Init() {
     // clang-format off
 
-    // No area                                                                       scene flag  name                                    hint key (hint_list.cpp)               vanilla item               categories                                                                                                            collection check (if needed)                             collection check group
-    locationTable[NONE]                                  = ItemLocation::Base       (0xFF, 0xFF, "Invalid Location",                     NONE,                                  NONE,                      {},                                                                                                                   SpoilerCollectionCheck::None());
-    locationTable[TRIFORCE_HUNT_GOAL]                    = ItemLocation::Base       (0xFF, 0xFF, "Triforce Hunt Goal",                   NONE,                                  TRIFORCE,                  {},                                                                                                                   SpoilerCollectionCheck::None());
+    // No area                                                                       scene flag  name                                    location key / hint key                vanilla item               categories                                                                                                            collection check (if needed)                             collection check group
+    locationTable[NONE]                                  = ItemLocation::Base       (0xFF, 0xFF, "Invalid Location",                     NONE,                                  NONE,                      {Category::cNotInOverworld},                                                                                          SpoilerCollectionCheck::None());
+    locationTable[TRIFORCE_HUNT_GOAL]                    = ItemLocation::Base       (0xFF, 0xFF, "Triforce Hunt Goal",                   TRIFORCE_HUNT_GOAL,                    TRIFORCE,                  {Category::cNotInOverworld},                                                                                          SpoilerCollectionCheck::None());
 
     // Kokiri Forest
     locationTable[KF_KOKIRI_SWORD_CHEST]                 = ItemLocation::Chest      (0x55, 0x00, "KF Kokiri Sword Chest",                KF_KOKIRI_SWORD_CHEST,                 KOKIRI_SWORD,              {Category::cKokiriForest, Category::cForest,},                                                                                                                                 SpoilerCollectionCheckGroup::GROUP_KOKIRI_FOREST);
@@ -110,7 +110,7 @@ void LocationTable_Init() {
     locationTable[MARKET_TREASURE_CHEST_GAME_REWARD]     = ItemLocation::Chest      (0x10, 0x0A, "MK Treasure Chest Game Reward",        MARKET_TREASURE_CHEST_GAME_REWARD,     TREASURE_GAME_HEART,       {Category::cInnerMarket, Category::cMarket, Category::cMinigame},                                                     SpoilerCollectionCheck::ItemGetInf(19),                  SpoilerCollectionCheckGroup::GROUP_MARKET);
     locationTable[MARKET_BOMBCHU_BOWLING_FIRST_PRIZE]    = ItemLocation::Base       (0x4B, 0x33, "MK Bombchu Bowling First Prize",       MARKET_BOMBCHU_BOWLING_FIRST_PRIZE,    PROGRESSIVE_BOMB_BAG,      {Category::cInnerMarket, Category::cMarket, Category::cMinigame},                                                     SpoilerCollectionCheck::ItemGetInf(25),                  SpoilerCollectionCheckGroup::GROUP_MARKET);
     locationTable[MARKET_BOMBCHU_BOWLING_SECOND_PRIZE]   = ItemLocation::Base       (0x4B, 0x3E, "MK Bombchu Bowling Second Prize",      MARKET_BOMBCHU_BOWLING_SECOND_PRIZE,   PIECE_OF_HEART,            {Category::cInnerMarket, Category::cMarket, Category::cMinigame},                                                     SpoilerCollectionCheck::ItemGetInf(26),                  SpoilerCollectionCheckGroup::GROUP_MARKET);
-    locationTable[MARKET_BOMBCHU_BOWLING_BOMBCHUS]       = ItemLocation::Base       (0x4B, 0xFF, "MK Bombchu Bowling Bombchus",          NONE,                                  BOMBCHU_DROP,              {Category::cInnerMarket, Category::cMarket, Category::cMinigame},                                                     SpoilerCollectionCheck::None(),                          SpoilerCollectionCheckGroup::GROUP_MARKET);
+    locationTable[MARKET_BOMBCHU_BOWLING_BOMBCHUS]       = ItemLocation::Base       (0x4B, 0xFF, "MK Bombchu Bowling Bombchus",          MARKET_BOMBCHU_BOWLING_BOMBCHUS,       BOMBCHU_DROP,              {Category::cInnerMarket, Category::cMarket, Category::cMinigame},                                                     SpoilerCollectionCheck::None(),                          SpoilerCollectionCheckGroup::GROUP_MARKET);
     locationTable[MARKET_LOST_DOG]                       = ItemLocation::Base       (0x35, 0x3E, "MK Lost Dog",                          MARKET_LOST_DOG,                       PIECE_OF_HEART,            {Category::cInnerMarket, Category::cMarket,},                                                                         SpoilerCollectionCheck::InfTable(0x19, 0x09),            SpoilerCollectionCheckGroup::GROUP_MARKET);
     locationTable[MARKET_SHOOTING_GALLERY_REWARD]        = ItemLocation::Base       (0x42, 0x60, "MK Shooting Gallery",                  MARKET_SHOOTING_GALLERY_REWARD,        PROGRESSIVE_SLINGSHOT,     {Category::cInnerMarket, Category::cMarket, Category::cMinigame},                                                     SpoilerCollectionCheck::ItemGetInf(5),                   SpoilerCollectionCheckGroup::GROUP_MARKET);
     locationTable[MARKET_10_BIG_POES]                    = ItemLocation::Base       (0x4D, 0x0F, "MK 10 Big Poes",                       MARKET_10_BIG_POES,                    EMPTY_BOTTLE,              {Category::cInnerMarket, Category::cMarket,},                                                                         SpoilerCollectionCheck::BigPoePoints(),                  SpoilerCollectionCheckGroup::GROUP_MARKET);
@@ -741,7 +741,7 @@ void LocationTable_Init() {
               --- BOSSES ---
       -------------------------------*/
 
-    locationTable[LINKS_POCKET]                                  = ItemLocation::Reward (0xFF, 0xFF,                    "Link's Pocket", LINKS_POCKET,  LIGHT_MEDALLION,   {Category::cDungeonReward},                                                                                                                           SpoilerCollectionCheck::AlwaysCollected(),               SpoilerCollectionCheckGroup::GROUP_KOKIRI_FOREST);
+    locationTable[LINKS_POCKET]                                  = ItemLocation::Reward (0xFF, 0xFF,                    "Link's Pocket", LINKS_POCKET,  LIGHT_MEDALLION,   {Category::cDungeonReward, Category::cNotInOverworld},                                                                                                SpoilerCollectionCheck::AlwaysCollected(),               SpoilerCollectionCheckGroup::GROUP_KOKIRI_FOREST);
     locationTable[QUEEN_GOHMA]                                   = ItemLocation::Reward (0xFF, DUNGEON_DEKU_TREE,       "Queen Gohma",   QUEEN_GOHMA,   KOKIRI_EMERALD,    {Category::cDungeonReward, Category::cDekuTree},                                                                                                      SpoilerCollectionCheck::EventChkInf(0x09),               SpoilerCollectionCheckGroup::GROUP_DUNGEON_DEKU_TREE);
     locationTable[KING_DODONGO]                                  = ItemLocation::Reward (0xFF, DUNGEON_DODONGOS_CAVERN, "King Dodongo",  KING_DODONGO,  GORON_RUBY,        {Category::cDungeonReward, Category::cDodongosCavern},                                                                                                SpoilerCollectionCheck::EventChkInf(0x25),               SpoilerCollectionCheckGroup::GROUP_DUNGEON_DODONGOS_CAVERN);
     locationTable[BARINADE]                                      = ItemLocation::Reward (0xFF, DUNGEON_JABUJABUS_BELLY, "Barinade",      BARINADE,      ZORA_SAPPHIRE,     {Category::cDungeonReward, Category::cJabuJabusBelly},                                                                                                SpoilerCollectionCheck::EventChkInf(0x37),               SpoilerCollectionCheckGroup::GROUP_DUNGEON_JABUJABUS_BELLY);
@@ -750,7 +750,7 @@ void LocationTable_Init() {
     locationTable[MORPHA]                                        = ItemLocation::Reward (0xFF, DUNGEON_WATER_TEMPLE,    "Morpha",        MORPHA,        WATER_MEDALLION,   {Category::cDungeonReward, Category::cWaterTemple},                                                                                                   SpoilerCollectionCheck::EventChkInf(0x4A),               SpoilerCollectionCheckGroup::GROUP_DUNGEON_WATER_TEMPLE);
     locationTable[TWINROVA]                                      = ItemLocation::Reward (0xFF, DUNGEON_SPIRIT_TEMPLE,   "Twinrova",      TWINROVA,      SPIRIT_MEDALLION,  {Category::cDungeonReward, Category::cSpiritTemple},                                                                                                  SpoilerCollectionCheck::EventChkInf(0x47),               SpoilerCollectionCheckGroup::GROUP_DUNGEON_SPIRIT_TEMPLE);
     locationTable[BONGO_BONGO]                                   = ItemLocation::Reward (0xFF, DUNGEON_SHADOW_TEMPLE,   "Bongo Bongo",   BONGO_BONGO,   SHADOW_MEDALLION,  {Category::cDungeonReward, Category::cShadowTemple},                                                                                                  SpoilerCollectionCheck::EventChkInf(0x46),               SpoilerCollectionCheckGroup::GROUP_DUNGEON_SHADOW_TEMPLE);
-    locationTable[GANON]                                         = ItemLocation::Reward (0xFF, 0xF0,                    "Ganon",         NONE,          TRIFORCE,          {},                                                                                                                                                   SpoilerCollectionCheck::None(),                          SpoilerCollectionCheckGroup::GROUP_DUNGEON_GANONS_CASTLE);
+    locationTable[GANON]                                         = ItemLocation::Reward (0xFF, 0xF0,                    "Ganon",         GANON,         TRIFORCE,          {Category::cGanonsCastle},                                                                                                                            SpoilerCollectionCheck::None(),                          SpoilerCollectionCheckGroup::GROUP_DUNGEON_GANONS_CASTLE);
 
     /*-------------------------------
           ---HEART CONTAINERS ---
@@ -1057,8 +1057,6 @@ void LocationTable_Init() {
 
     // clang-format on
 
-    Dungeon::GanonsCastle.AddSharedLocation(GANON);
-
     // Verify that the max possible location count is less than ITEM_OVERRIDES_MAX
     u32 maxLocCount = ItemLocation::GetItemLocationCount();
     // For each dungeon, only consider the quest type with most locations.
@@ -1073,6 +1071,9 @@ void LocationTable_Init() {
         gInitError = true;
     }
 }
+
+// Filled automatically as locations are created.
+std::vector<LocationKey> overworldLocations = {};
 
 // clang-format off
 std::vector<LocationKey> KF_ShopLocations = {
@@ -1223,472 +1224,6 @@ std::vector<LocationKey> dungeonRewardLocations = {
     BONGO_BONGO,
     LINKS_POCKET,
 };
-std::vector<LocationKey> overworldLocations = {
-  // Kokiri Forest
-  KF_KOKIRI_SWORD_CHEST,
-  KF_MIDOS_TOP_LEFT_CHEST,
-  KF_MIDOS_TOP_RIGHT_CHEST,
-  KF_MIDOS_BOTTOM_LEFT_CHEST,
-  KF_MIDOS_BOTTOM_RIGHT_CHEST,
-  KF_STORMS_GROTTO_CHEST,
-  KF_LINKS_HOUSE_COW,
-  KF_END_OF_BRIDGE_BLUE_RUPEE,
-  KF_BEHIND_MIDOS_HOUSE_BLUE_RUPEE,
-  KF_BOULDER_MAZE_BLUE_RUPEE_1,
-  KF_BOULDER_MAZE_BLUE_RUPEE_2,
-  KF_NEAR_RAMP_GREEN_RUPEE_1,
-  KF_NEAR_RAMP_GREEN_RUPEE_2,
-  KF_NEAR_MIDOS_HOUSE_GREEN_RUPEE_1,
-  KF_NEAR_MIDOS_HOUSE_GREEN_RUPEE_2,
-  KF_RUPEE_CIRCLE_GREEN_RUPEE_1,
-  KF_RUPEE_CIRCLE_GREEN_RUPEE_2,
-  KF_RUPEE_CIRCLE_GREEN_RUPEE_3,
-  KF_RUPEE_CIRCLE_GREEN_RUPEE_4,
-  KF_RUPEE_CIRCLE_GREEN_RUPEE_5,
-  KF_RUPEE_CIRCLE_GREEN_RUPEE_6,
-  KF_RUPEE_CIRCLE_RED_RUPEE,
-
-  // Shop
-  KF_SHOP_ITEM_1,
-  KF_SHOP_ITEM_2,
-  KF_SHOP_ITEM_3,
-  KF_SHOP_ITEM_4,
-  KF_SHOP_ITEM_5,
-  KF_SHOP_ITEM_6,
-  KF_SHOP_ITEM_7,
-  KF_SHOP_ITEM_8,
-
-  // Lost Woods
-  LW_GIFT_FROM_SARIA,
-  LW_SKULL_KID,
-  LW_TRADE_COJIRO,
-  LW_TRADE_ODD_POULTICE,
-  LW_OCARINA_MEMORY_GAME,
-  LW_TARGET_IN_WOODS,
-  LW_DEKU_SCRUB_NEAR_DEKU_THEATER_RIGHT,
-  LW_DEKU_SCRUB_NEAR_DEKU_THEATER_LEFT,
-  LW_DEKU_SCRUB_NEAR_BRIDGE,
-  LW_IN_BOULDER_BLUE_RUPEE,
-  LW_IN_WATER_NEAR_ZR_SHORTCUT_GREEN_RUPEE_1,
-  LW_IN_WATER_NEAR_ZR_SHORTCUT_GREEN_RUPEE_2,
-  LW_IN_WATER_NEAR_ZR_SHORTCUT_GREEN_RUPEE_3,
-  LW_IN_WATER_NEAR_ZR_SHORTCUT_GREEN_RUPEE_4,
-  LW_IN_WATER_NEAR_ZR_SHORTCUT_GREEN_RUPEE_5,
-  LW_IN_WATER_NEAR_ZR_SHORTCUT_GREEN_RUPEE_6,
-  LW_IN_WATER_NEAR_ZR_SHORTCUT_GREEN_RUPEE_7,
-  LW_IN_WATER_NEAR_ZR_SHORTCUT_GREEN_RUPEE_8,
-  LW_NEAR_SHORTCUTS_GROTTO_CHEST,
-  LW_DEKU_SCRUB_GROTTO_REAR,
-  LW_DEKU_SCRUB_GROTTO_FRONT,
-  DEKU_THEATER_SKULL_MASK,
-  DEKU_THEATER_MASK_OF_TRUTH,
-
-  // Sacred Forest Meadow
-  SONG_FROM_SARIA,
-  SHEIK_IN_FOREST,
-  SFM_WOLFOS_GROTTO_CHEST,
-  SFM_DEKU_SCRUB_GROTTO_REAR,
-  SFM_DEKU_SCRUB_GROTTO_FRONT,
-
-  // Hyrule Field
-  HF_SOUTHEAST_GROTTO_CHEST,
-  HF_OPEN_GROTTO_CHEST,
-  HF_NEAR_MARKET_GROTTO_CHEST,
-  HF_OCARINA_OF_TIME_ITEM,
-  SONG_FROM_OCARINA_OF_TIME,
-  HF_TEKTITE_GROTTO_FREESTANDING_POH,
-  HF_DEKU_SCRUB_GROTTO,
-  HF_BIG_POE_1,
-  HF_BIG_POE_2,
-  HF_BIG_POE_3,
-  HF_BIG_POE_4,
-  HF_BIG_POE_5,
-  HF_BIG_POE_6,
-  HF_BIG_POE_7,
-  HF_BIG_POE_8,
-  HF_BIG_POE_9,
-  HF_BIG_POE_10,
-  HF_COW_GROTTO_COW,
-
-  // Lake Hylia
-  LH_CHILD_FISHING,
-  LH_ADULT_FISHING,
-  LH_LAB_DIVE,
-  LH_TRADE_FROG,
-  LH_UNDERWATER_ITEM,
-  LH_SUN,
-  LH_FREESTANDING_POH,
-  LH_UNDER_WATER_GREEN_RUPEE_1,
-  LH_UNDER_WATER_GREEN_RUPEE_2,
-  LH_UNDER_WATER_GREEN_RUPEE_3,
-  LH_LAB_DIVE_RED_RUPEE_1,
-  LH_LAB_DIVE_RED_RUPEE_2,
-  LH_LAB_DIVE_RED_RUPEE_3,
-  LH_DEKU_SCRUB_GROTTO_LEFT,
-  LH_DEKU_SCRUB_GROTTO_RIGHT,
-  LH_DEKU_SCRUB_GROTTO_CENTER,
-
-  // Gerudo Valley
-  GV_CHEST,
-  GV_TRADE_SAW,
-  GV_WATERFALL_FREESTANDING_POH,
-  GV_CRATE_FREESTANDING_POH,
-  GV_DEKU_SCRUB_GROTTO_REAR,
-  GV_DEKU_SCRUB_GROTTO_FRONT,
-  GV_COW,
-  GV_OCTOROCK_GROTTO_GREEN_RUPEE_1,
-  GV_OCTOROCK_GROTTO_GREEN_RUPEE_2,
-  GV_OCTOROCK_GROTTO_GREEN_RUPEE_3,
-  GV_OCTOROCK_GROTTO_GREEN_RUPEE_4,
-  GV_OCTOROCK_GROTTO_BLUE_RUPEE_1,
-  GV_OCTOROCK_GROTTO_BLUE_RUPEE_2,
-  GV_OCTOROCK_GROTTO_BLUE_RUPEE_3,
-  GV_OCTOROCK_GROTTO_RED_RUPEE,
-
-  // Gerudo Fortress
-  GF_CHEST,
-  GF_HBA_1000_POINTS,
-  GF_HBA_1500_POINTS,
-  GF_NORTH_F1_CARPENTER,
-  GF_NORTH_F2_CARPENTER,
-  GF_SOUTH_F1_CARPENTER,
-  GF_SOUTH_F2_CARPENTER,
-  GF_GERUDO_TOKEN,
-
-  // Haunted Wasteland
-  WASTELAND_CHEST,
-  WASTELAND_BOMBCHU_SALESMAN,
-
-  // Desert Colossus
-  SHEIK_AT_COLOSSUS,
-  COLOSSUS_FREESTANDING_POH,
-  COLOSSUS_GREAT_FAIRY_REWARD,
-  COLOSSUS_DEKU_SCRUB_GROTTO_REAR,
-  COLOSSUS_DEKU_SCRUB_GROTTO_FRONT,
-
-  // Market
-  MARKET_TREASURE_CHEST_GAME_REWARD,
-  MARKET_BOMBCHU_BOWLING_FIRST_PRIZE,
-  MARKET_BOMBCHU_BOWLING_SECOND_PRIZE,
-  MARKET_BOMBCHU_BOWLING_BOMBCHUS,
-  MARKET_LOST_DOG,
-  MARKET_SHOOTING_GALLERY_REWARD,
-  MARKET_10_BIG_POES,
-  MARKET_TREASURE_CHEST_GAME_ITEM_1,
-  MARKET_TREASURE_CHEST_GAME_ITEM_2,
-  MARKET_TREASURE_CHEST_GAME_ITEM_3,
-  MARKET_TREASURE_CHEST_GAME_ITEM_4,
-  MARKET_TREASURE_CHEST_GAME_ITEM_5,
-
-  // Market Shops
-  MARKET_BOMBCHU_SHOP_ITEM_1,
-  MARKET_BOMBCHU_SHOP_ITEM_2,
-  MARKET_BOMBCHU_SHOP_ITEM_3,
-  MARKET_BOMBCHU_SHOP_ITEM_4,
-  MARKET_BOMBCHU_SHOP_ITEM_5,
-  MARKET_BOMBCHU_SHOP_ITEM_6,
-  MARKET_BOMBCHU_SHOP_ITEM_7,
-  MARKET_BOMBCHU_SHOP_ITEM_8,
-  MARKET_POTION_SHOP_ITEM_1,
-  MARKET_POTION_SHOP_ITEM_2,
-  MARKET_POTION_SHOP_ITEM_3,
-  MARKET_POTION_SHOP_ITEM_4,
-  MARKET_POTION_SHOP_ITEM_5,
-  MARKET_POTION_SHOP_ITEM_6,
-  MARKET_POTION_SHOP_ITEM_7,
-  MARKET_POTION_SHOP_ITEM_8,
-  MARKET_BAZAAR_ITEM_1,
-  MARKET_BAZAAR_ITEM_2,
-  MARKET_BAZAAR_ITEM_3,
-  MARKET_BAZAAR_ITEM_4,
-  MARKET_BAZAAR_ITEM_5,
-  MARKET_BAZAAR_ITEM_6,
-  MARKET_BAZAAR_ITEM_7,
-  MARKET_BAZAAR_ITEM_8,
-
-  // Hyrule Castle
-  HC_MALON_EGG,
-  HC_ZELDAS_LETTER,
-  SONG_FROM_IMPA,
-  HC_GREAT_FAIRY_REWARD,
-  OGC_GREAT_FAIRY_REWARD,
-
-  // Temple of Time
-  SHEIK_AT_TEMPLE,
-  TOT_MASTER_SWORD,
-  TOT_LIGHT_ARROWS_CUTSCENE,
-
-  // Kakariko
-  SHEIK_IN_KAKARIKO,
-  KAK_REDEAD_GROTTO_CHEST,
-  KAK_OPEN_GROTTO_CHEST,
-  KAK_10_GOLD_SKULLTULA_REWARD,
-  KAK_20_GOLD_SKULLTULA_REWARD,
-  KAK_30_GOLD_SKULLTULA_REWARD,
-  KAK_40_GOLD_SKULLTULA_REWARD,
-  KAK_50_GOLD_SKULLTULA_REWARD,
-  KAK_MAN_ON_ROOF,
-  KAK_SHOOTING_GALLERY_REWARD,
-  KAK_TRADE_ODD_MUSHROOM,
-  KAK_GRANNYS_SHOP,
-  KAK_ANJU_AS_CHILD,
-  KAK_ANJU_AS_ADULT,
-  KAK_TRADE_POCKET_CUCCO,
-  KAK_IMPAS_HOUSE_FREESTANDING_POH,
-  KAK_WINDMILL_FREESTANDING_POH,
-  SONG_FROM_WINDMILL,
-  KAK_IMPAS_HOUSE_COW,
-
-  // Kakariko Shops
-  KAK_POTION_SHOP_ITEM_1,
-  KAK_POTION_SHOP_ITEM_2,
-  KAK_POTION_SHOP_ITEM_3,
-  KAK_POTION_SHOP_ITEM_4,
-  KAK_POTION_SHOP_ITEM_5,
-  KAK_POTION_SHOP_ITEM_6,
-  KAK_POTION_SHOP_ITEM_7,
-  KAK_POTION_SHOP_ITEM_8,
-  KAK_BAZAAR_ITEM_1,
-  KAK_BAZAAR_ITEM_2,
-  KAK_BAZAAR_ITEM_3,
-  KAK_BAZAAR_ITEM_4,
-  KAK_BAZAAR_ITEM_5,
-  KAK_BAZAAR_ITEM_6,
-  KAK_BAZAAR_ITEM_7,
-  KAK_BAZAAR_ITEM_8,
-
-  // Graveyard
-  GRAVEYARD_HOOKSHOT_CHEST,
-  GRAVEYARD_SHIELD_GRAVE_CHEST,
-  GRAVEYARD_HEART_PIECE_GRAVE_CHEST,
-  GRAVEYARD_COMPOSERS_GRAVE_CHEST,
-  SONG_FROM_COMPOSERS_GRAVE,
-  GRAVEYARD_FREESTANDING_POH,
-  GRAVEYARD_DAMPE_RACE_FREESTANDING_POH,
-  GRAVEYARD_DAMPE_GRAVEDIGGING_TOUR,
-  GRAVEYARD_DAMPE_RACE_GREEN_RUPEE_1,
-  GRAVEYARD_DAMPE_RACE_GREEN_RUPEE_2,
-  GRAVEYARD_DAMPE_RACE_GREEN_RUPEE_3,
-  GRAVEYARD_DAMPE_RACE_GREEN_RUPEE_4,
-  GRAVEYARD_DAMPE_RACE_GREEN_RUPEE_5,
-  GRAVEYARD_DAMPE_RACE_GREEN_RUPEE_6,
-  GRAVEYARD_DAMPE_RACE_GREEN_RUPEE_7,
-  GRAVEYARD_DAMPE_RACE_GREEN_RUPEE_8,
-
-  // Death Mountain Trail
-  DMT_CHEST,
-  DMT_STORMS_GROTTO_CHEST,
-  DMT_TRADE_BROKEN_SWORD,
-  DMT_TRADE_EYEDROPS,
-  DMT_TRADE_CLAIM_CHECK,
-  DMT_GREAT_FAIRY_REWARD,
-  DMT_FREESTANDING_POH,
-  DMT_COW_GROTTO_COW,
-  DMT_ROCK_BLUE_RUPEE,
-  DMT_ROCK_RED_RUPEE,
-  DMT_COW_GROTTO_RUPEE_CIRCLE_GREEN_RUPEE_1,
-  DMT_COW_GROTTO_RUPEE_CIRCLE_GREEN_RUPEE_2,
-  DMT_COW_GROTTO_RUPEE_CIRCLE_GREEN_RUPEE_3,
-  DMT_COW_GROTTO_RUPEE_CIRCLE_GREEN_RUPEE_4,
-  DMT_COW_GROTTO_RUPEE_CIRCLE_GREEN_RUPEE_5,
-  DMT_COW_GROTTO_RUPEE_CIRCLE_GREEN_RUPEE_6,
-  DMT_COW_GROTTO_RUPEE_CIRCLE_RED_RUPEE,
-
-  // Goron City
-  GC_MAZE_LEFT_CHEST,
-  GC_MAZE_CENTER_CHEST,
-  GC_MAZE_RIGHT_CHEST,
-  GC_ROLLING_GORON_AS_CHILD,
-  GC_ROLLING_GORON_AS_ADULT,
-  GC_DARUNIAS_JOY,
-  GC_POT_FREESTANDING_POH,
-  GC_DEKU_SCRUB_GROTTO_LEFT,
-  GC_DEKU_SCRUB_GROTTO_RIGHT,
-  GC_DEKU_SCRUB_GROTTO_CENTER,
-  GC_MEDIGORON,
-
-  // Goron City Shop
-  GC_SHOP_ITEM_1,
-  GC_SHOP_ITEM_2,
-  GC_SHOP_ITEM_3,
-  GC_SHOP_ITEM_4,
-  GC_SHOP_ITEM_5,
-  GC_SHOP_ITEM_6,
-  GC_SHOP_ITEM_7,
-  GC_SHOP_ITEM_8,
-
-  // Death Mountain
-  DMC_UPPER_GROTTO_CHEST,
-  DMC_WALL_FREESTANDING_POH,
-  DMC_VOLCANO_FREESTANDING_POH,
-  SHEIK_IN_CRATER,
-  DMC_DEKU_SCRUB,
-  DMC_GREAT_FAIRY_REWARD,
-  DMC_DEKU_SCRUB_GROTTO_LEFT,
-  DMC_DEKU_SCRUB_GROTTO_RIGHT,
-  DMC_DEKU_SCRUB_GROTTO_CENTER,
-  DMC_LOWER_RED_RUPEE_1,
-  DMC_LOWER_RED_RUPEE_2,
-  DMC_LOWER_BLUE_RUPEE_1,
-  DMC_LOWER_BLUE_RUPEE_2,
-  DMC_LOWER_BLUE_RUPEE_3,
-  DMC_LOWER_BLUE_RUPEE_4,
-  DMC_LOWER_BLUE_RUPEE_5,
-  DMC_LOWER_BLUE_RUPEE_6,
-  DMC_SCARE_CROW_RUPEE_CIRCLE_GREEN_RUPEE_1,
-  DMC_SCARE_CROW_RUPEE_CIRCLE_GREEN_RUPEE_2,
-  DMC_SCARE_CROW_RUPEE_CIRCLE_GREEN_RUPEE_3,
-  DMC_SCARE_CROW_RUPEE_CIRCLE_GREEN_RUPEE_4,
-  DMC_SCARE_CROW_RUPEE_CIRCLE_GREEN_RUPEE_5,
-  DMC_SCARE_CROW_RUPEE_CIRCLE_GREEN_RUPEE_6,
-  DMC_SCARE_CROW_RUPEE_CIRCLE_RED_RUPEE,
-
-  // Zoras River
-  ZR_OPEN_GROTTO_CHEST,
-  ZR_MAGIC_BEAN_SALESMAN,
-  ZR_FROGS_ZELDAS_LULLABY,
-  ZR_FROGS_EPONAS_SONG,
-  ZR_FROGS_SARIAS_SONG,
-  ZR_FROGS_SUNS_SONG,
-  ZR_FROGS_SONG_OF_TIME,
-  ZR_FROGS_IN_THE_RAIN,
-  ZR_FROGS_OCARINA_GAME,
-  ZR_NEAR_OPEN_GROTTO_FREESTANDING_POH,
-  ZR_NEAR_DOMAIN_FREESTANDING_POH,
-  ZR_DEKU_SCRUB_GROTTO_REAR,
-  ZR_DEKU_SCRUB_GROTTO_FRONT,
-  ZR_WATERFALL_RED_RUPEE_1,
-  ZR_WATERFALL_RED_RUPEE_2,
-  ZR_WATERFALL_RED_RUPEE_3,
-  ZR_WATERFALL_RED_RUPEE_4,
-
-  // Zoras Domain
-  ZD_CHEST,
-  ZD_DIVING_MINIGAME,
-  ZD_KING_ZORA_THAWED,
-  ZD_TRADE_PRESCRIPTION,
-
-  // Zora's Domain Shop
-  ZD_SHOP_ITEM_1,
-  ZD_SHOP_ITEM_2,
-  ZD_SHOP_ITEM_3,
-  ZD_SHOP_ITEM_4,
-  ZD_SHOP_ITEM_5,
-  ZD_SHOP_ITEM_6,
-  ZD_SHOP_ITEM_7,
-  ZD_SHOP_ITEM_8,
-
-  // Zoras Fountain
-  ZF_ICEBERG_FREESTANDING_POH,
-  ZF_BOTTOM_FREESTANDING_POH,
-  ZF_GREAT_FAIRY_REWARD,
-  ZF_UNDERWATER_GREEN_RUPEE_1,
-  ZF_UNDERWATER_GREEN_RUPEE_2,
-  ZF_UNDERWATER_GREEN_RUPEE_3,
-  ZF_UNDERWATER_GREEN_RUPEE_4,
-  ZF_UNDERWATER_GREEN_RUPEE_5,
-  ZF_UNDERWATER_GREEN_RUPEE_6,
-  ZF_UNDERWATER_GREEN_RUPEE_7,
-  ZF_UNDERWATER_GREEN_RUPEE_8,
-  ZF_UNDERWATER_GREEN_RUPEE_9,
-  ZF_UNDERWATER_GREEN_RUPEE_10,
-  ZF_UNDERWATER_GREEN_RUPEE_11,
-  ZF_UNDERWATER_GREEN_RUPEE_12,
-  ZF_UNDERWATER_GREEN_RUPEE_13,
-  ZF_UNDERWATER_GREEN_RUPEE_14,
-  ZF_UNDERWATER_GREEN_RUPEE_15,
-  ZF_UNDERWATER_GREEN_RUPEE_16,
-  ZF_UNDERWATER_GREEN_RUPEE_17,
-  ZF_UNDERWATER_GREEN_RUPEE_18,
-
-  // Lon Lon Ranch
-  SONG_FROM_MALON,
-  LLR_TALONS_CHICKENS,
-  LLR_FREESTANDING_POH,
-  LLR_DEKU_SCRUB_GROTTO_LEFT,
-  LLR_DEKU_SCRUB_GROTTO_RIGHT,
-  LLR_DEKU_SCRUB_GROTTO_CENTER,
-  LLR_STABLES_LEFT_COW,
-  LLR_STABLES_RIGHT_COW,
-  LLR_TOWER_LEFT_COW,
-  LLR_TOWER_RIGHT_COW,
-
-  /*-------------------------------
-     --- GOLD SKULLTULA TOKENS ---
-    -------------------------------*/
-
-  // Overworld
-  KF_GS_BEAN_PATCH,
-  KF_GS_KNOW_IT_ALL_HOUSE,
-  KF_GS_HOUSE_OF_TWINS,
-
-  LW_GS_BEAN_PATCH_NEAR_BRIDGE,
-  LW_GS_BEAN_PATCH_NEAR_THEATER,
-  LW_GS_ABOVE_THEATER,
-  SFM_GS,
-
-  HF_GS_COW_GROTTO,
-  HF_GS_NEAR_KAK_GROTTO,
-
-  LH_GS_BEAN_PATCH,
-  LH_GS_SMALL_ISLAND,
-  LH_GS_LAB_WALL,
-  LH_GS_LAB_CRATE,
-  LH_GS_TREE,
-
-  GV_GS_BEAN_PATCH,
-  GV_GS_SMALL_BRIDGE,
-  GV_GS_PILLAR,
-  GV_GS_BEHIND_TENT,
-
-  GF_GS_ARCHERY_RANGE,
-  GF_GS_TOP_FLOOR,
-
-  WASTELAND_GS,
-  COLOSSUS_GS_BEAN_PATCH,
-  COLOSSUS_GS_HILL,
-  COLOSSUS_GS_TREE,
-
-  OGC_GS,
-  HC_GS_STORMS_GROTTO,
-  HC_GS_TREE,
-  MARKET_GS_GUARD_HOUSE,
-
-  KAK_GS_HOUSE_UNDER_CONSTRUCTION,
-  KAK_GS_SKULLTULA_HOUSE,
-  KAK_GS_GUARDS_HOUSE,
-  KAK_GS_TREE,
-  KAK_GS_WATCHTOWER,
-  KAK_GS_ABOVE_IMPAS_HOUSE,
-
-  DMC_GS_BEAN_PATCH,
-  DMC_GS_CRATE,
-
-  DMT_GS_BEAN_PATCH,
-  DMT_GS_NEAR_KAK,
-  DMT_GS_ABOVE_DODONGOS_CAVERN,
-  DMT_GS_FALLING_ROCKS_PATH,
-
-  GC_GS_CENTER_PLATFORM,
-  GC_GS_BOULDER_MAZE,
-  GRAVEYARD_GS_WALL,
-  GRAVEYARD_GS_BEAN_PATCH,
-
-  ZR_GS_LADDER,
-  ZR_GS_TREE,
-  ZR_GS_ABOVE_BRIDGE,
-  ZR_GS_NEAR_RAISED_GROTTOS,
-
-  ZD_GS_FROZEN_WATERFALL,
-  ZF_GS_ABOVE_THE_LOG,
-  ZF_GS_HIDDEN_CAVE,
-  ZF_GS_TREE,
-
-  LLR_GS_BACK_WALL,
-  LLR_GS_RAIN_SHED,
-  LLR_GS_HOUSE_WINDOW,
-  LLR_GS_TREE,
-};
 
 std::vector<LocationKey> childOnlyHotLocations = {
     DMC_DEKU_SCRUB,
@@ -1706,14 +1241,84 @@ std::vector<LocationKey> childOnlyHotLocations = {
 // clang-format on
 
 void ItemLocation::OnInit(void) {
+    if (type >= ItemLocationType::HintStone) {
+        return; // Ignore hint reachability locations
+    }
+
+    InitializedItemLocations++;
     if (name.size() > 51) { // max length for in-game menu
         CitraPrint("ERROR! Location name too long: " + name);
         gInitError = true;
     }
-    if (type < ItemLocationType::HintStone) {
-        InitializedItemLocations++;
+
+    // Add location to a vector, if needed.
+    using namespace Dungeon;
+    bool isVanillaQuest  = false;
+    bool isMasterQuest   = false;
+    bool notInOverworld  = false;
+    DungeonInfo* dungeon = nullptr;
+    for (Category cat : categories) {
+        switch (cat) {
+            case Category::cVanillaQuest:
+                isVanillaQuest = true;
+                break;
+            case Category::cMasterQuest:
+                isMasterQuest = true;
+                break;
+            case Category::cNotInOverworld:
+                notInOverworld = true;
+                break;
+            case Category::cDekuTree:
+                dungeon = &DekuTree;
+                break;
+            case Category::cDodongosCavern:
+                dungeon = &DodongosCavern;
+                break;
+            case Category::cJabuJabusBelly:
+                dungeon = &JabuJabusBelly;
+                break;
+            case Category::cForestTemple:
+                dungeon = &ForestTemple;
+                break;
+            case Category::cFireTemple:
+                dungeon = &FireTemple;
+                break;
+            case Category::cWaterTemple:
+                dungeon = &WaterTemple;
+                break;
+            case Category::cSpiritTemple:
+                dungeon = &SpiritTemple;
+                break;
+            case Category::cShadowTemple:
+                dungeon = &ShadowTemple;
+                break;
+            case Category::cBottomOfTheWell:
+                dungeon = &BottomOfTheWell;
+                break;
+            case Category::cIceCavern:
+                dungeon = &IceCavern;
+                break;
+            case Category::cGerudoTrainingGrounds:
+                dungeon = &GerudoTrainingGrounds;
+                break;
+            case Category::cGanonsCastle:
+                dungeon = &GanonsCastle;
+                break;
+            default:
+                break;
+        }
     }
-    Dungeon::AddLocToDungeon(this);
+    if (dungeon != nullptr) {
+        if (isVanillaQuest) {
+            dungeon->AddVanillaLocation(hintKey);
+        } else if (isMasterQuest) {
+            dungeon->AddMQLocation(hintKey);
+        } else {
+            dungeon->AddSharedLocation(hintKey);
+        }
+    } else if (!notInOverworld) {
+        overworldLocations.push_back(hintKey);
+    }
 }
 
 ItemLocation* Location(LocationKey locKey) {
