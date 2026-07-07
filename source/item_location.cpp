@@ -1310,14 +1310,14 @@ void ItemLocation::OnInit(void) {
     }
     if (dungeon != nullptr) {
         if (isVanillaQuest) {
-            dungeon->AddVanillaLocation(hintKey);
+            dungeon->AddVanillaLocation(locKey);
         } else if (isMasterQuest) {
-            dungeon->AddMQLocation(hintKey);
+            dungeon->AddMQLocation(locKey);
         } else {
-            dungeon->AddSharedLocation(hintKey);
+            dungeon->AddSharedLocation(locKey);
         }
     } else if (!notInOverworld) {
-        overworldLocations.push_back(hintKey);
+        overworldLocations.push_back(locKey);
     }
 }
 
