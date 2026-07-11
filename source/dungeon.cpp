@@ -122,6 +122,8 @@ DungeonInfo DekuTree = DungeonInfo("Deku Tree", DEKU_TREE, DEKU_TREE_MAP, DEKU_T
                                        DEKU_TREE_GS_BASEMENT_GATE,
                                        DEKU_TREE_GS_BASEMENT_VINES,
                                        DEKU_TREE_GS_COMPASS_ROOM,
+                                       DEKU_TREE_2F_FLOATING_HEART,
+                                       DEKU_TREE_3F_FLOATING_HEART,
                                    },
                                    {
                                        // MQ Locations
@@ -163,6 +165,10 @@ DungeonInfo DodongosCavern = DungeonInfo("Dodongo's Cavern", DODONGOS_CAVERN, DO
                                              DODONGOS_CAVERN_GS_ALCOVE_ABOVE_STAIRS,
                                              DODONGOS_CAVERN_GS_BACK_ROOM,
                                              DODONGOS_CAVERN_GS_SIDE_ROOM_NEAR_LOWER_LIZALFOS,
+                                             DODONGOS_CAVERN_1F_MINIBOSS_ROOM_HEART_BEHIND_LAVAFALL,
+                                             DODONGOS_CAVERN_2F_BLADE_TRAPS_ROOM_HEART_BEHIND_BLOCK,
+                                             DODONGOS_CAVERN_2F_MINIBOSS_ROOM_HEART_1,
+                                             DODONGOS_CAVERN_2F_MINIBOSS_ROOM_HEART_2,
                                          },
                                          {
                                              // MQ Locations
@@ -243,6 +249,10 @@ DungeonInfo ForestTemple =
                     FOREST_TEMPLE_GS_LEVEL_ISLAND_COURTYARD,
                     FOREST_TEMPLE_GS_LOBBY,
                     FOREST_TEMPLE_GS_BASEMENT,
+                    FOREST_TEMPLE_WELL_HEART_1,
+                    FOREST_TEMPLE_WELL_HEART_2,
+                    FOREST_TEMPLE_LEVEL_ISLAND_RIDGE_HEART_1,
+                    FOREST_TEMPLE_LEVEL_ISLAND_RIDGE_HEART_2,
                 },
                 {
                     // MQ Locations
@@ -295,6 +305,15 @@ DungeonInfo FireTemple =
                     FIRE_TEMPLE_GS_BOULDER_MAZE,
                     FIRE_TEMPLE_GS_SCARECROW_TOP,
                     FIRE_TEMPLE_GS_SCARECROW_CLIMB,
+                    FIRE_TEMPLE_PILLAR_ROOM_HEART_1,
+                    FIRE_TEMPLE_PILLAR_ROOM_HEART_2,
+                    FIRE_TEMPLE_PILLAR_ROOM_HEART_3,
+                    FIRE_TEMPLE_EAST_CENTRAL_ROOM_HEART_1,
+                    FIRE_TEMPLE_EAST_CENTRAL_ROOM_HEART_2,
+                    FIRE_TEMPLE_EAST_CENTRAL_ROOM_HEART_3,
+                    FIRE_TEMPLE_FIRE_WALL_CHASE_HEART_1,
+                    FIRE_TEMPLE_FIRE_WALL_CHASE_HEART_2,
+                    FIRE_TEMPLE_FIRE_WALL_CHASE_HEART_3,
                 },
                 {
                     // MQ Locations
@@ -342,6 +361,10 @@ DungeonInfo WaterTemple =
                     WATER_TEMPLE_GS_CENTRAL_PILLAR,
                     WATER_TEMPLE_GS_NEAR_BOSS_KEY_CHEST,
                     WATER_TEMPLE_GS_RIVER,
+                    WATER_TEMPLE_RIVER_HEART_1,
+                    WATER_TEMPLE_RIVER_HEART_2,
+                    WATER_TEMPLE_RIVER_HEART_3,
+                    WATER_TEMPLE_RIVER_HEART_4,
                 },
                 {
                     // MQ Locations
@@ -391,6 +414,8 @@ DungeonInfo SpiritTemple =
                     SPIRIT_TEMPLE_GS_LOBBY,
                     SPIRIT_TEMPLE_GS_SUN_ON_FLOOR_ROOM,
                     SPIRIT_TEMPLE_GS_METAL_FENCE,
+                    SPIRIT_TEMPLE_ADULT_CLIMB_HEART_1,
+                    SPIRIT_TEMPLE_ADULT_CLIMB_HEART_2,
                 },
                 {
                     // MQ Locations
@@ -458,6 +483,13 @@ DungeonInfo ShadowTemple =
                     SHADOW_TEMPLE_GS_TRIPLE_GIANT_POT,
                     SHADOW_TEMPLE_GS_LIKE_LIKE_ROOM,
                     SHADOW_TEMPLE_GS_NEAR_SHIP,
+                    SHADOW_TEMPLE_INVISIBLE_BLADES_SOT_BLOCK_HEART_1,
+                    SHADOW_TEMPLE_INVISIBLE_BLADES_SOT_BLOCK_HEART_2,
+                    SHADOW_TEMPLE_NEAR_SHIP_SCARECROW_HEART_1,
+                    SHADOW_TEMPLE_NEAR_SHIP_SCARECROW_HEART_2,
+                    SHADOW_TEMPLE_ACROSS_CAVERN_BROKEN_PILLAR_HEART,
+                    SHADOW_TEMPLE_ACROSS_CAVERN_SCARECROW_HEART_1,
+                    SHADOW_TEMPLE_ACROSS_CAVERN_SCARECROW_HEART_2,
                 },
                 {
                     // MQ Locations
@@ -521,6 +553,8 @@ DungeonInfo BottomOfTheWell =
                     BOTTOM_OF_THE_WELL_CENTER_ROOM_PIT_FALL_BLUE_RUPEE_3,
                     BOTTOM_OF_THE_WELL_CENTER_ROOM_PIT_FALL_BLUE_RUPEE_4,
                     BOTTOM_OF_THE_WELL_CENTER_ROOM_PIT_FALL_BLUE_RUPEE_5,
+                    BOTTOM_OF_THE_WELL_OPEN_SARCOPHAGUS_HEART,
+                    BOTTOM_OF_THE_WELL_CLOSED_SARCOPHAGUS_HEART,
                 },
                 {
                     // MQ Locations
@@ -550,6 +584,9 @@ DungeonInfo IceCavern =
                     ICE_CAVERN_PUSH_BLOCK_ROOM_RED_RUPEE_1,
                     ICE_CAVERN_PUSH_BLOCK_ROOM_RED_RUPEE_2,
                     ICE_CAVERN_PUSH_BLOCK_ROOM_RED_RUPEE_3,
+                    ICE_CAVERN_MAP_CHEST_ROOM_HEART_1,
+                    ICE_CAVERN_MAP_CHEST_ROOM_HEART_2,
+                    ICE_CAVERN_MAP_CHEST_ROOM_HEART_3,
                 },
                 {
                     // MQ Locations
@@ -594,6 +631,8 @@ DungeonInfo GerudoTrainingGrounds =
                     GERUDO_TRAINING_GROUNDS_HEAVY_BLOCK_THIRD_CHEST,
                     GERUDO_TRAINING_GROUNDS_HEAVY_BLOCK_FOURTH_CHEST,
                     GERUDO_TRAINING_GROUNDS_FREESTANDING_KEY,
+                    GERUDO_TRAINING_GROUNDS_BEAMOS_ROOM_HEART_1,
+                    GERUDO_TRAINING_GROUNDS_BEAMOS_ROOM_HEART_2,
                 },
                 {
                     // MQ Locations
@@ -641,6 +680,11 @@ DungeonInfo GanonsCastle =
                     GANONS_CASTLE_DEKU_SCRUB_CENTER_LEFT,
                     GANONS_CASTLE_DEKU_SCRUB_CENTER_RIGHT,
                     GANONS_CASTLE_DEKU_SCRUB_RIGHT,
+                    GANONS_CASTLE_SPIRIT_TRIAL_HEART,
+                    GANONS_CASTLE_SHADOW_TRIAL_HEART_1,
+                    GANONS_CASTLE_SHADOW_TRIAL_HEART_2,
+                    GANONS_CASTLE_SHADOW_TRIAL_HEART_3,
+                    GANONS_CASTLE_FIRE_TRIAL_HEART,
                 },
                 {
                     // MQ Locations
