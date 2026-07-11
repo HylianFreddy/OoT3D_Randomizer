@@ -127,10 +127,9 @@ void PlayerActor_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
          PLAYER->itemActionParam == 35)) { // sword items
         PLAYER->meleeWeaponState = -1;     // slash effect with no hitbox (same as "damageless death ISG")
     }
-    if (PLAYER->itemActionParam == 38) { // Blue Potion
-        if (IceTrap_ActiveCurse == ICETRAP_CURSE_BLIND)
-            gStaticContext.dekuNutFlash = -1;
 
+    // Drinking Blue Potion
+    if (PLAYER->itemActionParam == 38 && this->skelAnime.curFrame > 45.0f) {
         IceTrap_DispelCurses();
     }
 
@@ -178,6 +177,32 @@ void PlayerActor_rDestroy(Actor* thisx, GlobalContext* globalCtx) {
 }
 
 void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
+    Player* this = (Player*)thisx;
+
+    s8 realMeleeWeaponState = this->meleeWeaponState;
+    if (IceTrap_ActiveCurse == ICETRAP_CURSE_SWORD) {
+        // Don't draw slash effect
+        this->meleeWeaponState = 0;
+    }
+
+    if (IceTrap_ActiveCurse == ICETRAP_CURSE_NAVI) {
+        this->focusActor                              = NULL;
+        globalCtx->actorCtx.attention.arrowHoverActor = NULL;
+        globalCtx->actorCtx.attention.reticleActor    = NULL;
+        globalCtx->actorCtx.attention.naviHoverActor  = NULL;
+
+        EnElf* navi = (EnElf*)this->naviActor;
+        if (navi != NULL) {
+            navi->actor.update                        = Actor_DoNothing;
+            navi->actor.draw                          = Actor_DoNothing;
+            navi->lightInfoGlow.params.point.radius   = 0;
+            navi->lightInfoNoGlow.params.point.radius = 0;
+        }
+    } else if (this->naviActor != NULL && this->naviActor->update == Actor_DoNothing) {
+        this->naviActor->update = EnElf_UpdateNavi;
+        this->naviActor->draw   = EnElf_Draw;
+    }
+
     // Draw empty scabbard if no sword is equipped.
     // For child, do this only with certain shields, because the game already handles the other cases.
     if (!(gSaveContext.equips.equipment & 0x000F)) {
@@ -197,6 +222,8 @@ void PlayerActor_rDraw(Actor* thisx, GlobalContext* globalCtx) {
     if (gExtSaveData.options[OPTION_FIREBALLLINK]) {
         Player_HandleFireballForm((Player*)thisx, prevSaModelsCount);
     }
+
+    this->meleeWeaponState = realMeleeWeaponState;
 }
 
 static void Player_HandleFireballForm(Player* this, s32 prevSaModelsCount) {
