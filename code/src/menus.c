@@ -5,6 +5,7 @@
 #include "settings.h"
 #include "dungeon.h"
 #include "item_override.h"
+#include "permadeath.h"
 
 extern MenuSpriteManager* gItemsMenuSpritesManager;
 extern MenuSpriteManager* gBowMenuSpritesManager;
@@ -153,4 +154,20 @@ void Menu_CheckAndTriggerSariaHint(void) {
         PLAYER->naviTextId = -0xE0;
         PLAYER->naviActor->flags |= (1 << 16);
     }
+}
+
+Bool GameOverMenu_ShouldSkip() {
+    return Permadeath_ShouldApply() || ItemOverride_IsAPendingOverride();
+}
+
+s32 GameOverMenu_OverrideAction(s32 originalAction) {
+    if (Permadeath_ShouldApply()) {
+        return 2; // pressed Quit button
+    }
+
+    if (ItemOverride_IsAPendingOverride()) {
+        return 1; // pressed Continue button
+    }
+
+    return originalAction;
 }

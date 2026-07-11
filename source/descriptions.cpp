@@ -600,6 +600,12 @@ string_view shuffleRupeesDesc         = "Shuffles all freestanding visible rupee
                                         "from the Goron City spinning pot or the pots in\n"//
                                         "Shadow Temple.";                                  //
 /*------------------------------                                                           //
+|    SHUFFLE RECOVERY HEARTS   |                                                           //
+------------------------------*/                                                           //
+string_view shuffleRecoveryHeartsDesc = "Shuffles all freestanding visible recovery hearts\n"
+                                        "that are placed in the world without player\n"    //
+                                        "intervention.";                                   //
+/*------------------------------                                                           //
 |       SHUFFLE BIG POES       |                                                           //
 ------------------------------*/                                                           //
 string_view shuffleBigPoesDesc        = "The 10 Big Poes in Hyrule Field will drop random\n"

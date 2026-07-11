@@ -700,6 +700,12 @@ void GenerateItemPool() {
         }
     }
 
+    if (!ShuffleRecoveryHearts) {
+        for (LocationKey loc : GetLocations(allLocations, Category::cRecoveryHeart)) {
+            Location(loc)->PlaceVanillaItem();
+        }
+    }
+
     if (BombchusInLogic) {
         AddItemToMainPool(PROGRESSIVE_BOMBCHUS, 5);
     } else {
@@ -725,10 +731,11 @@ void GenerateItemPool() {
         Location(GF_SOUTH_F2_CARPENTER)->PlaceVanillaItem();
     } else if (GerudoKeys.IsNot(GERUDOKEYS_VANILLA)) {
         if (GerudoFortress.Is(GERUDOFORTRESS_FAST)) {
+            // Placing junk in other guards so logic doesn't see them as a viable alternative to the shuffled key
             AddItemToMainPool(GERUDO_FORTRESS_SMALL_KEY);
-            Location(GF_NORTH_F2_CARPENTER)->PlaceVanillaItem();
-            Location(GF_SOUTH_F1_CARPENTER)->PlaceVanillaItem();
-            Location(GF_SOUTH_F2_CARPENTER)->PlaceVanillaItem();
+            PlaceItemInLocation(GF_NORTH_F2_CARPENTER, RECOVERY_HEART);
+            PlaceItemInLocation(GF_SOUTH_F1_CARPENTER, RECOVERY_HEART);
+            PlaceItemInLocation(GF_SOUTH_F2_CARPENTER, RECOVERY_HEART);
         } else {
             // Only add key ring if 4 Fortress keys necessary
             if (RingFortress) {
@@ -750,10 +757,11 @@ void GenerateItemPool() {
         }
     } else {
         if (GerudoFortress.Is(GERUDOFORTRESS_FAST)) {
+            // Placing junk in other guards so logic doesn't see them as a viable alternative for enemizer
             Location(GF_NORTH_F1_CARPENTER)->PlaceVanillaItem();
-            Location(GF_NORTH_F2_CARPENTER)->PlaceVanillaItem();
-            Location(GF_SOUTH_F1_CARPENTER)->PlaceVanillaItem();
-            Location(GF_SOUTH_F2_CARPENTER)->PlaceVanillaItem();
+            PlaceItemInLocation(GF_NORTH_F2_CARPENTER, RECOVERY_HEART);
+            PlaceItemInLocation(GF_SOUTH_F1_CARPENTER, RECOVERY_HEART);
+            PlaceItemInLocation(GF_SOUTH_F2_CARPENTER, RECOVERY_HEART);
         } else {
             Location(GF_NORTH_F1_CARPENTER)->PlaceVanillaItem();
             Location(GF_NORTH_F2_CARPENTER)->PlaceVanillaItem();

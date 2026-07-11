@@ -19,10 +19,13 @@
 #include "z3D/actors/z_en_item00.h"
 #include "z3D/actors/z_obj_mure3.h"
 
-#define READY_ON_LAND 1
-#define READY_IN_WATER 2
+typedef enum Readiness {
+    NOT_READY,
+    READY_STANDING,
+    READY_SWIMMING,
+} Readiness;
 
-static ItemOverride rItemOverrides[640] = { 0 };
+static ItemOverride rItemOverrides[800] = { 0 };
 static s32 rItemOverrides_Count         = 0;
 
 static ItemOverride rPendingOverrideQueue[7] = { 0 };
@@ -34,9 +37,6 @@ ItemRow* rActiveItemRow                 = NULL;
 u8 isItemOverrideActive                 = FALSE;
 u8 rActiveItemChestType                 = 0;
 static u16 rActiveItemObjectId          = 0;
-
-static u8 rSatisfiedPendingFrames      = 0;
-static u8 rSatisfiedPendingFramesWater = 0;
 
 void ItemOverride_Init(void) {
     while (rItemOverrides[rItemOverrides_Count].key.all != 0) {
@@ -148,7 +148,7 @@ static ItemOverride_Key ItemOverride_GetSearchKey(Actor* actor, u8 scene, u8 ite
         s32 respawningCollected =
             collectibleFlag >= 0x20 && SaveFile_GetRupeeSanityFlag(gGlobalContext->sceneNum, collectibleFlag);
 
-        if ((collectibleType > ITEM00_RUPEE_RED && collectibleType != ITEM00_HEART_PIECE &&
+        if ((collectibleType > ITEM00_RECOVERY_HEART && collectibleType != ITEM00_HEART_PIECE &&
              collectibleType != ITEM00_SMALL_KEY) ||
             respawningCollected) {
             return (ItemOverride_Key){ .all = 0 };
@@ -257,6 +257,11 @@ s32 ItemOverride_IsAPendingOverride(void) {
     return (rPendingOverrideQueue[0].key.all != 0);
 }
 
+Bool ItemOverride_IsPendingQueueFilled(void) {
+    u8 lastOvrIdx = ARR_SIZE(rPendingOverrideQueue) - 1;
+    return rPendingOverrideQueue[lastOvrIdx].key.all != 0;
+}
+
 void ItemOverride_PushDelayedOverride(u8 flag) {
     ItemOverride_Key key  = { .all = 0 };
     key.scene             = 0xFF;
@@ -331,15 +336,6 @@ static void ItemOverride_AfterKeyReceived(ItemOverride_Key key) {
     }
 }
 
-static void ItemOverride_PopIceTrap(void) {
-    ItemOverride* override = &rPendingOverrideQueue[0];
-    if (override->value.itemId == GI_ICE_TRAP) {
-        IceTrap_Push();
-        ItemOverride_PopPendingOverride();
-        ItemOverride_AfterKeyReceived(override->key);
-    }
-}
-
 void ItemOverride_AfterItemReceived(void) {
     ItemOverride_Key key = rActiveItemOverride.key;
     if (key.all == 0) {
@@ -348,74 +344,32 @@ void ItemOverride_AfterItemReceived(void) {
     ItemOverride_AfterKeyReceived(key);
 }
 
-static u32 ItemOverride_PlayerIsReadyOnLand(void) {
-    if ((PLAYER->stateFlags1 & 0xFCAC2485) == 0 && (PLAYER->actor.bgCheckFlags & 0x0001) &&
-        (PLAYER->stateFlags2 & 0x000C0000) == 0 && PLAYER->actor.draw != NULL &&
-        gGlobalContext->actorCtx.titleCtx.delayTimer == 0 && gGlobalContext->actorCtx.titleCtx.durationTimer == 0 &&
-        gGlobalContext->actorCtx.titleCtx.alpha == 0
-        // && (z64_event_state_1 & 0x20) == 0 //TODO
-        // && (z64_game.camera_2 == 0) //TODO
-    ) {
-        rSatisfiedPendingFrames++;
-    } else {
-        rSatisfiedPendingFrames = 0;
-    }
-    if (rSatisfiedPendingFrames >= 2) {
-        rSatisfiedPendingFrames = 0;
-        return 1;
-    }
-    return 0;
-}
+Readiness ItemOverride_CheckPlayerReadiness(void) {
+    // Check states that always prevent getting items
+    if ((PLAYER->stateFlags1 & 0xF4AC2485) == 0 && (PLAYER->stateFlags2 & 0x000C0000) == 0 &&
+        // prevent triggering traps while buying multiple items
+        (PLAYER->interactRangeActor == NULL || PLAYER->interactRangeActor->id != ACTOR_SHOPKEEPER) &&
+        PLAYER->actor.draw != NULL && gGlobalContext->actorCtx.titleCtx.delayTimer == 0 &&
+        gGlobalContext->actorCtx.titleCtx.durationTimer == 0 && gGlobalContext->actorCtx.titleCtx.alpha == 0 &&
+        gGlobalContext->sceneLoadFlag == 0) {
 
-static u32 ItemOverride_PlayerIsReadyInWater(void) {
-    if ((PLAYER->stateFlags1 & 0xF4AC2085) == 0 /*&& (PLAYER->actor.bgCheckFlags & 0x0001)*/ &&
-        (PLAYER->stateFlags2 & 0x000C0000) == 0 && PLAYER->actor.draw != NULL &&
-        gGlobalContext->actorCtx.titleCtx.delayTimer == 0 && gGlobalContext->actorCtx.titleCtx.durationTimer == 0 &&
-        gGlobalContext->actorCtx.titleCtx.alpha == 0 && (PLAYER->stateFlags1 & 0x08000000) != 0 && // Player is Swimming
-        (PLAYER->stateFlags1 & 0x400) == 0 && // Player is not already receiving an item when surfacing
-        gGlobalContext->sceneLoadFlag == 0 && // Another scene isn't about to be loaded
-        ItemOverride_IsAPendingOverride()
-        // && Multiworld is off
-        // && (z64_event_state_1 & 0x20) == 0 //TODO
-        // && (z64_game.camera_2 == 0) //TODO
-    ) {
-        rSatisfiedPendingFramesWater++;
-    } else {
-        rSatisfiedPendingFramesWater = 0;
-    }
-    if (rSatisfiedPendingFramesWater >= 2) {
-        rSatisfiedPendingFramesWater = 0;
-        return 1;
-    }
-    return 0;
-}
+        Bool isOnGround               = (PLAYER->actor.bgCheckFlags & BGCHECKFLAG_GROUND) != 0;
+        Bool isSubmerged              = (PLAYER->stateFlags1 & PLAYER_STATE1_SUBMERGED) != 0;
+        EquipValueBoots equippedBoots = gSaveContext.equips.equipment >> (EQUIP_TYPE_BOOTS * 4);
+        if (isOnGround && (!isSubmerged || equippedBoots == EQUIP_VALUE_BOOTS_IRON)) {
+            return READY_STANDING;
+        }
 
-static u32 ItemOverride_PlayerIsReady(void) {
-    if (ItemOverride_PlayerIsReadyOnLand()) {
-        return READY_ON_LAND;
-    }
-    if (ItemOverride_PlayerIsReadyInWater()) {
-        return READY_IN_WATER;
+        Bool isInWater = PLAYER->actor.depthInWater > 0.0;
+        Bool willResurfaceNextFrame =
+            PLAYER->actor.depthInWater - PLAYER->actor.velocity.y < PLAYER->ageProperties->idleDepthInWater;
+
+        if (isInWater && isSubmerged && (willResurfaceNextFrame || ItemOverride_IsPendingQueueFilled())) {
+            return READY_SWIMMING;
+        }
     }
 
-    return 0;
-}
-
-static void ItemOverride_TryPendingItem(void) {
-    ItemOverride override = rPendingOverrideQueue[0];
-
-    if (override.key.all == 0) {
-        return;
-    }
-
-    if (rDummyActor->parent == NULL) {
-        ItemOverride_Activate(override);
-        PLAYER->interactRangeActor = rDummyActor;
-        PLAYER->getItemId          = rActiveItemRow->baseItemId;
-    } else {
-        rDummyActor->parent = NULL;
-        ItemOverride_PopPendingOverride();
-    }
+    return NOT_READY;
 }
 
 void ItemOverride_Update(void) {
@@ -423,24 +377,47 @@ void ItemOverride_Update(void) {
     ItemOverride_CheckZeldasLetter();
     IceTrap_Update();
     CustomModel_Update();
-    u8 readyStatus = ItemOverride_PlayerIsReady();
-    if (readyStatus) {
-        IceTrap_UpdateOverride(&rPendingOverrideQueue[0], FALSE);
-        if (readyStatus == READY_ON_LAND) { // Ice traps effects only work on land
-            ItemOverride_PopIceTrap();
+
+    if (rDummyActor->parent != NULL) {
+        // A pending override was given on the previous frame and Player accepted it.
+        rDummyActor->parent = NULL;
+        ItemOverride_PopPendingOverride();
+    }
+
+    Readiness readiness = ItemOverride_CheckPlayerReadiness();
+    if (readiness != NOT_READY) {
+        ItemOverride* pendingOvr = &rPendingOverrideQueue[0];
+        IceTrap_UpdateOverride(pendingOvr, FALSE);
+        Bool trapGiven = FALSE;
+        // Some ice trap effects only work while standing normally on the ground, so we wait for that state to trigger
+        // them. A potential TODO for the future is to separate the effects that would work *swimmingly* even while
+        // swimming, like curses.
+        if (readiness == READY_STANDING) {
+            if (pendingOvr->value.itemId == GI_ICE_TRAP) {
+                IceTrap_Push();
+                ItemOverride_PopPendingOverride();
+                ItemOverride_AfterKeyReceived(pendingOvr->key);
+            }
+            if (IceTrap_IsPending()) {
+                IceTrap_Give();
+                trapGiven = TRUE;
+            }
         }
 
-        if (IceTrap_IsPending()) {
-            IceTrap_Give();
-        } else {
-            ItemOverride_TryPendingItem();
-            if (readyStatus == READY_IN_WATER) {
+        if (ItemOverride_IsAPendingOverride() && !trapGiven) {
+            ItemOverride_Activate(rPendingOverrideQueue[0]);
+
+            // Manually offer Get Item to player.
+            PLAYER->interactRangeActor = rDummyActor;
+            PLAYER->getItemId          = rActiveItemRow->baseItemId;
+
+            if (readiness == READY_SWIMMING) {
                 // Force underwater player flag in order to play the correct get-item
                 // animation even if Link is at the water's surface.
-                PLAYER->stateFlags2 |= 0x400;
-                SetupItemInWater(PLAYER, gGlobalContext);
-                rDummyActor->parent = NULL;
-                ItemOverride_PopPendingOverride();
+                PLAYER->stateFlags2 |= PLAYER_STATE2_UNDERWATER;
+                // The action handler for accepting get item offers is not normally called while
+                // swimming in the base game, so in this case we need to call it manually.
+                Player_SetupGetItemOrHoldBehavior(PLAYER, gGlobalContext);
             }
         }
     }
@@ -454,7 +431,8 @@ void ItemOverride_Update(void) {
     }
 }
 
-void ItemOverride_GetItem(Actor* fromActor, Player* player, s8 incomingItemId) {
+// Called from Actor_OfferGetItem
+void ItemOverride_OfferGetItem(Actor* fromActor, Player* player, s8 incomingItemId) {
     ItemOverride override = { 0 };
     s32 incomingNegative  = incomingItemId < 0;
 

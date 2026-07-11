@@ -158,6 +158,62 @@ void HintTable_Init_Exclude_Overworld() {
                        Text{"the #red rupee on the platform in Kokiri Forest# is", /*french*/"le #rubis rouge sur plateforme de la forêt Kokiri# est", /*spanish*/"the #red rupee on the platform in Kokiri Forest# is", /*italian*/"un #cerchio di oggetti nella foresta dei Kokiri# include", /*german*/"the #red rupee on the platform in Kokiri Forest# is"}
     );
 
+    hintTable[KF_ON_SARIAS_HOUSE_HEART_1] = HintText::Exclude({
+                       // obscure text
+                       Text{"#health on a roof# is", /*french*/"", /*spanish*/"", /*italian*/"un #antennista# sbadato ha smarrito", /*german*/""},
+                     }, {},
+                       // clear text
+                       Text{"a #heart on Saria's house# is", /*french*/"", /*spanish*/"", /*italian*/"un #cuore sopra la casa di Saria# è diventato", /*german*/""}
+    );
+
+    hintTable[KF_ON_SARIAS_HOUSE_HEART_2] = HintText::Exclude({
+                       // obscure text
+                       Text{"#health on a roof# is", /*french*/"", /*spanish*/"", /*italian*/"un #antennista# sbadato ha smarrito", /*german*/""},
+                     }, {},
+                       // clear text
+                       Text{"a #heart on Saria's house# is", /*french*/"", /*spanish*/"", /*italian*/"un #cuore sopra la casa di Saria# è diventato", /*german*/""}
+    );
+
+    hintTable[KF_ON_SARIAS_HOUSE_HEART_3] = HintText::Exclude({
+                       // obscure text
+                       Text{"#health on a roof# is", /*french*/"", /*spanish*/"", /*italian*/"un #antennista# sbadato ha smarrito", /*german*/""},
+                     }, {},
+                       // clear text
+                       Text{"a #heart on Saria's house# is", /*french*/"", /*spanish*/"", /*italian*/"un #cuore sopra la casa di Saria# è diventato", /*german*/""}
+    );
+
+    hintTable[KF_IN_SARIAS_HOUSE_HEART_1] = HintText::Exclude({
+                       // obscure text
+                       Text{"#a green haired girl's valentine's gift# is", /*french*/"", /*spanish*/"", /*italian*/"a una #tua amica# piace arredare con", /*german*/""},
+                     }, {},
+                       // clear text
+                       Text{"a #heart inside Saria's house# is", /*french*/"", /*spanish*/"", /*italian*/"un #cuore dentro la casa di Saria# è diventato", /*german*/""}
+    );
+
+    hintTable[KF_IN_SARIAS_HOUSE_HEART_2] = HintText::Exclude({
+                       // obscure text
+                       Text{"#a green haired girl's valentine's gift# is", /*french*/"", /*spanish*/"", /*italian*/"a una #tua amica# piace arredare con", /*german*/""},
+                     }, {},
+                       // clear text
+                       Text{"a #heart inside Saria's house# is", /*french*/"", /*spanish*/"", /*italian*/"un #cuore dentro la casa di Saria# è diventato", /*german*/""}
+    );
+
+    hintTable[KF_IN_SARIAS_HOUSE_HEART_3] = HintText::Exclude({
+                       // obscure text
+                       Text{"#a green haired girl's valentine's gift# is", /*french*/"", /*spanish*/"", /*italian*/"a una #tua amica# piace arredare con", /*german*/""},
+                     }, {},
+                       // clear text
+                       Text{"a #heart inside Saria's house# is", /*french*/"", /*spanish*/"", /*italian*/"un #cuore dentro la casa di Saria# è diventato", /*german*/""}
+    );
+
+    hintTable[KF_IN_SARIAS_HOUSE_HEART_4] = HintText::Exclude({
+                       // obscure text
+                       Text{"#a green haired girl's valentine's gift# is", /*french*/"", /*spanish*/"", /*italian*/"a una #tua amica# piace arredare con", /*german*/""},
+                     }, {},
+                       // clear text
+                       Text{"a #heart inside Saria's house# is", /*french*/"", /*spanish*/"", /*italian*/"un #cuore dentro la casa di Saria# è diventato", /*german*/""}
+    );
+
     hintTable[GRAVEYARD_SHIELD_GRAVE_CHEST] = HintText::Exclude({
                        // obscure text
                        Text{"the #treasure of a fallen soldier# is", /*french*/"le #trésor du soldat mort# est", /*spanish*/"el #tesoro de un soldado caído# esconde", /*italian*/"il #tesoro di un soldato caduto# è", /*german*/"der #Schatz eines gefallenen Soldaten#, |wäre|wären|"},
@@ -923,6 +979,38 @@ void HintTable_Init_Exclude_Overworld() {
                      }, {},
                        // clear text
                        Text{"#the rupee circle in the cow grotto in DMT# includes", /*french*/"#le cercle de rubis dans la trou à vache du mont de la Mort# inclus", /*spanish*/"#the rupee circle in the cow grotto in DMT# includes", /*European*/"#the rupee circle in the cow grotto in DMT# includes", /*french*/"#le cercle de rubis dans la trou à vache du Chemin du péril# inclus", /*spanish*/"#the rupee circle in the cow grotto in DMT# includes", /*italian*/"il #cerchio di oggetti nella grotta sul sentiero del Monte Morte# include", /*german*/"#the rupee circle in the cow grotto in DMT# includes"}
+    );
+
+    hintTable[DMT_COW_GROTTO_HEART_1] = HintText::Exclude({
+                       // obscure text
+                       Text{"#a cow stands with its butt towards#", /*french*/"", /*spanish*/"", /*italian*/"una #mucca rivolge la coda# verso", /*german*/""},
+                     }, {},
+                       // clear text
+                       Text{"#the hearts in the cow grotto in DMT# include", /*french*/"", /*spanish*/"", /*italian*/"un #cuore nella grotta con la mucca# è diventato", /*german*/""}
+    );
+
+    hintTable[DMT_COW_GROTTO_HEART_2] = HintText::Exclude({
+                       // obscure text
+                       Text{"#a cow stands with its butt towards#", /*french*/"", /*spanish*/"", /*italian*/"una #mucca rivolge la coda# verso", /*german*/""},
+                     }, {},
+                       // clear text
+                       Text{"#the hearts in the cow grotto in DMT# include", /*french*/"", /*spanish*/"", /*italian*/"un #cuore nella grotta con la mucca# è diventato", /*german*/""}
+    );
+
+    hintTable[DMT_COW_GROTTO_HEART_3] = HintText::Exclude({
+                       // obscure text
+                       Text{"#a cow stands with its butt towards#", /*french*/"", /*spanish*/"", /*italian*/"una #mucca rivolge la coda# verso", /*german*/""},
+                     }, {},
+                       // clear text
+                       Text{"#the hearts in the cow grotto in DMT# include", /*french*/"", /*spanish*/"", /*italian*/"un #cuore nella grotta con la mucca# è diventato", /*german*/""}
+    );
+
+    hintTable[DMT_COW_GROTTO_HEART_4] = HintText::Exclude({
+                       // obscure text
+                       Text{"#a cow stands with its butt towards#", /*french*/"", /*spanish*/"", /*italian*/"una #mucca rivolge la coda# verso", /*german*/""},
+                     }, {},
+                       // clear text
+                       Text{"#the hearts in the cow grotto in DMT# include", /*french*/"", /*spanish*/"", /*italian*/"un #cuore nella grotta con la mucca# è diventato", /*german*/""}
     );
 
     hintTable[DMC_WALL_FREESTANDING_POH] = HintText::Exclude({
