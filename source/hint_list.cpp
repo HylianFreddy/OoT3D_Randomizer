@@ -2441,7 +2441,11 @@ std::array<ConditionalAlwaysHint, 9> conditionalAlwaysHints = {
 };
 
 const HintText& Hint(const HintKey hintKey) {
-    return hintTable[hintKey];
+    const HintText& hint = hintTable[hintKey];
+    if (hint.GetType() == HintCategory::Invalid) {
+        return hintTable[NONE];
+    }
+    return hint;
 }
 
 std::vector<HintText> GetHintCategory(HintCategory category) {

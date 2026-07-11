@@ -7,13 +7,13 @@
 
 #include "keys.hpp"
 
+class ItemLocation;
+
 namespace Dungeon {
 class DungeonInfo {
   public:
     DungeonInfo(std::string name_, HintKey hintKey, ItemKey map_, ItemKey compass_, ItemKey smallKey_, ItemKey keyRing_,
-                ItemKey bossKey_, u8 vanillaKeyCount_, u8 mqKeyCount_, std::vector<LocationKey> vanillaLocations_,
-                std::vector<LocationKey> mqLocations_, std::vector<LocationKey> sharedLocations_,
-                std::vector<LocationKey> bossRoomLocations_);
+                ItemKey bossKey_, u8 vanillaKeyCount_, u8 mqKeyCount_);
     ~DungeonInfo();
 
     const std::string& GetName() const {
@@ -52,6 +52,26 @@ class DungeonInfo {
         return (masterQuest) ? mqKeyCount : vanillaKeyCount;
     }
 
+    void AddVanillaLocation(LocationKey locKey) {
+        vanillaLocations.push_back(locKey);
+    }
+
+    const std::vector<LocationKey>& GetVanillaLocations() const {
+        return vanillaLocations;
+    }
+
+    void AddMQLocation(LocationKey locKey) {
+        mqLocations.push_back(locKey);
+    }
+
+    const std::vector<LocationKey>& GetMQLocations() const {
+        return mqLocations;
+    }
+
+    void AddSharedLocation(LocationKey locKey) {
+        sharedLocations.push_back(locKey);
+    }
+
     HintKey GetHintKey() const;
     ItemKey GetSmallKey() const;
     ItemKey GetKeyRing() const;
@@ -85,7 +105,6 @@ class DungeonInfo {
     std::vector<LocationKey> vanillaLocations;
     std::vector<LocationKey> mqLocations;
     std::vector<LocationKey> sharedLocations;
-    std::vector<LocationKey> bossRoomLocations;
 };
 
 extern DungeonInfo DekuTree;
@@ -104,4 +123,5 @@ extern DungeonInfo GanonsCastle;
 using DungeonArray = std::array<DungeonInfo*, 12>;
 
 extern const DungeonArray dungeonList;
+
 } // namespace Dungeon

@@ -17,6 +17,8 @@
 #include "debug.hpp"
 #include "music.hpp"
 
+bool gInitError = false;
+
 namespace {
 bool seedChanged;
 bool chosePlayOption;
@@ -42,6 +44,14 @@ void PrintTopScreen() {
     printf("\x1b[11;7HCurrent Seed: %s", Settings::seed.c_str());
 }
 
+void GfxInit(void) {
+    gfxInitDefault();
+    consoleInit(GFX_TOP, &topScreen);
+    consoleInit(GFX_BOTTOM, &bottomScreen);
+    consoleSelect(&topScreen);
+    printf("\x1b[5;20HInitializing...");
+}
+
 void MenuInit() {
     Settings::InitSettings();
 
@@ -54,10 +64,6 @@ void MenuInit() {
     currentMenu = main;
 
     srand(time(NULL));
-    consoleInit(GFX_TOP, &topScreen);
-    consoleInit(GFX_BOTTOM, &bottomScreen);
-
-    consoleSelect(&topScreen);
 
     // Create directories
     FS_Archive sdmcArchive;
@@ -90,6 +96,13 @@ void MenuInit() {
     // If Randomize all settings in a category is selected
     // Re-randomize them
     Settings::RandomizeAllSettings();
+
+    // If an error was detected during initialization, print error message and block the app.
+    if (gInitError) {
+        consoleClear();
+        printf("\x1b[5;13H\x1b[31mERROR!\x1b[37m Init checks failed!");
+        while (aptMainLoop()) {}
+    }
 
     PrintTopScreen();
 
