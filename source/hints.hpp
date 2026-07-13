@@ -48,6 +48,7 @@ struct HintSetting {
 };
 
 enum class HintCategory {
+    Invalid = 0,
     Item,
     Always,
     Sometimes,
