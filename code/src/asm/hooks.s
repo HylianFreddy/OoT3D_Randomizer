@@ -63,12 +63,12 @@ HOOK Gfx_AwakeCallback
     add r0,r0,#0x9C
     b 0x3FD440
 
-HOOK IncomingGetItemID
+HOOK ActorGetItemOffer
     push {r0-r12, lr}
     cpy r0,r5
     cpy r1,r6
     cpy r2,r7
-    bl ItemOverride_GetItem
+    bl ItemOverride_OfferGetItem
     pop {r0-r12, lr}
     bx lr
 
@@ -938,23 +938,23 @@ HOOK GameOverStart
     pop {r0-r12, lr}
     bx lr
 
-HOOK PermadeathSkipMenu
-    push {r0-r12, lr}
-    bl Permadeath_GetOption
+HOOK GameOverMenuSkip
+    push {r1-r12, lr}
+    bl GameOverMenu_ShouldSkip
     cmp r0,#0x0
-    pop {r0-r12, lr}
+    pop {r1-r12, lr}
     movne r0,#0x10
     moveq r0,#0x2
     bx lr
 
-HOOK PermadeathForceQuit
-    ldrbeq r8,[r11,#0x9]
+HOOK GameOverActionSelection
     bxne lr
-    push {r0-r12, lr}
-    bl Permadeath_GetOption
-    cmp r0,#0x0
-    pop {r0-r12, lr}
-    bne ret_PermadeathForceQuit
+    push {r0-r7, r9-r12, lr}
+    cpy r0,r8
+    bl GameOverMenu_OverrideAction
+    cpy r8,r0
+    pop {r0-r7, r9-r12, lr}
+    cmp r8,#0x1
     bx lr
 
 HOOK OverrideFogDuringGameplayInit
@@ -1848,6 +1848,7 @@ HOOK DeleteEquipment
     cmp r0,#0x0
     pop {r0-r12, lr}
     strheq r2,[r12,#0xB6]
+    cmp r1,#0x2
     bx lr
 
 HOOK GetQuickItem

@@ -336,6 +336,11 @@ typedef enum HintDistributionSettings {
     HINTDISTRIBUTION_PLAYTHROUGH,
 } HintDistributionSettings;
 
+typedef enum HintSpecificitySetting {
+    HINTSPECIFICITY_GENERAL,
+    HINTSPECIFICITY_EXACT,
+} HintSpecificitySetting;
+
 typedef enum DamageMultiplierSetting {
     DAMAGEMULTIPLIER_HALF,
     DAMAGEMULTIPLIER_DEFAULT,
@@ -476,11 +481,11 @@ typedef enum OcarinaNoteInstrumentSetting {
     OCARINA_INSTR_SETTING_DEFAULT,
 } OcarinaNoteInstrumentSetting;
 
-typedef enum DungeonInfo {
+typedef enum DungeonImportance {
     DUNGEON_NEITHER,
     DUNGEON_BARREN,
     DUNGEON_WOTH,
-} DungeonInfo;
+} DungeonImportance;
 
 typedef enum TrailColorMode {
     TRAILCOLOR_VANILLAMODE,

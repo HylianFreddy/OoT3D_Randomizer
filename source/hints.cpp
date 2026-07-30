@@ -111,7 +111,7 @@ constexpr std::array<HintSetting, 4> hintSettingTable{ {
     },
 } };
 
-std::array<DungeonInfo, 10> dungeonInfoData;
+std::array<DungeonImportance, 10> dungeonImportance;
 
 static Area* GetHintRegion(const AreaKey area) {
 
@@ -242,10 +242,15 @@ static void CreateAreaLocationHint(LocationKey hintedLocation) {
     // make hint text
     Text prefix       = Hint(PREFIX).GetText();
     Text itemHintText = Location(hintedLocation)->GetPlacedItem().GetHint().GetText();
-    Text foundAt      = Hint(CAN_BE_FOUND_AT).GetText();
-    Text areaHintText = Hint(GetLocationRegionHintKey(hintedLocation)).GetText();
-
-    Text finalHint = prefix + "#" + itemHintText + "# " + foundAt + " #" + areaHintText + "#.";
+    Text finalHint;
+    if (HintSpecificity.Is(HINTSPECIFICITY_GENERAL)) {
+        Text foundAt      = Hint(CAN_BE_FOUND_AT).GetText();
+        Text areaHintText = Hint(GetLocationRegionHintKey(hintedLocation)).GetText();
+        finalHint         = prefix + "#" + itemHintText + "# " + foundAt + " #" + areaHintText + "#.";
+    } else { // HINTSPECIFICITY_EXACT
+        Text locHintText = Location(hintedLocation)->GetHint().GetText();
+        finalHint        = prefix + locHintText + " #" + itemHintText + "#.";
+    }
     finalHint.SetFormPerLanguage();
     PlacementLog_Msg("\tMessage: ");
     PlacementLog_Msg(finalHint.NAenglish);
@@ -1065,15 +1070,15 @@ void CreateGossipStoneHints() {
             PlacementLog_Msg(wothDungeon + "\n");
         }
 
-        // Set DungeonInfo array for each dungeon
-        for (uint i = 0; i < dungeonInfoData.size(); i++) {
+        // Set DungeonImportance array for each dungeon
+        for (uint i = 0; i < dungeonImportance.size(); i++) {
             std::string dungeonName = dungeonNames[i];
             if (std::find(barrenDungeons.begin(), barrenDungeons.end(), dungeonName) != barrenDungeons.end()) {
-                dungeonInfoData[i] = DungeonInfo::DUNGEON_BARREN;
+                dungeonImportance[i] = DungeonImportance::DUNGEON_BARREN;
             } else if (std::find(wothDungeons.begin(), wothDungeons.end(), dungeonName) != wothDungeons.end()) {
-                dungeonInfoData[i] = DungeonInfo::DUNGEON_WOTH;
+                dungeonImportance[i] = DungeonImportance::DUNGEON_WOTH;
             } else {
-                dungeonInfoData[i] = DungeonInfo::DUNGEON_NEITHER;
+                dungeonImportance[i] = DungeonImportance::DUNGEON_NEITHER;
             }
         }
 

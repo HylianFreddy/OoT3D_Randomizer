@@ -189,6 +189,7 @@ extern string_view enemySoulDesc;
 extern string_view ocarinaButtonsDesc;
 
 extern string_view shuffleRupeesDesc;
+extern string_view shuffleRecoveryHeartsDesc;
 
 extern string_view shuffleBigPoesDesc;
 
@@ -283,6 +284,7 @@ extern string_view balancedHintsDesc;
 extern string_view strongHintsDesc;
 extern string_view veryStrongHintsDesc;
 extern string_view playthroughHintsDesc;
+extern string_view hintSpecificityDesc;
 
 extern string_view bonusGossipHintsDesc;
 

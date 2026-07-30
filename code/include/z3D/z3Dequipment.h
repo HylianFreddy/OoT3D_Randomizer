@@ -17,4 +17,12 @@ typedef enum EquipValueShield {
     EQUIP_VALUE_SHIELD_MAX,
 } EquipValueShield;
 
+typedef enum EquipValueBoots {
+    EQUIP_VALUE_BOOTS_NONE,
+    EQUIP_VALUE_BOOTS_KOKIRI,
+    EQUIP_VALUE_BOOTS_IRON,
+    EQUIP_VALUE_BOOTS_HOVER,
+    EQUIP_VALUE_BOOTS_MAX,
+} EquipValueBoots;
+
 #endif //_Z3DEQUIPMENT_H_
