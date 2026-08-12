@@ -182,10 +182,10 @@ static char* spoilerEntranceGroupNames[] = {
 typedef enum {
     PAGE_SEEDHASH,
     PAGE_DUNGEONITEMS,
+    PAGE_READGOSSIPSTONES,
     PAGE_ENEMYSOULS,
     PAGE_ENEMYLOCATIONS,
     PAGE_SPHERES,
-    PAGE_READGOSSIPSTONES,
     PAGE_ITEMTRACKER_ALL,
     PAGE_ITEMTRACKER_GROUPS,
     PAGE_ENTRANCETRACKER_ALL,
@@ -1049,10 +1049,10 @@ static void Gfx_DrawEntranceTracker(void) {
 static void (*menu_draw_funcs[])(void) = {
     [PAGE_SEEDHASH]               = Gfx_DrawSeedHash,
     [PAGE_DUNGEONITEMS]           = Gfx_DrawDungeonItems,
+    [PAGE_READGOSSIPSTONES]       = Gfx_DrawReadGossipStones,
     [PAGE_ENEMYSOULS]             = Gfx_DrawEnemySouls,
     [PAGE_ENEMYLOCATIONS]         = Gfx_DrawEnemyLocations,
     [PAGE_SPHERES]                = Gfx_DrawSpoilerData,
-    [PAGE_READGOSSIPSTONES]       = Gfx_DrawReadGossipStones,
     [PAGE_ITEMTRACKER_ALL]        = Gfx_DrawItemTracker,
     [PAGE_ITEMTRACKER_GROUPS]     = Gfx_DrawItemTracker,
     [PAGE_ENTRANCETRACKER_ALL]    = Gfx_DrawEntranceTracker,
