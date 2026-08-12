@@ -1,7 +1,7 @@
 #include <sys/cdefs.h>
 
 // Custom
-#include "fairy.h"
+#include "great_fairy.h"
 
 #include "z3D/z3D.h"
 #include "common.h"

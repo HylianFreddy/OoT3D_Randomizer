@@ -25,7 +25,9 @@ void EnElf_Draw(Actor* thisx, GlobalContext* globalCtx);
 void Fairy_UpdateRainbowNaviColors(EnElf* navi);
 void Fairy_ResetRainbowCMABs(void);
 
-/* Great Fairy */
+/*-------------------------------
+|          Great Fairy          |
+-------------------------------*/
 #include "z3D/actors/z_bg_dy_yoseizo.h"
 
 void BgDyYoseizo_rInit(Actor* thisx, GlobalContext* globalCtx);
