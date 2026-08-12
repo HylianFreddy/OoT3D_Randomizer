@@ -13,8 +13,7 @@
 void EnBox_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnBox_Update(Actor* thisx, GlobalContext* globalCtx);
 
-#define PlaySFXAt(sfxId, pos) \
-    Audio_PlaySfxGeneral(sfxId, pos, 4, &gSfxDefaultFreqAndVolScale, &gSfxDefaultFreqAndVolScale, &gSfxDefaultReverb)
+#define ENBOX_GET_TREASURE_FLAG(this) (this->dyna.actor.params & 0x1F)
 
 static Actor* sLastTrapChest = 0;
 static EnBom* sBomb          = 0;
@@ -41,6 +40,16 @@ static ColliderCylinderInit sCylinderInit = {
     { 12, 10, 0, { 0, 0, 0 } },
 };
 
+static inline Bool IsOpen(EnBox* this, GlobalContext* globalCtx) {
+    return (globalCtx->actorCtx.flags.chest >> ENBOX_GET_TREASURE_FLAG(this)) & 1;
+}
+static inline void SetOpen(EnBox* this, GlobalContext* globalCtx) {
+    globalCtx->actorCtx.flags.chest |= 1 << ENBOX_GET_TREASURE_FLAG(this);
+}
+static inline void PlaySfxAt(u32 sfxId, Vec3f* pos) {
+    Audio_PlaySfxGeneral(sfxId, pos, 4, &gSfxDefaultFreqAndVolScale, &gSfxDefaultFreqAndVolScale, &gSfxDefaultReverb);
+}
+
 // Bombchus are a major item if they're in logic and haven't been obtained yet
 u32 isBombchuMajor(void) {
     return gSettingsContext.bombchusInLogic && gSaveContext.items[8] == 0xFF;
@@ -57,13 +66,15 @@ void EnBox_rInit(Actor* thisx, GlobalContext* globalCtx) {
         Object_FindEntryOrSpawn(OBJECT_GAMEPLAY_DUNGEON_KEEP);
         Object_FindEntryOrSpawn(OBJECT_FREEZARD);
 
-        this->rExt.isTrapChest = TRUE;
-        // Set up collider to make the trap chest breakable
-        Collider_InitCylinder(globalCtx, &this->rExt.collider);
-        Collider_SetCylinder(globalCtx, &this->rExt.collider, &this->dyna.actor, &sCylinderInit);
-        Collider_UpdateCylinder(&this->dyna.actor, &this->rExt.collider);
-        if (thisx->scale.x >= 0.009f) {
-            this->rExt.collider.dim.radius = 20;
+        if (!IsOpen(this, globalCtx)) {
+            this->rExt.isTrapChest = TRUE;
+            // Set up collider to make the trap chest breakable
+            Collider_InitCylinder(globalCtx, &this->rExt.collider);
+            Collider_SetCylinder(globalCtx, &this->rExt.collider, &this->dyna.actor, &sCylinderInit);
+            Collider_UpdateCylinder(&this->dyna.actor, &this->rExt.collider);
+            if (thisx->scale.x >= 0.009f) {
+                this->rExt.collider.dim.radius = 20;
+            }
         }
     }
 
@@ -177,10 +188,9 @@ static void Chest_Break(EnBox* this, GlobalContext* globalCtx) {
         s16 arg5  = (scale >= 11) ? 37 : 33;
         EffectSsKakera_Spawn(globalCtx, &pos, &velocity, &pos, -400, arg5, 10, 2, 0, scale, 1, 0, 80, -1, 3, 1);
     }
-    // Set chest flag
-    globalCtx->actorCtx.flags.chest |= 1 << (this->dyna.actor.params & 0b11111);
-    PlaySFXAt(0x1000201, &this->dyna.actor.home.pos); // NA_SE_EV_WOODBOX_BREAK
-    PlaySFXAt(0x10002F3, &this->dyna.actor.home.pos); // NA_SE_EN_PO_BIG_GET
+    SetOpen(this, globalCtx);
+    PlaySfxAt(NA_SE_EV_WOODBOX_BREAK, &this->dyna.actor.world.pos);
+    PlaySfxAt(NA_SE_EN_PO_BIG_GET, &this->dyna.actor.world.pos);
     Actor_Kill(&this->dyna.actor);
 }
 
@@ -225,7 +235,7 @@ void EnBox_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         thisx->child->scale = thisx->scale;
     }
 
-    if (this->rExt.isTrapChest) {
+    if (this->rExt.isTrapChest && !IsOpen(this, globalCtx)) {
         if (this->rExt.collider.base.acFlags & AC_HIT) {
             Chest_Break(this, globalCtx);
         }
