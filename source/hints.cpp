@@ -950,8 +950,9 @@ void CreateGossipStoneHints() {
                     }
                     return false;
                 };
-                auto& item = Location(playthroughLoc)->GetPlacedItem();
-                if (item.IsMajorItem() && !isIgnoredItem(item.GetHintKey())) {
+                auto loc   = Location(playthroughLoc);
+                auto& item = loc->GetPlacedItem();
+                if (loc->IsHintable() && item.IsMajorItem() && !isIgnoredItem(item.GetHintKey())) {
                     CreateAreaLocationHint(playthroughLoc);
                 }
             }
