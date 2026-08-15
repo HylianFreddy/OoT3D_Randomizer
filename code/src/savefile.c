@@ -190,10 +190,6 @@ u16 SaveFile_RestoreChildEquips(void) {
     return (gSaveContext.childEquips.equipment & 0xFFF0) | (gSaveContext.equipment & 0x1);
 }
 
-u32 SaveFile_CheckGerudoToken(void) {
-    return ((gSaveContext.questItems & 0x400000) != 0) ? 1 : 0;
-}
-
 void SaveFile_SwapFaroresWind(void) {
     const u32 numWordsToSwap = sizeof(gSaveContext.fw) / sizeof(u32);
 

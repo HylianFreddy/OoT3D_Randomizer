@@ -347,6 +347,7 @@ extern bool HasFireSource;
 extern bool HasFireSourceWithTorch;
 
 // Gerudo Fortress
+extern bool FriendlyGerudos;
 extern bool CanFinishGerudoFortress;
 
 extern bool HasShield;

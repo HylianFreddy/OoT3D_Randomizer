@@ -304,7 +304,8 @@ void GsTable_Init_GerudoValley() {
             Room{ 0 },
             { [] {
                 return IsAdult && CanGetNightTimeGS &&
-                       (GerudoToken || CanUse(BOW) || CanUse(HOOKSHOT) || CanUse(HOVER_BOOTS) || LogicGerudoKitchen) &&
+                       (FriendlyGerudos || CanUse(BOW) || CanUse(HOOKSHOT) || CanUse(HOVER_BOOTS) ||
+                        LogicGerudoKitchen) &&
                        CanAdultAttack;
             } },
         },
@@ -331,7 +332,7 @@ void GsTable_Init_GerudoValley() {
                   { -1030, 670, -3217 },
                   { 16384, 26000, 0 },
               },
-              { [] { return IsAdult && CanGetNightTimeGS && GerudoToken && CanAdultAttack; } } },
+              { [] { return IsAdult && CanGetNightTimeGS && FriendlyGerudos && CanAdultAttack; } } },
             // https://noclip.website/#oot3d/spot12;ShareData=AFLD*UdGv;8s&)^UR/uf+_j33Rd[a7UYC^TT9S))V&=nk9JjeW8)v:NUs-h6+^
             { GERUDO_FORTRESS,
               "High up on pole on the center rock.",
@@ -354,7 +355,7 @@ void GsTable_Init_GerudoValley() {
                   { 0, 0, 0 },
               },
               { [] {
-                  return IsAdult && (GerudoToken || CanUse(BOW) || CanUse(HOOKSHOT)) &&
+                  return IsAdult && (FriendlyGerudos || CanUse(BOW) || CanUse(HOOKSHOT)) &&
                          (HookshotOrBoomerang || (CanTakeDamage && CanAdultAttack));
               } } },
         });

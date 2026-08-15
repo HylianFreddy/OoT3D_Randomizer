@@ -480,44 +480,44 @@ PATCH BeanDaddyModifyPrice
 PATCH BeanDaddyPurchase
     bl EnMs_Purchase
 
-PATCH CheckGerudoToken_18B368
+PATCH GerudoFriendship_18B368
     push {r1-r12, lr}
-    bl SaveFile_CheckGerudoToken
+    bl Gerudo_IsFriendly
     pop {r1-r12, lr}
     cmp r0,#0x0
 
-PATCH CheckGerudoToken_18B3A0
+PATCH GerudoFriendship_18B3A0
     push {r1-r12, lr}
-    bl SaveFile_CheckGerudoToken
+    bl Gerudo_IsFriendly
     pop {r1-r12, lr}
     cmp r0,#0x0
 
-PATCH CheckGerudoToken_18B3C0
+PATCH GerudoFriendship_18B3C0
     push {r1-r12, lr}
-    bl SaveFile_CheckGerudoToken
+    bl Gerudo_IsFriendly
     pop {r1-r12, lr}
     cmp r0,#0x0
 
-PATCH CheckGerudoToken_18B448
+PATCH GerudoFriendship_18B448
     push {r1-r12, lr}
-    bl SaveFile_CheckGerudoToken
+    bl Gerudo_IsFriendly
     pop {r1-r12, lr}
     cmp r0,#0x0
 
-PATCH CheckGerudoToken_18B6F4
-    bl hook_CheckGerudoToken
+PATCH GerudoFriendship_18B6F4
+    bl hook_GerudoFriendship
     cmp r0,#0x1
 
-PATCH CheckGerudoToken_18B710
-    bl hook_CheckGerudoToken
+PATCH GerudoFriendship_18B710
+    bl hook_GerudoFriendship
     cmp r0,#0x1
 
-PATCH CheckGerudoToken_1D7AD4
-    bl hook_CheckGerudoToken
+PATCH GerudoFriendship_1D7AD4
+    bl hook_GerudoFriendship
     cmp r0,#0x1
 
-PATCH CheckGerudoToken_269884
-    bl hook_CheckGerudoToken
+PATCH GerudoFriendship_269884
+    bl hook_GerudoFriendship
     cmp r0,#0x1
 
 PATCH MovableBlockSpeed

@@ -512,6 +512,8 @@ extern Option FreeCamera;
 extern Option RandomGsLocations;
 extern Option GsLocGuaranteeNew;
 extern Option RandomSongNotes;
+extern Option HealthRegen;
+extern Option GerudoFriendship;
 extern bool HasNightStart;
 
 extern Option FaroresWindAnywhere;

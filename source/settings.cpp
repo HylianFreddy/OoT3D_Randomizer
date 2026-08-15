@@ -465,6 +465,7 @@ std::vector<Option *> itemPoolOptions = {
     &ProgressiveGoronSword,
 };
 
+// Gameplay Settings
 Option FastBunnyHood       = Option::Bool("Fast Bunny Hood",        {"Off", "On"},                                                          {fastBunnyHoodDesc});
 Option KeepFWWarpPoint     = Option::Bool("Keep FW Warp Point",     {"Off", "On"},                                                          {keepFWWarpPointDesc});
 Option DamageMultiplier    = Option::U8  ("Damage Multiplier",      {"x1/2", "x1", "x2", "x4", "x8", "x16", "OHKO"},                        {damageMultiDesc},                                                                                                OptionCategory::Setting,    DAMAGEMULTIPLIER_DEFAULT);
@@ -487,7 +488,8 @@ Option FreeCamera          = Option::Bool("Free Camera",            {"Off", "On"
 Option RandomGsLocations   = Option::Bool("Random GS Locations",    {"Off", "On"},                                                          {randomGsLocationsDesc});
 Option GsLocGuaranteeNew   = Option::Bool(2, "Guarantee New",       {"Off", "On"},                                                          {gsLocGuaranteeNewDesc});
 Option RandomSongNotes     = Option::Bool("Random Ocarina Melodies",{"Off", "On"},                                                          {randomSongNotesDesc});
-Option HealthRegen         = Option::Bool("Health Regen",           {"Off", "On"},                                                          {"Health regenerates over time (1 Heart per minute)."});
+Option HealthRegen         = Option::Bool("Health Regen",           {"Off", "On"},                                                          {healthRegenDesc});
+Option GerudoFriendship    = Option::U8  ("Gerudo Friendship",      {"Gerudo Token", "Free Carpenters"},                                    {gerudoFriendsTokenDesc, gerudoFriendsCarpDesc});
 std::vector<Option*> gameplayOptions = {
     &FastBunnyHood,
     &KeepFWWarpPoint,
@@ -512,6 +514,7 @@ std::vector<Option*> gameplayOptions = {
     &GsLocGuaranteeNew,
     &RandomSongNotes,
     &HealthRegen,
+    &GerudoFriendship,
 };
 
 // Excluded Locations (Individual definitions made in ItemLocation class)
@@ -1684,6 +1687,7 @@ SettingsContext FillContext() {
     ctx.randomGsLocations   = (RandomGsLocations) ? 1 : 0;
     ctx.randomSongNotes     = (RandomSongNotes) ? 1 : 0;
     ctx.healthRegen         = (HealthRegen) ? 1 : 0;
+    ctx.gerudoFriendship    = GerudoFriendship.Value<u8>();
 
     ctx.faroresWindAnywhere  = (FaroresWindAnywhere) ? 1 : 0;
     ctx.stickAsAdult         = (StickAsAdult) ? 1 : 0;

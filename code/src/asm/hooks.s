@@ -347,9 +347,9 @@ HOOK BeanDaddyModifyPrice
     cmp r0,r1
     bx lr
 
-HOOK CheckGerudoToken
+HOOK GerudoFriendship
     push {r1-r12, lr}
-    bl SaveFile_CheckGerudoToken
+    bl Gerudo_IsFriendly
     pop {r1-r12, lr}
     bx lr
 

@@ -1458,6 +1458,20 @@ string_view gsLocGuaranteeNewDesc     = "Excludes the original location from the
 string_view randomSongNotesDesc       = "Randomize the notes for each ocarina song.\n"     //
                                         "Regular songs will be 3 notes repeated twice.\n"  //
                                         "Warp songs will be between 5 and 8 notes.";       //
+/*------------------------------                                                           //
+|         HEALTH REGEN         |                                                           //
+------------------------------*/                                                           //
+string_view healthRegenDesc           = "Health regenerates over time (1 Heart per minute).";
+                                                                                           //
+/*------------------------------                                                           //
+|      GERUDO FRIENDSHIP       |                                                           //
+------------------------------*/                                                           //
+string_view gerudoFriendsTokenDesc    = "Gerudo guards will stop capturing Link on sight\n"//
+                                        "once he has the Gerudo Token.";                   //
+string_view gerudoFriendsCarpDesc     = "Gerudo guards will stop capturing Link on sight\n"//
+                                        "when all the carpenters are freed.\n\n"           //
+                                        "The Gerudo Token will only be required to enter\n"//
+                                        "the Training Grounds.";                           //
                                                                                            //--------------//
 /*------------------------------                                                                           //
 |  DETAILED LOGIC EXPLANATIONS |                                                                           //
