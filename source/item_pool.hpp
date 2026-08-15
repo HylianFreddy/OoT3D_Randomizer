@@ -13,7 +13,6 @@ void AddItemToPool(std::vector<ItemKey>& pool, const ItemKey item, size_t count 
 ItemKey GetJunkItem();
 void PlaceJunkInExcludedLocation(const LocationKey il);
 void GenerateItemPool();
-void AddJunk();
 
 extern std::vector<ItemKey> ItemPool;
 extern std::vector<u8> IceTrapModels;
