@@ -5,6 +5,15 @@
 
 #include "gerudos.h"
 
+Bool Gerudo_IsFriendly(void) {
+    if (gSettingsContext.gerudoFriendship == GERUDOFRIENDSHIP_TOKEN) {
+        // Check Token in inventory
+        return (gSaveContext.questItems & 0x400000) != 0;
+    }
+    // Check all 4 carpenters freed
+    return (gSaveContext.eventChkInf[9] & 0xF) == 0xF;
+}
+
 /*-------------------------------
 |             EnGe1             |
 -------------------------------*/
@@ -20,7 +29,8 @@ void EnGe1_rInit(Actor* thisx, GlobalContext* globalCtx) {
     if ((self->actor.params & 0xFF) == GE1_TYPE_GATE_OPERATOR) {
         if (gSettingsContext.shuffleGerudoToken || gSettingsContext.shuffleOverworldEntrances
             /* || gSettingsContext.shuffleInteriorEntrances || gSettingsContexts.shuffleSpawnPositions*/) {
-            Actor_Spawn(&globalCtx->actorCtx, globalCtx, 0x138, -1358.0f, 88.0f, -3018.0f, 0, 0x95B0, 0, 0x0302, FALSE);
+            Actor_Spawn(&globalCtx->actorCtx, globalCtx, ACTOR_GERUDO, -1358.0f, 88.0f, -3018.0f, 0, 0x95B0, 0,
+                        0x0300 | GE1_TYPE_EXTRA_GATE_OPERATOR, FALSE);
         }
     } else if ((self->actor.params & 0xFF) == GE1_TYPE_EXTRA_GATE_OPERATOR) {
         self->actor.params &= ~0xFF;

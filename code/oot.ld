@@ -121,12 +121,12 @@ SECTIONS
 	EnCow_Init = 0x189FD4 + _LD_OFF;
 	EnCow_Destroy = 0x18A3E4 + _LD_OFF;
 	EnGe1_Init = 0x18B218 + _LD_OFF;
-	.patch_CheckGerudoToken_18B368 0x18B368 + _LD_OFF : { *(.patch_CheckGerudoToken_18B368) }
-	.patch_CheckGerudoToken_18B3A0 0x18B3A0 + _LD_OFF : { *(.patch_CheckGerudoToken_18B3A0) }
-	.patch_CheckGerudoToken_18B3C0 0x18B3C0 + _LD_OFF : { *(.patch_CheckGerudoToken_18B3C0) }
-	.patch_CheckGerudoToken_18B448 0x18B448 + _LD_OFF : { *(.patch_CheckGerudoToken_18B448) }
-	.patch_CheckGerudoToken_18B6F4 0x18B6F4 + _LD_OFF : { *(.patch_CheckGerudoToken_18B6F4) }
-	.patch_CheckGerudoToken_18B710 0x18B710 + _LD_OFF : { *(.patch_CheckGerudoToken_18B710) }
+	.patch_GerudoFriendship_18B368 0x18B368 + _LD_OFF : { *(.patch_GerudoFriendship_18B368) }
+	.patch_GerudoFriendship_18B3A0 0x18B3A0 + _LD_OFF : { *(.patch_GerudoFriendship_18B3A0) }
+	.patch_GerudoFriendship_18B3C0 0x18B3C0 + _LD_OFF : { *(.patch_GerudoFriendship_18B3C0) }
+	.patch_GerudoFriendship_18B448 0x18B448 + _LD_OFF : { *(.patch_GerudoFriendship_18B448) }
+	.patch_GerudoFriendship_18B6F4 0x18B6F4 + _LD_OFF : { *(.patch_GerudoFriendship_18B6F4) }
+	.patch_GerudoFriendship_18B710 0x18B710 + _LD_OFF : { *(.patch_GerudoFriendship_18B710) }
 	EnMa1_Init = 0x18C334 + _LD_OFF;
 	.patch_EponasSongCheckFlag 0x18C56C + _LD_OFF : { *(.patch_EponasSongCheckFlag) }
 	EnMag_Init = 0x18CBB8 + _LD_OFF;
@@ -207,7 +207,7 @@ SECTIONS
 	EnDns_Update = 0x1D67CC + _LD_OFF;
 	EnElf_Draw = 0x1D6EC4 + _LD_OFF;
 	EnGe1_Update = 0x1D742C + _LD_OFF;
-	.patch_CheckGerudoToken_1D7AD4 0x1D7AD4 + _LD_OFF : { *(.patch_CheckGerudoToken_1D7AD4) }
+	.patch_GerudoFriendship_1D7AD4 0x1D7AD4 + _LD_OFF : { *(.patch_GerudoFriendship_1D7AD4) }
 	EnGeldB_Init = 0x1D7BD8 + _LD_OFF;
 	EnGirlA_Init = 0x1D7F20 + _LD_OFF;
 	.patch_BiggoronSetTextId 0x1D8A10 + _LD_OFF : { *(.patch_BiggoronSetTextId) }
@@ -338,7 +338,7 @@ SECTIONS
 	.patch_NaviNotifications 0x267E04 + _LD_OFF : { *(.patch_NaviNotifications) }
 	EnEncount1_Update = 0x2682D0 + _LD_OFF;
 	EnExRuppy_Update = 0x2689B8 + _LD_OFF;
-	.patch_CheckGerudoToken_269884 0x269884 + _LD_OFF : { *(.patch_CheckGerudoToken_269884) }
+	.patch_GerudoFriendship_269884 0x269884 + _LD_OFF : { *(.patch_GerudoFriendship_269884) }
 	EnNutsball_Update = 0x26BD8C + _LD_OFF;
 	.patch_MinuetLocation 0x26C388 + _LD_OFF : { *(.patch_MinuetLocation) }
 	.patch_BoleroLocation 0x26C448 + _LD_OFF : { *(.patch_BoleroLocation) }

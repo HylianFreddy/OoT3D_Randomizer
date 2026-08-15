@@ -369,6 +369,11 @@ typedef enum GloomModeSetting {
     GLOOMMODE_EMPTY,
 } GloomModeSetting;
 
+typedef enum GerudoFriendshipSetting {
+    GERUDOFRIENDSHIP_TOKEN,
+    GERUDOFRIENDSHIP_CARPENTERS,
+} GerudoFriendshipSetting;
+
 typedef enum StartingTimeSetting {
     STARTINGTIME_DAY,
     STARTINGTIME_NIGHT,
@@ -666,6 +671,7 @@ typedef struct SettingsContext {
     u8 randomSongNotes;
     u8 frogSongTimerMult;
     u8 healthRegen;
+    u8 gerudoFriendship;
 
     u8 faroresWindAnywhere;
     u8 stickAsAdult;

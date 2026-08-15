@@ -358,6 +358,7 @@ bool GuaranteeHint          = false;
 bool HasFireSource          = false;
 bool HasFireSourceWithTorch = false;
 
+bool FriendlyGerudos         = false;
 bool CanFinishGerudoFortress = false;
 
 bool HasShield        = false;
@@ -893,10 +894,11 @@ void UpdateHelpers() {
     HasFireSourceWithTorch = HasFireSource || CanUse(STICKS);
 
     // Gerudo Fortress
+    FriendlyGerudos = GerudoFriendship.Is(GERUDOFRIENDSHIP_TOKEN) ? GerudoToken : CanFinishGerudoFortress;
     CanFinishGerudoFortress =
         (GerudoFortress.Is(GERUDOFORTRESS_NORMAL) && GerudoFortressKeys >= 4 && CanDefeatEnemy(12, 0, 1, 1) &&
          CanDefeatEnemy(12, 0, 2, 1) && CanDefeatEnemy(12, 0, 4, 1) && CanDefeatEnemy(12, 0, 5, 1) &&
-         (GerudoToken || CanUse(BOW) || CanUse(HOOKSHOT) || CanUse(HOVER_BOOTS) || LogicGerudoKitchen)) ||
+         (FriendlyGerudos || CanUse(BOW) || CanUse(HOOKSHOT) || CanUse(HOVER_BOOTS) || LogicGerudoKitchen)) ||
         (GerudoFortress.Is(GERUDOFORTRESS_FAST) && GerudoFortressKeys >= 1 && CanDefeatEnemy(12, 0, 2, 1)) ||
         (GerudoFortress.IsNot(GERUDOFORTRESS_NORMAL) && GerudoFortress.IsNot(GERUDOFORTRESS_FAST));
 
@@ -1371,6 +1373,7 @@ void LogicReset() {
     HasFireSource          = false;
     HasFireSourceWithTorch = false;
 
+    FriendlyGerudos         = false;
     CanFinishGerudoFortress = false;
 
     HasShield        = false;

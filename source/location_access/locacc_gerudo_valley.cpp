@@ -191,8 +191,8 @@ void AreaTable_Init_GerudoValley() {
         {
             // Events
             EventAccess(&CarpenterRescue, { [] { return CanFinishGerudoFortress; } }),
-            EventAccess(&GF_GateOpen, { [] { return IsAdult && GerudoToken; } }),
-            EventAccess(&GtG_GateOpen, { [] { return GtG_GateOpen || (IsAdult && GerudoToken); } }),
+            EventAccess(&GF_GateOpen, { [] { return IsAdult && FriendlyGerudos; } }),
+            EventAccess(&GtG_GateOpen, { [] { return GtG_GateOpen || (IsAdult && FriendlyGerudos && GerudoToken); } }),
         },
         {
             // Locations
@@ -207,7 +207,7 @@ void AreaTable_Init_GerudoValley() {
                                                     CanDoGlitch(GlitchType::Megaflip, GlitchDifficulty::NOVICE)) ||
                                                    (Bombs && HasBombchus &&
                                                     CanDoGlitch(GlitchType::BombHover, GlitchDifficulty::NOVICE))) &&
-                                                  (GerudoToken || CanUse(BOW) || CanUse(HOOKSHOT) ||
+                                                  (FriendlyGerudos || CanUse(BOW) || CanUse(HOOKSHOT) ||
                                                    CanUse(HOVER_BOOTS) || LogicGerudoKitchen);
                                        } }),
             LocationAccess(GF_NORTH_F1_CARPENTER, { [] { return CanDefeatEnemy(12, 0, 2, 1); },
@@ -218,14 +218,14 @@ void AreaTable_Init_GerudoValley() {
                                                     } }),
             LocationAccess(GF_NORTH_F2_CARPENTER, { [] {
                                                        return CanDefeatEnemy(12, 0, 1, 1) &&
-                                                              (GerudoToken || CanUse(BOW) || CanUse(HOOKSHOT) ||
+                                                              (FriendlyGerudos || CanUse(BOW) || CanUse(HOOKSHOT) ||
                                                                CanUse(HOVER_BOOTS) || LogicGerudoKitchen);
                                                    },
                                                     /*Glitched*/
                                                     [] {
                                                         return !Settings::Enemizer && SoulGerudo &&
                                                                CanDoGlitch(GlitchType::ISG, GlitchDifficulty::NOVICE) &&
-                                                               (GerudoToken || CanUse(BOW) || CanUse(HOOKSHOT) ||
+                                                               (FriendlyGerudos || CanUse(BOW) || CanUse(HOOKSHOT) ||
                                                                 CanUse(HOVER_BOOTS) || LogicGerudoKitchen);
                                                     } }),
             LocationAccess(GF_SOUTH_F1_CARPENTER, { [] { return CanDefeatEnemy(12, 0, 4, 1); },
@@ -246,7 +246,7 @@ void AreaTable_Init_GerudoValley() {
             // Exits
             Entrance(GV_FORTRESS_SIDE, { [] { return true; } }),
             Entrance(GF_ARCHERY_RANGE,
-                     { [] { return IsChild || GerudoToken; },
+                     { [] { return IsChild || FriendlyGerudos; },
                        /*Glitched*/
                        [] { return GlitchGFGuardSneak && (CanUse(BOW) || CanUse(HOOKSHOT) || CanUse(BOOMERANG)); } }),
             Entrance(GF_OUTSIDE_GATE,
@@ -293,12 +293,12 @@ void AreaTable_Init_GerudoValley() {
         Area("GF Archery Range", "Gerudo Fortress", NONE, NO_DAY_NIGHT_CYCLE, {},
              {
                  // Locations
-                 LocationAccess(GF_HBA_1000_POINTS, { [] { return GerudoToken && CanRideEpona && Bow && AtDay; } }),
-                 LocationAccess(GF_HBA_1500_POINTS, { [] { return GerudoToken && CanRideEpona && Bow && AtDay; } }),
+                 LocationAccess(GF_HBA_1000_POINTS, { [] { return FriendlyGerudos && CanRideEpona && Bow && AtDay; } }),
+                 LocationAccess(GF_HBA_1500_POINTS, { [] { return FriendlyGerudos && CanRideEpona && Bow && AtDay; } }),
              },
              {
                  // Exits
-                 Entrance(GERUDO_FORTRESS, { [] { return IsChild || GerudoToken; } }),
+                 Entrance(GERUDO_FORTRESS, { [] { return IsChild || FriendlyGerudos; } }),
              });
 
     areaTable[GF_OUTSIDE_GATE] =
@@ -306,7 +306,7 @@ void AreaTable_Init_GerudoValley() {
              {
                  // Events
                  EventAccess(&GF_GateOpen, { [] {
-                     return IsAdult && GerudoToken &&
+                     return IsAdult && FriendlyGerudos &&
                             (ShuffleGerudoToken || ShuffleOverworldEntrances /*|| ShuffleSpecialIndoorEntrances*/);
                  } }),
              },

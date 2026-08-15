@@ -452,6 +452,9 @@ extern string_view randomGsLocationsDesc;
 extern string_view gsLocGuaranteeNewDesc;
 extern string_view randomSongNotesDesc;
 extern string_view frogSongTimeMultDesc;
+extern string_view healthRegenDesc;
+extern string_view gerudoFriendsTokenDesc;
+extern string_view gerudoFriendsCarpDesc;
 
 extern string_view ToggleAllTricksDesc;
 

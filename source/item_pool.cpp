@@ -763,12 +763,12 @@ void GenerateItemPool() {
     }
 
     // Gerudo Token
-    if (ShuffleGerudoToken && GerudoFortress.IsNot(GERUDOFORTRESS_OPEN)) {
+    if (ShuffleGerudoToken) {
         AddItemToMainPool(GERUDO_TOKEN);
         IceTrapModels.push_back(GI_GERUDO_TOKEN);
-    } else if (ShuffleGerudoToken) {
-        AddItemToPool(PendingJunkPool, GERUDO_TOKEN);
-        PlaceItemInLocation(GF_GERUDO_TOKEN, ICE_TRAP);
+        if (GerudoFortress.Is(GERUDOFORTRESS_OPEN)) {
+            PlaceItemInLocation(GF_GERUDO_TOKEN, ICE_TRAP);
+        }
     } else {
         Location(GF_GERUDO_TOKEN)->PlaceVanillaItem();
     }
