@@ -1013,7 +1013,7 @@ HOOK MultiplyPlayerSpeed
 HOOK RunAnimationSpeed
     vldr.32 s17,[r5,#0x21C]
     push {r0-r12, lr}
-    bl Player_GetSpeedMultiplier
+    bl Player_GetAnimSpeedMultiplier
     vmov s1,r0
     pop {r0-r12, lr}
     vmul.f32 s17,s1

@@ -56,6 +56,9 @@ Option options[] = {
     OPTION(OPTION_SPEEDBOOST, "Speed Boost", //
            "",                               //
            "Off", "On"),
+    OPTION(OPTION_RUNANIMSPEED, "Change run animation speed", //
+           "",                                                //
+           "Off", "On"),
     OPTION(OPTION_FIREBALLLINK, "Fireball Link", //
            "",                                   //
            "Off", "On"),
