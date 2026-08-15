@@ -773,7 +773,7 @@ void GenerateItemPool() {
     // Gerudo Token
     if (ShuffleGerudoToken && GerudoFortress.IsNot(GERUDOFORTRESS_OPEN)) {
         AddItemToMainPool(GERUDO_TOKEN);
-        IceTrapModels.push_back(GI_GERUDO_CARD);
+        IceTrapModels.push_back(GI_GERUDO_TOKEN);
     } else if (ShuffleGerudoToken) {
         AddItemToPool(PendingJunkPool, GERUDO_TOKEN);
         PlaceItemInLocation(GF_GERUDO_TOKEN, ICE_TRAP);

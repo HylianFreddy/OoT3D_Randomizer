@@ -1865,7 +1865,7 @@ SettingsContext FillContext() {
 
     ctx.startingTokens = StartingSkulltulaToken.Value<u8>();
 
-    // Give the Gerudo Token if Gerudo Fortress is Open and Shuffle Gerudo Card is off
+    // Give the Gerudo Token if Gerudo Fortress is Open and Shuffle Gerudo Token is off
     if (GerudoFortress.Is(GERUDOFORTRESS_OPEN) && !ShuffleGerudoToken) {
         ctx.startingQuestItems |= 0x00400000;
     }

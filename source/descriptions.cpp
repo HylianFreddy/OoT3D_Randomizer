@@ -127,8 +127,8 @@ string_view jabuJabuOpenDesc          = "Jabu-Jabu's mouth is always open.";    
 string_view gerudoNormal              = "All 4 carpenters can be rescued.";                //
 string_view gerudoFast                = "Only the bottom left carpenter must be rescued."; //
 string_view gerudoOpen                = "The carpenters are rescued from the start of the\n"
-                                        "game, and if Shuffle Gerudo Card is disabled,\n"  //
-                                        "the player starts with the Gerudo Card in the\n"  //
+                                        "game, and if Shuffle Gerudo Token is disabled,\n" //
+                                        "the player starts with the Gerudo Token in the\n" //
                                         "inventory allowing access to Gerudo Training\n"   //
                                         "Grounds.";                                        //
 /*------------------------------                                                           //

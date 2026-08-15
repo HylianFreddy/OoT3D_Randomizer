@@ -113,7 +113,7 @@ typedef enum ItemID {
     /* 0x6D */ ITEM_GORON_RUBY,
     /* 0x6E */ ITEM_ZORA_SAPPHIRE,
     /* 0x6F */ ITEM_STONE_OF_AGONY,
-    /* 0x70 */ ITEM_GERUDO_CARD,
+    /* 0x70 */ ITEM_GERUDO_TOKEN,
     /* 0x71 */ ITEM_SKULL_TOKEN,
     /* 0x72 */ ITEM_HEART_CONTAINER,
     /* 0x73 */ ITEM_HEART_PIECE,
@@ -220,7 +220,7 @@ typedef enum GetItemID {
     /* 0x37 */ GI_SCALE_SILVER,
     /* 0x38 */ GI_SCALE_GOLD,
     /* 0x39 */ GI_STONE_OF_AGONY,
-    /* 0x3A */ GI_GERUDO_CARD,
+    /* 0x3A */ GI_GERUDO_TOKEN,
     /* 0x3B */ GI_OCARINA_FAIRY, // uses Ocarina of Time message ID
     /* 0x3C */ GI_SEEDS_5,
     /* 0x3D */ GI_HEART_CONTAINER,
