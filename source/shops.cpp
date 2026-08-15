@@ -319,12 +319,12 @@ void InitTrickNames() {
         Text{ "Shock Arrow", "Flèches électriques", "Flecha eléctrica", "Freccia elettrica", "Elektro-Pfeile" },
         Text{ "Silver Arrow", "Flèches d'argent", "Flecha de plata", "Freccia d'argento", "Silber-Pfeile" }
     };
-    trickNameTable[GI_GERUDO_CARD] = { Text{ "Desert Title Deed", "Abonnement Gerudo", "Escritura del desierto",
-                                             "Proprietà nel deserto", "Wüsten-Urkunde" },
-                                       Text{ "Gerudo's Card", "Carte Goron", "Tóken Gerudo", "Goron Card",
-                                             "Gerudo-Symbol" },
-                                       Text{ "Gerudo's Membership Card", "Autographe de Nabooru", "Tarjeta Gerudo",
-                                             "Gerudo Pass", "Gerudo-Mitgliedskarte" } };
+    trickNameTable[GI_GERUDO_TOKEN] = { Text{ "Desert Title Deed", "Abonnement Gerudo", "Escritura del desierto",
+                                              "Proprietà nel deserto", "Wüsten-Urkunde" },
+                                        Text{ "Gerudo's Card", "Carte Goron", "Tóken Gerudo", "Goron Card",
+                                              "Gerudo-Symbol" },
+                                        Text{ "Gerudo's Membership Card", "Autographe de Nabooru", "Tarjeta Gerudo",
+                                              "Gerudo Pass", "Gerudo-Mitgliedskarte" } };
 
     trickNameTable[0xC9] = { Text{ "Funky Bean Pack", "Paquet de fèves magiques", "Lote de frijoles mágicos",
                                    "Pacco di legumi magici", "Wunderbohnen-Bündel" },
