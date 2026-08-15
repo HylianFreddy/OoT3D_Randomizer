@@ -306,14 +306,6 @@ ItemKey GetJunkItem() {
     return JunkPoolItems[idx];
 }
 
-static ItemKey GetPendingJunkItem() {
-    if (PendingJunkPool.empty()) {
-        return GetJunkItem();
-    }
-
-    return RandomElement(PendingJunkPool, true);
-}
-
 // Replace junk items in the pool with pending junk
 static void ReplaceMaxItem(const ItemKey itemToReplace, int max) {
     int itemCount = 0;
@@ -1145,9 +1137,4 @@ void GenerateItemPool() {
 
     // Prevent excluded locations from always containing the same items
     Shuffle(ItemPool);
-}
-
-void AddJunk() {
-    PlacementLog_Msg("HAD TO PLACE EXTRA JUNK ");
-    AddItemToMainPool(GetPendingJunkItem());
 }
