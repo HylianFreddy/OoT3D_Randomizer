@@ -332,6 +332,10 @@ f32 Player_GetSpeedMultiplier(void) {
     return sSpeedMultiplier;
 }
 
+f32 Player_GetAnimSpeedMultiplier(void) {
+    return gExtSaveData.options[OPTION_RUNANIMSPEED] ? sSpeedMultiplier : 1.0;
+}
+
 s32 Player_IsAdult() {
     return gSaveContext.linkAge == AGE_ADULT;
 }
