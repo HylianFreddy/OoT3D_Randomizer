@@ -412,7 +412,7 @@ void TitleCard_rUpdate(GlobalContext* globalCtx, TitleCardContext* titleCtx) {
 }
 
 // Return true to skip spawning this actor entry
-u8 ActorSetup_OverrideEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
+Bool ActorSetup_OverrideEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
     // Alternate Gold Skulltula Locations
     if (actorEntry->id == 0x95 && (actorEntry->params & 0xE000) && Gs_HasAltLoc(actorEntry, GS_PPT_ACTORENTRY, TRUE)) {
         return TRUE;
@@ -434,6 +434,25 @@ void ActorSetup_Extra(void) {
     Sheik_Spawn();
     Gs_SpawnAltLocs();
     Enemizer_AfterActorSetup();
+}
+
+void Actor_rSpawnEntries(GlobalContext* globalCtx, Bool isRoomChange) {
+    if (globalCtx->numActorEntries == 0) {
+        return;
+    }
+
+    ActorEntry* actorEntry = &globalCtx->actorEntryList[0];
+    for (s32 i = 0; i < globalCtx->numActorEntries; actorEntry++, i++) {
+        Bool overridden = ActorSetup_OverrideEntry(actorEntry, i);
+        if (!overridden) {
+            Actor_Spawn(&globalCtx->actorCtx, globalCtx, actorEntry->id, actorEntry->pos.x, actorEntry->pos.y,
+                        actorEntry->pos.z, actorEntry->rot.x, actorEntry->rot.y, actorEntry->rot.z, actorEntry->params,
+                        isRoomChange && globalCtx->sceneNum != SCENE_KOKIRI_FOREST);
+        }
+    }
+    globalCtx->numActorEntries = 0;
+
+    ActorSetup_Extra();
 }
 
 static s32 hyperActors_ExtraUpdate = 0;

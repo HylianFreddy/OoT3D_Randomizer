@@ -1359,17 +1359,21 @@ PATCH CamUpdate
 PATCH Sheik_GetTextID
     b hook_Sheik_GetTextID
 
-PATCH OnActorSetup_SceneChange
-    bl hook_OnActorSetup_SceneChange
+PATCH SpawnActorEntries_SceneInit
+    push {r0-r12, lr}
+    @ R0 = GlobalContext
+    mov r1,#0x0
+    bl Actor_rSpawnEntries
+    pop {r0-r12, lr}
+    bx lr
 
-PATCH AfterActorSetup_SceneChange
-    bl hook_AfterActorSetup_SceneChange
-
-PATCH OnActorSetup_RoomChange
-    bl hook_OnActorSetup_RoomChange
-
-PATCH AfterActorSetup_RoomChange
-    bl hook_AfterActorSetup_RoomChange
+PATCH SpawnActorEntries_RoomChange
+    ldr r0,[sp,#0x3C] @ GlobalContext
+    push {r0-r12, lr}
+    mov r1,#0x1
+    bl Actor_rSpawnEntries
+    pop {r0-r12, lr}
+    b ret_SpawnActorEntries_RoomChange
 
 PATCH RandomGsLoc_CustomTangibilityCheck
     b hook_RandomGsLoc_CustomTangibilityCheck
