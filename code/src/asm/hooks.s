@@ -1608,48 +1608,6 @@ HOOK Sheik_GetTextID
     pop {r0, r2-r12, lr}
     b 0x2A4B4C
 
-HOOK OnActorSetup_SceneChange
-    cpy r4,r5
-    push {r0-r12, lr}
-    cpy r0,r5
-    cpy r1,r6
-    bl ActorSetup_OverrideEntry
-    cmp r0,#0x1
-    pop {r0-r12, lr}
-    # Continue like normal
-    bxne lr
-    # Iterate actor entry pointer and skip
-    add r5,#0x10
-    b ret_OnActorSetup_SceneChange
-
-HOOK AfterActorSetup_SceneChange
-    strb r0,[r7,#0xC03]
-    push {r0-r12, lr}
-    bl ActorSetup_Extra
-    pop {r0-r12, lr}
-    bx lr
-
-HOOK OnActorSetup_RoomChange
-    cpy r4,r6
-    push {r0-r12, lr}
-    cpy r0,r6
-    cpy r1,r7
-    bl ActorSetup_OverrideEntry
-    cmp r0,#0x1
-    pop {r0-r12, lr}
-    # Continue like normal
-    bxne lr
-    # Iterate actor entry pointer and skip
-    add r6,#0x10
-    b ret_OnActorSetup_RoomChange
-
-HOOK AfterActorSetup_RoomChange
-    strb r10,[r8,#0xC03]
-    push {r0-r12, lr}
-    bl ActorSetup_Extra
-    pop {r0-r12, lr}
-    bx lr
-
 HOOK RandomGsLoc_CustomTangibilityCheck
     sub sp,sp,#0x18
     push {r0-r12, lr}

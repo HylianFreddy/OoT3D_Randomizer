@@ -779,9 +779,7 @@ SECTIONS
 	.patch_LoadFileSwordless 0x44FD98 + _LD_OFF : { *(.patch_LoadFileSwordless) }
 	.patch_OpenSaveDontSpoilTradeItems 0x44FDF8 + _LD_OFF : { *(.patch_OpenSaveDontSpoilTradeItems) }
 	ret_OpenSaveDontSpoilTradeItems = 0x44FEB8 + _LD_OFF;
-	.patch_OnActorSetup_SceneChange 0x452250 + _LD_OFF : { *(.patch_OnActorSetup_SceneChange) }
-	ret_OnActorSetup_SceneChange = 0x4522A4 + _LD_OFF;
-	.patch_AfterActorSetup_SceneChange 0x4522B8 + _LD_OFF : { *(.patch_AfterActorSetup_SceneChange) }
+	.patch_SpawnActorEntries_SceneInit 0x452220 + _LD_OFF : { *(.patch_SpawnActorEntries_SceneInit) }
 	.patch_ActorInit1 0x452320 + _LD_OFF : { *(.patch_ActorInit1) }
 	.patch_before_GlobalContext_Update 0x452390 + _LD_OFF : { *(.patch_before_GlobalContext_Update) }
 	.patch_after_GlobalContext_Update 0x452434 + _LD_OFF : { *(.patch_after_GlobalContext_Update) }
@@ -808,9 +806,8 @@ SECTIONS
 	.patch_AlwaysRestoreChildEquips 0x45F3B0 + _LD_OFF : { *(.patch_AlwaysRestoreChildEquips) }
 	.patch_ChildDontEquipSwordSlotByDefault 0x45F49C + _LD_OFF : { *(.patch_ChildDontEquipSwordSlotByDefault) }
 	Object_Clear = 0x45FDA0 + _LD_OFF;
-	.patch_OnActorSetup_RoomChange 0x4613C4 + _LD_OFF : { *(.patch_OnActorSetup_RoomChange) }
-	ret_OnActorSetup_RoomChange = 0x461424 + _LD_OFF;
-	.patch_AfterActorSetup_RoomChange 0x461434 + _LD_OFF : { *(.patch_AfterActorSetup_RoomChange) }
+	.patch_SpawnActorEntries_RoomChange 0x4613A8 + _LD_OFF : { *(.patch_SpawnActorEntries_RoomChange) }
+	ret_SpawnActorEntries_RoomChange = 0x461438 + _LD_OFF;
 	.patch_ActorInit2 0x4615C4 + _LD_OFF : { *(.patch_ActorInit2) }
 	.patch_FixActorKillLoop 0x4615E0 + _LD_OFF : { *(.patch_FixActorKillLoop) }
 	.patch_ActorUpdate 0x461790 + _LD_OFF : { *(.patch_ActorUpdate) }
