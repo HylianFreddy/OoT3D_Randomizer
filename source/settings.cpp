@@ -488,6 +488,7 @@ Option FreeCamera          = Option::Bool("Free Camera",            {"Off", "On"
 Option RandomGsLocations   = Option::Bool("Random GS Locations",    {"Off", "On"},                                                          {randomGsLocationsDesc});
 Option GsLocGuaranteeNew   = Option::Bool(2, "Guarantee New",       {"Off", "On"},                                                          {gsLocGuaranteeNewDesc});
 Option RandomSongNotes     = Option::Bool("Random Ocarina Melodies",{"Off", "On"},                                                          {randomSongNotesDesc});
+Option FrogSongTimeMult    = Option::U8("Frog Song Timer",          {"1x","2x","3x","4x"},                                                  {frogSongTimeMultDesc});
 Option HealthRegen         = Option::Bool("Health Regen",           {"Off", "On"},                                                          {healthRegenDesc});
 Option GerudoFriendship    = Option::U8  ("Gerudo Friendship",      {"Gerudo Token", "Free Carpenters"},                                    {gerudoFriendsTokenDesc, gerudoFriendsCarpDesc});
 Option EnemyPermadeath     = Option::Bool("Enemy Permadeath",       {"Off", "On"},                                                          {enemyPermadeathDesc});
@@ -514,6 +515,7 @@ std::vector<Option*> gameplayOptions = {
     &RandomGsLocations,
     &GsLocGuaranteeNew,
     &RandomSongNotes,
+    &FrogSongTimeMult,
     &HealthRegen,
     &GerudoFriendship,
     &EnemyPermadeath,
@@ -1688,6 +1690,7 @@ SettingsContext FillContext() {
     ctx.freeCamera          = (FreeCamera) ? 1 : 0;
     ctx.randomGsLocations   = (RandomGsLocations) ? 1 : 0;
     ctx.randomSongNotes     = (RandomSongNotes) ? 1 : 0;
+    ctx.frogSongTimerMult   = FrogSongTimeMult.Value<u8>();
     ctx.healthRegen         = (HealthRegen) ? 1 : 0;
     ctx.gerudoFriendship    = GerudoFriendship.Value<u8>();
     ctx.enemyPermadeath     = (EnemyPermadeath) ? 1 : 0;

@@ -1459,6 +1459,11 @@ string_view randomSongNotesDesc       = "Randomize the notes for each ocarina so
                                         "Regular songs will be 3 notes repeated twice.\n"  //
                                         "Warp songs will be between 5 and 8 notes.";       //
 /*------------------------------                                                           //
+|      FROG SONG TIMER         |                                                           //
+------------------------------*/                                                           //
+string_view frogSongTimeMultDesc      = "Multiplier for the time you have to play each\n"  //
+                                        "note in the final frog song.";                    //
+/*------------------------------                                                           //
 |         HEALTH REGEN         |                                                           //
 ------------------------------*/                                                           //
 string_view healthRegenDesc           = "Health regenerates over time (1 Heart per minute).";

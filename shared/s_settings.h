@@ -669,6 +669,7 @@ typedef struct SettingsContext {
     u8 freeCamera;
     u8 randomGsLocations;
     u8 randomSongNotes;
+    u8 frogSongTimerMult;
     u8 healthRegen;
     u8 gerudoFriendship;
     u8 enemyPermadeath;
@@ -822,5 +823,4 @@ typedef struct SettingsContext {
     u8 startingOcarinaButtons;
 
     u8 startingTokens;
-
 } SettingsContext;

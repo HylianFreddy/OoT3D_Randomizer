@@ -559,6 +559,9 @@ PATCH CowItemOverride
 PATCH AnjuCheckCuccoAmount
     b hook_AnjuCheckCuccoAmount
 
+PATCH EnFrSetupFrogSongTimerMultiplier
+    bl hook_EnFrSetupFrogSongTimerMultiplier
+
 PATCH FrogReward
     b hook_FrogReward
 
