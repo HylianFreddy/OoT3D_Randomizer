@@ -514,6 +514,7 @@ extern Option GsLocGuaranteeNew;
 extern Option RandomSongNotes;
 extern Option HealthRegen;
 extern Option GerudoFriendship;
+extern Option EnemyPermadeath;
 extern bool HasNightStart;
 
 extern Option FaroresWindAnywhere;

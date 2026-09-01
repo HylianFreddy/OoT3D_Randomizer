@@ -671,6 +671,7 @@ typedef struct SettingsContext {
     u8 randomSongNotes;
     u8 healthRegen;
     u8 gerudoFriendship;
+    u8 enemyPermadeath;
 
     u8 faroresWindAnywhere;
     u8 stickAsAdult;

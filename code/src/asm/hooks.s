@@ -2201,3 +2201,19 @@ HOOK SetupDoorShutter
     cmp r0,#0x0
     pop {r0-r12, lr}
     bx lr
+
+HOOK ActorDelete
+    cpy r0,r4
+    push {r0-r12, lr}
+    bl Actor_OnDelete
+    pop {r0-r12, lr}
+    bx lr
+
+HOOK ActorSpawn_ClearFlagCheck
+    push {r0-r12, lr}
+    bl Settings_IsEnemyPermadeathEnabled
+    cmp r0,#0x0
+    pop {r0-r12, lr}
+    @ check clear flag for enemy actors only if the setting is disabled
+    cmpeq r1,#0x5
+    bx lr

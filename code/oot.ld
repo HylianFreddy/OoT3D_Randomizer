@@ -187,6 +187,7 @@ SECTIONS
 	EnSw_Update = 0x1BB110 + _LD_OFF;
 	.patch_GetObjectEntry_EnTiteInit 0x1BBC9C + _LD_OFF : { *(.patch_GetObjectEntry_EnTiteInit) }
 	EnTk_Update = 0x1BC088 + _LD_OFF;
+	EnVali_Destroy = 0x1BC6CC + _LD_OFF;
 	Fishing_Init = 0x1C0AD8 + _LD_OFF;
 	.patch_FishingNewRecord 0x1C3AA4 + _LD_OFF : { *(.patch_FishingNewRecord) }
 	.patch_FishingSizeIgnoreChild 0x1C3DFC + _LD_OFF : { *(.patch_FishingSizeIgnoreChild) }
@@ -225,6 +226,7 @@ SECTIONS
 	.patch_AdultBlueWarpOverride 0x1E3F50 + _LD_OFF : { *(.patch_AdultBlueWarpOverride) }
 	.patch_DaruniaCheckStrength 0x1E489C + _LD_OFF : { *(.patch_DaruniaCheckStrength) }
 	BgYdanSp_FloorWebBreaking = 0x1E8438 + _LD_OFF;
+	EnKarebaba_Dead = 0x1E9998 + _LD_OFF;
 	.patch_CanPlayBombchuBowlingTwo 0x1EA1D4 + _LD_OFF : { *(.patch_CanPlayBombchuBowlingTwo) }
 	ArmsHook_Init = 0x1EBF84 + _LD_OFF;
 	Boss_Tw_Draw = 0x1EEDF0 + _LD_OFF;
@@ -232,6 +234,7 @@ SECTIONS
 	.patch_BoomerangTrailEffect 0x1F4220 + _LD_OFF : { *(.patch_BoomerangTrailEffect) } /*EnBoom_Draw*/
 	EnCrow_Update = 0x1F4D40 + _LD_OFF;
 	EnDodojr_Init = 0x1F51E8 + _LD_OFF;
+	EnDodojr_Destroy = 0x1F52CC + _LD_OFF;
 	EnDoor_Update = 0x1F53C8 + _LD_OFF;
 	.patch_GohmaEggDeathSignalParent 0x1F5F48 + _LD_OFF : { *(.patch_GohmaEggDeathSignalParent) }
 	EnIshi_Update = 0x1F69AC + _LD_OFF;
@@ -339,6 +342,7 @@ SECTIONS
 	EnEncount1_Update = 0x2682D0 + _LD_OFF;
 	EnExRuppy_Update = 0x2689B8 + _LD_OFF;
 	.patch_GerudoFriendship_269884 0x269884 + _LD_OFF : { *(.patch_GerudoFriendship_269884) }
+	EnKarebaba_Update = 0x26ADCC + _LD_OFF;
 	EnNutsball_Update = 0x26BD8C + _LD_OFF;
 	.patch_MinuetLocation 0x26C388 + _LD_OFF : { *(.patch_MinuetLocation) }
 	.patch_BoleroLocation 0x26C448 + _LD_OFF : { *(.patch_BoleroLocation) }
@@ -415,6 +419,7 @@ SECTIONS
 	.patch_CamUpdate 0x2D84C8 + _LD_OFF : { *(.patch_CamUpdate) }
 	.patch_CamRoll 0x2D88E4 + _LD_OFF : { *(.patch_CamRoll) }
 	CmbManager_Destroy = 0x2DA0E4 + _LD_OFF;
+	.patch_ActorDelete 0x2DA234 + _LD_OFF : { *(.patch_ActorDelete) }
 	Message_GetText = 0x2DF4B0 + _LD_OFF;
 	Message_GetEntry = 0x2DF4C4 + _LD_OFF;
 	.patch_CheckForTextControlCode 0x2E0490 + _LD_OFF : { *(.patch_CheckForTextControlCode) }
@@ -587,6 +592,7 @@ SECTIONS
 	SkelAnime_Update = 0x3731E0 + _LD_OFF;
 	EnWonderTalk_Update = 0x3731F4 + _LD_OFF;
 	Actor_Spawn = 0x3738D0 + _LD_OFF;
+	.patch_ActorSpawn_ClearFlagCheck 0x373938 + _LD_OFF : { *(.patch_ActorSpawn_ClearFlagCheck) }
 	.patch_ConvertBombDropTwo 0x3747A4 + _LD_OFF : { *(.patch_ConvertBombDropTwo) }
 	.patch_Audio_PlaySfxGeneral 0x37547C + _LD_OFF : { *(.patch_Audio_PlaySfxGeneral) }
 	Audio_PlaySfxGeneral = 0x37547C + _LD_OFF;

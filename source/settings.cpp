@@ -490,6 +490,7 @@ Option GsLocGuaranteeNew   = Option::Bool(2, "Guarantee New",       {"Off", "On"
 Option RandomSongNotes     = Option::Bool("Random Ocarina Melodies",{"Off", "On"},                                                          {randomSongNotesDesc});
 Option HealthRegen         = Option::Bool("Health Regen",           {"Off", "On"},                                                          {healthRegenDesc});
 Option GerudoFriendship    = Option::U8  ("Gerudo Friendship",      {"Gerudo Token", "Free Carpenters"},                                    {gerudoFriendsTokenDesc, gerudoFriendsCarpDesc});
+Option EnemyPermadeath     = Option::Bool("Enemy Permadeath",       {"Off", "On"},                                                          {enemyPermadeathDesc});
 std::vector<Option*> gameplayOptions = {
     &FastBunnyHood,
     &KeepFWWarpPoint,
@@ -515,6 +516,7 @@ std::vector<Option*> gameplayOptions = {
     &RandomSongNotes,
     &HealthRegen,
     &GerudoFriendship,
+    &EnemyPermadeath,
 };
 
 // Excluded Locations (Individual definitions made in ItemLocation class)
@@ -1688,6 +1690,7 @@ SettingsContext FillContext() {
     ctx.randomSongNotes     = (RandomSongNotes) ? 1 : 0;
     ctx.healthRegen         = (HealthRegen) ? 1 : 0;
     ctx.gerudoFriendship    = GerudoFriendship.Value<u8>();
+    ctx.enemyPermadeath     = (EnemyPermadeath) ? 1 : 0;
 
     ctx.faroresWindAnywhere  = (FaroresWindAnywhere) ? 1 : 0;
     ctx.stickAsAdult         = (StickAsAdult) ? 1 : 0;
