@@ -579,7 +579,7 @@ bool WriteAllPatches() {
     |         Enemy Overrides         |
     ---------------------------------*/
 
-    if (Settings::Enemizer) {
+    if (Settings::Enemizer || Settings::EnemyPermadeath) {
         std::vector<EnemyOverride> enemyOverrides;
         Enemizer::FillPatchOverrides(enemyOverrides);
 

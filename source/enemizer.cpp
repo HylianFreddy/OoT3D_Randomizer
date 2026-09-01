@@ -48,22 +48,16 @@ void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {
         for (auto& layer : scene.second) {
             for (auto& room : layer.second) {
                 for (auto& entry : room.second) {
-                    if (entry.second.randomizedEnemyId == 0) {
-                        // Location is not randomized (due to Enemy Type setting being Vanilla)
-                        continue;
-                    }
                     EnemyType& enemyType = enemyTypes[entry.second.randomizedEnemyId];
-                    if (enemyType.id != ENEMY_INVALID) {
-                        EnemyOverride ovr;
-                        ovr.scene      = scene.first;
-                        ovr.layer      = layer.first;
-                        ovr.room       = room.first;
-                        ovr.actorEntry = entry.first;
-                        ovr.enemyId    = enemyType.id;
-                        ovr.paramsIdx  = entry.second.randomizedParamsIdx;
-                        ovr.vanillaId  = entry.second.vanillaEnemyId;
-                        enemyOverrides.push_back(ovr);
-                    }
+                    EnemyOverride ovr;
+                    ovr.scene      = scene.first;
+                    ovr.layer      = layer.first;
+                    ovr.room       = room.first;
+                    ovr.actorEntry = entry.first;
+                    ovr.enemyId    = enemyType.id;
+                    ovr.paramsIdx  = entry.second.randomizedParamsIdx;
+                    ovr.vanillaId  = entry.second.vanillaEnemyId;
+                    enemyOverrides.push_back(ovr);
                 }
             }
         }

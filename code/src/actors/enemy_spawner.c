@@ -1,7 +1,7 @@
 #include "enemy_spawner.h"
 #include "settings.h"
 #include "enemizer.h"
-#include "common.h"
+#include "actor.h"
 #include "shabom.h"
 #include "gohma.h"
 #include "dodongos.h"
@@ -10,15 +10,15 @@ void EnEncount1_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnEncount1_Update(Actor* thisx, GlobalContext* globalCtx);
 
 void EnemySpawner_OverrideSpawnedActor(EnEncount1* this, s16* actorId, s16* params) {
-    if (gSettingsContext.enemizer == OFF || this->rSpawnedActorId == 0) {
+    if (gSettingsContext.enemizer == OFF || this->rExt.spawnedActorId == 0) {
         return;
     }
 
     if (actorId != NULL) {
-        *actorId = this->rSpawnedActorId;
+        *actorId = this->rExt.spawnedActorId;
     }
     if (params != NULL) {
-        *params = this->rSpawnedActorParams;
+        *params = this->rExt.spawnedActorParams;
     }
 }
 
@@ -27,13 +27,13 @@ void EnEncount1_rInit(Actor* thisx, GlobalContext* globalCtx) {
 
     EnEncount1_Init(thisx, globalCtx);
 
-    EnemyOverride enemyOverride = Enemizer_GetSpawnerOverride();
-    this->rSpawnedActorId       = gEnemyTable[enemyOverride.enemyId].actorId;
-    this->rSpawnedActorParams   = gEnemyTable[enemyOverride.enemyId].possibleParams[enemyOverride.paramsIdx];
+    EnemyOverride enemyOverride   = Enemizer_GetSpawnerOverride();
+    this->rExt.spawnedActorId     = gEnemyTable[enemyOverride.enemyId].actorId;
+    this->rExt.spawnedActorParams = gEnemyTable[enemyOverride.enemyId].possibleParams[enemyOverride.paramsIdx];
 
-    if (this->rSpawnedActorId == ACTOR_STALFOS) {
+    if (this->rExt.spawnedActorId == ACTOR_STALFOS) {
         // Only use "rising from ground" stalfos type, and not the "falling from above" type.
-        this->rSpawnedActorParams = 0x0002;
+        this->rExt.spawnedActorParams = 0x0002;
     }
 }
 
@@ -43,10 +43,10 @@ void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 
     EnEncount1_Update(thisx, globalCtx);
 
-    if (gSettingsContext.enemizer == ON && this->rSpawnedActorId != 0) {
+    if (gSettingsContext.enemizer == ON && this->rExt.spawnedActorId != 0) {
         // Kill spawned enemies that are culled and far away from the player.
-        for (s32 i = 0; i < ARRAY_SIZE(this->rSpawnedEnemies); i++) {
-            Actor* spawnedEnemy = this->rSpawnedEnemies[i];
+        for (s32 i = 0; i < ARRAY_SIZE(this->rExt.spawnedEnemies); i++) {
+            Actor* spawnedEnemy = this->rExt.spawnedEnemies[i];
             if (spawnedEnemy != NULL && !(spawnedEnemy->flags & ACTOR_FLAG_INSIDE_CULLING_VOLUME) &&
                 spawnedEnemy->xzDistToPlayer > 1000.0) {
                 Actor_Kill(spawnedEnemy);
@@ -54,8 +54,8 @@ void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         }
 
         // Remove enemies from the array if they've been killed (either by the loop above or by something else).
-        for (s32 i = 0; i < ARRAY_SIZE(this->rSpawnedEnemies); i++) {
-            Actor* spawnedEnemy = this->rSpawnedEnemies[i];
+        for (s32 i = 0; i < ARRAY_SIZE(this->rExt.spawnedEnemies); i++) {
+            Actor* spawnedEnemy = this->rExt.spawnedEnemies[i];
             if (spawnedEnemy != NULL && spawnedEnemy->update == NULL && spawnedEnemy->draw == NULL) {
                 // Decrease the spawner's counter, unless the enemy already handles it in its own destroy function.
                 if (this->curNumSpawn > 0 && spawnedEnemy->id != ACTOR_STALCHILD && spawnedEnemy->id != ACTOR_LEEVER &&
@@ -67,21 +67,21 @@ void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
                     (spawnedEnemy->id == ACTOR_BABY_DODONGO &&
                      ((EnDodojr*)spawnedEnemy)->actionFunc == EnDodojr_DropItem) ||
                     (spawnedEnemy->id == ACTOR_SHABOM && ((EnBubble*)spawnedEnemy)->actionFunc == EnBubble_Pop)) {
-                    this->rKillCount++;
+                    this->rExt.killCount++;
                 }
-                this->rSpawnedEnemies[i] = NULL;
+                this->rExt.spawnedEnemies[i] = NULL;
             }
         }
 
         // Add newly spawned enemies from this update cycle
         Actor* enemy = globalCtx->actorCtx.actorList[ACTORTYPE_ENEMY].first;
         s32 i        = 0;
-        while (enemy != prevEnemiesHead && i < ARRAY_SIZE(this->rSpawnedEnemies)) {
-            if (this->rSpawnedEnemies[i] != NULL) {
+        while (enemy != prevEnemiesHead && i < ARRAY_SIZE(this->rExt.spawnedEnemies)) {
+            if (this->rExt.spawnedEnemies[i] != NULL) {
                 i++;
                 continue;
             }
-            this->rSpawnedEnemies[i] = enemy;
+            this->rExt.spawnedEnemies[i] = enemy;
             switch (enemy->id) {
                 case ACTOR_SHABOM:
                     ((EnBubble*)enemy)->actionFunc = EnBubble_Disappear;
@@ -101,24 +101,31 @@ void EnEncount1_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
             // The kill count is handled with a custom field so base game actors can't mess with it.
             // Keep the base field at 0 so the spawner won't try to spawn a big leever.
             this->killCount = 0;
-            // For simple enemies, delay spawner by 15 seconds after 10 kills.
-            s16 delayValue    = 450;
+            // Use different delay and required kill count for easy and hard enemies.
+            s16 delaySeconds  = 30;
             s16 requiredKills = 10;
-            if (this->rSpawnedActorId == ACTOR_STALFOS ||
-                (this->rSpawnedActorId == ACTOR_LEEVER && this->rSpawnedActorParams == 1)) {
-                // For harder enemies, delay spawner by 30 seconds after 5 kills.
-                delayValue    = 900;
+            if (this->rExt.spawnedActorId == ACTOR_STALFOS ||
+                (this->rExt.spawnedActorId == ACTOR_LEEVER && this->rExt.spawnedActorParams == 1)) {
+                delaySeconds  = 60;
                 requiredKills = 5;
             }
-            if (this->rKillCount >= requiredKills) {
-                this->rDelayTimer = delayValue;
-                this->rKillCount  = 0;
+            if (this->rExt.killCount >= requiredKills) {
+                this->rExt.delayTimer = delaySeconds * 30;
+                this->rExt.killCount  = 0;
             }
             // Wait for all spawned enemies to despawn before starting the countdown.
-            if (this->curNumSpawn == 0 && this->rDelayTimer > 0) {
-                this->rDelayTimer--;
+            if (this->curNumSpawn == 0 && this->rExt.delayTimer > 0) {
+                this->rExt.delayTimer--;
             }
-            this->timer = this->rDelayTimer;
+            this->timer = this->rExt.delayTimer;
         }
+    }
+
+    Bool swarmDefeated = this->curNumSpawn == 0 && this->timer > 100;
+    if (gSettingsContext.enemyPermadeath == ON && swarmDefeated) {
+        ExtraActorFields* actorExtras     = (ExtraActorFields*)this;
+        actorExtras->representsActorEntry = TRUE;
+        actorExtras->actorEntryIndex      = 0xFF;
+        Actor_Kill(thisx);
     }
 }

@@ -92,6 +92,8 @@
 #include "armos.h"
 #include "poe_collector.h"
 #include "forest_temple_objects.h"
+#include "biri.h"
+#include "deku_baba.h"
 
 Actor* gRunningActor;
 #define MAX_RUNNING_ACTORS 5
@@ -163,7 +165,8 @@ void Actor_Init() {
     gActorOverlayTable[0x2E].initInfo->init   = DoorShutter_rInit;
     gActorOverlayTable[0x2E].initInfo->update = DoorShutter_rUpdate;
 
-    gActorOverlayTable[0x2F].initInfo->init = EnDodojr_rInit;
+    gActorOverlayTable[0x2F].initInfo->init    = EnDodojr_rInit;
+    gActorOverlayTable[0x2F].initInfo->destroy = EnDodojr_rDestroy;
 
     gActorOverlayTable[0x33].initInfo->type   = ACTORTYPE_ENEMY;
     gActorOverlayTable[0x33].initInfo->init   = EnTorch2_rInit;
@@ -191,6 +194,8 @@ void Actor_Init() {
     gActorOverlayTable[0x5F].initInfo->destroy = ItemBHeart_rDestroy;
     gActorOverlayTable[0x5F].initInfo->update  = ItemBHeart_rUpdate;
     gActorOverlayTable[0x5F].initInfo->draw    = ItemBHeart_rDraw;
+
+    gActorOverlayTable[0x63].initInfo->destroy = EnVali_rDestroy;
 
     gActorOverlayTable[0x66].initInfo->init = ArmsHook_rInit;
 
@@ -229,6 +234,8 @@ void Actor_Init() {
     gActorOverlayTable[0xC1].initInfo->update = EnSyatekiMan_rUpdate;
 
     gActorOverlayTable[0xC3].initInfo->draw = EnNb_rDraw;
+
+    gActorOverlayTable[0xC7].initInfo->update = EnKarebaba_rUpdate;
 
     gActorOverlayTable[0xD5].initInfo->update  = BgSpot06Objects_rUpdate;
     gActorOverlayTable[0xD5].initInfo->destroy = BgSpot06Objects_rDestroy;
@@ -443,16 +450,32 @@ void Actor_rSpawnEntries(GlobalContext* globalCtx, Bool isRoomChange) {
 
     ActorEntry* actorEntry = &globalCtx->actorEntryList[0];
     for (s32 i = 0; i < globalCtx->numActorEntries; actorEntry++, i++) {
-        Bool overridden = ActorSetup_OverrideEntry(actorEntry, i);
-        if (!overridden) {
+        Bool toSkip = ActorSetup_OverrideEntry(actorEntry, i);
+        if (toSkip) {
+            continue;
+        }
+
+        Actor* spawnedActor =
             Actor_Spawn(&globalCtx->actorCtx, globalCtx, actorEntry->id, actorEntry->pos.x, actorEntry->pos.y,
                         actorEntry->pos.z, actorEntry->rot.x, actorEntry->rot.y, actorEntry->rot.z, actorEntry->params,
                         isRoomChange && globalCtx->sceneNum != SCENE_KOKIRI_FOREST);
+        if (spawnedActor != NULL) {
+            ExtraActorFields* actorExtras     = ((ExtraActorFields*)spawnedActor);
+            actorExtras->representsActorEntry = TRUE;
+            actorExtras->actorEntryIndex      = i;
         }
     }
     globalCtx->numActorEntries = 0;
 
     ActorSetup_Extra();
+}
+
+void Actor_OnDelete(Actor* actor) {
+    ExtraActorFields* actorExtras = (ExtraActorFields*)actor;
+    if (gGlobalContext->state.running != 0 && actor->room == gGlobalContext->roomNum &&
+        actorExtras->representsActorEntry) {
+        Enemizer_OnEnemyDefeat(actorExtras->actorEntryIndex);
+    }
 }
 
 static s32 hyperActors_ExtraUpdate = 0;

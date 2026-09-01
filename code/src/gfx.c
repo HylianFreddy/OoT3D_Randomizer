@@ -656,7 +656,8 @@ static void Gfx_DrawEnemyLocations(void) {
         if (curEnemyIdx >= enemyCount) {
             break;
         }
-        EnemyOverride* enemy = &rEnemyOverrides[enemyBaseIdx + curEnemyIdx];
+        s32 ovrIdx           = enemyBaseIdx + curEnemyIdx;
+        EnemyOverride* enemy = &rEnemyOverrides[ovrIdx];
         // Don't show duplicated layers
         if ((enemy->scene == SCENE_HYRULE_FIELD && enemy->layer == 1) ||
             (enemy->scene == SCENE_GRAVEYARD && enemy->layer == 3)) {
@@ -691,12 +692,18 @@ static void Gfx_DrawEnemyLocations(void) {
                                            COLOR_GREEN, "Room %d", enemy->room);
         }
 
-        char* randomEnemyName = (gSettingsContext.ingameSpoilers && gExtSaveData.options[OPTION_SPOILERS])
-                                    ? gEnemyTable[enemy->enemyId].name
-                                    : "???";
-        Draw_DrawFormattedString_Small(10 + (SPACING_SMALL_X * 4), posY, COLOR_WHITE, "%s",
+        u32 color = COLOR_WHITE;
+        if (gSettingsContext.enemyPermadeath && SaveFile_IsEnemyDefeated(ovrIdx)) {
+            color = COLOR_LIGHT_GRAY;
+        }
+
+        Draw_DrawFormattedString_Small(10 + (SPACING_SMALL_X * 4), posY, color, "%s",
                                        gEnemyTable[enemy->vanillaId].name);
-        Draw_DrawFormattedString_Small(10 + (SPACING_SMALL_X * 25), posY, COLOR_WHITE, "-> %s", randomEnemyName);
+
+        if (gSettingsContext.enemizer && gSettingsContext.ingameSpoilers) {
+            char* randomEnemyName = (gExtSaveData.options[OPTION_SPOILERS]) ? gEnemyTable[enemy->enemyId].name : "???";
+            Draw_DrawFormattedString_Small(10 + (SPACING_SMALL_X * 25), posY, color, "-> %s", randomEnemyName);
+        }
     }
 }
 
@@ -1464,7 +1471,7 @@ void Gfx_Init(void) {
     if (!gSettingsContext.shuffleEnemySouls) {
         menu_draw_funcs[PAGE_ENEMYSOULS] = NULL;
     }
-    if (!gSettingsContext.enemizer || !gSettingsContext.ingameSpoilers) {
+    if ((!gSettingsContext.enemizer || !gSettingsContext.ingameSpoilers) && !gSettingsContext.enemyPermadeath) {
         menu_draw_funcs[PAGE_ENEMYLOCATIONS] = NULL;
     }
     if (!gSettingsContext.ingameSpoilers) {

@@ -7,6 +7,14 @@ struct EnEncount1;
 
 typedef void (*EnEncount1UpdateFunc)(struct EnEncount1*, GlobalContext*);
 
+typedef struct EnEncount1Extension {
+    Actor* spawnedEnemies[5];
+    s16 spawnedActorId;
+    s16 spawnedActorParams;
+    s16 killCount;
+    s16 delayTimer;
+} EnEncount1Extension;
+
 typedef struct EnEncount1 {
     /* 0x000 */ Actor actor;
     /* 0x1A4 */ EnEncount1UpdateFunc updateFunc;
@@ -26,19 +34,15 @@ typedef struct EnEncount1 {
     /* 0x1C4 */ Actor* bigLeever;
     /* 0x1C8 */ struct EnEncount1* childEnEncount1;
     // end of base game struct
-    /* 0x1CC */ Actor* rSpawnedEnemies[5];
-    /* 0x1E0 */ s16 rSpawnedActorId;
-    /* 0x1E2 */ s16 rSpawnedActorParams;
-    /* 0x1E4 */ s16 rKillCount;
-    /* 0x1E6 */ s16 rDelayTimer;
+    EnEncount1Extension rExt;
 } EnEncount1;
-_Static_assert(sizeof(EnEncount1) == 0x1E8, "EnEncount1 size");
+_Static_assert(offsetof(EnEncount1, rExt) == 0x1CC, "EnEncount1 size");
 
 typedef enum EnEncount1type {
     /* 0 */ SPAWNER_LEEVER,
     /* 1 */ SPAWNER_TEKTITE,
     /* 2 */ SPAWNER_STALCHILDREN,
-    /* 3 */ SPAWNER_WOLFOS
+    /* 3 */ SPAWNER_WOLFOS,
 } EnEncount1type;
 
 void EnEncount1_rInit(Actor* thisx, GlobalContext* globalCtx);

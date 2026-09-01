@@ -43,6 +43,7 @@ typedef struct EnDodojr {
 _Static_assert(sizeof(EnDodojr) == 0x520, "EnDodojr size");
 
 void EnDodojr_rInit(Actor* thisx, GlobalContext* globalCtx);
+void EnDodojr_rDestroy(Actor* thisx, GlobalContext* globalCtx);
 void EnDodojr_DropItem(EnDodojr* this, GlobalContext* globalCtx);
 
 /*-------------------------------

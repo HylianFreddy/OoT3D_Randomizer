@@ -40,6 +40,8 @@ typedef struct EnVali {
 } EnVali;
 _Static_assert(sizeof(EnVali) == 0x8C8, "EnVali size");
 
+void EnVali_rDestroy(Actor* thisx, GlobalContext* globalCtx);
+
 void EnVali_ReinitModels(EnVali* this);
 
 #endif //_BIRI_H_

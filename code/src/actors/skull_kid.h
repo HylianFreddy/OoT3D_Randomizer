@@ -17,7 +17,9 @@ typedef struct EnSkj {
     /* 0x09B0 */ char unk_9B0[0x65];
     /* 0x0A15 */ u8 action;
     /* 0x0A16 */ u8 backflipFlag;
-    /* 0x0A17 */ char unk_A17[0x31];
+    /* 0x0A17 */ char unk_A17[0x9];
+    /* 0x0A20 */ u32 alpha;
+    /* 0x0A24 */ char unk_A24[0x24];
 } EnSkj;
 _Static_assert(sizeof(EnSkj) == 0xA48, "EnSkj size");
 

@@ -321,6 +321,10 @@ bool CanCrawlNearEnemies(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntri
 }
 
 bool CanHookEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry, bool onLedge /*= false*/) {
+    if (EnemyPermadeath) {
+        return false;
+    }
+
     EnemyLocation& loc = enemyLocations[scene][layer][room][actorEntry];
     u16 enemyId        = loc.GetEnemyId();
 
@@ -344,6 +348,10 @@ bool CanHookEnemy(u8 scene, u8 layer, u8 room, u8 actorEntry, bool onLedge /*= f
 }
 
 static bool _CanDetonateEnemy(EnemyLocation& loc, bool needLowHeight = false) {
+    if (EnemyPermadeath) {
+        return false;
+    }
+
     u16 enemyId = loc.GetEnemyId();
 
     switch (enemyId) {
@@ -379,7 +387,7 @@ static EnemyConditionFn _CanGetDekuBabaSticks([](EnemyLocation& loc) {
     switch (enemyId) {
         case ENEMY_DEKU_BABA_BIG:
         case ENEMY_DEKU_BABA_SMALL:
-            return SoulDekuBaba &&
+            return !EnemyPermadeath && SoulDekuBaba &&
                    (CanUse(KOKIRI_SWORD) || CanUse(MASTER_SWORD) || CanUse(BIGGORON_SWORD) || CanUse(BOOMERANG));
         case ENEMY_DEKU_BABA_WITHERED:
             return CanDefeatEnemy(enemyId);
@@ -393,6 +401,10 @@ bool CanGetDekuBabaSticks(u8 scene, u8 layer, u8 room, std::vector<u8> actorEntr
 }
 
 static EnemyConditionFn _CanGetDekuBabaNuts([](EnemyLocation& loc) {
+    if (EnemyPermadeath) {
+        return false;
+    }
+
     u16 enemyId       = loc.GetEnemyId();
     bool isUnderwater = loc.IsUnderwater();
 

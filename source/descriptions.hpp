@@ -455,6 +455,7 @@ extern string_view frogSongTimeMultDesc;
 extern string_view healthRegenDesc;
 extern string_view gerudoFriendsTokenDesc;
 extern string_view gerudoFriendsCarpDesc;
+extern string_view enemyPermadeathDesc;
 
 extern string_view ToggleAllTricksDesc;
 

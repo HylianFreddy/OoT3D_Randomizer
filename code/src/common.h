@@ -9,6 +9,7 @@
 #define MIN(x, y) (x < y ? x : y)
 #define MAX(x, y) (x > y ? x : y)
 #define TMP_ZEROED_BUFFER(size) ((char[size]){ 0 })
+#define DIV_ROUND_UP(a, b) ((a + b - 1) / b)
 
 #define TICKS_PER_SEC 268123480
 #define SEQ_AUDIO_BLANK NA_SE_IT_YOBI19

@@ -26,10 +26,19 @@ void EnDekubaba_ReinitModels(EnDekubaba* this);
 |           EnKarebaba          |
 -------------------------------*/
 
+struct EnKarebaba;
+
+typedef void (*EnKarebabaActionFunc)(struct EnKarebaba*, GlobalContext*);
+
 typedef struct EnKarebaba {
     /* 0x000 */ Actor actor;
     /* 0x1A4 */ SkelAnime anime;
-    /* 0x228 */ char unk_228[0x1F0];
+    /* 0x228 */ EnKarebabaActionFunc actionFunc;
+    /* 0x22C */ char jointTable[156];
+    /* 0x2C8 */ char morphTable[156];
+    /* 0x364 */ CollisionPoly* boundFloor;
+    /* 0x368 */ ColliderCylinder headCollider;
+    /* 0x3C0 */ ColliderCylinder bodyCollider;
     /* 0x418 */ SkeletonAnimationModel* stalkModel_1;
     /* 0x41C */ SkeletonAnimationModel* stalkModel_2;
     /* 0x420 */ SkeletonAnimationModel* stalkModel_3;
@@ -38,6 +47,8 @@ typedef struct EnKarebaba {
     /* 0x42C */ char unk_42C[0x004];
 } EnKarebaba;
 _Static_assert(sizeof(EnKarebaba) == 0x430, "EnKarebaba size");
+
+void EnKarebaba_rUpdate(Actor* thisx, GlobalContext* globalCtx);
 
 void EnKarebaba_ReinitModels(EnKarebaba* this);
 

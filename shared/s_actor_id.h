@@ -77,6 +77,7 @@ enum ActorId {
     ACTOR_FIELD_POE          = 0x175,
     ACTOR_GANON              = 0x17A,
     ACTOR_GERUDO_GUARD       = 0x186,
+    ACTOR_ROOM_TIMER         = 0x187,
     ACTOR_STINGER_WATER      = 0x18C,
     ACTOR_HINT_DEKU_SCRUB    = 0x192,
     ACTOR_BUSINESS_SCRUB     = 0x195,

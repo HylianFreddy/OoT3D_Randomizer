@@ -382,18 +382,30 @@ static void Enemizer_SpawnObjectsForActor(s16 actorId, s16 params) {
 }
 
 u8 Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
-    if (gSettingsContext.enemizer == OFF) {
+    if (gSettingsContext.enemizer == OFF && gSettingsContext.enemyPermadeath == OFF) {
         return KEEP_ACTOR_ENTRY;
     }
 
     // Jabu Jabu Shabom Room timer: set 2 minute time limit
-    if (gGlobalContext->sceneNum == SCENE_JABU_JABU && gGlobalContext->roomNum == 12 && actorEntry->id == 0x187) {
+    if (gSettingsContext.enemizer == ON && gGlobalContext->sceneNum == SCENE_JABU_JABU &&
+        gGlobalContext->roomNum == 12 && actorEntry->id == ACTOR_ROOM_TIMER) {
         actorEntry->params = 0x7878;
         return KEEP_ACTOR_ENTRY;
     }
 
-    EnemyOverride enemyOverride =
-        Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
+    const Bool isEnemySpawner = actorEntry->id == ACTOR_ENEMY_SPAWNER;
+    const s32 overrideIndex = Enemizer_FindOverrideIndex(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum,
+                                                         isEnemySpawner ? 0xFF : actorEntryIndex);
+
+    if (gSettingsContext.enemyPermadeath && overrideIndex >= 0 && SaveFile_IsEnemyDefeated(overrideIndex)) {
+        return SKIP_ACTOR_ENTRY;
+    }
+
+    if (isEnemySpawner || overrideIndex < 0) {
+        return KEEP_ACTOR_ENTRY;
+    }
+
+    EnemyOverride enemyOverride = rEnemyOverrides[overrideIndex];
 
     // Do nothing if the override doesn't exist
     if (enemyOverride.enemyId == ENEMY_INVALID) {
@@ -439,6 +451,14 @@ u8 Enemizer_OverrideActorEntry(ActorEntry* actorEntry, s32 actorEntryIndex) {
 EnemyOverride Enemizer_GetSpawnerOverride(void) {
     // Dynamic enemy spawners are represented by actorEntry=0xFF
     return Enemizer_FindOverride(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, 0xFF);
+}
+
+void Enemizer_OnEnemyDefeat(u8 actorEntryIndex) {
+    s32 ovrIdx =
+        Enemizer_FindOverrideIndex(gGlobalContext->sceneNum, rSceneLayer, gGlobalContext->roomNum, actorEntryIndex);
+    if (ovrIdx >= 0) {
+        SaveFile_SetEnemyDefeated(ovrIdx);
+    }
 }
 
 u8 Enemizer_IsRoomCleared(void) {

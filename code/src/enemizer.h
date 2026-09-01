@@ -34,6 +34,7 @@ EnemyOverride Enemizer_FindOverride(u8 scene, u8 layer, u8 room, u8 actorEntry);
 u8 Enemizer_OverrideActorEntry(ActorEntry* entry, s32 actorEntryIndex);
 void Enemizer_AfterActorSetup(void);
 EnemyOverride Enemizer_GetSpawnerOverride(void);
+void Enemizer_OnEnemyDefeat(u8 actorEntryIndex);
 u8 Enemizer_IsRoomCleared(void);
 void Enemizer_MoveSpecificEnemies(ActorEntry* actorEntry);
 

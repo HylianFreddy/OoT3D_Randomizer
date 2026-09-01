@@ -26,6 +26,7 @@ Bool Dodongos_AfterSwallowBomb_Normal(EnDodongo* this) {
 -------------------------------*/
 
 void EnDodojr_Init(Actor* thisx, GlobalContext* globalCtx);
+void EnDodojr_Destroy(Actor* thisx, GlobalContext* globalCtx);
 void EnDodojr_JumpAttackBounce(EnDodojr* this, GlobalContext* globalCtx);
 
 Bool Dodongos_AfterSwallowBomb_Baby(EnDodojr* this) {
@@ -43,6 +44,18 @@ void EnDodojr_rInit(Actor* thisx, GlobalContext* globalCtx) {
 
     // Fix vanilla bug that causes dust to be consistently drawn at y=0 when the Baby Dodongo emerges from the ground.
     thisx->floorHeight = thisx->home.pos.y;
+}
+
+void EnDodojr_rDestroy(Actor* thisx, GlobalContext* globalCtx) {
+    EnDodojr* this               = (EnDodojr*)thisx;
+    ExtraActorFields* thisExtras = (ExtraActorFields*)thisx;
+
+    EnDodojr_Destroy(thisx, globalCtx);
+
+    // Skip marking the enemy as defeated if it escapes and despawns.
+    if (this->actionFunc != EnDodojr_DropItem) {
+        thisExtras->representsActorEntry = FALSE;
+    }
 }
 
 /*-------------------------------
