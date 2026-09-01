@@ -1649,3 +1649,9 @@ PATCH ActorInit3
 
 PATCH SetupDoorShutter
     bleq hook_SetupDoorShutter
+
+PATCH ActorDelete
+    bl hook_ActorDelete
+
+PATCH ActorSpawn_ClearFlagCheck
+    bl hook_ActorSpawn_ClearFlagCheck

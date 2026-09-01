@@ -901,3 +901,11 @@ u8 SaveFile_GetRupeeSanityFlag(s16 sceneNum, u16 collectibleFlag) {
 
     return (saveFlags & (1 << (collectibleFlag - shiftBy))) != 0;
 }
+
+void SaveFile_SetEnemyDefeated(s32 ovrIdx) {
+    gExtSaveData.defeatedEnemies[ovrIdx >> 5] |= 1 << (ovrIdx & 0x1F);
+}
+
+Bool SaveFile_IsEnemyDefeated(s32 ovrIdx) {
+    return (gExtSaveData.defeatedEnemies[ovrIdx >> 5] >> (ovrIdx & 0x1F)) & 1;
+}

@@ -2,6 +2,7 @@
 #define _SAVEFILE_H_
 
 #include "s_scene_id.h"
+#include "s_enemizer.h"
 
 #include "z3D/z3D.h"
 
@@ -34,6 +35,8 @@ void SaveFile_EnforceHealthLimit(void);
 u8 SaveFile_SwordlessPatchesEnabled(void);
 void SaveFile_SetRupeeSanityFlag(s16 sceneNum, u16 collectibleFlag);
 u8 SaveFile_GetRupeeSanityFlag(s16 sceneNum, u16 collectibleFlag);
+void SaveFile_SetEnemyDefeated(s32 ovrIdx);
+Bool SaveFile_IsEnemyDefeated(s32 ovrIdx);
 
 // Increment the version number whenever the ExtSaveData structure is changed
 #define EXTSAVEDATA_VERSION 19
@@ -86,6 +89,7 @@ typedef struct {
     u32 playtimeSeconds;
     u32 scenesDiscovered[SAVEFILE_SCENES_DISCOVERED_IDX_COUNT];
     u32 entrancesDiscovered[SAVEFILE_ENTRANCES_DISCOVERED_IDX_COUNT];
+    u32 defeatedEnemies[DIV_ROUND_UP(ENEMY_OVERRIDES_MAX, 32)];
     s32 hitCount;
     s32 damageReceived;
     s32 deathCount;

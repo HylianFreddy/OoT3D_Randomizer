@@ -1477,6 +1477,13 @@ string_view gerudoFriendsCarpDesc     = "Gerudo guards will stop capturing Link 
                                         "when all the carpenters are freed.\n\n"           //
                                         "The Gerudo Token will only be required to enter\n"//
                                         "the Training Grounds.";                           //
+/*------------------------------                                                           //
+|       ENEMY PERMADEATH       |                                                           //
+------------------------------*/                                                           //
+string_view enemyPermadeathDesc       = "Defeated enemies will not respawn.\n\n"           //
+                                        "Remember not to kill enemies you need alive, like\n"
+                                        "Iron Knuckles to break things in MQ dungeons,\n"  //
+                                        "otherwise the seed may become unbeatable.";       //
                                                                                            //--------------//
 /*------------------------------                                                                           //
 |  DETAILED LOGIC EXPLANATIONS |                                                                           //

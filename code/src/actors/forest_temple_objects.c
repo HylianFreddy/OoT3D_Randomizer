@@ -1,6 +1,8 @@
 #include "forest_temple_objects.h"
 #include "settings.h"
 #include "enemizer.h"
+#include "savefile.h"
+#include "actor.h"
 
 /*-------------------------------
 |          BgMoriBigst          |
@@ -17,6 +19,12 @@ static void ForestStalfosFight_OverrideDynapoly(void);
 void BgMoriBigst_Update(Actor* thisx, GlobalContext* globalCtx);
 
 void BgMoriBigst_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
+    // Skip updating during room transition in case the cutscene must start immediately
+    if (gSettingsContext.enemyPermadeath && gGlobalContext->roomCtx.prevRoom.num != -1 &&
+        !Flags_GetSwitch(globalCtx, 0x15)) { // room cleared flag
+        return;
+    }
+
     BgMoriBigst* this     = (BgMoriBigst*)thisx;
     Actor* prevFirstEnemy = globalCtx->actorCtx.actorList[ACTORTYPE_ENEMY].first;
 
@@ -24,7 +32,7 @@ void BgMoriBigst_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
 
     Actor* curFirstEnemy = globalCtx->actorCtx.actorList[ACTORTYPE_ENEMY].first;
 
-    if (gSettingsContext.enemizer) {
+    if (gSettingsContext.enemizer || gSettingsContext.enemyPermadeath) {
         if (curFirstEnemy != prevFirstEnemy) {
             if (this->activeStalfosCount == 1) {
                 // spawned first stalfos
@@ -69,7 +77,19 @@ void ForestStalfosFight_AfterActorUpdate(Actor* actor) {
 }
 
 static void ForestStalfosFight_ReplaceSpawnedEnemy(BgMoriBigst* this, Actor* stalfos, s32 stalfosIdx) {
-    EnemyOverride enemyOverride = Enemizer_FindOverride(SCENE_FOREST_TEMPLE, 0, 6, DYNAMIC_ENTRY(stalfosIdx));
+    s32 ovrIdx = Enemizer_FindOverrideIndex(SCENE_FOREST_TEMPLE, 0, 6, DYNAMIC_ENTRY(stalfosIdx));
+    if (ovrIdx < 0) {
+        return;
+    }
+
+    if (gSettingsContext.enemyPermadeath && SaveFile_IsEnemyDefeated(ovrIdx)) {
+        Actor_Kill(stalfos);
+        this->activeStalfosCount--;
+        return;
+    }
+
+    EnemyOverride enemyOverride = rEnemyOverrides[ovrIdx];
+    Actor* spawnedEnemy         = stalfos;
 
     if (enemyOverride.enemyId != ENEMY_INVALID) {
         // Remove spawned stalfos to replace it.
@@ -96,11 +116,15 @@ static void ForestStalfosFight_ReplaceSpawnedEnemy(BgMoriBigst* this, Actor* sta
         // Override clear flag to spawn enemy.
         s32 realClearFlags                   = gGlobalContext->actorCtx.flags.clear;
         gGlobalContext->actorCtx.flags.clear = 0;
-        Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, tempActorEntry.id, tempActorEntry.pos.x,
+        spawnedEnemy = Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, tempActorEntry.id, tempActorEntry.pos.x,
                                    tempActorEntry.pos.y, tempActorEntry.pos.z, tempActorEntry.rot.x,
                                    tempActorEntry.rot.y, tempActorEntry.rot.z, tempActorEntry.params, TRUE);
         gGlobalContext->actorCtx.flags.clear = realClearFlags;
     }
+
+    ExtraActorFields* extras     = (ExtraActorFields*)spawnedEnemy;
+    extras->representsActorEntry = TRUE;
+    extras->actorEntryIndex      = DYNAMIC_ENTRY(stalfosIdx);
 }
 
 // Override dynapoly to cover the central hole in the floor, so randomized enemies won't fall down.

@@ -15,6 +15,11 @@ void EnSkj_rUpdate(Actor* thisx, GlobalContext* globalCtx) {
         // When a soulless enemy skull kid backflips, don't let it fade away and despawn.
         this->backflipFlag = 0;
     }
+
+    // Skip marking the enemy as defeated if it escapes and despawns.
+    if (this->backflipFlag != 0 && this->alpha == 0 && this->action != 9) {
+        ((ExtraActorFields*)thisx)->representsActorEntry = FALSE;
+    }
 }
 
 u8 SkullKid_IsRandomized(void) {
