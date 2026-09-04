@@ -647,6 +647,19 @@ static void Gfx_DrawEnemyLocations(void) {
         Gfx_ScrollEnemiesPage(+1);
     }
 
+    if (gSettingsContext.enemyPermadeath) {
+        s32 defeatedEnemiesCount = 0;
+        for (s32 i = 0; i < ARRAY_SIZE(gExtSaveData.defeatedEnemies); i++) {
+            // Use built-in function to count number of 1-bits in integer.
+            defeatedEnemiesCount += __builtin_popcount(gExtSaveData.defeatedEnemies[i]);
+        }
+
+        f32 percentDefeated = ((f32)defeatedEnemiesCount / (f32)rEnemyOverrides_Count) * 100.0f;
+        Draw_DrawFormattedString(SCREEN_BOT_WIDTH - 10 - (SPACING_X * 6), 16,
+                                 defeatedEnemiesCount == rEnemyOverrides_Count ? COLOR_GREEN : COLOR_WHITE, "%5.1f%%",
+                                 percentDefeated);
+    }
+
     Draw_DrawFormattedString(10, 16, COLOR_TITLE, "Enemy Locations - %.33s",
                              SceneNames[rEnemyOverrides[enemyBaseIdx].scene]);
 
