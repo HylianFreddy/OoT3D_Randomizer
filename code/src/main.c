@@ -143,6 +143,7 @@ void autoLoadSaveFile() {
         rInputCtx.cur.l && rInputCtx.cur.r) {
 
         Load_Savefiles_Buffer();
+        gGlobalContext->nextEntranceIndex = 0; // for grotto ER
         FileSelect_LoadGame(&gGlobalContext->state, 0);
         if (gSaveContext.saveCount > 0) {
             gGlobalContext->linkAgeOnLoad = gSaveContext.linkAge;
