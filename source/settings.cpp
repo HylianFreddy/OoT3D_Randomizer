@@ -231,6 +231,7 @@ Option ShuffleFrogSongRupees  = Option::Bool("Shuffle Frog Rupees",    {"Off", "
 Option ShuffleEnemySouls      = Option::U8  ("Shuffle Enemy Souls",    {"Off", "All enemies", "Bosses only"},                             {enemySoulDesc});
 Option ShuffleOcarinaButtons  = Option::Bool("Shuffle Ocarina Buttons",{"Off", "On"},                                                     {ocarinaButtonsDesc});
 Option ShuffleRupees          = Option::Bool("Shuffle Standing Rupees",{"Off", "On"},                                                     {shuffleRupeesDesc});
+Option ShuffleRecoveryHearts  = Option::Bool("Shuffle Recovery Hearts",{"Off", "On"},                                                     {shuffleRecoveryHeartsDesc});
 Option ShuffleBigPoes         = Option::Bool("Shuffle Big Poes",       {"Off", "On"},                                                     {shuffleBigPoesDesc});
 std::vector<Option *> shuffleOptions = {
     &RandomizeShuffle,
@@ -256,6 +257,7 @@ std::vector<Option *> shuffleOptions = {
     &ShuffleEnemySouls,
     &ShuffleOcarinaButtons,
     &ShuffleRupees,
+    &ShuffleRecoveryHearts,
     &ShuffleBigPoes,
 };
 
@@ -358,6 +360,7 @@ std::vector<Option *> timesaverOptions = {
 Option Racing              = Option::Bool("Racing",                 {"Off", "On"},                                                          {racingDesc});
 Option GossipStoneHints    = Option::U8  ("Gossip Stone Hints",     {"No Hints", "Need Nothing", "Mask of Truth", "Shard of Agony"},        {gossipStonesHintsDesc},                                                                                          OptionCategory::Setting,    HINTS_NEED_NOTHING);
 Option HintDistribution    = Option::U8  (2, "Hint Distribution",   {"Useless", "Balanced", "Strong", "Very Strong", "Playthrough"},        {uselessHintsDesc, balancedHintsDesc, strongHintsDesc, veryStrongHintsDesc, playthroughHintsDesc},                OptionCategory::Setting,    HINTDISTRIBUTION_BALANCED);
+Option HintSpecificity     = Option::U8  (4, "Specificity",         {"General Area", "Exact Location"},                                     {hintSpecificityDesc});
 Option BonusGossipHints    = Option::Bool(4, "Bonus Hints",         {"Off", "On"},                                                          {bonusGossipHintsDesc});
 Option MiscHints           = Option::U8  ("Miscellaneous Hints",    {"All Disabled",  "All Enabled", "Choose"},                             {miscHintsDesc},                                                                                                  OptionCategory::Setting,    TOGGLE_ALL_ENABLED);
 Option ToTAltarHints       = Option::Bool(2, "Temple of Time Altar",{"Off", "On"},                                                          {totAltarHintsDesc});
@@ -381,6 +384,7 @@ std::vector<Option *> miscOptions = {
     &Racing,
     &GossipStoneHints,
     &HintDistribution,
+    &HintSpecificity,
     &BonusGossipHints,
     &MiscHints,
     &ToTAltarHints,
@@ -483,6 +487,7 @@ Option FreeCamera          = Option::Bool("Free Camera",            {"Off", "On"
 Option RandomGsLocations   = Option::Bool("Random GS Locations",    {"Off", "On"},                                                          {randomGsLocationsDesc});
 Option GsLocGuaranteeNew   = Option::Bool(2, "Guarantee New",       {"Off", "On"},                                                          {gsLocGuaranteeNewDesc});
 Option RandomSongNotes     = Option::Bool("Random Ocarina Melodies",{"Off", "On"},                                                          {randomSongNotesDesc});
+Option FrogSongTimeMult    = Option::U8("Frog Song Timer",          {"1x","2x","3x","4x"},                                                  {frogSongTimeMultDesc});
 Option HealthRegen         = Option::Bool("Health Regen",           {"Off", "On"},                                                          {"Health regenerates over time (1 Heart per minute)."});
 std::vector<Option*> gameplayOptions = {
     &FastBunnyHood,
@@ -507,6 +512,7 @@ std::vector<Option*> gameplayOptions = {
     &RandomGsLocations,
     &GsLocGuaranteeNew,
     &RandomSongNotes,
+    &FrogSongTimeMult,
     &HealthRegen,
 };
 
@@ -1223,7 +1229,17 @@ static std::vector<std::string> weaponTrailOuterOptionNames = {
 #define SAME_AS_INNER_TRAIL (weaponTrailOuterOptionNames.size() - 1)
 static std::vector<std::string> weaponTrailInnerOptionNames = VectorCopyExceptLastElement(weaponTrailOuterOptionNames);
 
-static std::vector<std::string> trailDurationOptionNames = {
+static std::vector<std::string> swordTrailDurationOptionNames = {
+    "Disabled",
+    "Very short",
+    "Vanilla",
+    "Long",
+    "Very Long",
+    "Lightsaber",
+    "Space Tearing",
+};
+
+static std::vector<std::string> rangTrailDurationOptionNames = {
     "Disabled",
     "Very short",
     "Vanilla",
@@ -1306,12 +1322,12 @@ Option CustomTrailEffects         = Option::Bool("Custom Trail Effects",     {"O
 Option ChosenSimpleMode           = Option::Bool(2, "Draw simple texture",   {"When necessary","Always"},   {necessarySimpleModeDesc,alwaysSimpleModeDesc},                                                                                                                   OptionCategory::Cosmetic);
 Option SwordTrailInnerColor       = Option::U8  (2, "Sword (Inner Color)",   weaponTrailInnerOptionNames,   {RANDOM_CHOICE_DESC, RANDOM_COLOR_DESC, CUSTOM_COLOR_DESC, "Select the color that appears from the base\nof the sword."},                                         OptionCategory::Cosmetic,                      3); // White
 Option SwordTrailOuterColor       = Option::U8  (2, "Sword (Outer Color)",   weaponTrailOuterOptionNames,   {RANDOM_CHOICE_DESC, RANDOM_COLOR_DESC, CUSTOM_COLOR_DESC, "Select the color that appears from the tip\nof the sword."},                                          OptionCategory::Cosmetic,    SAME_AS_INNER_TRAIL);
-Option SwordTrailDuration         = Option::U8  (2, "Sword (Duration)",      trailDurationOptionNames,      {"Select the duration for sword trails.\n\nIf too many trails are on screen, the duration\nmay be capped at Long for some of them."},                             OptionCategory::Cosmetic,                      2); // Vanilla
+Option SwordTrailDuration         = Option::U8  (2, "Sword (Duration)",      swordTrailDurationOptionNames, {"Select the duration for sword trails.\n\nIf too many trails are on screen, the duration\nmay be capped at Long for some of them."},                             OptionCategory::Cosmetic,  TRAILDURATION_VANILLA);
 Option BoomerangTrailColor        = Option::U8  (2, "Boomerang (Color)",     weaponTrailInnerOptionNames,   {RANDOM_CHOICE_DESC, RANDOM_COLOR_DESC, CUSTOM_COLOR_DESC, "Select the color for boomerang trails."},                                                             OptionCategory::Cosmetic,                      8); // Yellow
-Option BoomerangTrailDuration     = Option::U8  (2, "Boomerang (Duration)",  trailDurationOptionNames,      {"Select the duration for boomerang trails."},                                                                                                                    OptionCategory::Cosmetic,                      2); // Vanilla
+Option BoomerangTrailDuration     = Option::U8  (2, "Boomerang (Duration)",  rangTrailDurationOptionNames,  {"Select the duration for boomerang trails."},                                                                                                                    OptionCategory::Cosmetic,  TRAILDURATION_VANILLA);
 Option BombchuTrailInnerColor     = Option::U8  (2, "Bombchu (Inner Color)", weaponTrailInnerOptionNames,   {RANDOM_CHOICE_DESC, RANDOM_COLOR_DESC, CUSTOM_COLOR_DESC, "Select the color for the center of the\nbombchu trail."},                                             OptionCategory::Cosmetic,                      5); // Red
 Option BombchuTrailOuterColor     = Option::U8  (2, "Bombchu (Outer Color)", weaponTrailOuterOptionNames,   {RANDOM_CHOICE_DESC, RANDOM_COLOR_DESC, CUSTOM_COLOR_DESC, "Select the color for the sides of the\nbombchu trail."},                                              OptionCategory::Cosmetic,    SAME_AS_INNER_TRAIL);
-Option BombchuTrailDuration       = Option::U8  (2, "Bombchu (Duration)",    chuTrailDurationOptionNames,   {"Select the duration for bombchu trails."},                                                                                                                      OptionCategory::Cosmetic,                      2); // Vanilla
+Option BombchuTrailDuration       = Option::U8  (2, "Bombchu (Duration)",    chuTrailDurationOptionNames,   {"Select the duration for bombchu trails."},                                                                                                                      OptionCategory::Cosmetic,  TRAILDURATION_VANILLA);
 Option GanonBloodColor            = Option::U8  ("Ganon/dorf Blood Color",   ganonBloodOptionNames,         {RANDOM_CHOICE_DESC, RANDOM_COLOR_DESC, CUSTOM_COLOR_DESC, "Select the color of Ganondorf and Ganon's blood."},                                                   OptionCategory::Cosmetic,                      3); // Vanilla Green
 std::string finalChildTunicColor      = ChildTunicColor.GetSelectedOptionText();
 std::string finalKokiriTunicColor     = KokiriTunicColor.GetSelectedOptionText();
@@ -1669,6 +1685,7 @@ SettingsContext FillContext() {
     ctx.freeCamera          = (FreeCamera) ? 1 : 0;
     ctx.randomGsLocations   = (RandomGsLocations) ? 1 : 0;
     ctx.randomSongNotes     = (RandomSongNotes) ? 1 : 0;
+    ctx.frogSongTimerMult   = FrogSongTimeMult.Value<u8>();
     ctx.healthRegen         = (HealthRegen) ? 1 : 0;
 
     ctx.faroresWindAnywhere  = (FaroresWindAnywhere) ? 1 : 0;
@@ -1727,6 +1744,7 @@ SettingsContext FillContext() {
     ctx.rainbowEnemyNaviOuterColor  = (EnemyNaviOuterColor.Value<u8>() == RAINBOW_NAVI) ? 1 : 0;
     ctx.rainbowPropNaviOuterColor   = (PropNaviOuterColor.Value<u8>() == RAINBOW_NAVI) ? 1 : 0;
     ctx.customTrailEffects          = (CustomTrailEffects) ? 1 : 0;
+    ctx.swordTrailDuration          = SwordTrailDuration.Value<u8>();
     ctx.rainbowSwordTrailInnerColor = (SwordTrailInnerColor.Value<u8>() == RAINBOW_TRAIL) ? 1 : 0;
     ctx.rainbowSwordTrailOuterColor = (SwordTrailOuterColor.Value<u8>() == RAINBOW_TRAIL) ? 1 : 0;
     ctx.boomerangTrailColor.r       = finalBoomerangColor.r;
@@ -2559,14 +2577,17 @@ void ForceChange(u32 kDown, Option* currentSetting) {
     // Only show hint options if hints are enabled
     if (GossipStoneHints.Is(HINTS_NO_HINTS)) {
         HintDistribution.Hide();
-        BonusGossipHints.Hide();
+        HintDistribution.SetSelectedIndex(HINTDISTRIBUTION_BALANCED);
     } else {
         HintDistribution.Unhide();
-        if (HintDistribution.Is(HINTDISTRIBUTION_PLAYTHROUGH)) {
-            BonusGossipHints.Unhide();
-        } else {
-            BonusGossipHints.Hide();
-        }
+    }
+
+    if (HintDistribution.Is(HINTDISTRIBUTION_PLAYTHROUGH)) {
+        HintSpecificity.Unhide();
+        BonusGossipHints.Unhide();
+    } else {
+        HintSpecificity.Hide();
+        BonusGossipHints.Hide();
     }
 
     // Manage toggle for misc hints options
@@ -2867,12 +2888,12 @@ void ForceChange(u32 kDown, Option* currentSetting) {
         ChosenSimpleMode.SetSelectedIndex(OFF);
         SwordTrailInnerColor.SetSelectedIndex(3); // White
         SwordTrailOuterColor.SetSelectedIndex(SAME_AS_INNER_TRAIL);
-        SwordTrailDuration.SetSelectedIndex(2);     // Vanilla
-        BoomerangTrailColor.SetSelectedIndex(8);    // Yellow
-        BoomerangTrailDuration.SetSelectedIndex(2); // Vanilla
+        SwordTrailDuration.SetSelectedIndex(TRAILDURATION_VANILLA);
+        BoomerangTrailColor.SetSelectedIndex(8); // Yellow
+        BoomerangTrailDuration.SetSelectedIndex(TRAILDURATION_VANILLA);
         BombchuTrailInnerColor.SetSelectedIndex(5); // Red
         BombchuTrailOuterColor.SetSelectedIndex(SAME_AS_INNER_TRAIL);
-        BombchuTrailDuration.SetSelectedIndex(2); // Vanilla
+        BombchuTrailDuration.SetSelectedIndex(TRAILDURATION_VANILLA);
     }
 
     if (SoullessEnemiesLook.Is(SOULLESSLOOK_TEXTURELESS)) {

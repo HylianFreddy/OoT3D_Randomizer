@@ -41,6 +41,10 @@ void AreaTable_Init_DekuTree() {
             {
                 // Locations
                 LocationAccess(DEKU_TREE_MAP_CHEST, { [] { return true; } }),
+                LocationAccess(DEKU_TREE_2F_FLOATING_HEART, { [] { return true; } }),
+                LocationAccess(DEKU_TREE_3F_FLOATING_HEART, { [] {
+                                   return CanPassEnemies(0, 0, 0, { 0, 1, 2, 4 }, SpaceAroundEnemy::NARROW);
+                               } }),
             },
             {
                 // Exits
@@ -262,7 +266,13 @@ void AreaTable_Init_DekuTree() {
             });
 
         areaTable[DEKU_TREE_OUTSIDE_BOSS_ROOM] =
-            Area("Deku Tree Outside Boss Room", "Deku Tree", DEKU_TREE, NO_DAY_NIGHT_CYCLE, {}, {},
+            Area("Deku Tree Outside Boss Room", "Deku Tree", DEKU_TREE, NO_DAY_NIGHT_CYCLE, {},
+                 {
+                     // locations
+                     LocationAccess(DEKU_TREE_B2F_UNDER_WATER_HEART_1, { [] { return true; } }),
+                     LocationAccess(DEKU_TREE_B2F_UNDER_WATER_HEART_2, { [] { return true; } }),
+                     LocationAccess(DEKU_TREE_B2F_UNDER_WATER_HEART_3, { [] { return true; } }),
+                 },
                  {
                      // Exits
                      Entrance(DEKU_TREE_BASEMENT_UPPER, { [] { return true; } }),

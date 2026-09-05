@@ -26,6 +26,7 @@ enum ActorId {
     ACTOR_SKULLTULA          = 0x037,
     ACTOR_TORCH_SLUG         = 0x038,
     ACTOR_STINGER_FLOOR      = 0x03A,
+    ACTOR_SHOPKEEPER         = 0x03D,
     ACTOR_MOBLIN             = 0x04B,
     ACTOR_PHANTOM_GANON      = 0x052,
     ACTOR_ARMOS              = 0x054,

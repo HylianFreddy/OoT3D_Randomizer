@@ -24,6 +24,7 @@
 #include "bgm.h"
 #include "business_scrubs.h"
 #include "alert.h"
+#include "frog.h"
 
 #include "z3D/z3D.h"
 #include "3ds/extdata.h"
@@ -50,6 +51,7 @@ void Randomizer_Init() {
     irrstInit();
     Effects_Init();
     BusinessScrubs_Init();
+    FrogSongTimer_Init();
 
     s64 output = 0;
     svcGetSystemInfo(&output, 0x20000, 0);
@@ -90,6 +92,7 @@ s32 checkFastForward(void) {
 void after_GlobalContext_Update() {
     Alert_Update();
     Multiplayer_Sync_Update();
+    IceTrap_HandleNaviCurse();
 
     if (gGlobalContext->state.running == 0) {
         Model_DestroyAll();

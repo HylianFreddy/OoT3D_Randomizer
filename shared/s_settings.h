@@ -336,6 +336,11 @@ typedef enum HintDistributionSettings {
     HINTDISTRIBUTION_PLAYTHROUGH,
 } HintDistributionSettings;
 
+typedef enum HintSpecificitySetting {
+    HINTSPECIFICITY_GENERAL,
+    HINTSPECIFICITY_EXACT,
+} HintSpecificitySetting;
+
 typedef enum DamageMultiplierSetting {
     DAMAGEMULTIPLIER_HALF,
     DAMAGEMULTIPLIER_DEFAULT,
@@ -476,11 +481,11 @@ typedef enum OcarinaNoteInstrumentSetting {
     OCARINA_INSTR_SETTING_DEFAULT,
 } OcarinaNoteInstrumentSetting;
 
-typedef enum DungeonInfo {
+typedef enum DungeonImportance {
     DUNGEON_NEITHER,
     DUNGEON_BARREN,
     DUNGEON_WOTH,
-} DungeonInfo;
+} DungeonImportance;
 
 typedef enum TrailColorMode {
     TRAILCOLOR_VANILLAMODE,
@@ -496,6 +501,7 @@ typedef enum TrailDuration {
     TRAILDURATION_LONG,
     TRAILDURATION_VERYLONG,
     TRAILDURATION_LIGHTSABER,
+    TRAILDURATION_SPACETEARING,
 } TrailDuration;
 
 typedef enum MirrorWorld {
@@ -658,6 +664,7 @@ typedef struct SettingsContext {
     u8 freeCamera;
     u8 randomGsLocations;
     u8 randomSongNotes;
+    u8 frogSongTimerMult;
     u8 healthRegen;
 
     u8 faroresWindAnywhere;
@@ -718,6 +725,7 @@ typedef struct SettingsContext {
     u8 customTrailEffects;
     u8 rainbowSwordTrailInnerColor;
     u8 rainbowSwordTrailOuterColor;
+    u8 swordTrailDuration;
     Color_RGBA8 boomerangTrailColor;
     u8 boomerangTrailColorMode;
     u8 boomerangTrailDuration;
@@ -808,5 +816,4 @@ typedef struct SettingsContext {
     u8 startingOcarinaButtons;
 
     u8 startingTokens;
-
 } SettingsContext;

@@ -365,12 +365,12 @@ bool WriteAllPatches() {
     }
 
     /*---------------------------------
-    |        rDungeonInfoData         |
+    |       rDungeonImportance        |
     ---------------------------------*/
 
-    patchOffset = V_TO_P(gPatchSymbols.rDungeonInfoData);
-    patchSize   = sizeof(dungeonInfoData);
-    if (!WritePatch(patchOffset, patchSize, (char*)(&dungeonInfoData), code, bytesWritten, totalRW, buf)) {
+    patchOffset = V_TO_P(gPatchSymbols.rDungeonImportance);
+    patchSize   = sizeof(dungeonImportance);
+    if (!WritePatch(patchOffset, patchSize, (char*)(&dungeonImportance), code, bytesWritten, totalRW, buf)) {
         return false;
     }
 
@@ -472,36 +472,6 @@ bool WriteAllPatches() {
     patchSize   = sizeof(rSwordTrailColors);
     if (ctx.customTrailEffects &&
         !WritePatch(patchOffset, patchSize, (char*)rSwordTrailColors.data(), code, bytesWritten, totalRW, buf)) {
-        return false;
-    }
-
-    const u32 SWORDTRAILDURATION_ADDR = 0x0053C146;
-    char rSwordTrailDuration          = 6;
-    switch (Settings::SwordTrailDuration.Value<u8>()) {
-        case TRAILDURATION_DISABLED:
-            rSwordTrailDuration = 0;
-            break;
-        case TRAILDURATION_VERYSHORT:
-            rSwordTrailDuration = 3;
-            break;
-        case TRAILDURATION_VANILLA:
-            rSwordTrailDuration = 6;
-            break;
-        case TRAILDURATION_LONG:
-            rSwordTrailDuration = 16;
-            break;
-        case TRAILDURATION_VERYLONG:
-            rSwordTrailDuration = 24;
-            break;
-        case TRAILDURATION_LIGHTSABER:
-            rSwordTrailDuration = 32;
-            break;
-    }
-
-    // Write Sword Trail Duration to code
-    patchOffset = V_TO_P(SWORDTRAILDURATION_ADDR);
-    patchSize   = sizeof(rSwordTrailDuration);
-    if (!WritePatch(patchOffset, patchSize, &rSwordTrailDuration, code, bytesWritten, totalRW, buf)) {
         return false;
     }
 

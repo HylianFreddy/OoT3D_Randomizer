@@ -205,6 +205,7 @@ SECTIONS
 	EnBox_Update = 0x1D5B70 + _LD_OFF;
 	.patch_ChestIceSmoke 0x1D5E5C + _LD_OFF : { *(.patch_ChestIceSmoke) }
 	EnDns_Update = 0x1D67CC + _LD_OFF;
+	EnElf_Draw = 0x1D6EC4 + _LD_OFF;
 	EnGe1_Update = 0x1D742C + _LD_OFF;
 	.patch_CheckGerudoToken_1D7AD4 0x1D7AD4 + _LD_OFF : { *(.patch_CheckGerudoToken_1D7AD4) }
 	EnGeldB_Init = 0x1D7BD8 + _LD_OFF;
@@ -314,7 +315,6 @@ SECTIONS
 	EnMThunder_Init = 0x24C910 + _LD_OFF;
 	EnPoh_Update = 0x24D368 + _LD_OFF;
 	.patch_RedeadCanFreezePlayer 0x24DC2C + _LD_OFF : { *(.patch_RedeadCanFreezePlayer) }
-	.patch_SwordTrailDurationGrezzoFix 0x2507D0 + _LD_OFF : { *(.patch_SwordTrailDurationGrezzoFix) } /*duration is set to 6 due to framerate increase. NOP to allow custom duration*/
 	.patch_MultiplyPlayerSpeed 0x251D34 + _LD_OFF : { *(.patch_MultiplyPlayerSpeed) }
 	.patch_GameOverStart 0x252424 + _LD_OFF : { *(.patch_GameOverStart) }
 	ItemBHeart_Init = 0x25375C + _LD_OFF;
@@ -334,6 +334,7 @@ SECTIONS
 	DemoEffect_Update = 0x262C58 + _LD_OFF;
 	DemoKankyo_Update = 0x262EA4 + _LD_OFF;
 	DoorGerudo_Update = 0x263118 + _LD_OFF;
+	EnElf_UpdateNavi = 0x267DC0 + _LD_OFF;
 	.patch_NaviNotifications 0x267E04 + _LD_OFF : { *(.patch_NaviNotifications) }
 	EnEncount1_Update = 0x2682D0 + _LD_OFF;
 	EnExRuppy_Update = 0x2689B8 + _LD_OFF;
@@ -399,6 +400,7 @@ SECTIONS
 	.patch_OverrideItemAndTextID 0x2BC1C8 + _LD_OFF : { *(.patch_OverrideItemAndTextID) }
 	.patch_NoSilverGauntletsCutsceneWarp 0x2BC2A0 + _LD_OFF : { *(.patch_NoSilverGauntletsCutsceneWarp) }
 	.patch_RunAnimationSpeed 0x2BE70C + _LD_OFF : { *(.patch_RunAnimationSpeed) }
+	Player_SetupIdleStanding = 0x2C2224 + _LD_OFF;
 	.patch_FishingIgnoreTempBOne 0x2C3A10 + _LD_OFF : { *(.patch_FishingIgnoreTempBOne) }
 	.patch_DoorOfTimeOpenCutscene 0x2C6218 + _LD_OFF : { *(.patch_DoorOfTimeOpenCutscene) }
 	.patch_NoHealFromHealthUpgrades 0x2CD07C + _LD_OFF : { *(.patch_NoHealFromHealthUpgrades) }
@@ -495,7 +497,7 @@ SECTIONS
 	.patch_GetObjectEntry_353CE4 0x353CE4 + _LD_OFF : { *(.patch_GetObjectEntry_353CE4) }
 	Collider_SetCylinder = 0x353D24 + _LD_OFF;
 	Collider_InitCylinder = 0x353DD0 + _LD_OFF;
-	SetupItemInWater = 0x354894 + _LD_OFF;
+	Player_SetupGetItemOrHoldBehavior = 0x354894 + _LD_OFF;
 	.patch_GetQuickItem 0x354AB0 + _LD_OFF : { *(.patch_GetQuickItem) }
 	.patch_FastChests 0x354CD4 + _LD_OFF : { *(.patch_FastChests) }
 	.patch_AboutToPickUpActor 0x354DD8 + _LD_OFF : { *(.patch_AboutToPickUpActor) }
@@ -509,7 +511,7 @@ SECTIONS
 	FaceAnim_Init = 0x35C358 + _LD_OFF;
 	.patch_Audio_PlayFanfare 0x35C528 + _LD_OFF : { *(.patch_Audio_PlayFanfare) }
 	Audio_PlayFanfare = 0x35C528 + _LD_OFF;
-	.patch_DeleteEquipment 0x35D1F8 + _LD_OFF : { *(.patch_DeleteEquipment) }
+	.patch_DeleteEquipment 0x35D1F4 + _LD_OFF : { *(.patch_DeleteEquipment) }
 	LinkDamage = 0x35D304 + _LD_OFF;
 	FireDamage = 0x35D8D8 + _LD_OFF;
 	Player_InBlockingCsMode = 0x35DB20 + _LD_OFF;
@@ -525,6 +527,7 @@ SECTIONS
 	LinkAnimation_PlayOnce = 0x3604F0 + _LD_OFF;
 	.patch_ISGCrouchStab 0x360690 + _LD_OFF : { *(.patch_ISGCrouchStab) }
 	.patch_ForceTrailEffectUpdate 0x362108 + _LD_OFF : { *(.patch_ForceTrailEffectUpdate) } /*EffectBlure_AddVertex*/
+	Effect_GetByIndex = 0x362384 + _LD_OFF;
 	Actor_GetScreenPos = 0x363A20 + _LD_OFF;
 	Object_GetSlot = 0x363C10 + _LD_OFF;
 	.patch_ExtendObjectGetSlot 0x363CB4 + _LD_OFF : { *(.patch_ExtendObjectGetSlot) }
@@ -567,7 +570,7 @@ SECTIONS
 	SkeletonAnimationModel_Draw = 0x372170 + _LD_OFF;
 	SkeletonAnimationModel_MatrixCopy = 0x3721E0 + _LD_OFF;
 	Actor_OfferGetItem = 0x3724DC + _LD_OFF;
-	.patch_IncomingGetItemID 0x3725AC + _LD_OFF : { *(.patch_IncomingGetItemID) }
+	.patch_ActorGetItemOffer 0x3725AC + _LD_OFF : { *(.patch_ActorGetItemOffer) }
 	Message_CloseTextbox = 0x3725E0 + _LD_OFF;
 	Model_EnableMeshGroupByIndex = 0x37266C + _LD_OFF;
 	.patch_Model_EnableMeshGroupByIndex 0x372670 + _LD_OFF : { *(.patch_Model_EnableMeshGroupByIndex) }
@@ -612,6 +615,7 @@ SECTIONS
 	EnWonderTalk2_Update = 0x3794EC + _LD_OFF;
 	Actor_KillAllWithMissingObject = 0x379C3C + _LD_OFF;
 	BgSpot00Hanebasi_Destroy = 0x37B324 + _LD_OFF;
+	.patch_EnFrSetupFrogSongTimerMultiplier 0x381204 + _LD_OFF : { *(.patch_EnFrSetupFrogSongTimerMultiplier) }
 	BgSpot02Objects_Update = 0x3831AC + _LD_OFF;
 	BgSpot06Objects_Update = 0x3833F8 + _LD_OFF;
 	EnPoField_UpdateDead = 0x387564 + _LD_OFF;
@@ -733,7 +737,7 @@ SECTIONS
 	.patch_OcarinaNoteButtonsPress 0x41AAAC + _LD_OFF : { *(.patch_OcarinaNoteButtonsPress) }
 	.patch_CurseTrapDizzyStick 0x41AB24 + _LD_OFF : { *(.patch_CurseTrapDizzyStick) }
 	.patch_CurseTrapDizzyButtons 0x41ABD0 + _LD_OFF : { *(.patch_CurseTrapDizzyButtons) }
-	.patch_PermadeathSkipMenu 0x41C980 + _LD_OFF : { *(.patch_PermadeathSkipMenu) }
+	.patch_GameOverMenuSkip 0x41C980 + _LD_OFF : { *(.patch_GameOverMenuSkip) }
 	.patch_SaveMenuIgnoreOpen 0x42EC00 + _LD_OFF : { *(.patch_SaveMenuIgnoreOpen) }
 	.patch_ItemsMenuDraw 0x434C08 + _LD_OFF : { *(.patch_ItemsMenuDraw) }
 	.patch_PlayInit 0x4352F4 + _LD_OFF : { *(.patch_PlayInit) }
@@ -786,11 +790,10 @@ SECTIONS
 	.patch_GameOverDontSpoilTradeItems 0x458BE0 + _LD_OFF : { *(.patch_GameOverDontSpoilTradeItems) }
 	ret_GameOverDontSpoilTradeItems = 0x458CA0 + _LD_OFF;
 	.patch_DeathHandleBButton 0x458CA8 + _LD_OFF : { *(.patch_DeathHandleBButton) }
-	.patch_PermadeathForceQuit 0x458E20 + _LD_OFF : { *(.patch_PermadeathForceQuit) }
+	.patch_GameOverActionSelection 0x458E28 + _LD_OFF : { *(.patch_GameOverActionSelection) }
 	.patch_SetGameOverEntrance 0x458E3C + _LD_OFF : { *(.patch_SetGameOverEntrance) }
 	ret_SetGameOverEntrance = 0x458EC8 + _LD_OFF;
 	.patch_SetGameOverRespawnFlag 0x458EF0 + _LD_OFF : { *(.patch_SetGameOverRespawnFlag) }
-	ret_PermadeathForceQuit = 0x458FF4 + _LD_OFF;
 	.patch_InterfaceDrawDontSpoilTradeItems 0x45A17C + _LD_OFF : { *(.patch_InterfaceDrawDontSpoilTradeItems) }
 	ret_InterfaceDrawDontSpoilTradeItems = 0x45A210 + _LD_OFF;
 	.patch_TimerExpiration 0x45A948 + _LD_OFF : { *(.patch_TimerExpiration) }
@@ -902,6 +905,7 @@ SECTIONS
 	gGanonBlood = 0x515194 + _LD_OFF;
 	EnChanger_LoserGetItemIds = 0x521774 + _LD_OFF;
 	EnDns_ItemEntries = 0x522384 + _LD_OFF;
+	sTimerFrogSong = 0x5239C0 + _LD_OFF;
 	EnGirlA_ShopItemEntries = 0x524F50 + _LD_OFF;
 	.patch_BombchuCheapestPriceOne 0x525348 + _LD_OFF : { *(.patch_BombchuCheapestPriceOne) }
 	.patch_BombchuCheapestPriceTwo 0x5253D8 + _LD_OFF : { *(.patch_BombchuCheapestPriceTwo) }
@@ -913,6 +917,7 @@ SECTIONS
 	gRestrictionFlags = 0x539DC4 + _LD_OFF;
 	sFloorType = 0x53A0A4 + _LD_OFF;
 	dynamicExitList = 0x53C094 + _LD_OFF;
+	Player_SwordBlureEffectInitParams = 0x53C130 + _LD_OFF;
 	PlayerDListGroup_EmptySheathAdult = 0x53C4D8 + _LD_OFF;
 	PlayerDListGroup_EmptySheathChildWithHylianShield = 0x53C4DC + _LD_OFF;
 	Vec3f_PlayerFeet_unk = 0x53CACC + _LD_OFF;
