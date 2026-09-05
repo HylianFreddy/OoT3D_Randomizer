@@ -862,7 +862,7 @@ void SaveFile_BeforeLoadGame(u32 saveNumber) {
 
 void SaveFile_AfterLoadGame(void) {
     if (memcmp(&gExtSaveData.hashIndexes, &gSettingsContext.hashIndexes, sizeof(gExtSaveData.hashIndexes)) != 0) {
-        Alert_Set(ALERT_HASH_MISMATCH);
+        // Alert_Set(ALERT_HASH_MISMATCH);
     }
     // Give Ganon BK if Triforce Hunt has been completed
     if (gSettingsContext.triforceHunt == ON && gExtSaveData.triforcePieces >= gSettingsContext.triforcePiecesRequired &&

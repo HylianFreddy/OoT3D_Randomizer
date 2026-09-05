@@ -181,6 +181,19 @@ static ItemOverride_Key ItemOverride_GetSearchKey(Actor* actor, u8 scene, u8 ite
 }
 
 ItemOverride ItemOverride_LookupByKey(ItemOverride_Key key) {
+    if (key.all == 0) {
+        return (ItemOverride){ 0 };
+    }
+
+    // return (ItemOverride) {
+    //     .key = key,
+    //     .value = {
+    //         .itemId = GI_ARROW_ICE,
+    //         .player = 0,
+    //         .looksLikeItemId = 0,
+    //     },
+    // };
+
     s32 start = 0;
     s32 end   = rItemOverrides_Count - 1;
     while (start <= end) {
@@ -205,6 +218,15 @@ ItemOverride ItemOverride_Lookup(Actor* actor, u8 scene, u8 itemId) {
 
     return ItemOverride_LookupByKey(key);
 }
+
+ItemOverride sTestOverride = {
+    .key = {
+        .type = OVR_COLLECTABLE, // random value for non-zero key
+    },
+    .value = {
+        .itemId = GI_ARROW_LIGHT,
+    }
+};
 
 static void ItemOverride_Activate(ItemOverride override) {
     u16 resolvedItemId = ItemTable_ResolveUpgrades(override.value.itemId);
@@ -246,10 +268,10 @@ static void ItemOverride_PushPendingOverride(ItemOverride override) {
             rPendingOverrideQueue[i] = override;
             break;
         }
-        if (rPendingOverrideQueue[i].key.all == override.key.all) {
-            // Prevent duplicate entries
-            break;
-        }
+        // if (rPendingOverrideQueue[i].key.all == override.key.all) {
+        //     // Prevent duplicate entries
+        //     break;
+        // }
     }
 }
 
@@ -372,11 +394,16 @@ Readiness ItemOverride_CheckPlayerReadiness(void) {
     return NOT_READY;
 }
 
+#include "input.h"
 void ItemOverride_Update(void) {
     ItemOverride_CheckStartingItem();
     ItemOverride_CheckZeldasLetter();
     IceTrap_Update();
     CustomModel_Update();
+
+    if (rInputCtx.cur.zr && rInputCtx.pressed.a) {
+        ItemOverride_PushPendingOverride(sTestOverride);
+    }
 
     if (rDummyActor->parent != NULL) {
         // A pending override was given on the previous frame and Player accepted it.
