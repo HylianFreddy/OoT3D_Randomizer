@@ -381,6 +381,7 @@ SECTIONS
 	.patch_PierreSoftlockFixThree 0x2889D4 + _LD_OFF : { *(.patch_PierreSoftlockFixThree) }
 	BgDyYoseizo_Draw = 0x289AEC + _LD_OFF;
 	.patch_KakarikoGateCheck 0x28A678 + _LD_OFF : { *(.patch_KakarikoGateCheck) }
+	BgMoriBigst_Update = 0x28C274 + _LD_OFF;
 	.patch_BombchuBowlingAlwaysFirstPrize 0x291924 + _LD_OFF : { *(.patch_BombchuBowlingAlwaysFirstPrize) }
 	ItemEtcetera_Update = 0x298D88 + _LD_OFF;
 	.patch_LostWoodsShootingGameTwo 0x2990E8 + _LD_OFF : { *(.patch_LostWoodsShootingGameTwo) }
@@ -822,6 +823,7 @@ SECTIONS
 	.patch_CriticalHealthCheckTwo 0x4716D4 + _LD_OFF : { *(.patch_CriticalHealthCheckTwo) }
 	.patch_EnableFW 0x476D1C + _LD_OFF : { *(.patch_EnableFW) }
 	.patch_OcarinaNoteSound_Npc 0x477C08 + _LD_OFF : { *(.patch_OcarinaNoteSound_Npc) }
+	DynaPoly_UpdateContext = 0x477E24 + _LD_OFF;
 	Quake_Update = 0x4787C8 + _LD_OFF;
 	TitleCard_Update = 0x47953C + _LD_OFF;
 	.patch_StoreTargetActorType 0x479984 + _LD_OFF : { *(.patch_StoreTargetActorType) }
