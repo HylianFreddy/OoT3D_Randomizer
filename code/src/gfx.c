@@ -344,7 +344,17 @@ static void Gfx_DrawButtonPrompts(void) {
     } else if (curMenuIdx == PAGE_SPHERES) {
         Draw_DrawIcon(offsetX, promptY, COLOR_WHITE, ICON_BUTTON_DPAD);
         offsetX += buttonSpacing;
-        Draw_DrawString(offsetX, textY, COLOR_TITLE, "Browse spoiler log");
+        nextStr = "Browse spoiler log";
+        Draw_DrawString(offsetX, textY, COLOR_TITLE, nextStr);
+        offsetX += (strlen(nextStr) + 1) * SPACING_X;
+        Draw_DrawIcon(offsetX, promptY, COLOR_BUTTON_Y, ICON_BUTTON_Y);
+        offsetX += 8;
+        Draw_DrawString(offsetX, textY, COLOR_TITLE, "/");
+        offsetX += 8;
+        Draw_DrawIcon(offsetX, promptY, COLOR_BUTTON_A, ICON_BUTTON_A);
+        offsetX += buttonSpacing;
+        nextStr = "Change sphere";
+        Draw_DrawString(offsetX, textY, COLOR_TITLE, nextStr);
     } else if (curMenuIdx == PAGE_ITEMTRACKER_ALL || curMenuIdx == PAGE_ITEMTRACKER_GROUPS ||
                curMenuIdx == PAGE_ENTRANCETRACKER_ALL || curMenuIdx == PAGE_ENTRANCETRACKER_GROUPS) {
         Draw_DrawIcon(offsetX, promptY, COLOR_WHITE, ICON_BUTTON_DPAD);
@@ -1165,7 +1175,7 @@ static void Gfx_ShowMenu(void) {
         } else if (curMenuIdx == PAGE_SPHERES && gSpoilerData.SphereCount > 0) {
             // Spoiler log
             u16 itemCount = gSpoilerData.Spheres[currentSphere].ItemCount;
-            if (pressed & (BUTTON_LEFT | CPAD_LEFT)) {
+            if (pressed & BUTTON_Y) {
                 if (currentSphere == 0) {
                     currentSphere = gSpoilerData.SphereCount - 1;
                 } else {
@@ -1173,7 +1183,7 @@ static void Gfx_ShowMenu(void) {
                 }
                 spoilerScroll = 0;
                 handledInput  = true;
-            } else if (pressed & (BUTTON_RIGHT | CPAD_RIGHT)) {
+            } else if (pressed & BUTTON_A) {
                 if (currentSphere < gSpoilerData.SphereCount - 1) {
                     currentSphere++;
                 } else {
@@ -1181,11 +1191,17 @@ static void Gfx_ShowMenu(void) {
                 }
                 spoilerScroll = 0;
                 handledInput  = true;
-            } else if (pressed & (BUTTON_UP | CPAD_UP)) {
+            } else if (pressed & PAD_UP) {
                 spoilerScroll = Gfx_Scroll(spoilerScroll, -1, itemCount);
                 handledInput  = true;
-            } else if (pressed & (BUTTON_DOWN | CPAD_DOWN)) {
-                spoilerScroll = Gfx_Scroll(spoilerScroll, 1, itemCount);
+            } else if (pressed & PAD_DOWN) {
+                spoilerScroll = Gfx_Scroll(spoilerScroll, +1, itemCount);
+                handledInput  = true;
+            } else if (pressed & PAD_LEFT) {
+                spoilerScroll = Gfx_Scroll(spoilerScroll, -MAX_ENTRY_LINES, itemCount);
+                handledInput  = true;
+            } else if (pressed & PAD_RIGHT) {
+                spoilerScroll = Gfx_Scroll(spoilerScroll, +MAX_ENTRY_LINES, itemCount);
                 handledInput  = true;
             }
         } else if (curMenuIdx == PAGE_ITEMTRACKER_ALL && gSpoilerData.ItemLocationsCount > 0) {
