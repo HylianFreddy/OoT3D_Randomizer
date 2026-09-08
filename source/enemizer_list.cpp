@@ -1282,27 +1282,4 @@ void InitEnemyLocations(void) {
     // clang-format on
 }
 
-void AddDuplicateLocations(void) {
-    // Enemies in Hyrule Field as child should stay the same in OoT layer
-    enemyLocations[81][1][0][4]    = enemyLocations[81][0][0][8];
-    enemyLocations[81][1][0][5]    = enemyLocations[81][0][0][9];
-    enemyLocations[81][1][0][6]    = enemyLocations[81][0][0][10];
-    enemyLocations[81][1][0][7]    = enemyLocations[81][0][0][11];
-    enemyLocations[81][1][0][8]    = enemyLocations[81][0][0][12];
-    enemyLocations[81][1][0][9]    = enemyLocations[81][0][0][13];
-    enemyLocations[81][1][0][10]   = enemyLocations[81][0][0][14];
-    enemyLocations[81][1][0][0xFF] = enemyLocations[81][0][0][0xFF];
-
-    // Enemies in Graveyard as adult should stay the same at night
-    enemyLocations[83][3][1][12] = enemyLocations[83][2][1][12];
-    enemyLocations[83][3][1][13] = enemyLocations[83][2][1][13];
-    enemyLocations[83][3][1][14] = enemyLocations[83][2][1][14];
-
-    // A Beamos in Shadow Temple is duplicated in 2 rooms to hide the transition
-    // (only in the vanilla dungeon, even though it appears in MQ too)
-    if (Dungeon::ShadowTemple.IsVanilla()) {
-        enemyLocations[7][0][2][0] = enemyLocations[7][0][5][0];
-    }
-}
-
 } // namespace Enemizer

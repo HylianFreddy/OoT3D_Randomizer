@@ -84,7 +84,6 @@ extern EnemyLocationsMap enemyLocations;
 
 void InitEnemyTypes(void);
 void InitEnemyLocations(void);
-void AddDuplicateLocations(void);
 void RandomizeEnemies(void);
 void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides);
 

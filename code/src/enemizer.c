@@ -55,6 +55,22 @@ void Enemizer_Init(void) {
 }
 
 s32 Enemizer_FindOverrideIndex(u8 scene, u8 layer, u8 room, u8 actorEntry) {
+    // Handle duplicate locations.
+    // Enemies in Hyrule Field as child should stay the same in OoT layer.
+    if (scene == SCENE_HYRULE_FIELD && layer == 1) {
+        layer = 0;
+    }
+    // Enemies in Graveyard as adult should stay the same at night.
+    else if (scene == SCENE_GRAVEYARD && layer == 3) {
+        layer = 2;
+    }
+    // A Beamos in Shadow Temple is duplicated in 2 rooms to hide the transition
+    // (only in the vanilla dungeon, even though it appears in MQ too).
+    else if (scene == SCENE_SHADOW_TEMPLE && room == 2 &&
+             gSettingsContext.shadowTempleDungeonMode == DUNGEONMODE_VANILLA) {
+        room = 5;
+    }
+
     s32 key   = (scene << 24) | (layer << 16) | (room << 8) | actorEntry;
     s32 start = 0;
     s32 end   = rEnemyOverrides_Count - 1;

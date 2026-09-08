@@ -681,11 +681,6 @@ static void Gfx_DrawEnemyLocations(void) {
         }
         s32 ovrIdx           = enemyBaseIdx + curEnemyIdx;
         EnemyOverride* enemy = &rEnemyOverrides[ovrIdx];
-        // Don't show duplicated layers
-        if ((enemy->scene == SCENE_HYRULE_FIELD && enemy->layer == 1) ||
-            (enemy->scene == SCENE_GRAVEYARD && enemy->layer == 3)) {
-            break;
-        }
 
         u32 posY = listTopY + ((SPACING_SMALL_Y + 1) * lineIdx * 2);
 

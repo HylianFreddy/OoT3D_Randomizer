@@ -40,7 +40,6 @@ void RandomizeEnemies() {
             }
         }
     }
-    AddDuplicateLocations();
 }
 
 void FillPatchOverrides(std::vector<EnemyOverride>& enemyOverrides) {
