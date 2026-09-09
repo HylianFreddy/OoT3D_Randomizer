@@ -518,21 +518,26 @@ static void Enemizer_HandleClearConditions(void) {
         }
     } else if (gGlobalContext->sceneNum == SCENE_THIEVES_HIDEOUT && gEnemizerLocationFlags.gerudoFighters) {
         const s8 keyFlagsByRoom[6] = { 0, 0x0A, 0x0C, 0, 0x0E, 0x0F };
+        const u8 actorEntryIndex   = 1; // The Gerudo Fighter's actor entry is #1 in all 4 rooms.
 
         s8 keyFlag = keyFlagsByRoom[gGlobalContext->roomNum];
+        // Permanently clear the room when the key is collected, so the enemy doesn't respawn.
+        if (Flags_GetCollectible(gGlobalContext, keyFlag)) {
+            Flags_SetClear(gGlobalContext, gGlobalContext->roomNum);
+        }
         // Spawn the key when the room is cleared.
-        if (Enemizer_IsRoomCleared() && !sLastRoomCleared) {
-            // Take the horizontal position from the Gerudo Fighter's actor entry, which is #1 in all 4 rooms.
-            Vec3s pos  = gGlobalContext->actorEntryList[1].pos;
+        else if (!sLastRoomCleared &&
+                 (gSettingsContext.enemyPermadeath
+                      ? SaveFile_IsEnemyDefeated(Enemizer_FindOverrideIndex(gGlobalContext->sceneNum, rSceneLayer,
+                                                                            gGlobalContext->roomNum, actorEntryIndex))
+                      : Enemizer_IsRoomCleared())) {
+            // Take the horizontal position from the Gerudo Fighter's actor entry.
+            Vec3s pos  = gGlobalContext->actorEntryList[actorEntryIndex].pos;
             f32 posY   = gGlobalContext->roomNum == 4 ? 0.0f : 240.0f;
             Actor* key = Actor_Spawn(&gGlobalContext->actorCtx, gGlobalContext, ACTOR_EN_ITEM00, pos.x, posY, pos.z, 0,
                                      0, 0, (keyFlag << 8) | ITEM00_SMALL_KEY, FALSE);
             key->gravity     = -0.9f;
             sLastRoomCleared = TRUE;
-        }
-        // Permanently clear the room when the key is collected, so the enemy doesn't respawn.
-        if (Flags_GetCollectible(gGlobalContext, keyFlag)) {
-            Flags_SetClear(gGlobalContext, gGlobalContext->roomNum);
         }
     }
 }
