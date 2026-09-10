@@ -91,6 +91,7 @@
 #include "obj_mure3.h"
 #include "armos.h"
 #include "poe_collector.h"
+#include "forest_temple_objects.h"
 
 Actor* gRunningActor;
 #define MAX_RUNNING_ACTORS 5
@@ -202,6 +203,8 @@ void Actor_Init() {
     gActorOverlayTable[0x6B].initInfo->instanceSize = sizeof(EnYukabyun);
 
     gActorOverlayTable[0x85].initInfo->update = EnTk_rUpdate;
+
+    gActorOverlayTable[0x86].initInfo->update = BgMoriBigst_rUpdate;
 
     gActorOverlayTable[0x8B].initInfo->init    = DemoEffect_rInit;
     gActorOverlayTable[0x8B].initInfo->destroy = DemoEffect_rDestroy;
@@ -589,9 +592,15 @@ void Actor_rUpdate(Actor* actor, GlobalContext* globalCtx) {
         globalCtx->actorCtx.hammerQuakeFlag = 0;
     }
 
+    Bool updatedForestStalfosFight = ForestStalfosFight_BeforeActorUpdate(actor);
+
     actor->update(actor, globalCtx);
     if (gExtSaveData.options[OPTION_HYPERACTORS]) {
         HyperActors_Main(actor, globalCtx);
+    }
+
+    if (updatedForestStalfosFight) {
+        ForestStalfosFight_AfterActorUpdate(actor);
     }
 
     if (tempHammerQuakeFlag != 0) {
