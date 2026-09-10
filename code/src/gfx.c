@@ -1535,8 +1535,13 @@ static u8 openingButton(void) {
 }
 
 void Menu_CheckAndTriggerSariaHint(void);
+
+#include "menu.h"
+#include "models.h"
+void Debug_Init(void);
 void Gfx_Update(void) {
     if (!GfxInit) {
+        Debug_Init();
         Gfx_Init();
         lastTick = svcGetSystemTick();
     }
@@ -1569,6 +1574,11 @@ void Gfx_Update(void) {
             svcSleepThread(1000 * 1000 * 300LL);
             // Update lastTick one more time so we don't count the added 0.3s sleep
             lastTick = svcGetSystemTick();
+        }
+
+        menuShow(); // practice patch menu
+        if (gGlobalContext->state.running == 0) {
+            Model_DestroyAll();
         }
     }
 }

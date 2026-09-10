@@ -148,6 +148,8 @@ bool WriteAllPatches() {
     |      rItemOverrides     |
     --------------------------*/
 
+    CitraPrint("overrides.size()=" + std::to_string(overrides.size()));
+
     u32 patchOffset                             = V_TO_P(gPatchSymbols.rItemOverrides);
     s32 patchSize                               = sizeof(ItemOverride) * overrides.size();
     ItemOverride ovrPatchData[overrides.size()] = {};

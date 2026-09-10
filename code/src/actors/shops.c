@@ -226,6 +226,7 @@ void ShopsanityItem_ResetModels(ShopsanityItem* shopItem, GlobalContext* globalC
     }
 }
 
+#include <string.h>
 void ShopsanityItem_InitializeItem(EnGirlA* item, GlobalContext* globalCtx) {
     ShopsanityItem* shopItem = (ShopsanityItem*)item;
 
@@ -246,6 +247,11 @@ void ShopsanityItem_InitializeItem(EnGirlA* item, GlobalContext* globalCtx) {
         item->actor.textId        = 0x9200 + index * 2;
         item->itemBuyPromptTextId = 0x9200 + index * 2 + 1;
         item->actor.draw          = ShopsanityItem_Draw;
+        if (memcmp(&gSettingsContext.hashIndexes, TMP_ZEROED_BUFFER(sizeof(gExtSaveData.hashIndexes)),
+                   sizeof(gExtSaveData.hashIndexes)) == 0) {
+            item->actor.textId        = 0x00C0; // zzzz...
+            item->itemBuyPromptTextId = 0x10A3; // let's make a deal
+        }
     }
 }
 
