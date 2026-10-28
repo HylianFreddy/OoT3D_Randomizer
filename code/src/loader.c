@@ -5,8 +5,8 @@
 
 #include "ld_symbols.h"
 
-#include "3ds/types.h"
 #include "3ds/svc.h"
+#include "3ds/types.h"
 
 Result svcOpenProcess(Handle* process, u32 processId);
 Result svcGetProcessId(u32* out, Handle handle);

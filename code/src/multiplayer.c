@@ -1,27 +1,28 @@
-#include <string.h>
-#include "3ds/services/uds.h"
-#include "3ds/result.h"
 #include "multiplayer.h"
+
+#include "3ds/result.h"
+#include "3ds/services/uds.h"
+#include "bean_plant.h"
+#include "boulder_red.h"
+#include "business_scrubs.h"
+#include "carpenter.h"
+#include "collapsing_platform.h"
+#include "common.h"
+#include "door.h"
+#include "giants_knife.h"
+#include "graveyard_objects.h"
+#include "item_effect.h"
 #include "multiplayer_ghosts.h"
 #include "oot_malloc.h"
-#include "common.h"
-#include "item_effect.h"
+#include "pushblock.h"
 #include "savefile.h"
 #include "settings.h"
-#include "giants_knife.h"
-#include "triforce.h"
-
-#include "web.h"
-#include "skulltula.h"
-#include "graveyard_objects.h"
-#include "collapsing_platform.h"
-#include "boulder_red.h"
-#include "door.h"
-#include "carpenter.h"
-#include "business_scrubs.h"
 #include "shops.h"
-#include "pushblock.h"
-#include "bean_plant.h"
+#include "skulltula.h"
+#include "triforce.h"
+#include "web.h"
+
+#include <string.h>
 
 // Self Vars
 u32 mp_receivedPackets          = 0;

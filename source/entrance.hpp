@@ -1,13 +1,13 @@
 #pragma once
 
-#include "s_entrance.h"
-
+#include "debug.hpp"
 #include "keys.hpp"
 #include "location_access.hpp"
-#include "debug.hpp"
 
-#include <string>
+#include "s_entrance.h"
+
 #include <list>
+#include <string>
 
 #define ENTRANCE_SHUFFLE_SUCCESS 0
 #define ENTRANCE_SHUFFLE_FAILURE 1

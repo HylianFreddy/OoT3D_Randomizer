@@ -1,24 +1,24 @@
 #pragma once
 
+#include "category.hpp"
+#include "cosmetics.hpp"
+#include "debug.hpp"
+#include "glitches.hpp"
+#include "menu.hpp"
+#include "pool_functions.hpp"
+#include "utils.hpp"
+
 #include "s_settings.h"
 
 #include <3ds.h>
-#include <array>
 #include <algorithm>
+#include <array>
 #include <cstdlib>
 #include <string>
 #include <string_view>
 #include <type_traits>
 #include <variant>
 #include <vector>
-
-#include "category.hpp"
-#include "cosmetics.hpp"
-#include "debug.hpp"
-#include "menu.hpp"
-#include "pool_functions.hpp"
-#include "utils.hpp"
-#include "glitches.hpp"
 
 class Option {
   public:

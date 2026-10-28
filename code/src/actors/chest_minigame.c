@@ -1,6 +1,7 @@
-#include "z3D/z3D.h"
-#include "settings.h"
 #include "chest_minigame.h"
+
+#include "settings.h"
+#include "z3D/z3D.h"
 
 void EnTakaraMan_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnChanger_Init(Actor* thisx, GlobalContext* globalCtx);

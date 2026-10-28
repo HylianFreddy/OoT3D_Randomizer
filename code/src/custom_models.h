@@ -1,10 +1,10 @@
 #ifndef _CUSTOM_MODELS_H_
 #define _CUSTOM_MODELS_H_
 
-#include "s_custom_models.h"
-
-#include "z3D/z3D.h"
 #include "item_table.h"
+#include "z3D/z3D.h"
+
+#include "s_custom_models.h"
 
 void CustomModel_EditLinkToCustomTunic(void* linkCMB);
 void CustomModel_EditChildLinkToCustomTunic(void* linkCMB);

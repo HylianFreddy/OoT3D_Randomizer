@@ -1,10 +1,11 @@
-#include "z3D/z3D.h"
-#include "z3D/actors/z_en_item00.h"
-#include "models.h"
-#include "actors/obj_mure3.h"
-#include "settings.h"
+#include "item00.h"
+
 #include "common.h"
+#include "models.h"
+#include "obj_mure3.h"
 #include "savefile.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 void EnItem00_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnItem00_Destroy(Actor* thisx, GlobalContext* globalCtx);

@@ -25,17 +25,18 @@
  *         reasonable ways as different from the original version.
  */
 
-// #include "fmt.h"
-#include "lib/printf.h"
 #include "draw.h"
-#include "utils.h"
+
 #include "3ds/svc.h"
 #include "3ds/synchronization.h"
 #include "fonts/ascii_font.h"
 #include "fonts/ascii_font_small.h"
 #include "icons.h"
+#include "lib/printf.h"
+#include "utils.h"
+#include "z3D/z3D.h"
+
 #include <string.h>
-#include <z3D/z3D.h>
 
 static u8* FRAMEBUFFER[6];
 static u8 backBufferBtm[FB_BOTTOM_SIZE];

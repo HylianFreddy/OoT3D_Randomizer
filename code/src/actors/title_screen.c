@@ -1,8 +1,9 @@
-#include "z3D/z3D.h"
+#include "title_screen.h"
+
+#include "alert.h"
 #include "custom_models.h"
 #include "objects.h"
-#include "title_screen.h"
-#include "alert.h"
+#include "z3D/z3D.h"
 
 void EnMag_Init(Actor* thisx, GlobalContext* globalCtx);
 

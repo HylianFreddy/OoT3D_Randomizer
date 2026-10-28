@@ -1,11 +1,6 @@
 #pragma once
 
-#include "s_settings.h"
-
-#include <set>
-#include <3ds.h>
-#include "playthrough.hpp"
-#include "settings.hpp"
+#include "s_types.h"
 
 #define V_TO_P(addr) (addr - 0x100000)
 #define P_TO_V(offset) (offset + 0x100000)

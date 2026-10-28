@@ -1,14 +1,15 @@
+#include "music.hpp"
+
+#include "cmeta_interpreter.hpp"
+#include "random.hpp"
+#include "sequence_data.hpp"
+#include "settings.hpp"
+#include "sound_archive.hpp"
+
 #include <3ds.h>
 #include <cstdlib>
 #include <filesystem>
 #include <functional>
-
-#include "music.hpp"
-#include "random.hpp"
-#include "settings.hpp"
-#include "sound_archive.hpp"
-#include "sequence_data.hpp"
-#include "cmeta_interpreter.hpp"
 
 namespace Music {
 // clang-format off

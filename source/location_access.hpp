@@ -1,14 +1,14 @@
 #pragma once
 
+#include "fill.hpp"
+#include "hint_list.hpp"
+#include "item_location.hpp"
+#include "keys.hpp"
+#include "logic.hpp"
+
+#include <list>
 #include <string>
 #include <vector>
-#include <list>
-
-#include "logic.hpp"
-#include "hint_list.hpp"
-#include "keys.hpp"
-#include "fill.hpp"
-#include "item_location.hpp"
 
 typedef bool (*ConditionFn)();
 

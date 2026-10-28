@@ -1,11 +1,11 @@
 #pragma once
 
+#include "text.hpp"
+
 #include <3ds.h>
 #include <string>
 #include <utility>
 #include <vector>
-
-#include "text.hpp"
 
 #define QM_WHITE 0x00
 #define QM_RED 0x41

@@ -1,5 +1,6 @@
-#include "z3D/z3D.h"
 #include "collapsing_castle.h"
+
+#include "z3D/z3D.h"
 
 void DemoGt_Update(Actor* thisx, GlobalContext* globalCtx);
 

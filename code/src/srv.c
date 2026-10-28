@@ -2,16 +2,17 @@
   srv.c _ Service manager.
 */
 
-#include <string.h>
-#include "3ds/types.h"
-#include "3ds/result.h"
-#include "3ds/env.h"
 #include "3ds/srv.h"
-#include "3ds/svc.h"
+#include "3ds/env.h"
 #include "3ds/ipc.h"
-#include "3ds/synchronization.h"
 #include "3ds/os.h"
+#include "3ds/result.h"
 #include "3ds/services/srvpm.h"
+#include "3ds/svc.h"
+#include "3ds/synchronization.h"
+#include "3ds/types.h"
+
+#include <string.h>
 
 static Handle srvHandle;
 static int srvRefCount;

@@ -1,8 +1,8 @@
-#include "z3D/z3D.h"
-#include "settings.h"
-#include "savefile.h"
-
 #include "gorons.h"
+
+#include "savefile.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 void EnGo2_SetGetItem(EnGo2* this, GlobalContext* globalCtx);
 

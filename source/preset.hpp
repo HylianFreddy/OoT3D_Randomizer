@@ -1,10 +1,10 @@
 #pragma once
 
+#include "item_location.hpp"
+#include "settings.hpp"
+
 #include <string>
 #include <vector>
-
-#include <settings.hpp>
-#include <item_location.hpp>
 
 enum class OptionCategory;
 

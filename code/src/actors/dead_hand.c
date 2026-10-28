@@ -1,7 +1,8 @@
 #include "dead_hand.h"
-#include "settings.h"
-#include "enemizer.h"
+
 #include "actor.h"
+#include "enemizer.h"
+#include "settings.h"
 
 /*-------------------------------
 |              EnDh             |

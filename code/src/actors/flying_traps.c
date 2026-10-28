@@ -1,9 +1,10 @@
-#include "z3D/z3D.h"
 #include "flying_traps.h"
-#include "enemy_souls.h"
-#include "settings.h"
+
 #include "enemizer.h"
+#include "enemy_souls.h"
 #include "objects.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 /*-------------------------------
 |           EnTuboTrap          |

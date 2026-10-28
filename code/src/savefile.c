@@ -1,19 +1,20 @@
-#include "z3D/z3D.h"
-#include "settings.h"
-#include "item_effect.h"
-#include "giants_knife.h"
-#include "3ds/types.h"
-#include "3ds/extdata.h"
-#include <string.h>
-#include "entrance.h"
-#include "multiplayer.h"
-#include "item_override.h"
-#include "permadeath.h"
-#include "gloom.h"
-#include "alert.h"
-#include "grotto.h"
-
 #include "savefile.h"
+
+#include "3ds/extdata.h"
+#include "3ds/types.h"
+#include "alert.h"
+#include "entrance.h"
+#include "giants_knife.h"
+#include "gloom.h"
+#include "grotto.h"
+#include "item_effect.h"
+#include "item_override.h"
+#include "multiplayer.h"
+#include "permadeath.h"
+#include "settings.h"
+#include "z3D/z3D.h"
+
+#include <string.h>
 
 ExtSaveData gExtSaveData;
 

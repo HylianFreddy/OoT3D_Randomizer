@@ -1,8 +1,9 @@
-#include "z3D/z3D.h"
 #include "moblin.h"
-#include "settings.h"
-#include "enemizer.h"
+
 #include "actor.h"
+#include "enemizer.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 void EnMb_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnMb_Update(Actor* thisx, GlobalContext* globalCtx);

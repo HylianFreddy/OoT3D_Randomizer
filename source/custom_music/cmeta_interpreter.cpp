@@ -1,11 +1,11 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
+#include "cmeta_interpreter.hpp"
+
 #include <algorithm>
 #include <cctype>
-
-#include "cmeta_interpreter.hpp"
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
 
 static const std::string CMETAKEY_BANKS    = "banks";
 static const std::string CMETAKEY_CHFLAGS  = "chFlags";

@@ -1,23 +1,24 @@
 #include "item_override.h"
-#include "rHeap.h"
-#include "item_table.h"
-#include "item_effect.h"
-#include "icetrap.h"
-#include "settings.h"
-#include "custom_models.h"
-#include "objects.h"
-#include "entrance.h"
-#include "savefile.h"
-#include "common.h"
-#include "chest.h"
+
 #include "bgm.h"
+#include "chest.h"
+#include "common.h"
+#include "custom_models.h"
+#include "entrance.h"
+#include "icetrap.h"
+#include "item_effect.h"
+#include "item_table.h"
+#include "objects.h"
+#include "rHeap.h"
+#include "savefile.h"
+#include "settings.h"
 
-#include <stddef.h>
-
-#include "z3D/z3D.h"
 #include "z3D/actors/z_en_box.h"
 #include "z3D/actors/z_en_item00.h"
 #include "z3D/actors/z_obj_mure3.h"
+#include "z3D/z3D.h"
+
+#include <stddef.h>
 
 typedef enum Readiness {
     NOT_READY,

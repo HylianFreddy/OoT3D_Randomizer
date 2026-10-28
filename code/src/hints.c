@@ -1,5 +1,5 @@
-#include "z3D/z3D.h"
 #include "settings.h"
+#include "z3D/z3D.h"
 
 #define MASK_OF_TRUTH_ID 8
 #define MAX_SARIAS_SONG_HINTS 64

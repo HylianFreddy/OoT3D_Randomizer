@@ -1,5 +1,4 @@
-#ifndef _SEQ_ID_H_
-#define _SEQ_ID_H_
+#pragma once
 
 typedef enum SeqId {
     /* 0x1000000 */ SEQ_DUMMY = 0x1000000,
@@ -1523,5 +1522,3 @@ typedef enum SeqId {
     /* 0x10005EE */ SEQ_FIELDRX2,
     /* 0x10005EF */ SEQ_FIELDRX3,
 } SeqId;
-
-#endif // _SEQ_ID_H_

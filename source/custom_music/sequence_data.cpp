@@ -1,9 +1,10 @@
-#include <filesystem>
-#include <functional>
-
 #include "sequence_data.hpp"
+
 #include "ctr_binary_data.hpp"
 #include "random.hpp"
+
+#include <filesystem>
+#include <functional>
 
 namespace fs = std::filesystem;
 

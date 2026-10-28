@@ -1,6 +1,6 @@
-#include "z3D/z3D.h"
 #include "3ds/types.h"
 #include "settings.h"
+#include "z3D/z3D.h"
 
 // Done to fix vanilla weirdness where Mido despawns in forest after obtaining Zelda's letter
 u32 EnMd_ShouldSpawn(void) {

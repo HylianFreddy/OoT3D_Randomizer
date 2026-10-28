@@ -1,6 +1,8 @@
 #include "location_access.hpp"
 
 #include "dungeon.hpp"
+#include "entrance.hpp"
+#include "gold_skulltulas.hpp"
 #include "item_list.hpp"
 #include "item_location.hpp"
 #include "item_pool.hpp"
@@ -8,12 +10,10 @@
 #include "settings.hpp"
 #include "spoiler_log.hpp"
 #include "trial.hpp"
-#include "entrance.hpp"
-#include "gold_skulltulas.hpp"
 
-#include <unistd.h>
 #include <fstream>
 #include <iostream>
+#include <unistd.h>
 
 using namespace Logic;
 using namespace Settings;

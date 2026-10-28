@@ -1,13 +1,13 @@
-#include "s_dungeon.h"
-
 #include "item_location.hpp"
 
-#include "dungeon.hpp"
-#include "settings.hpp"
-#include "spoiler_log.hpp"
-#include "shops.hpp"
 #include "debug.hpp"
+#include "dungeon.hpp"
 #include "keys.hpp"
+#include "settings.hpp"
+#include "shops.hpp"
+#include "spoiler_log.hpp"
+
+#include "s_dungeon.h"
 
 extern bool gInitError;
 

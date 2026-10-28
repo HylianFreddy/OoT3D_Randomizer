@@ -1,11 +1,10 @@
 #pragma once
 
-#include <3ds.h>
-
 #include "keys.hpp"
 
-#include <vector>
+#include <3ds.h>
 #include <string>
+#include <vector>
 
 enum class SearchMode {
     ReachabilitySearch,

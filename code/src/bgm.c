@@ -1,7 +1,8 @@
-#include "z3D/z3D.h"
 #include "bgm.h"
-#include "savefile.h"
+
 #include "common.h"
+#include "savefile.h"
+#include "z3D/z3D.h"
 
 u8 Bgm_FanfareModEnabled = FALSE;
 

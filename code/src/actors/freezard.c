@@ -1,4 +1,5 @@
 #include "freezard.h"
+
 #include "actor.h"
 
 void EnFz_ReinitModels(EnFz* this) {

@@ -1,7 +1,7 @@
-#include "z3D/z3D.h"
 #include "item_override.h"
-#include "settings.h"
 #include "savefile.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 u8 ShouldSkipMasterSwordCutscene() {
     return gExtSaveData.hasTimeTraveled || gSettingsContext.openDoorOfTime == OPENDOOROFTIME_OPEN;

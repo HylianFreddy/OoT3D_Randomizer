@@ -1,7 +1,7 @@
-#include "z3D/z3D.h"
-#include "settings.h"
 #include "item_override.h"
 #include "item_table.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 typedef enum {
     SHOP_BAZAAR,

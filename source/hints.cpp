@@ -1,20 +1,20 @@
-#include "s_dungeon.h"
-#include "s_item.h"
-#include "s_dungeon.h"
-
 #include "hints.hpp"
+
 #include "custom_messages.hpp"
 #include "dungeon.hpp"
+#include "entrance.hpp"
+#include "fill.hpp"
+#include "hint_list.hpp"
 #include "item_location.hpp"
 #include "item_pool.hpp"
 #include "logic.hpp"
 #include "random.hpp"
-#include "spoiler_log.hpp"
-#include "fill.hpp"
-#include "hint_list.hpp"
-#include "trial.hpp"
-#include "entrance.hpp"
 #include "settings.hpp"
+#include "spoiler_log.hpp"
+#include "trial.hpp"
+
+#include "s_dungeon.h"
+#include "s_item.h"
 
 using namespace CustomMessages;
 using namespace Logic;

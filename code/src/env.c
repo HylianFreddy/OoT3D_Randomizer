@@ -1,8 +1,8 @@
 /* Source: https://github.com/devkitPro/libctru/blob/6360f4bdb1ca5f8131ffc92640c1dd16afb63083/libctru/source/env.c */
 
-#include "3ds/types.h"
-#include "3ds/svc.h"
 #include "3ds/env.h"
+#include "3ds/svc.h"
+#include "3ds/types.h"
 
 /*
   The homebrew loader can choose to supply a list of service handles that have

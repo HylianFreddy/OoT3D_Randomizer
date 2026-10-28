@@ -1,15 +1,16 @@
-#include "s_item.h"
+#include "shops.hpp"
 
+#include "debug.hpp"
+#include "item.hpp"
 #include "item_location.hpp"
 #include "item_pool.hpp"
 #include "location_access.hpp"
 #include "random.hpp"
-#include "item.hpp"
-#include "shops.hpp"
-#include "debug.hpp"
 
-#include <math.h>
+#include "s_item.h"
+
 #include <map>
+#include <math.h>
 
 using namespace Settings;
 

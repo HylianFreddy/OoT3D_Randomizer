@@ -1,4 +1,5 @@
 #pragma once
+
 #include "s_types.h"
 
 #define ENEMY_OVERRIDES_MAX 800

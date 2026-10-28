@@ -1,9 +1,9 @@
 #ifndef _DUNGEON_H_
 #define _DUNGEON_H_
 
-#include "s_dungeon.h"
-
 #include "z3D/z3D.h"
+
+#include "s_dungeon.h"
 
 extern u32 rDungeonRewardOverrides[DUNGEON_REWARDS_COUNT];
 

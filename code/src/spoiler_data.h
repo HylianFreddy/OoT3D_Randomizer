@@ -1,9 +1,9 @@
 #ifndef _SPOILER_DATA_H_
 #define _SPOILER_DATA_H_
 
-#include "s_spoiler_data.h"
-
 #include "z3D/z3D.h"
+
+#include "s_spoiler_data.h"
 
 extern SpoilerData gSpoilerData;
 

@@ -1,5 +1,5 @@
-#include "z3D/z3D.h"
 #include "settings.h"
+#include "z3D/z3D.h"
 
 // If beans aren't shuffled, do nothing here
 // If they are and the reward hasnt been purchased, return 5 to display the 60 rupees textbox

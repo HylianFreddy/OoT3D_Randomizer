@@ -1,10 +1,11 @@
-#include "s_dungeon.h"
-
 #include "dungeon.hpp"
+
 #include "category.hpp"
 #include "item_location.hpp"
-#include "pool_functions.hpp"
 #include "keys.hpp"
+#include "pool_functions.hpp"
+
+#include "s_dungeon.h"
 
 namespace Dungeon {
 

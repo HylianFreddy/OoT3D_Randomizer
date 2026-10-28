@@ -1,10 +1,12 @@
-#include "z3D/z3D.h"
 #include "message.h"
+
+#include "3ds/util/utf.h"
+#include "lib/printf.h"
 #include "savefile.h"
 #include "settings.h"
 #include "spoiler_data.h"
-#include "3ds/util/utf.h"
-#include "lib/printf.h"
+#include "z3D/z3D.h"
+
 #include <stddef.h>
 #include <string.h>
 

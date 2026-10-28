@@ -1,7 +1,8 @@
-#include "z3D/z3D.h"
 #include "grotto.h"
+
 #include "savefile.h"
 #include "settings.h"
+#include "z3D/z3D.h"
 
 // Information necessary for entering each grotto
 static const GrottoLoadInfo grottoLoadTable[NUM_GROTTOS] = {

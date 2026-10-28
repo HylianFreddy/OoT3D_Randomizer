@@ -1,9 +1,8 @@
 #pragma once
 
-#include <3ds.h>
-
 #include "keys.hpp"
 
+#include <3ds.h>
 #include <cstddef>
 #include <vector>
 

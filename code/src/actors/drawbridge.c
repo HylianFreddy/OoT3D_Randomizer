@@ -1,5 +1,6 @@
-#include "z3D/z3D.h"
 #include "drawbridge.h"
+
+#include "z3D/z3D.h"
 
 void BgSpot00Hanebasi_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot00Hanebasi_Destroy(Actor* thisx, GlobalContext* globalCtx);

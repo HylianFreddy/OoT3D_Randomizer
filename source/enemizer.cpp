@@ -1,4 +1,5 @@
 #include "enemizer.hpp"
+
 #include "random.hpp"
 #include "settings.hpp"
 

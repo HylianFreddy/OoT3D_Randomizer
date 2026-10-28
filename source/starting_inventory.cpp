@@ -1,12 +1,13 @@
-#include "s_enemy_souls.h"
-
-#include <unistd.h>
-
 #include "starting_inventory.hpp"
+
 #include "debug.hpp"
 #include "dungeon.hpp"
 #include "item_list.hpp"
 #include "settings.hpp"
+
+#include "s_enemy_souls.h"
+
+#include <unistd.h>
 
 using namespace Settings;
 using namespace Dungeon;

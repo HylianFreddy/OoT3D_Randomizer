@@ -1,8 +1,9 @@
-#include "enemizer.hpp"
-#include "logic.hpp"
-#include "location_access.hpp"
-#include "settings.hpp"
 #include "enemizer_logic.hpp"
+
+#include "enemizer.hpp"
+#include "location_access.hpp"
+#include "logic.hpp"
+#include "settings.hpp"
 
 using namespace Enemizer;
 using namespace Settings;

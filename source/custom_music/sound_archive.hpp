@@ -1,12 +1,12 @@
 #pragma once
 
-#include <3ds.h>
-#include <string>
-#include <vector>
-#include <array>
-
 #include "reference_structures.hpp"
 #include "sequence_data.hpp"
+
+#include <3ds.h>
+#include <array>
+#include <string>
+#include <vector>
 
 #define STRING_BLOCK 0
 #define INFO_BLOCK 1

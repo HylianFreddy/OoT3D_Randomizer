@@ -1,7 +1,8 @@
-#include "z3D/z3D.h"
 #include "fishing.h"
+
 #include "models.h"
 #include "settings.h"
+#include "z3D/z3D.h"
 
 u32 isFishing(void) {
     return gSaveContext.equips.buttonItems[0] == ITEM_FISHING_POLE && gGlobalContext->sceneNum == 73;

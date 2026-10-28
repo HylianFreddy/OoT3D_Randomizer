@@ -1,6 +1,7 @@
-#include "z3D/z3D.h"
 #include "colors.h"
+
 #include "common.h"
+#include "z3D/z3D.h"
 
 // This function is taken from OoTR:
 // https://github.com/OoTRandomizer/OoT-Randomizer/blob/1827fbb8089d3fe3e816a297a5f3ce2c99a6e0c5/ASM/c/rainbow.c

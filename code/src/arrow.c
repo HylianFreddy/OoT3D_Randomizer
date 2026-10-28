@@ -1,7 +1,8 @@
-#include "z3D/z3D.h"
 #include "arrow.h"
+
 #include "input.h"
 #include "settings.h"
+#include "z3D/z3D.h"
 
 s32 NockArrow(Player* player, GlobalContext* globalCtx);
 // I'm not quite sure what these params are

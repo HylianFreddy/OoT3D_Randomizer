@@ -1,14 +1,15 @@
-#include "s_enemy_table.h"
-
 #include "enemizer.h"
-#include "objects.h"
-#include "common.h"
-#include "savefile.h"
-#include "settings.h"
-#include "scene.h"
+
 #include "bgm.h"
+#include "common.h"
 #include "dark_link.h"
+#include "objects.h"
+#include "savefile.h"
+#include "scene.h"
+#include "settings.h"
 #include "z3D/actors/z_en_item00.h"
+
+#include "s_enemy_table.h"
 
 #include <stddef.h>
 

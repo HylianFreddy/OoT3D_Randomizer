@@ -1,7 +1,7 @@
-#include "z3D/z3D.h"
-#include "settings.h"
-
 #include "grog.h"
+
+#include "settings.h"
+#include "z3D/z3D.h"
 
 void EnHs_ActionAfterTradeCojiro(EnHs* this, GlobalContext* globalCtx);
 

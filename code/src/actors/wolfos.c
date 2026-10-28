@@ -1,4 +1,5 @@
 #include "wolfos.h"
+
 #include "actor.h"
 
 void EnWf_ReinitModels(EnWf* this) {

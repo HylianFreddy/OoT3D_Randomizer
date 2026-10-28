@@ -1,7 +1,7 @@
 #include "s_ocarina_notes.h"
 
-#include <string>
 #include <array>
+#include <string>
 
 #define FROG_SONG_LENGTH 14
 

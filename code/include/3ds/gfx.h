@@ -8,6 +8,7 @@
 #pragma once
 
 #include "types.h"
+
 #include "services/gspgpu.h"
 
 #define RGB8(r, g, b) (((b)&0xFF) | (((g)&0xFF) << 8) | (((r)&0xFF) << 16))

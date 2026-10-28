@@ -1,10 +1,10 @@
 #pragma once
 
+#include "s_seq_id.h"
+
+#include <3ds.h>
 #include <array>
 #include <vector>
-#include <3ds.h>
-
-#include "s_seq_id.h"
 
 namespace Music {
 

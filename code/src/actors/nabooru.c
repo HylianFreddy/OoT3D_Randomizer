@@ -1,5 +1,6 @@
-#include "z3D/z3D.h"
 #include "nabooru.h"
+
+#include "z3D/z3D.h"
 
 void EnNb_Draw(Actor* thisx, GlobalContext* globalCtx);
 

@@ -1,7 +1,8 @@
 #pragma once
-#include "s_types.h"
+
 #include "s_colors.h"
 #include "s_enemizer.h"
+#include "s_types.h"
 
 typedef enum BooleanSetting {
     OFF,

@@ -1,8 +1,8 @@
 #ifndef _Z3DLIGHT_H_
 #define _Z3DLIGHT_H_
 
-#include "s_types.h"
 #include "s_colors.h"
+#include "s_types.h"
 
 typedef struct LightPoint {
     /* 0x00 */ f32 x;

@@ -1,11 +1,13 @@
-#include "z3D/z3D.h"
 #include "models.h"
+
+#include "common.h"
+#include "custom_models.h"
 #include "item_override.h"
 #include "item_table.h"
 #include "objects.h"
-#include "custom_models.h"
 #include "settings.h"
-#include "common.h"
+#include "z3D/z3D.h"
+
 #include <stddef.h>
 
 void SkeletonAnimationModel_MatrixCopy(SkeletonAnimationModel* glModel, nn_math_MTX34* mtx);

@@ -1,10 +1,10 @@
 #include "spoiler_data.h"
 
-#include "settings.h"
-#include "gorons.h"
-#include "savefile.h"
 #include "entrance.h"
+#include "gorons.h"
 #include "poe_collector.h"
+#include "savefile.h"
+#include "settings.h"
 
 SpoilerData gSpoilerData                          = { 0 };
 SpoilerDataLocs gSpoilerDataLocs[SPOILER_LOCDATS] = { 0 };

@@ -1,6 +1,7 @@
 #pragma once
-#include "s_types.h"
+
 #include "s_seq_id.h"
+#include "s_types.h"
 
 #define SFX_BASE NA_SE_PL_WALK_GROUND
 #define SFX_COUNT 1388

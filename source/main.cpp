@@ -1,12 +1,12 @@
-#include <3ds.h>
-
-#include "menu.hpp"
+#include "enemizer.hpp"
 #include "hint_list.hpp"
 #include "item_list.hpp"
 #include "item_location.hpp"
 #include "location_access.hpp"
+#include "menu.hpp"
 #include "music.hpp"
-#include "enemizer.hpp"
+
+#include <3ds.h>
 
 #define TICKS_PER_SEC 268123480.0
 

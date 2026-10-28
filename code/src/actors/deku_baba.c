@@ -1,4 +1,5 @@
 #include "deku_baba.h"
+
 #include "actor.h"
 
 void EnDekubaba_ReinitModels(EnDekubaba* this) {

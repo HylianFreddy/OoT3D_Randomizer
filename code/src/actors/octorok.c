@@ -1,4 +1,5 @@
 #include "octorok.h"
+
 #include "actor.h"
 
 void EnOkuta_ReinitModels(EnOkuta* this) {

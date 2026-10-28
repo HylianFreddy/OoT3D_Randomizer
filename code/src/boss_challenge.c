@@ -1,5 +1,5 @@
-#include "z3D/z3D.h"
 #include "multiplayer.h"
+#include "z3D/z3D.h"
 
 #define STONES_MEDALLIONS_BITMASK 0x001C003F
 

@@ -1,3 +1,5 @@
+#include "skulltula_people.h"
+
 #include "settings.h"
 
 void EnSsh_Update(Actor* thisx, GlobalContext* globalCtx);

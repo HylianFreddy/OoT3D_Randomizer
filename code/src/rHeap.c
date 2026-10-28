@@ -1,7 +1,7 @@
 #include "rHeap.h"
-#include <stddef.h>
-
 #include "z3D/z3D.h"
+
+#include <stddef.h>
 
 char rHeap[sizeof(Actor) + 16]; // TODO: Increase if needed
 void* rHeap_Next = NULL;

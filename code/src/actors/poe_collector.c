@@ -1,8 +1,9 @@
-#include "s_message.h"
-
-#include "z3D/z3D.h"
 #include "poe_collector.h"
+
 #include "settings.h"
+#include "z3D/z3D.h"
+
+#include "s_message.h"
 
 #define TEXT_GIVE_REWARD 0x70F8
 

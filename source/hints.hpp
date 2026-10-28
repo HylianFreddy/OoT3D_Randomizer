@@ -1,17 +1,17 @@
 #pragma once
 
+#include "keys.hpp"
+#include "random.hpp"
+#include "settings.hpp"
+#include "text.hpp"
+
 #include "s_settings.h"
 
 #include <3ds.h>
 #include <array>
+#include <functional>
 #include <string>
 #include <vector>
-#include <functional>
-
-#include "keys.hpp"
-#include "text.hpp"
-#include "random.hpp"
-#include "settings.hpp"
 
 enum class HintType {
     Trial,

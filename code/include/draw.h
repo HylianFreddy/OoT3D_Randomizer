@@ -27,8 +27,8 @@
 
 #pragma once
 
-#include "3ds/types.h"
 #include "3ds/gfx.h"
+#include "3ds/types.h"
 
 #define FB_BOTTOM_VRAM_ADDR ((void*)0x1F48F000) // cached
 #define FB_BOTTOM_VRAM_PA 0x1848F000

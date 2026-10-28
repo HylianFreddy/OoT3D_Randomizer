@@ -1,5 +1,5 @@
-#include "settings.h"
 #include "multiplayer.h"
+#include "settings.h"
 
 void SendDroppedBottleContents(s16 actorId, f32 posX, f32 posY, f32 posZ) {
     if (gSettingsContext.mp_Enabled == OFF || gSettingsContext.mp_SharedProgress == OFF) {

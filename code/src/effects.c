@@ -1,8 +1,10 @@
-#include "z3D/z3D.h"
-#include "settings.h"
+#include "effects.h"
+
 #include "colors.h"
-#include "objects.h"
 #include "icetrap.h"
+#include "objects.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 static const u8 sSwordTrailDurationValues[] = {
     [TRAILDURATION_DISABLED]     = 0,   //

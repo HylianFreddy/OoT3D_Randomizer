@@ -1,4 +1,5 @@
 #include "gtg_gate.h"
+
 #include "settings.h"
 
 void BgSpot12Saku_Update(Actor* thisx, GlobalContext* globalCtx);

@@ -1,6 +1,7 @@
 #include "liftable_rock.h"
-#include "settings.h"
+
 #include "multiplayer.h"
+#include "settings.h"
 
 void EnIshi_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnIshi_Update(Actor* thisx, GlobalContext* globalCtx);

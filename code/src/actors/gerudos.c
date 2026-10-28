@@ -1,9 +1,9 @@
-#include "z3D/z3D.h"
-#include "settings.h"
-#include "enemizer.h"
-#include "actor.h"
-
 #include "gerudos.h"
+
+#include "actor.h"
+#include "enemizer.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 /*-------------------------------
 |             EnGe1             |

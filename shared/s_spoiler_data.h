@@ -1,4 +1,5 @@
 #pragma once
+
 #include "s_types.h"
 
 #define SPOILER_LOCDATS 2

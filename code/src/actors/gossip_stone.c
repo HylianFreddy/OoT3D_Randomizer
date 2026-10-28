@@ -1,4 +1,5 @@
 #include "gossip_stone.h"
+
 #include "z3D/z3D.h"
 
 void EnGs_Init(Actor* thisx, GlobalContext* globalCtx);

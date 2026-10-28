@@ -1,8 +1,8 @@
 #ifndef _Z3DAUDIO_H_
 #define _Z3DAUDIO_H_
 
-#include "s_types.h"
 #include "s_seq_id.h"
+#include "s_types.h"
 
 typedef enum SequencePlayerId {
     /* 0 */ SEQ_PLAYER_BGM_MAIN,

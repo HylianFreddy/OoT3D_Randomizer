@@ -1,11 +1,11 @@
 #pragma once
 
+#include "keys.hpp"
+
 #include <3ds.h>
 #include <array>
 #include <string>
 #include <vector>
-
-#include "keys.hpp"
 
 namespace Dungeon {
 class DungeonInfo {

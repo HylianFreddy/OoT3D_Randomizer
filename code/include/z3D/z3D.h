@@ -1,26 +1,25 @@
 #ifndef _Z3D_H_
 #define _Z3D_H_
 
-#include "s_types.h"
-#include "s_colors.h"
-#include "s_scene_id.h"
-#include "s_dungeon.h"
-
 #include "common.h"
+#include "hid.h"
+#include "z3Dactor.h"
+#include "z3Daudio.h"
+#include "z3Dbgcheck.h"
+#include "z3Dcmb.h"
+#include "z3Dcutscene.h"
+#include "z3Deffect.h"
+#include "z3Dequipment.h"
+#include "z3Ditem.h"
+#include "z3Dlight.h"
+#include "z3Dmath.h"
+
+#include "s_colors.h"
+#include "s_dungeon.h"
+#include "s_scene_id.h"
+#include "s_types.h"
 
 #include <sys/cdefs.h>
-#include "z3Dactor.h"
-#include "z3Dequipment.h"
-#include "z3Dcutscene.h"
-#include "z3Ditem.h"
-#include "z3Dmath.h"
-#include "z3Dbgcheck.h"
-#include "z3Deffect.h"
-#include "z3Daudio.h"
-#include "z3Dcmb.h"
-#include "z3Dlight.h"
-
-#include "hid.h"
 
 typedef struct {
     /* 0x00 */ u8 buttonItems[5]; // B,Y,X,I,II

@@ -1,4 +1,5 @@
 #include "well_stone.h"
+
 #include "settings.h"
 
 // This actor is the stone blocking bottom of the well as adult Link. This is

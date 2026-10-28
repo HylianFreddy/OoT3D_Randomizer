@@ -1,4 +1,5 @@
 #include "spin_attack.h"
+
 #include "icetrap.h"
 
 void EnMThunder_Init(Actor* thisx, GlobalContext* globalCtx);

@@ -1,11 +1,11 @@
 #pragma once
 
+#include "reference_structures.hpp"
+
 #include <3ds.h>
-#include <vector>
 #include <string>
 #include <unordered_map>
-
-#include "reference_structures.hpp"
+#include <vector>
 
 // Code ported from Gota7's Citric Composer
 

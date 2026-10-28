@@ -1,6 +1,7 @@
-#include "z3D/z3D.h"
-#include "z3D/actors/z_demo_effect.h"
+#include "demo_effect.h"
+
 #include "models.h"
+#include "z3D/z3D.h"
 
 void DemoEffect_Init(Actor* thisx, GlobalContext* globalCtx);
 void DemoEffect_Destroy(Actor* thisx, GlobalContext* globalCtx);

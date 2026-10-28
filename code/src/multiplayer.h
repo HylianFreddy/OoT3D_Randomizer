@@ -2,8 +2,8 @@
 #define _MULTIPLAYER_H_
 
 #include "3ds/types.h"
-#include "z3D/z3D.h"
 #include "savefile.h"
+#include "z3D/z3D.h"
 
 #define EXTINF_SYNC_PART_SIZE 0x400
 // Count of parts that ExtInf will be split into for syncing

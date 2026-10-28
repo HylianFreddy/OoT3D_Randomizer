@@ -1,11 +1,12 @@
-#include "z3D/z3D.h"
 #include "objects.h"
+
 #include "common.h"
-#include "models.h"
 #include "custom_models.h"
-#include "oot_malloc.h"
-#include "enemizer.h"
 #include "effects.h"
+#include "enemizer.h"
+#include "models.h"
+#include "oot_malloc.h"
+#include "z3D/z3D.h"
 
 #include <stddef.h>
 

@@ -1,4 +1,5 @@
 #include "beamos.h"
+
 #include "actor.h"
 
 void EnVm_ReinitModels(EnVm* this) {

@@ -1,12 +1,12 @@
 #pragma once
 
+#include "hint_list.hpp"
+#include "keys.hpp"
+#include "settings.hpp"
+
 #include <3ds.h>
 #include <string>
 #include <variant>
-
-#include "keys.hpp"
-#include "hint_list.hpp"
-#include "settings.hpp"
 
 union ItemOverride_Value;
 

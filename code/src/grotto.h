@@ -1,7 +1,7 @@
 #ifndef _GROTTO_H_
 #define _GROTTO_H_
 
-#include "s_types.h"
+#include "common.h"
 
 #define NUM_GROTTOS 33
 #define NOT_GROTTO 0

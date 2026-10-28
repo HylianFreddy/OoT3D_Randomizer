@@ -1,9 +1,10 @@
-#include "z3D/z3D.h"
-#include "string.h"
 #include "custom_models.h"
+
+#include "item_table.h"
 #include "objects.h"
 #include "settings.h"
-#include "item_table.h"
+#include "string.h"
+#include "z3D/z3D.h"
 
 #define EDIT_BYTE(offset_, val_) (BASE_[offset_] = val_)
 

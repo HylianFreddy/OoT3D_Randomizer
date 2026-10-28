@@ -1,6 +1,6 @@
 #include "fog.h"
-#include "settings.h"
 
+#include "settings.h"
 #include "z3D/z3D.h"
 
 extern u8 z3D_Fog_State;

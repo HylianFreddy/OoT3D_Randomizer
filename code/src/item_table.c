@@ -1,10 +1,12 @@
 #include "item_table.h"
-#include "item_upgrade.h"
-#include "item_effect.h"
-#include "enemy_souls.h"
-#include "rHeap.h"
+
 #include "chest.h"
+#include "enemy_souls.h"
+#include "item_effect.h"
+#include "item_upgrade.h"
 #include "ocarina_notes.h"
+#include "rHeap.h"
+
 #include <stddef.h>
 
 #define ITEM_ROW(baseItemId_, chestType_, actionId_, textId_, objectId_, objectModelIdx_, cmabIndex_,             \

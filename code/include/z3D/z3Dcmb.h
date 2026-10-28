@@ -1,8 +1,8 @@
 #ifndef _Z3DCMB_H_
 #define _Z3DCMB_H_
 
-#include "s_types.h"
 #include "s_colors.h"
+#include "s_types.h"
 
 typedef struct CMB_HEAD {
     /* 0x00 */ char magic[4];

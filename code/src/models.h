@@ -1,8 +1,8 @@
 #ifndef _MODELS_H_
 #define _MODELS_H_
 
-#include "z3D/z3D.h"
 #include "item_table.h"
+#include "z3D/z3D.h"
 
 typedef struct {
     Actor* actor;

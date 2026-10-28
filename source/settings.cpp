@@ -1,21 +1,22 @@
+#include "settings.hpp"
+
+#include "cosmetics.hpp"
+#include "descriptions.hpp"
+#include "dungeon.hpp"
+#include "enemizer.hpp"
+#include "fill.hpp"
+#include "globals.hpp"
+#include "gold_skulltulas.hpp"
+#include "item_location.hpp"
+#include "keys.hpp"
+#include "music.hpp"
+#include "random.hpp"
+#include "sound_effects.hpp"
+#include "trial.hpp"
+
 #include "s_enemy_souls.h"
 
 #include <unistd.h>
-
-#include "settings.hpp"
-#include "cosmetics.hpp"
-#include "dungeon.hpp"
-#include "fill.hpp"
-#include "item_location.hpp"
-#include "music.hpp"
-#include "sound_effects.hpp"
-#include "random.hpp"
-#include "globals.hpp"
-#include "descriptions.hpp"
-#include "trial.hpp"
-#include "keys.hpp"
-#include "gold_skulltulas.hpp"
-#include "enemizer.hpp"
 
 using namespace Cosmetics;
 using namespace Dungeon;

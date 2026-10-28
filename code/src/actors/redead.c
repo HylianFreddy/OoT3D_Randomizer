@@ -1,4 +1,5 @@
 #include "redead.h"
+
 #include "actor.h"
 
 void EnRd_ReinitModels(EnRd* this) {

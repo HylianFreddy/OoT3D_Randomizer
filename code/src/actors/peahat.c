@@ -1,8 +1,9 @@
 #include "peahat.h"
-#include "settings.h"
+
+#include "actor.h"
 #include "enemizer.h"
 #include "enemy_souls.h"
-#include "actor.h"
+#include "settings.h"
 
 void EnPeehat_Update(Actor* thisx, GlobalContext* globalCtx);
 

@@ -22,7 +22,7 @@ AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: false
 AlignEscapedNewlines: Left
 AlignTrailingComments: true
-SortIncludes: false
+SortIncludes: true
 IndentPPDirectives: BeforeHash
 AlignConsecutiveAssignments: true
 AllowShortEnumsOnASingleLine: false

@@ -1,8 +1,8 @@
 #ifndef _CHEST_H_
 #define _CHEST_H_
 
-#include "z3D/z3D.h"
 #include "z3D/actors/z_en_box.h"
+#include "z3D/z3D.h"
 
 typedef enum ChestType {
     CHEST_MAJOR,

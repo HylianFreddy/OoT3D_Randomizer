@@ -1,9 +1,10 @@
 #include "location_access.hpp"
-#include "logic.hpp"
-#include "entrance.hpp"
+
 #include "dungeon.hpp"
-#include "trial.hpp"
 #include "enemizer_logic.hpp"
+#include "entrance.hpp"
+#include "logic.hpp"
+#include "trial.hpp"
 
 using namespace Logic;
 using namespace Settings;

@@ -1,9 +1,10 @@
-#include <string.h>
+#include "multiplayer_ghosts.h"
 
 #include "3ds/svc.h"
-#include "multiplayer_ghosts.h"
-#include "link_puppet.h"
 #include "common.h"
+#include "link_puppet.h"
+
+#include <string.h>
 
 static LinkGhost ghosts[16];
 

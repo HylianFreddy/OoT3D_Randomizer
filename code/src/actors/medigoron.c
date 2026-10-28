@@ -1,5 +1,5 @@
-#include "z3D/z3D.h"
 #include "settings.h"
+#include "z3D/z3D.h"
 
 s32 EnGm_CheckRewardFlag(void) {
     // 0: blt, skip equipment check

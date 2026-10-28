@@ -1,11 +1,11 @@
 #pragma once
 
-#include <3ds.h>
-#include <vector>
-#include <string>
-#include <array>
-
 #include "cmeta_interpreter.hpp"
+
+#include <3ds.h>
+#include <array>
+#include <string>
+#include <vector>
 
 static const std::string CustomMusicRootPath = "/OoT3DR/Custom Music/";
 static const std::string bcseqExtension      = ".bcseq";

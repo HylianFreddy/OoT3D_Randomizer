@@ -1,8 +1,15 @@
 #pragma once
 
+#include "category.hpp"
+#include "hint_list.hpp"
+#include "item_list.hpp"
+#include "keys.hpp"
+#include "settings.hpp"
+
 #include "s_item_override.h"
 #include "s_spoiler_data.h"
 
+#include <3ds.h>
 #include <algorithm>
 #include <array>
 #include <cstdio>
@@ -11,13 +18,6 @@
 #include <string>
 #include <unistd.h>
 #include <vector>
-#include <3ds.h>
-
-#include "category.hpp"
-#include "item_list.hpp"
-#include "hint_list.hpp"
-#include "settings.hpp"
-#include "keys.hpp"
 
 class Entrance;
 

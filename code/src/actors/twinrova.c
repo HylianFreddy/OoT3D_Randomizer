@@ -1,5 +1,6 @@
-#include "z3D/z3D.h"
 #include "twinrova.h"
+
+#include "z3D/z3D.h"
 
 void Boss_Tw_Init(Actor* thisx, GlobalContext* globalCtx);
 void Boss_Tw_Update(Actor* thisx, GlobalContext* globalCtx);

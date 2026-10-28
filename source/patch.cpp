@@ -1,19 +1,20 @@
-#include "s_custom_models.h"
-#include "s_enemizer.h"
-
 #include "patch.hpp"
+
 #include "cosmetics.hpp"
 #include "custom_messages.hpp"
-#include "music.hpp"
-#include "sound_effects.hpp"
-#include "shops.hpp"
-#include "spoiler_log.hpp"
-#include "entrance.hpp"
-#include "hints.hpp"
-#include "gold_skulltulas.hpp"
-#include "utils.hpp"
 #include "enemizer.hpp"
+#include "entrance.hpp"
+#include "gold_skulltulas.hpp"
+#include "hints.hpp"
+#include "music.hpp"
 #include "ocarina_notes.hpp"
+#include "shops.hpp"
+#include "sound_effects.hpp"
+#include "spoiler_log.hpp"
+#include "utils.hpp"
+
+#include "s_custom_models.h"
+#include "s_enemizer.h"
 
 #include <array>
 #include <cstring>

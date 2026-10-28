@@ -1,7 +1,8 @@
 #include "deku_scrubs.h"
-#include "settings.h"
-#include "enemizer.h"
+
 #include "actor.h"
+#include "enemizer.h"
+#include "settings.h"
 
 /*-------------------------------
 |           EnDntNomal          |

@@ -1,9 +1,9 @@
-#include "z3D/z3D.h"
 #include "common.h"
-#include "input.h"
 #include "icetrap.h"
+#include "input.h"
 #include "savefile.h"
 #include "settings.h"
+#include "z3D/z3D.h"
 
 extern u8 GyroDrawHUDIcon;
 s16 pitch = 0, yaw = 0;

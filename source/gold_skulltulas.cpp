@@ -1,4 +1,5 @@
 #include "gold_skulltulas.hpp"
+
 #include "random.hpp"
 
 #include <unordered_map>

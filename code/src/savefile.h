@@ -1,9 +1,9 @@
 #ifndef _SAVEFILE_H_
 #define _SAVEFILE_H_
 
-#include "s_scene_id.h"
-
 #include "z3D/z3D.h"
+
+#include "s_scene_id.h"
 
 #define SAVEFILE_SCENES_DISCOVERED_IDX_COUNT 4
 #define SAVEFILE_ENTRANCES_DISCOVERED_IDX_COUNT 66

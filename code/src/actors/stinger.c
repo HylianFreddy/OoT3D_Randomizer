@@ -1,7 +1,8 @@
 #include "stinger.h"
-#include "settings.h"
-#include "enemizer.h"
+
 #include "actor.h"
+#include "enemizer.h"
+#include "settings.h"
 
 void EnEiyer_Update(Actor* thisx, GlobalContext* globalCtx);
 

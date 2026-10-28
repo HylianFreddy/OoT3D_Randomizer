@@ -1,7 +1,7 @@
-#include "z3D/z3D.h"
-#include "settings.h"
-
 #include "anju.h"
+
+#include "settings.h"
+#include "z3D/z3D.h"
 
 void EnNiwLady_Action_2389EC(EnNiwLady* self, GlobalContext* globalCtx);
 

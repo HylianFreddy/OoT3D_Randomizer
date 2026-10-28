@@ -1,4 +1,5 @@
 #include "gold_skulltulas.hpp"
+
 #include "enemizer_logic.hpp"
 
 using namespace GoldSkulltulas;

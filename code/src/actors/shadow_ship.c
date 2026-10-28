@@ -1,7 +1,7 @@
-#include "z3D/z3D.h"
-#include "settings.h"
 #include "enemizer.h"
+#include "settings.h"
 #include "stalfos.h"
+#include "z3D/z3D.h"
 
 u8 ShadowShip_HasActiveStalfos(void) {
     if (gEnemizerLocationFlags.shadowShipStalfos) {

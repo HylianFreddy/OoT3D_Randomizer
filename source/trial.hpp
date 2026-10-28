@@ -1,8 +1,8 @@
 #pragma once
 
-#include <array>
-
 #include "text.hpp"
+
+#include <array>
 
 // This is probably overkill for a small amount of information, but we can add
 // stuff later if we want

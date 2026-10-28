@@ -1,9 +1,9 @@
 #pragma once
 
-#include <3ds.h>
-
-#include "keys.hpp"
 #include "glitches.hpp"
+#include "keys.hpp"
+
+#include <3ds.h>
 
 namespace Logic {
 

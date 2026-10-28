@@ -1,9 +1,10 @@
-#include "z3D/z3D.h"
-#include "settings.h"
 #include "sfx.h"
-#include "savefile.h"
+
 #include "common.h"
 #include "multiplayer.h"
+#include "savefile.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 SFXData rSfxData = { 0 };
 

@@ -1,9 +1,9 @@
 #ifndef _ITEM_OVERRIDES_H_
 #define _ITEM_OVERRIDES_H_
 
-#include "s_item_override.h"
-
 #include "z3D/z3D.h"
+
+#include "s_item_override.h"
 
 enum ItemOverride_Type {
     OVR_BASE_ITEM    = 0,

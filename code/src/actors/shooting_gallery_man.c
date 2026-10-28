@@ -1,4 +1,5 @@
 #include "shooting_gallery_man.h"
+
 #include "entrance.h"
 #include "settings.h"
 

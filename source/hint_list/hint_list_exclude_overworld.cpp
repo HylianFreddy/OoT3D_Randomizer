@@ -1,4 +1,5 @@
 #include "hint_list.hpp"
+
 // clang-format off
 void HintTable_Init_Exclude_Overworld() {
     hintTable[KF_KOKIRI_SWORD_CHEST] = HintText::Exclude({

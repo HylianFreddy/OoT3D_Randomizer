@@ -1,9 +1,10 @@
-#include "z3D/z3D.h"
-#include "item_override.h"
-#include "settings.h"
-#include "savefile.h"
 #include "entrance.h"
+#include "item_override.h"
+#include "savefile.h"
+#include "settings.h"
 #include "z3D/actors/z_bg_dy_yoseizo.h"
+#include "z3D/z3D.h"
+
 #include <stddef.h>
 
 u32 LACS_ConditionVanilla(void) {

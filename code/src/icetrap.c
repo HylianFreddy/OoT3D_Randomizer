@@ -1,16 +1,17 @@
-#include "s_message.h"
-
 #include "icetrap.h"
-#include "objects.h"
-#include "z3D/z3D.h"
-#include "settings.h"
-#include "common.h"
-#include "input.h"
-#include "player.h"
-#include "item_override.h"
+
 #include "actor.h"
-#include "fairy.h"
+#include "common.h"
 #include "effects.h"
+#include "fairy.h"
+#include "input.h"
+#include "item_override.h"
+#include "objects.h"
+#include "player.h"
+#include "settings.h"
+#include "z3D/z3D.h"
+
+#include "s_message.h"
 
 extern s16 TimerFrameCounter; // Used to decrease the timer every 30 frames
 extern float ControlStick_X;

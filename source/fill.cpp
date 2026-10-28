@@ -1,25 +1,25 @@
 #include "fill.hpp"
 
 #include "custom_messages.hpp"
+#include "debug.hpp"
 #include "dungeon.hpp"
+#include "enemizer.hpp"
+#include "entrance.hpp"
+#include "hint_list.hpp"
+#include "hints.hpp"
 #include "item_location.hpp"
 #include "item_pool.hpp"
 #include "location_access.hpp"
 #include "logic.hpp"
+#include "ocarina_notes.hpp"
 #include "random.hpp"
+#include "shops.hpp"
 #include "spoiler_log.hpp"
 #include "starting_inventory.hpp"
-#include "hints.hpp"
-#include "hint_list.hpp"
-#include "entrance.hpp"
-#include "shops.hpp"
-#include "debug.hpp"
-#include "enemizer.hpp"
-#include "ocarina_notes.hpp"
 
-#include <vector>
-#include <unistd.h>
 #include <list>
+#include <unistd.h>
+#include <vector>
 
 using namespace CustomMessages;
 using namespace Logic;

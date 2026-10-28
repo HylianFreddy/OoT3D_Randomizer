@@ -1,11 +1,13 @@
-#include <string.h>
 #include "gfx_options.h"
-#include "gfx.h"
-#include "savefile.h"
-#include "draw.h"
-#include "input.h"
+
 #include "common.h"
+#include "draw.h"
+#include "gfx.h"
+#include "input.h"
+#include "savefile.h"
 #include "settings.h"
+
+#include <string.h>
 
 #define BORDER_WIDTH 2
 #define CHOICE_COLUMN 220

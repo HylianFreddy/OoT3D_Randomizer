@@ -1,8 +1,8 @@
+#include "utils.hpp"
+
 #include <algorithm>
 #include <memory>
 #include <vector>
-
-#include "utils.hpp"
 
 std::string SanitizedString(std::string s) {
     // Remove leading spaces

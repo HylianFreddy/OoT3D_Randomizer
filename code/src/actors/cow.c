@@ -1,7 +1,8 @@
-#include "z3D/z3D.h"
-#include "settings.h"
-#include "entrance.h"
 #include "cow.h"
+
+#include "entrance.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 void EnCow_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnCow_Destroy(Actor* thisx, GlobalContext* globalCtx);

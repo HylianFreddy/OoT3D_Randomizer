@@ -1,5 +1,5 @@
-#include "z3D/z3D.h"
 #include "savefile.h"
+#include "z3D/z3D.h"
 
 void Ganon_CSEquipMS(void) {
     if (!SaveFile_SwordlessPatchesEnabled()) {

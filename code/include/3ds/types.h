@@ -4,9 +4,9 @@
  */
 #pragma once
 
-#include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdint.h>
 
 /// The maximum value of a u64.
 #define U64_MAX UINT64_MAX

@@ -1,8 +1,9 @@
-#include "z3D/z3D.h"
-#include "settings.h"
 #include "songs_visual_effects.h"
+
 #include "icetrap.h"
 #include "savefile.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 void OceffWipe_Update(Actor* thisx, GlobalContext* globalCtx);
 

@@ -1,5 +1,5 @@
-#include "z3D/z3D.h"
 #include "settings.h"
+#include "z3D/z3D.h"
 
 u32 EnKo_CheckOpenForest(void) {
     if ((gSettingsContext.openForest == OPENFOREST_OPEN) || (gSettingsContext.openForest == OPENFOREST_CLOSED_DEKU) ||

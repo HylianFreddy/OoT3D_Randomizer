@@ -1,7 +1,8 @@
-#include "z3D/z3D.h"
-#include "settings.h"
 #include "king_zora.h"
+
 #include "common.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 void EnKz_Update(Actor* thisx, GlobalContext* globalCtx);
 

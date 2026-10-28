@@ -1,4 +1,5 @@
 #include "bean_plant.h"
+
 #include "multiplayer.h"
 
 void ObjBean_Init(Actor* thisx, GlobalContext* globalCtx);

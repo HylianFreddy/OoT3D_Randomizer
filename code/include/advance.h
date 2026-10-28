@@ -5,9 +5,10 @@
 #ifndef ADVANCE_H
 #define ADVANCE_H
 
-#include <stdint.h>
 #include "hid.h"
 #include "z3D/z3D.h"
+
+#include <stdint.h>
 
 typedef enum {
     NORMAL = 0,

@@ -1,9 +1,9 @@
 #pragma once
 
+#include "ctr_binary_data.hpp"
+
 #include <3ds.h>
 #include <vector>
-
-#include "ctr_binary_data.hpp"
 
 // Code ported from Gota7's Citric Composer
 

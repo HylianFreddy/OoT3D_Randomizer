@@ -1,4 +1,5 @@
 #include "spike.h"
+
 #include "actor.h"
 
 void EnNy_Init(Actor* thisx, GlobalContext* globalCtx);

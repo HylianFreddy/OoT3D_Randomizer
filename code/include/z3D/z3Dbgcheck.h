@@ -1,7 +1,7 @@
 #ifndef _Z3DBGCHECK_H
 #define _Z3DBGCHECK_H
 
-#include "s_types.h"
+#include "z3Dmath.h"
 
 struct GlobalContext;
 struct Actor;

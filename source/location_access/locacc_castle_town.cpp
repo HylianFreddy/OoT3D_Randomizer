@@ -1,6 +1,7 @@
 #include "location_access.hpp"
-#include "logic.hpp"
+
 #include "entrance.hpp"
+#include "logic.hpp"
 
 using namespace Logic;
 using namespace Settings;

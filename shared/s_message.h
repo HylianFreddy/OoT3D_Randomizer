@@ -1,4 +1,5 @@
 #pragma once
+
 #include "s_types.h"
 
 #define CURSETRAP_TEXT_BASE_INDEX 0x8FF0

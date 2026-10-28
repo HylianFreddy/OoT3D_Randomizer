@@ -1,6 +1,5 @@
-#include "s_item.h"
-
 #include "item_pool.hpp"
+
 #include "dungeon.hpp"
 #include "fill.hpp"
 #include "item_list.hpp"
@@ -9,6 +8,8 @@
 #include "random.hpp"
 #include "settings.hpp"
 #include "spoiler_log.hpp"
+
+#include "s_item.h"
 
 #include <vector>
 

@@ -1,9 +1,9 @@
 #include "poe.h"
-#include "settings.h"
-#include "enemizer.h"
+
 #include "actor.h"
 #include "common.h"
-
+#include "enemizer.h"
+#include "settings.h"
 #include "z3D/actors/z_en_item00.h"
 
 /*-------------------------------

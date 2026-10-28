@@ -1,7 +1,7 @@
 #pragma once
 
-#include "s_spoiler_data.h"
 #include "s_scene_id.h"
+#include "s_spoiler_data.h"
 
 #include <3ds.h>
 #include <array>

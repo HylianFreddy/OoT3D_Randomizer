@@ -1,12 +1,13 @@
 #ifndef _Z3DACTOR_H_
 #define _Z3DACTOR_H_
 
-#include "s_types.h"
-#include "s_actor_id.h"
-
-#include "z3Dmath.h"
-#include "z3Dcollision_check.h"
 #include "z3Dbgcheck.h"
+#include "z3Dcollision_check.h"
+#include "z3Dmath.h"
+
+#include "s_actor_id.h"
+#include "s_colors.h"
+#include "s_types.h"
 
 struct Actor;
 struct GlobalContext;

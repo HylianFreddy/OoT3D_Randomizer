@@ -1,14 +1,14 @@
 #pragma once
 
-#include "s_enemizer.h"
-
-#include <string>
-#include <vector>
-#include <unordered_map>
-#include <algorithm>
-
 #include "debug.hpp"
 #include "settings.hpp"
+
+#include "s_enemizer.h"
+
+#include <algorithm>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 namespace Enemizer {
 

@@ -1,4 +1,5 @@
 #include "pushblock.h"
+
 #include "multiplayer.h"
 
 void ObjOshihiki_Update(Actor* thisx, GlobalContext* globalCtx);

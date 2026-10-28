@@ -1,8 +1,9 @@
 #include "bubble.h"
+
+#include "actor.h"
 #include "enemizer.h"
 #include "enemy_souls.h"
 #include "settings.h"
-#include "actor.h"
 
 void EnBb_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnBb_Update(Actor* thisx, GlobalContext* globalCtx);

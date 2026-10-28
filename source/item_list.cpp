@@ -1,8 +1,10 @@
+#include "item_list.hpp"
+
+#include "logic.hpp"
+
 #include "s_dungeon.h"
 #include "s_item.h"
 
-#include "item_list.hpp"
-#include "logic.hpp"
 #include <array>
 
 using namespace Logic;

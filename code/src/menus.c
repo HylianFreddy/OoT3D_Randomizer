@@ -1,11 +1,12 @@
 #include "menus.h"
-#include "z3D/z3D.h"
-#include "input.h"
-#include "savefile.h"
-#include "settings.h"
+
 #include "dungeon.h"
+#include "input.h"
 #include "item_override.h"
 #include "permadeath.h"
+#include "savefile.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 extern MenuSpriteManager* gItemsMenuSpritesManager;
 extern MenuSpriteManager* gBowMenuSpritesManager;

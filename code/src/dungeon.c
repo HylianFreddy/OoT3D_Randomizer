@@ -1,7 +1,9 @@
 #include "dungeon.h"
+
+#include "common.h"
 #include "settings.h"
 #include "spoiler_data.h"
-#include "common.h"
+
 #include <string.h>
 
 // This will be overwritten by the app only if rewards are at End of Dungeons

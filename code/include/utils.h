@@ -26,8 +26,8 @@
 
 #pragma once
 
-#include "3ds/svc.h"
 #include "3ds/result.h"
+#include "3ds/svc.h"
 #include "csvc.h"
 
 // For accessing physmem uncached (and directly)

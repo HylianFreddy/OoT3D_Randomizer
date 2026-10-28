@@ -1,6 +1,7 @@
-#include "z3D/z3D.h"
-#include "z3D/actors/z_en_ex_item.h"
+#include "en_ex_item.h"
+
 #include "models.h"
+#include "z3D/z3D.h"
 
 void EnExItem_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnExItem_Destroy(Actor* thisx, GlobalContext* globalCtx);

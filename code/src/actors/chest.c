@@ -1,13 +1,14 @@
 #include "chest.h"
-#include "z3D/z3D.h"
-#include "item_override.h"
-#include "item_table.h"
-#include "settings.h"
-#include "player.h"
+
+#include "custom_models.h"
 #include "fairy.h"
 #include "icetrap.h"
+#include "item_override.h"
+#include "item_table.h"
 #include "objects.h"
-#include "custom_models.h"
+#include "player.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 void EnBox_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnBox_Update(Actor* thisx, GlobalContext* globalCtx);

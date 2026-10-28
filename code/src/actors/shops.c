@@ -1,14 +1,16 @@
-#include "z3D/z3D.h"
-#include "settings.h"
 #include "shops.h"
-#include "objects.h"
+
 #include "custom_models.h"
+#include "entrance.h"
+#include "item_effect.h"
 #include "item_override.h"
 #include "item_table.h"
-#include "item_effect.h"
 #include "models.h"
-#include "entrance.h"
 #include "multiplayer.h"
+#include "objects.h"
+#include "settings.h"
+#include "z3D/z3D.h"
+
 #include <stddef.h>
 
 static s32 rShopsanityPrices[32] = { 0 };

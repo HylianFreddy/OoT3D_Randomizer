@@ -1,10 +1,10 @@
 #ifndef _ENEMYSOULS_H_
 #define _ENEMYSOULS_H_
 
-#include "s_enemy_souls.h"
-
-#include "z3D/z3D.h"
 #include "settings.h"
+#include "z3D/z3D.h"
+
+#include "s_enemy_souls.h"
 
 #define SoullessModels_Enabled                                           \
     (gSettingsContext.soullessEnemiesLook == SOULLESSLOOK_TEXTURELESS || \

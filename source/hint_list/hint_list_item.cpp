@@ -1,4 +1,5 @@
 #include "hint_list.hpp"
+
 // clang-format off
 void HintTable_Init_Item() {
     hintTable[KOKIRI_SWORD] = HintText::Item({

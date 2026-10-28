@@ -1,9 +1,9 @@
 #ifndef _MESSAGE_H_
 #define _MESSAGE_H_
 
-#include "s_message.h"
-
 #include "z3D/z3D.h"
+
+#include "s_message.h"
 
 typedef struct UnkTextControlData {
     /* 0x00 */ char unk_00[0x5];

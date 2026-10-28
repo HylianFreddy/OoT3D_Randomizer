@@ -1,8 +1,9 @@
 #include "flare_dancer.h"
-#include "settings.h"
-#include "enemizer.h"
-#include "bgm.h"
+
 #include "actor.h"
+#include "bgm.h"
+#include "enemizer.h"
+#include "settings.h"
 
 void EnFd_Update(Actor* thisx, GlobalContext* globalCtx);
 

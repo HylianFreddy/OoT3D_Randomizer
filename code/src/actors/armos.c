@@ -1,6 +1,7 @@
 #include "armos.h"
-#include "enemy_souls.h"
+
 #include "actor.h"
+#include "enemy_souls.h"
 #include "objects.h"
 
 void EnAm_Draw(Actor* thisx, GlobalContext* globalCtx);

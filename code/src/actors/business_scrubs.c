@@ -1,7 +1,8 @@
 #include "business_scrubs.h"
-#include "settings.h"
-#include "multiplayer.h"
+
 #include "actor.h"
+#include "multiplayer.h"
+#include "settings.h"
 
 void EnDns_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnShopnuts_Init(Actor* thisx, GlobalContext* globalCtx);

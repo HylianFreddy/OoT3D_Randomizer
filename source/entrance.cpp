@@ -1,21 +1,20 @@
 #include "entrance.hpp"
 
-#include "fill.hpp"
-#include "settings.hpp"
-#include "item_list.hpp"
-#include "item_pool.hpp"
-#include "item_location.hpp"
 #include "debug.hpp"
-#include "spoiler_log.hpp"
+#include "fill.hpp"
 #include "hints.hpp"
+#include "item_list.hpp"
+#include "item_location.hpp"
+#include "item_pool.hpp"
 #include "location_access.hpp"
+#include "settings.hpp"
+#include "spoiler_log.hpp"
 
-#include <unistd.h>
-
-#include <vector>
-#include <utility>
-#include <set>
 #include <map>
+#include <set>
+#include <unistd.h>
+#include <utility>
+#include <vector>
 
 std::list<EntranceOverride> entranceOverrides = {};
 bool noRandomEntrances                        = false;

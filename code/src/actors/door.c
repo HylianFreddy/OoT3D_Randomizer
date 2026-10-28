@@ -1,10 +1,11 @@
 #include "door.h"
-#include "models.h"
-#include "settings.h"
+
+#include "actor.h"
 #include "enemizer.h"
 #include "enemy_souls.h"
+#include "models.h"
 #include "multiplayer.h"
-#include "actor.h"
+#include "settings.h"
 
 // Certain doors can cause a crash depending on a freestanding
 // model in the room that is being transitioned out of. We can

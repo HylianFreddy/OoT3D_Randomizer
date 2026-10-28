@@ -1,7 +1,8 @@
 #include "stalfos.h"
-#include "settings.h"
-#include "enemizer.h"
+
 #include "actor.h"
+#include "enemizer.h"
+#include "settings.h"
 
 void EnTest_Update(Actor* thisx, GlobalContext* globalCtx);
 

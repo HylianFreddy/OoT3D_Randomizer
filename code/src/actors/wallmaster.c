@@ -1,4 +1,5 @@
 #include "wallmaster.h"
+
 #include "actor.h"
 
 void EnWallmas_ReinitModels(EnWallmas* this) {

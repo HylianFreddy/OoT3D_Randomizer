@@ -1,19 +1,19 @@
 #include "logic.hpp"
 
-#include <3ds.h>
-#include <limits.h>
-#include <algorithm>
-#include <cstdio>
-#include <string>
-#include <string_view>
-#include <vector>
-
-#include "settings.hpp"
-#include "dungeon.hpp"
 #include "descriptions.hpp"
+#include "dungeon.hpp"
 #include "enemizer.hpp"
 #include "enemizer_logic.hpp"
 #include "ocarina_notes.hpp"
+#include "settings.hpp"
+
+#include <3ds.h>
+#include <algorithm>
+#include <cstdio>
+#include <limits.h>
+#include <string>
+#include <string_view>
+#include <vector>
 
 using namespace Settings;
 

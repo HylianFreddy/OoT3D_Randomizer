@@ -1,6 +1,7 @@
-#include "z3D/z3D.h"
 #include "hookshot.h"
+
 #include "settings.h"
+#include "z3D/z3D.h"
 
 void ArmsHook_Init(Actor* thisx, GlobalContext* globalCtx);
 

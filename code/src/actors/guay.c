@@ -1,7 +1,8 @@
 #include "guay.h"
-#include "settings.h"
-#include "enemizer.h"
+
 #include "actor.h"
+#include "enemizer.h"
+#include "settings.h"
 
 void EnCrow_Update(Actor* thisx, GlobalContext* globalCtx);
 

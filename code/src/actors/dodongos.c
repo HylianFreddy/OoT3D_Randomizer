@@ -1,8 +1,9 @@
-#include "z3D/z3D.h"
 #include "dodongos.h"
+
+#include "actor.h"
 #include "enemy_souls.h"
 #include "settings.h"
-#include "actor.h"
+#include "z3D/z3D.h"
 
 /*-------------------------------
 |           EnDodongo           |

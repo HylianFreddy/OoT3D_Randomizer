@@ -1,7 +1,8 @@
 #include "sheik.h"
-#include "settings.h"
-#include "objects.h"
+
 #include "common.h"
+#include "objects.h"
+#include "settings.h"
 
 static u8 Sheik_IsAt_TempleOfTime(void) {
     return gGlobalContext->sceneNum == 0x43 && gGlobalContext->roomNum == 1;

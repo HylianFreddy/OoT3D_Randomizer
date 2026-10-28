@@ -1,10 +1,11 @@
-#include <cstring>
-
 #include "sound_archive.hpp"
-#include "ctr_binary_data.hpp"
-#include "reference_structures.hpp"
-#include "file_reader.hpp"
+
 #include "common_structures.hpp"
+#include "ctr_binary_data.hpp"
+#include "file_reader.hpp"
+#include "reference_structures.hpp"
+
+#include <cstring>
 
 SoundArchive::SoundArchive(FS_Archive archive_, const std::string& filePath_) {
     BinaryDataReader br(archive_, filePath_);

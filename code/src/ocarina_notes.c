@@ -1,7 +1,8 @@
 #include "ocarina_notes.h"
+
+#include "common.h"
 #include "savefile.h"
 #include "settings.h"
-#include "common.h"
 
 // Values to be written to OcarinaNote.pitch for each button.
 const u8 notePitches[5] = {

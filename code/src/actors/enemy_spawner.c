@@ -1,10 +1,11 @@
 #include "enemy_spawner.h"
-#include "settings.h"
-#include "enemizer.h"
+
 #include "common.h"
-#include "shabom.h"
-#include "gohma.h"
 #include "dodongos.h"
+#include "enemizer.h"
+#include "gohma.h"
+#include "settings.h"
+#include "shabom.h"
 
 void EnEncount1_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnEncount1_Update(Actor* thisx, GlobalContext* globalCtx);

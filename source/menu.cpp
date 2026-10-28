@@ -1,21 +1,22 @@
-#include <3ds.h>
-#include <dirent.h>
-
-#include <algorithm>
-#include <cstdlib>
-#include <cstdio>
-#include <cstring>
-#include <ctime>
+#include "menu.hpp"
 
 #include "cosmetics.hpp"
-#include "menu.hpp"
-#include "patch.hpp"
-#include "preset.hpp"
-#include "globals.hpp"
-#include "spoiler_log.hpp"
-#include "location_access.hpp"
 #include "debug.hpp"
+#include "globals.hpp"
+#include "location_access.hpp"
 #include "music.hpp"
+#include "patch.hpp"
+#include "playthrough.hpp"
+#include "preset.hpp"
+#include "spoiler_log.hpp"
+
+#include <3ds.h>
+#include <algorithm>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <ctime>
+#include <dirent.h>
 
 bool gInitError = false;
 

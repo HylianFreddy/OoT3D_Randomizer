@@ -1,5 +1,6 @@
-#include "z3D/z3D.h"
 #include "windmill_man.h"
+
+#include "z3D/z3D.h"
 
 #define CsTimer (gGlobalContext->csCtx.frames)
 

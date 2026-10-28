@@ -1,6 +1,7 @@
-#include "z3D/z3D.h"
-#include "z3D/actors/z_item_ocarina.h"
+#include "ocarina.h"
+
 #include "models.h"
+#include "z3D/z3D.h"
 
 void ItemOcarina_Init(Actor* thisx, GlobalContext* globalCtx);
 void ItemOcarina_Destroy(Actor* thisx, GlobalContext* globalCtx);

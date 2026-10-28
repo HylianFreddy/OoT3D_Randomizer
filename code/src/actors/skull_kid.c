@@ -1,8 +1,9 @@
 #include "skull_kid.h"
-#include "settings.h"
-#include "enemy_souls.h"
-#include "enemizer.h"
+
 #include "actor.h"
+#include "enemizer.h"
+#include "enemy_souls.h"
+#include "settings.h"
 
 void EnSkj_Update(Actor* thisx, GlobalContext* globalCtx);
 

@@ -1,10 +1,10 @@
 #include "input.h"
 
-#include "z3D/z3D.h"
-#include "hid.h"
 #include "3ds/svc.h"
-#include "utils.h"
 #include "3ds/types.h"
+#include "hid.h"
+#include "utils.h"
+#include "z3D/z3D.h"
 
 #define HID_PAD (real_hid.pad.pads[real_hid.pad.index].curr.val)
 

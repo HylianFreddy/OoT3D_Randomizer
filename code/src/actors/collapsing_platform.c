@@ -1,4 +1,5 @@
 #include "collapsing_platform.h"
+
 #include "multiplayer.h"
 
 void ObjLift_Update(Actor* thisx, GlobalContext* globalCtx);

@@ -1,6 +1,8 @@
 #include "ocarina_notes.hpp"
-#include "settings.hpp"
+
 #include "random.hpp"
+#include "settings.hpp"
+
 #include <string.h>
 
 namespace OcarinaNotes {

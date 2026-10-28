@@ -1,9 +1,9 @@
 #ifndef _SKULLTULA_H_
 #define _SKULLTULA_H_
 
-#include "s_gold_skulltulas.h"
-
 #include "z3D/z3D.h"
+
+#include "s_gold_skulltulas.h"
 
 /* Bit usage of "params" for Gold Skulltula:
  *   0-7: Bit in gsFlags

@@ -1,6 +1,7 @@
-#include "z3D/z3D.h"
 #include "anubis.h"
+
 #include "enemy_souls.h"
+#include "z3D/z3D.h"
 
 void EnAnubice_Update(Actor* thisx, GlobalContext* globalCtx);
 

@@ -1,7 +1,9 @@
-#include "z3D/z3D.h"
-#include "settings.h"
+#include "jabu.h"
+
 #include "entrance.h"
 #include "grotto.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 void BgBdanSwitch_Init(Actor* thisx, GlobalContext* globalCtx);
 

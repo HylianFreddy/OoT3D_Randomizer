@@ -1,6 +1,7 @@
-#include "z3D/z3D.h"
-#include "z3D/actors/z_item_b_heart.h"
+#include "heart_container.h"
+
 #include "models.h"
+#include "z3D/z3D.h"
 
 void ItemBHeart_Init(Actor* thisx, GlobalContext* globalCtx);
 void ItemBHeart_Destroy(Actor* thisx, GlobalContext* globalCtx);

@@ -1,6 +1,7 @@
-#include "z3D/z3D.h"
 #include "obj_switch.h"
+
 #include "settings.h"
+#include "z3D/z3D.h"
 
 void ObjSwitch_Init(Actor* thisx, GlobalContext* globalCtx);
 

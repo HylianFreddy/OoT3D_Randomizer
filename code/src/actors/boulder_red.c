@@ -1,4 +1,5 @@
 #include "boulder_red.h"
+
 #include "multiplayer.h"
 
 void ObjHamishi_Update(Actor* thisx, GlobalContext* globalCtx);

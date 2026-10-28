@@ -1,4 +1,5 @@
 #include "tektite.h"
+
 #include "actor.h"
 
 void EnTite_ReinitModels(EnTite* this) {

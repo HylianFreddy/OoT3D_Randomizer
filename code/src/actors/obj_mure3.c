@@ -1,5 +1,5 @@
-#include "z3D/z3D.h"
 #include "common.h"
+#include "z3D/z3D.h"
 
 u8 gIsObjMure3Updating   = 0;    // global variable for rupee circle rupee replacement.
 u8 gExtraCollectibleFlag = 0x40; // global variable for rupee circle rupee replacement.

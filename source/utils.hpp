@@ -1,7 +1,7 @@
 #pragma once
 
-#include <string>
 #include <3ds.h>
+#include <string>
 
 /// Returns a new string with:
 /// - Leading spaces removed.

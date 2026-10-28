@@ -1,6 +1,7 @@
 #include "forest_temple_objects.h"
-#include "settings.h"
+
 #include "enemizer.h"
+#include "settings.h"
 
 /*-------------------------------
 |          BgMoriBigst          |

@@ -1,10 +1,11 @@
-#include "z3D/z3D.h"
 #include "fairy.h"
-#include "settings.h"
-#include "objects.h"
+
 #include "colors.h"
-#include "savefile.h"
 #include "icetrap.h"
+#include "objects.h"
+#include "savefile.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 extern Color_RGBA8 NaviColorsArray[];
 

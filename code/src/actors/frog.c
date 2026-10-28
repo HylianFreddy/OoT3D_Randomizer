@@ -1,6 +1,7 @@
-#include "z3D/z3D.h"
-#include "z3D/actors/z_en_fr.h"
+#include "frog.h"
+
 #include "settings.h"
+#include "z3D/z3D.h"
 
 void EnFr_rSetReward(EnFr* frog) {
     if (frog->songIndex < FROG_STORMS) {

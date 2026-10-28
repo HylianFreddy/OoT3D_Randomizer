@@ -1,7 +1,8 @@
-#include "z3D/z3D.h"
 #include "checkable_spot.h"
+
 #include "savefile.h"
 #include "settings.h"
+#include "z3D/z3D.h"
 
 void EnWonderTalk_Update(Actor* thisx, GlobalContext* globalCtx);
 void EnWonderTalk2_Update(Actor* thisx, GlobalContext* globalCtx);

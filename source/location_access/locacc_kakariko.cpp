@@ -1,8 +1,9 @@
 #include "location_access.hpp"
-#include "logic.hpp"
+
+#include "enemizer_logic.hpp"
 #include "entrance.hpp"
 #include "gold_skulltulas.hpp"
-#include "enemizer_logic.hpp"
+#include "logic.hpp"
 
 using namespace Logic;
 using namespace Settings;

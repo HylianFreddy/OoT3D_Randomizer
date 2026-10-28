@@ -1,6 +1,6 @@
-#include "z3D/z3D.h"
-#include "hid.h"
 #include "3ds/services/irrst.h"
+#include "hid.h"
+#include "z3D/z3D.h"
 
 typedef struct {
     btn_t cur;

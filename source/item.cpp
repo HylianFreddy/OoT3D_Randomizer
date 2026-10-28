@@ -1,11 +1,12 @@
-#include "s_item_override.h"
-#include "s_item.h"
-
 #include "item.hpp"
+
+#include "item_pool.hpp"
 #include "logic.hpp"
 #include "random.hpp"
-#include "item_pool.hpp"
 #include "settings.hpp"
+
+#include "s_item.h"
+#include "s_item_override.h"
 
 #include <array>
 

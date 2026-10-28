@@ -1,7 +1,8 @@
 #include "common.h"
-#include "settings.h"
+
 #include "3ds/svc.h"
 #include "lib/printf.h"
+#include "settings.h"
 
 u8 playingOnCitra = 0;
 

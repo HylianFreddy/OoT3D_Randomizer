@@ -1,7 +1,8 @@
-#include "z3D/z3D.h"
-#include "z3D/actors/z_item_etcetera.h"
+#include "item_etcetera.h"
+
 #include "models.h"
 #include "settings.h"
+#include "z3D/z3D.h"
 
 void ItemEtcetera_Init(Actor* thisx, GlobalContext* globalCtx);
 void ItemEtcetera_Destroy(Actor* thisx, GlobalContext* globalCtx);

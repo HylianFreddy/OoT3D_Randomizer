@@ -1,9 +1,10 @@
 #include "skulltula.h"
-#include "multiplayer.h"
-#include "settings.h"
-#include "enemizer.h"
-#include "objects.h"
+
 #include "actor.h"
+#include "enemizer.h"
+#include "multiplayer.h"
+#include "objects.h"
+#include "settings.h"
 
 void EnSw_Init(Actor* thisx, GlobalContext* globalCtx);
 void EnSw_Update(Actor* thisx, GlobalContext* globalCtx);

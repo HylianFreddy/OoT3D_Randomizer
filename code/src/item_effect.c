@@ -1,15 +1,16 @@
 #include "item_effect.h"
-#include "icetrap.h"
-#include "settings.h"
-#include "z3D/z3D.h"
-#include "savefile.h"
-#include "multiplayer.h"
-#include "dungeon.h"
-#include "common.h"
+
 #include "actors/chest.h"
+#include "common.h"
+#include "dungeon.h"
 #include "enemy_souls.h"
+#include "icetrap.h"
+#include "multiplayer.h"
 #include "ocarina_notes.h"
+#include "savefile.h"
+#include "settings.h"
 #include "triforce.h"
+#include "z3D/z3D.h"
 
 void ItemEffect_None(SaveContext* saveCtx, s16 arg1, s16 arg2) {
 }

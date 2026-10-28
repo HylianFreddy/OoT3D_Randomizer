@@ -1,7 +1,9 @@
 #include "cosmetics.hpp"
+
 #include "random.hpp"
-#include <sstream>
+
 #include <3ds.h>
+#include <sstream>
 
 namespace Cosmetics {
 

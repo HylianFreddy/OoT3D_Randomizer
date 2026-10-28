@@ -1,18 +1,19 @@
-#include "s_message.h"
-#include "s_item.h"
-#include "s_dungeon.h"
 
 #include "custom_messages.hpp"
-#include "patch.hpp"
+
 #include "debug.hpp"
-#include "shops.hpp"
+#include "patch.hpp"
 #include "settings.hpp"
+#include "shops.hpp"
+
+#include "s_dungeon.h"
+#include "s_item.h"
+#include "s_message.h"
 
 #include <array>
+#include <map>
 #include <set>
 #include <sstream>
-#include <map>
-
 #include <unistd.h>
 
 namespace CustomMessages {

@@ -1,9 +1,9 @@
 #ifndef _OCARINA_NOTES_H_
 #define _OCARINA_NOTES_H_
 
-#include "s_ocarina_notes.h"
-
 #include "z3D/z3D.h"
+
+#include "s_ocarina_notes.h"
 
 // These values are one less than in OoT decomp
 typedef enum OcarinaInstrumentId {

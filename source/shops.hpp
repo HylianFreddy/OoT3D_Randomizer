@@ -1,9 +1,10 @@
 #pragma once
+
 #include "item.hpp"
 #include "item_location.hpp"
 
-#include <vector>
 #include <array>
+#include <vector>
 
 struct ItemAndPrice {
     Text Name;

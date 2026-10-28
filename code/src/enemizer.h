@@ -1,9 +1,9 @@
 #ifndef _ENEMIZER_H_
 #define _ENEMIZER_H_
 
-#include "s_enemizer.h"
-
 #include "z3D/z3D.h"
+
+#include "s_enemizer.h"
 
 typedef struct EnemyData {
     char* name;

@@ -1,4 +1,5 @@
 #include "carpenter.h"
+
 #include "multiplayer.h"
 
 void EnToryo_SetTradedSawFlag(void) {

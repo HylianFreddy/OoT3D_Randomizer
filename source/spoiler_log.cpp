@@ -1,30 +1,30 @@
 #include "spoiler_log.hpp"
 
 #include "dungeon.hpp"
+#include "enemizer.hpp"
+#include "entrance.hpp"
+#include "globals.hpp"
+#include "gold_skulltulas.hpp"
 #include "item_list.hpp"
 #include "item_location.hpp"
-#include "entrance.hpp"
+#include "ocarina_notes.hpp"
 #include "random.hpp"
 #include "settings.hpp"
-#include "trial.hpp"
-#include "tinyxml2.h"
-#include "utils.hpp"
 #include "shops.hpp"
-#include "gold_skulltulas.hpp"
-#include "enemizer.hpp"
-#include "ocarina_notes.hpp"
-#include "globals.hpp"
+#include "tinyxml2.h"
+#include "trial.hpp"
+#include "utils.hpp"
 
 #include <3ds.h>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <filesystem>
 #include <map>
 #include <set>
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <filesystem>
 
 namespace fs = std::filesystem;
 

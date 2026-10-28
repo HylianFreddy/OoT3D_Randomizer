@@ -1,6 +1,8 @@
 #include "sound_effects.hpp"
-#include "settings.hpp"
+
 #include "random.hpp"
+#include "settings.hpp"
+
 #include <3ds.h>
 #include <cstdlib>
 

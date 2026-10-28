@@ -1,20 +1,19 @@
 #include "preset.hpp"
 
-#include <3ds.h>
-#include <unistd.h>
+#include "category.hpp"
+#include "descriptions.hpp"
+#include "settings.hpp"
+#include "tinyxml2.h"
+#include "utils.hpp"
 
+#include <3ds.h>
 #include <array>
 #include <cstdio>
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
+#include <unistd.h>
 #include <vector>
-
-#include "category.hpp"
-#include "settings.hpp"
-#include "descriptions.hpp"
-#include "tinyxml2.h"
-#include "utils.hpp"
 
 namespace fs = std::filesystem;
 

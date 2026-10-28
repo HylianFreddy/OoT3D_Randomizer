@@ -1,6 +1,7 @@
-#include "z3D/z3D.h"
 #include "lake_hylia_objects.h"
+
 #include "objects.h"
+#include "z3D/z3D.h"
 
 void BgSpot06Objects_Update(Actor* thisx, GlobalContext* globalCtx);
 void BgSpot06Objects_Destroy(Actor* thisx, GlobalContext* globalCtx);

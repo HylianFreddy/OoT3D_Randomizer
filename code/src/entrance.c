@@ -1,12 +1,13 @@
-#include "z3D/z3D.h"
-#include "draw.h"
 #include "entrance.h"
-#include "settings.h"
-#include "string.h"
+
+#include "common.h"
+#include "draw.h"
+#include "grotto.h"
 #include "item_override.h"
 #include "savefile.h"
-#include "common.h"
-#include "grotto.h"
+#include "settings.h"
+#include "string.h"
+#include "z3D/z3D.h"
 
 void SetNextEntrance(struct GlobalContext* globalCtx, s16 entranceIndex, u32 sceneLoadFlag, u32 transition);
 

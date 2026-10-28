@@ -1,8 +1,8 @@
 #pragma once
 
 #include <3ds.h>
-#include <string>
 #include <array>
+#include <string>
 
 class CMetaInterpreter {
   public:

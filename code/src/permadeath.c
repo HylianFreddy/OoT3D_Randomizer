@@ -1,6 +1,8 @@
-#include "z3D/z3D.h"
-#include "settings.h"
+#include "permadeath.h"
+
 #include "savefile.h"
+#include "settings.h"
+#include "z3D/z3D.h"
 
 Bool Permadeath_ShouldApply(void) {
     // For safety, verify that the seed and save file was created with permadeath enabled

@@ -1,7 +1,9 @@
 #pragma once
-#include <string>
-#include <set>
+
 #include "item_location.hpp"
+
+#include <set>
+#include <string>
 
 namespace Playthrough {
 int Playthrough_Init(u32 seed);
