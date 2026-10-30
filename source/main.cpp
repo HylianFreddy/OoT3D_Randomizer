@@ -14,7 +14,7 @@ int main() {
     GfxInit();
     HintTable_Init();
     ItemTable_Init();
-    LocationTable_Init();
+    ItemLocation::InitTable();
     Enemizer::InitEnemyTypes();
     MenuInit();
 

@@ -1,0 +1,5 @@
+# Overrides for location table
+BasedOnStyle: InheritParentConfig
+AlignAfterOpenBracket: DontAlign
+AlignTrailingComments: false
+AlignConsecutiveAssignments: false
